@@ -11,10 +11,6 @@ copies of the license agreement are provided in separate files in the Licenses
 subdirectory. Unless noted below, all open source software is distributed in its
 original form without modification.
 
-**[The text below is only relevant for the Ed-Fi-ODS and Ed-Fi-ODS-Implementation
-repositories. Remove it for all other repositories. For these two repos, the
-text after the "Coypu" license needs to be formatted still.]**
-
 ## 7zip
 https://www.7-zip.org
 
