@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005"
+            xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Ed-Fi API Composites Project Template</Name>
+    <Description>A project for defining Ed-Fi API Composites for use with the Ed-Fi ODS API.</Description>
+    <Icon>Template_Icon.png</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Ed-Fi</ProjectSubType>
+    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>21df228e-4623-418b-854f-f0705a25c584</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <DefaultName>EdFi.Ods.Composites.CompositeName</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="Template_Project.csproj" TargetFileName="$safeprojectname$.csproj" ReplaceParameters="true">
+      <!-- Project supporting files -->
+
+      <!-- Template files requiring parameter replacement -->
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Marker_EdFi_Ods_Composites_CompositeName.cs</ProjectItem>
+
+      <!-- Direct copy template files -->
+      <ProjectItem>Composites.xml</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

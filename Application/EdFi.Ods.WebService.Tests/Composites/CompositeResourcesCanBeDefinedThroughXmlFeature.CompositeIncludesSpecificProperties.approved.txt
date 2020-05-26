@@ -1,0 +1,12 @@
+﻿HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaa.StudentUniqueId as studentUniqueId,
+	comp_aaa.FirstName as firstName,
+	comp_aaa.LastSurname as lastSurname,
+	comp_aaa.BirthDate as birthDate
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+where comp_aaa.Id = :Id
+order by comp_aaa.StudentUSI

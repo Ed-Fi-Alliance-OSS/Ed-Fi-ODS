@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EdFi.CodeGen": {
+      "commandName": "Project",
+      "commandLineArgs": "-a  codeGenAssemblies.json"
+    }
+  }
+}

@@ -1,0 +1,129 @@
+﻿HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.Id as id,
+	comp_aaa.SchoolId as schoolId,
+	comp_aaa.NameOfInstitution as nameOfInstitution,
+	comp_aaa.ShortNameOfInstitution as shortNameOfInstitution,
+	comp_aaa.WebSite as webSite,
+	comp_aac.Namespace as schoolTypeDescriptor__Namespace,
+	comp_aac.CodeValue as schoolTypeDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+		left join comp_aaa.SchoolTypeDescriptor comp_aac 
+	join comp_aaa.LocalEducationAgency comp_aab
+where comp_aab.Id = :LocalEducationAgency_Id
+order by comp_aaa.SchoolId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aad.AddressTypeDescriptorId as PK2a_AddressTypeDescriptorId,
+	comp_aad.City as PK2a_City,
+	comp_aad.PostalCode as PK2a_PostalCode,
+	comp_aad.StateAbbreviationDescriptorId as PK2a_StateAbbreviationDescriptorId,
+	comp_aad.StreetNumberName as PK2a_StreetNumberName,
+	comp_aae.Namespace as addressTypeDescriptor__Namespace,
+	comp_aae.CodeValue as addressTypeDescriptor,
+	comp_aad.StreetNumberName as streetNumberName,
+	comp_aad.City as city,
+	comp_aaf.Namespace as stateAbbreviationDescriptor__Namespace,
+	comp_aaf.CodeValue as stateAbbreviationDescriptor,
+	comp_aad.PostalCode as postalCode,
+	comp_aad.NameOfCounty as nameOfCounty
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.EducationOrganizationAddresses comp_aad
+		left join comp_aad.AddressTypeDescriptor comp_aae 
+		left join comp_aad.StateAbbreviationDescriptor comp_aaf 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aad.AddressTypeDescriptorId,
+	comp_aad.City,
+	comp_aad.PostalCode,
+	comp_aad.StateAbbreviationDescriptorId,
+	comp_aad.StreetNumberName
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aag.EducationOrganizationCategoryDescriptorId as PK2b_EducationOrganizationCategoryDescriptorId,
+	comp_aah.Namespace as category__Namespace,
+	comp_aah.CodeValue as category
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.EducationOrganizationCategories comp_aag
+		left join comp_aag.EducationOrganizationCategoryDescriptor comp_aah 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aag.EducationOrganizationCategoryDescriptorId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aai.EducationOrganizationIdentificationSystemDescriptorId as PK2c_EducationOrganizationIdentificationSystemDescriptorId,
+	comp_aaj.Namespace as educationOrganizationIdentificationSystemDescriptor__Namespace,
+	comp_aaj.CodeValue as educationOrganizationIdentificationSystemDescriptor,
+	comp_aai.IdentificationCode as identificationCode
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.EducationOrganizationIdentificationCodes comp_aai
+		left join comp_aai.EducationOrganizationIdentificationSystemDescriptor comp_aaj 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aai.EducationOrganizationIdentificationSystemDescriptorId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aak.InstitutionTelephoneNumberTypeDescriptorId as PK2d_InstitutionTelephoneNumberTypeDescriptorId,
+	comp_aal.Namespace as institutionTelephoneNumberTypeDescriptor__Namespace,
+	comp_aal.CodeValue as institutionTelephoneNumberTypeDescriptor,
+	comp_aak.TelephoneNumber as telephoneNumber
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.EducationOrganizationInstitutionTelephones comp_aak
+		left join comp_aak.InstitutionTelephoneNumberTypeDescriptor comp_aal 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aak.InstitutionTelephoneNumberTypeDescriptorId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aam.SchoolCategoryDescriptorId as PK2e_SchoolCategoryDescriptorId,
+	comp_aan.Namespace as category__Namespace,
+	comp_aan.CodeValue as category
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.SchoolCategories comp_aam
+		left join comp_aam.SchoolCategoryDescriptor comp_aan 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aam.SchoolCategoryDescriptorId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aao.GradeLevelDescriptorId as PK2f_GradeLevelDescriptorId,
+	comp_aap.Namespace as gradeLevelDescriptor__Namespace,
+	comp_aap.CodeValue as gradeLevelDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.SchoolGradeLevels comp_aao
+		left join comp_aao.GradeLevelDescriptor comp_aap 
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId,
+	comp_aao.GradeLevelDescriptorId
+HQL:
+select 
+	comp_aaa.SchoolId As __BaseEntityId__,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaq.Id as id,
+	comp_aaq.LocalEducationAgencyId as localEducationAgencyId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
+	join comp_aaa.LocalEducationAgency comp_aaq
+where comp_aaa.SchoolId IN (:BaseEntityId)
+order by comp_aaa.SchoolId

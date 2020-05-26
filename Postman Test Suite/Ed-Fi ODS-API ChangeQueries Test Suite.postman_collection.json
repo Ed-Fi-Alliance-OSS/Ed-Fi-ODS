@@ -1,0 +1,4336 @@
+{
+	"info": {
+		"_postman_id": "9b84856e-cc9d-47aa-afbe-bae9d53fddcb",
+		"name": "Ed-Fi ODS/API ChangeQueries Test Suite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ChangeQueries",
+			"item": [
+				{
+					"name": "GetAllResourceTests",
+					"item": [
+						{
+							"name": "When_retrieving_resource_should_support_change_version_filter",
+							"item": [
+								{
+									"name": "Clean up Program Data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"",
+													"pm.test('Delete all programs', () => {",
+													"",
+													"           responseItems.forEach(responseItem => {",
+													"            ",
+													"            if(isNaN(responseItem.programId))",
+													"            {",
+													"                let ProgramDeleteRequest = {",
+													"                        url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/programs/\" + responseItem.id,",
+													"                        method: 'DELETE',",
+													"                        header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901\"),",
+													"                        body: {}",
+													"                };",
+													"    ",
+													"                pm.sendRequest(ProgramDeleteRequest, function (err, ProgramDelete) {",
+													"                        if (err) {",
+													"                            console.log(err);",
+													"                        } else {}",
+													"                    });",
+													"           }",
+													"        });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?limit=100",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Program List",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const responseItems = pm.response.json();",
+													"pm.environment.set('known:programsLength',responseItems.length);",
+													"pm.environment.set('known:localEducationAgencyId', 255901);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?limit=100",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											],
+											"query": [
+												{
+													"key": "limit",
+													"value": "100"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Program Data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':programGuid1', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', newGuid().substring(0,20));",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"AvailableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Program Data -Second one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':programGuid2', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':secondProgramName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':secondProgramId', newGuid().substring(0,20));",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:secondProgramName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:secondProgramId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions Second one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.NewestChangeVersion);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"AvailableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Program Data -Third one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':programGuid3', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':thirdProgramName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':thirdProgramId', newGuid().substring(0,20));",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:thirdProgramName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:thirdProgramId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get AvailableChangeVersions Third one",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.NewestChangeVersion);"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"AvailableChangeVersions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Program Data filter by min change version",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													" const scenarioId = pm.environment.get('scenarioId');",
+													" ",
+													"pm.test(\"Should match with Program Response MinChangeVersion Results\", () => {",
+													"   ",
+													"    __.each(responseItems, (responseItem) => {",
+													"         pm.expect(responseItem.programId).to.equal(pm.environment.get('supplied:'+scenarioId+':thirdProgramId'));",
+													"         pm.expect(responseItem.programName).to.equal(pm.environment.get('supplied:'+scenarioId+':thirdProgramName'));",
+													"      });",
+													"});",
+													"",
+													"",
+													"     ",
+													"     "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion3}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion3}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Program Data filter by max Change Version",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													" ",
+													"pm.test(\"Should match with Program Response MaxChangeVersion Results\", () => {",
+													"   ",
+													"    const maxChangeVersionProgramIds = [];",
+													"    __.each(responseItems, (responseItem) => {",
+													"         maxChangeVersionProgramIds.push(responseItem.id);",
+													"      });",
+													"      ",
+													"       pm.expect(3).to.equal(responseItems.length-pm.environment.get('known:programsLength'));",
+													"       pm.expect(maxChangeVersionProgramIds.includes(pm.environment.get('known:'+scenarioId+':programGuid3'))).to.equal(true);",
+													"       pm.expect(maxChangeVersionProgramIds.includes(pm.environment.get('known:'+scenarioId+':programGuid2'))).to.equal(true);",
+													"       pm.expect(maxChangeVersionProgramIds.includes(pm.environment.get('known:'+scenarioId+':programGuid1'))).to.equal(true);",
+													"});",
+													"",
+													"",
+													"     ",
+													"     "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion3}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											],
+											"query": [
+												{
+													"key": "maxChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion3}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Program Data filter by min Change Version & max Change Version",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													" ",
+													"pm.test(\"Should match with Program Response MinChangeVersion & MaxChangeVersion Results\", () => {",
+													"   ",
+													"    const maxChangeVersionProgramIds = [];",
+													"    __.each(responseItems, (responseItem) => {",
+													"         maxChangeVersionProgramIds.push(responseItem.id);",
+													"      });",
+													"      ",
+													"       pm.expect(responseItems.length).to.equal(2);",
+													"       pm.expect(maxChangeVersionProgramIds.includes(pm.environment.get('known:'+scenarioId+':programGuid2'))).to.equal(true);",
+													"       pm.expect(maxChangeVersionProgramIds.includes(pm.environment.get('known:'+scenarioId+':programGuid1'))).to.equal(true);",
+													"});",
+													"",
+													"",
+													"     ",
+													"     "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion1}}&maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion2}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion1}}"
+												},
+												{
+													"key": "maxChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion2}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GetDeletedResource",
+					"item": [
+						{
+							"name": "When_deleting_student",
+							"item": [
+								{
+									"name": "Should_trigger_insert_into_trackedDeletes_table",
+									"item": [
+										{
+											"name": "Initialize Student Data for Post Request",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+															"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"const uuid = require('uuid');",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+															"function createScenarioId() { return newGuid().substring(0,5); }",
+															"pm.environment.set('scenarioId', createScenarioId());",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"",
+															"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+															"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+															"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+															"",
+															"",
+															"const moment = require('moment');",
+															"let birthDate=new Date();",
+															"birthDate = birthDate.addYears(-20);",
+															"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+															"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+															"",
+															"let enteredUSDate=new Date();",
+															"enteredUSDate = enteredUSDate.addMonths(-20);",
+															"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+															"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Student Data by StudentGUID",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion);",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get Students Deletes Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "5593687f-7959-4934-88a6-942358f71be8",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const __ = require('lodash');",
+															"const responseItems = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"var isFlag= false; ",
+															"pm.test(\"Should match with Deletes  Results with newestChangeVersion\", () => {",
+															"   ",
+															"    __.each(responseItems, (responseItem) => {",
+															"       ",
+															"         if(responseItem.ChangeVersion==pm.environment.get('known:'+scenarioId+':newestChangeVersion'))",
+															"        {",
+															"            isFlag=true;",
+															"            pm.expect(responseItem.Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':studentGuid'));   ",
+															"        } ",
+															"         ",
+															"         ",
+															"      });",
+															"      ",
+															"       pm.expect(isFlag).to.equal(true);   ",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "2183f236-529a-485e-8d08-0a873513ffac",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/deletes",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students",
+														"deletes"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_program_with_same_natural_key_twice",
+							"item": [
+								{
+									"name": "Should_trigger_insert_into_trackedDeletes_table_for_each_resource_id",
+									"item": [
+										{
+											"name": "Create Program Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':programGuid1', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"const uuid = require('uuid');",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+															"function createScenarioId() { return newGuid().substring(0,5); }",
+															"pm.environment.set('scenarioId', createScenarioId());",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:localEducationAgencyId', 255901);",
+															"pm.environment.set('supplied:'+scenarioId+':programName', 'Duplicate Program');",
+															"pm.environment.set('supplied:'+scenarioId+':programId', newGuid().substring(0,20));",
+															"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Program Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid1}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"{{known:{{scenarioId}}:programGuid1}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Recreate Program Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':programGuid2', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Program Data -Second one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid2}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"{{known:{{scenarioId}}:programGuid2}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions Second one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.NewestChangeVersion);"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get tracked Deletes Program  Data filter by min change version & max change version",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"pm.test(\"Should return only two record for responseItems length\", () => {",
+															"   pm.expect(responseItems.length).to.equal(2);   ",
+															"});",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"",
+															"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+															"    pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion1'));  ",
+															"    pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':programGuid1'));   ",
+															"});",
+															"",
+															"pm.test(\"Should return the maximum change version in the last item returned \", () => {",
+															"    pm.expect(responseItems[1].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion2'));  ",
+															"    pm.expect(responseItems[1].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':programGuid2'));   ",
+															"});",
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion1}}&maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion2}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"deletes"
+													],
+													"query": [
+														{
+															"key": "minChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion1}}"
+														},
+														{
+															"key": "maxChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion2}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_retrieving_deleted_items",
+							"item": [
+								{
+									"name": "When_retrieving_deleted_items_should_support_change_version_filter",
+									"item": [
+										{
+											"name": "Initialize Program Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':programGuid1', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"const uuid = require('uuid');",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+															"function createScenarioId() { return newGuid().substring(0,5); }",
+															"pm.environment.set('scenarioId', createScenarioId());",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:localEducationAgencyId', 255901);",
+															"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+															"pm.environment.set('supplied:'+scenarioId+':programId', newGuid().substring(0,20));",
+															"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Program Data",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid1}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"{{known:{{scenarioId}}:programGuid1}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Initialize Program Data -Second one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':programGuid2', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"const uuid = require('uuid');",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"",
+															"pm.environment.set('supplied:'+scenarioId+':secondProgramName', newGuid());",
+															"pm.environment.set('supplied:'+scenarioId+':secondProgramId', newGuid().substring(0,20));",
+															"pm.environment.set('supplied:'+scenarioId+':secondProgramTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:secondProgramName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:secondProgramTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:secondProgramId}}\"\r\n  \r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Program Data-Second one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid2}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"{{known:{{scenarioId}}:programGuid2}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions Second one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.NewestChangeVersion);"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Initialize Program Data -Third one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"    pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':programGuid3', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															"const uuid = require('uuid');",
+															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"",
+															"pm.environment.set('supplied:'+scenarioId+':thirdProgramName', newGuid());",
+															"pm.environment.set('supplied:'+scenarioId+':thirdProgramId', newGuid().substring(0,20));",
+															"pm.environment.set('supplied:'+scenarioId+':thirdProgramTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+															"",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:thirdProgramName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:thirdProgramTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:thirdProgramId}}\"\r\n  \r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete Program Data-Third one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"    pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid3}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"{{known:{{scenarioId}}:programGuid3}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get AvailableChangeVersions Third one",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItem = pm.response.json();",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.NewestChangeVersion);"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"changeQueries",
+														"v1",
+														"AvailableChangeVersions"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Tracked Deletes Program  Data filter by min change version",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"",
+															"const responseItems = pm.response.json();",
+															"pm.test(\"Should return only one record for responseItems length\", () => {",
+															"   pm.expect(responseItems.length).to.equal(1);   ",
+															"});",
+															"",
+															"const scenarioId = pm.environment.get('scenarioId');",
+															"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+															"     pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion3'));  ",
+															"     pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':programGuid3'));   ",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion3}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"deletes"
+													],
+													"query": [
+														{
+															"key": "minChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion3}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Tracked Deletes Program  Data filter by max change version",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "8933d2b8-ae27-44e7-96a8-81de8841a3a5",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"pm.test(\"Should return greater than or equal to one record for responseItems length\", () => {",
+															"   pm.expect(responseItems.length).to.be.gte(1);   ",
+															"});",
+															"const __ = require('lodash');",
+															"pm.test(\"Should return the maximum change version as the last item of the response\", () => {",
+															"        const responseItems = pm.response.json();",
+															"        const scenarioId = pm.environment.get('scenarioId');",
+															"        pm.expect(__.last(responseItems).ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion1'));  ",
+															"        pm.expect(__.last(responseItems).Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':programGuid1')); ",
+															" });",
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "efa771e6-e188-4765-b79e-d53835786fed",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion1}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"deletes"
+													],
+													"query": [
+														{
+															"key": "maxChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion1}}"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Tracked Deletes Program  Data filter by min change version & max change version to the same change version",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"pm.test(\"Should return only one record for responseItems length\", () => {",
+															"   pm.expect(responseItems.length).to.equal(1);   ",
+															"});",
+															"",
+															"pm.test(\"Should return the minimum change version and maximum change version  in the first item returned \", () => {",
+															"    ",
+															"        const scenarioId = pm.environment.get('scenarioId');  ",
+															"        pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion2'));  ",
+															"        pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':programGuid2')); ",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion2}}&maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion2}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"programs",
+														"deletes"
+													],
+													"query": [
+														{
+															"key": "minChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion2}}"
+														},
+														{
+															"key": "maxChangeVersion",
+															"value": "{{known:{{scenarioId}}:newestChangeVersion2}}"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"protocolProfileBehavior": {},
+									"_postman_isSubFolder": true
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "10a7dd29-5e09-48f6-869a-d87a94a84f0f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4440567-4106-4fbb-94de-f5feba0ad518",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Full Life Cycle with Change Queries",
+			"item": [
+				{
+					"name": "Derived Resource School",
+					"item": [
+						{
+							"name": "Get AvailableChangeVersions  Pre-create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"pm.environment.set('scenarioId', createScenarioId());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create School Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											"const __ = require('lodash');",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:localEducationAgencyId', 255901);",
+											"pm.environment.set('supplied:'+scenarioId+':schoolId',__.random(100000));",
+											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-2001013454354');",
+											"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+											"pm.environment.set('supplied:'+scenarioId+':gradeLevelDescriptor', \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");",
+											"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{supplied:{{scenarioId}}:schoolId}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Post-Create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.test(\"Should created version greater than pre create version\", () => {",
+											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"});",
+											"",
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update School Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											"const __ = require('lodash');",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-456546');",
+											"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Alternative\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{supplied:{{scenarioId}}:schoolId}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:schoolGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:{{scenarioId}}:schoolGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Updated version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should updated version greater than created version\", () => {",
+											"    ",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get  School Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:schoolGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:{{scenarioId}}:schoolGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete  School Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:schoolGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:{{scenarioId}}:schoolGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Deleted version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should deleted version greater than updated version\", () => {",
+											"    ",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tracked Deletes SchoolsData filter by min change version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5593687f-7959-4934-88a6-942358f71be8",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"",
+											"/*",
+											"ODS-4087 JIRA ticket- Change Queries does not capture deletes on derived resources",
+											"known bug with deleting derived (non-descriptor) entities which is not inserting data using Trigger for derived table",
+											"So it's not returning any data for this request",
+											"",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return only one record for responseItems length\", () => {",
+											"   pm.expect(responseItems.length).to.equal(1);   ",
+											"});",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+											"     pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':deletedversion'));  ",
+											"     pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':schoolGuid'));   ",
+											"});",
+											"*/ "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2183f236-529a-485e-8d08-0a873513ffac",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/deletes?minChangeVersion={{known:{{scenarioId}}:deletedversion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:deletedversion}}"
+										},
+										{
+											"key": "limit",
+											"value": "100",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Derived Resource Local Education Agency",
+					"item": [
+						{
+							"name": "Initialize stateEducationAgency Data for Request",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'State-31');\r",
+											"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#State Education Agency\");\r",
+											"pm.environment.set('supplied:'+scenarioId+':stateEducationAgencyId', 31);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"stateEducationAgencyId\":\"{{supplied:{{scenarioId}}:stateEducationAgencyId}}\",\r\n  \"nameOfInstitution\":\"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"shortNameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/stateEducationAgencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"stateEducationAgencies"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Pre-create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create localEducationAgency Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											"const __ = require('lodash');",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':localEducationAgencyId',__.random(100000));",
+											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'LEA-100001');",
+											"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+											"pm.environment.set('supplied:'+scenarioId+':localEducationAgencyCategoryDescriptor', \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Charter\");",
+											"pm.environment.set('supplied:'+scenarioId+':stateEducationAgencyId', 31);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':localEducationAgencyGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"localEducationAgencyId\": \"{{supplied:{{scenarioId}}:localEducationAgencyId}}\"\r\n  ,\r\n  \"stateEducationAgencyReference\": {\r\n    \"stateEducationAgencyId\": \"{{supplied:{{scenarioId}}:stateEducationAgencyId}}\"\r\n  },\r\n  \"localEducationAgencyCategoryDescriptor\":\"{{supplied:{{scenarioId}}:localEducationAgencyCategoryDescriptor}}\",\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Post-Create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should created version greater than pre create version\", () => {",
+											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update localEducationAgency Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											"const __ = require('lodash');",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'LEA-TEst');",
+											"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Education Service Center\");",
+											"pm.environment.set('supplied:'+scenarioId+':localEducationAgencyCategoryDescriptor', \"uri://ed-fi.org/LocalEducationAgencyCategoryDescriptor#Independent\");",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"localEducationAgencyCategoryDescriptor\":\"{{supplied:{{scenarioId}}:localEducationAgencyCategoryDescriptor}}\",\r\n  \"nameOfInstitution\": \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies/{{known:{{scenarioId}}:localEducationAgencyGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies",
+										"{{known:{{scenarioId}}:localEducationAgencyGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Updated version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should updated version greater than created version\", () => {",
+											"    ",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get  localEducationAgencies Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies/{{known:{{scenarioId}}:localEducationAgencyGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies",
+										"{{known:{{scenarioId}}:localEducationAgencyGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete  localEducationAgencies Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies/{{known:{{scenarioId}}:localEducationAgencyGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies",
+										"{{known:{{scenarioId}}:localEducationAgencyGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Deleted version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should deleted version greater than updated version\", () => {",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tracked Deletes  localEducationAgency filter by min change version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5593687f-7959-4934-88a6-942358f71be8",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"/*",
+											"ODS-4087 JIRA ticket- Change Queries does not capture deletes on derived resources",
+											"known bug with deleting derived (non-descriptor) entities which is not inserting data using Trigger for derived table",
+											"So it's not returning any data for this request",
+											"",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return only one record for responseItems length\", () => {",
+											"   pm.expect(responseItems.length).to.equal(1);   ",
+											"});",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+											"     pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':deletedversion'));  ",
+											"     pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':localEducationAgencyGuid'));   ",
+											"});",
+											"*/"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2183f236-529a-485e-8d08-0a873513ffac",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/localEducationAgencies/deletes?minChangeVersion={{known:{{scenarioId}}:deletedversion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"localEducationAgencies",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:deletedversion}}"
+										},
+										{
+											"key": "limit",
+											"value": "100",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Regular Resource Course",
+					"item": [
+						{
+							"name": "Get AvailableChangeVersions  Pre-create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"pm.environment.set('scenarioId', createScenarioId());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Course Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':courseGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"const __ = require('lodash');",
+											"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId',255901);",
+											"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#LEA\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra I\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra I\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#CSSC course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"CSSC course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"CSSC course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseCode',newGuid());",
+											"",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"courseCode\":\"{{supplied:{{scenarioId}}:courseCode}}\",\r\n  \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n  },\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Post-Create version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should created version greater than pre create version\", () => {",
+											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Course Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#National Organization\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseDescription',\"Algebra II\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseTitle',\"Algebra II\");",
+											"pm.environment.set('supplied:'+scenarioId+':courseIdentificationSystemDescriptor',\"uri://ed-fi.org/CourseIdentificationSystemDescriptor#SCED course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':assigningOrganizationIdentificationCode',\"SCED course code\");",
+											"pm.environment.set('supplied:'+scenarioId+':identificationCode',\"SCED course code\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"identificationCodes\": [\r\n    {\r\n      \"courseIdentificationSystemDescriptor\":\"{{supplied:{{scenarioId}}:courseIdentificationSystemDescriptor}}\",\r\n      \"assigningOrganizationIdentificationCode\": \"{{supplied:{{scenarioId}}:assigningOrganizationIdentificationCode}}\",\r\n      \"identificationCode\": \"{{supplied:{{scenarioId}}:identificationCode}}\"\r\n    }\r\n  ],\r\n  \"courseDefinedByDescriptor\": \"{{supplied:{{scenarioId}}:courseDefinedByDescriptor}}\",\r\n  \"courseDescription\": \"{{supplied:{{scenarioId}}:courseDescription}}\",\r\n  \"courseTitle\": \"{{supplied:{{scenarioId}}:courseTitle}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courses",
+										"{{known:{{scenarioId}}:courseGuid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Updated version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should updated version greater than created version\", () => {",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get  Course Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courses",
+										"{{known:{{scenarioId}}:courseGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete  School Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/{{known:{{scenarioId}}:courseGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courses",
+										"{{known:{{scenarioId}}:courseGuid}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get AvailableChangeVersions  Deleted version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should deleted version greater than updated version\", () => {",
+											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"});",
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/AvailableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"AvailableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Tracked Deletes Course Data filter by min change version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5593687f-7959-4934-88a6-942358f71be8",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return only one record for responseItems length\", () => {",
+											"   pm.expect(responseItems.length).to.equal(1);   ",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
+											"     pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':deletedversion'));  ",
+											"     pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':courseGuid'));   ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2183f236-529a-485e-8d08-0a873513ffac",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses/deletes?minChangeVersion={{known:{{scenarioId}}:deletedversion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courses",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:deletedversion}}"
+										},
+										{
+											"key": "limit",
+											"value": "100",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Clean Up Test Data",
+			"item": [
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "112271e1-3ff0-4379-8cab-170739feb315",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_255901}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1968cd71-f440-42fc-9a12-ae5ce85610f9",
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
+					"",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"   // console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1db543c6-134e-4523-8eae-9a427147544b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

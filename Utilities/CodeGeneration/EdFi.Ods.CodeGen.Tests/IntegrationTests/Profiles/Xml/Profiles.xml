@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <!-- Resource-level IncludeOnly/ExcludeOnly profiles -->
+  <Profile name="Test-Profile-Resource-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="ShortNameOfInstitution" />                          <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="WebSite" />                                         <!-- Property -->
+        <Property name="CharterStatusDescriptor" />                         <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeAll" />
+        <!-- Inherited Collection -->
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeAll" /> <!-- Collection -->
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="NameOfInstitution" />                               <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Property -->
+        <Property name="SchoolTypeDescriptor" />                            <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" /> <!-- Inherited Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" /> <!-- Collection -->
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="ShortNameOfInstitution" />                          <!-- Inherited property -->
+        <Property name="OperationalStatusDescriptor" />                     <!-- Inherited Descriptor property -->
+        <Property name="WebSite" />                                         <!-- Property -->
+        <Property name="CharterStatusDescriptor" />                         <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />          <!-- Descriptor property -->
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeAll" />
+        <!-- Inherited Collection -->
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeAll" /> <!-- Collection -->
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Resource-level IncludeOnly/ExcludeOnly profiles (for reference properties) -->
+  <Profile name="Test-Profile-Resource-References-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="LocalEducationAgencyReference" />                   <!-- Regular reference -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Role-named reference -->
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="LocalEducationAgencyReference" />                   <!-- Regular reference -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Role-named reference -->
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-References-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="LocalEducationAgencyReference" />                   <!-- Regular reference -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Role-named reference -->
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="LocalEducationAgencyReference" />                   <!-- Regular reference -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />          <!-- Role-named reference -->
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Resource-level IncludeAll profiles -->
+  <Profile name="Test-Profile-Resource-IncludeAll">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-StaffOnly-Resource-IncludeAll">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-StudentOnly-Resource-IncludeAll">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-StudentOnly2-Resource-IncludeAll">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <!-- Read/Write Only Profile-->
+  <Profile name="Test-Profile-Resource-ReadOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-WriteOnly">
+    <Resource name="School">
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <!-- Child collection IncludeAll profiles -->
+  <Profile name="Test-Profile-Resource-Child-Collection-IncludeAll">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Child collection IncludeOnly/ExcludeOnly profiles -->
+  <Profile name="Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Child collection filtering on descriptors -->
+  <Profile name="Test-Profile-Resource-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="StreetNumberName" />
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Filter propertyName="AddressTypeDescriptor" filterMode="IncludeOnly">
+            <Value>A2</Value>
+            <Value>A4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeOnly">
+          <Property name="AddressLine1" />
+          <Property name="CountryDescriptor" />
+          <Filter propertyName="CountryDescriptor" filterMode="IncludeOnly">
+            <Value>C2</Value>
+            <Value>C4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolCategories" memberSelection="IncludeOnly">
+          <Property name="SchoolCategoryDescriptor" />
+          <Filter propertyName="SchoolCategoryDescriptor" filterMode="IncludeOnly">
+            <Value>S2</Value>
+            <Value>S4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeOnly">
+          <Property name="GradeLevelDescriptor" />
+          <Filter propertyName="GradeLevelDescriptor" filterMode="IncludeOnly">
+            <Value>G2</Value>
+            <Value>G4</Value>
+          </Filter>
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="StreetNumberName" />
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Filter propertyName="AddressTypeDescriptor" filterMode="IncludeOnly">
+            <Value>A1</Value>
+            <Value>A3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeOnly">
+          <Property name="AddressLine1" />
+          <Property name="CountryDescriptor" />
+          <Filter propertyName="CountryDescriptor" filterMode="IncludeOnly">
+            <Value>C1</Value>
+            <Value>C3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolCategories" memberSelection="IncludeOnly">
+          <Property name="SchoolCategoryDescriptor" />
+          <Filter propertyName="SchoolCategoryDescriptor" filterMode="IncludeOnly">
+            <Value>S1</Value>
+            <Value>S3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeOnly">
+          <Property name="GradeLevelDescriptor" />
+          <Filter propertyName="GradeLevelDescriptor" filterMode="IncludeOnly">
+            <Value>G1</Value>
+            <Value>G3</Value>
+          </Filter>
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="StreetNumberName" />
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Filter propertyName="AddressTypeDescriptor" filterMode="ExcludeOnly">
+            <Value>A1</Value>
+            <Value>A3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeOnly">
+          <Property name="AddressLine1" />
+          <Property name="CountryDescriptor" />
+          <Filter propertyName="CountryDescriptor" filterMode="ExcludeOnly">
+            <Value>C1</Value>
+            <Value>C3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolCategories" memberSelection="IncludeOnly">
+          <Property name="SchoolCategoryDescriptor" />
+          <Filter propertyName="SchoolCategoryDescriptor" filterMode="ExcludeOnly">
+            <Value>S1</Value>
+            <Value>S3</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeOnly">
+          <Property name="GradeLevelDescriptor" />
+          <Filter propertyName="GradeLevelDescriptor" filterMode="ExcludeOnly">
+            <Value>G1</Value>
+            <Value>G3</Value>
+          </Filter>
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="StreetNumberName" />
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Filter propertyName="AddressTypeDescriptor" filterMode="ExcludeOnly">
+            <Value>A2</Value>
+            <Value>A4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeOnly">
+          <Property name="AddressLine1" />
+          <Property name="CountryDescriptor" />
+          <Filter propertyName="CountryDescriptor" filterMode="ExcludeOnly">
+            <Value>C2</Value>
+            <Value>C4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolCategories" memberSelection="IncludeOnly">
+          <Property name="SchoolCategoryDescriptor" />
+          <Filter propertyName="SchoolCategoryDescriptor" filterMode="ExcludeOnly">
+            <Value>S2</Value>
+            <Value>S4</Value>
+          </Filter>
+        </Collection>
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeOnly">
+          <Property name="GradeLevelDescriptor" />
+          <Filter propertyName="GradeLevelDescriptor" filterMode="ExcludeOnly">
+            <Value>G2</Value>
+            <Value>G4</Value>
+          </Filter>
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Filtering on nested child collections -->
+  <Profile name="Test-Profile-Resource-Nested-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors">
+    <Resource name="StudentAssessment">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="StudentAssessmentStudentObjectiveAssessments" memberSelection="IncludeOnly">
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults" memberSelection="IncludeOnly">
+            <Filter propertyName="AssessmentReportingMethodDescriptor" filterMode="IncludeOnly">
+              <Value>A2</Value>
+              <Value>A4</Value>
+            </Filter>
+            <!--<Property name="AssessmentReportingMethodDescriptor"/>-->
+          </Collection>
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentPerformanceLevels" memberSelection="IncludeOnly">
+            <Filter propertyName="PerformanceLevelDescriptor" filterMode="IncludeOnly">
+              <Value>P2</Value>
+              <Value>P4</Value>
+            </Filter>
+            <!--<Property name="PerformanceLevelDescriptor"/>-->
+          </Collection>
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="StudentAssessmentStudentObjectiveAssessments" memberSelection="IncludeOnly">
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults" memberSelection="IncludeOnly">
+            <Filter propertyName="AssessmentReportingMethodDescriptor" filterMode="IncludeOnly">
+              <Value>A1</Value>
+              <Value>A3</Value>
+            </Filter>
+            <!--<Property name="AssessmentReportingMethodDescriptor"/>-->
+          </Collection>
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentPerformanceLevels" memberSelection="IncludeOnly">
+            <Filter propertyName="PerformanceLevelDescriptor" filterMode="IncludeOnly">
+              <Value>P1</Value>
+              <Value>P3</Value>
+            </Filter>
+            <!--<Property name="PerformanceLevelDescriptor"/>-->
+          </Collection>
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-Resource-Nested-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors">
+    <Resource name="StudentAssessment">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="StudentAssessmentStudentObjectiveAssessments" memberSelection="IncludeOnly">
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults" memberSelection="IncludeOnly">
+            <Filter propertyName="AssessmentReportingMethodDescriptor" filterMode="ExcludeOnly">
+              <Value>A2</Value>
+              <Value>A4</Value>
+            </Filter>
+            <!--<Property name="AssessmentReportingMethodDescriptor"/>-->
+          </Collection>
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentPerformanceLevels" memberSelection="IncludeOnly">
+            <Filter propertyName="PerformanceLevelDescriptor" filterMode="ExcludeOnly">
+              <Value>P2</Value>
+              <Value>P4</Value>
+            </Filter>
+            <!--<Property name="PerformanceLevelDescriptor"/>-->
+          </Collection>
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="StudentAssessmentStudentObjectiveAssessments" memberSelection="IncludeOnly">
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults" memberSelection="IncludeOnly">
+            <Filter propertyName="AssessmentReportingMethodDescriptor" filterMode="ExcludeOnly">
+              <Value>A1</Value>
+              <Value>A3</Value>
+            </Filter>
+            <!--<Property name="AssessmentReportingMethodDescriptor"/>-->
+          </Collection>
+          <Collection name="StudentAssessmentStudentObjectiveAssessmentPerformanceLevels" memberSelection="IncludeOnly">
+            <Filter propertyName="PerformanceLevelDescriptor" filterMode="ExcludeOnly">
+              <Value>P1</Value>
+              <Value>P3</Value>
+            </Filter>
+            <!--<Property name="PerformanceLevelDescriptor"/>-->
+          </Collection>
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <!-- Multiple resources -->
+  <Profile name="Test-Profile-Student-and-School-Include-All">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <!--Multiple derived resources in same profile -->
+  <Profile name="Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <!-- Base class (EducationOrganization) collection, modified for School -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+    <Resource name="LocalEducationAgency">
+      <!-- Base class (EducationOrganization) collection, modified for LocalEducationAgency -->
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-EdOrgs-Resources-Child-Collection-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <!-- Base class (EducationOrganization) collection, modified for School -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+    <Resource name="LocalEducationAgency">
+      <!-- Base class (EducationOrganization) collection, modified for LocalEducationAgency -->
+      <ReadContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="Latitude" />
+          <Property name="Longitude" />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <Collection name="EducationOrganizationAddresses" memberSelection="ExcludeOnly">
+          <Property name="City" />
+          <Property name="StateAbbreviationDescriptor" />
+          <Property name="PostalCode" />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Assessment-Readable-Includes-Embedded-Object">
+    <Resource name="Assessment">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="AssessmentCategoryDescriptor" />
+        <Object name="AssessmentContentStandard" memberSelection="IncludeAll" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Assessment-Readable-Excludes-Embedded-Object">
+    <Resource name="Assessment">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="AssessmentCategoryDescriptor" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Assessment-Writable-Includes-Embedded-Object">
+    <Resource name="Assessment">
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="AssessmentCategoryDescriptor" />
+        <Object name="AssessmentContentStandard" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Assesement-Writable-Excludes-Embedded-Object">
+    <Resource name="Assessment">
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="AssessmentCategoryDescriptor" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Academic-Week-Readable-Excludes-Optional-References">
+    <Resource name="AcademicWeek">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="TotalInstructionalDays" />
+        <Property name="EndDate" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Academic-Week-Writable-Excludes-Optional-References">
+    <Resource name="AcademicWeek">
+      <WriteContentType memberSelection="IncludeOnly">
+        <Property name="TotalInstructionalDays" />
+        <Property name="EndDate" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-Profile-For-Composites-With-Multiple-Resources">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="BirthDate" />
+
+        <Collection name="StudentOtherNames" memberSelection="IncludeOnly">
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Filter propertyName="OtherNameTypeDescriptor" filterMode="IncludeOnly">
+            <Value>uri://ed-fi.org/OtherNameTypeDescriptor#Nickname</Value>
+            <Value>uri://ed-fi.org/OtherNameTypeDescriptor#Alias</Value>
+          </Filter>
+        </Collection>
+      </ReadContentType>
+    </Resource>
+
+    <Resource name="Staff">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="SexDescriptor" />
+        <Property name="BirthDate" />
+        <Property name="HispanicLatinoEthnicity" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-ParentNonAbstractBaseClass-ExcludeOnly">
+    <Resource name="StudentSpecialEducationProgramAssociation">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="SpecialEducationHoursPerWeek" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="StudentProgramAssociation">
+      <ReadContentType memberSelection="IncludeOnly" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Test-ParentNonAbstractBaseClass-IncludeAll">
+    <Resource name="StudentSpecialEducationProgramAssociation">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="StudentProgramAssociation">
+      <ReadContentType memberSelection="IncludeOnly" />
+    </Resource>
+  </Profile>
+
+</Profiles>

@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity PostSecondaryOrganization
+    documentation "PostSecondaryOrganization"
+    shared string EdFi.NameOfInstitution
+        documentation "The name of the institution."
+        is part of identity
+    descriptor InstitutionLevel
+        documentation "The level of the institution."
+        is required
+    descriptor InstitutionControl
+        documentation "The type of control of the institution (i.e., public or private)."
+        is required
+    bool AcceptanceIndicator
+        documentation "An indication of acceptance."
+        is required

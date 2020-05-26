@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterchangeStudentTransportation xmlns="http://ed-fi.org/0310" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/0310 EXTENSION-Interchange-StudentTransportation-Extension.xsd">
+	<StudentTransportation>
+		<SchoolReference>
+			<SchoolIdentity>
+				<SchoolId>255901001</SchoolId>
+			</SchoolIdentity>
+		</SchoolReference>
+		<StudentReference>
+			<StudentIdentity>
+				<StudentUniqueId>604822</StudentUniqueId>
+			</StudentIdentity>
+		</StudentReference>
+		<AMBusNumber>123</AMBusNumber>
+		<PMBusNumber>123</PMBusNumber>
+		<EstimatedMilesFromSchool>5</EstimatedMilesFromSchool>
+	</StudentTransportation>
+</InterchangeStudentTransportation>

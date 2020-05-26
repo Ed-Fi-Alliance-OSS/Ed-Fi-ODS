@@ -1,0 +1,2 @@
+﻿*Testing Instructions
+The tests labeled as "Run Manually" require a running Ed-Fi ODS API with a known key and secret. Configuration for these tests may be changed in the app.config file of this project.

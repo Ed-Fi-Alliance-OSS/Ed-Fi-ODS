@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005"
+            xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+  <TemplateData>
+    <Name>Ed-Fi API Extensions Project Template</Name>
+    <Description>A project for defining Ed-Fi API Extensions for use with the Ed-Fi ODS API.</Description>
+    <Icon>Template_Icon.png</Icon>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>Ed-Fi</ProjectSubType>
+    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
+    <SortOrder>1000</SortOrder>
+    <TemplateID>fbab1877-e1da-4195-bfed-aaf14057e621</TemplateID>
+    <CreateNewFolder>true</CreateNewFolder>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <DefaultName>EdFi.Ods.Extensions.ExtensionName</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+    <Project File="Template_Project.csproj" TargetFileName="$safeprojectname$.csproj" ReplaceParameters="true">
+      <!-- Project supporting files -->
+
+      <!-- Template files requiring parameter replacement -->
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">Marker_EdFi_Ods_Extensions_ExtensionName.cs</ProjectItem>
+
+      <!-- Direct copy template files -->
+      <ProjectItem>assemblyMetadata.json</ProjectItem>
+
+      <!--Generated Files-->
+
+      <!-- Supporting Artifacts -->
+    </Project>
+  </TemplateContent>
+</VSTemplate>

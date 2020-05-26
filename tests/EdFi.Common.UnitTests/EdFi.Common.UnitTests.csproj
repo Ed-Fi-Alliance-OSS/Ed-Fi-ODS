@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <Configurations>Debug;Release</Configurations>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>EdFi.Ods.Common.UnitTests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Utils\Resources\IAmAResource.txt" />
+    <EmbeddedResource Include="Utils\Resources\IAmAResource.txt" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
+    <PackageReference Include="FakeItEasy" Version="5.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="nunit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
+    <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <None Update="NoAppSettings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleExternal.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
+  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
+  </Target>
+  <!-- END: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
+
+</Project>

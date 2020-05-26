@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="SampleStudentTranscript" schema="samplestudenttranscript">
+  <Aggregate root="InstitutionControlDescriptor">
+    <Entity table="InstitutionControlDescriptor" isA="Descriptor" schema="samplestudenttranscript"/>
+  </Aggregate>
+  <Aggregate root="InstitutionLevelDescriptor">
+    <Entity table="InstitutionLevelDescriptor" isA="Descriptor" schema="samplestudenttranscript"/>
+  </Aggregate>
+  <Aggregate root="PostSecondaryOrganization">
+    <Entity table="PostSecondaryOrganization" schema="samplestudenttranscript"/>
+  </Aggregate>
+  <Aggregate root="SpecialEducationGraduationStatusDescriptor">
+    <Entity table="SpecialEducationGraduationStatusDescriptor" isA="Descriptor" schema="samplestudenttranscript"/>
+  </Aggregate>
+  <Aggregate root="SubmissionCertificationDescriptor">
+    <Entity table="SubmissionCertificationDescriptor" isA="Descriptor" schema="samplestudenttranscript"/>
+  </Aggregate>
+</AggregateExtensions>

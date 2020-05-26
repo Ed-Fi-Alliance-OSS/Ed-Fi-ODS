@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyName>EdFi.SmokeTest.Console</AssemblyName>
+    <RootNamespace>EdFi.SmokeTest.Console</RootNamespace>
+    <Copyright>Copyright ©  2016</Copyright>
+    <Version>0.0.0</Version>
+    <Description>Client-side bulk load utility for the Ed-Fi ODS/API solution.</Description>
+    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <Version>0.0.0</Version>
+    <FileVersion>0.0.0</FileVersion>
+    <Configurations>Debug;Release</Configurations>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EdFi.Common" Version="3.4.0" PrivateAssets="all" />
+    <PackageReference Include="EdFi.OdsApi.Sdk" Version="3.4.0" PrivateAssets="all" />
+    <PackageReference Include="FluentCommandLineParser" Version="1.4.3" PrivateAssets="all" />
+    <PackageReference Include="log4net" Version="2.0.8" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" PrivateAssets="all" />
+    <PackageReference Include="RestSharp" Version="105.2.3" PrivateAssets="all" />
+    <PackageReference Include="SimpleInjector" Version="4.1.0" PrivateAssets="all" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

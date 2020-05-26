@@ -1,0 +1,299 @@
+HQL:
+select distinct 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aaa.Id as id,
+	comp_aaa.AssessmentTitle as assessmentTitle,
+	comp_aag.Namespace as academicSubjectDescriptor__Namespace,
+	comp_aag.CodeValue as academicSubjectDescriptor,
+	comp_aah.Namespace as assessedGradeLevelDescriptor__Namespace,
+	comp_aah.CodeValue as assessedGradeLevelDescriptor,
+	comp_aaa.Version as version,
+	comp_aai.Namespace as assessmentCategoryDescriptor__Namespace,
+	comp_aai.CodeValue as assessmentCategoryDescriptor,
+	comp_aaa.AssessmentForm as assessmentForm,
+	comp_aaj.Namespace as lowestAssessedGradeLevelDescriptor__Namespace,
+	comp_aaj.CodeValue as lowestAssessedGradeLevelDescriptor,
+	comp_aaa.MaxRawScore as maxRawScore,
+	comp_aaa.Namespace as namespace,
+	comp_aaa.Nomenclature as nomenclature,
+	comp_aaa.RevisionDate as revisionDate
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+		left join comp_aaa.AcademicSubjectDescriptor comp_aag 
+		left join comp_aaa.AssessedGradeLevelDescriptor comp_aah 
+		left join comp_aaa.AssessmentCategoryDescriptor comp_aai 
+		left join comp_aaa.LowestAssessedGradeLevelDescriptor comp_aaj 
+	join comp_aaa.StudentAssessments comp_aab
+	join comp_aab.Student comp_aac
+	join comp_aac.StudentSchoolAssociations comp_aad
+	join comp_aad.School comp_aae
+	join comp_aae.LocalEducationAgency comp_aaf
+where comp_aaf.Id = :LocalEducationAgency_Id
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aak.AssessmentIdentificationSystemDescriptorId as PK2a_AssessmentIdentificationSystemDescriptorId,
+	comp_aak.AssigningOrganizationIdentificationCode as assigningOrganizationIdentificationCode,
+	comp_aak.IdentificationCode as identificationCode
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.AssessmentIdentificationCodes comp_aak
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aak.AssessmentIdentificationSystemDescriptorId
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aal.AssessmentReportingMethodDescriptorId as PK2b_AssessmentReportingMethodDescriptorId,
+	comp_aal.PerformanceLevelDescriptorId as PK2b_PerformanceLevelDescriptorId,
+	comp_aal.MinimumScore as minimumScore,
+	comp_aal.MaximumScore as maximumScore,
+	comp_aam.Namespace as resultDatatypeTypeDescriptor__Namespace,
+	comp_aam.CodeValue as resultDatatypeTypeDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.AssessmentPerformanceLevels comp_aal
+		left join comp_aal.ResultDatatypeTypeDescriptor comp_aam 
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aal.AssessmentReportingMethodDescriptorId,
+	comp_aal.PerformanceLevelDescriptorId
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_aan.Id as id,
+	comp_aan.IdentificationCode as identificationCode,
+	comp_aan.Description as description,
+	comp_aan.MaxRawScore as maxRawScore,
+	comp_aan.Nomenclature as nomenclature,
+	comp_aan.PercentOfAssessment as percentOfAssessment
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_aao.AssessmentReportingMethodDescriptorId as PK3a_AssessmentReportingMethodDescriptorId,
+	comp_aao.PerformanceLevelDescriptorId as PK3a_PerformanceLevelDescriptorId,
+	comp_aap.Namespace as performanceLevelDescriptor__Namespace,
+	comp_aap.CodeValue as performanceLevelDescriptor,
+	comp_aaq.Namespace as assessmentReportingMethodDescriptor__Namespace,
+	comp_aaq.CodeValue as assessmentReportingMethodDescriptor,
+	comp_aao.MinimumScore as minimumScore,
+	comp_aao.MaximumScore as maximumScore,
+	comp_aar.Namespace as resultDatatypeTypeDescriptor__Namespace,
+	comp_aar.CodeValue as resultDatatypeTypeDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentPerformanceLevels comp_aao
+		left join comp_aao.PerformanceLevelDescriptor comp_aap 
+		left join comp_aao.AssessmentReportingMethodDescriptor comp_aaq 
+		left join comp_aao.ResultDatatypeTypeDescriptor comp_aar 
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aao.AssessmentReportingMethodDescriptorId,
+	comp_aao.PerformanceLevelDescriptorId
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_aas.Objective as PK3b_Objective,
+	comp_aat.Id as id,
+	comp_aat.Objective as objective,
+	comp_aau.Namespace as objectiveGradeLevelDescriptor__Namespace,
+	comp_aau.CodeValue as objectiveGradeLevelDescriptor,
+	comp_aav.Namespace as academicSubjectDescriptor__Namespace,
+	comp_aav.CodeValue as academicSubjectDescriptor,
+	comp_aat.Description as description,
+	comp_aat.LearningObjectiveId as learningObjectiveId,
+	comp_aat.Nomenclature as nomenclature,
+	comp_aat.SuccessCriteria as successCriteria
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentLearningObjectives comp_aas
+	join comp_aas.LearningObjective comp_aat
+		left join comp_aat.ObjectiveGradeLevelDescriptor comp_aau 
+		left join comp_aat.AcademicSubjectDescriptor comp_aav 
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aas.Objective
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_aas.Objective as PK3b_Objective,
+	comp_aax.LearningStandardId as PK4a_LearningStandardId,
+	comp_aay.Id as id,
+	comp_aaz.Namespace as academicSubjectDescriptor__Namespace,
+	comp_aaz.CodeValue as academicSubjectDescriptor,
+	comp_aay.Description as description,
+	comp_aay.LearningStandardId as learningStandardId,
+	comp_aay.Namespace as namespace,
+	comp_aay.CourseTitle as courseTitle,
+	comp_aay.LearningStandardItemCode as learningStandardItemCode,
+	comp_aay.SuccessCriteria as successCriteria,
+	comp_aay.URI as uri
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentLearningObjectives comp_aas
+	join comp_aas.LearningObjective comp_aaw
+	join comp_aaw.LearningObjectiveLearningStandards comp_aax
+	join comp_aax.LearningStandard comp_aay
+		left join comp_aay.AcademicSubjectDescriptor comp_aaz 
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aas.Objective,
+	comp_aax.LearningStandardId
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_aas.Objective as PK3b_Objective,
+	comp_aax.LearningStandardId as PK4a_LearningStandardId,
+	comp_abb.ContentStandardName as PK5a_ContentStandardName,
+	comp_abb.IdentificationCode as PK5a_IdentificationCode,
+	comp_abb.IdentificationCode as identificationCode,
+	comp_abb.ContentStandardName as contentStandardName
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentLearningObjectives comp_aas
+	join comp_aas.LearningObjective comp_aaw
+	join comp_aaw.LearningObjectiveLearningStandards comp_aax
+	join comp_aax.LearningStandard comp_aba
+	join comp_aba.LearningStandardIdentificationCodes comp_abb
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_aas.Objective,
+	comp_aax.LearningStandardId,
+	comp_abb.ContentStandardName,
+	comp_abb.IdentificationCode
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_abc.LearningStandardId as PK3c_LearningStandardId,
+	comp_abd.Id as id,
+	comp_abe.Namespace as academicSubjectDescriptor__Namespace,
+	comp_abe.CodeValue as academicSubjectDescriptor,
+	comp_abd.Description as description,
+	comp_abd.LearningStandardId as learningStandardId,
+	comp_abd.Namespace as namespace,
+	comp_abd.CourseTitle as courseTitle,
+	comp_abd.LearningStandardItemCode as learningStandardItemCode,
+	comp_abd.SuccessCriteria as successCriteria,
+	comp_abd.URI as uri
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentLearningStandards comp_abc
+	join comp_abc.LearningStandard comp_abd
+		left join comp_abd.AcademicSubjectDescriptor comp_abe 
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_abc.LearningStandardId
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AcademicSubjectDescriptorId as PK1a_AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId as PK1a_AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle as PK1a_AssessmentTitle,
+	comp_aaa.Version as PK1a_Version,
+	comp_aan.IdentificationCode as PK2c_IdentificationCode,
+	comp_aan.ParentIdentificationCode as H_ParentIdentificationCode,
+	comp_abc.LearningStandardId as PK3c_LearningStandardId,
+	comp_abg.ContentStandardName as PK4a_ContentStandardName,
+	comp_abg.IdentificationCode as PK4a_IdentificationCode,
+	comp_abg.IdentificationCode as identificationCode,
+	comp_abg.ContentStandardName as contentStandardName
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ comp_aaa
+	join comp_aaa.ObjectiveAssessmentsHierarchy comp_aan
+	join comp_aan.ObjectiveAssessmentLearningStandards comp_abc
+	join comp_abc.LearningStandard comp_abf
+	join comp_abf.LearningStandardIdentificationCodes comp_abg
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AcademicSubjectDescriptorId,
+	comp_aaa.AssessedGradeLevelDescriptorId,
+	comp_aaa.AssessmentTitle,
+	comp_aaa.Version,
+	comp_abc.LearningStandardId,
+	comp_abg.ContentStandardName,
+	comp_abg.IdentificationCode

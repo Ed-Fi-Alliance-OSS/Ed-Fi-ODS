@@ -1,0 +1,38 @@
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="EdFi.Ods.Tests.TestExtension"
+                   namespace="EdFi.Ods.Tests.TestExtensoin.Models.Entities"
+                   default-access="property">
+
+  <class name="EdFi.Ods.Entities.NHibernate.StaffLeaveAggregate.TestExtension.StaffLeaveExtension"
+         table="StaffLeaveExtension" lazy="false" schema="extension">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StaffLeave">
+        <column name="BeginDate" />
+        <column name="StaffLeaveEventCategoryTypeId" />
+        <column name="StaffUSI" />
+      </key-many-to-one>
+    </composite-id>
+
+    <!-- Properties -->
+    <property name="ExtensionDate" column="ExtensionDate" type="date" />
+
+    <!-- Collections -->
+  </class>
+
+  <class name="EdFi.Ods.Entities.NHibernate.StaffLeaveAggregate.TestExtension.StaffLeaveReason"
+         table="StaffLeaveReason" lazy="false" schema="extension">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="StaffLeave">
+        <column name="BeginDate" />
+        <column name="StaffLeaveEventCategoryTypeId" />
+        <column name="StaffUSI" />
+      </key-many-to-one>
+    </composite-id>
+
+    <!-- Properties -->
+    <property name="Reason" column="Reason" type="string" length="20" />
+    <!-- Collections -->
+  </class>
+</hibernate-mapping>
