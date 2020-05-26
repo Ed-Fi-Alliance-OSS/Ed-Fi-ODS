@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  <Profile name="Test-Profile-Assessment-Resource-Child-Collection-IncludeOnly">
+    <Resource name="Assessment">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Object name="AssessmentContentStandard1" memberSelection="IncludeOnly">
+          <Property name="Title" />
+          <Property name="PublicationDate" />
+          <Collection name="AssessmentContentStandardAuthors" memberSelection="IncludeOnly">
+          </Collection>
+        </Object>
+      </ReadContentType>
+    </Resource>
+  </Profile>
+</Profiles>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterchangeStudentTranscript xmlns="http://ed-fi.org/0320b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/0320b ..\Schemas\EXTENSION-Interchange-StudentTranscript-Extension.xsd">
+	<PostSecondaryOrganization id="PSO_255950">
+		<NameOfInstitution>PostSecondaryOrganization</NameOfInstitution>
+		<InstitutionLevel>uri://ed-fi.org/InstitutionLevelDescriptor#High</InstitutionLevel>
+		<InstitutionControl>uri://ed-fi.org/InstitutionControlDescriptor#State</InstitutionControl>
+		<AcceptanceIndicator>true</AcceptanceIndicator>
+	</PostSecondaryOrganization>
+	<StudentAcademicRecord>
+		<StudentReference>
+			<StudentIdentity>
+				<StudentUniqueId>604822</StudentUniqueId>
+			</StudentIdentity>
+		</StudentReference>
+		<EducationOrganizationReference>
+			<EducationOrganizationIdentity>
+				<EducationOrganizationId>255901001</EducationOrganizationId>
+			</EducationOrganizationIdentity>
+		</EducationOrganizationReference>
+		<SchoolYear>2019-2020</SchoolYear>
+		<Term>uri://ed-fi.org/TermDescriptor#Second Quarter</Term>
+		<PostSecondaryOrganizationReference ref="PSO_255950">
+		</PostSecondaryOrganizationReference>
+		<SubmissionCertification>uri://ed-fi.org/SubmissionCertificationDescriptor#Applied</SubmissionCertification>
+		<ClassRanking>
+			<ClassRank>1</ClassRank>
+			<TotalNumberInClass>30</TotalNumberInClass>
+			<ClassRankingDate>2018-09-01</ClassRankingDate>
+			<SpecialEducationGraduationStatus>uri://ed-fi.org/SpecialEducationGraduationStatusDescriptor#Graduated</SpecialEducationGraduationStatus>
+		</ClassRanking>
+	</StudentAcademicRecord>
+</InterchangeStudentTranscript>

@@ -1,0 +1,103 @@
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+[Bb]in
+csx/
+rcf/
+[Oo]bj
+logistics/bin
+.vs/
+
+#User-specific files
+*.suo
+*.csproj.user
+*.ccproj.user
+*.sln.DotSettings.user
+*.csproj.DotSettings.user
+*.pubxml.user
+*.dbmdl
+.vs/
+
+#NCrunch
+_NCrunch*
+*.ncrunchsolution
+*.ncrunchsolution.user
+*.ncrunchproject
+*.ncrunchproject.user
+
+#Vim backup files
+*~
+
+#MS Office Backup Files
+~*
+
+#Resharper files
+_ReSharper.*
+*.resharper
+*.resharper.user
+
+#Rider files
+.idea/
+
+#Others
+*.cache
+*.orig
+*.original
+
+#Packages
+packages/
+/*.dll
+/*.pdb
+/*.XML
+
+#nDevConfig
+.workspaceInitialized
+nDevConfig/
+
+#Database Project Files
+application/EdFi.Ods.Entities.NHibernate/DescriptorMigration.sql
+application/EduId.Database/EduId.Database.dbmdl
+
+#Release Notes Working File
+ReleaseNotes/pending.md
+
+#File System Queues
+MessagingQueueData
+
+application/EdFi.Ods.BulkLoad.Core/*.dll
+application/EdFi.Ods.BulkLoad.Core/*.pdb
+
+credentials-*.xml
+
+#lib directory
+libs/
+libs.codegen/
+schema.codegen/
+logistics/Services/
+
+#Generated code
+*.generated.cs
+*.generated.txt
+*.generated.sql
+*.generated.resx
+*.generated.hbm.xml
+*_generated.sql
+*.feature.cs
+
+#Copies of generated code
+*.generated - Copy.cs
+*.generated - Copy.resx
+
+#Sample MetaEd
+Samples/Extensions/**/MetaEdOutput/EdFi/
+Samples/Extensions/**/MetaEdOutput/Documentation/
+
+#Database project working files
+Import Schema Logs
+
+# Approval tests
+*.received.txt
+Utilities/SdkGen/EdFi.SdkGen.Console/sdk-generate.jar
+
+# Keep older versions of MetaEd artifacts out of source control
+Application/EdFi.Ods.CodeGen/App_Packages
+
+*.log

@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
+namespace {{NamespaceName}}
+{
+    [ExcludeFromCodeCoverage]
+    public class DatabaseMetadataProvider : IDatabaseMetadataProvider
+    {
+        public IndexDetails GetIndexDetails(string indexName)
+        {
+            IndexDetails indexDetails = null;
+
+            IndexDetailsByName.TryGetValue(indexName, out indexDetails);
+
+            return indexDetails;
+        }
+
+        private static readonly Dictionary<string, IndexDetails> IndexDetailsByName = new Dictionary<string, IndexDetails>(StringComparer.InvariantCultureIgnoreCase) {
+        {{#IndexMetaData}}
+            { "{{Name}}", new IndexDetails { IndexName = "{{Name}}", TableName = "{{TableName}}", ColumnNames = new List<string> { {{{ColumnNames}}} } } },
+        {{/IndexMetaData}}
+        };
+    }
+}

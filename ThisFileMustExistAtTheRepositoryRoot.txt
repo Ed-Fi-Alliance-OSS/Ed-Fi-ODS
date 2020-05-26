@@ -1,0 +1,6 @@
+This file is used for defining the root of the repository structure.  This is 
+used *at least* in the RepositoryRootLocator class and in the logistics scripts
+and the SolutionScripts. 
+
+If you wish to remove this file, I suggest a thorough text search of the entire
+code base including powershell files.

@@ -1,0 +1,15 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Properties required to automatically perform t4 transforms on build (see http://msdn.microsoft.com/en-us/library/ee847423.aspx)-->
+  <PropertyGroup Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*undefined*'">
+    <SolutionDir>..\</SolutionDir>
+  </PropertyGroup>
+
+  <!-- location of common template .ttinclude files -->
+  <PropertyGroup>
+    <ttIncludeFolder>$(SolutionDir)..\..\Ed-Fi-ODS\Application\Templates\</ttIncludeFolder>
+    <ttLibsFolder>$(SolutionDir)..\..\Ed-Fi-ODS\Application\libs.codegen\</ttLibsFolder>
+    <ttExtensionsFolder>$(SolutionDir)..\Extensions\</ttExtensionsFolder>
+    <schemaDir>$(SolutionDir)..\..\Ed-Fi-ODS\Application\schema.codegen\</schemaDir>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  <Profile name="School-and-Student-Sample">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+</Profiles>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>EdFi.OdsApi.Sdk</id>
+    <version>$version$</version>
+    <title>EdFi.OdsApi.Sdk</title>
+    <authors>$authors$</authors>
+    <owners>$owners$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A pregenerated sdk for use with the Ed-Fi Ods Api.</description>
+    <releaseNotes>Packaged Ed-Fi SDK.</releaseNotes>
+    <copyright>$copyright$</copyright>
+    <tags>Ed-Fi SDK</tags>
+    <dependencies>
+      <dependency id="NewtonSoft.Json" version="10.0.3" />
+      <dependency id="JsonSubTypes" version="1.2.0" />
+      <dependency id="RestSharp" version="105.1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.txt" target="" />
+    <file src="csharp\src\EdFi.OdsApi.Sdk\bin\$configuration$\EdFi.OdsApi.Sdk.dll" target="lib" />
+  </files>
+</package>

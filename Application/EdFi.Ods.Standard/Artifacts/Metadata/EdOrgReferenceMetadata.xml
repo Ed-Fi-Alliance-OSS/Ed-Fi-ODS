@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Order of the types and the keys elements is not important.
+  The extension metadata will add to the core metadata and contain only extension types.
+-->
+<EdOrgReferences>
+  <EdOrgReference>
+    <type>CommunityOrganization</type>
+    <key>CommunityOrganizationId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>CommunityProvider</type>
+    <key>CommunityProviderId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>EducationOrganizationNetwork</type>
+    <key>EducationOrganizationNetworkId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>EducationServiceCenter</type>
+    <key>EducationServiceCenterId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>LocalEducationAgency</type>
+    <key>LocalEducationAgencyId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>PostSecondaryInstitution</type>
+    <key>PostSecondaryInstitutionId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>School</type>
+    <key>SchoolId</key>
+  </EdOrgReference>
+  <EdOrgReference>
+    <type>StateEducationAgency</type>
+    <key>StateEducationAgencyId</key>
+  </EdOrgReference>
+</EdOrgReferences>

@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyTitle>EdFi.Ods.Profiles.Test</AssemblyTitle>
+    <Product>EdFi.Ods.Profiles.Test</Product>
+    <RestorePackages>true</RestorePackages>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.6.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="System.Collections.Concurrent" Version="4.3.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Marker_EdFi_Ods_Profiles_Test.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="assemblyMetadata.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Profiles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.GrandBend\EdFi.Ods.Extensions.GrandBend.csproj" />
+    <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj" />
+    <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.TPDM\EdFi.Ods.Extensions.TPDM.csproj" />
+    <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
+    <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+  </ItemGroup>
+</Project>

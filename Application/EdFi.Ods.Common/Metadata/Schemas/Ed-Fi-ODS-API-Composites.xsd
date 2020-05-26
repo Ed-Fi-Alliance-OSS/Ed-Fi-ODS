@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema id="Composites"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="CompositeMetadata" type="CompositeMetadata" />
+
+  <xs:complexType name="CompositeMetadata">
+    <xs:sequence>
+      <xs:element name="Category" type="CompositeCategory" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="organizationCode" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="CompositeCategory">
+    <xs:sequence>
+      <xs:element name="Routes" type="Routes" minOccurs="0" />
+      <xs:element name="Composites" type="Composites" />
+    </xs:sequence>
+    <xs:attribute name="displayName" type="xs:string" use="required" />
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Routes">
+    <xs:sequence>
+      <xs:element name="Route" type="Route" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Route">
+    <xs:attribute name="relativeRouteTemplate" type="xs:string" use="required" />
+    <xs:attribute name="compositeNameConstraint" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Composites">
+    <xs:sequence>
+      <xs:element name="Composite" type="Composite" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Composite">
+    <xs:sequence>
+      <xs:element name="Specification" type="Specification" minOccurs="0" />
+      <xs:element name="BaseResource" type="Resource" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Specification">
+    <xs:sequence>
+      <xs:element name="Parameter" type="Parameter" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Parameter">
+    <xs:attribute name="name" use="required" />
+    <xs:attribute name="filterPath" use="required" />
+    <xs:attribute name="queryable" type="xs:boolean" />
+    <xs:attribute name="description" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Resource">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Property" type="Property" />
+      <xs:element name="Collection" type="Collection" />
+      <xs:element name="ReferencedResource" type="ReferencedResource" />
+      <xs:element name="LinkedCollection" type="LinkedCollection" />
+      <xs:element name="EmbeddedObject" type="EmbeddedObject" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="displayName" type="xs:string" />
+    <xs:attribute name="logicalSchema" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Property">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="displayName" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="Collection">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Property" type="Property" />
+      <xs:element name="Collection" type="Collection" />
+      <xs:element name="ReferencedResource" type="ReferencedResource" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="displayName" type="xs:string" />
+    <xs:attribute name="useReferencedHierarchy" type="xs:boolean" />
+    <xs:attribute name="hierarchicalReferenceName" type="xs:string" />
+  </xs:complexType>
+
+  <xs:complexType name="EmbeddedObject">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Property" type="Property" />
+      <xs:element name="Collection" type="Collection" />
+      <xs:element name="ReferencedResource" type="ReferencedResource" />
+      <xs:element name="EmbeddedObject" type="EmbeddedObject" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="displayName" type="xs:string" />
+    <xs:attribute name="flatten" type="xs:boolean" />
+  </xs:complexType>
+
+  <xs:complexType name="ReferencedResource">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element name="Property" type="Property" />
+      <xs:element name="Collection" type="Collection" />
+      <xs:element name="ReferencedResource" type="ReferencedResource" />
+      <xs:element name="EmbeddedObject" type="EmbeddedObject" />
+      <xs:element name="LinkedCollection" type="LinkedCollection" />
+    </xs:choice>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="displayName" type="xs:string" />
+    <xs:attribute name="flatten" type="xs:boolean" />
+    <xs:attribute name="includeResourceSubtype" type="xs:boolean" />
+  </xs:complexType>
+
+  <xs:complexType name="LinkedCollection">
+    <xs:complexContent>
+      <xs:extension base="Resource">
+        <xs:attribute name="useHierarchy" type="xs:boolean" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

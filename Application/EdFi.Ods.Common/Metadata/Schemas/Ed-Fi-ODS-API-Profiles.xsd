@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema id="Profiles"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="Profiles" type="Profiles" />
+
+  <xs:complexType name="Profiles">
+    <xs:sequence>
+      <xs:element name="Profile" type="Profile" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Profile">
+    <xs:sequence>
+      <xs:element name="Resource" type="Resource" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="Resource">
+    <xs:sequence>
+      <xs:element name="ReadContentType" type="ContentType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="WriteContentType" type="ContentType" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="logicalSchema" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="ContentType">
+    <xs:sequence>
+      <xs:element name="Property" type="PropertyDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Object" type="ClassDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Collection" type="CollectionDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Extension" type="ExtensionClassDefinition" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="memberSelection" type="MemberSelectionMode" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="PropertyDefinition">
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ClassDefinition">
+    <xs:sequence>
+      <xs:element name="Property" type="PropertyDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Object" type="ClassDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Collection" type="CollectionDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Extension" type="ExtensionClassDefinition" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="memberSelection" type="MemberSelectionMode" use="required" />
+    <xs:attribute name="logicalSchema" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="ExtensionClassDefinition">
+    <xs:sequence>
+      <xs:element name="Property" type="PropertyDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Object" type="ExtensionClassDefinition" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Collection" type="ExtensionCollectionDefinition" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="memberSelection" type="MemberSelectionMode" use="required" />
+    <xs:attribute name="logicalSchema" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:complexType name="CollectionDefinition">
+    <xs:complexContent>
+      <xs:extension base="ClassDefinition">
+        <xs:sequence>
+          <xs:element name="Filter" type="FilterDefinition" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ExtensionCollectionDefinition">
+    <xs:complexContent>
+      <xs:extension base="ExtensionClassDefinition">
+        <xs:sequence>
+          <xs:element name="Filter" type="FilterDefinition" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FilterDefinition">
+    <xs:sequence>
+      <xs:element name="Value" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="propertyName" type="xs:string" use="required" />
+    <xs:attribute name="filterMode" type="FilterMode" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="MemberSelectionMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IncludeOnly" />
+      <xs:enumeration value="ExcludeOnly" />
+      <xs:enumeration value="IncludeAll" />
+      <xs:enumeration value="ExcludeAll" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FilterMode">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IncludeOnly" />
+      <xs:enumeration value="ExcludeOnly" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
+<!-- To generate classes, open a Visual Studio command prompt and execute the following command:
+
+xsd {projectsParentPath}\Ed-Fi-ODS\Application\EdFi.Ods.CodeGen\Models\ProfileMetadata\Ed-Fi-ODS-API-Profiles.xsd /o:{projectsParentPath}\Ed-Fi-ODS\Application\EdFi.Ods.CodeGen\Models\ProfileMetadata /c /l:cs /namespace:EdFi.Ods.CodeGen.Models.ProfileMetadata
+
+-->

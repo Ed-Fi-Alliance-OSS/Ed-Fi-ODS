@@ -1,0 +1,17 @@
+using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Pipelines;
+using EdFi.Ods.Pipelines.Factories;
+{{#RenderGroups}}
+
+namespace {{Namespace}}
+{
+    {{#Resources}}
+    [ExcludeFromCodeCoverage]
+    public class {{ResourceName}}CreateOrUpdatePipeline : CreateOrUpdatePipeline<{{ResourceTypeName}}, {{EntityTypeName}}>
+    {
+        public {{ResourceName}}CreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    {{/Resources}}
+}
+{{/RenderGroups}}

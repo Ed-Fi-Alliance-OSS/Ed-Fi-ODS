@@ -1,0 +1,50 @@
+﻿HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+where comp_aaa.Id = :Id
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
+	comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+	join comp_aaa.School comp_aab
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
+	comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aac.AddressTypeDescriptorId as PK3a_AddressTypeDescriptorId,
+	comp_aac.City as PK3a_City,
+	comp_aac.PostalCode as PK3a_PostalCode,
+	comp_aac.StateAbbreviationDescriptorId as PK3a_StateAbbreviationDescriptorId,
+	comp_aac.StreetNumberName as PK3a_StreetNumberName,
+	comp_aac.City as city
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+	join comp_aaa.School comp_aab
+	join comp_aab.EducationOrganizationAddresses comp_aac
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
+	comp_aaa.StudentUSI,
+	comp_aac.AddressTypeDescriptorId,
+	comp_aac.City,
+	comp_aac.PostalCode,
+	comp_aac.StateAbbreviationDescriptorId,
+	comp_aac.StreetNumberName

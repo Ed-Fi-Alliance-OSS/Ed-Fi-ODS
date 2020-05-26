@@ -1,0 +1,10 @@
+<Interchanges>
+	<Interchange>
+		<Filename>Descriptors.xml</Filename>
+		<Type>descriptors</Type>
+	</Interchange>
+	<Interchange>
+		<Filename>StudentTranscript.xml</Filename>
+		<Type>StudentTranscript</Type>
+	</Interchange>
+</Interchanges>
