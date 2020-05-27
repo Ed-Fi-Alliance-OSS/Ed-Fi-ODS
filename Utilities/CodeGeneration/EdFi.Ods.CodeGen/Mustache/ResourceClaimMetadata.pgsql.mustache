@@ -379,7 +379,7 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential' )
+    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
     from dbo.ResourceClaims
@@ -387,7 +387,7 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity')
+    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
     from dbo.ResourceClaims
@@ -395,14 +395,14 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Update')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'identity', 'credential' )
+    where ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int) from dbo.ResourceClaims
     inner join lateral
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Delete')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'people', 'credential');
+    where ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
 
     /* NamespaceBased */
     select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NamespaceBased';
