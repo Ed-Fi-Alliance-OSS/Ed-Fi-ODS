@@ -139,6 +139,8 @@ ALTER TABLE edfi.Parent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Payroll ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.Person ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.PostSecondaryEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.Program ADD CreatedByOwnershipTokenId SMALLINT NULL;

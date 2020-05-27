@@ -138,6 +138,9 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.Parent
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.Payroll
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.Person
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.PostSecondaryEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 

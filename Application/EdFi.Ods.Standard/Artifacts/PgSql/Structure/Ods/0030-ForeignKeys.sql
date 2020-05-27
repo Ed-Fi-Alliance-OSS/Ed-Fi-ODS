@@ -3178,6 +3178,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_5f7953_Person
+ON edfi.Parent (PersonId ASC, SourceSystemDescriptorId ASC);
+
 ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_SexDescriptor FOREIGN KEY (SexDescriptorId)
 REFERENCES edfi.SexDescriptor (SexDescriptorId)
 ;
@@ -3381,6 +3388,13 @@ ALTER TABLE edfi.PerformanceLevelDescriptor ADD CONSTRAINT FK_a54ec7_Descriptor 
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE edfi.Person ADD CONSTRAINT FK_6007db_SourceSystemDescriptor FOREIGN KEY (SourceSystemDescriptorId)
+REFERENCES edfi.SourceSystemDescriptor (SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_6007db_SourceSystemDescriptor
+ON edfi.Person (SourceSystemDescriptorId ASC);
 
 ALTER TABLE edfi.PersonalInformationVerificationDescriptor ADD CONSTRAINT FK_e35818_Descriptor FOREIGN KEY (PersonalInformationVerificationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -4171,6 +4185,11 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.SourceSystemDescriptor ADD CONSTRAINT FK_f71783_Descriptor FOREIGN KEY (SourceSystemDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE edfi.SpecialEducationProgramServiceDescriptor ADD CONSTRAINT FK_c2348e_Descriptor FOREIGN KEY (SpecialEducationProgramServiceDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -4201,6 +4220,13 @@ REFERENCES edfi.OldEthnicityDescriptor (OldEthnicityDescriptorId)
 
 CREATE INDEX FK_681927_OldEthnicityDescriptor
 ON edfi.Staff (OldEthnicityDescriptorId ASC);
+
+ALTER TABLE edfi.Staff ADD CONSTRAINT FK_681927_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_681927_Person
+ON edfi.Staff (PersonId ASC, SourceSystemDescriptorId ASC);
 
 ALTER TABLE edfi.Staff ADD CONSTRAINT FK_681927_SexDescriptor FOREIGN KEY (SexDescriptorId)
 REFERENCES edfi.SexDescriptor (SexDescriptorId)
@@ -4878,6 +4904,13 @@ REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
 
 CREATE INDEX FK_2a164d_CountryDescriptor
 ON edfi.Student (BirthCountryDescriptorId ASC);
+
+ALTER TABLE edfi.Student ADD CONSTRAINT FK_2a164d_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_2a164d_Person
+ON edfi.Student (PersonId ASC, SourceSystemDescriptorId ASC);
 
 ALTER TABLE edfi.Student ADD CONSTRAINT FK_2a164d_SexDescriptor FOREIGN KEY (BirthSexDescriptorId)
 REFERENCES edfi.SexDescriptor (SexDescriptorId)

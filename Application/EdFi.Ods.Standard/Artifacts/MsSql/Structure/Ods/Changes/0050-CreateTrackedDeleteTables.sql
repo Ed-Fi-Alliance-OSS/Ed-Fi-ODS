@@ -1376,6 +1376,15 @@ CREATE TABLE [tracked_deletes_edfi].[PerformanceLevelDescriptor]
        CONSTRAINT PK_PerformanceLevelDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
+CREATE TABLE [tracked_deletes_edfi].[Person]
+(
+       PersonId [NVARCHAR](32) NOT NULL,
+       SourceSystemDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_Person PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_edfi].[PersonalInformationVerificationDescriptor]
 (
        PersonalInformationVerificationDescriptorId [INT] NOT NULL,
@@ -1789,6 +1798,14 @@ CREATE TABLE [tracked_deletes_edfi].[SexDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_SexDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[SourceSystemDescriptor]
+(
+       SourceSystemDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_SourceSystemDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_edfi].[SpecialEducationProgramServiceDescriptor]
