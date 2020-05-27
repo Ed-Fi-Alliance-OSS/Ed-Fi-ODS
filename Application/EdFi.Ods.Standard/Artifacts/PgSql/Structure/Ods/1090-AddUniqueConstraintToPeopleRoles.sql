@@ -13,7 +13,7 @@ BEGIN
                   AND constraint_name = 'uk_student_person')
    THEN
       ALTER TABLE edfi.student 
-      ADD CONSTRAINT uk_student_person UNIQUE (personid, sourcesystemuniqueid);
+      ADD CONSTRAINT uk_student_person UNIQUE (personid, sourcesystemdescriptorid);
    END IF;
 
    IF NOT EXISTS (SELECT 1
@@ -23,7 +23,7 @@ BEGIN
                   AND constraint_name = 'uk_parent_person')
    THEN
       ALTER TABLE edfi.parent 
-      ADD CONSTRAINT uk_parent_person UNIQUE (personid, sourcesystemuniqueid);
+      ADD CONSTRAINT uk_parent_person UNIQUE (personid, sourcesystemdescriptorid);
    END IF;
 
    IF NOT EXISTS (SELECT 1
@@ -33,7 +33,7 @@ BEGIN
                   AND constraint_name = 'uk_staff_person')
    THEN
       ALTER TABLE edfi.staff 
-      ADD CONSTRAINT uk_staff_person UNIQUE (personid, sourcesystemuniqueid);
+      ADD CONSTRAINT uk_staff_person UNIQUE (personid, sourcesystemdescriptorid);
    END IF;
 END
 $$;
