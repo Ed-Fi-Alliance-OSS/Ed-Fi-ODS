@@ -2,14 +2,12 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
-using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common.Database;
@@ -58,6 +56,13 @@ namespace EdFi.Ods.CodeGen.Console._Installers
                     Component
                         .For<IDatabaseConnectionProvider>()
                         .ImplementedBy<EngineBasedDatabaseConnectionProvider>());
+            }
+            else
+            {
+                container.Register(
+                    Component
+                        .For<IViewsProvider>()
+                        .ImplementedBy<ViewsProvider>());
             }
         }
     }
