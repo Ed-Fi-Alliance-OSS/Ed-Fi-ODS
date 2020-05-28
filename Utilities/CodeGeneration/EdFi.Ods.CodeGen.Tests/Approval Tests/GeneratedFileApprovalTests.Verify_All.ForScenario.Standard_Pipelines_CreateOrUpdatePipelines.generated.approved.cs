@@ -947,6 +947,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class PersonCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Person.EdFi.Person, Entities.NHibernate.PersonAggregate.EdFi.Person>
+    {
+        public PersonCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class PersonalInformationVerificationDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PersonalInformationVerificationDescriptor.EdFi.PersonalInformationVerificationDescriptor, Entities.NHibernate.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptor>
     {
         public PersonalInformationVerificationDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1244,6 +1250,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class SexDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SexDescriptor.EdFi.SexDescriptor, Entities.NHibernate.SexDescriptorAggregate.EdFi.SexDescriptor>
     {
         public SexDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor, Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor>
+    {
+        public SourceSystemDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

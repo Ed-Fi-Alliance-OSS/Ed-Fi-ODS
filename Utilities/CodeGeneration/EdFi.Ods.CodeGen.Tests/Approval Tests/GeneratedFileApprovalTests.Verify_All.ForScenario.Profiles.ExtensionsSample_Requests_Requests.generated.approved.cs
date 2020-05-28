@@ -24,7 +24,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Includ
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -89,7 +91,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Exclud
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -154,7 +158,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Include_All
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -219,7 +225,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclu
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -416,7 +424,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -547,7 +557,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -812,6 +824,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Include_All
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 

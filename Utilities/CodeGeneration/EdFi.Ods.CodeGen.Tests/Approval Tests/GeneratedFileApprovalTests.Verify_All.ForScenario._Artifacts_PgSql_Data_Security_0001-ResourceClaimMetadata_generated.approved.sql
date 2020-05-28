@@ -1,4 +1,4 @@
-﻿begin transaction;
+begin transaction;
 
 /* --------------------------------- */
 /*      Applications and Actions     */
@@ -621,6 +621,9 @@ begin
     values ('performanceLevelDescriptor', 'performanceLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/performanceLevelDescriptor', managedDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('person', 'person', 'http://ed-fi.org/ods/identity/claims/person', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('personalInformationVerificationDescriptor', 'personalInformationVerificationDescriptor', 'http://ed-fi.org/ods/identity/claims/personalInformationVerificationDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -769,6 +772,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('sexDescriptor', 'sexDescriptor', 'http://ed-fi.org/ods/identity/claims/sexDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('sourceSystemDescriptor', 'sourceSystemDescriptor', 'http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('specialEducationProgramServiceDescriptor', 'specialEducationProgramServiceDescriptor', 'http://ed-fi.org/ods/identity/claims/specialEducationProgramServiceDescriptor', systemDescriptorsResourceClaimId, application_id);
@@ -1217,7 +1223,7 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Read')) as ac on true
-    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential' )
+    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
     from dbo.ResourceClaims
@@ -1225,7 +1231,7 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity')
+    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
     from dbo.ResourceClaims
@@ -1233,14 +1239,14 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Update')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'identity', 'credential' )
+    where ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
     union
     select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int) from dbo.ResourceClaims
     inner join lateral
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Delete')) as ac on true
-    where ResourceName IN ('educationOrganizations', 'people', 'credential');
+    where ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
 
     /* NamespaceBased */
     select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NamespaceBased';

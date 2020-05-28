@@ -13335,7 +13335,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         public virtual string MiddleName  { get; set; }
         public virtual string ParentUniqueId  { get; set; }
         public virtual string PersonalTitlePrefix  { get; set; }
+        public virtual string PersonId  { get; set; }
         public virtual int? SexDescriptorId  { get; set; }
+        public virtual int? SourceSystemDescriptorId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -13364,6 +13366,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
     #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
     } 
@@ -14043,6 +14046,65 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PerformanceLevelDescriptorAgg
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevelQ> StudentAssessmentStudentObjectiveAssessmentPerformanceLevels  { get; set; }
     #pragma warning restore 114
+        // -------------------------------------------------------------
+    } 
+}
+// Aggregate: Person
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi
+{ 
+
+    /// <summary>
+    /// A class which represents the edfi.Person table of the Person aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class PersonQ : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual string PersonId { get; set; }
+        [DomainSignature]
+        public virtual int SourceSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.ParentAggregate.EdFi.ParentQ> Parents  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ> Staffs  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
+    #pragma warning restore 114
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptorQ SourceSystemDescriptor { get; set; }
         // -------------------------------------------------------------
     } 
 }
@@ -17501,6 +17563,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi
         // -------------------------------------------------------------
     } 
 }
+// Aggregate: SourceSystemDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.SourceSystemDescriptorAggregate.EdFi
+{ 
+
+    /// <summary>
+    /// A class which represents the edfi.SourceSystemDescriptor table of the SourceSystemDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int SourceSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ> People  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    } 
+}
 // Aggregate: SpecialEducationProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationProgramServiceDescriptorAggregate.EdFi
@@ -17627,7 +17731,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         public virtual string MiddleName  { get; set; }
         public virtual int? OldEthnicityDescriptorId  { get; set; }
         public virtual string PersonalTitlePrefix  { get; set; }
+        public virtual string PersonId  { get; set; }
         public virtual int? SexDescriptorId  { get; set; }
+        public virtual int? SourceSystemDescriptorId  { get; set; }
         public virtual string StaffUniqueId  { get; set; }
         public virtual decimal? YearsOfPriorProfessionalExperience  { get; set; }
         public virtual decimal? YearsOfPriorTeachingExperience  { get; set; }
@@ -17726,6 +17832,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LevelOfEducationDescriptorAggregate.EdFi.LevelOfEducationDescriptorQ HighestCompletedLevelOfEducationDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptorQ OldEthnicityDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
     } 
@@ -19720,6 +19827,8 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         public virtual string MiddleName  { get; set; }
         public virtual bool? MultipleBirthStatus  { get; set; }
         public virtual string PersonalTitlePrefix  { get; set; }
+        public virtual string PersonId  { get; set; }
+        public virtual int? SourceSystemDescriptorId  { get; set; }
         public virtual string StudentUniqueId  { get; set; }
         // -------------------------------------------------------------
 
@@ -19810,6 +19919,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ BirthSexDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ BirthStateAbbreviationDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         // -------------------------------------------------------------
     } 
 

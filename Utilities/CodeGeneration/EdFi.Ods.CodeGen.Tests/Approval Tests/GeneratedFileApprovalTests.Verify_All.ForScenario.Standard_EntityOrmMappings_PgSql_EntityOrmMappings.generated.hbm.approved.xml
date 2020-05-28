@@ -4650,6 +4650,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor" table="SourceSystemDescriptor" lazy="false">
+          <key>
+            <column name="SourceSystemDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptor" table="SpecialEducationProgramServiceDescriptor" lazy="false">
           <key>
             <column name="SpecialEducationProgramServiceDescriptorId" />
@@ -9619,9 +9633,15 @@
     <property name="MiddleName" column="MiddleName" type="string" length="75" />
     <property name="ParentUniqueId" column="ParentUniqueId" type="string" length="32" not-null="true" />
     <property name="PersonalTitlePrefix" column="PersonalTitlePrefix" type="string" length="30" />
+    <property name="PersonId" column="PersonId" type="string" length="32" />
     <property name="SexDescriptorId" column="SexDescriptorId" type="int" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
 
     <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
 
     <!-- Back references -->
 
@@ -10013,6 +10033,50 @@
     <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StaffUSI" />
     </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" table="Person" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
+            <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.Person" table="Person" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="PersonId" column="PersonId" type="string" length="32" />
+      <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
 
     <!-- Back references -->
 
@@ -11359,12 +11423,18 @@
     <property name="MiddleName" column="MiddleName" type="string" length="75" />
     <property name="OldEthnicityDescriptorId" column="OldEthnicityDescriptorId" type="int" />
     <property name="PersonalTitlePrefix" column="PersonalTitlePrefix" type="string" length="30" />
+    <property name="PersonId" column="PersonId" type="string" length="32" />
     <property name="SexDescriptorId" column="SexDescriptorId" type="int" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
     <property name="StaffUniqueId" column="StaffUniqueId" type="string" length="32" not-null="true" />
     <property name="YearsOfPriorProfessionalExperience" column="YearsOfPriorProfessionalExperience" type="decimal" />
     <property name="YearsOfPriorTeachingExperience" column="YearsOfPriorTeachingExperience" type="decimal" />
 
     <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
 
     <!-- Back references -->
 
@@ -12870,9 +12940,15 @@
     <property name="MiddleName" column="MiddleName" type="string" length="75" />
     <property name="MultipleBirthStatus" column="MultipleBirthStatus" type="bool" />
     <property name="PersonalTitlePrefix" column="PersonalTitlePrefix" type="string" length="30" />
+    <property name="PersonId" column="PersonId" type="string" length="32" />
+    <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
     <property name="StudentUniqueId" column="StudentUniqueId" type="string" length="32" not-null="true" />
 
     <!-- Aggregate references -->
+    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PersonId" />
+      <column name="SourceSystemDescriptorId" />
+    </many-to-one>
 
     <!-- Back references -->
 

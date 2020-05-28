@@ -7301,7 +7301,9 @@ namespace EdFi.Ods.Api.Models.Requests.Parents.EdFi
         public string MiddleName { get; set; }
         public string ParentUniqueId { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -7569,6 +7571,54 @@ namespace EdFi.Ods.Api.Models.Requests.PerformanceLevelDescriptors.EdFi
         public PerformanceLevelDescriptorDelete() { }
 
         public PerformanceLevelDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.People.EdFi
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class PersonGetByExample
+    {
+        public Guid Id { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PersonGetByIds : IHasIdentifiers<Guid>
+    {
+        public PersonGetByIds() { }
+
+        public PersonGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PersonPost : Resources.Person.EdFi.Person
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PersonPut : Resources.Person.EdFi.Person
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PersonDelete : IHasIdentifier 
+    {
+        public PersonDelete() { }
+
+        public PersonDelete(Guid id) 
         {
             Id = id;
         }
@@ -9948,6 +9998,52 @@ namespace EdFi.Ods.Api.Models.Requests.SexDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.SourceSystemDescriptors.EdFi
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorGetByExample
+    {
+        public int SourceSystemDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public SourceSystemDescriptorGetByIds() { }
+
+        public SourceSystemDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorPost : Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorPut : Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SourceSystemDescriptorDelete : IHasIdentifier 
+    {
+        public SourceSystemDescriptorDelete() { }
+
+        public SourceSystemDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi
 { 
    
@@ -10060,7 +10156,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -10889,6 +10987,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 

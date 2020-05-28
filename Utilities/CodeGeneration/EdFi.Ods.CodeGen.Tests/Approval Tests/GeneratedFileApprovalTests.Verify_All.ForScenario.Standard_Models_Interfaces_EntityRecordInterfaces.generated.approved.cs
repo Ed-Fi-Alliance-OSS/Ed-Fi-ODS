@@ -3203,7 +3203,9 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
         string ParentUniqueId { get; set; }
         int ParentUSI { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
         int? SexDescriptorId { get; set; }
+        int? SourceSystemDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -3392,6 +3394,17 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
     {     
         // Properties for all columns in physical table
         int PerformanceLevelDescriptorId { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the edfi.Person table of the Person aggregate in the Ods Database.
+    /// </summary>
+    public interface IPersonRecord
+    {     
+        // Properties for all columns in physical table
+        Guid Id { get; set; }
+        string PersonId { get; set; }
+        int SourceSystemDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -4202,6 +4215,15 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
     }
 
     /// <summary>
+    /// Interface for the edfi.SourceSystemDescriptor table of the SourceSystemDescriptor aggregate in the Ods Database.
+    /// </summary>
+    public interface ISourceSystemDescriptorRecord
+    {     
+        // Properties for all columns in physical table
+        int SourceSystemDescriptorId { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the edfi.SpecialEducationProgramServiceDescriptor table of the SpecialEducationProgramServiceDescriptor aggregate in the Ods Database.
     /// </summary>
     public interface ISpecialEducationProgramServiceDescriptorRecord
@@ -4239,7 +4261,9 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
         string MiddleName { get; set; }
         int? OldEthnicityDescriptorId { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
         int? SexDescriptorId { get; set; }
+        int? SourceSystemDescriptorId { get; set; }
         string StaffUniqueId { get; set; }
         int StaffUSI { get; set; }
         decimal? YearsOfPriorProfessionalExperience { get; set; }
@@ -4817,6 +4841,8 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
         string MiddleName { get; set; }
         bool? MultipleBirthStatus { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
+        int? SourceSystemDescriptorId { get; set; }
         string StudentUniqueId { get; set; }
         int StudentUSI { get; set; }
     }
