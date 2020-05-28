@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using DatabaseSchemaReader.DataSchema;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
+using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -16,15 +17,15 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntitiesForQueriesViews : GeneratorBase
     {
         private const object NotRendered = null;
-        private readonly IDatabaseSchemaProvider _databaseSchemaProvider;
+        private readonly IViewsProvider _viewsProvider;
         private static IDatabaseTypeTranslator _databaseTypeTranslator;
 
-        public EntitiesForQueriesViews(IDatabaseSchemaProvider databaseSchemaProvider,
+        public EntitiesForQueriesViews(IViewsProvider viewsProvider,
             IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(databaseSchemaProvider, nameof(databaseSchemaProvider));
+            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
-            _databaseSchemaProvider = databaseSchemaProvider;
+            _viewsProvider = viewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
@@ -44,7 +45,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 }
             };
 
-            var views = _databaseSchemaProvider.LoadViews();
+            var views = _viewsProvider.LoadViews();
 
             string GetCSharpNullSuffix(DatabaseColumn c)
                 => c.Nullable && _databaseTypeTranslator.GetSysType(c.DbDataType) != "string"

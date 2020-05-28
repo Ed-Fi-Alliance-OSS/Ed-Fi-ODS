@@ -13,7 +13,6 @@ using EdFi.Ods.CodeGen.Processing.Impl;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Providers.Impl;
 
-
 namespace EdFi.Ods.CodeGen._Installers
 {
     public class ProvidersInstaller : IWindsorInstaller
@@ -27,7 +26,6 @@ namespace EdFi.Ods.CodeGen._Installers
                 Component.For<ICodeRepositoryProvider>().ImplementedBy<DeveloperCodeRepositoryProvider>().IsFallback(),
                 Component.For<IGeneratorProvider>().ImplementedBy<GeneratorProvider>(),
                 Component.For<IDatabaseTypeTranslator>().ImplementedBy<DatabaseTypeTranslator>(),
-                Component.For<IDatabaseSchemaProvider>().ImplementedBy<DatabaseSchemaProvider>(),
                 Component.For<IMetadataFolderProvider>().ImplementedBy<MetadataFolderProvider>(),
                 Component.For<IMustacheTemplateProvider>().ImplementedBy<MustacheTemplateProvider>(),
                 Component.For<ITemplateSetProvider>().ImplementedBy<TemplateSetProvider>(),

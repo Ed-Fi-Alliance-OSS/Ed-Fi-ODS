@@ -36,21 +36,29 @@ namespace EdFi.Ods.CodeGen.Console._Installers
                         .DependsOn(Dependency.OnValue("codeRepositoryPath", _options.CodeRepositoryPath)));
             }
 
-            container.Register(
-                Component
-                    .For<IEngineTypeProvider>()
-                    .ImplementedBy<EngineTypeProvider>()
-                    .DependsOn(Dependency.OnValue("engineType", _options.Engine)));
+            if (_options.ViewsFromDatabase)
+            {
+                container.Register(
+                    Component
+                        .For<IViewsProvider>()
+                        .ImplementedBy<DatabaseViewsProvider>());
 
-            container.Register(
-                Component
-                .For<IDatabaseConnectionStringProvider>()
-                .ImplementedBy<EngineBasedDatabaseConnectionStringProvider>());
+                container.Register(
+                    Component
+                        .For<IEngineTypeProvider>()
+                        .ImplementedBy<EngineTypeProvider>()
+                        .DependsOn(Dependency.OnValue("engineType", _options.Engine)));
 
-            container.Register(
-                Component
-                    .For<IDatabaseConnectionProvider>()
-                    .ImplementedBy<EngineBasedDatabaseConnectionProvider>());
+                container.Register(
+                    Component
+                        .For<IDatabaseConnectionStringProvider>()
+                        .ImplementedBy<EngineBasedDatabaseConnectionStringProvider>());
+
+                container.Register(
+                    Component
+                        .For<IDatabaseConnectionProvider>()
+                        .ImplementedBy<EngineBasedDatabaseConnectionProvider>());
+            }
         }
     }
 }

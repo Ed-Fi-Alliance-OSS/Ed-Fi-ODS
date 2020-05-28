@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Models.Templates;
+using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 
@@ -16,21 +17,21 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntityOrmMappingsForViews : GeneratorBase
     {
         private const string NotRendered = null;
-        private readonly IDatabaseSchemaProvider _databaseSchemaProvider;
+        private readonly IViewsProvider _viewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
 
-        public EntityOrmMappingsForViews(IDatabaseSchemaProvider databaseSchemaProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntityOrmMappingsForViews(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(databaseSchemaProvider, nameof(databaseSchemaProvider));
+            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
 
-            _databaseSchemaProvider = databaseSchemaProvider;
+            _viewsProvider = viewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
         protected override object Build()
         {
-            var views = _databaseSchemaProvider.LoadViews();
+            var views = _viewsProvider.LoadViews();
 
             return
                 new OrmMapping
