@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,7 +27,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
     {
         private readonly IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData>
             _concreteEducationOrganizationIdAuthorizationContextDataTransformer;
-        
+
         private readonly Lazy<AdjacencyGraph<string, Edge<string>>> _educationOrganizationHierarchy;
 
         private List<ValidationResult> _dependencyValidationResults;
@@ -81,101 +81,157 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, entityType, authorizationContextPropertyNames, concreteContextData);
 
-            var claimEducationOrganizationIdentifierName = GetSingleEducationOrganizationIdentifierNameFromClaimsSegments(authorizationSegments);
+            var multipleSegmentsErrorMessages = new List<string>();
 
-            if (claimEducationOrganizationIdentifierName != null)
+            foreach (var segment in authorizationSegments)
             {
-                // TODO: Embedded convention (trimming Id suffix to get EdOrg type)
-                string claimEducationOrganizationType = claimEducationOrganizationIdentifierName.TrimSuffix("Id");
+                var isTargetEndpointReachableFromAnyClaimEndpointsInSegment = false;
+                var errorMessages = new List<string>();
 
-                // Get a list of identifiers that are not accessible from the claim's associated EdOrg
-                var graph = _educationOrganizationHierarchy.Value;
-
-                var inaccessibleIdentifierNames = graph
-                                                 .Vertices
-                                                 .Except(graph.GetDescendantsOrSelf(claimEducationOrganizationType))
-                                                 .Select(edOrgType => edOrgType + "Id") // TODO: Embedded convention (adding Id suffix to EdOrg type)
-                                                 .ToList();
-
-                // Look for rules with inaccessible education organization identifiers
-                var inaccessibleTargetNames =
-                    (from r in authorizationSegments.ClaimsAuthorizationSegments
-                     where inaccessibleIdentifierNames.Contains(r.TargetEndpoint.Name)
-                     select r.TargetEndpoint.Name)
-                   .Distinct()
-                   .ToList();
-
-                // Request is for an identifier higher up the hierarchy
-                if (inaccessibleTargetNames.Any())
+                foreach (var name in segment.ClaimsEndpoints.Select(s => s.Name))
                 {
-                    throw new EdFiSecurityException(
-                        string.Format(
-                            "Authorization denied.  The claims associated with an identifier of '{0}' cannot be used to authorize a request associated with an identifier of '{1}'.",
-                            claimEducationOrganizationIdentifierName,
-                            inaccessibleTargetNames.First()));
-                }
-            }
+                    // TODO: Embedded convention (trimming Id suffix to get EdOrg type)
+                    string claimEducationOrganizationType = name.TrimSuffix("Id");
 
-            // Identify segments that compare the same types of values
-            var locallyAuthorizedClaimSegments = new List<ClaimsAuthorizationSegment>();
+                    // Get a list of identifiers that are not accessible from the claim's associated EdOrg
+                    var graph = _educationOrganizationHierarchy.Value;
 
-            foreach (var claimsAuthorizationSegment in authorizationSegments.ClaimsAuthorizationSegments)
-            {
-                var targetEndpointWithValue = claimsAuthorizationSegment.TargetEndpoint as AuthorizationSegmentEndpointWithValue;
+                    var inaccessibleIdentifierNames = graph
+                        .Vertices
+                        .Except(graph.GetDescendantsOrSelf(claimEducationOrganizationType))
+                        .Select(edOrgType => edOrgType + "Id") // TODO: Embedded convention (adding Id suffix to EdOrg type)
+                        .ToList();
 
-                // This should never happen
-                if (targetEndpointWithValue == null)
-                {
-                    throw new Exception(
-                        "The target endpoint association for a single-item claims authorization check did not have a value available from context.");
-                }
-
-                // Segment is locally authorizable if all the claim endpoints are of the same type as the target
-                bool locallyAuthorizable = claimsAuthorizationSegment
-                                          .ClaimsEndpoints
-                                          .All(x => x.Name == targetEndpointWithValue.Name);
-
-                if (locallyAuthorizable)
-                {
-                    // If there isn't any claim that matches the target endpoint's value, fail authorization now.
-                    if (!claimsAuthorizationSegment.ClaimsEndpoints
-                                                   .Any(x => x.Value.Equals(targetEndpointWithValue.Value)))
+                    if (inaccessibleIdentifierNames.Any(s => s.Equals(segment.TargetEndpoint.Name)))
                     {
-                        // Same types, but different values - authorization failed
-                        throw new EdFiSecurityException(
-                            string.Format(
-                                "Authorization denied.  Access to the requested '{0}' was denied.",
-                                targetEndpointWithValue.Name));
+                        errorMessages.Add($"Authorization denied.  The claims associated with an identifier of '{name}' " +
+                            $"cannot be used to authorize a request associated with an identifier of '{segment.TargetEndpoint.Name}'."); ;
                     }
+                    else
+                    {
+                        isTargetEndpointReachableFromAnyClaimEndpointsInSegment = true;
+                    }
+                }
 
-                    // Remove the segment from the list for authorization
-                    locallyAuthorizedClaimSegments.Add(claimsAuthorizationSegment);
+                if (!isTargetEndpointReachableFromAnyClaimEndpointsInSegment)
+                {
+                    multipleSegmentsErrorMessages.AddRange(errorMessages);
                 }
             }
 
-            // Continue with other rules that are not referencing the same types of values available on the claim (e.g. LEA Id to LEA Id)
-            var segmentsStillRequiringVerification =
-                new AuthorizationSegmentCollection(
-                    authorizationSegments.ClaimsAuthorizationSegments.Except(locallyAuthorizedClaimSegments),
-                    authorizationSegments.ExistingValuesAuthorizationSegments);
-
-            // Check for an empty ruleset
-            if (!segmentsStillRequiringVerification.ClaimsAuthorizationSegments.Any()
-                && !segmentsStillRequiringVerification.ExistingValuesAuthorizationSegments.Any())
+            //Validate all segments before throwing an exception if one or more segments are invalid. 
+            if (multipleSegmentsErrorMessages.Any())
             {
-                // If we have already performed some authorization (and removed some segments), 
-                // then authorization has been performed and has succeeded
-                if (locallyAuthorizedClaimSegments.Count > 0)
+                throw new EdFiSecurityException(string.Join(" ", multipleSegmentsErrorMessages));
+            }
+
+            var inlineAuthorizationResults = PerformInlineClaimsAuthorizations();
+
+            // Check for state where no more segments remain to be authorized
+            if (!inlineAuthorizationResults.SegmentsStillRequiringAuthorization.Any())
+            {
+                // If we got to this point and did not perform any inline authorizations, there's nothing that can authorize
+                if (!inlineAuthorizationResults.InlineAuthorizationOccurred)
                 {
-                    return;
+                    // NOTE: It seems like this check and exception could be moved to right after the call to GetAuthorizationSegments,
+                    // which would eliminate the need for tracking the InlineAuthorizationOccurred in the inline authorization results.
+                    throw new NotSupportedException(
+                        "Relationship-based authorization could not be performed on the request because there were no authorization segments defined indicating the resource shouldn't be authorized with a relationship-based strategy.");
                 }
 
-                throw new NotSupportedException(
-                    "Relationship-based authorization could not be performed on the request because there were no authorization segments defined indicating the resource shouldn't be authorized with a relationship-based strategy.");
+                // Inline authorization was performed, was sufficient.
+                return;
             }
 
             // Execute authorization
-            await AuthorizationSegmentsVerifier.VerifyAsync(segmentsStillRequiringVerification, cancellationToken);
+            await AuthorizationSegmentsVerifier.VerifyAsync(inlineAuthorizationResults.SegmentsStillRequiringAuthorization, cancellationToken);
+
+            InlineAuthorizationResults PerformInlineClaimsAuthorizations()
+            {
+                // Create a list to store segments that have been locally authorized (because claim and entity values are the same type and are equal)
+                var subsequentAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
+
+                bool inlineAuthorizationOccurred = false;
+
+                foreach (var claimsAuthorizationSegment in authorizationSegments)
+                {
+                    var targetEndpointWithValue = claimsAuthorizationSegment.TargetEndpoint as AuthorizationSegmentEndpointWithValue;
+
+                    // This should never happen
+                    if (targetEndpointWithValue == null)
+                    {
+                        throw new Exception(
+                            "The target endpoint association for a single-item claims authorization check did not have a value available from context.");
+                    }
+
+                    // Segment can possibly be authorized here using value if any of the claims are of the same type and value as the target
+
+                    // Find all the claims endpoint (values) on this segment that *could* be used to authorize the segment
+                    var inlinableClaimsEndpoints =
+                        claimsAuthorizationSegment.ClaimsEndpoints
+                            .Where(x => x.Name.EqualsIgnoreCase(targetEndpointWithValue.Name))
+                            .ToList();
+
+                    var nonInlinableClaimsEndpoints =
+                        claimsAuthorizationSegment.ClaimsEndpoints
+                            .Where(x => !x.Name.EqualsIgnoreCase(targetEndpointWithValue.Name));
+
+                    //If we found any claim values that *could* authorize the current segment...
+                    if (inlinableClaimsEndpoints.Any())
+                    {
+                        // Do we have any that actually *do* authorize the segment?
+                        if (inlinableClaimsEndpoints.Any(x => x.Value.Equals(targetEndpointWithValue.Value)))
+                        {
+                            inlineAuthorizationOccurred = true;
+                            continue;
+                        }
+
+                        // The claims endpoints we checked couldn't authorize this segment.
+                        // If there are not any others to check (i.e. using relationships in the database), then we should preemptively fail authorization now.
+                        if (!nonInlinableClaimsEndpoints.Any())
+                        {
+                            throw new EdFiSecurityException(
+                                $"Authorization denied.  Access to the requested '{targetEndpointWithValue.Name}' was denied.");
+                        }
+
+                        // We found claim value(s) for inlining the authorization check, but it failed to authorize and should not be retried with the database.
+                        // Therefore, create a new authorization segment that excludes these specific claim endpoints to allow the others to be checked through database relationships
+                        subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
+                            nonInlinableClaimsEndpoints.ToArray(),
+                            claimsAuthorizationSegment.TargetEndpoint,
+                            claimsAuthorizationSegment.AuthorizationPathModifier));
+                    }
+                    else
+                    {
+                        //The segment could not be authorized inline, so add it for subsequent authorization
+                        subsequentAuthorizationSegments.Add(claimsAuthorizationSegment);
+                    }
+                }
+
+                // Continue with other rules that are not referencing the same types of values available on the claim (e.g. LEA Id to LEA Id)
+                return new InlineAuthorizationResults(subsequentAuthorizationSegments, inlineAuthorizationOccurred);
+            }
+        }
+
+        private class InlineAuthorizationResults
+        {
+            public InlineAuthorizationResults(
+                IReadOnlyList<ClaimsAuthorizationSegment> segmentsStillRequiringAuthorization,
+                bool inlineAuthorizationOccurred)
+            {
+                InlineAuthorizationOccurred = inlineAuthorizationOccurred;
+                SegmentsStillRequiringAuthorization = segmentsStillRequiringAuthorization;
+            }
+
+            /// <summary>
+            /// Indicates whether any authorizations were able to be performed inline.
+            /// </summary>
+            public bool InlineAuthorizationOccurred { get; }
+
+            /// <summary>
+            /// Gets the authorization segments that were not able to be authorized inline and still need to be authorized.
+            /// </summary>
+            public IReadOnlyList<ClaimsAuthorizationSegment> SegmentsStillRequiringAuthorization { get; }
         }
 
         /// <summary>
@@ -207,7 +263,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             AuthorizationSegmentsToFiltersConverter.Convert(entityType, authorizationSegments, filterBuilder);
         }
 
-        private AuthorizationSegmentCollection GetAuthorizationSegments(
+        private IReadOnlyList<ClaimsAuthorizationSegment> GetAuthorizationSegments(
             IEnumerable<Claim> claims,
             Type entityType,
             string[] signatureProperties,
@@ -222,18 +278,18 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         }
 
         private static void EnsureSingleTypeOfIdentifierInSegments(
-            AuthorizationSegmentCollection authorizationSegments)
+            IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
         {
             // Simply ignore the return value for this usage
             GetSingleEducationOrganizationIdentifierNameFromClaimsSegments(authorizationSegments);
         }
 
         private static string GetSingleEducationOrganizationIdentifierNameFromClaimsSegments(
-            AuthorizationSegmentCollection authorizationSegments)
+            IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
         {
             // Look through all the claims-based segments for different EdOrg types...
             var claimsSegmentsGroupedByName =
-                (from cs in authorizationSegments.ClaimsAuthorizationSegments
+                (from cs in authorizationSegments
                  from cv in cs.ClaimsEndpoints
                  group cs by cv.Name
                  into g

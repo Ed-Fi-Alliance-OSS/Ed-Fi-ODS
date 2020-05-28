@@ -47,6 +47,16 @@ namespace EdFi.Ods.Common.Security.Authorization
             AuthorizationPathModifier = authorizationPathModifier;
         }
 
+        public ClaimsAuthorizationSegment(
+            IReadOnlyList<AuthorizationSegmentEndpointWithValue> claimsEndpoints,
+            AuthorizationSegmentEndpoint targetEndpoint,
+            string authorizationPathModifier)
+        {
+            ClaimsEndpoints = claimsEndpoints;
+            TargetEndpoint = targetEndpoint;
+            AuthorizationPathModifier = authorizationPathModifier;
+        }
+
         /// <summary>
         /// Gets the collection of values, one of which must be associated with the <see cref="TargetEndpoint"/>.
         /// </summary>

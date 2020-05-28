@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -44,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             this IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> dependency,
             params string[] propertyNames)
         {
-            A.CallTo(() => 
+            A.CallTo(() =>
                 dependency.GetAuthorizationContextPropertyNames())
                 .Returns(propertyNames);
 
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             this IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData> dependency,
             IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> provider)
         {
-            A.CallTo(() => 
+            A.CallTo(() =>
                 dependency.GetProvider(A<Type>.Ignored))
                 .Returns(provider);
 
@@ -66,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             this IEducationOrganizationCache dependency,
             int educationOrganizationId)
         {
-            A.CallTo(() => 
+            A.CallTo(() =>
                 dependency
                     .GetEducationOrganizationIdentifiers(educationOrganizationId))
                     .Returns(
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
         public static IEducationOrganizationHierarchyProvider that_always_returns_an_empty_graph(
             this IEducationOrganizationHierarchyProvider dependency)
         {
-            A.CallTo(() => 
+            A.CallTo(() =>
                     dependency
                         .GetEducationOrganizationHierarchy())
                         .Returns(new AdjacencyGraph<string, Edge<string>>());
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(object entity)
         {
-            return new EdFiAuthorizationContext(new ClaimsPrincipal(), new[] {"resource"}, "action", entity);
+            return new EdFiAuthorizationContext(new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
         }
 
         private class passthrough_context_data_transformer : context_data_transformer
@@ -191,8 +191,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                             Given<segments_to_filters_converter>()
                                 .Convert(
                                     A<Type>.That.IsSameAs(Supplied("entity").GetType()),
-                                    A<AuthorizationSegmentCollection>.That.Matches(
-                                        asc => asc.ClaimsAuthorizationSegments.Count == expectedSegmentLength),
+                                    A<IReadOnlyList<ClaimsAuthorizationSegment>>.That.Matches(
+                                        asc => asc.Count == expectedSegmentLength),
                                     A<ParameterizedFilterBuilder>.That.IsSameAs(Supplied<ParameterizedFilterBuilder>())))
                     .MustHaveHappened();
             }
@@ -226,7 +226,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                                 Supplied<int>("LocalEducationAgencyId"),
                                 "LocalEducationAgency"));
 
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<education_organization_cache>()
                         .GetEducationOrganizationIdentifiers(Supplied<int>("SchoolId")))
                    .Returns(new EducationOrganizationIdentifiers(Supplied<int>("SchoolId"), "School"));
@@ -287,7 +287,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 Supplied(
                     new RelationshipsAuthorizationContextData
                     {
-                        LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId"), StaffUSI = Supplied<int>("StaffUSI")
+                        LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId"),
+                        StaffUSI = Supplied<int>("StaffUSI")
                     });
 
                 Given<education_organization_cache>()
@@ -406,9 +407,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             [Assert]
             public void Should_not_call_through_to_verify_the_segments()
             {
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IAuthorizationSegmentsVerifier>()
-                        .VerifyAsync(A<AuthorizationSegmentCollection>.Ignored, A<CancellationToken>.Ignored))
+                        .VerifyAsync(A<IReadOnlyList<ClaimsAuthorizationSegment>>.Ignored, A<CancellationToken>.Ignored))
                     .MustNotHaveHappened();
             }
         }

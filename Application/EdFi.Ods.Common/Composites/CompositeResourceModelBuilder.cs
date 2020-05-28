@@ -78,19 +78,21 @@ namespace EdFi.Ods.Common.Composites
             if (processorContext.ShouldIncludeResourceSubtype())
             {
                 Logger.Debug($"Adding the resource type the property collection");
-                builderContext.CurrentResource.Properties
-                              .Add(new ResourceProperty(
-                                       builderContext.CurrentResource,
-                                       processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type",
-                                       new PropertyType(DbType.AnsiString, 128, 0 ,0, true), 
-                                       new PropertyCharacteristics(
-                                           false,
-                                           false,
-                                           false,
-                                           true, // All projected properties are "local" properties on the new object
-                                           false,
-                                           null),
-                                       null));
+
+                AddItem(
+                    builderContext.CurrentResource.Properties,
+                    new ResourceProperty(
+                        builderContext.CurrentResource,
+                        processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type",
+                        new PropertyType(DbType.AnsiString, 128, 0, 0, true),
+                        new PropertyCharacteristics(
+                            false,
+                            false,
+                            false,
+                            true, // All projected properties are "local" properties on the new object
+                            false,
+                            null),
+                        null));
             }
 
             foreach (var property in orderedPropertyProjections)
@@ -105,22 +107,22 @@ namespace EdFi.Ods.Common.Composites
                 {
                     Logger.Debug($"Adding property {property.ResourceProperty.PropertyName} to the builder context.");
 
-                    builderContext.CurrentResource.Properties
-                                  .Add(
-                                       new ResourceProperty(
-                                           builderContext.CurrentResource,
-                                           property.DisplayName ?? property.ResourceProperty.PropertyName,
-                                           property.ResourceProperty.PropertyType,
-                                           new PropertyCharacteristics(
-                                               entityProperty.IsLookup,
-                                               entityProperty.IsDirectLookup,
-                                               entityProperty.IsIdentifying,
-                                               true, // All projected properties are "local" properties on the new object
-                                               entityProperty.IsServerAssigned,
-                                               entityProperty.LookupEntity == null
-                                                   ? null as FullName?
-                                                   : entityProperty.LookupEntity.FullName),
-                                           property.ResourceProperty.Description));
+                    AddItem(
+                        builderContext.CurrentResource.Properties,
+                        new ResourceProperty(
+                            builderContext.CurrentResource,
+                            property.DisplayName ?? property.ResourceProperty.PropertyName,
+                            property.ResourceProperty.PropertyType,
+                            new PropertyCharacteristics(
+                                entityProperty.IsLookup,
+                                entityProperty.IsDirectLookup,
+                                entityProperty.IsIdentifying,
+                                true, // All projected properties are "local" properties on the new object
+                                entityProperty.IsServerAssigned,
+                                entityProperty.LookupEntity == null
+                                    ? null as FullName?
+                                    : entityProperty.LookupEntity.FullName),
+                            property.ResourceProperty.Description));
                 }
                 else
                 {
@@ -164,8 +166,7 @@ namespace EdFi.Ods.Common.Composites
             switch (currentElementName)
             {
                 case Collection:
-
-                    builderContext.ParentResource.Collections.Add(
+                    AddItem(builderContext.ParentResource.Collections,
                         new Collection(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -176,7 +177,7 @@ namespace EdFi.Ods.Common.Composites
 
                 case LinkedCollection:
 
-                    builderContext.ParentResource.Collections.Add(
+                    AddItem(builderContext.ParentResource.Collections,
                         new Collection(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -187,7 +188,7 @@ namespace EdFi.Ods.Common.Composites
 
                 case ReferencedResource:
 
-                    builderContext.ParentResource.EmbeddedObjects.Add(
+                    AddItem(builderContext.ParentResource.EmbeddedObjects,
                         new EmbeddedObject(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -197,7 +198,7 @@ namespace EdFi.Ods.Common.Composites
 
                 case EmbeddedObject:
 
-                    builderContext.ParentResource.EmbeddedObjects.Add(
+                    AddItem(builderContext.ParentResource.EmbeddedObjects,
                         new EmbeddedObject(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -332,6 +333,18 @@ namespace EdFi.Ods.Common.Composites
             CompositeDefinitionProcessorContext processorContext)
         {
             // Nothing to do
+        }
+
+        private static void AddItem<T>(IReadOnlyList<T> readOnlyList, T item)
+        {
+            var underlyingList = readOnlyList as List<T>;
+
+            if (underlyingList == null)
+            {
+                throw new InvalidOperationException("Underlying list instance is not of type List<T>.");
+            }
+
+            underlyingList.Add(item);
         }
     }
 }

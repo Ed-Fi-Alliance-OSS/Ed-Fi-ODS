@@ -2,10 +2,11 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -86,9 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             {
                 TestSubject.Convert(
                     typeof(TestEntityType),
-                    new AuthorizationSegmentCollection(
-                        new ClaimsAuthorizationSegment[0],
-                        new ExistingValuesAuthorizationSegment[0]),
+                    new ClaimsAuthorizationSegment[0],
                     Supplied(new ParameterizedFilterBuilder()));
             }
 
@@ -133,7 +132,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
@@ -200,7 +199,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
@@ -276,7 +275,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
@@ -324,7 +323,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
@@ -391,7 +390,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
@@ -452,7 +451,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // Execute code under test
                 TestSubject.Convert(
                     Supplied<Type>("entityType"),
-                    Supplied<AuthorizationSegmentCollection>(),
+                    Supplied<IReadOnlyList<ClaimsAuthorizationSegment>>(),
                     Supplied<ParameterizedFilterBuilder>());
 
                 _actualFilters = Supplied<ParameterizedFilterBuilder>()
