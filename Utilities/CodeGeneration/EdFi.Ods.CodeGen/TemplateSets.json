@@ -6,6 +6,11 @@
       "OutputPath": "ExceptionHandling\\DatabaseMetadata.generated.cs"
     },
     {
+      "Name": "DatabaseViews",
+      "Driver": "DatabaseViews",
+      "OutputPath": "Artifacts\\Metadata\\DatabaseViews.generated.json"
+    },
+    {
       "Name": "Entities",
       "Driver": "Entities",
       "OutputPath": "Models\\Entities\\Entities.generated.cs"
