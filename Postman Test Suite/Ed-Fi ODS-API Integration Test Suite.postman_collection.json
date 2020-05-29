@@ -2138,7 +2138,13 @@
 									"script": {
 										"id": "8b221910-370d-4d0b-bd2b-f83d796807c2",
 										"exec": [
-											""
+											"const __ = require('lodash');\r",
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -2171,7 +2177,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"District\",\r\n  \"description\": \"District\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"District\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2202,12 +2208,9 @@
 										"id": "e856ed11-ee7f-4538-ad0d-02287ccb4a4b",
 										"exec": [
 											"const __ = require('lodash');\r",
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
 										],
 										"type": "text/javascript"
 									}
@@ -2242,7 +2245,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n}",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2309,7 +2312,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2425,7 +2428,7 @@
 											"pm.test(\"Should match with Staffs Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
 											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal('uri://ed-fi.org/SourceSystemDescriptor#District');",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
 											"      });       ",
 											"});"
 										],
@@ -2509,7 +2512,12 @@
 									"script": {
 										"id": "f0a936b1-c246-4038-aaf9-6dec8935feed",
 										"exec": [
-											""
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -2542,7 +2550,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"District\",\r\n  \"description\": \"District\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"District\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2573,12 +2581,9 @@
 										"id": "43778ec4-8833-4193-9636-a8a01885bee2",
 										"exec": [
 											"const __ = require('lodash');\r",
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':PersonId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
 										],
 										"type": "text/javascript"
 									}
@@ -2613,7 +2618,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"PersonId\": \"{{supplied:{{scenarioId}}:PersonId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n}",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2643,7 +2648,10 @@
 									"script": {
 										"id": "ec70efa8-7d6a-4dc5-b3eb-e0cf72e4e486",
 										"exec": [
-											""
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':seconddescription', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -2676,7 +2684,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"State\",\r\n  \"description\": \"State\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"State\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:seconddescription}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:seconddescription}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:seconddescription}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2706,7 +2714,8 @@
 									"script": {
 										"id": "5246f9fd-16c5-477e-bd92-83febd48bc84",
 										"exec": [
-											""
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':secondsourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':seconddescription'));"
 										],
 										"type": "text/javascript"
 									}
@@ -2741,7 +2750,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"PersonId\": \"{{supplied:{{scenarioId}}:PersonId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#State\"\r\n}",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:secondsourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2791,10 +2800,12 @@
 											"});",
 											"",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"const sourceSystemDescriptors = ['uri://ed-fi.org/SourceSystemDescriptor#District','uri://ed-fi.org/SourceSystemDescriptor#State'];",
+											"const sourceSystemDescriptors = [''];",
+											"sourceSystemDescriptors.push(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"sourceSystemDescriptors.push(pm.environment.get('supplied:'+scenarioId+':secondsourceSystemDescriptor'));",
 											"pm.test(\"Should match with Person Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
-											"        pm.expect(responseItem.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':PersonId').toString());",
+											"        pm.expect(responseItem.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
 											"       pm.expect(sourceSystemDescriptors.includes(responseItem.sourceSystemDescriptor)).to.equal(true);",
 											"      });       ",
 											"});"
@@ -2817,7 +2828,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people?PersonId={{supplied:{{scenarioId}}:PersonId}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people?personId={{supplied:{{scenarioId}}:personId}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2829,8 +2840,8 @@
 									],
 									"query": [
 										{
-											"key": "PersonId",
-											"value": "{{supplied:{{scenarioId}}:PersonId}}"
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
 										}
 									]
 								}
@@ -2882,7 +2893,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:PersonId}}\",\r\n     \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#State\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n     \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:secondsourceSystemDescriptor}}\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2996,8 +3007,8 @@
 											" ",
 											"pm.test(\"Should match with Staffs Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
-											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':PersonId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal('uri://ed-fi.org/SourceSystemDescriptor#State');",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':secondsourceSystemDescriptor'));",
 											"      });       ",
 											"});"
 										],
@@ -3019,7 +3030,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs?staffUniqueId={{supplied:{{scenarioId}}:staffUniqueId}}&personId={{supplied:{{scenarioId}}:PersonId}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs?staffUniqueId={{supplied:{{scenarioId}}:staffUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -3036,7 +3047,7 @@
 										},
 										{
 											"key": "personId",
-											"value": "{{supplied:{{scenarioId}}:PersonId}}"
+											"value": "{{supplied:{{scenarioId}}:personId}}"
 										}
 									]
 								}
@@ -3081,7 +3092,12 @@
 									"script": {
 										"id": "ebdbba79-9296-41bd-9319-8792405117cf",
 										"exec": [
-											""
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -3114,7 +3130,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"District\",\r\n  \"description\": \"District\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"District\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3145,12 +3161,9 @@
 										"id": "bbbe3e0e-9316-4e26-8e72-0629641184ed",
 										"exec": [
 											"const __ = require('lodash');\r",
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
 										],
 										"type": "text/javascript"
 									}
@@ -3185,7 +3198,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n}\r\n",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3260,7 +3273,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n  }\r\n}"
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3362,7 +3375,7 @@
 											"pm.test(\"Should match with Student Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
 											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal('uri://ed-fi.org/SourceSystemDescriptor#District');",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
 											"      });       ",
 											"});"
 										],
@@ -3453,7 +3466,12 @@
 									"script": {
 										"id": "9b56d4de-ee55-4610-b882-e45f33713727",
 										"exec": [
-											""
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -3486,7 +3504,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"District\",\r\n  \"description\": \"District\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"District\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3517,12 +3535,9 @@
 										"id": "57e3d0a4-75ac-4edf-8615-27a15ec2ab36",
 										"exec": [
 											"const __ = require('lodash');\r",
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
 										],
 										"type": "text/javascript"
 									}
@@ -3557,7 +3572,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n}\r\n",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3613,8 +3628,7 @@
 											"let birthDate=new Date();",
 											"birthDate = birthDate.addYears(-20);",
 											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
-											"pm.environment.set('supplied:'+scenarioId+':BirthDate',birthDate);",
-											""
+											"pm.environment.set('supplied:'+scenarioId+':BirthDate',birthDate);"
 										],
 										"type": "text/javascript"
 									}
@@ -3632,7 +3646,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n  }\r\n}"
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3747,8 +3761,7 @@
 											"let birthDate=new Date();",
 											"birthDate = birthDate.addYears(-20);",
 											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
-											"pm.environment.set('supplied:'+scenarioId+':SecondBirthDate',birthDate);",
-											""
+											"pm.environment.set('supplied:'+scenarioId+':SecondBirthDate',birthDate);"
 										],
 										"type": "text/javascript"
 									}
@@ -3766,7 +3779,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:SecondStudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:SecondBirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:SecondFirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:SecondLastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n  }\r\n}"
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:SecondStudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:SecondBirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:SecondFirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:SecondLastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -3868,7 +3881,7 @@
 											"pm.test(\"Should match with Student Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
 											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal('uri://ed-fi.org/SourceSystemDescriptor#District');",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
 											"      });       ",
 											"});"
 										],
@@ -3955,7 +3968,12 @@
 									"script": {
 										"id": "e282cfbd-be38-48f4-9775-b5d1b486a7ca",
 										"exec": [
-											""
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
 										],
 										"type": "text/javascript"
 									}
@@ -3988,7 +4006,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"codeValue\": \"District\",\r\n  \"description\": \"District\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"District\"\r\n}",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4019,12 +4037,9 @@
 										"id": "5d612fcf-f942-49f1-ae57-590c1de8f8af",
 										"exec": [
 											"const __ = require('lodash');\r",
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));"
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
 										],
 										"type": "text/javascript"
 									}
@@ -4059,7 +4074,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n}",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4280,7 +4295,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n    \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"uri://ed-fi.org/SourceSystemDescriptor#District\"\r\n  }\r\n}\r\n",
+									"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n    \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4341,7 +4356,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}\r\n\r\n",
+									"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4384,9 +4399,10 @@
 											"pm.test(\"Should match with Student Response \", () => {",
 											"    __.each(responseItems, (responseItem) => {",
 											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
-											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal('uri://ed-fi.org/SourceSystemDescriptor#District');",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
 											"      });       ",
-											"});"
+											"});",
+											""
 										],
 										"type": "text/javascript"
 									}
