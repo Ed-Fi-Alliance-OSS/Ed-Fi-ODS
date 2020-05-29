@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
+using System.Diagnostics;
 using System.Net;
 using EdFi.LoadTools;
 using EdFi.LoadTools.Engine;
@@ -56,6 +57,15 @@ namespace EdFi.SmokeTest.Console
                 {
                     Log.Error(e);
                     Environment.ExitCode = 1;
+                }
+                finally
+                {
+                    _container.Dispose();
+                    if (Debugger.IsAttached)
+                    {
+                        System.Console.WriteLine("Press enter to continue.");
+                        System.Console.ReadLine();
+                    }
                 }
             }
         }
