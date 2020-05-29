@@ -35,7 +35,6 @@
     <EmbeddedResource Include="Profiles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.GrandBend\EdFi.Ods.Extensions.GrandBend.csproj" />
     <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj" />
     <ProjectReference Include="$(SolutionDir)EdFi.Ods.Extensions.TPDM\EdFi.Ods.Extensions.TPDM.csproj" />
     <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
