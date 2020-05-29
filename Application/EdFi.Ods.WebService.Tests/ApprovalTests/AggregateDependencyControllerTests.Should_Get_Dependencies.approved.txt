@@ -1200,6 +1200,14 @@
     ]
   },
   {
+    "resource": "/ed-fi/sourceSystemDescriptors",
+    "order": 2,
+    "operations": [
+      "Create",
+      "Update"
+    ]
+  },
+  {
     "resource": "/ed-fi/specialEducationProgramServiceDescriptors",
     "order": 2,
     "operations": [
@@ -1384,17 +1392,11 @@
     ]
   },
   {
-    "resource": "/ed-fi/parents",
+    "resource": "/ed-fi/people",
     "order": 3,
     "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/students",
-    "order": 3,
-    "operations": [
-      "Create"
+      "Create",
+      "Update"
     ]
   },
   {
@@ -1411,6 +1413,13 @@
     "operations": [
       "Create",
       "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/parents",
+    "order": 4,
+    "operations": [
+      "Create"
     ]
   },
   {
@@ -1434,6 +1443,13 @@
     "operations": [
       "Create",
       "Update"
+    ]
+  },
+  {
+    "resource": "/ed-fi/students",
+    "order": 4,
+    "operations": [
+      "Create"
     ]
   },
   {

@@ -5366,7 +5366,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             specification.MiddleName = request.MiddleName;
             specification.ParentUniqueId = request.ParentUniqueId;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
                     }
 
         protected override string GetResourceCollectionName()
@@ -5543,6 +5545,41 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
         protected override string GetResourceCollectionName()
         {
             return "performanceLevelDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class PeopleController : EdFiControllerBase<
+        Models.Resources.Person.EdFi.Person,
+        Models.Resources.Person.EdFi.Person,
+        Entities.Common.EdFi.IPerson,
+        Entities.NHibernate.PersonAggregate.EdFi.Person,
+        Api.Models.Requests.People.EdFi.PersonPut,
+        Api.Models.Requests.People.EdFi.PersonPost,
+        Api.Models.Requests.People.EdFi.PersonDelete,
+        Api.Models.Requests.People.EdFi.PersonGetByExample>
+    {
+        public PeopleController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.People.EdFi.PersonGetByExample request, IPerson specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "people";
         }
     }
 }
@@ -7268,6 +7305,39 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class SourceSystemDescriptorsController : EdFiControllerBase<
+        Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
+        Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
+        Entities.Common.EdFi.ISourceSystemDescriptor,
+        Entities.NHibernate.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptor,
+        Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorPut,
+        Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorPost,
+        Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorDelete,
+        Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample>
+    {
+        public SourceSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample request, ISourceSystemDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.SourceSystemDescriptorId = request.SourceSystemDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "sourceSystemDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -7371,7 +7441,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.MiddleName = request.MiddleName;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
@@ -7992,6 +8064,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             specification.MiddleName = request.MiddleName;
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
                     }
 

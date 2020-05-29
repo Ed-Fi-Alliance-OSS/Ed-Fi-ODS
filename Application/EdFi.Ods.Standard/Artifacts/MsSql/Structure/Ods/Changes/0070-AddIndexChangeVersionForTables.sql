@@ -274,6 +274,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.Person') AND name = N'UX_Person_ChangeVersion')
+    CREATE INDEX [UX_Person_ChangeVersion] ON [edfi].[Person] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.PostSecondaryEvent') AND name = N'UX_PostSecondaryEvent_ChangeVersion')
     CREATE INDEX [UX_PostSecondaryEvent_ChangeVersion] ON [edfi].[PostSecondaryEvent] ([ChangeVersion] ASC)
     GO

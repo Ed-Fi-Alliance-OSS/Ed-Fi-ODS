@@ -2880,6 +2880,8 @@ CREATE TABLE edfi.Parent (
     MaidenName VARCHAR(75) NULL,
     SexDescriptorId INT NULL,
     LoginId VARCHAR(60) NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     ParentUniqueId VARCHAR(32) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -3061,6 +3063,20 @@ CREATE TABLE edfi.PerformanceLevelDescriptor (
     PerformanceLevelDescriptorId INT NOT NULL,
     CONSTRAINT PerformanceLevelDescriptor_PK PRIMARY KEY (PerformanceLevelDescriptorId)
 ); 
+
+-- Table edfi.Person --
+CREATE TABLE edfi.Person (
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT Person_PK PRIMARY KEY (PersonId, SourceSystemDescriptorId)
+); 
+ALTER TABLE edfi.Person ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.Person ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.Person ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table edfi.PersonalInformationVerificationDescriptor --
 CREATE TABLE edfi.PersonalInformationVerificationDescriptor (
@@ -3745,6 +3761,12 @@ CREATE TABLE edfi.SexDescriptor (
     CONSTRAINT SexDescriptor_PK PRIMARY KEY (SexDescriptorId)
 ); 
 
+-- Table edfi.SourceSystemDescriptor --
+CREATE TABLE edfi.SourceSystemDescriptor (
+    SourceSystemDescriptorId INT NOT NULL,
+    CONSTRAINT SourceSystemDescriptor_PK PRIMARY KEY (SourceSystemDescriptorId)
+); 
+
 -- Table edfi.SpecialEducationProgramServiceDescriptor --
 CREATE TABLE edfi.SpecialEducationProgramServiceDescriptor (
     SpecialEducationProgramServiceDescriptorId INT NOT NULL,
@@ -3776,6 +3798,8 @@ CREATE TABLE edfi.Staff (
     YearsOfPriorTeachingExperience DECIMAL(5, 2) NULL,
     LoginId VARCHAR(60) NULL,
     HighlyQualifiedTeacher BOOLEAN NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     StaffUniqueId VARCHAR(32) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4346,6 +4370,8 @@ CREATE TABLE edfi.Student (
     MultipleBirthStatus BOOLEAN NULL,
     BirthSexDescriptorId INT NULL,
     CitizenshipStatusDescriptorId INT NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     StudentUniqueId VARCHAR(32) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,

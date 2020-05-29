@@ -1376,6 +1376,15 @@ CREATE TABLE tracked_deletes_edfi.PerformanceLevelDescriptor
        CONSTRAINT PerformanceLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_edfi.Person
+(
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT Person_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_edfi.PersonalInformationVerificationDescriptor
 (
        PersonalInformationVerificationDescriptorId INT NOT NULL,
@@ -1789,6 +1798,14 @@ CREATE TABLE tracked_deletes_edfi.SexDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT SexDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.SourceSystemDescriptor
+(
+       SourceSystemDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SourceSystemDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_edfi.SpecialEducationProgramServiceDescriptor

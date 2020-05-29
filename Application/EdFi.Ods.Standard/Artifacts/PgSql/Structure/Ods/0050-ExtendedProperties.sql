@@ -1887,6 +1887,8 @@ COMMENT ON COLUMN edfi.Parent.GenerationCodeSuffix IS 'An appendage, if any, use
 COMMENT ON COLUMN edfi.Parent.MaidenName IS 'The person''s maiden name.';
 COMMENT ON COLUMN edfi.Parent.SexDescriptorId IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.Parent.LoginId IS 'The login ID for the user; used for security access control interface.';
+COMMENT ON COLUMN edfi.Parent.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN edfi.Parent.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN edfi.Parent.ParentUniqueId IS 'A unique alphanumeric code assigned to a parent.';
 
 -- Extended Properties [edfi].[ParentAddress] --
@@ -2006,6 +2008,11 @@ COMMENT ON COLUMN edfi.PerformanceBaseConversionDescriptor.PerformanceBaseConver
 -- Extended Properties [edfi].[PerformanceLevelDescriptor] --
 COMMENT ON TABLE edfi.PerformanceLevelDescriptor IS 'This descriptor defines various levels or thresholds for performance on the assessment.';
 COMMENT ON COLUMN edfi.PerformanceLevelDescriptor.PerformanceLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[Person] --
+COMMENT ON TABLE edfi.Person IS 'This entity represents a human being.';
+COMMENT ON COLUMN edfi.Person.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN edfi.Person.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [edfi].[PersonalInformationVerificationDescriptor] --
 COMMENT ON TABLE edfi.PersonalInformationVerificationDescriptor IS 'The evidence presented to verify one''s personal identity; for example: driver''s license, passport, birth certificate, etc.';
@@ -2486,6 +2493,10 @@ COMMENT ON COLUMN edfi.SessionGradingPeriod.SessionName IS 'The identifier for t
 COMMENT ON TABLE edfi.SexDescriptor IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.SexDescriptor.SexDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[SourceSystemDescriptor] --
+COMMENT ON TABLE edfi.SourceSystemDescriptor IS 'This descriptor defines the originating record source system.';
+COMMENT ON COLUMN edfi.SourceSystemDescriptor.SourceSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[SpecialEducationProgramServiceDescriptor] --
 COMMENT ON TABLE edfi.SpecialEducationProgramServiceDescriptor IS 'This descriptor defines the services provided by an education organization to populations of students associated with a special education program.';
 COMMENT ON COLUMN edfi.SpecialEducationProgramServiceDescriptor.SpecialEducationProgramServiceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -2523,6 +2534,8 @@ COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total nu
 COMMENT ON COLUMN edfi.Staff.YearsOfPriorTeachingExperience IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions.';
 COMMENT ON COLUMN edfi.Staff.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Staff.HighlyQualifiedTeacher IS 'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.';
+COMMENT ON COLUMN edfi.Staff.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN edfi.Staff.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN edfi.Staff.StaffUniqueId IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StaffAbsenceEvent] --
@@ -2924,6 +2937,8 @@ COMMENT ON COLUMN edfi.Student.DateEnteredUS IS 'For students born outside of th
 COMMENT ON COLUMN edfi.Student.MultipleBirthStatus IS 'Indicator of whether the student was born with other siblings (i.e., twins, triplets, etc.)';
 COMMENT ON COLUMN edfi.Student.BirthSexDescriptorId IS 'A person''s gender at birth.';
 COMMENT ON COLUMN edfi.Student.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
+COMMENT ON COLUMN edfi.Student.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN edfi.Student.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN edfi.Student.StudentUniqueId IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentAcademicRecord] --

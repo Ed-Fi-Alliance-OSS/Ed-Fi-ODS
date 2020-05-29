@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
     [TestFixture]
     public class GetEntitiesByIds : LegacyTestFixtureBase
     {
-        public class When_getting_entities_by_ids_and_the_aggregate_root_is_derived 
+        public class When_getting_entities_by_ids_and_the_aggregate_root_is_derived
             : TestFixtureBase
         {
             private ISessionFactoryImplementor _sessionFactory;
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
             protected override void Act()
             {
                 var getEntitiesByIds = new GetEntitiesByIds<School>(
-                    _sessionFactory, 
+                    _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter);
 
@@ -144,7 +144,7 @@ Actual:
             protected override void Act()
             {
                 var getEntitiesByIds = new GetEntitiesByIds<Student>(
-                    _sessionFactory, 
+                    _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter);
 
@@ -162,7 +162,7 @@ Actual:
             {
                 Assert.That(
                     _actualHqlQueries.First(),
-                    Is.EqualTo($"from {typeof(Student).FullName} a where a.Id = :id"));
+                    Is.EqualTo($"from {typeof(Student).FullName} a left join fetch a.PersonReferenceData b where a.Id = :id"));
             }
 
             [Assert]
@@ -213,14 +213,14 @@ Actual:
                 // Console.WriteLine("Grandchild Entities: " + string.Join(", ", grandChildEntities.Select(x => x.FullName)));
 
                 _sessionFactory = GetSessionFactoryStub<StudentEducationOrganizationAssociation>(_actualHqlQueries);
-                
+
                 _parameterListSetter = Stub<IParameterListSetter>();
             }
 
             protected override void Act()
             {
                 var getEntitiesByIds = new GetEntitiesByIds<StudentEducationOrganizationAssociation>(
-                    _sessionFactory, 
+                    _sessionFactory,
                     _domainModelProvider,
                     _parameterListSetter);
 
@@ -248,7 +248,7 @@ Actual:
                                      .ToList();
 
                 Assert.That(
-                    _actualHqlQueries.OrderBy(x => x.Length), 
+                    _actualHqlQueries.OrderBy(x => x.Length),
                     Is.EquivalentTo(expectedQueries.OrderBy(x => x.Length)));
             }
 
@@ -256,7 +256,7 @@ Actual:
             public void Should_include_left_joins_for_obtaining_reference_data()
             {
                 Assert.That(
-                    _actualHqlQueries.Any(hql => 
+                    _actualHqlQueries.Any(hql =>
                     Regex.IsMatch(hql, "left join fetch [a-z]{1,2}\\.\\w+ReferenceData")),
                     "No joins for reference data were found in the aggregate's HQL statements.");
             }

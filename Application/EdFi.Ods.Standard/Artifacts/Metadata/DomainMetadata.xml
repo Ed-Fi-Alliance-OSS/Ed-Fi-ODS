@@ -602,6 +602,9 @@
   <Aggregate root="PerformanceLevelDescriptor">
     <Entity table="PerformanceLevelDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="Person">
+    <Entity table="Person"/>
+  </Aggregate>
   <Aggregate root="PersonalInformationVerificationDescriptor">
     <Entity table="PersonalInformationVerificationDescriptor" isA="Descriptor"/>
   </Aggregate>
@@ -772,6 +775,9 @@
   </Aggregate>
   <Aggregate root="SexDescriptor">
     <Entity table="SexDescriptor" isA="Descriptor"/>
+  </Aggregate>
+  <Aggregate root="SourceSystemDescriptor">
+    <Entity table="SourceSystemDescriptor" isA="Descriptor"/>
   </Aggregate>
   <Aggregate root="SpecialEducationProgramServiceDescriptor">
     <Entity table="SpecialEducationProgramServiceDescriptor" isA="Descriptor"/>

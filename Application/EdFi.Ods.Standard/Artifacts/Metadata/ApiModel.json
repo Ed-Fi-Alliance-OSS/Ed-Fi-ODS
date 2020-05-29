@@ -2417,6 +2417,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "edfi",
+        "name": "Person"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "Person"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
         "name": "PersonalInformationVerificationDescriptor"
       },
       "aggregateEntityNames": [
@@ -3095,6 +3107,18 @@
         {
           "schema": "edfi",
           "name": "SexDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "SourceSystemDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "SourceSystemDescriptor"
         }
       ]
     },
@@ -23082,6 +23106,113 @@
     },
     {
       "schema": "edfi",
+      "name": "Person",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "Person_PK",
+          "identifyingPropertyNames": [
+            "PersonId",
+            "SourceSystemDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "Person_PK",
+            "postgreSql": "Person_PK"
+          }
+        },
+        {
+          "identifierName": "UX_Person_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_Person_Id",
+            "postgreSql": "UX_6007db_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This entity represents a human being.",
+      "tableNames": {
+        "sqlServer": "Person",
+        "postgreSql": "Person"
+      }
+    },
+    {
+      "schema": "edfi",
       "name": "PersonalInformationVerificationDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -26327,6 +26458,31 @@
       "tableNames": {
         "sqlServer": "SexDescriptor",
         "postgreSql": "SexDescriptor"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "SourceSystemDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "SourceSystemDescriptor_PK",
+          "identifyingPropertyNames": [
+            "SourceSystemDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SourceSystemDescriptor_PK",
+            "postgreSql": "SourceSystemDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This descriptor defines the originating record source system.",
+      "tableNames": {
+        "sqlServer": "SourceSystemDescriptor",
+        "postgreSql": "SourceSystemDescriptor"
       }
     },
     {
@@ -78015,6 +78171,99 @@
     {
       "fullName": {
         "schema": "edfi",
+        "name": "FK_Parent_Person"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Person"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Parent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_Parent_Person",
+        "postgreSql": "FK_5f7953_Person"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
         "name": "FK_Parent_SexDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -79993,6 +80242,65 @@
       "constraintNames": {
         "sqlServer": "FK_PerformanceLevelDescriptor_Descriptor",
         "postgreSql": "FK_a54ec7_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_Person_SourceSystemDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "SourceSystemDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Person"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_Person_SourceSystemDescriptor",
+        "postgreSql": "FK_6007db_SourceSystemDescriptor"
       }
     },
     {
@@ -90668,6 +90976,65 @@
     {
       "fullName": {
         "schema": "edfi",
+        "name": "FK_SourceSystemDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "SourceSystemDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SourceSystemDescriptor_Descriptor",
+        "postgreSql": "FK_f71783_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
         "name": "FK_SpecialEducationProgramServiceDescriptor_Descriptor"
       },
       "cardinality": "OneToOneInheritance",
@@ -90958,6 +91325,99 @@
       "constraintNames": {
         "sqlServer": "FK_Staff_OldEthnicityDescriptor",
         "postgreSql": "FK_681927_OldEthnicityDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_Staff_Person"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Person"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_Staff_Person",
+        "postgreSql": "FK_681927_Person"
       }
     },
     {
@@ -97719,6 +98179,99 @@
       "constraintNames": {
         "sqlServer": "FK_Student_CountryDescriptor",
         "postgreSql": "FK_2a164d_CountryDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_Student_Person"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Person"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PersonId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A unique alphanumeric code assigned to a person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_Student_Person",
+        "postgreSql": "FK_2a164d_Person"
       }
     },
     {

@@ -5911,7 +5911,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string MaidenName { get; set; }
         string MiddleName { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
         string SexDescriptor { get; set; }
+        string SourceSystemDescriptor { get; set; }
 
         // One-to-one relationships
 
@@ -5925,6 +5927,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IParentTelephone> ParentTelephones { get; set; }
 
         // Resource reference data
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -6250,6 +6254,26 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int PerformanceLevelDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the Person model.
+    /// </summary>
+    public interface IPerson : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string PersonId { get; set; }
+        [NaturalKeyMember]
+        string SourceSystemDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -7770,6 +7794,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the SourceSystemDescriptor model.
+    /// </summary>
+    public interface ISourceSystemDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int SourceSystemDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the SpecialEducationProgramServiceDescriptor model.
     /// </summary>
     public interface ISpecialEducationProgramServiceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -7828,7 +7870,9 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string MiddleName { get; set; }
         string OldEthnicityDescriptor { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
         string SexDescriptor { get; set; }
+        string SourceSystemDescriptor { get; set; }
         decimal? YearsOfPriorProfessionalExperience { get; set; }
         decimal? YearsOfPriorTeachingExperience { get; set; }
 
@@ -7851,6 +7895,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IStaffVisa> StaffVisas { get; set; }
 
         // Resource reference data
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -8869,6 +8915,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string MiddleName { get; set; }
         bool? MultipleBirthStatus { get; set; }
         string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
+        string SourceSystemDescriptor { get; set; }
 
         // One-to-one relationships
 
@@ -8879,6 +8927,8 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IStudentVisa> StudentVisas { get; set; }
 
         // Resource reference data
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
     }
 
     /// <summary>

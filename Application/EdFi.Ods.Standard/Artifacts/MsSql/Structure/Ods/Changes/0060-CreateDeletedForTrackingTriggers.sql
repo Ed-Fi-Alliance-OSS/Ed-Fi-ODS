@@ -2838,6 +2838,23 @@ ALTER TABLE [edfi].[PerformanceLevelDescriptor] ENABLE TRIGGER [edfi_Performance
 GO
 
 
+CREATE TRIGGER [edfi].[edfi_Person_TR_DeleteTracking] ON [edfi].[Person] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[Person](PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT  PersonId, SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[Person] ENABLE TRIGGER [edfi_Person_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [edfi].[edfi_PersonalInformationVerificationDescriptor_TR_DeleteTracking] ON [edfi].[PersonalInformationVerificationDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -3710,6 +3727,24 @@ END
 GO
 
 ALTER TABLE [edfi].[SexDescriptor] ENABLE TRIGGER [edfi_SexDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_SourceSystemDescriptor_TR_DeleteTracking] ON [edfi].[SourceSystemDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[SourceSystemDescriptor](SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT  d.SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SourceSystemDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[SourceSystemDescriptor] ENABLE TRIGGER [edfi_SourceSystemDescriptor_TR_DeleteTracking]
 GO
 
 

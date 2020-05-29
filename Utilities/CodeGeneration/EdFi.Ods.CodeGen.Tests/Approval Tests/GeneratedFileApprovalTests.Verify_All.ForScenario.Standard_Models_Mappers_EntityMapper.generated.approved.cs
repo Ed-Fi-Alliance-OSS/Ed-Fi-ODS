@@ -40581,10 +40581,24 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+                && target.PersonId != source.PersonId)
+            {
+                target.PersonId = source.PersonId;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsSexDescriptorSupported)
                 && target.SexDescriptor != source.SexDescriptor)
             {
                 target.SexDescriptor = source.SexDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+                && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+            {
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
                 isModified = true;
             }
 
@@ -40749,12 +40763,29 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
             else
                 targetSynchSupport.IsPersonalTitlePrefixSupported = false;
 
+            if (sourceSynchSupport.IsPersonIdSupported)
+                target.PersonId = source.PersonId;
+            else
+                targetSynchSupport.IsPersonIdSupported = false;
+
             if (sourceSynchSupport.IsSexDescriptorSupported)
                 target.SexDescriptor = source.SexDescriptor;
             else
                 targetSynchSupport.IsSexDescriptorSupported = false;
 
+            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
+            else
+                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
+
             // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.PersonResourceId = source.PersonResourceId;
+                target.PersonDiscriminator = source.PersonDiscriminator;
+            }
+
 
 
             // ----------------------------------
@@ -40875,7 +40906,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.ParentAggregate
         bool IsParentTelephonesSupported { get; set; }
         bool IsParentUniqueIdSupported { get; set; }
         bool IsPersonalTitlePrefixSupported { get; set; }
+        bool IsPersonIdSupported { get; set; }
         bool IsSexDescriptorSupported { get; set; }
+        bool IsSourceSystemDescriptorSupported { get; set; }
         Func<IParentAddress, bool> IsParentAddressIncluded { get; set; }
         Func<IParentElectronicMail, bool> IsParentElectronicMailIncluded { get; set; }
         Func<IParentInternationalAddress, bool> IsParentInternationalAddressIncluded { get; set; }
@@ -42928,6 +42961,94 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PerformanceLevelDescriptorAggregate
         bool IsNamespaceSupported { get; set; }
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
+    }
+ 
+}
+// Aggregate: Person
+
+namespace EdFi.Ods.Entities.Common.EdFi //.PersonAggregate
+{ 
+    [ExcludeFromCodeCoverage]
+    public static class PersonMapper 
+    {
+        public static bool SynchronizeTo(this IPerson source, IPerson target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IPersonSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.PersonId != target.PersonId)
+            {
+                source.PersonId = target.PersonId;
+            }
+            if (source.SourceSystemDescriptor != target.SourceSystemDescriptor)
+            {
+                source.SourceSystemDescriptor = target.SourceSystemDescriptor;
+            }
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IPerson source, IPerson target, Action<IPerson, IPerson> onMapped)
+        {
+            var sourceSynchSupport = source as IPersonSynchronizationSourceSupport;
+            var targetSynchSupport = target as IPersonSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.PersonId = source.PersonId;
+            target.SourceSystemDescriptor = source.SourceSystemDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IPersonSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
     }
  
 }
@@ -54252,6 +54373,185 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SexDescriptorAggregate
     }
  
 }
+// Aggregate: SourceSystemDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.SourceSystemDescriptorAggregate
+{ 
+    [ExcludeFromCodeCoverage]
+    public static class SourceSystemDescriptorMapper 
+    {
+        public static bool SynchronizeTo(this ISourceSystemDescriptor source, ISourceSystemDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as ISourceSystemDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.SourceSystemDescriptorId != target.SourceSystemDescriptorId)
+            {
+                source.SourceSystemDescriptorId = target.SourceSystemDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this ISourceSystemDescriptor source, ISourceSystemDescriptor target, Action<ISourceSystemDescriptor, ISourceSystemDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as ISourceSystemDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as ISourceSystemDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.SourceSystemDescriptorId = source.SourceSystemDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface ISourceSystemDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+ 
+}
 // Aggregate: SpecialEducationProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.SpecialEducationProgramServiceDescriptorAggregate
@@ -54718,10 +55018,24 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+                && target.PersonId != source.PersonId)
+            {
+                target.PersonId = source.PersonId;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsSexDescriptorSupported)
                 && target.SexDescriptor != source.SexDescriptor)
             {
                 target.SexDescriptor = source.SexDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+                && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+            {
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
                 isModified = true;
             }
 
@@ -55030,10 +55344,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
             else
                 targetSynchSupport.IsPersonalTitlePrefixSupported = false;
 
+            if (sourceSynchSupport.IsPersonIdSupported)
+                target.PersonId = source.PersonId;
+            else
+                targetSynchSupport.IsPersonIdSupported = false;
+
             if (sourceSynchSupport.IsSexDescriptorSupported)
                 target.SexDescriptor = source.SexDescriptor;
             else
                 targetSynchSupport.IsSexDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
+            else
+                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
 
             if (sourceSynchSupport.IsStaffUniqueIdSupported)
                 target.StaffUniqueId = source.StaffUniqueId;
@@ -55051,6 +55375,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                 targetSynchSupport.IsYearsOfPriorTeachingExperienceSupported = false;
 
             // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.PersonResourceId = source.PersonResourceId;
+                target.PersonDiscriminator = source.PersonDiscriminator;
+            }
+
 
 
             // ----------------------------------
@@ -55239,7 +55570,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
         bool IsMiddleNameSupported { get; set; }
         bool IsOldEthnicityDescriptorSupported { get; set; }
         bool IsPersonalTitlePrefixSupported { get; set; }
+        bool IsPersonIdSupported { get; set; }
         bool IsSexDescriptorSupported { get; set; }
+        bool IsSourceSystemDescriptorSupported { get; set; }
         bool IsStaffAddressesSupported { get; set; }
         bool IsStaffCredentialsSupported { get; set; }
         bool IsStaffElectronicMailsSupported { get; set; }
@@ -60966,6 +61299,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsPersonIdSupported)
+                && target.PersonId != source.PersonId)
+            {
+                target.PersonId = source.PersonId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsSourceSystemDescriptorSupported)
+                && target.SourceSystemDescriptor != source.SourceSystemDescriptor)
+            {
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsStudentUniqueIdSupported)
                 && target.StudentUniqueId != source.StudentUniqueId)
             {
@@ -61127,12 +61474,29 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
             else
                 targetSynchSupport.IsPersonalTitlePrefixSupported = false;
 
+            if (sourceSynchSupport.IsPersonIdSupported)
+                target.PersonId = source.PersonId;
+            else
+                targetSynchSupport.IsPersonIdSupported = false;
+
+            if (sourceSynchSupport.IsSourceSystemDescriptorSupported)
+                target.SourceSystemDescriptor = source.SourceSystemDescriptor;
+            else
+                targetSynchSupport.IsSourceSystemDescriptorSupported = false;
+
             if (sourceSynchSupport.IsStudentUniqueIdSupported)
                 target.StudentUniqueId = source.StudentUniqueId;
             else
                 targetSynchSupport.IsStudentUniqueIdSupported = false;
 
             // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.PersonResourceId = source.PersonResourceId;
+                target.PersonDiscriminator = source.PersonDiscriminator;
+            }
+
 
 
             // ----------------------------------
@@ -61223,6 +61587,8 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentAggregate
         bool IsMiddleNameSupported { get; set; }
         bool IsMultipleBirthStatusSupported { get; set; }
         bool IsPersonalTitlePrefixSupported { get; set; }
+        bool IsPersonIdSupported { get; set; }
+        bool IsSourceSystemDescriptorSupported { get; set; }
         bool IsStudentIdentificationDocumentsSupported { get; set; }
         bool IsStudentOtherNamesSupported { get; set; }
         bool IsStudentPersonalIdentificationDocumentsSupported { get; set; }

@@ -2198,6 +2198,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.PerformanceLevelDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.PerformanceLevelDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_edfi.Person_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.Person(PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.Person 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.Person_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_edfi.PersonalInformationVerificationDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -2876,6 +2889,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.SexDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.SexDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_edfi.SourceSystemDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.SourceSystemDescriptor(SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SourceSystemDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SourceSystemDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.SourceSystemDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.SourceSystemDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_edfi.SpecialEducationProgramServiceDescriptor_TR_DelTrkg()
     RETURNS trigger AS

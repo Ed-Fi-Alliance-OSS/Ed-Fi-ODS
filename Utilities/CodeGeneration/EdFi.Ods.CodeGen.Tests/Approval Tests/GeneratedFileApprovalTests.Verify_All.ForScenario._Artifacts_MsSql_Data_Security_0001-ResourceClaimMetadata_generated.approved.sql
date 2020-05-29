@@ -1,4 +1,4 @@
-﻿DECLARE @ClaimSetId INT;
+DECLARE @ClaimSetId INT;
 DECLARE @AuthorizationStrategyId INT;
 DECLARE @applicationId INT;
 
@@ -613,6 +613,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'performanceLevelDescriptor', N'performanceLevelDescriptor', N'http://ed-fi.org/ods/identity/claims/performanceLevelDescriptor', @managedDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'person', N'person', N'http://ed-fi.org/ods/identity/claims/person', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'personalInformationVerificationDescriptor', N'personalInformationVerificationDescriptor', N'http://ed-fi.org/ods/identity/claims/personalInformationVerificationDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -761,6 +764,9 @@ VALUES (N'session', N'session', N'http://ed-fi.org/ods/identity/claims/session',
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'sexDescriptor', N'sexDescriptor', N'http://ed-fi.org/ods/identity/claims/sexDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'sourceSystemDescriptor', N'sourceSystemDescriptor', N'http://ed-fi.org/ods/identity/claims/sourceSystemDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'specialEducationProgramServiceDescriptor', N'specialEducationProgramServiceDescriptor', N'http://ed-fi.org/ods/identity/claims/specialEducationProgramServiceDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
@@ -1201,7 +1207,7 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Read')) AS ac
-WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential' )
+WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
 FROM [dbo].[ResourceClaims]
@@ -1209,7 +1215,7 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Create')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity')
+WHERE ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
 FROM [dbo].[ResourceClaims]
@@ -1217,14 +1223,14 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Update')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'identity', 'credential' )
+WHERE ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null FROM [dbo].[ResourceClaims]
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Delete')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'people', 'credential');
+WHERE ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
 
 /* NamespaceBased */
 

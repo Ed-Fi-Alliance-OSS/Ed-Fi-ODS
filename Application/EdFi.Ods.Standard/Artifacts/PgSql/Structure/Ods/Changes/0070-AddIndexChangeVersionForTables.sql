@@ -93,6 +93,8 @@ CREATE INDEX IF NOT EXISTS UX_5f7953_ChangeVersion ON edfi.Parent(ChangeVersion)
 
 CREATE INDEX IF NOT EXISTS UX_53fe8d_ChangeVersion ON edfi.Payroll(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_6007db_ChangeVersion ON edfi.Person(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_b8b6d7_ChangeVersion ON edfi.PostSecondaryEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_90920d_ChangeVersion ON edfi.Program(ChangeVersion);

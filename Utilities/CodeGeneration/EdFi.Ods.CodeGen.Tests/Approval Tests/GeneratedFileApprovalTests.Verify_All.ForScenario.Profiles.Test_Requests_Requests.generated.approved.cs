@@ -309,7 +309,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resour
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -376,6 +378,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Re
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -440,6 +444,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_R
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -1092,6 +1098,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_Sc
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -1376,6 +1384,8 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Readable_Restricted
         public string MiddleName { get; set; }
         public bool MultipleBirthStatus { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
     }
 
@@ -1647,7 +1657,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_W
         public string MiddleName { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StaffUniqueId { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }

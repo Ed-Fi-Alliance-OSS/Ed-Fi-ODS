@@ -404,6 +404,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restr
             specification.MiddleName = request.MiddleName;
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
                     }
 
@@ -917,7 +919,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composi
             specification.MiddleName = request.MiddleName;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
@@ -1802,7 +1806,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_R
             specification.MiddleName = request.MiddleName;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
@@ -1906,6 +1912,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_a
             specification.MiddleName = request.MiddleName;
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
                     }
 
@@ -1960,6 +1968,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             specification.MiddleName = request.MiddleName;
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
                     }
 
@@ -2014,6 +2024,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             specification.MiddleName = request.MiddleName;
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
                     }
 

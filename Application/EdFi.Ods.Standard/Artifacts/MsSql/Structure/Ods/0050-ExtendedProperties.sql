@@ -3168,6 +3168,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s ge
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'LoginId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a parent.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Parent', @level2type=N'COLUMN', @level2name=N'ParentUniqueId'
 GO
 
@@ -3376,6 +3380,14 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines various levels or thresholds for performance on the assessment.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PerformanceLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PerformanceLevelDescriptor', @level2type=N'COLUMN', @level2name=N'PerformanceLevelDescriptorId'
+GO
+
+-- Extended Properties [edfi].[Person] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents a human being.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Person'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Person', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Person', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 
 -- Extended Properties [edfi].[PersonalInformationVerificationDescriptor] --
@@ -4159,6 +4171,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SexDescriptor', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
 GO
 
+-- Extended Properties [edfi].[SourceSystemDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceSystemDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SourceSystemDescriptor', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
+GO
+
 -- Extended Properties [edfi].[SpecialEducationProgramServiceDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the services provided by an education organization to populations of students associated with a special education program.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'SpecialEducationProgramServiceDescriptor'
 GO
@@ -4217,6 +4235,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Staff', @level2type=N'COLUMN', @level2name=N'LoginId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Staff', @level2type=N'COLUMN', @level2name=N'HighlyQualifiedTeacher'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Staff', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Staff', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Staff', @level2type=N'COLUMN', @level2name=N'StaffUniqueId'
 GO
@@ -4902,6 +4924,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s gender at birth.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Student', @level2type=N'COLUMN', @level2name=N'BirthSexDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of whether or not the person is a U.S. citizen.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Student', @level2type=N'COLUMN', @level2name=N'CitizenshipStatusDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Student', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Student', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'Student', @level2type=N'COLUMN', @level2name=N'StudentUniqueId'
 GO

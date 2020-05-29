@@ -363,7 +363,7 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Read')) AS ac
-WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential' )
+WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
 FROM [dbo].[ResourceClaims]
@@ -371,7 +371,7 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Create')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity')
+WHERE ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
 FROM [dbo].[ResourceClaims]
@@ -379,14 +379,14 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Update')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'identity', 'credential' )
+WHERE ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
 UNION
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null FROM [dbo].[ResourceClaims]
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Delete')) AS ac
-WHERE ResourceName IN ('educationOrganizations', 'people', 'credential');
+WHERE ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
 
 /* NamespaceBased */
 

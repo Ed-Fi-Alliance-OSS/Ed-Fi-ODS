@@ -93,6 +93,8 @@ ALTER TABLE [edfi].[Parent] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR
 
 ALTER TABLE [edfi].[Payroll] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+ALTER TABLE [edfi].[Person] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 ALTER TABLE [edfi].[PostSecondaryEvent] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [edfi].[Program] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
