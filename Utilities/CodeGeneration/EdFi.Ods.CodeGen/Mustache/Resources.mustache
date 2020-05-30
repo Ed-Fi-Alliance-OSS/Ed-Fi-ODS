@@ -211,8 +211,7 @@ namespace {{ResourceClassesNamespace}}
         public bool IsReferenceFullyDefined()
         {
             return {{#ReferenceIdentifiers}}{{#IsFirstProperty}}{{{PropertyName}}} != default({{PropertyType}}){{/IsFirstProperty}}{{^IsFirstProperty}}
-                && {{{PropertyName}}} != default({{PropertyType}}){{/IsFirstProperty}}{{/ReferenceIdentifiers}}
-                {{^ReferenceIdentifiers}}true{{/ReferenceIdentifiers}}
+                && {{{PropertyName}}} != default({{PropertyType}}){{/IsFirstProperty}}{{/ReferenceIdentifiers}}{{^ReferenceIdentifiers}}true{{/ReferenceIdentifiers}}
                 ;
         }
 
