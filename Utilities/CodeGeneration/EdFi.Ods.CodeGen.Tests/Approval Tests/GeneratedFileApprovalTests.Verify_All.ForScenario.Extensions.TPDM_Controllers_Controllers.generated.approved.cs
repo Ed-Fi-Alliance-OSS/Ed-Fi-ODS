@@ -472,7 +472,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
             specification.MaidenName = request.MaidenName;
             specification.MiddleName = request.MiddleName;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
@@ -811,35 +813,130 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.BoardCertificationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BoardCertificationTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.BoardCertificationTypeDescriptor.TPDM.BoardCertificationTypeDescriptor,
-        Models.Resources.BoardCertificationTypeDescriptor.TPDM.BoardCertificationTypeDescriptor,
-        Entities.Common.TPDM.IBoardCertificationTypeDescriptor,
-        Entities.NHibernate.BoardCertificationTypeDescriptorAggregate.TPDM.BoardCertificationTypeDescriptor,
-        Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors.BoardCertificationTypeDescriptorPut,
-        Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors.BoardCertificationTypeDescriptorPost,
-        Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors.BoardCertificationTypeDescriptorDelete,
-        Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors.BoardCertificationTypeDescriptorGetByExample>
+    public partial class CertificationsController : EdFiControllerBase<
+        Models.Resources.Certification.TPDM.Certification,
+        Models.Resources.Certification.TPDM.Certification,
+        Entities.Common.TPDM.ICertification,
+        Entities.NHibernate.CertificationAggregate.TPDM.Certification,
+        Api.Models.Requests.TPDM.Certifications.CertificationPut,
+        Api.Models.Requests.TPDM.Certifications.CertificationPost,
+        Api.Models.Requests.TPDM.Certifications.CertificationDelete,
+        Api.Models.Requests.TPDM.Certifications.CertificationGetByExample>
     {
-        public BoardCertificationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public CertificationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors.BoardCertificationTypeDescriptorGetByExample request, Entities.Common.TPDM.IBoardCertificationTypeDescriptor specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.Certifications.CertificationGetByExample request, Entities.Common.TPDM.ICertification specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.BoardCertificationTypeDescriptorId = request.BoardCertificationTypeDescriptorId;
+            specification.CertificationFieldDescriptor = request.CertificationFieldDescriptor;
+            specification.CertificationIdentifier = request.CertificationIdentifier;
+            specification.CertificationLevelDescriptor = request.CertificationLevelDescriptor;
+            specification.CertificationStandardDescriptor = request.CertificationStandardDescriptor;
+            specification.CertificationTitle = request.CertificationTitle;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EducatorRoleDescriptor = request.EducatorRoleDescriptor;
+            specification.EffectiveDate = request.EffectiveDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.InstructionalSettingDescriptor = request.InstructionalSettingDescriptor;
+            specification.IssuerNamespace = request.IssuerNamespace;
+            specification.MinimumDegreeDescriptor = request.MinimumDegreeDescriptor;
+            specification.PopulationServedDescriptor = request.PopulationServedDescriptor;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "boardCertificationTypeDescriptors";
+            return "certifications";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationExamsController : EdFiControllerBase<
+        Models.Resources.CertificationExam.TPDM.CertificationExam,
+        Models.Resources.CertificationExam.TPDM.CertificationExam,
+        Entities.Common.TPDM.ICertificationExam,
+        Entities.NHibernate.CertificationExamAggregate.TPDM.CertificationExam,
+        Api.Models.Requests.TPDM.CertificationExams.CertificationExamPut,
+        Api.Models.Requests.TPDM.CertificationExams.CertificationExamPost,
+        Api.Models.Requests.TPDM.CertificationExams.CertificationExamDelete,
+        Api.Models.Requests.TPDM.CertificationExams.CertificationExamGetByExample>
+    {
+        public CertificationExamsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationExams.CertificationExamGetByExample request, Entities.Common.TPDM.ICertificationExam specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationExamIdentifier = request.CertificationExamIdentifier;
+            specification.CertificationExamTitle = request.CertificationExamTitle;
+            specification.CertificationExamTypeDescriptor = request.CertificationExamTypeDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EffectiveDate = request.EffectiveDate;
+            specification.EndDate = request.EndDate;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationExams";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationExamResultsController : EdFiControllerBase<
+        Models.Resources.CertificationExamResult.TPDM.CertificationExamResult,
+        Models.Resources.CertificationExamResult.TPDM.CertificationExamResult,
+        Entities.Common.TPDM.ICertificationExamResult,
+        Entities.NHibernate.CertificationExamResultAggregate.TPDM.CertificationExamResult,
+        Api.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultPut,
+        Api.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultPost,
+        Api.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultDelete,
+        Api.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultGetByExample>
+    {
+        public CertificationExamResultsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultGetByExample request, Entities.Common.TPDM.ICertificationExamResult specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AttemptNumber = request.AttemptNumber;
+            specification.CertificationExamDate = request.CertificationExamDate;
+            specification.CertificationExamIdentifier = request.CertificationExamIdentifier;
+            specification.CertificationExamPassIndicator = request.CertificationExamPassIndicator;
+            specification.CertificationExamScore = request.CertificationExamScore;
+            specification.CertificationExamStatusDescriptor = request.CertificationExamStatusDescriptor;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationExamResults";
         }
     }
 }
@@ -906,6 +1003,138 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamTypeDescriptor
         protected override string GetResourceCollectionName()
         {
             return "certificationExamTypeDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationFieldDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationFieldDescriptorsController : EdFiControllerBase<
+        Models.Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor,
+        Models.Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor,
+        Entities.Common.TPDM.ICertificationFieldDescriptor,
+        Entities.NHibernate.CertificationFieldDescriptorAggregate.TPDM.CertificationFieldDescriptor,
+        Api.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorPut,
+        Api.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorPost,
+        Api.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorDelete,
+        Api.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorGetByExample>
+    {
+        public CertificationFieldDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorGetByExample request, Entities.Common.TPDM.ICertificationFieldDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationFieldDescriptorId = request.CertificationFieldDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationFieldDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationLevelDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor,
+        Models.Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor,
+        Entities.Common.TPDM.ICertificationLevelDescriptor,
+        Entities.NHibernate.CertificationLevelDescriptorAggregate.TPDM.CertificationLevelDescriptor,
+        Api.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorPut,
+        Api.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorPost,
+        Api.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorGetByExample>
+    {
+        public CertificationLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorGetByExample request, Entities.Common.TPDM.ICertificationLevelDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationLevelDescriptorId = request.CertificationLevelDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationLevelDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationRouteDescriptorsController : EdFiControllerBase<
+        Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
+        Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
+        Entities.Common.TPDM.ICertificationRouteDescriptor,
+        Entities.NHibernate.CertificationRouteDescriptorAggregate.TPDM.CertificationRouteDescriptor,
+        Api.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorPut,
+        Api.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorPost,
+        Api.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorDelete,
+        Api.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample>
+    {
+        public CertificationRouteDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample request, Entities.Common.TPDM.ICertificationRouteDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationRouteDescriptorId = request.CertificationRouteDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationRouteDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationStandardDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class CertificationStandardDescriptorsController : EdFiControllerBase<
+        Models.Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor,
+        Models.Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor,
+        Entities.Common.TPDM.ICertificationStandardDescriptor,
+        Entities.NHibernate.CertificationStandardDescriptorAggregate.TPDM.CertificationStandardDescriptor,
+        Api.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorPut,
+        Api.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorPost,
+        Api.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorDelete,
+        Api.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorGetByExample>
+    {
+        public CertificationStandardDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorGetByExample request, Entities.Common.TPDM.ICertificationStandardDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CertificationStandardDescriptorId = request.CertificationStandardDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "certificationStandardDescriptors";
         }
     }
 }
@@ -978,199 +1207,139 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CourseCourseTranscriptFacts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class CourseCourseTranscriptFactsController : EdFiControllerBase<
-        Models.Resources.CourseCourseTranscriptFacts.TPDM.CourseCourseTranscriptFacts,
-        Models.Resources.CourseCourseTranscriptFacts.TPDM.CourseCourseTranscriptFacts,
-        Entities.Common.TPDM.ICourseCourseTranscriptFacts,
-        Entities.NHibernate.CourseCourseTranscriptFactsAggregate.TPDM.CourseCourseTranscriptFacts,
-        Api.Models.Requests.TPDM.CourseCourseTranscriptFacts.CourseCourseTranscriptFactsPut,
-        Api.Models.Requests.TPDM.CourseCourseTranscriptFacts.CourseCourseTranscriptFactsPost,
-        Api.Models.Requests.TPDM.CourseCourseTranscriptFacts.CourseCourseTranscriptFactsDelete,
-        Api.Models.Requests.TPDM.CourseCourseTranscriptFacts.CourseCourseTranscriptFactsGetByExample>
+    public partial class CredentialEventsController : EdFiControllerBase<
+        Models.Resources.CredentialEvent.TPDM.CredentialEvent,
+        Models.Resources.CredentialEvent.TPDM.CredentialEvent,
+        Entities.Common.TPDM.ICredentialEvent,
+        Entities.NHibernate.CredentialEventAggregate.TPDM.CredentialEvent,
+        Api.Models.Requests.TPDM.CredentialEvents.CredentialEventPut,
+        Api.Models.Requests.TPDM.CredentialEvents.CredentialEventPost,
+        Api.Models.Requests.TPDM.CredentialEvents.CredentialEventDelete,
+        Api.Models.Requests.TPDM.CredentialEvents.CredentialEventGetByExample>
     {
-        public CourseCourseTranscriptFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public CredentialEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.CourseCourseTranscriptFacts.CourseCourseTranscriptFactsGetByExample request, Entities.Common.TPDM.ICourseCourseTranscriptFacts specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.CredentialEvents.CredentialEventGetByExample request, Entities.Common.TPDM.ICredentialEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.CourseCode = request.CourseCode;
-            specification.CourseTitle = request.CourseTitle;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.FactsAsOfDate = request.FactsAsOfDate;
+            specification.CredentialEventDate = request.CredentialEventDate;
+            specification.CredentialEventReason = request.CredentialEventReason;
+            specification.CredentialEventTypeDescriptor = request.CredentialEventTypeDescriptor;
+            specification.CredentialIdentifier = request.CredentialIdentifier;
             specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
+            specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "courseCourseTranscriptFacts";
+            return "credentialEvents";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CourseStudentAcademicRecordFacts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class CourseStudentAcademicRecordFactsController : EdFiControllerBase<
-        Models.Resources.CourseStudentAcademicRecordFacts.TPDM.CourseStudentAcademicRecordFacts,
-        Models.Resources.CourseStudentAcademicRecordFacts.TPDM.CourseStudentAcademicRecordFacts,
-        Entities.Common.TPDM.ICourseStudentAcademicRecordFacts,
-        Entities.NHibernate.CourseStudentAcademicRecordFactsAggregate.TPDM.CourseStudentAcademicRecordFacts,
-        Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts.CourseStudentAcademicRecordFactsPut,
-        Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts.CourseStudentAcademicRecordFactsPost,
-        Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts.CourseStudentAcademicRecordFactsDelete,
-        Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts.CourseStudentAcademicRecordFactsGetByExample>
+    public partial class CredentialEventTypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor,
+        Models.Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor,
+        Entities.Common.TPDM.ICredentialEventTypeDescriptor,
+        Entities.NHibernate.CredentialEventTypeDescriptorAggregate.TPDM.CredentialEventTypeDescriptor,
+        Api.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorPut,
+        Api.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorPost,
+        Api.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorDelete,
+        Api.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorGetByExample>
     {
-        public CourseStudentAcademicRecordFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public CredentialEventTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts.CourseStudentAcademicRecordFactsGetByExample request, Entities.Common.TPDM.ICourseStudentAcademicRecordFacts specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorGetByExample request, Entities.Common.TPDM.ICredentialEventTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.AggregatedGPAMax = request.AggregatedGPAMax;
-            specification.CourseCode = request.CourseCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
+            specification.CredentialEventTypeDescriptorId = request.CredentialEventTypeDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "courseStudentAcademicRecordFacts";
+            return "credentialEventTypeDescriptors";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CourseStudentAssessmentFacts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class CourseStudentAssessmentFactsController : EdFiControllerBase<
-        Models.Resources.CourseStudentAssessmentFacts.TPDM.CourseStudentAssessmentFacts,
-        Models.Resources.CourseStudentAssessmentFacts.TPDM.CourseStudentAssessmentFacts,
-        Entities.Common.TPDM.ICourseStudentAssessmentFacts,
-        Entities.NHibernate.CourseStudentAssessmentFactsAggregate.TPDM.CourseStudentAssessmentFacts,
-        Api.Models.Requests.TPDM.CourseStudentAssessmentFacts.CourseStudentAssessmentFactsPut,
-        Api.Models.Requests.TPDM.CourseStudentAssessmentFacts.CourseStudentAssessmentFactsPost,
-        Api.Models.Requests.TPDM.CourseStudentAssessmentFacts.CourseStudentAssessmentFactsDelete,
-        Api.Models.Requests.TPDM.CourseStudentAssessmentFacts.CourseStudentAssessmentFactsGetByExample>
+    public partial class CredentialStatusDescriptorsController : EdFiControllerBase<
+        Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
+        Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
+        Entities.Common.TPDM.ICredentialStatusDescriptor,
+        Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM.CredentialStatusDescriptor,
+        Api.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorPut,
+        Api.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorPost,
+        Api.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorDelete,
+        Api.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample>
     {
-        public CourseStudentAssessmentFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public CredentialStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.CourseStudentAssessmentFacts.CourseStudentAssessmentFactsGetByExample request, Entities.Common.TPDM.ICourseStudentAssessmentFacts specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample request, Entities.Common.TPDM.ICredentialStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
-            specification.AdministrationDate = request.AdministrationDate;
-            specification.AssessmentCategoryDescriptor = request.AssessmentCategoryDescriptor;
-            specification.AssessmentTitle = request.AssessmentTitle;
-            specification.CourseCode = request.CourseCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.GradeLevelDescriptor = request.GradeLevelDescriptor;
-            specification.Id = request.Id;
-            specification.TakenSchoolYear = request.TakenSchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
+            specification.CredentialStatusDescriptorId = request.CredentialStatusDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "courseStudentAssessmentFacts";
+            return "credentialStatusDescriptors";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.CourseStudentFacts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.DegreeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class CourseStudentFactsController : EdFiControllerBase<
-        Models.Resources.CourseStudentFacts.TPDM.CourseStudentFacts,
-        Models.Resources.CourseStudentFacts.TPDM.CourseStudentFacts,
-        Entities.Common.TPDM.ICourseStudentFacts,
-        Entities.NHibernate.CourseStudentFactsAggregate.TPDM.CourseStudentFacts,
-        Api.Models.Requests.TPDM.CourseStudentFacts.CourseStudentFactsPut,
-        Api.Models.Requests.TPDM.CourseStudentFacts.CourseStudentFactsPost,
-        Api.Models.Requests.TPDM.CourseStudentFacts.CourseStudentFactsDelete,
-        Api.Models.Requests.TPDM.CourseStudentFacts.CourseStudentFactsGetByExample>
+    public partial class DegreeDescriptorsController : EdFiControllerBase<
+        Models.Resources.DegreeDescriptor.TPDM.DegreeDescriptor,
+        Models.Resources.DegreeDescriptor.TPDM.DegreeDescriptor,
+        Entities.Common.TPDM.IDegreeDescriptor,
+        Entities.NHibernate.DegreeDescriptorAggregate.TPDM.DegreeDescriptor,
+        Api.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorPut,
+        Api.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorPost,
+        Api.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorDelete,
+        Api.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorGetByExample>
     {
-        public CourseStudentFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public DegreeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.CourseStudentFacts.CourseStudentFactsGetByExample request, Entities.Common.TPDM.ICourseStudentFacts specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorGetByExample request, Entities.Common.TPDM.IDegreeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.CourseCode = request.CourseCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.Id = request.Id;
+            specification.DegreeDescriptorId = request.DegreeDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "courseStudentFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationCourseTranscriptFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class EducationOrganizationCourseTranscriptFactsController : EdFiControllerBase<
-        Models.Resources.EducationOrganizationCourseTranscriptFacts.TPDM.EducationOrganizationCourseTranscriptFacts,
-        Models.Resources.EducationOrganizationCourseTranscriptFacts.TPDM.EducationOrganizationCourseTranscriptFacts,
-        Entities.Common.TPDM.IEducationOrganizationCourseTranscriptFacts,
-        Entities.NHibernate.EducationOrganizationCourseTranscriptFactsAggregate.TPDM.EducationOrganizationCourseTranscriptFacts,
-        Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts.EducationOrganizationCourseTranscriptFactsPut,
-        Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts.EducationOrganizationCourseTranscriptFactsPost,
-        Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts.EducationOrganizationCourseTranscriptFactsDelete,
-        Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts.EducationOrganizationCourseTranscriptFactsGetByExample>
-    {
-        public EducationOrganizationCourseTranscriptFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts.EducationOrganizationCourseTranscriptFactsGetByExample request, Entities.Common.TPDM.IEducationOrganizationCourseTranscriptFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.CourseTitle = request.CourseTitle;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.FactsAsOfDate = request.FactsAsOfDate;
-            specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationCourseTranscriptFacts";
+            return "degreeDescriptors";
         }
     }
 }
@@ -1221,86 +1390,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationFacts
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationStudentAcademicRecordFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class EducationOrganizationStudentAcademicRecordFactsController : EdFiControllerBase<
-        Models.Resources.EducationOrganizationStudentAcademicRecordFacts.TPDM.EducationOrganizationStudentAcademicRecordFacts,
-        Models.Resources.EducationOrganizationStudentAcademicRecordFacts.TPDM.EducationOrganizationStudentAcademicRecordFacts,
-        Entities.Common.TPDM.IEducationOrganizationStudentAcademicRecordFacts,
-        Entities.NHibernate.EducationOrganizationStudentAcademicRecordFactsAggregate.TPDM.EducationOrganizationStudentAcademicRecordFacts,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationStudentAcademicRecordFactsPut,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationStudentAcademicRecordFactsPost,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationStudentAcademicRecordFactsDelete,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationStudentAcademicRecordFactsGetByExample>
-    {
-        public EducationOrganizationStudentAcademicRecordFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationStudentAcademicRecordFactsGetByExample request, Entities.Common.TPDM.IEducationOrganizationStudentAcademicRecordFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AggregatedGPAMax = request.AggregatedGPAMax;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationStudentAcademicRecordFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationStudentAssessmentFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class EducationOrganizationStudentAssessmentFactsController : EdFiControllerBase<
-        Models.Resources.EducationOrganizationStudentAssessmentFacts.TPDM.EducationOrganizationStudentAssessmentFacts,
-        Models.Resources.EducationOrganizationStudentAssessmentFacts.TPDM.EducationOrganizationStudentAssessmentFacts,
-        Entities.Common.TPDM.IEducationOrganizationStudentAssessmentFacts,
-        Entities.NHibernate.EducationOrganizationStudentAssessmentFactsAggregate.TPDM.EducationOrganizationStudentAssessmentFacts,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts.EducationOrganizationStudentAssessmentFactsPut,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts.EducationOrganizationStudentAssessmentFactsPost,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts.EducationOrganizationStudentAssessmentFactsDelete,
-        Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts.EducationOrganizationStudentAssessmentFactsGetByExample>
-    {
-        public EducationOrganizationStudentAssessmentFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts.EducationOrganizationStudentAssessmentFactsGetByExample request, Entities.Common.TPDM.IEducationOrganizationStudentAssessmentFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
-            specification.AdministrationDate = request.AdministrationDate;
-            specification.AssessmentCategoryDescriptor = request.AssessmentCategoryDescriptor;
-            specification.AssessmentTitle = request.AssessmentTitle;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.GradeLevelDescriptor = request.GradeLevelDescriptor;
-            specification.Id = request.Id;
-            specification.TakenSchoolYear = request.TakenSchoolYear;
-            specification.TermDescriptor = request.TermDescriptor;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationStudentAssessmentFacts";
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationStudentFacts
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1332,6 +1421,39 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducationOrganizationStudentFac
         protected override string GetResourceCollectionName()
         {
             return "educationOrganizationStudentFacts";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EducatorRoleDescriptorsController : EdFiControllerBase<
+        Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
+        Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
+        Entities.Common.TPDM.IEducatorRoleDescriptor,
+        Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM.EducatorRoleDescriptor,
+        Api.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorPut,
+        Api.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorPost,
+        Api.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorDelete,
+        Api.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample>
+    {
+        public EducatorRoleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample request, Entities.Common.TPDM.IEducatorRoleDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EducatorRoleDescriptorId = request.EducatorRoleDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "educatorRoleDescriptors";
         }
     }
 }
@@ -1549,6 +1671,400 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationsController : EdFiControllerBase<
+        Models.Resources.Evaluation.TPDM.Evaluation,
+        Models.Resources.Evaluation.TPDM.Evaluation,
+        Entities.Common.TPDM.IEvaluation,
+        Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation,
+        Api.Models.Requests.TPDM.Evaluations.EvaluationPut,
+        Api.Models.Requests.TPDM.Evaluations.EvaluationPost,
+        Api.Models.Requests.TPDM.Evaluations.EvaluationDelete,
+        Api.Models.Requests.TPDM.Evaluations.EvaluationGetByExample>
+    {
+        public EvaluationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.Evaluations.EvaluationGetByExample request, Entities.Common.TPDM.IEvaluation specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.InterRaterReliabilityScore = request.InterRaterReliabilityScore;
+            specification.MaxRating = request.MaxRating;
+            specification.MinRating = request.MinRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluations";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationElementsController : EdFiControllerBase<
+        Models.Resources.EvaluationElement.TPDM.EvaluationElement,
+        Models.Resources.EvaluationElement.TPDM.EvaluationElement,
+        Entities.Common.TPDM.IEvaluationElement,
+        Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement,
+        Api.Models.Requests.TPDM.EvaluationElements.EvaluationElementPut,
+        Api.Models.Requests.TPDM.EvaluationElements.EvaluationElementPost,
+        Api.Models.Requests.TPDM.EvaluationElements.EvaluationElementDelete,
+        Api.Models.Requests.TPDM.EvaluationElements.EvaluationElementGetByExample>
+    {
+        public EvaluationElementsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationElements.EvaluationElementGetByExample request, Entities.Common.TPDM.IEvaluationElement specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.MaxRating = request.MaxRating;
+            specification.MinRating = request.MinRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SortOrder = request.SortOrder;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationElements";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationElementRatingsController : EdFiControllerBase<
+        Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
+        Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
+        Entities.Common.TPDM.IEvaluationElementRating,
+        Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating,
+        Api.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingPut,
+        Api.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingPost,
+        Api.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingDelete,
+        Api.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingGetByExample>
+    {
+        public EvaluationElementRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingGetByExample request, Entities.Common.TPDM.IEvaluationElementRating specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AreaOfRefinement = request.AreaOfRefinement;
+            specification.AreaOfReinforcement = request.AreaOfReinforcement;
+            specification.Comments = request.Comments;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementRatingLevelDescriptor = request.EvaluationElementRatingLevelDescriptor;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Feedback = request.Feedback;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationElementRatings";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationElementRatingLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
+        Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
+        Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.TPDM.EvaluationElementRatingLevelDescriptor,
+        Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPut,
+        Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorPost,
+        Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample>
+    {
+        public EvaluationElementRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationElementRatingLevelDescriptorId = request.EvaluationElementRatingLevelDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationElementRatingLevelDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationObjectivesController : EdFiControllerBase<
+        Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
+        Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
+        Entities.Common.TPDM.IEvaluationObjective,
+        Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective,
+        Api.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectivePut,
+        Api.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectivePost,
+        Api.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveDelete,
+        Api.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveGetByExample>
+    {
+        public EvaluationObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveGetByExample request, Entities.Common.TPDM.IEvaluationObjective specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
+            specification.Id = request.Id;
+            specification.MaxRating = request.MaxRating;
+            specification.MinRating = request.MinRating;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SortOrder = request.SortOrder;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationObjectives";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationObjectiveRatingsController : EdFiControllerBase<
+        Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
+        Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
+        Entities.Common.TPDM.IEvaluationObjectiveRating,
+        Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating,
+        Api.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingPut,
+        Api.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingPost,
+        Api.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingDelete,
+        Api.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample>
+    {
+        public EvaluationObjectiveRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample request, Entities.Common.TPDM.IEvaluationObjectiveRating specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Comments = request.Comments;
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.ObjectiveRatingLevelDescriptor = request.ObjectiveRatingLevelDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationObjectiveRatings";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationPeriodDescriptorsController : EdFiControllerBase<
+        Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
+        Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
+        Entities.Common.TPDM.IEvaluationPeriodDescriptor,
+        Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM.EvaluationPeriodDescriptor,
+        Api.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPut,
+        Api.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorPost,
+        Api.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorDelete,
+        Api.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample>
+    {
+        public EvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationPeriodDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationPeriodDescriptorId = request.EvaluationPeriodDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationPeriodDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationRatingsController : EdFiControllerBase<
+        Models.Resources.EvaluationRating.TPDM.EvaluationRating,
+        Models.Resources.EvaluationRating.TPDM.EvaluationRating,
+        Entities.Common.TPDM.IEvaluationRating,
+        Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating,
+        Api.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingPut,
+        Api.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingPost,
+        Api.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingDelete,
+        Api.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingGetByExample>
+    {
+        public EvaluationRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingGetByExample request, Entities.Common.TPDM.IEvaluationRating specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationRatingLevelDescriptor = request.EvaluationRatingLevelDescriptor;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.LocalCourseCode = request.LocalCourseCode;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.SectionIdentifier = request.SectionIdentifier;
+            specification.SessionName = request.SessionName;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationRatings";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationRatingLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
+        Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
+        Entities.Common.TPDM.IEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.TPDM.EvaluationRatingLevelDescriptor,
+        Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPut,
+        Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorPost,
+        Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample>
+    {
+        public EvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationRatingLevelDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationRatingLevelDescriptorId = request.EvaluationRatingLevelDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationRatingLevelDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class EvaluationTypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
+        Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
+        Entities.Common.TPDM.IEvaluationTypeDescriptor,
+        Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM.EvaluationTypeDescriptor,
+        Api.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorPut,
+        Api.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorPost,
+        Api.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorDelete,
+        Api.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample>
+    {
+        public EvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationTypeDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationTypeDescriptorId = request.EvaluationTypeDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "evaluationTypeDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.FederalLocaleCodeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1681,6 +2197,88 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class GoalsController : EdFiControllerBase<
+        Models.Resources.Goal.TPDM.Goal,
+        Models.Resources.Goal.TPDM.Goal,
+        Entities.Common.TPDM.IGoal,
+        Entities.NHibernate.GoalAggregate.TPDM.Goal,
+        Api.Models.Requests.TPDM.Goals.GoalPut,
+        Api.Models.Requests.TPDM.Goals.GoalPost,
+        Api.Models.Requests.TPDM.Goals.GoalDelete,
+        Api.Models.Requests.TPDM.Goals.GoalGetByExample>
+    {
+        public GoalsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.Goals.GoalGetByExample request, Entities.Common.TPDM.IGoal specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssignmentDate = request.AssignmentDate;
+            specification.Comments = request.Comments;
+            specification.CompletedDate = request.CompletedDate;
+            specification.CompletedIndicator = request.CompletedIndicator;
+            specification.DueDate = request.DueDate;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.GoalDescription = request.GoalDescription;
+            specification.GoalTitle = request.GoalTitle;
+            specification.GoalTypeDescriptor = request.GoalTypeDescriptor;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "goals";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.GoalTypeDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class GoalTypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor,
+        Models.Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor,
+        Entities.Common.TPDM.IGoalTypeDescriptor,
+        Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM.GoalTypeDescriptor,
+        Api.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorPut,
+        Api.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorPost,
+        Api.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorDelete,
+        Api.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorGetByExample>
+    {
+        public GoalTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorGetByExample request, Entities.Common.TPDM.IGoalTypeDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.GoalTypeDescriptorId = request.GoalTypeDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "goalTypeDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.HireStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -1743,6 +2341,39 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.HiringSourceDescriptors
         protected override string GetResourceCollectionName()
         {
             return "hiringSourceDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.InstructionalSettingDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class InstructionalSettingDescriptorsController : EdFiControllerBase<
+        Models.Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor,
+        Models.Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor,
+        Entities.Common.TPDM.IInstructionalSettingDescriptor,
+        Entities.NHibernate.InstructionalSettingDescriptorAggregate.TPDM.InstructionalSettingDescriptor,
+        Api.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorPut,
+        Api.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorPost,
+        Api.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorDelete,
+        Api.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorGetByExample>
+    {
+        public InstructionalSettingDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorGetByExample request, Entities.Common.TPDM.IInstructionalSettingDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.InstructionalSettingDescriptorId = request.InstructionalSettingDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "instructionalSettingDescriptors";
         }
     }
 }
@@ -1813,35 +2444,35 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.LevelTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class LevelTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.LevelTypeDescriptor.TPDM.LevelTypeDescriptor,
-        Models.Resources.LevelTypeDescriptor.TPDM.LevelTypeDescriptor,
-        Entities.Common.TPDM.ILevelTypeDescriptor,
-        Entities.NHibernate.LevelTypeDescriptorAggregate.TPDM.LevelTypeDescriptor,
-        Api.Models.Requests.TPDM.LevelTypeDescriptors.LevelTypeDescriptorPut,
-        Api.Models.Requests.TPDM.LevelTypeDescriptors.LevelTypeDescriptorPost,
-        Api.Models.Requests.TPDM.LevelTypeDescriptors.LevelTypeDescriptorDelete,
-        Api.Models.Requests.TPDM.LevelTypeDescriptors.LevelTypeDescriptorGetByExample>
+    public partial class ObjectiveRatingLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
+        Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
+        Entities.Common.TPDM.IObjectiveRatingLevelDescriptor,
+        Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.TPDM.ObjectiveRatingLevelDescriptor,
+        Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPut,
+        Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorPost,
+        Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample>
     {
-        public LevelTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public ObjectiveRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.LevelTypeDescriptors.LevelTypeDescriptorGetByExample request, Entities.Common.TPDM.ILevelTypeDescriptor specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IObjectiveRatingLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.LevelTypeDescriptorId = request.LevelTypeDescriptorId;
+            specification.ObjectiveRatingLevelDescriptorId = request.ObjectiveRatingLevelDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "levelTypeDescriptors";
+            return "objectiveRatingLevelDescriptors";
         }
     }
 }
@@ -1983,189 +2614,154 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionReasonDescript
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceMeasures
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class PerformanceMeasuresController : EdFiControllerBase<
-        Models.Resources.PerformanceMeasure.TPDM.PerformanceMeasure,
-        Models.Resources.PerformanceMeasure.TPDM.PerformanceMeasure,
-        Entities.Common.TPDM.IPerformanceMeasure,
-        Entities.NHibernate.PerformanceMeasureAggregate.TPDM.PerformanceMeasure,
-        Api.Models.Requests.TPDM.PerformanceMeasures.PerformanceMeasurePut,
-        Api.Models.Requests.TPDM.PerformanceMeasures.PerformanceMeasurePost,
-        Api.Models.Requests.TPDM.PerformanceMeasures.PerformanceMeasureDelete,
-        Api.Models.Requests.TPDM.PerformanceMeasures.PerformanceMeasureGetByExample>
+    public partial class PerformanceEvaluationsController : EdFiControllerBase<
+        Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
+        Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
+        Entities.Common.TPDM.IPerformanceEvaluation,
+        Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation,
+        Api.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationPut,
+        Api.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationPost,
+        Api.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationDelete,
+        Api.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationGetByExample>
     {
-        public PerformanceMeasuresController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public PerformanceEvaluationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceMeasures.PerformanceMeasureGetByExample request, Entities.Common.TPDM.IPerformanceMeasure specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationGetByExample request, Entities.Common.TPDM.IPerformanceEvaluation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
-            specification.ActualDateOfPerformanceMeasure = request.ActualDateOfPerformanceMeasure;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "performanceEvaluations";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class PerformanceEvaluationRatingsController : EdFiControllerBase<
+        Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
+        Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
+        Entities.Common.TPDM.IPerformanceEvaluationRating,
+        Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingPut,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingPost,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingDelete,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample>
+    {
+        public PerformanceEvaluationRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRating specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.ActualDate = request.ActualDate;
+            specification.ActualDuration = request.ActualDuration;
+            specification.ActualTime = request.ActualTime;
             specification.Announced = request.Announced;
             specification.Comments = request.Comments;
             specification.CoteachingStyleObservedDescriptor = request.CoteachingStyleObservedDescriptor;
-            specification.DurationOfPerformanceMeasure = request.DurationOfPerformanceMeasure;
             specification.Id = request.Id;
-            specification.PerformanceMeasureIdentifier = request.PerformanceMeasureIdentifier;
-            specification.PerformanceMeasureInstanceDescriptor = request.PerformanceMeasureInstanceDescriptor;
-            specification.PerformanceMeasureTypeDescriptor = request.PerformanceMeasureTypeDescriptor;
-            specification.ScheduleDateOfPerformanceMeasure = request.ScheduleDateOfPerformanceMeasure;
+            specification.PerformanceEvaluationRatingLevelDescriptor = request.PerformanceEvaluationRatingLevelDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.ScheduleDate = request.ScheduleDate;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-            specification.TimeOfPerformanceMeasure = request.TimeOfPerformanceMeasure;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "performanceMeasures";
+            return "performanceEvaluationRatings";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceMeasureCourseAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class PerformanceMeasureCourseAssociationsController : EdFiControllerBase<
-        Models.Resources.PerformanceMeasureCourseAssociation.TPDM.PerformanceMeasureCourseAssociation,
-        Models.Resources.PerformanceMeasureCourseAssociation.TPDM.PerformanceMeasureCourseAssociation,
-        Entities.Common.TPDM.IPerformanceMeasureCourseAssociation,
-        Entities.NHibernate.PerformanceMeasureCourseAssociationAggregate.TPDM.PerformanceMeasureCourseAssociation,
-        Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations.PerformanceMeasureCourseAssociationPut,
-        Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations.PerformanceMeasureCourseAssociationPost,
-        Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations.PerformanceMeasureCourseAssociationDelete,
-        Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations.PerformanceMeasureCourseAssociationGetByExample>
+    public partial class PerformanceEvaluationRatingLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
+        Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
+        Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor,
+        Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.TPDM.PerformanceEvaluationRatingLevelDescriptor,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPut,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorPost,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample>
     {
-        public PerformanceMeasureCourseAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public PerformanceEvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations.PerformanceMeasureCourseAssociationGetByExample request, Entities.Common.TPDM.IPerformanceMeasureCourseAssociation specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.CourseCode = request.CourseCode;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.PerformanceMeasureIdentifier = request.PerformanceMeasureIdentifier;
+            specification.PerformanceEvaluationRatingLevelDescriptorId = request.PerformanceEvaluationRatingLevelDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "performanceMeasureCourseAssociations";
+            return "performanceEvaluationRatingLevelDescriptors";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceMeasureFacts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class PerformanceMeasureFactsController : EdFiControllerBase<
-        Models.Resources.PerformanceMeasureFacts.TPDM.PerformanceMeasureFacts,
-        Models.Resources.PerformanceMeasureFacts.TPDM.PerformanceMeasureFacts,
-        Entities.Common.TPDM.IPerformanceMeasureFacts,
-        Entities.NHibernate.PerformanceMeasureFactsAggregate.TPDM.PerformanceMeasureFacts,
-        Api.Models.Requests.TPDM.PerformanceMeasureFacts.PerformanceMeasureFactsPut,
-        Api.Models.Requests.TPDM.PerformanceMeasureFacts.PerformanceMeasureFactsPost,
-        Api.Models.Requests.TPDM.PerformanceMeasureFacts.PerformanceMeasureFactsDelete,
-        Api.Models.Requests.TPDM.PerformanceMeasureFacts.PerformanceMeasureFactsGetByExample>
+    public partial class PerformanceEvaluationTypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
+        Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
+        Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor,
+        Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.TPDM.PerformanceEvaluationTypeDescriptor,
+        Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPut,
+        Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorPost,
+        Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorDelete,
+        Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample>
     {
-        public PerformanceMeasureFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public PerformanceEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceMeasureFacts.PerformanceMeasureFactsGetByExample request, Entities.Common.TPDM.IPerformanceMeasureFacts specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactsAsOfDate = request.FactsAsOfDate;
-            specification.Id = request.Id;
-            specification.PerformanceMeasureTypeDescriptor = request.PerformanceMeasureTypeDescriptor;
-            specification.RubricTitle = request.RubricTitle;
-            specification.RubricTypeDescriptor = request.RubricTypeDescriptor;
-            specification.SchoolYear = request.SchoolYear;
+            specification.PerformanceEvaluationTypeDescriptorId = request.PerformanceEvaluationTypeDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "performanceMeasureFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceMeasureInstanceDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class PerformanceMeasureInstanceDescriptorsController : EdFiControllerBase<
-        Models.Resources.PerformanceMeasureInstanceDescriptor.TPDM.PerformanceMeasureInstanceDescriptor,
-        Models.Resources.PerformanceMeasureInstanceDescriptor.TPDM.PerformanceMeasureInstanceDescriptor,
-        Entities.Common.TPDM.IPerformanceMeasureInstanceDescriptor,
-        Entities.NHibernate.PerformanceMeasureInstanceDescriptorAggregate.TPDM.PerformanceMeasureInstanceDescriptor,
-        Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors.PerformanceMeasureInstanceDescriptorPut,
-        Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors.PerformanceMeasureInstanceDescriptorPost,
-        Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors.PerformanceMeasureInstanceDescriptorDelete,
-        Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors.PerformanceMeasureInstanceDescriptorGetByExample>
-    {
-        public PerformanceMeasureInstanceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors.PerformanceMeasureInstanceDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceMeasureInstanceDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.PerformanceMeasureInstanceDescriptorId = request.PerformanceMeasureInstanceDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "performanceMeasureInstanceDescriptors";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceMeasureTypeDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class PerformanceMeasureTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.PerformanceMeasureTypeDescriptor.TPDM.PerformanceMeasureTypeDescriptor,
-        Models.Resources.PerformanceMeasureTypeDescriptor.TPDM.PerformanceMeasureTypeDescriptor,
-        Entities.Common.TPDM.IPerformanceMeasureTypeDescriptor,
-        Entities.NHibernate.PerformanceMeasureTypeDescriptorAggregate.TPDM.PerformanceMeasureTypeDescriptor,
-        Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors.PerformanceMeasureTypeDescriptorPut,
-        Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors.PerformanceMeasureTypeDescriptorPost,
-        Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors.PerformanceMeasureTypeDescriptorDelete,
-        Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors.PerformanceMeasureTypeDescriptorGetByExample>
-    {
-        public PerformanceMeasureTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors.PerformanceMeasureTypeDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceMeasureTypeDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.PerformanceMeasureTypeDescriptorId = request.PerformanceMeasureTypeDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "performanceMeasureTypeDescriptors";
+            return "performanceEvaluationTypeDescriptors";
         }
     }
 }
@@ -2347,6 +2943,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
             specification.MiddleName = request.MiddleName;
             specification.Notes = request.Notes;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.PreScreeningRating = request.PreScreeningRating;
             specification.ProspectIdentifier = request.ProspectIdentifier;
             specification.ProspectTypeDescriptor = request.ProspectTypeDescriptor;
@@ -2355,6 +2952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
             specification.SexDescriptor = request.SexDescriptor;
             specification.SocialMediaNetworkName = request.SocialMediaNetworkName;
             specification.SocialMediaUserName = request.SocialMediaUserName;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
                     }
 
@@ -2437,6 +3035,159 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectTypeDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class QuantitativeMeasuresController : EdFiControllerBase<
+        Models.Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure,
+        Models.Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure,
+        Entities.Common.TPDM.IQuantitativeMeasure,
+        Entities.NHibernate.QuantitativeMeasureAggregate.TPDM.QuantitativeMeasure,
+        Api.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasurePut,
+        Api.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasurePost,
+        Api.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasureDelete,
+        Api.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasureGetByExample>
+    {
+        public QuantitativeMeasuresController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasureGetByExample request, Entities.Common.TPDM.IQuantitativeMeasure specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.QuantitativeMeasureDatatypeDescriptor = request.QuantitativeMeasureDatatypeDescriptor;
+            specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
+            specification.QuantitativeMeasureTypeDescriptor = request.QuantitativeMeasureTypeDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "quantitativeMeasures";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureDatatypeDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class QuantitativeMeasureDatatypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor,
+        Models.Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor,
+        Entities.Common.TPDM.IQuantitativeMeasureDatatypeDescriptor,
+        Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggregate.TPDM.QuantitativeMeasureDatatypeDescriptor,
+        Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorPut,
+        Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorPost,
+        Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorDelete,
+        Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorGetByExample>
+    {
+        public QuantitativeMeasureDatatypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureDatatypeDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.QuantitativeMeasureDatatypeDescriptorId = request.QuantitativeMeasureDatatypeDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "quantitativeMeasureDatatypeDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class QuantitativeMeasureScoresController : EdFiControllerBase<
+        Models.Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore,
+        Models.Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore,
+        Entities.Common.TPDM.IQuantitativeMeasureScore,
+        Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM.QuantitativeMeasureScore,
+        Api.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScorePut,
+        Api.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScorePost,
+        Api.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScoreDelete,
+        Api.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScoreGetByExample>
+    {
+        public QuantitativeMeasureScoresController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScoreGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureScore specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
+            specification.ScoreValue = request.ScoreValue;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.StandardError = request.StandardError;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "quantitativeMeasureScores";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureTypeDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class QuantitativeMeasureTypeDescriptorsController : EdFiControllerBase<
+        Models.Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor,
+        Models.Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor,
+        Entities.Common.TPDM.IQuantitativeMeasureTypeDescriptor,
+        Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregate.TPDM.QuantitativeMeasureTypeDescriptor,
+        Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorPut,
+        Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorPost,
+        Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorDelete,
+        Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorGetByExample>
+    {
+        public QuantitativeMeasureTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureTypeDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.QuantitativeMeasureTypeDescriptorId = request.QuantitativeMeasureTypeDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "quantitativeMeasureTypeDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -2508,192 +3259,78 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.Rubrics
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class RubricsController : EdFiControllerBase<
-        Models.Resources.Rubric.TPDM.Rubric,
-        Models.Resources.Rubric.TPDM.Rubric,
-        Entities.Common.TPDM.IRubric,
-        Entities.NHibernate.RubricAggregate.TPDM.Rubric,
-        Api.Models.Requests.TPDM.Rubrics.RubricPut,
-        Api.Models.Requests.TPDM.Rubrics.RubricPost,
-        Api.Models.Requests.TPDM.Rubrics.RubricDelete,
-        Api.Models.Requests.TPDM.Rubrics.RubricGetByExample>
+    public partial class RubricDimensionsController : EdFiControllerBase<
+        Models.Resources.RubricDimension.TPDM.RubricDimension,
+        Models.Resources.RubricDimension.TPDM.RubricDimension,
+        Entities.Common.TPDM.IRubricDimension,
+        Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension,
+        Api.Models.Requests.TPDM.RubricDimensions.RubricDimensionPut,
+        Api.Models.Requests.TPDM.RubricDimensions.RubricDimensionPost,
+        Api.Models.Requests.TPDM.RubricDimensions.RubricDimensionDelete,
+        Api.Models.Requests.TPDM.RubricDimensions.RubricDimensionGetByExample>
     {
-        public RubricsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public RubricDimensionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.Rubrics.RubricGetByExample request, Entities.Common.TPDM.IRubric specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.RubricDimensions.RubricDimensionGetByExample request, Entities.Common.TPDM.IRubricDimension specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.CriterionDescription = request.CriterionDescription;
+            specification.DimensionOrder = request.DimensionOrder;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
-            specification.InterRaterReliabilityScore = request.InterRaterReliabilityScore;
-            specification.RubricDescription = request.RubricDescription;
-            specification.RubricTitle = request.RubricTitle;
-            specification.RubricTypeDescriptor = request.RubricTypeDescriptor;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.RubricRating = request.RubricRating;
+            specification.RubricRatingLevelDescriptor = request.RubricRatingLevelDescriptor;
+            specification.TermDescriptor = request.TermDescriptor;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "rubrics";
+            return "rubricDimensions";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricLevels
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class RubricLevelsController : EdFiControllerBase<
-        Models.Resources.RubricLevel.TPDM.RubricLevel,
-        Models.Resources.RubricLevel.TPDM.RubricLevel,
-        Entities.Common.TPDM.IRubricLevel,
-        Entities.NHibernate.RubricLevelAggregate.TPDM.RubricLevel,
-        Api.Models.Requests.TPDM.RubricLevels.RubricLevelPut,
-        Api.Models.Requests.TPDM.RubricLevels.RubricLevelPost,
-        Api.Models.Requests.TPDM.RubricLevels.RubricLevelDelete,
-        Api.Models.Requests.TPDM.RubricLevels.RubricLevelGetByExample>
+    public partial class RubricRatingLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
+        Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
+        Entities.Common.TPDM.IRubricRatingLevelDescriptor,
+        Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM.RubricRatingLevelDescriptor,
+        Api.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPut,
+        Api.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorPost,
+        Api.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorDelete,
+        Api.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample>
     {
-        public RubricLevelsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public RubricRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.RubricLevels.RubricLevelGetByExample request, Entities.Common.TPDM.IRubricLevel specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IRubricRatingLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.RubricLevelCode = request.RubricLevelCode;
-            specification.RubricTitle = request.RubricTitle;
-            specification.RubricTypeDescriptor = request.RubricTypeDescriptor;
+            specification.RubricRatingLevelDescriptorId = request.RubricRatingLevelDescriptorId;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "rubricLevels";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricLevelResponses
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class RubricLevelResponsesController : EdFiControllerBase<
-        Models.Resources.RubricLevelResponse.TPDM.RubricLevelResponse,
-        Models.Resources.RubricLevelResponse.TPDM.RubricLevelResponse,
-        Entities.Common.TPDM.IRubricLevelResponse,
-        Entities.NHibernate.RubricLevelResponseAggregate.TPDM.RubricLevelResponse,
-        Api.Models.Requests.TPDM.RubricLevelResponses.RubricLevelResponsePut,
-        Api.Models.Requests.TPDM.RubricLevelResponses.RubricLevelResponsePost,
-        Api.Models.Requests.TPDM.RubricLevelResponses.RubricLevelResponseDelete,
-        Api.Models.Requests.TPDM.RubricLevelResponses.RubricLevelResponseGetByExample>
-    {
-        public RubricLevelResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.RubricLevelResponses.RubricLevelResponseGetByExample request, Entities.Common.TPDM.IRubricLevelResponse specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AreaOfRefinement = request.AreaOfRefinement;
-            specification.AreaOfReinforcement = request.AreaOfReinforcement;
-            specification.Comments = request.Comments;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.NumericResponse = request.NumericResponse;
-            specification.PerformanceMeasureIdentifier = request.PerformanceMeasureIdentifier;
-            specification.RubricLevelCode = request.RubricLevelCode;
-            specification.RubricTitle = request.RubricTitle;
-            specification.RubricTypeDescriptor = request.RubricTypeDescriptor;
-            specification.TextResponse = request.TextResponse;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "rubricLevelResponses";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricLevelResponseFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class RubricLevelResponseFactsController : EdFiControllerBase<
-        Models.Resources.RubricLevelResponseFacts.TPDM.RubricLevelResponseFacts,
-        Models.Resources.RubricLevelResponseFacts.TPDM.RubricLevelResponseFacts,
-        Entities.Common.TPDM.IRubricLevelResponseFacts,
-        Entities.NHibernate.RubricLevelResponseFactsAggregate.TPDM.RubricLevelResponseFacts,
-        Api.Models.Requests.TPDM.RubricLevelResponseFacts.RubricLevelResponseFactsPut,
-        Api.Models.Requests.TPDM.RubricLevelResponseFacts.RubricLevelResponseFactsPost,
-        Api.Models.Requests.TPDM.RubricLevelResponseFacts.RubricLevelResponseFactsDelete,
-        Api.Models.Requests.TPDM.RubricLevelResponseFacts.RubricLevelResponseFactsGetByExample>
-    {
-        public RubricLevelResponseFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.RubricLevelResponseFacts.RubricLevelResponseFactsGetByExample request, Entities.Common.TPDM.IRubricLevelResponseFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FactsAsOfDate = request.FactsAsOfDate;
-            specification.Id = request.Id;
-            specification.RubricLevelCode = request.RubricLevelCode;
-            specification.RubricTitle = request.RubricTitle;
-            specification.RubricTypeDescriptor = request.RubricTypeDescriptor;
-            specification.SchoolYear = request.SchoolYear;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "rubricLevelResponseFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricTypeDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class RubricTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.RubricTypeDescriptor.TPDM.RubricTypeDescriptor,
-        Models.Resources.RubricTypeDescriptor.TPDM.RubricTypeDescriptor,
-        Entities.Common.TPDM.IRubricTypeDescriptor,
-        Entities.NHibernate.RubricTypeDescriptorAggregate.TPDM.RubricTypeDescriptor,
-        Api.Models.Requests.TPDM.RubricTypeDescriptors.RubricTypeDescriptorPut,
-        Api.Models.Requests.TPDM.RubricTypeDescriptors.RubricTypeDescriptorPost,
-        Api.Models.Requests.TPDM.RubricTypeDescriptors.RubricTypeDescriptorDelete,
-        Api.Models.Requests.TPDM.RubricTypeDescriptors.RubricTypeDescriptorGetByExample>
-    {
-        public RubricTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.RubricTypeDescriptors.RubricTypeDescriptorGetByExample request, Entities.Common.TPDM.IRubricTypeDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.RubricTypeDescriptorId = request.RubricTypeDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "rubricTypeDescriptors";
+            return "rubricRatingLevelDescriptors";
         }
     }
 }
@@ -2764,171 +3401,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SchoolStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SectionCourseTranscriptFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class SectionCourseTranscriptFactsController : EdFiControllerBase<
-        Models.Resources.SectionCourseTranscriptFacts.TPDM.SectionCourseTranscriptFacts,
-        Models.Resources.SectionCourseTranscriptFacts.TPDM.SectionCourseTranscriptFacts,
-        Entities.Common.TPDM.ISectionCourseTranscriptFacts,
-        Entities.NHibernate.SectionCourseTranscriptFactsAggregate.TPDM.SectionCourseTranscriptFacts,
-        Api.Models.Requests.TPDM.SectionCourseTranscriptFacts.SectionCourseTranscriptFactsPut,
-        Api.Models.Requests.TPDM.SectionCourseTranscriptFacts.SectionCourseTranscriptFactsPost,
-        Api.Models.Requests.TPDM.SectionCourseTranscriptFacts.SectionCourseTranscriptFactsDelete,
-        Api.Models.Requests.TPDM.SectionCourseTranscriptFacts.SectionCourseTranscriptFactsGetByExample>
-    {
-        public SectionCourseTranscriptFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.SectionCourseTranscriptFacts.SectionCourseTranscriptFactsGetByExample request, Entities.Common.TPDM.ISectionCourseTranscriptFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.CourseTitle = request.CourseTitle;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.FactsAsOfDate = request.FactsAsOfDate;
-            specification.Id = request.Id;
-            specification.LocalCourseCode = request.LocalCourseCode;
-            specification.SchoolId = request.SchoolId;
-            specification.SchoolYear = request.SchoolYear;
-            specification.SectionIdentifier = request.SectionIdentifier;
-            specification.SessionName = request.SessionName;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionCourseTranscriptFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SectionStudentAcademicRecordFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class SectionStudentAcademicRecordFactsController : EdFiControllerBase<
-        Models.Resources.SectionStudentAcademicRecordFacts.TPDM.SectionStudentAcademicRecordFacts,
-        Models.Resources.SectionStudentAcademicRecordFacts.TPDM.SectionStudentAcademicRecordFacts,
-        Entities.Common.TPDM.ISectionStudentAcademicRecordFacts,
-        Entities.NHibernate.SectionStudentAcademicRecordFactsAggregate.TPDM.SectionStudentAcademicRecordFacts,
-        Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts.SectionStudentAcademicRecordFactsPut,
-        Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts.SectionStudentAcademicRecordFactsPost,
-        Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts.SectionStudentAcademicRecordFactsDelete,
-        Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts.SectionStudentAcademicRecordFactsGetByExample>
-    {
-        public SectionStudentAcademicRecordFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts.SectionStudentAcademicRecordFactsGetByExample request, Entities.Common.TPDM.ISectionStudentAcademicRecordFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AggregatedGPAMax = request.AggregatedGPAMax;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.Id = request.Id;
-            specification.LocalCourseCode = request.LocalCourseCode;
-            specification.SchoolId = request.SchoolId;
-            specification.SchoolYear = request.SchoolYear;
-            specification.SectionIdentifier = request.SectionIdentifier;
-            specification.SessionName = request.SessionName;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionStudentAcademicRecordFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SectionStudentAssessmentFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class SectionStudentAssessmentFactsController : EdFiControllerBase<
-        Models.Resources.SectionStudentAssessmentFacts.TPDM.SectionStudentAssessmentFacts,
-        Models.Resources.SectionStudentAssessmentFacts.TPDM.SectionStudentAssessmentFacts,
-        Entities.Common.TPDM.ISectionStudentAssessmentFacts,
-        Entities.NHibernate.SectionStudentAssessmentFactsAggregate.TPDM.SectionStudentAssessmentFacts,
-        Api.Models.Requests.TPDM.SectionStudentAssessmentFacts.SectionStudentAssessmentFactsPut,
-        Api.Models.Requests.TPDM.SectionStudentAssessmentFacts.SectionStudentAssessmentFactsPost,
-        Api.Models.Requests.TPDM.SectionStudentAssessmentFacts.SectionStudentAssessmentFactsDelete,
-        Api.Models.Requests.TPDM.SectionStudentAssessmentFacts.SectionStudentAssessmentFactsGetByExample>
-    {
-        public SectionStudentAssessmentFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.SectionStudentAssessmentFacts.SectionStudentAssessmentFactsGetByExample request, Entities.Common.TPDM.ISectionStudentAssessmentFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
-            specification.AdministrationDate = request.AdministrationDate;
-            specification.AssessmentCategoryDescriptor = request.AssessmentCategoryDescriptor;
-            specification.AssessmentTitle = request.AssessmentTitle;
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.GradeLevelDescriptor = request.GradeLevelDescriptor;
-            specification.Id = request.Id;
-            specification.LocalCourseCode = request.LocalCourseCode;
-            specification.SchoolId = request.SchoolId;
-            specification.SchoolYear = request.SchoolYear;
-            specification.SectionIdentifier = request.SectionIdentifier;
-            specification.SessionName = request.SessionName;
-            specification.TakenSchoolYear = request.TakenSchoolYear;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionStudentAssessmentFacts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.SectionStudentFacts
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class SectionStudentFactsController : EdFiControllerBase<
-        Models.Resources.SectionStudentFacts.TPDM.SectionStudentFacts,
-        Models.Resources.SectionStudentFacts.TPDM.SectionStudentFacts,
-        Entities.Common.TPDM.ISectionStudentFacts,
-        Entities.NHibernate.SectionStudentFactsAggregate.TPDM.SectionStudentFacts,
-        Api.Models.Requests.TPDM.SectionStudentFacts.SectionStudentFactsPut,
-        Api.Models.Requests.TPDM.SectionStudentFacts.SectionStudentFactsPost,
-        Api.Models.Requests.TPDM.SectionStudentFacts.SectionStudentFactsDelete,
-        Api.Models.Requests.TPDM.SectionStudentFacts.SectionStudentFactsGetByExample>
-    {
-        public SectionStudentFactsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.SectionStudentFacts.SectionStudentFactsGetByExample request, Entities.Common.TPDM.ISectionStudentFacts specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.FactAsOfDate = request.FactAsOfDate;
-            specification.Id = request.Id;
-            specification.LocalCourseCode = request.LocalCourseCode;
-            specification.SchoolId = request.SchoolId;
-            specification.SchoolYear = request.SchoolYear;
-            specification.SectionIdentifier = request.SectionIdentifier;
-            specification.SessionName = request.SessionName;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionStudentFacts";
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -2961,351 +3433,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
         protected override string GetResourceCollectionName()
         {
             return "staffApplicantAssociations";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluations
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluation.TPDM.StaffEvaluation,
-        Models.Resources.StaffEvaluation.TPDM.StaffEvaluation,
-        Entities.Common.TPDM.IStaffEvaluation,
-        Entities.NHibernate.StaffEvaluationAggregate.TPDM.StaffEvaluation,
-        Api.Models.Requests.TPDM.StaffEvaluations.StaffEvaluationPut,
-        Api.Models.Requests.TPDM.StaffEvaluations.StaffEvaluationPost,
-        Api.Models.Requests.TPDM.StaffEvaluations.StaffEvaluationDelete,
-        Api.Models.Requests.TPDM.StaffEvaluations.StaffEvaluationGetByExample>
-    {
-        public StaffEvaluationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluations.StaffEvaluationGetByExample request, Entities.Common.TPDM.IStaffEvaluation specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.MaxRating = request.MaxRating;
-            specification.MinRating = request.MinRating;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationPeriodDescriptor = request.StaffEvaluationPeriodDescriptor;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-            specification.StaffEvaluationTypeDescriptor = request.StaffEvaluationTypeDescriptor;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluations";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationComponents
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationComponentsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationComponent.TPDM.StaffEvaluationComponent,
-        Models.Resources.StaffEvaluationComponent.TPDM.StaffEvaluationComponent,
-        Entities.Common.TPDM.IStaffEvaluationComponent,
-        Entities.NHibernate.StaffEvaluationComponentAggregate.TPDM.StaffEvaluationComponent,
-        Api.Models.Requests.TPDM.StaffEvaluationComponents.StaffEvaluationComponentPut,
-        Api.Models.Requests.TPDM.StaffEvaluationComponents.StaffEvaluationComponentPost,
-        Api.Models.Requests.TPDM.StaffEvaluationComponents.StaffEvaluationComponentDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationComponents.StaffEvaluationComponentGetByExample>
-    {
-        public StaffEvaluationComponentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationComponents.StaffEvaluationComponentGetByExample request, Entities.Common.TPDM.IStaffEvaluationComponent specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.EvaluationComponent = request.EvaluationComponent;
-            specification.Id = request.Id;
-            specification.MaxRating = request.MaxRating;
-            specification.MinRating = request.MinRating;
-            specification.RubricReference = request.RubricReference;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-            specification.StaffEvaluationTypeDescriptor = request.StaffEvaluationTypeDescriptor;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationComponents";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationComponentRatings
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationComponentRatingsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationComponentRating.TPDM.StaffEvaluationComponentRating,
-        Models.Resources.StaffEvaluationComponentRating.TPDM.StaffEvaluationComponentRating,
-        Entities.Common.TPDM.IStaffEvaluationComponentRating,
-        Entities.NHibernate.StaffEvaluationComponentRatingAggregate.TPDM.StaffEvaluationComponentRating,
-        Api.Models.Requests.TPDM.StaffEvaluationComponentRatings.StaffEvaluationComponentRatingPut,
-        Api.Models.Requests.TPDM.StaffEvaluationComponentRatings.StaffEvaluationComponentRatingPost,
-        Api.Models.Requests.TPDM.StaffEvaluationComponentRatings.StaffEvaluationComponentRatingDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationComponentRatings.StaffEvaluationComponentRatingGetByExample>
-    {
-        public StaffEvaluationComponentRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationComponentRatings.StaffEvaluationComponentRatingGetByExample request, Entities.Common.TPDM.IStaffEvaluationComponentRating specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.ComponentRating = request.ComponentRating;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.EvaluationComponent = request.EvaluationComponent;
-            specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationDate = request.StaffEvaluationDate;
-            specification.StaffEvaluationRatingLevelDescriptor = request.StaffEvaluationRatingLevelDescriptor;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-            specification.StaffUniqueId = request.StaffUniqueId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationComponentRatings";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationElements
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationElementsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationElement.TPDM.StaffEvaluationElement,
-        Models.Resources.StaffEvaluationElement.TPDM.StaffEvaluationElement,
-        Entities.Common.TPDM.IStaffEvaluationElement,
-        Entities.NHibernate.StaffEvaluationElementAggregate.TPDM.StaffEvaluationElement,
-        Api.Models.Requests.TPDM.StaffEvaluationElements.StaffEvaluationElementPut,
-        Api.Models.Requests.TPDM.StaffEvaluationElements.StaffEvaluationElementPost,
-        Api.Models.Requests.TPDM.StaffEvaluationElements.StaffEvaluationElementDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationElements.StaffEvaluationElementGetByExample>
-    {
-        public StaffEvaluationElementsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationElements.StaffEvaluationElementGetByExample request, Entities.Common.TPDM.IStaffEvaluationElement specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.EvaluationComponent = request.EvaluationComponent;
-            specification.EvaluationElement = request.EvaluationElement;
-            specification.Id = request.Id;
-            specification.MaxRating = request.MaxRating;
-            specification.MinRating = request.MinRating;
-            specification.RubricReference = request.RubricReference;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationElements";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationElementRatings
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationElementRatingsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationElementRating.TPDM.StaffEvaluationElementRating,
-        Models.Resources.StaffEvaluationElementRating.TPDM.StaffEvaluationElementRating,
-        Entities.Common.TPDM.IStaffEvaluationElementRating,
-        Entities.NHibernate.StaffEvaluationElementRatingAggregate.TPDM.StaffEvaluationElementRating,
-        Api.Models.Requests.TPDM.StaffEvaluationElementRatings.StaffEvaluationElementRatingPut,
-        Api.Models.Requests.TPDM.StaffEvaluationElementRatings.StaffEvaluationElementRatingPost,
-        Api.Models.Requests.TPDM.StaffEvaluationElementRatings.StaffEvaluationElementRatingDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationElementRatings.StaffEvaluationElementRatingGetByExample>
-    {
-        public StaffEvaluationElementRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationElementRatings.StaffEvaluationElementRatingGetByExample request, Entities.Common.TPDM.IStaffEvaluationElementRating specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.ElementRating = request.ElementRating;
-            specification.EvaluationComponent = request.EvaluationComponent;
-            specification.EvaluationElement = request.EvaluationElement;
-            specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationDate = request.StaffEvaluationDate;
-            specification.StaffEvaluationRatingLevelDescriptor = request.StaffEvaluationRatingLevelDescriptor;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-            specification.StaffUniqueId = request.StaffUniqueId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationElementRatings";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationPeriodDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationPeriodDescriptorsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationPeriodDescriptor.TPDM.StaffEvaluationPeriodDescriptor,
-        Models.Resources.StaffEvaluationPeriodDescriptor.TPDM.StaffEvaluationPeriodDescriptor,
-        Entities.Common.TPDM.IStaffEvaluationPeriodDescriptor,
-        Entities.NHibernate.StaffEvaluationPeriodDescriptorAggregate.TPDM.StaffEvaluationPeriodDescriptor,
-        Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors.StaffEvaluationPeriodDescriptorPut,
-        Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors.StaffEvaluationPeriodDescriptorPost,
-        Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors.StaffEvaluationPeriodDescriptorDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors.StaffEvaluationPeriodDescriptorGetByExample>
-    {
-        public StaffEvaluationPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors.StaffEvaluationPeriodDescriptorGetByExample request, Entities.Common.TPDM.IStaffEvaluationPeriodDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.StaffEvaluationPeriodDescriptorId = request.StaffEvaluationPeriodDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationPeriodDescriptors";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationRatings
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationRatingsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationRating.TPDM.StaffEvaluationRating,
-        Models.Resources.StaffEvaluationRating.TPDM.StaffEvaluationRating,
-        Entities.Common.TPDM.IStaffEvaluationRating,
-        Entities.NHibernate.StaffEvaluationRatingAggregate.TPDM.StaffEvaluationRating,
-        Api.Models.Requests.TPDM.StaffEvaluationRatings.StaffEvaluationRatingPut,
-        Api.Models.Requests.TPDM.StaffEvaluationRatings.StaffEvaluationRatingPost,
-        Api.Models.Requests.TPDM.StaffEvaluationRatings.StaffEvaluationRatingDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationRatings.StaffEvaluationRatingGetByExample>
-    {
-        public StaffEvaluationRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationRatings.StaffEvaluationRatingGetByExample request, Entities.Common.TPDM.IStaffEvaluationRating specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.EvaluatedByStaffUniqueId = request.EvaluatedByStaffUniqueId;
-            specification.Id = request.Id;
-            specification.Rating = request.Rating;
-            specification.SchoolYear = request.SchoolYear;
-            specification.StaffEvaluationDate = request.StaffEvaluationDate;
-            specification.StaffEvaluationRatingLevelDescriptor = request.StaffEvaluationRatingLevelDescriptor;
-            specification.StaffEvaluationTitle = request.StaffEvaluationTitle;
-            specification.StaffUniqueId = request.StaffUniqueId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationRatings";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationRatingLevelDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationRatingLevelDescriptorsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationRatingLevelDescriptor.TPDM.StaffEvaluationRatingLevelDescriptor,
-        Models.Resources.StaffEvaluationRatingLevelDescriptor.TPDM.StaffEvaluationRatingLevelDescriptor,
-        Entities.Common.TPDM.IStaffEvaluationRatingLevelDescriptor,
-        Entities.NHibernate.StaffEvaluationRatingLevelDescriptorAggregate.TPDM.StaffEvaluationRatingLevelDescriptor,
-        Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors.StaffEvaluationRatingLevelDescriptorPut,
-        Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors.StaffEvaluationRatingLevelDescriptorPost,
-        Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors.StaffEvaluationRatingLevelDescriptorDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors.StaffEvaluationRatingLevelDescriptorGetByExample>
-    {
-        public StaffEvaluationRatingLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors.StaffEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IStaffEvaluationRatingLevelDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.StaffEvaluationRatingLevelDescriptorId = request.StaffEvaluationRatingLevelDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationRatingLevelDescriptors";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffEvaluationTypeDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffEvaluationTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.StaffEvaluationTypeDescriptor.TPDM.StaffEvaluationTypeDescriptor,
-        Models.Resources.StaffEvaluationTypeDescriptor.TPDM.StaffEvaluationTypeDescriptor,
-        Entities.Common.TPDM.IStaffEvaluationTypeDescriptor,
-        Entities.NHibernate.StaffEvaluationTypeDescriptorAggregate.TPDM.StaffEvaluationTypeDescriptor,
-        Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors.StaffEvaluationTypeDescriptorPut,
-        Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors.StaffEvaluationTypeDescriptorPost,
-        Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors.StaffEvaluationTypeDescriptorDelete,
-        Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors.StaffEvaluationTypeDescriptorGetByExample>
-    {
-        public StaffEvaluationTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors.StaffEvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IStaffEvaluationTypeDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.StaffEvaluationTypeDescriptorId = request.StaffEvaluationTypeDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEvaluationTypeDescriptors";
         }
     }
 }
@@ -3782,38 +3909,123 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StudentGrowthTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.TalentManagementGoals
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponseTeacherCandidateTargetAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class TalentManagementGoalsController : EdFiControllerBase<
-        Models.Resources.TalentManagementGoal.TPDM.TalentManagementGoal,
-        Models.Resources.TalentManagementGoal.TPDM.TalentManagementGoal,
-        Entities.Common.TPDM.ITalentManagementGoal,
-        Entities.NHibernate.TalentManagementGoalAggregate.TPDM.TalentManagementGoal,
-        Api.Models.Requests.TPDM.TalentManagementGoals.TalentManagementGoalPut,
-        Api.Models.Requests.TPDM.TalentManagementGoals.TalentManagementGoalPost,
-        Api.Models.Requests.TPDM.TalentManagementGoals.TalentManagementGoalDelete,
-        Api.Models.Requests.TPDM.TalentManagementGoals.TalentManagementGoalGetByExample>
+    public partial class SurveyResponseTeacherCandidateTargetAssociationsController : EdFiControllerBase<
+        Models.Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation,
+        Models.Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation,
+        Entities.Common.TPDM.ISurveyResponseTeacherCandidateTargetAssociation,
+        Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveyResponseTeacherCandidateTargetAssociation,
+        Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationPut,
+        Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationPost,
+        Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationDelete,
+        Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationGetByExample>
     {
-        public TalentManagementGoalsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public SurveyResponseTeacherCandidateTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.TPDM.TalentManagementGoals.TalentManagementGoalGetByExample request, Entities.Common.TPDM.ITalentManagementGoal specification)
+        protected override void MapAll(Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveyResponseTeacherCandidateTargetAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.GoalTitle = request.GoalTitle;
-            specification.GoalValue = request.GoalValue;
             specification.Id = request.Id;
-            specification.SchoolYear = request.SchoolYear;
+            specification.Namespace = request.Namespace;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
+            specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "talentManagementGoals";
+            return "surveyResponseTeacherCandidateTargetAssociations";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class SurveySectionAggregateResponsesController : EdFiControllerBase<
+        Models.Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse,
+        Models.Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse,
+        Entities.Common.TPDM.ISurveySectionAggregateResponse,
+        Entities.NHibernate.SurveySectionAggregateResponseAggregate.TPDM.SurveySectionAggregateResponse,
+        Api.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponsePut,
+        Api.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponsePost,
+        Api.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponseDelete,
+        Api.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponseGetByExample>
+    {
+        public SurveySectionAggregateResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponseGetByExample request, Entities.Common.TPDM.ISurveySectionAggregateResponse specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationElementTitle = request.EvaluationElementTitle;
+            specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationTitle = request.EvaluationTitle;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
+            specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.PersonId = request.PersonId;
+            specification.ScoreValue = request.ScoreValue;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveySectionTitle = request.SurveySectionTitle;
+            specification.TermDescriptor = request.TermDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "surveySectionAggregateResponses";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class SurveySectionResponseTeacherCandidateTargetAssociationsController : EdFiControllerBase<
+        Models.Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation,
+        Models.Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation,
+        Entities.Common.TPDM.ISurveySectionResponseTeacherCandidateTargetAssociation,
+        Entities.NHibernate.SurveySectionResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation,
+        Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationPut,
+        Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationPost,
+        Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationDelete,
+        Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationGetByExample>
+    {
+        public SurveySectionResponseTeacherCandidateTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveySectionResponseTeacherCandidateTargetAssociation specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.SurveyIdentifier = request.SurveyIdentifier;
+            specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
+            specification.SurveySectionTitle = request.SurveySectionTitle;
+            specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "surveySectionResponseTeacherCandidateTargetAssociations";
         }
     }
 }
@@ -3866,10 +4078,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidates
             specification.MultipleBirthStatus = request.MultipleBirthStatus;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
             specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
+            specification.PersonId = request.PersonId;
             specification.PreviousCareerDescriptor = request.PreviousCareerDescriptor;
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.ProgramComplete = request.ProgramComplete;
             specification.SexDescriptor = request.SexDescriptor;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TuitionCost = request.TuitionCost;
@@ -4579,39 +4793,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviderProgr
         protected override string GetResourceCollectionName()
         {
             return "teacherPreparationProviderPrograms";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.ThemeDescriptors
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class ThemeDescriptorsController : EdFiControllerBase<
-        Models.Resources.ThemeDescriptor.TPDM.ThemeDescriptor,
-        Models.Resources.ThemeDescriptor.TPDM.ThemeDescriptor,
-        Entities.Common.TPDM.IThemeDescriptor,
-        Entities.NHibernate.ThemeDescriptorAggregate.TPDM.ThemeDescriptor,
-        Api.Models.Requests.TPDM.ThemeDescriptors.ThemeDescriptorPut,
-        Api.Models.Requests.TPDM.ThemeDescriptors.ThemeDescriptorPost,
-        Api.Models.Requests.TPDM.ThemeDescriptors.ThemeDescriptorDelete,
-        Api.Models.Requests.TPDM.ThemeDescriptors.ThemeDescriptorGetByExample>
-    {
-        public ThemeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.ThemeDescriptors.ThemeDescriptorGetByExample request, Entities.Common.TPDM.IThemeDescriptor specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.ThemeDescriptorId = request.ThemeDescriptorId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "themeDescriptors";
         }
     }
 }

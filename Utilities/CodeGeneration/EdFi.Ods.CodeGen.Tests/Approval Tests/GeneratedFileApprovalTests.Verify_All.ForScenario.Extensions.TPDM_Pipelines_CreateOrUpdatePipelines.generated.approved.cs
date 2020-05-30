@@ -125,9 +125,21 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BoardCertificationTypeDescriptor.TPDM.BoardCertificationTypeDescriptor, Entities.NHibernate.BoardCertificationTypeDescriptorAggregate.TPDM.BoardCertificationTypeDescriptor>
+    public class CertificationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Certification.TPDM.Certification, Entities.NHibernate.CertificationAggregate.TPDM.Certification>
     {
-        public BoardCertificationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CertificationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationExam.TPDM.CertificationExam, Entities.NHibernate.CertificationExamAggregate.TPDM.CertificationExam>
+    {
+        public CertificationExamCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationExamResult.TPDM.CertificationExamResult, Entities.NHibernate.CertificationExamResultAggregate.TPDM.CertificationExamResult>
+    {
+        public CertificationExamResultCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -143,6 +155,30 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor, Entities.NHibernate.CertificationFieldDescriptorAggregate.TPDM.CertificationFieldDescriptor>
+    {
+        public CertificationFieldDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor, Entities.NHibernate.CertificationLevelDescriptorAggregate.TPDM.CertificationLevelDescriptor>
+    {
+        public CertificationLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor, Entities.NHibernate.CertificationRouteDescriptorAggregate.TPDM.CertificationRouteDescriptor>
+    {
+        public CertificationRouteDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor, Entities.NHibernate.CertificationStandardDescriptorAggregate.TPDM.CertificationStandardDescriptor>
+    {
+        public CertificationStandardDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class CompleterAsStaffAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CompleterAsStaffAssociation.TPDM.CompleterAsStaffAssociation, Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM.CompleterAsStaffAssociation>
     {
         public CompleterAsStaffAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -155,33 +191,27 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CourseCourseTranscriptFacts.TPDM.CourseCourseTranscriptFacts, Entities.NHibernate.CourseCourseTranscriptFactsAggregate.TPDM.CourseCourseTranscriptFacts>
+    public class CredentialEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CredentialEvent.TPDM.CredentialEvent, Entities.NHibernate.CredentialEventAggregate.TPDM.CredentialEvent>
     {
-        public CourseCourseTranscriptFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CredentialEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CourseStudentAcademicRecordFacts.TPDM.CourseStudentAcademicRecordFacts, Entities.NHibernate.CourseStudentAcademicRecordFactsAggregate.TPDM.CourseStudentAcademicRecordFacts>
+    public class CredentialEventTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor, Entities.NHibernate.CredentialEventTypeDescriptorAggregate.TPDM.CredentialEventTypeDescriptor>
     {
-        public CourseStudentAcademicRecordFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CredentialEventTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CourseStudentAssessmentFacts.TPDM.CourseStudentAssessmentFacts, Entities.NHibernate.CourseStudentAssessmentFactsAggregate.TPDM.CourseStudentAssessmentFacts>
+    public class CredentialStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor, Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM.CredentialStatusDescriptor>
     {
-        public CourseStudentAssessmentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public CredentialStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.CourseStudentFacts.TPDM.CourseStudentFacts, Entities.NHibernate.CourseStudentFactsAggregate.TPDM.CourseStudentFacts>
+    public class DegreeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.DegreeDescriptor.TPDM.DegreeDescriptor, Entities.NHibernate.DegreeDescriptorAggregate.TPDM.DegreeDescriptor>
     {
-        public CourseStudentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EducationOrganizationCourseTranscriptFacts.TPDM.EducationOrganizationCourseTranscriptFacts, Entities.NHibernate.EducationOrganizationCourseTranscriptFactsAggregate.TPDM.EducationOrganizationCourseTranscriptFacts>
-    {
-        public EducationOrganizationCourseTranscriptFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public DegreeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -191,21 +221,15 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EducationOrganizationStudentAcademicRecordFacts.TPDM.EducationOrganizationStudentAcademicRecordFacts, Entities.NHibernate.EducationOrganizationStudentAcademicRecordFactsAggregate.TPDM.EducationOrganizationStudentAcademicRecordFacts>
-    {
-        public EducationOrganizationStudentAcademicRecordFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EducationOrganizationStudentAssessmentFacts.TPDM.EducationOrganizationStudentAssessmentFacts, Entities.NHibernate.EducationOrganizationStudentAssessmentFactsAggregate.TPDM.EducationOrganizationStudentAssessmentFacts>
-    {
-        public EducationOrganizationStudentAssessmentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class EducationOrganizationStudentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EducationOrganizationStudentFacts.TPDM.EducationOrganizationStudentFacts, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFacts>
     {
         public EducationOrganizationStudentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor, Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM.EducatorRoleDescriptor>
+    {
+        public EducatorRoleDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -245,6 +269,66 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class EvaluationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Evaluation.TPDM.Evaluation, Entities.NHibernate.EvaluationAggregate.TPDM.Evaluation>
+    {
+        public EvaluationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationElement.TPDM.EvaluationElement, Entities.NHibernate.EvaluationElementAggregate.TPDM.EvaluationElement>
+    {
+        public EvaluationElementCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating, Entities.NHibernate.EvaluationElementRatingAggregate.TPDM.EvaluationElementRating>
+    {
+        public EvaluationElementRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor, Entities.NHibernate.EvaluationElementRatingLevelDescriptorAggregate.TPDM.EvaluationElementRatingLevelDescriptor>
+    {
+        public EvaluationElementRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationObjective.TPDM.EvaluationObjective, Entities.NHibernate.EvaluationObjectiveAggregate.TPDM.EvaluationObjective>
+    {
+        public EvaluationObjectiveCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating, Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM.EvaluationObjectiveRating>
+    {
+        public EvaluationObjectiveRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor, Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM.EvaluationPeriodDescriptor>
+    {
+        public EvaluationPeriodDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationRating.TPDM.EvaluationRating, Entities.NHibernate.EvaluationRatingAggregate.TPDM.EvaluationRating>
+    {
+        public EvaluationRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor, Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.TPDM.EvaluationRatingLevelDescriptor>
+    {
+        public EvaluationRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor, Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM.EvaluationTypeDescriptor>
+    {
+        public EvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class FederalLocaleCodeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.FederalLocaleCodeDescriptor.TPDM.FederalLocaleCodeDescriptor, Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.TPDM.FederalLocaleCodeDescriptor>
     {
         public FederalLocaleCodeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -269,6 +353,18 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class GoalCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Goal.TPDM.Goal, Entities.NHibernate.GoalAggregate.TPDM.Goal>
+    {
+        public GoalCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor, Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM.GoalTypeDescriptor>
+    {
+        public GoalTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class HireStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.HireStatusDescriptor.TPDM.HireStatusDescriptor, Entities.NHibernate.HireStatusDescriptorAggregate.TPDM.HireStatusDescriptor>
     {
         public HireStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -278,6 +374,12 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class HiringSourceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.HiringSourceDescriptor.TPDM.HiringSourceDescriptor, Entities.NHibernate.HiringSourceDescriptorAggregate.TPDM.HiringSourceDescriptor>
     {
         public HiringSourceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor, Entities.NHibernate.InstructionalSettingDescriptorAggregate.TPDM.InstructionalSettingDescriptor>
+    {
+        public InstructionalSettingDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -293,9 +395,9 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.LevelTypeDescriptor.TPDM.LevelTypeDescriptor, Entities.NHibernate.LevelTypeDescriptorAggregate.TPDM.LevelTypeDescriptor>
+    public class ObjectiveRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor, Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.TPDM.ObjectiveRatingLevelDescriptor>
     {
-        public LevelTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public ObjectiveRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -323,33 +425,27 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceMeasure.TPDM.PerformanceMeasure, Entities.NHibernate.PerformanceMeasureAggregate.TPDM.PerformanceMeasure>
+    public class PerformanceEvaluationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation, Entities.NHibernate.PerformanceEvaluationAggregate.TPDM.PerformanceEvaluation>
     {
-        public PerformanceMeasureCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public PerformanceEvaluationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceMeasureCourseAssociation.TPDM.PerformanceMeasureCourseAssociation, Entities.NHibernate.PerformanceMeasureCourseAssociationAggregate.TPDM.PerformanceMeasureCourseAssociation>
+    public class PerformanceEvaluationRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating, Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM.PerformanceEvaluationRating>
     {
-        public PerformanceMeasureCourseAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public PerformanceEvaluationRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceMeasureFacts.TPDM.PerformanceMeasureFacts, Entities.NHibernate.PerformanceMeasureFactsAggregate.TPDM.PerformanceMeasureFacts>
+    public class PerformanceEvaluationRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor, Entities.NHibernate.PerformanceEvaluationRatingLevelDescriptorAggregate.TPDM.PerformanceEvaluationRatingLevelDescriptor>
     {
-        public PerformanceMeasureFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public PerformanceEvaluationRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceMeasureInstanceDescriptor.TPDM.PerformanceMeasureInstanceDescriptor, Entities.NHibernate.PerformanceMeasureInstanceDescriptorAggregate.TPDM.PerformanceMeasureInstanceDescriptor>
+    public class PerformanceEvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor, Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggregate.TPDM.PerformanceEvaluationTypeDescriptor>
     {
-        public PerformanceMeasureInstanceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.PerformanceMeasureTypeDescriptor.TPDM.PerformanceMeasureTypeDescriptor, Entities.NHibernate.PerformanceMeasureTypeDescriptorAggregate.TPDM.PerformanceMeasureTypeDescriptor>
-    {
-        public PerformanceMeasureTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public PerformanceEvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -395,6 +491,30 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure, Entities.NHibernate.QuantitativeMeasureAggregate.TPDM.QuantitativeMeasure>
+    {
+        public QuantitativeMeasureCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor, Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggregate.TPDM.QuantitativeMeasureDatatypeDescriptor>
+    {
+        public QuantitativeMeasureDatatypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScoreCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore, Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM.QuantitativeMeasureScore>
+    {
+        public QuantitativeMeasureScoreCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor, Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregate.TPDM.QuantitativeMeasureTypeDescriptor>
+    {
+        public QuantitativeMeasureTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class RecruitmentEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RecruitmentEvent.TPDM.RecruitmentEvent, Entities.NHibernate.RecruitmentEventAggregate.TPDM.RecruitmentEvent>
     {
         public RecruitmentEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -407,33 +527,15 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Rubric.TPDM.Rubric, Entities.NHibernate.RubricAggregate.TPDM.Rubric>
+    public class RubricDimensionCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricDimension.TPDM.RubricDimension, Entities.NHibernate.RubricDimensionAggregate.TPDM.RubricDimension>
     {
-        public RubricCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public RubricDimensionCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricLevelCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricLevel.TPDM.RubricLevel, Entities.NHibernate.RubricLevelAggregate.TPDM.RubricLevel>
+    public class RubricRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor, Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM.RubricRatingLevelDescriptor>
     {
-        public RubricLevelCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricLevelResponse.TPDM.RubricLevelResponse, Entities.NHibernate.RubricLevelResponseAggregate.TPDM.RubricLevelResponse>
-    {
-        public RubricLevelResponseCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricLevelResponseFacts.TPDM.RubricLevelResponseFacts, Entities.NHibernate.RubricLevelResponseFactsAggregate.TPDM.RubricLevelResponseFacts>
-    {
-        public RubricLevelResponseFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.RubricTypeDescriptor.TPDM.RubricTypeDescriptor, Entities.NHibernate.RubricTypeDescriptorAggregate.TPDM.RubricTypeDescriptor>
-    {
-        public RubricTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public RubricRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -449,87 +551,9 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SectionCourseTranscriptFacts.TPDM.SectionCourseTranscriptFacts, Entities.NHibernate.SectionCourseTranscriptFactsAggregate.TPDM.SectionCourseTranscriptFacts>
-    {
-        public SectionCourseTranscriptFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SectionStudentAcademicRecordFacts.TPDM.SectionStudentAcademicRecordFacts, Entities.NHibernate.SectionStudentAcademicRecordFactsAggregate.TPDM.SectionStudentAcademicRecordFacts>
-    {
-        public SectionStudentAcademicRecordFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SectionStudentAssessmentFacts.TPDM.SectionStudentAssessmentFacts, Entities.NHibernate.SectionStudentAssessmentFactsAggregate.TPDM.SectionStudentAssessmentFacts>
-    {
-        public SectionStudentAssessmentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SectionStudentFacts.TPDM.SectionStudentFacts, Entities.NHibernate.SectionStudentFactsAggregate.TPDM.SectionStudentFacts>
-    {
-        public SectionStudentFactsCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class StaffApplicantAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffApplicantAssociation.TPDM.StaffApplicantAssociation, Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM.StaffApplicantAssociation>
     {
         public StaffApplicantAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluation.TPDM.StaffEvaluation, Entities.NHibernate.StaffEvaluationAggregate.TPDM.StaffEvaluation>
-    {
-        public StaffEvaluationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationComponent.TPDM.StaffEvaluationComponent, Entities.NHibernate.StaffEvaluationComponentAggregate.TPDM.StaffEvaluationComponent>
-    {
-        public StaffEvaluationComponentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationComponentRating.TPDM.StaffEvaluationComponentRating, Entities.NHibernate.StaffEvaluationComponentRatingAggregate.TPDM.StaffEvaluationComponentRating>
-    {
-        public StaffEvaluationComponentRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationElement.TPDM.StaffEvaluationElement, Entities.NHibernate.StaffEvaluationElementAggregate.TPDM.StaffEvaluationElement>
-    {
-        public StaffEvaluationElementCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationElementRating.TPDM.StaffEvaluationElementRating, Entities.NHibernate.StaffEvaluationElementRatingAggregate.TPDM.StaffEvaluationElementRating>
-    {
-        public StaffEvaluationElementRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationPeriodDescriptor.TPDM.StaffEvaluationPeriodDescriptor, Entities.NHibernate.StaffEvaluationPeriodDescriptorAggregate.TPDM.StaffEvaluationPeriodDescriptor>
-    {
-        public StaffEvaluationPeriodDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationRating.TPDM.StaffEvaluationRating, Entities.NHibernate.StaffEvaluationRatingAggregate.TPDM.StaffEvaluationRating>
-    {
-        public StaffEvaluationRatingCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationRatingLevelDescriptor.TPDM.StaffEvaluationRatingLevelDescriptor, Entities.NHibernate.StaffEvaluationRatingLevelDescriptorAggregate.TPDM.StaffEvaluationRatingLevelDescriptor>
-    {
-        public StaffEvaluationRatingLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffEvaluationTypeDescriptor.TPDM.StaffEvaluationTypeDescriptor, Entities.NHibernate.StaffEvaluationTypeDescriptorAggregate.TPDM.StaffEvaluationTypeDescriptor>
-    {
-        public StaffEvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -605,9 +629,21 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.TalentManagementGoal.TPDM.TalentManagementGoal, Entities.NHibernate.TalentManagementGoalAggregate.TPDM.TalentManagementGoal>
+    public class SurveyResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation, Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveyResponseTeacherCandidateTargetAssociation>
     {
-        public TalentManagementGoalCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public SurveyResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponseCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse, Entities.NHibernate.SurveySectionAggregateResponseAggregate.TPDM.SurveySectionAggregateResponse>
+    {
+        public SurveySectionAggregateResponseCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation, Entities.NHibernate.SurveySectionResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation>
+    {
+        public SurveySectionResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -716,12 +752,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class TeacherPreparationProviderProgramCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.TeacherPreparationProviderProgram.TPDM.TeacherPreparationProviderProgram, Entities.NHibernate.TeacherPreparationProviderProgramAggregate.TPDM.TeacherPreparationProviderProgram>
     {
         public TeacherPreparationProviderProgramCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.ThemeDescriptor.TPDM.ThemeDescriptor, Entities.NHibernate.ThemeDescriptorAggregate.TPDM.ThemeDescriptor>
-    {
-        public ThemeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
