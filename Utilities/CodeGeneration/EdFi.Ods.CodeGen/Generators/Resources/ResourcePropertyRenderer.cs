@@ -328,6 +328,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         })
                     .ToList();
 
+            if (!ids.Any())
+            {
+                return ResourceRenderer.DoNotRenderProperty;
+            }
+
             ResourceProperty first = ids.First()
                 .Source;
 
