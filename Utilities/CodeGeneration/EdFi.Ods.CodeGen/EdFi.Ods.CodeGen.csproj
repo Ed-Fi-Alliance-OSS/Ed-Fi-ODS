@@ -1,8 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0</FileVersion>
+    <Authors>Ed-Fi Alliance</Authors>
+    <Company>Ed-Fi Alliance</Company>
+    <Product>Ed-Fi Ods Code Generation</Product>
+    <Description>Code generation for the Ed-Fi ODS/API solution.</Description>
+    <PackageId>EdFi.Ods.CodeGen.Console</PackageId>
+    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance/Ed-Fi-ODS/tree/master-v3/Utilities/CodeGeneration</PackageProjectUrl>
+    <PackageLicenseUrl>https://www.ed-fi.org/license</PackageLicenseUrl>
+    <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+    <PackageType>DotnetTool</PackageType>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>EdFi.Ods.CodeGen</ToolCommandName>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
 
@@ -14,42 +27,44 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Mustache\*.mustache" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Mustache\*.mustache" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="TemplateSets.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="TemplateSets.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AsyncEnumerator" Version="4.0.2" />
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
-    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.3.1" />
-    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+    <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="CommandLineParser" Version="2.7.82" />
     <PackageReference Include="DatabaseSchemaReader" Version="2.7.2" />
-    <PackageReference Include="FluentValidation" Version="8.6.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.0" />
-    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.0" />
+    <PackageReference Include="FluentValidation" Version="8.6.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.3" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Stubble.Core" Version="1.6.3" />
+    <PackageReference Include="Stubble.Core" Version="1.7.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Mustache\*.mustache" />
+    <None Remove="TemplateSets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mustache\*.mustache" />
+    <EmbeddedResource Include="TemplateSets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Threading;
 using EdFi.Ods.CodeGen.Generators;
@@ -36,20 +36,19 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             protected override void Arrange()
             {
                 _assemblyData = new AssemblyData
-                                   {
-                                       AssemblyName = "testAssembly", Path = "testFolder", TemplateSet = "standard"
-                                   };
+                {
+                    AssemblyName = "testAssembly",
+                    Path = "testFolder",
+                    TemplateSet = "standard"
+                };
 
                 _templateSet = new TemplateSet
-                               {
+                {
                                    Name = "Entities.mustache", Driver = "Entities",
                                    OutputPath = "Models\\Entities\\Entities.generated.cs"
-                               };
+                };
 
-                var templates = new List<TemplateSet>
-                                {
-                                    _templateSet
-                                };
+                var templates = new List<TemplateSet> {_templateSet};
 
                 var model = new object();
 
@@ -63,24 +62,30 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 _generatorProvider = Stub<IGeneratorProvider>();
 
                 A.CallTo(() => _codeRepositoryProvider.GetResolvedCodeRepositoryByName(A<string>._, A<string>._))
-                 .Returns("testRepo\\testFolder");
+                    .Returns("testRepo\\testFolder");
 
                 A.CallTo(() => _templateSetProvider.GetTemplatesByName(A<string>._))
-                 .Returns(templates);
+                    .Returns(templates);
 
                 A.CallTo(() => _templateContextProvider.Create(A<AssemblyData>._))
-                 .Returns(_templateContext);
+                    .Returns(_templateContext);
 
                 A.CallTo(() => _generator.Generate(A<TemplateContext>._))
-                 .Returns(model);
+                    .Returns(model);
 
                 A.CallTo(() => _generatorProvider.GetGeneratorByDriverName(A<string>._))
-                 .Returns(_generator);
+                    .Returns(_generator);
 
-                _templateProcessor = new TemplateProcessor(_generatorProvider, _templateWriter, _templateSetProvider,_templateContextProvider);
+                _templateProcessor = new TemplateProcessor(
+                    _generatorProvider,
+                    _templateWriter,
+                    _templateSetProvider,
+                    _templateContextProvider);
             }
 
-            protected override void Act() => _templateProcessor.ProcessAsync(_assemblyData, CancellationToken.None).RunSynchronously();
+            protected override void Act()
+                => _templateProcessor.ProcessAsync(_assemblyData, CancellationToken.None)
+                    .RunSynchronously();
 
             public override void RunOnceAfterAll() { }
 

@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -67,13 +67,14 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         private object AssembleOtherUnifiedChild(IEnumerable<AssociationView> associations)
         {
             return associations
-                  .OrderBy(y => y.Name)
-                  .Select(
-                       y => new
-                            {
-                                ReferenceName = y.Name, ReferenceFieldName = y.Name.ToCamelCase()
-                            })
-                  .ToList();
+                .OrderBy(y => y.Name)
+                .Select(
+                    y => new
+                    {
+                        ReferenceName = y.Name,
+                        ReferenceFieldName = y.Name.ToCamelCase()
+                    })
+                .ToList();
         }
 
         public object Render()
@@ -86,12 +87,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var desc = this[ResourceRenderer.DescriptionOverride] != null
                 ? this[ResourceRenderer.DescriptionOverride]
-                   .ScrubForXmlDocumentation()
+                    .ScrubForXmlDocumentation()
                 : UniqueIdSpecification.IsUniqueId(Property.PropertyName)
                     ? string.Format(
                         "A unique alphanumeric code assigned to a {0}.",
                         Property.RemoveUniqueIdOrUsiFromPropertyName()
-                                .ToLower())
+                            .ToLower())
                     : Property.Description.ScrubForXmlDocumentation();
 
             var propertyNamespacePrefix = Property.ProperCaseSchemaName() == null
@@ -99,47 +100,55 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : $"{Namespaces.Entities.Common.RelativeNamespace}.{Property.ProperCaseSchemaName()}.";
 
             return new
-                   {
-                       Description = desc, Misc = this[ResourceRenderer.MiscellaneousComment], JsonPropertyName = Property.JsonPropertyName,
-                       PropertyName = IsReferencedProperty
-                           ? string.Format(
-                               "backReference.{0} != null && backReference.{0}.{1}",
-                               Property.EntityProperty.Entity.Aggregate.Name,
-                               Property.PropertyName)
-                           : Property.PropertyName,
-                       CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name), ParentName =
-                           Property.EntityProperty.IsFromParent
-                               ? Property.EntityProperty.Entity.Parent.Name
-                               : Property.EntityProperty.Entity.Name,
-                       PropertyFieldName = Property.EntityProperty.Entity
-                                                   .ResolvedEdFiEntityName()
-                                                   .ToCamelCase(),
-                       PropertyType = Property.PropertyType.ToCSharp(true), IsFirstProperty = IsFirstProperty, IsLastProperty = IsLastProperty,
-                       IsUnique = IsUnique, NumericAttribute = Property.ToRangeAttributeCSharp(),
-                       IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
-                       IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
-                       ClassName = this[ResourceRenderer.ClassName]
-                                                                                                     ?? Property.EntityProperty.Entity
-                                                                                                                .ResolvedEdFiEntityName(),
-                       UnifiedKeys = Associations.Any()
-                           ? AssembleOtherUnifiedChild(Associations)
-                           : null,
-                       UnifiedExtensions = ExtensionAssociations.Any()
-                           ? AssembleOtherUnifiedChild(ExtensionAssociations)
-                           : null,
-                       ImplicitPropertyName = Associations.Any()
-                           ? Associations.OrderByDescending(x => x.IsRequired)
-                                         .First()
-                                         .Name
-                           : null,
-                       ImplicitNullable = Property.PropertyType.IsNullableCSharpType()
-                           ? ".GetValueOrDefault()"
-                           : null,
-                       ParentPropertyName = this[ResourceRenderer.ParentPropertyName], DerivedName = derivedName,
-                       PropertyNamespacePrefix = propertyNamespacePrefix, NullPropertyPrefix = Property.EntityProperty.Entity.IsEntityExtension
-                           ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
-                           : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}."
-                   };
+            {
+                Description = desc,
+                Misc = this[ResourceRenderer.MiscellaneousComment],
+                JsonPropertyName = Property.JsonPropertyName,
+                PropertyName = IsReferencedProperty
+                    ? string.Format(
+                        "backReference.{0} != null && backReference.{0}.{1}",
+                        Property.EntityProperty.Entity.Aggregate.Name,
+                        Property.PropertyName)
+                    : Property.PropertyName,
+                CSharpSafePropertyName = Property.PropertyName.MakeSafeForCSharpClass(Property.ParentFullName.Name),
+                ParentName =
+                    Property.EntityProperty.IsFromParent
+                        ? Property.EntityProperty.Entity.Parent.Name
+                        : Property.EntityProperty.Entity.Name,
+                PropertyFieldName = Property.EntityProperty.Entity
+                    .ResolvedEdFiEntityName()
+                    .ToCamelCase(),
+                PropertyType = Property.PropertyType.ToCSharp(true),
+                IsFirstProperty = IsFirstProperty,
+                IsLastProperty = IsLastProperty,
+                IsUnique = IsUnique,
+                NumericAttribute = Property.ToRangeAttributeCSharp(),
+                IsDateOnlyProperty = Property.PropertyType.DbType == DbType.Date,
+                IsTimeSpanProperty = Property.PropertyType.DbType == DbType.Time,
+                ClassName = this[ResourceRenderer.ClassName]
+                            ?? Property.EntityProperty.Entity
+                                .ResolvedEdFiEntityName(),
+                UnifiedKeys = Associations.Any()
+                    ? AssembleOtherUnifiedChild(Associations)
+                    : null,
+                UnifiedExtensions = ExtensionAssociations.Any()
+                    ? AssembleOtherUnifiedChild(ExtensionAssociations)
+                    : null,
+                ImplicitPropertyName = Associations.Any()
+                    ? Associations.OrderByDescending(x => x.IsRequired)
+                        .First()
+                        .Name
+                    : null,
+                ImplicitNullable = Property.PropertyType.IsNullableCSharpType()
+                    ? ".GetValueOrDefault()"
+                    : null,
+                ParentPropertyName = this[ResourceRenderer.ParentPropertyName],
+                DerivedName = derivedName,
+                PropertyNamespacePrefix = propertyNamespacePrefix,
+                NullPropertyPrefix = Property.EntityProperty.Entity.IsEntityExtension
+                    ? $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.Name}."
+                    : $"{propertyNamespacePrefix}I{Property.EntityProperty.Entity.ResolvedEdFiEntityName()}."
+            };
         }
 
         public static object CreatePropertyDto(PropertyData propertyData)
@@ -149,64 +158,55 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 case ResourceRenderer.RenderNull:
 
                     return new
-                           {
-                               Null = new
-                                      { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        Null = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderNullLookup:
 
                     return new
-                           {
-                               NullLookup = new
-                                            { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        NullLookup = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderStandard:
 
                     return new
-                           {
-                               Standard = new
-                                          { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        Standard = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderUnified:
 
                     return new
-                           {
-                               UnifiedType = new
-                                             { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        UnifiedType = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderUsi:
 
                     return new
-                           {
-                               Usi = new
-                                     { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        Usi = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderReferenced:
 
                     return new
-                           {
-                               Referenced = new
-                                            { },
-                               Property = propertyData.Render()
-                           };
+                    {
+                        Referenced = new { },
+                        Property = propertyData.Render()
+                    };
                 case ResourceRenderer.RenderDerived:
 
                     return new
-                           {
-                               Property = propertyData.Render(), Derived = new
-                                                                           { }
-                           };
+                    {
+                        Property = propertyData.Render(),
+                        Derived = new { }
+                    };
                 default:
 
-                    return new
-                           {
-                               Property = propertyData.Render()
-                           };
+                    return new {Property = propertyData.Render()};
             }
         }
 
@@ -247,36 +247,36 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var associations = resource == null || !resource.References.Any()
                 ? property.EntityProperty.IncomingAssociations
                 : resource.References.Where(
-                               r =>
-                                   r.Properties.Contains(
-                                       property,
-                                       ModelComparers.ResourcePropertyNameOnly))
-                          .Select(r => r.Association)
-                          .ToList();
+                        r =>
+                            r.Properties.Contains(
+                                property,
+                                ModelComparers.ResourcePropertyNameOnly))
+                    .Select(r => r.Association)
+                    .ToList();
 
             // we want to prioritize identifiers that are not optional.
             var association =
                 associations
-                   .OrderBy(x => x.ThisProperties.Any(y => y.PropertyType.IsNullable))
-                   .ThenBy(x => x.Name)
-                   .FirstOrDefault(
+                    .OrderBy(x => x.ThisProperties.Any(y => y.PropertyType.IsNullable))
+                    .ThenBy(x => x.Name)
+                    .FirstOrDefault(
                         x => x.PropertyMappingByThisName.ContainsKey(property.PropertyName)
                              || x.PropertyMappingByThisName.ContainsKey(property.EntityProperty.PropertyName));
 
             var parent = association != null
                 ? association.PropertyMappingByThisName.ContainsKey(property.PropertyName)
                     ? association.PropertyMappingByThisName[property.PropertyName]
-                                 .OtherProperty
+                        .OtherProperty
                     : association.PropertyMappingByThisName.ContainsKey(property.EntityProperty.PropertyName)
                         ? association.PropertyMappingByThisName[property.EntityProperty.PropertyName]
-                                     .OtherProperty
+                            .OtherProperty
                         : null
                 : null;
 
             string parentPropertyName = parent != null
-                ? (property.IsLookup
+                ? property.IsLookup
                     ? parent.PropertyName.TrimSuffix("Id")
-                    : UniqueIdSpecification.GetUniqueIdPropertyName(parent.PropertyName))
+                    : UniqueIdSpecification.GetUniqueIdPropertyName(parent.PropertyName)
                 : property.ParentFullName.Name;
 
             propertyData[ResourceRenderer.ParentPropertyName] = UniqueIdSpecification.GetUniqueIdPropertyName(parentPropertyName);

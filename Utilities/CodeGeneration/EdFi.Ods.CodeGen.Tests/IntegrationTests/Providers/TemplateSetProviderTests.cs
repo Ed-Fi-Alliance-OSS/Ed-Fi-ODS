@@ -2,13 +2,13 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
-using Castle.Windsor;
+using Autofac;
 using EdFi.Ods.CodeGen.Models.Configuration;
 using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.CodeGen._Installers;
+using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using NUnit.Framework;
 using Shouldly;
 
@@ -19,18 +19,16 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
     {
         public class When_reading_the_template_set_data_from_assembly_embedded_resource : TestFixtureBase
         {
-            private WindsorContainer _container;
+            private IContainer _container;
             private readonly string templateSetName = "standard";
             private IReadOnlyList<TemplateSet> _result;
 
-            protected override void Arrange()
-            {
-                _container = new WindsorContainer();
-                _container.Install(new AppConfigInstaller(), new ProvidersInstaller());
-            }
+            protected override void Arrange() => _container = ContainerHelper.CreateContainer();
 
-            protected override void Act() => _result =
-                _container.Resolve<ITemplateSetProvider>().GetTemplatesByName(templateSetName);
+            protected override void Act()
+                => _result =
+                    _container.Resolve<ITemplateSetProvider>()
+                        .GetTemplatesByName(templateSetName);
 
             [Test]
             public void Should_has_content() => (_result.Count > 0).ShouldBeTrue();
@@ -41,18 +39,16 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 
         public class When_passing_valid_template_set_name : TestFixtureBase
         {
-            private WindsorContainer _container;
+            private IContainer _container;
             private readonly string templateSetName = "standard";
             private IReadOnlyList<TemplateSet> _result;
 
-            protected override void Arrange()
-            {
-                _container = new WindsorContainer();
-                _container.Install(new AppConfigInstaller(), new ProvidersInstaller());
-            }
+            protected override void Arrange() => _container = ContainerHelper.CreateContainer();
 
-            protected override void Act() => _result =
-                _container.Resolve<ITemplateSetProvider>().GetTemplatesByName(templateSetName);
+            protected override void Act()
+                => _result =
+                    _container.Resolve<ITemplateSetProvider>()
+                        .GetTemplatesByName(templateSetName);
 
             [Test]
             public void Should_has_content() => _result.Count.ShouldBeGreaterThan(0);
@@ -64,18 +60,19 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
         public class When_passing_non_existing_template_set_name
         {
             private readonly string templateSetName = "nonExistingTemplate";
-            private WindsorContainer _container;
+            private IContainer _container;
 
             [Test]
             public void Should_throw_error()
             {
                 // Arrange
-                _container = new WindsorContainer();
-                _container.Install(new AppConfigInstaller(), new ProvidersInstaller(), new ProcessingInstaller());
+                _container = ContainerHelper.CreateContainer();
 
                 // Act
                 var exception =
-                    Assert.Throws<ArgumentOutOfRangeException>(() => _container.Resolve<ITemplateSetProvider>().GetTemplatesByName(templateSetName));
+                    Assert.Throws<ArgumentOutOfRangeException>(
+                        () => _container.Resolve<ITemplateSetProvider>()
+                            .GetTemplatesByName(templateSetName));
 
                 // Assert
                 exception.Message.ShouldMatch(nameof(templateSetName));

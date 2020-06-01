@@ -2,18 +2,17 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
-using System;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
@@ -23,10 +22,11 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private const string ExtensionsSearchString = "EdFi.Ods.Extensions.*.csproj";
         private const string ProfilesSearchString = "EdFi.Ods.Profiles.*.csproj";
 
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(AssembliesProvider));
         private readonly ICodeRepositoryProvider _codeRepositoryProvider;
-        private readonly IJsonFileProvider _jsonFileProvider;
         private readonly IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
+        private readonly IJsonFileProvider _jsonFileProvider;
 
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
@@ -43,11 +43,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
         }
 
-        public ILogger Logger { get; set; } = NullLogger.Instance;
-
         public IEnumerable<AssemblyData> Get()
         {
-            Logger.Debug($"Getting all paths to assemblyMetadata.json");
+            _logger.Debug($"Getting all paths to assemblyMetadata.json");
 
             // List of known assemblies with the assemblyMetaData.json file
             var assemblyDatas = Directory.GetFiles(
@@ -81,7 +79,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 });
 
             // Convention based location of profiles and extensions (backwards compatibility)
-            Logger.Debug($"Getting any extension and profile assemblies from the implementation folder");
+            _logger.Debug($"Getting any extension and profile assemblies from the implementation folder");
 
             var legacyAssemblyDatas = Directory.GetFiles(
                     _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
@@ -131,7 +129,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             foreach (AssemblyData legacyAssemblyData in legacyAssemblyDatas
                 .Where(a => !assemblyDatas.Any(x => x.AssemblyName.EqualsIgnoreCase(a.AssemblyName))))
             {
-                Logger.Debug($"Adding legacy assembly {legacyAssemblyData.AssemblyName} for processing.");
+                _logger.Debug($"Adding legacy assembly {legacyAssemblyData.AssemblyName} for processing.");
                 assemblyDatas.Add(legacyAssemblyData);
             }
 

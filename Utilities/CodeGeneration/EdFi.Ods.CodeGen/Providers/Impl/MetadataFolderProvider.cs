@@ -2,10 +2,9 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.IO;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Conventions;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
@@ -21,12 +20,16 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         public string GetStandardMetadataFolder()
         {
-            return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(CodeRepositoryConventions.Ods, StandardConventions.Metadata);
+            return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                CodeRepositoryConventions.Ods,
+                StandardConventions.Metadata);
         }
 
         public string GetStandardSchemaFolder()
         {
-            return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(CodeRepositoryConventions.Ods, StandardConventions.Schemas);
+            return _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                CodeRepositoryConventions.Ods,
+                StandardConventions.Schemas);
         }
 
         public string GetProjectSchemaFolder(string projectPath)

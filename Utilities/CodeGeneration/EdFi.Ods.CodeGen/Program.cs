@@ -2,34 +2,34 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
-using Castle.Facilities.Logging;
-using Castle.MicroKernel.Resolvers.SpecializedResolvers;
-using Castle.Services.Logging.Log4netIntegration;
-using Castle.Windsor;
-using Castle.Windsor.MsDependencyInjection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using CommandLine;
-using EdFi.Ods.CodeGen.Console._Installers;
 using EdFi.Ods.CodeGen.Conventions;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.CodeGen.Modules;
+using log4net;
+using log4net.Config;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EdFi.Ods.CodeGen.Console
+namespace EdFi.Ods.CodeGen
 {
-    internal class Program
+    internal static class Program
     {
-        private static readonly IWindsorContainer _container = new WindsorContainer();
-        private static IServiceProvider _serviceProvider;
         private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-        private static ILogger _logger = NullLogger.Instance;
+        private static ILog _logger;
+        private static IContainer _container;
 
         private static async Task<int> Main(string[] args)
         {
+            ConfigureLogging();
+
             int result = ReturnCodesConventions.Success;
 
             Options options = null;
@@ -44,8 +44,8 @@ namespace EdFi.Ods.CodeGen.Console
                 .WithNotParsed(
                     errs =>
                     {
-                        System.Console.WriteLine("Invalid options were entered.");
-                        System.Console.WriteLine(errs.ToString());
+                        Console.WriteLine("Invalid options were entered.");
+                        Console.WriteLine(errs.ToString());
                         result = ReturnCodesConventions.Error;
                     });
 
@@ -54,11 +54,11 @@ namespace EdFi.Ods.CodeGen.Console
                 return result;
             }
 
-            _serviceProvider = CreateServiceProvider(new ServiceCollection(), options);
+            CreateServiceProvider(new ServiceCollection(), options);
 
-            _logger = _serviceProvider.GetService<ILogger>();
+            _logger = LogManager.GetLogger(typeof(Program));
 
-            System.Console.CancelKeyPress += (o, e) =>
+            Console.CancelKeyPress += (o, e) =>
             {
                 _logger.Warn("Ctrl-C Pressed. Stopping all threads.");
                 _cancellationTokenSource.Cancel();
@@ -74,7 +74,10 @@ namespace EdFi.Ods.CodeGen.Console
                 stopwatch.Start();
 
                 _logger.Info("Starting code generation.");
-                await _serviceProvider.GetService<IApplicationRunner>().RunAsync(cancellationToken).ConfigureAwait(false);
+
+                await _container.Resolve<IApplicationRunner>()
+                    .RunAsync(cancellationToken)
+                    .ConfigureAwait(false);
 
                 stopwatch.Stop();
 
@@ -84,42 +87,44 @@ namespace EdFi.Ods.CodeGen.Console
             }
             catch (Exception e)
             {
-                _logger.Error(e.ToString());
+                _logger.Info(e.ToString());
 
                 return ReturnCodesConventions.Error;
             }
             finally
             {
-                _container.Dispose();
                 if (Debugger.IsAttached)
                 {
-                    System.Console.WriteLine("Press enter to continue.");
-                    System.Console.ReadLine();
+                    Console.WriteLine("Press enter to continue.");
+                    Console.ReadLine();
                 }
+
+                _container?.Dispose();
             }
-        }
 
-        private static IServiceProvider CreateServiceProvider(IServiceCollection serviceCollection, Options options)
-        {
-            InstallSubResolvers();
-            InstallFacilities();
+            static void ConfigureLogging()
+            {
+                var assembly = typeof(Program).GetTypeInfo()
+                    .Assembly;
 
-            _container.Install(new CodeGenInstaller(), new CommandLineOverrideInstaller(options));
+                string configPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "log4net.config");
 
-            return WindsorRegistrationHelper.CreateServiceProvider(_container, serviceCollection);
-        }
+                XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
+            }
 
-        private static void InstallSubResolvers()
-        {
-            _container.Kernel.Resolver.AddSubResolver(new CollectionResolver(_container.Kernel, true));
-        }
+            static void CreateServiceProvider(IServiceCollection serviceCollection, Options options)
+            {
+                serviceCollection.AddConfiguration();
 
-        private static void InstallFacilities()
-        {
-            // Add logging to the container
-            _container.AddFacility<LoggingFacility>(f => f.LogUsing<ExtendedLog4netFactory>().WithConfig("log4net.config"));
+                var containerBuilder = new ContainerBuilder();
 
-            _container.AddFacility<DatabaseConnectionStringProviderFacility>();
+                containerBuilder.RegisterModule(new CodeGenModule());
+                containerBuilder.RegisterModule(new CommandLineOverrideModule() {Options = options});
+
+                containerBuilder.Populate(serviceCollection);
+
+                _container = containerBuilder.Build();
+            }
         }
     }
 }

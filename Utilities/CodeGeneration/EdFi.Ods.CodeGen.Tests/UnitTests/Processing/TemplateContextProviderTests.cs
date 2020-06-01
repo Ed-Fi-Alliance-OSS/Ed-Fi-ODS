@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.CodeGen.Helpers;
@@ -35,30 +35,28 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 _codeRepositoryHelper = new CodeRepositoryHelper(Environment.CurrentDirectory);
 
                 _assemblyData = new AssemblyData
-                                {
-                                    AssemblyName = "testAssembly", Path = "testFolder", TemplateSet = "standard", IsExtension = false,
-                                    IsProfile = false, SchemaName = EdFiConventions.ProperCaseName
-                                };
+                {
+                    AssemblyName = "testAssembly",
+                    Path = "testFolder",
+                    TemplateSet = "standard",
+                    IsExtension = false,
+                    IsProfile = false,
+                    SchemaName = EdFiConventions.ProperCaseName
+                };
 
-                var domainModelDefinition = new DomainModelDefinitions
-                                            {
-                                                SchemaDefinition = new SchemaDefinition("Ed-Fi", "edfi")
-                                            };
+                var domainModelDefinition = new DomainModelDefinitions {SchemaDefinition = new SchemaDefinition("Ed-Fi", "edfi")};
 
                 var domainModelDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
                 A.CallTo(() => domainModelDefinitionsProvider.GetDomainModelDefinitions())
-                 .Returns(domainModelDefinition);
+                    .Returns(domainModelDefinition);
 
-                _domainModelDefinitionsProviders = new[]
-                                                   {
-                                                       domainModelDefinitionsProvider
-                                                   };
+                _domainModelDefinitionsProviders = new[] {domainModelDefinitionsProvider};
 
                 _domainModelDefinitionsProviderProvider = Stub<IDomainModelDefinitionsProviderProvider>();
 
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
-                 .Returns(_domainModelDefinitionsProviders);
+                    .Returns(_domainModelDefinitionsProviders);
 
                 _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
             }
@@ -69,7 +67,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             }
 
             [Test]
-            public void Should_call_domain_model_definition_provider_once() 
+            public void Should_call_domain_model_definition_provider_once()
                 => A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
                     .MustHaveHappenedOnceExactly();
 
@@ -88,30 +86,28 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             protected override void Arrange()
             {
                 _assemblyData = new AssemblyData
-                                {
-                                    AssemblyName = "testAssembly", Path = "testFolder", TemplateSet = "standard",
-                                    IsExtension = false,IsProfile = true, SchemaName = EdFiConventions.ProperCaseName
-                                };
+                {
+                    AssemblyName = "testAssembly",
+                    Path = "testFolder",
+                    TemplateSet = "standard",
+                    IsExtension = false,
+                    IsProfile = true,
+                    SchemaName = EdFiConventions.ProperCaseName
+                };
 
-                var domainModelDefinition = new DomainModelDefinitions
-                                            {
-                                                SchemaDefinition = new SchemaDefinition("Ed-Fi", "edfi")
-                                            };
+                var domainModelDefinition = new DomainModelDefinitions {SchemaDefinition = new SchemaDefinition("Ed-Fi", "edfi")};
 
                 var domainModelDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
                 A.CallTo(() => domainModelDefinitionsProvider.GetDomainModelDefinitions())
-                 .Returns(domainModelDefinition);
+                    .Returns(domainModelDefinition);
 
-                _domainModelDefinitionsProviders = new[]
-                                                   {
-                                                       domainModelDefinitionsProvider
-                                                   };
+                _domainModelDefinitionsProviders = new[] {domainModelDefinitionsProvider};
 
                 _domainModelDefinitionsProviderProvider = Stub<IDomainModelDefinitionsProviderProvider>();
 
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
-                 .Returns(_domainModelDefinitionsProviders);
+                    .Returns(_domainModelDefinitionsProviders);
 
                 _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
             }
@@ -124,7 +120,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             public override void RunOnceAfterAll() { }
 
             [Test]
-            public void Should_call_domain_model_definition_provider_once() 
+            public void Should_call_domain_model_definition_provider_once()
                 => A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
                     .MustHaveHappenedOnceExactly();
 

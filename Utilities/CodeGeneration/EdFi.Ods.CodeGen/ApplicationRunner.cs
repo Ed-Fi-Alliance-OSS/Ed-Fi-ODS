@@ -2,18 +2,19 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Processing;
 using EdFi.Ods.CodeGen.Providers;
+using log4net;
 
-namespace EdFi.Ods.CodeGen.Console
+namespace EdFi.Ods.CodeGen
 {
     public class ApplicationRunner : IApplicationRunner
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ApplicationRunner));
         private readonly IAssemblyDataProvider _assemblyDataProvider;
         private readonly ITemplateProcessor _templateProcessor;
 
@@ -23,8 +24,6 @@ namespace EdFi.Ods.CodeGen.Console
             _assemblyDataProvider = assemblyDataProvider ?? throw new ArgumentNullException(nameof(assemblyDataProvider));
         }
 
-        private ILogger Logger { get; } = NullLogger.Instance;
-
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             if (cancellationToken == null)
@@ -32,15 +31,15 @@ namespace EdFi.Ods.CodeGen.Console
                 throw new ArgumentNullException(nameof(cancellationToken));
             }
 
-            Logger.Debug("Processing beginning.");
-            
+            _logger.Debug("Processing beginning.");
+
             foreach (var assemblyData in _assemblyDataProvider.Get())
             {
                 await _templateProcessor.ProcessAsync(assemblyData, cancellationToken)
-                                        .ConfigureAwait(false);
+                    .ConfigureAwait(false);
             }
-            
-            Logger.Debug($"Processing complete.");
+
+            _logger.Debug($"Processing complete.");
         }
     }
 }

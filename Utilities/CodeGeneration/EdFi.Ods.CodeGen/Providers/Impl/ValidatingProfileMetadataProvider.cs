@@ -2,13 +2,12 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
@@ -50,12 +49,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             _codeGenProfiles = new Lazy<Profile[]>(
                 () => MetadataHelper.GetProfiles(ProfileXDocument)
-                                    .Profile);
+                    .Profile);
         }
 
         /// <summary>
         /// Get the Profile elements from the deserialized XML profile for use in CodeGen
-        /// specific applications that use them. 
+        /// specific applications that use them.
         /// </summary>
         /// <returns></returns>
         private Profile[] CodeGenProfiles => _codeGenProfiles.Value;
@@ -68,8 +67,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         /// <summary>
         /// Indicates that the instance has profile metadata data.
         /// </summary>
-        public bool HasProfileData => ProfileXDocument.Nodes()
-                                                      .Any();
+        public bool HasProfileData
+            => ProfileXDocument.Nodes()
+                .Any();
 
         /// <summary>
         /// Gets the specified Profile definition by name.
@@ -98,33 +98,35 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             ValidateMetadata();
 
             return ProfileXDocument
-                  .Descendants("Profile")
-                  .ToDictionary(
-                       x => x.AttributeValue("name"),
-                       x => x,
-                       StringComparer
-                          .InvariantCultureIgnoreCase);
+                .Descendants("Profile")
+                .ToDictionary(
+                    x => x.AttributeValue("name"),
+                    x => x,
+                    StringComparer
+                        .InvariantCultureIgnoreCase);
         }
 
-        private List<ProfileAndResourceNames> LazyInitializeProfileResources() => _profileDefinitionByName.Value.Values
-                                                                                                          .SelectMany(GetProfileResources)
-                                                                                                          .ToList();
+        private List<ProfileAndResourceNames> LazyInitializeProfileResources()
+            => _profileDefinitionByName.Value.Values
+                .SelectMany(GetProfileResources)
+                .ToList();
 
-        private IEnumerable<ProfileAndResourceNames> GetProfileResources(XElement profileElt) => from r in profileElt.Descendants("Resource")
-                                                                                                 select new ProfileAndResourceNames
-                                                                                                        {
-                                                                                                            ProfileName = profileElt.AttributeValue(
-                                                                                                                "name"),
-                                                                                                            ResourceName = (string) r.Attribute(
-                                                                                                                "name")
-                                                                                                        };
+        private IEnumerable<ProfileAndResourceNames> GetProfileResources(XElement profileElt)
+            => from r in profileElt.Descendants("Resource")
+                select new ProfileAndResourceNames
+                {
+                    ProfileName = profileElt.AttributeValue(
+                        "name"),
+                    ResourceName = (string) r.Attribute(
+                        "name")
+                };
 
         private void ValidateMetadata()
         {
             MetadataHelper.ValidateProfileXml(ProfileXDocument.ToString());
 
             new ProfileMetadataValidator(_resourceModel, CodeGenProfiles, ProfileXDocument)
-               .ValidateMetadata();
+                .ValidateMetadata();
         }
     }
 }

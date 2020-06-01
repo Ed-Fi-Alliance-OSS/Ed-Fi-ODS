@@ -2,15 +2,15 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
+using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
@@ -21,16 +21,16 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
 
         private readonly string _solutionPath;
+        private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
 
         public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider)
         {
-            _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation) + "\\Application";
+            _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
+                            + "\\Application";
 
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
         }
-
-        public ILogger Logger { get; set; } = NullLogger.Instance;
 
         /// <summary>
         /// Discover and instantiate all IDomainModelDefinitionsProviders in the solution
@@ -49,12 +49,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
-            var domainModelDefinitionsByPath = new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
+            var domainModelDefinitionsByPath =
+                new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 
             string edfiOdsImplementationApplicationPath = _solutionPath;
-            
+
             string edFiOdsApplicationPath = _solutionPath.Replace(
-                CodeRepositoryConventions.EdFiOdsImplementationFolderName, 
+                CodeRepositoryConventions.EdFiOdsImplementationFolderName,
                 CodeRepositoryConventions.EdFiOdsFolderName);
 
             var directoriesToEvaluate =
@@ -81,7 +82,9 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         $"Unable to find model definitions file for extensions project {modelProject.Name} at location {metadataFile.FullName}.");
                 }
 
-                domainModelDefinitionsByPath.Add(modelProject.Name, new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
+                domainModelDefinitionsByPath.Add(
+                    modelProject.Name,
+                    new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
             }
 
             return domainModelDefinitionsByPath;
@@ -94,7 +97,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 {
                     return directory.GetDirectories();
                 }
-                
+
                 return new DirectoryInfo[0];
             }
         }
