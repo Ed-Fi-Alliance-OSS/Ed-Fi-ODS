@@ -14,226 +14,218 @@ using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Api.Services.Requests;
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Applicant_MixedInclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.applicant-mixedinclude.readable+json";
+            return "application/vnd.ed-fi.busroute.busroute-mixedinclude.readable+json";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Applicant_MixedInclude1
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude1_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude1_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude1.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude1.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude1.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude1.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude1.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.applicant-mixedinclude1.readable+json";
+            return "application/vnd.ed-fi.busroute.busroute-mixedinclude1.readable+json";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Applicant_MixedInclude2
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude2_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Applicant_MixedInclude2_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude2.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude2.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude2.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude2.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Applicant_MixedInclude2.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.applicant-mixedinclude2.readable+json";
+            return "application/vnd.ed-fi.busroute.busroute-mixedinclude2.readable+json";
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Staff_and_Prospect_MixedExclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.staff-and-prospect-mixedexclude.readable+json";
+            return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude.readable+json";
         }
     }
 }
@@ -295,58 +287,56 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude2_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude2_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedExclude2.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.staff-and-prospect-mixedexclude2.readable+json";
+            return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude2.readable+json";
         }
     }
 }
@@ -408,58 +398,56 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.GrandBend.Applicants.Staff_and_Prospect_MixedInclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ApplicantsController : EdFiControllerBase<
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedInclude_Readable.Applicant,
-        Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedInclude_Writable.Applicant,
-        Entities.Common.GrandBend.IApplicant,
-        Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedInclude.ApplicantPut,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedInclude.ApplicantPost,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedInclude.ApplicantDelete,
-        Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedInclude.ApplicantGetByExample>
+    public partial class BusRoutesController : EdFiControllerBase<
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Readable.BusRoute,
+        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute,
+        Entities.Common.Sample.IBusRoute,
+        Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePut,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePost,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteDelete,
+        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample>
     {
-        public ApplicantsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.GrandBend.Applicants.Staff_and_Prospect_MixedInclude.ApplicantGetByExample request, Entities.Common.GrandBend.IApplicant specification)
+        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.BirthDate = request.BirthDate;
-            specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
+            specification.BeginDate = request.BeginDate;
+            specification.BusId = request.BusId;
+            specification.BusRouteDirection = request.BusRouteDirection;
+            specification.BusRouteDuration = request.BusRouteDuration;
+            specification.BusRouteNumber = request.BusRouteNumber;
+            specification.Daily = request.Daily;
+            specification.DisabilityDescriptor = request.DisabilityDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.FirstName = request.FirstName;
-            specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
-            specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
+            specification.ExpectedTransitTime = request.ExpectedTransitTime;
+            specification.HoursPerWeek = request.HoursPerWeek;
             specification.Id = request.Id;
-            specification.LastSurname = request.LastSurname;
-            specification.LoginId = request.LoginId;
-            specification.MaidenName = request.MaidenName;
-            specification.MiddleName = request.MiddleName;
-            specification.PersonalTitlePrefix = request.PersonalTitlePrefix;
-            specification.SexDescriptor = request.SexDescriptor;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
+            specification.OperatingCost = request.OperatingCost;
+            specification.OptimalCapacity = request.OptimalCapacity;
+            specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
+            specification.StaffUniqueId = request.StaffUniqueId;
+            specification.StartDate = request.StartDate;
+            specification.WeeklyMileage = request.WeeklyMileage;
                     }
 
         protected override string GetResourceCollectionName()
         {
-            return "applicants";
+            return "busRoutes";
         }
 
         protected override string GetReadContentType()
         {
-            return "application/vnd.ed-fi.applicant.staff-and-prospect-mixedinclude.readable+json";
+            return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedinclude.readable+json";
         }
     }
 }
