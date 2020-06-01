@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -228,12 +228,22 @@ namespace EdFi.Ods.Api.Extensibility
                     .Where(c => !c.IsSelfReferencing)
                     .Select(CreateHbmSet).ToArray<object>();
 
+                var aggregateReferences = entity.GetAssociationsToReferenceableAggregateRoots()
+                    .OrderBy(a => a.Name)
+                    .Select(CreateHbmManyToOne)
+                    .ToArray<object>();
+
                 var hbmJoin = new HbmJoin
                 {
                     table = entity.TableName(_databaseEngine.ResolvedFolderName()),
                     schema = entity.Schema,
-                    key = CreateHbmKey(entity.Properties.Where(p => p.IsIdentifying).OrderBy(p => p.PropertyName)),
-                    Items = collections.Concat(properties).ToArray()
+                    key = CreateHbmKey(
+                        entity.Properties.Where(p => p.IsIdentifying)
+                            .OrderBy(p => p.PropertyName)),
+                    Items = collections
+                        .Concat(aggregateReferences)
+                        .Concat(properties)
+                        .ToArray()
                 };
 
                 return new HbmSubclass
@@ -266,6 +276,31 @@ namespace EdFi.Ods.Api.Extensibility
                         inverse = true,
                         lazy = HbmCollectionLazy.False,
                         Item = new HbmOneToMany {@class = GetExtensionEntityAssemblyQualifiedName(association.OtherEntity)}
+                    };
+                }
+
+                HbmManyToOne CreateHbmManyToOne(AssociationView association)
+                {
+                    var otherEntity = association.OtherEntity.TypeHierarchyRootEntity;
+
+                    return new HbmManyToOne
+                    {
+                        name = association.Name + "ReferenceData",
+                        @class = otherEntity
+                            .EntityTypeFullName(otherEntity.SchemaProperCaseName(), "ReferenceData"),
+                        fetch = HbmFetchMode.Join,
+                        insert = false,
+                        update = false,
+                        cascade = "none",
+                        lazy = HbmLaziness.Proxy,
+                        Items = association.Inverse
+                            .GetOrderedAssociationTargetColumns()
+                            .Select(p =>
+                                new HbmColumn
+                                {
+                                    name = p.PropertyName
+                                })
+                            .ToArray<object>()
                     };
                 }
             }
