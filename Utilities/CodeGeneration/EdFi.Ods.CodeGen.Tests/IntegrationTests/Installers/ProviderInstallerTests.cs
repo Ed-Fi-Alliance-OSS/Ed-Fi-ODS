@@ -46,7 +46,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Installers
             public void Should_resolve_code_repository_provider() => _container.Resolve<ICodeRepositoryProvider>().ShouldNotBeNull();
 
             [Test]
-            public void Should_resolve_database_schema_provider() => _container.Resolve<IDatabaseSchemaProvider>().ShouldNotBeNull();
+            public void Should_resolve_database_schema_provider() => _container.Resolve<IViewsProvider>().ShouldNotBeNull();
 
             [Test]
             public void Should_resolve_database_type_translator() => _container.Resolve<IDatabaseTypeTranslator>().ShouldNotBeNull();

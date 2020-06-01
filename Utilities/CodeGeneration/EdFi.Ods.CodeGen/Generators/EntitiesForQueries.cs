@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Extensions;
+using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -20,16 +21,16 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         private const string QueryModelSuffix = "Q";
         private static readonly object NotRendered = null;
-        private readonly IDatabaseSchemaProvider _databaseSchemaProvider;
+        private readonly IViewsProvider _viewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
 
-        public EntitiesForQueries(IDatabaseSchemaProvider databaseSchemaProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntitiesForQueries(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(databaseSchemaProvider, nameof(databaseSchemaProvider));
+            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
 
-            _databaseSchemaProvider = databaseSchemaProvider;
+            _viewsProvider = viewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
@@ -283,7 +284,7 @@ namespace EdFi.Ods.CodeGen.Generators
             var hierarchicalViewFqn = new FullName(entity.Schema, entity.Name + "H");
 
             // Find the hierarchical view, by convention
-            var view = _databaseSchemaProvider.LoadViews()
+            var view = _viewsProvider.LoadViews()
                                               .SingleOrDefault(v => new FullName(v.SchemaOwner, v.Name) == hierarchicalViewFqn);
 
             if (entity.HasSelfReferencingAssociations || view != null)

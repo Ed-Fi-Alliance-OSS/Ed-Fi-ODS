@@ -4,13 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
+using EdFi.Ods.CodeGen.Providers;
 
 namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityOrmMappingsForQueries : EntityOrmMappings
     {
-        public EntityOrmMappingsForQueries(IDatabaseSchemaProvider databaseSchemaProvider, IDatabaseTypeTranslator databaseTypeTranslator)
-            : base(databaseSchemaProvider, databaseTypeTranslator) { }
+        public EntityOrmMappingsForQueries(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+            : base(viewsProvider, databaseTypeTranslator) { }
 
         protected override void Configure()
         {

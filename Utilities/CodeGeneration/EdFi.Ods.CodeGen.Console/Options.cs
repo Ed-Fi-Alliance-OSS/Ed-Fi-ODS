@@ -13,7 +13,10 @@ namespace EdFi.Ods.CodeGen.Console
         [Option('r', "repositoryPath", Required = false, HelpText = "Path to the code repository where the ODS is located.")]
         public string CodeRepositoryPath { get; set; }
 
-        [Option('e', "engine", Required = false, HelpText = "Database engine type: SQLServer or PostgreSQL", Default = EngineType.SQLServer)]
+        [Option('e', "engine", Required = false, HelpText = "Database engine type: SQLServer or PostgreSQL.", Default = EngineType.SQLServer)]
         public EngineType Engine { get; set; }
+
+        [Option('v', "viewsFromDatabase", Required = false, HelpText = "Request view metadata from an existing empty database.", Default = false)]
+        public bool ViewsFromDatabase { get; set; }
     }
 }

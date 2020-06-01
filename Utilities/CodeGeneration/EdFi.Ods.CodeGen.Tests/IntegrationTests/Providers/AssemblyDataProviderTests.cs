@@ -37,7 +37,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             public void Should_not_be_empty() => _assemblyDatas.ShouldNotBeEmpty();
 
             [Test]
-            public void Should_have_eight_assemblies_for_processing() => _assemblyDatas.Count.ShouldBe(8);
+            public void Should_have_correct_number_of_assemblies_for_processing() => _assemblyDatas.Count.ShouldBe(9);
         }
     }
 }

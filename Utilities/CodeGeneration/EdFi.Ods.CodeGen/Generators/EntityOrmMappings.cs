@@ -10,6 +10,7 @@ using System.Text;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models.Templates;
+using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -21,17 +22,17 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntityOrmMappings : GeneratorBase
     {
         private const string HierarchicalViewSuffix = "H";
-        private readonly IDatabaseSchemaProvider _databaseSchemaProvider;
+        private readonly IViewsProvider _viewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Dictionary<Entity, List<ClassMappingContext>> _classMappingsForEntities;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
 
-        public EntityOrmMappings(IDatabaseSchemaProvider databaseSchemaProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntityOrmMappings(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(databaseSchemaProvider, nameof(databaseSchemaProvider));
+            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
 
-            _databaseSchemaProvider = databaseSchemaProvider;
+            _viewsProvider = viewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
@@ -524,7 +525,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 var hierarchicalViewFqn = new FullName(entity.Schema, entity.Name + HierarchicalViewSuffix);
 
                 // Find the hierarchical view, by convention
-                var view = _databaseSchemaProvider.LoadViews()
+                var view = _viewsProvider.LoadViews()
                     .SingleOrDefault(v => new FullName(v.SchemaOwner, v.Name) == hierarchicalViewFqn);
 
                 if (view != null)
