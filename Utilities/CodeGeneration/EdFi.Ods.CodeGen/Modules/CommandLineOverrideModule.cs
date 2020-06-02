@@ -24,6 +24,11 @@ namespace EdFi.Ods.CodeGen.Modules
                     .As<ICodeRepositoryProvider>();
             }
 
+            if (!Options.ViewsFromDatabase)
+            {
+                return;
+            }
+
             builder.RegisterType<EngineTypeProvider>()
                 .WithParameter(new NamedParameter("engineType", Options.Engine))
                 .As<IEngineTypeProvider>();
