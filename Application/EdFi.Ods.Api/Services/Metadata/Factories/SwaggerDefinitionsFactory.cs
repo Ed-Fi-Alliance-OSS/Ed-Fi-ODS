@@ -243,7 +243,7 @@ namespace EdFi.Ods.Api.Services.Metadata.Factories
             }
 
             var requiredProperties = properties
-                .Where(x => x.IsRequired || x.PropertyName.EqualsIgnoreCase("id"))
+                .Where(x => x.IsRequired && !x.PropertyName.EqualsIgnoreCase("id"))
                 .Select(x => x.PropertyName.ToCamelCase()).ToList();
 
             return new Schema
