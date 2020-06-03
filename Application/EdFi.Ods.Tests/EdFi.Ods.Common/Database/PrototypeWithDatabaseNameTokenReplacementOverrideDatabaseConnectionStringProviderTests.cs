@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
@@ -24,6 +24,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         // External dependencies
         private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private IConfigConnectionStringsProvider _configConnectionStringsProvider;
+        private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
 
         protected override void Arrange()
         {
@@ -40,6 +41,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
             A.CallTo(() => _configConnectionStringsProvider.GetConnectionString("SomeConnectionStringName"))
                 .Returns("Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword");
+
+            _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
+
+            A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
         }
 
         protected override void Act()
@@ -49,7 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
-                () => new SqlConnectionStringBuilderAdapter());
+                _dbConnectionStringBuilderAdapterFactory);
 
             _actualConnectionString = provider.GetConnectionString();
         }
@@ -71,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     }
 
     public class When_building_connection_string_based_on_a_prototype_from_the_connectionStrings_config_section_with_different_database_name_replacement_token_overrides
-        : LegacyTestFixtureBase
+        : TestFixtureBase
     {
         // Supplied values
 
@@ -83,6 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         // External dependencies
         private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private IConfigConnectionStringsProvider _configConnectionStringsProvider;
+        private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
 
         protected override void Arrange()
         {
@@ -101,6 +107,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
             A.CallTo(() => _configConnectionStringsProvider.GetConnectionString("SomeConnectionStringName"))
                 .Returns("Server=SomeServer; Database=EdFi_{0}; UID=SomeUser; Password=SomePassword");
+
+            _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
+
+            A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
         }
 
         protected override void Act()
@@ -110,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
-                () => new SqlConnectionStringBuilderAdapter());
+                _dbConnectionStringBuilderAdapterFactory);
 
             _actualConnectionString1 = provider.GetConnectionString();
             _actualConnectionString2 = provider.GetConnectionString();
