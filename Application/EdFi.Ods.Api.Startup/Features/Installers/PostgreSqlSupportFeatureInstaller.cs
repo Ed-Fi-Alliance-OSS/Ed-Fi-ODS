@@ -2,13 +2,11 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.InversionOfControl;
-using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Api.Startup.Features.Installers
@@ -33,14 +31,6 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 Component
                     .For<IAuthorizationSegmentsSqlProvider>()
                     .ImplementedBy<PostgresAuthorizationSegmentSqlProvider>());
-        }
-
-        private void RegisterDbConnectionStringBuilderAdapter(IWindsorContainer container)
-        {
-            container.Register(
-                Component
-                    .For<IDbConnectionStringBuilderAdapter>()
-                    .UsingFactoryMethod(() => new NpgsqlConnectionStringBuilderAdapter()));
         }
     }
 }
