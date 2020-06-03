@@ -2,12 +2,11 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
@@ -33,7 +32,8 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 
             _domainModelDefinitionProviders =
                 new Lazy<List<IDomainModelDefinitionsProvider>>(
-                    () => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders().ToList());
+                    () => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders()
+                        .ToList());
         }
 
         public TemplateContext Create(AssemblyData assemblyData)
@@ -41,7 +41,7 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
             Preconditions.ThrowIfNull(assemblyData, nameof(assemblyData));
 
             return _templateContextByAssemblyName
-               .GetOrAdd(
+                .GetOrAdd(
                     assemblyData.AssemblyName,
                     k => GetTemplateContext(assemblyData));
         }
@@ -49,7 +49,9 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         private TemplateContext GetTemplateContext(AssemblyData assemblyData)
         {
             var domainModelProvider = CreateDomainModelProvider(assemblyData);
-            var schemaNameMap = domainModelProvider.GetDomainModel().SchemaNameMapProvider.GetSchemaMapByProperCaseName(assemblyData.SchemaName);
+
+            var schemaNameMap = domainModelProvider.GetDomainModel()
+                .SchemaNameMapProvider.GetSchemaMapByProperCaseName(assemblyData.SchemaName);
 
             return new TemplateContext
             {
@@ -80,13 +82,16 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         private List<IDomainModelDefinitionsProvider> GetDomainModelDefinitionProviders(string schemaName)
         {
             return _domainModelDefinitionProviders
-                  .Value
-                  .Where(
-                       x => schemaName
-                               .EqualsIgnoreCase(
-                                    ExtensionsConventions.GetProperCaseNameForLogicalName(x.GetDomainModelDefinitions().SchemaDefinition.LogicalName))
-                            || x.GetDomainModelDefinitions().SchemaDefinition.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName))
-                  .ToList();
+                .Value
+                .Where(
+                    x => schemaName
+                             .EqualsIgnoreCase(
+                                 ExtensionsConventions.GetProperCaseNameForLogicalName(
+                                     x.GetDomainModelDefinitions()
+                                         .SchemaDefinition.LogicalName))
+                         || x.GetDomainModelDefinitions()
+                             .SchemaDefinition.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName))
+                .ToList();
         }
     }
 }

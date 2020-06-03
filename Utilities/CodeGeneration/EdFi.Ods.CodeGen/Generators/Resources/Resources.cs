@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,8 +19,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
     public class Resources : GeneratorBase
     {
         private readonly ResourceCollectionRenderer _resourceCollectionRenderer;
-        private IResourceProfileProvider _resourceProfileProvider;
         private readonly ResourcePropertyRenderer _resourcePropertyRenderer;
+        private IResourceProfileProvider _resourceProfileProvider;
 
         public Resources()
         {
@@ -30,7 +30,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
         protected override void Configure()
         {
-            _resourceProfileProvider = new ResourceProfileProvider(new ResourceModelProvider(TemplateContext.DomainModelProvider),TemplateContext);
+            _resourceProfileProvider = new ResourceProfileProvider(
+                new ResourceModelProvider(TemplateContext.DomainModelProvider),
+                TemplateContext);
         }
 
         protected override object Build()
@@ -90,7 +92,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                         if (association.PropertyMappingByThisName.ContainsKey(propertyName))
                         {
-                            // in the case where we have unified key and roles, we need to use the 
+                            // in the case where we have unified key and roles, we need to use the
                             // context of the call along with the destination
 
                             var otherResourceProperty = association.PropertyMappingByThisName[propertyName]
@@ -160,7 +162,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             };
 
             if (resourceContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
+            {
                 yield return resourceContext;
+            }
 
             // Process resources based on Ed-Fi standard resources for possible resource extensions
             if (profileData.ContextualRootResource.IsEdFiStandardResource)
@@ -200,7 +204,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     };
 
                     if (extensionContext.ResourceClasses != ResourceRenderer.DoNotRenderProperty)
+                    {
                         yield return extensionContext;
+                    }
                 }
             }
         }
@@ -216,9 +222,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                 // Create the model for the root class of the resource (if it should be rendered in the current context)
                 (TemplateContext.ShouldRenderResourceClass(profileData.ContextualRootResource)
-                    && profileData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
-                        ? new[] {CreateResourceClass(profileData, profileData.ContextualRootResource)}
-                        : new object[0])
+                 && profileData.ContextualRootResource.FullName.Schema == contextualSchemaPhysicalName
+                    ? new[] {CreateResourceClass(profileData, profileData.ContextualRootResource)}
+                    : new object[0])
 
                 // Add in all the Contained Item Types for the resource
                 .Concat(
@@ -235,13 +241,15 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         // When generating non-Ed-Fi schema for an Ed-Fi resource, only include resource extension classes, otherwise only include non-resource-extension classes.
                         .Where(
                             x => x.IsResourceExtension == (profileData.ContextualRootResource.IsEdFiStandardResource
-                                && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
+                                                           && contextualSchemaPhysicalName != EdFiConventions.PhysicalSchemaName))
                         .Where(
                             x =>
                             {
                                 // For contexts where the root resource class is derived, don't render inherited children
                                 if (profileData.IsDerived)
+                                {
                                     return !x.IsInheritedChildItem;
+                                }
 
                                 // For contexts where the root resource class is a base class, only render its children
                                 // if the concrete version of the resource needs it.
@@ -269,7 +277,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         private object CreateContextSpecificResourceReferences(ResourceProfileData profileData, ResourceClassBase resource)
         {
             if (resource.IsAggregateRoot() || !resource.HasBackReferences())
+            {
                 return ResourceRenderer.DoNotRenderProperty;
+            }
 
             var externalAssociations = resource.ExternalReferenceAssociations()
                 .ToList();
@@ -333,7 +343,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             ResourceProfileData profileData)
         {
             if (resourceChildItem == null)
+            {
                 return null;
+            }
 
             if (profileData.IsBaseResource && resourceChildItem.IsInheritedChildItem)
             {
@@ -444,9 +456,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     ? null
                     : $"{Namespaces.Entities.Common.RelativeNamespace}.{parentProperCaseSchemaName}.",
                 IsBaseClassConcrete = resourceClass.Entity != null
-                    && resourceClass.Entity.IsDerived
-                    && resourceClass.Entity.BaseEntity != null
-                    && !resourceClass.Entity.BaseEntity.IsAbstractRequiringNoCompositeId(),
+                                      && resourceClass.Entity.IsDerived
+                                      && resourceClass.Entity.BaseEntity != null
+                                      && !resourceClass.Entity.BaseEntity.IsAbstractRequiringNoCompositeId(),
                 DerivedBaseTypeName = resourceClass.IsDerived && resourceClass.Entity != null
                     ? resourceClass.Entity.BaseEntity?.Name
                     : ResourceRenderer.DoNotRenderProperty,
@@ -472,7 +484,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (resourceClass.Entity == null)
             {
                 if (resourceClass.IsResourceExtensionClass)
+                {
                     return Enumerable.Empty<object>();
+                }
 
                 throw new Exception($"Resource class '{resourceClass.FullName}' does not have an associated entity.");
             }
@@ -568,7 +582,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
 
             if (association == null)
+            {
                 return ResourceRenderer.DoNotRenderProperty;
+            }
 
             return new
             {
@@ -593,7 +609,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
         {
             // Collections
             var allItems = memberAccessor(resourceClass.FilterContext.UnfilteredResourceClass)
-                ?? memberAccessor(resourceClass);
+                           ?? memberAccessor(resourceClass);
 
             var availableItems = memberAccessor(resourceClass);
 

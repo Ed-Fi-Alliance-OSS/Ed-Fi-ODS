@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Threading;
 using EdFi.Ods.CodeGen.Models.Application;
@@ -30,31 +30,26 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 var expectedTemplateString = @"using EdFi.Ods.Xml.XmlMetadata;";
 
                 var templatesByTemplateName = new Dictionary<string, string>
-                                              {
-                                                  {
-                                                      templateName, expectedTemplateString
-                                                  },
-                                                  {
-                                                      "template2", "template2 string"
-                                                  }
-                                              };
-
+                {
+                    {templateName, expectedTemplateString},
+                    {"template2", "template2 string"}
+                };
 
                 _templateWriterData = new TemplateWriterData
-                                      {
-                                          Model = new
-                                                  {
-                                                      NamespaceName = "testNamespace", ClassName = "testClass", InterfaceName = "testInterfaceName"
-                                                  },
-                                          TemplateSet = new TemplateSet
-                                                        {
-                                                            Name = templateName
-                                                        }
-                                      };
+                {
+                    Model = new
+                    {
+                        NamespaceName = "testNamespace",
+                        ClassName = "testClass",
+                        InterfaceName = "testInterfaceName"
+                    },
+                    TemplateSet = new TemplateSet {Name = templateName}
+                };
 
                 _mustacheTemplateProvider = Stub<IMustacheTemplateProvider>();
 
-                A.CallTo(() => _mustacheTemplateProvider.GetMustacheTemplates()).Returns(templatesByTemplateName);
+                A.CallTo(() => _mustacheTemplateProvider.GetMustacheTemplates())
+                    .Returns(templatesByTemplateName);
 
                 _templateWriter = new TemplateWriter(_mustacheTemplateProvider);
             }
@@ -62,15 +57,19 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
             protected override void Act()
             {
                 // simulate writing the data twice
-                _templateWriter.WriteAsync(_templateWriterData, CancellationToken.None).RunSynchronously();
-                _templateWriter.WriteAsync(_templateWriterData, CancellationToken.None).RunSynchronously();
+                _templateWriter.WriteAsync(_templateWriterData, CancellationToken.None)
+                    .RunSynchronously();
+
+                _templateWriter.WriteAsync(_templateWriterData, CancellationToken.None)
+                    .RunSynchronously();
             }
 
             public override void RunOnceAfterAll() { }
 
             [Test]
-            public void Should_call_GetMustacheTemplates_once() => A.CallTo(() => _mustacheTemplateProvider.GetMustacheTemplates())
-                                                                    .MustHaveHappenedOnceExactly();
+            public void Should_call_GetMustacheTemplates_once()
+                => A.CallTo(() => _mustacheTemplateProvider.GetMustacheTemplates())
+                    .MustHaveHappenedOnceExactly();
         }
     }
 }

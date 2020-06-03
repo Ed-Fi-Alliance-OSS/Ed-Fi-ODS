@@ -2,27 +2,27 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Models.Configuration;
+using log4net;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class TemplateSetProvider : ITemplateSetProvider
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(TemplateSetProvider));
         private readonly Lazy<ConcurrentDictionary<string, IReadOnlyList<TemplateSet>>> _templatesByTemplateSet;
 
         public TemplateSetProvider()
         {
-            _templatesByTemplateSet = new Lazy<ConcurrentDictionary<string, IReadOnlyList<TemplateSet>>>(LazyInitializeTemplateSetData);
+            _templatesByTemplateSet =
+                new Lazy<ConcurrentDictionary<string, IReadOnlyList<TemplateSet>>>(LazyInitializeTemplateSetData);
         }
-
-        public ILogger Logger { get; set; } = NullLogger.Instance;
 
         public IReadOnlyList<TemplateSet> GetTemplatesByName(string templateSetName)
         {
@@ -31,17 +31,22 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 return results;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(templateSetName), $"Unable to find templates for templateSetName {templateSetName}.");
+            throw new ArgumentOutOfRangeException(
+                nameof(templateSetName),
+                $"Unable to find templates for templateSetName {templateSetName}.");
         }
 
         private ConcurrentDictionary<string, IReadOnlyList<TemplateSet>> LazyInitializeTemplateSetData()
         {
-            Logger.Debug("Importing embedded template sets.json file");
+            _logger.Debug("Importing embedded template sets.json file");
 
-            var assembly = GetType().Assembly;
+            var assembly = GetType()
+                .Assembly;
+
             string filename = $"{assembly.GetName().Name}.TemplateSets.json";
 
-            using (var stream = GetType().Assembly.GetManifestResourceStream(filename))
+            using (var stream = GetType()
+                .Assembly.GetManifestResourceStream(filename))
             {
                 if (stream == null)
                 {

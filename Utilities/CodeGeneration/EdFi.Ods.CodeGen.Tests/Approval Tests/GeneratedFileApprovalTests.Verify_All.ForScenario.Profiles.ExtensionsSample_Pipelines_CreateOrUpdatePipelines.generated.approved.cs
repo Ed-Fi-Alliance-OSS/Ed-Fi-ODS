@@ -41,19 +41,19 @@ namespace EdFi.Ods.Api.Pipelines.Staff_and_Prospect_MixedInclude
     }
 
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedInclude_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }
 
-namespace EdFi.Ods.Api.Pipelines.Applicant_MixedInclude
+namespace EdFi.Ods.Api.Pipelines.BusRoute_MixedInclude
 {
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Applicant_MixedInclude_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }
@@ -67,9 +67,9 @@ namespace EdFi.Ods.Api.Pipelines.Staff_and_Prospect_MixedExclude
     }
 
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }
@@ -83,29 +83,29 @@ namespace EdFi.Ods.Api.Pipelines.Staff_and_Prospect_MixedExclude2
     }
 
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Staff_and_Prospect_MixedExclude2_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }
 
-namespace EdFi.Ods.Api.Pipelines.Applicant_MixedInclude2
+namespace EdFi.Ods.Api.Pipelines.BusRoute_MixedInclude2
 {
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Applicant_MixedInclude2_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }
 
-namespace EdFi.Ods.Api.Pipelines.Applicant_MixedInclude1
+namespace EdFi.Ods.Api.Pipelines.BusRoute_MixedInclude1
 {
     [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Applicant.GrandBend.Applicant_MixedInclude1_Writable.Applicant, Entities.NHibernate.ApplicantAggregate.GrandBend.Applicant>
+    public class BusRouteCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute, Entities.NHibernate.BusRouteAggregate.Sample.BusRoute>
     {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public BusRouteCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
 }

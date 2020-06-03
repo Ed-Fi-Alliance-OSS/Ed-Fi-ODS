@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Linq;
 using EdFi.Ods.CodeGen.Extensions;
@@ -113,11 +113,11 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             }
 
             return SuppliedResource.Collections
-                                   .Select(x => x)
-                                   .Concat(
-                                        SuppliedResource.Collections
-                                                        .SelectMany(x => x.ItemType.Collections))
-                                   .Any(x => x.ValueFilters.Any());
+                .Select(x => x)
+                .Concat(
+                    SuppliedResource.Collections
+                        .SelectMany(x => x.ItemType.Collections))
+                .Any(x => x.ValueFilters.Any());
         }
 
         public bool IsIncluded(ResourceClassBase resource, ResourceProperty property)
@@ -140,7 +140,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (resource.Name == SuppliedResource.Name)
             {
                 return SuppliedResource.AllProperties
-                                       .Contains(property, ModelComparers.ResourceProperty);
+                    .Contains(property, ModelComparers.ResourceProperty);
             }
 
             // if the resource is excluded we ignore all properties
@@ -153,16 +153,16 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             if (filteredResource != null
                 && filteredResource.AllProperties
-                                   .Contains(property, ModelComparers.ResourcePropertyNameOnly))
+                    .Contains(property, ModelComparers.ResourcePropertyNameOnly))
             {
                 return true;
             }
 
             if (SuppliedResource.Extensions.SelectMany(
-                                     e => e.ObjectType.AllProperties)
-                                .Contains(
-                                     property,
-                                     ModelComparers.ResourceProperty))
+                    e => e.ObjectType.AllProperties)
+                .Contains(
+                    property,
+                    ModelComparers.ResourceProperty))
             {
                 return true;
             }
@@ -327,7 +327,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             // OR   check to see if any Extensions's ObjectTypes match the input resource.Name
             if (SuppliedResource.Name == resource.Name
                 || SuppliedResource.Extensions.Select(x => x.ObjectType.Name)
-                                   .Any(x => x == resource.Name))
+                    .Any(x => x == resource.Name))
             {
                 return true;
             }
@@ -336,13 +336,13 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (IsBaseResource && (resource as ResourceChildItem)?.Parent == null)
             {
                 return SuppliedResource.AllContainedItemTypes
-                                       .Select(x => x.Entity)
-                                       .Contains(resource.Entity, ModelComparers.Entity);
+                    .Select(x => x.Entity)
+                    .Contains(resource.Entity, ModelComparers.Entity);
             }
 
             return SuppliedResource.AllContainedItemTypes
-                                   .Select(x => x.Entity)
-                                   .Contains(resource.Entity, ModelComparers.Entity);
+                .Select(x => x.Entity)
+                .Contains(resource.Entity, ModelComparers.Entity);
         }
 
         private bool IsIncluded(ResourceClassBase resource, ResourceMemberBase resourceMember)

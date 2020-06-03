@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -47,10 +47,7 @@ namespace EdFi.Ods.CodeGen.Metadata
         {
             if (profilesXml == null)
             {
-                return new Profiles
-                       {
-                           Profile = new Profile[0]
-                       };
+                return new Profiles {Profile = new Profile[0]};
             }
 
             ValidateProfileXml(profilesXml);
@@ -81,16 +78,13 @@ namespace EdFi.Ods.CodeGen.Metadata
 
         private static void ValidateRawXml(string rawXml, string metadataType, string resourceName)
         {
-            var xmlReaderSettings = new XmlReaderSettings
-                                    {
-                                        ValidationType = ValidationType.Schema
-                                    };
+            var xmlReaderSettings = new XmlReaderSettings {ValidationType = ValidationType.Schema};
 
             xmlReaderSettings.ValidationEventHandler += (sender, e) =>
-                                                        {
-                                                            throw new XmlSchemaValidationException(
-                                                                $"The {metadataType} specified are not valid. {e.Message} on line number {e.Exception.LineNumber} line position {e.Exception.LinePosition}");
-                                                        };
+            {
+                throw new XmlSchemaValidationException(
+                    $"The {metadataType} specified are not valid. {e.Message} on line number {e.Exception.LineNumber} line position {e.Exception.LinePosition}");
+            };
 
             XmlReader metadataXsd;
 

@@ -2,15 +2,15 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using EdFi.Ods.CodeGen.Models.Application;
 using EdFi.Ods.CodeGen.Providers;
+using log4net;
 using Stubble.Core;
 using Stubble.Core.Builders;
 using Stubble.Core.Settings;
@@ -19,9 +19,10 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 {
     public class TemplateWriter : ITemplateWriter
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(TemplateProcessor));
+        private readonly RenderSettings _renderSettings;
         private readonly Lazy<StubbleVisitorRenderer> _stubbleRender;
         private readonly Lazy<IDictionary<string, string>> _templatesByTemplateName;
-        private readonly RenderSettings _renderSettings;
 
         public TemplateWriter(IMustacheTemplateProvider mustacheTemplateProvider)
         {
@@ -34,22 +35,17 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 
             _stubbleRender = new Lazy<StubbleVisitorRenderer>(
                 () => new StubbleBuilder()
-                     .Configure(
-                          settings =>
-                          {
-                              settings.SetMaxRecursionDepth(512);
-                              settings.SetIgnoreCaseOnKeyLookup(true);
-                          }
-                      )
-                     .Build());
+                    .Configure(
+                        settings =>
+                        {
+                            settings.SetMaxRecursionDepth(512);
+                            settings.SetIgnoreCaseOnKeyLookup(true);
+                        }
+                    )
+                    .Build());
 
-            _renderSettings = new RenderSettings
-                              {
-                                  SkipHtmlEncoding = true
-                              };
+            _renderSettings = new RenderSettings {SkipHtmlEncoding = true};
         }
-
-        public ILogger Logger { get; set; } = NullLogger.Instance;
 
         public async Task WriteAsync(TemplateWriterData codeGenTemplateWriterData, CancellationToken cancellationToken)
         {
@@ -57,25 +53,27 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
 
             string template = _templatesByTemplateName.Value[codeGenTemplateWriterData.TemplateSet.Name];
 
-            Logger.Debug($"Rendering {codeGenTemplateWriterData.TemplateSet.Name}.");
+            _logger.Debug($"Rendering {codeGenTemplateWriterData.TemplateSet.Name}.");
 
             string destinationFolder = Path.GetDirectoryName(codeGenTemplateWriterData.OutputPath);
 
             if (!Directory.Exists(destinationFolder))
             {
-                Logger.Debug($"Creating destination folder {destinationFolder}.");
+                _logger.Debug($"Creating destination folder {destinationFolder}.");
                 Directory.CreateDirectory(destinationFolder);
             }
 
-            string renderedTemplate = _stubbleRender
-                                     .Value
-                                     .Render(template, codeGenTemplateWriterData.Model, _templatesByTemplateName.Value, _renderSettings);
+            string renderedTemplate = await _stubbleRender
+                .Value
+                .RenderAsync(template, codeGenTemplateWriterData.Model, _templatesByTemplateName.Value, _renderSettings)
+                .ConfigureAwait(false);
 
-            using (var streamWriter = new StreamWriter(codeGenTemplateWriterData.OutputPath))
-            {
-                Logger.Debug($"Writing {codeGenTemplateWriterData.OutputPath}.");
-                await streamWriter.WriteAsync(renderedTemplate).ConfigureAwait(false);
-            }
+            await using var streamWriter = new StreamWriter(codeGenTemplateWriterData.OutputPath);
+
+            _logger.Debug($"Writing {codeGenTemplateWriterData.OutputPath}.");
+
+            await streamWriter.WriteAsync(renderedTemplate)
+                .ConfigureAwait(false);
         }
     }
 }

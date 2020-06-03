@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -44,7 +44,9 @@ namespace EdFi.Ods.CodeGen.Metadata
 
         public void ProfileNamesAreUnique()
         {
-            if (ValidationObjectInstances.Select(obj => obj.name).Distinct().Count() != ValidationObjectInstances.Count())
+            if (ValidationObjectInstances.Select(obj => obj.name)
+                    .Distinct()
+                    .Count() != ValidationObjectInstances.Count())
             {
                 throw new DuplicateProfileException();
             }
@@ -64,7 +66,8 @@ namespace EdFi.Ods.CodeGen.Metadata
                 var objectName = GetValidationElementName(objectElement);
 
                 if (!domainResource.EmbeddedObjects.Select(embeddedObj => embeddedObj.ObjectType.Name)
-                    .Concat(domainResource.Extensions.Select(e => e.ObjectType.Name)).Contains(objectName))
+                    .Concat(domainResource.Extensions.Select(e => e.ObjectType.Name))
+                    .Contains(objectName))
                 {
                     throw new MissingForeignKeyException("Object", objectName, profile, domainResource.Name);
                 }
@@ -92,7 +95,8 @@ namespace EdFi.Ods.CodeGen.Metadata
 
                 var invalidCollections =
                     containingTable == resource.name && !domainResource.Collections
-                        .Select(domainResourceCollection => domainResourceCollection.PropertyName).Contains(collectionName) ||
+                        .Select(domainResourceCollection => domainResourceCollection.PropertyName)
+                        .Contains(collectionName) ||
                     containingTable != resource.name && embeddedObjectCollections.Any(
                         embeddedObjectCollection => embeddedObjectCollection.Key == containingTable &&
                                                     !embeddedObjectCollection.Value.Contains(collectionName));
@@ -126,7 +130,8 @@ namespace EdFi.Ods.CodeGen.Metadata
 
                 var resourceProperty = domainResource.AllProperties
                     .Concat(domainResource.AllContainedItemTypes.SelectMany(item => item.AllProperties))
-                    .Concat(domainResource.Extensions.SelectMany(p => p.ObjectType.AllProperties)).FirstOrDefault(
+                    .Concat(domainResource.Extensions.SelectMany(p => p.ObjectType.AllProperties))
+                    .FirstOrDefault(
                         domainResourceProperty => domainResourceProperty.PropertyName ==
                                                   FormatPropertyNameAsResourcePropertyName(propertyName));
 
@@ -139,7 +144,8 @@ namespace EdFi.Ods.CodeGen.Metadata
                 {
                     var invalidPropertyReference = !resourceProperty.IsIdentifying && resourceProperty.IsLookup &&
                                                    resourceProperty.EntityProperty.Entity.IncomingAssociations
-                                                       .Concat(resourceProperty.EntityProperty.Entity.OutgoingAssociations).Any(
+                                                       .Concat(resourceProperty.EntityProperty.Entity.OutgoingAssociations)
+                                                       .Any(
                                                            association
                                                                => association.ThisProperties.Contains(
                                                                       resourceProperty.EntityProperty) &&
@@ -148,7 +154,10 @@ namespace EdFi.Ods.CodeGen.Metadata
                     if (invalidPropertyReference)
                     {
                         throw new InvalidPropertyReferenceException(
-                            propertyName, profile, domainResource.Name, resourceProperty.ParentFullName.Name);
+                            propertyName,
+                            profile,
+                            domainResource.Name,
+                            resourceProperty.ParentFullName.Name);
                     }
                 }
             }
@@ -157,9 +166,15 @@ namespace EdFi.Ods.CodeGen.Metadata
         private string CreateMemberXPath(string profileName, string resourceName, string memberType)
             => string.Format(
                 "//Profile[@name='{0}']//Resource[@name='{1}']/{2}//{4}|//Profile[@name='{0}']//Resource[@name='{1}']/{3}//{4}",
-                profileName, resourceName, "ReadContentType", "WriteContentType", memberType);
+                profileName,
+                resourceName,
+                "ReadContentType",
+                "WriteContentType",
+                memberType);
 
-        private List<XElement> GetXElementsFromXPath(string xPath) => DocumentToValidate.XPathSelectElements(xPath).ToList();
+        private List<XElement> GetXElementsFromXPath(string xPath)
+            => DocumentToValidate.XPathSelectElements(xPath)
+                .ToList();
 
         private string GetValidationElementName(XElement validationElement) => validationElement.AttributeValue("name");
 
@@ -185,7 +200,8 @@ namespace EdFi.Ods.CodeGen.Metadata
             bool IsNameMatch(ResourceClassBase r) => r.Name.EqualsIgnoreCase(resource.name);
             bool IsFullNameMatch(ResourceClassBase r) => IsSchemaMatch(r) && IsNameMatch(r);
 
-            return ResourceModel.GetAllResources().FirstOrDefault(IsFullNameMatch);
+            return ResourceModel.GetAllResources()
+                .FirstOrDefault(IsFullNameMatch);
         }
     }
 
@@ -237,11 +253,13 @@ namespace EdFi.Ods.CodeGen.Metadata
         private const string ExceptionMessage =
             @"The property '{0}' contained in Profile '{1}' cannot be included in the Profile definition because it is part of an incoming FK reference from '{2}' to '{3}'. Reference property instead.";
 
-        public InvalidPropertyReferenceException(string propertyName,
+        public InvalidPropertyReferenceException(
+            string propertyName,
             Profile profile,
             string domainResourceName,
             string propertyParentName)
             : base(
-                string.Format(ExceptionMessage, propertyName, profile.name, domainResourceName, propertyParentName), profile) { }
+                string.Format(ExceptionMessage, propertyName, profile.name, domainResourceName, propertyParentName),
+                profile) { }
     }
 }

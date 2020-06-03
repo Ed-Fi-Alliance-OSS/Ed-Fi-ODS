@@ -4,14 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.IO;
-using Castle.Core.Logging;
+using log4net;
 using Newtonsoft.Json;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class JsonFileProvider : IJsonFileProvider
     {
-        public ILogger Logger { get; set; } = NullLogger.Instance;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(JsonFileProvider));
 
         public T Load<T>(string fileFullName)
         {
@@ -20,7 +20,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 throw new FileNotFoundException($"Non-existent file path provided. Expected location {fileFullName}.");
             }
 
-            Logger.Debug($"Deserializing object type {typeof(T)} from file {fileFullName}.");
+            _logger.Debug($"Deserializing object type {typeof(T)} from file {fileFullName}.");
 
             using (StreamReader file = File.OpenText(fileFullName))
             {

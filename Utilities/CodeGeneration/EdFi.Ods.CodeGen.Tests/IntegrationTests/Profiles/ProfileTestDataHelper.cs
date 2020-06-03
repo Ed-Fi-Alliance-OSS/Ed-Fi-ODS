@@ -2,14 +2,14 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Castle.Windsor;
+using Autofac;
 using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.CodeGen._Installers;
+using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common.Models.Domain;
 using NUnit.Framework;
@@ -23,12 +23,12 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 
         public ProfileTestDataHelper(string fileName)
         {
-            var container = new WindsorContainer();
-
-            container.Install(new AppConfigInstaller(), new ProvidersInstaller());
+            var container = ContainerHelper.CreateContainer();
 
             _domainModel = new DomainModelProvider(
-                container.Resolve<IDomainModelDefinitionsProviderProvider>().DomainModelDefinitionProviders().ToList()).GetDomainModel();
+                container.Resolve<IDomainModelDefinitionsProviderProvider>()
+                    .DomainModelDefinitionProviders()
+                    .ToList()).GetDomainModel();
 
             Validator = GetValidator(fileName);
         }
@@ -40,7 +40,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 
         public MetadataValidatorBase<Profile> Validator { get; }
 
-        private Ods.Common.Metadata.Schemas.Profiles GetProfiles(string fileName)
+        private Common.Metadata.Schemas.Profiles GetProfiles(string fileName)
         {
             var profileDoc = XDocument.Load(Path.Combine(TestFilePath, fileName));
 

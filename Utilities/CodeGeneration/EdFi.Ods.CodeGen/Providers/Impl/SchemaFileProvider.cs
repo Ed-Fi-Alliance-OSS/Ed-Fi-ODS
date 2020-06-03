@@ -2,10 +2,10 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.IO;
-using Castle.Core.Logging;
 using EdFi.Ods.Common;
+using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
@@ -15,18 +15,15 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private const string EdFiSchemaAnnotationName = "SchemaAnnotation.xsd";
         private const string ExtensionSchemaName = "EXTENSION-Ed-Fi-Extended-Core.xsd";
 
-        private readonly string _standardSchemaFolder;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchemaFileProvider));
 
-        private ILogger Logger { get; set; } = NullLogger.Instance;
+        private readonly string _standardSchemaFolder;
 
         public SchemaFileProvider(IMetadataFolderProvider metadataFolderProvider)
         {
             Preconditions.ThrowIfNull(metadataFolderProvider, nameof(metadataFolderProvider));
             _standardSchemaFolder = metadataFolderProvider.GetStandardSchemaFolder();
         }
-
-        private string GetExceptionMessage(string folder, string file)
-            => $"Unable to find XSD file '{file}'.  Please make certain the XSD files exist in the {folder} folder.";
 
         public string GetEdFiSchema()
         {
@@ -56,8 +53,11 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             }
 
             // Extension schemas are optional
-            Logger.Warn(GetExceptionMessage(folder, ExtensionSchemaName));
+            _logger.Warn(GetExceptionMessage(folder, ExtensionSchemaName));
             return null;
         }
+
+        private string GetExceptionMessage(string folder, string file)
+            => $"Unable to find XSD file '{file}'.  Please make certain the XSD files exist in the {folder} folder.";
     }
 }

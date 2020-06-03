@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.CodeGen.Models;
@@ -59,10 +59,10 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             {
                 var profileNamesAndResourceModels =
                     _profileResourceNamesProvider
-                       .GetProfileResourceNames()
-                       .Select(prn => prn.ProfileName)
-                       .Distinct()
-                       .Select(
+                        .GetProfileResourceNames()
+                        .Select(prn => prn.ProfileName)
+                        .Distinct()
+                        .Select(
                             profileName =>
                                 new
                                 {
@@ -72,7 +72,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
                 var readablesAndWritables =
                     profileNamesAndResourceModels
-                       .Select(
+                        .Select(
                             x =>
                             {
                                 // we need to include resources if they are derived from other entities that are writable so we can
@@ -82,18 +82,18 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 if (x.ProfileResourceModel.Resources.Any(y => y.Writable == null))
                                 {
                                     var possibleWritable = x.ProfileResourceModel.Resources.Where(
-                                                                 y => y.Writable == null)
-                                                            .Select(y => y.Readable);
+                                            y => y.Writable == null)
+                                        .Select(y => y.Readable);
 
                                     var writable = x.ProfileResourceModel.Resources.Where(y => y.Writable != null)
-                                                    .Select(y => y.Writable)
-                                                    .ToList();
+                                        .Select(y => y.Writable)
+                                        .ToList();
 
                                     foreach (var resource in possibleWritable)
                                     {
                                         includeInWritable.AddRange(
                                             writable.Where(wr => wr.IsDerivedFrom(resource))
-                                                    .Select(wr => resource));
+                                                .Select(wr => resource));
                                     }
                                 }
 
@@ -103,83 +103,86 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 if (x.ProfileResourceModel.Resources.Any(y => y.Readable == null))
                                 {
                                     var possibleReadable = x.ProfileResourceModel.Resources.Where(
-                                                                 y => y.Readable == null)
-                                                            .Select(y => y.Writable);
+                                            y => y.Readable == null)
+                                        .Select(y => y.Writable);
 
                                     var readable = x.ProfileResourceModel.Resources.Where(y => y.Readable != null)
-                                                    .Select(y => y.Readable)
-                                                    .ToList();
+                                        .Select(y => y.Readable)
+                                        .ToList();
 
                                     foreach (var resource in possibleReadable)
                                     {
                                         includeInReadable.AddRange(
                                             readable.Where(wr => wr.IsDerivedFrom(resource))
-                                                    .Select(wr => resource));
+                                                .Select(wr => resource));
                                     }
                                 }
 
                                 return new
-                                       {
-                                           ProfileName = x.ProfileName, Readable = x.ProfileResourceModel.Resources
-                                                                                    .Where(y => y.Readable != null)
-                                                                                    .Select(y => y.Readable)
-                                                                                    .Concat(
-                                                                                         includeInReadable) // Added to ensure that the pipeline step, which defines 2 generic parameters for readable and writable, has a type available
-                                                                                    .ToList(),
-                                           Writable = x.ProfileResourceModel.Resources
-                                                       .Where(y => y.Writable != null)
-                                                       .Select(y => y.Writable)
-                                                       .Concat(
-                                                            includeInWritable) // Added to ensure that the pipeline step, which defines 2 generic parameters for readable and writable, has a type available
-                                                       .ToList()
-                                       };
+                                {
+                                    ProfileName = x.ProfileName,
+                                    Readable = x.ProfileResourceModel.Resources
+                                        .Where(y => y.Readable != null)
+                                        .Select(y => y.Readable)
+                                        .Concat(
+                                            includeInReadable) // Added to ensure that the pipeline step, which defines 2 generic parameters for readable and writable, has a type available
+                                        .ToList(),
+                                    Writable = x.ProfileResourceModel.Resources
+                                        .Where(y => y.Writable != null)
+                                        .Select(y => y.Writable)
+                                        .Concat(
+                                            includeInWritable) // Added to ensure that the pipeline step, which defines 2 generic parameters for readable and writable, has a type available
+                                        .ToList()
+                                };
                             });
 
                 var finalReadablesAndWritables =
                     readablesAndWritables.Select(
-                                              prm =>
-                                              {
-                                                  return new
-                                                         {
-                                                             ProfileName = prm.ProfileName, Readable = prm.Readable
-                                                                                                          .SelectMany(
-                                                                                                               pct =>
-                                                                                                                   CreateProfileModel(
-                                                                                                                       pct,
-                                                                                                                       prm.ProfileName,
-                                                                                                                       ReadableContext,
-                                                                                                                       true))
-                                                                                                          .ToList(),
-                                                             Writable = prm.Writable
-                                                                           .SelectMany(
-                                                                                pct => CreateProfileModel(
-                                                                                    pct,
-                                                                                    prm.ProfileName,
-                                                                                    WritableContext,
-                                                                                    false))
-                                                                           .ToList()
-                                                         };
-                                              })
-                                         .SelectMany(
-                                              y => y.Readable.OrderBy(q => q.ResourceName)
-                                                    .Concat(y.Writable.OrderBy(q => q.ResourceName)))
-                                         .ToList();
+                            prm =>
+                            {
+                                return new
+                                {
+                                    ProfileName = prm.ProfileName,
+                                    Readable = prm.Readable
+                                        .SelectMany(
+                                            pct =>
+                                                CreateProfileModel(
+                                                    pct,
+                                                    prm.ProfileName,
+                                                    ReadableContext,
+                                                    true))
+                                        .ToList(),
+                                    Writable = prm.Writable
+                                        .SelectMany(
+                                            pct => CreateProfileModel(
+                                                pct,
+                                                prm.ProfileName,
+                                                WritableContext,
+                                                false))
+                                        .ToList()
+                                };
+                            })
+                        .SelectMany(
+                            y => y.Readable.OrderBy(q => q.ResourceName)
+                                .Concat(y.Writable.OrderBy(q => q.ResourceName)))
+                        .ToList();
 
                 return finalReadablesAndWritables;
             }
 
             // sorting for template comparison.
             return ResourceModel
-                  .GetAllResources()
-                  .Select(
-                       resource =>
-                           new ResourceProfileData
-                           {
-                               HasProfile = ProjectHasProfileDefinition, SuppliedResource = resource,
-                               UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
-                               ContextualRootResource = resource
-                           })
-                  .OrderBy(x => x.ResourceName);
+                .GetAllResources()
+                .Select(
+                    resource =>
+                        new ResourceProfileData
+                        {
+                            HasProfile = ProjectHasProfileDefinition,
+                            SuppliedResource = resource,
+                            UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
+                            ContextualRootResource = resource
+                        })
+                .OrderBy(x => x.ResourceName);
         }
 
         private IEnumerable<ResourceProfileData> CreateProfileModel(
@@ -198,22 +201,35 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             if (baseResource != null)
             {
                 yield return new ResourceProfileData
-                             {
-                                 SuppliedResource = resource,
-                                 UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
-                                 ContextualRootResource = baseResource, ProfileName = profileName, Context = context + "." + resource.Name,
-                                 ReadableWritableContext = context, ConcreteResourceContext = resource.Name, HasProfile = ProjectHasProfileDefinition,
-                                 IsBaseResource = true, IsReadable = isReadable, IsWritable = !isReadable
-                             };
+                {
+                    SuppliedResource = resource,
+                    UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
+                    ContextualRootResource = baseResource,
+                    ProfileName = profileName,
+                    Context = context + "." + resource.Name,
+                    ReadableWritableContext = context,
+                    ConcreteResourceContext = resource.Name,
+                    HasProfile = ProjectHasProfileDefinition,
+                    IsBaseResource = true,
+                    IsReadable = isReadable,
+                    IsWritable = !isReadable
+                };
             }
 
             yield return new ResourceProfileData
-                         {
-                             SuppliedResource = resource, UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
-                             ContextualRootResource = resource, ProfileName = profileName, Context = context, ReadableWritableContext = context,
-                             ConcreteResourceContext = null, HasProfile = ProjectHasProfileDefinition, IsBaseResource = false,
-                             IsReadable = isReadable, IsWritable = !isReadable
-                         };
+            {
+                SuppliedResource = resource,
+                UnfilteredResource = (Resource) resource.FilterContext?.UnfilteredResourceClass ?? resource,
+                ContextualRootResource = resource,
+                ProfileName = profileName,
+                Context = context,
+                ReadableWritableContext = context,
+                ConcreteResourceContext = null,
+                HasProfile = ProjectHasProfileDefinition,
+                IsBaseResource = false,
+                IsReadable = isReadable,
+                IsWritable = !isReadable
+            };
         }
 
         private Resource GetBaseResource(ResourceClassBase resource)
