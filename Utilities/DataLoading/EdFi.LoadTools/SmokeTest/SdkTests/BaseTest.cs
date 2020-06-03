@@ -47,6 +47,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
                 if (methodInfo == null)
                 {
+                    Log.Error($"Unable to find method info for {ResourceApi.Name}.");
                     return Task.FromResult(false);
                 }
 

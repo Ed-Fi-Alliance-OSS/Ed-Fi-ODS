@@ -73,7 +73,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public Type ModelType => PostMethod?.GetParameters().First().ParameterType;
 
-        public MethodInfo GetAllMethod => GetMethods.SingleOrDefault(m => m.Name.EndsWith("sWithHttpInfo"));
+        public MethodInfo GetAllMethod => GetMethods.SingleOrDefault(m => m.Name.EndsWith("WithHttpInfo") && !m.Name.Contains("Async") && !m.Name.Contains("ById"));
 
         public MethodInfo GetByIdMethod => GetMethods.SingleOrDefault(m => m.Name.EndsWith("ByIdWithHttpInfo"));
 
