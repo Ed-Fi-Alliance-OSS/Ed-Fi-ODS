@@ -16,12 +16,11 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Services.Authorization;
-using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Features.UniqueIdIntegration.IdentityValueMappers;
 using EdFi.Ods.Features.UniqueIdIntegration.Installers;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Security.Profiles;
+using EdFi.Ods.Security.Utilities;
 using EdFi.Ods.Standard._Installers;
 using Microsoft.Owin.Testing;
 using NUnit.Framework;
@@ -253,6 +252,11 @@ namespace EdFi.Ods.WebService.Tests.Owin
                     Component.For<ISecurityRepository>()
                              .Instance(_securityRepository())
                              .IsDefault());
+
+                container.Register(
+                    Component
+                        .For<IAuthorizationViewsProvider>()
+                        .ImplementedBy<AuthorizationViewsProvider>());
 
                 // Conditionally, add support for UniqueId integration
                 if (_useUniqueIdIntegration)

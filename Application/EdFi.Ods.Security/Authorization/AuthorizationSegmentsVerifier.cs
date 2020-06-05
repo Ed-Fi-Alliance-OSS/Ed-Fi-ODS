@@ -2,8 +2,9 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,15 +44,17 @@ namespace EdFi.Ods.Security.Authorization
         /// Verifies that the specified segments exist in the data, as the final step of authorization.
         /// </summary>
         /// <param name="authorizationSegments">The segments to be verified.</param>
-        public async Task VerifyAsync(AuthorizationSegmentCollection authorizationSegments, CancellationToken cancellationToken)
+        /// <param name="cancellationToken"></param>
+        public async Task VerifyAsync(
+            IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments,
+            CancellationToken cancellationToken)
         {
             if (authorizationSegments == null)
             {
                 throw new ArgumentNullException(nameof(authorizationSegments));
             }
 
-            if (!authorizationSegments.ClaimsAuthorizationSegments.Any()
-                && !authorizationSegments.ExistingValuesAuthorizationSegments.Any())
+            if (!authorizationSegments.Any())
             {
                 throw new ArgumentException("No authorization segments have been defined.");
             }
@@ -62,14 +65,14 @@ namespace EdFi.Ods.Security.Authorization
 
                 int parameterIndex = 0;
 
-                var parametersByAuthorizationSql =
-                    _authorizationSegmentsSqlProvider.BuildAuthorization(authorizationSegments, ref parameterIndex);
+                var queryMetadata =
+                    _authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
 
-                cmd.CommandText = parametersByAuthorizationSql.Key;
+                cmd.CommandText = queryMetadata.Sql;
 
-                cmd.Parameters.AddRange(parametersByAuthorizationSql.Value);
+                cmd.Parameters.AddRange(queryMetadata.Parameters);
 
-                var result = (int?) await cmd.ExecuteScalarAsync(cancellationToken);
+                var result = (int?)await cmd.ExecuteScalarAsync(cancellationToken);
 
                 cmd.Parameters.Clear();
 

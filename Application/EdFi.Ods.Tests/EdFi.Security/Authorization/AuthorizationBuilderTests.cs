@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             // Supplied values
 
             // Actual values
-            private AuthorizationSegmentCollection _actualSegments;
+            private IReadOnlyList<ClaimsAuthorizationSegment> _actualSegments;
 
             protected override void Act()
             {
@@ -99,9 +99,9 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             [Assert]
             public void Should_return_a_segment_with_the_existing_LocalEducationAgencyId_as_the_value()
             {
-                _actualSegments.ClaimsAuthorizationSegments.Count.ShouldBe(1);
+                _actualSegments.Count.ShouldBe(1);
 
-                _actualSegments.ClaimsAuthorizationSegments.First()
+                _actualSegments.First()
                                .ClaimsEndpoints.Single()
                                .Value.ShouldBe(888);
             }
@@ -113,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             // Supplied values
 
             // Actual values
-            private AuthorizationSegmentCollection _actualSegments;
+            private IReadOnlyList<ClaimsAuthorizationSegment> _actualSegments;
 
             protected override void Act()
             {
@@ -134,28 +134,28 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             [Assert]
             public void Should_create_a_segment_for_each_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.Count.ShouldBe(2);
+                _actualSegments.Count.ShouldBe(2);
             }
 
             [Assert]
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .TargetEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .TargetEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
@@ -166,7 +166,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             // Supplied values
 
             // Actual values
-            private AuthorizationSegmentCollection _actualSegments;
+            private IReadOnlyList<ClaimsAuthorizationSegment> _actualSegments;
 
             protected override void Act()
             {
@@ -184,28 +184,28 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             [Assert]
             public void Should_create_a_segment_for_each_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.Count.ShouldBe(2);
+                _actualSegments.Count.ShouldBe(2);
             }
 
             [Assert]
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .TargetEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .TargetEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             // Supplied values
 
             // Actual values
-            private AuthorizationSegmentCollection _actualSegments;
+            private IReadOnlyList<ClaimsAuthorizationSegment> _actualSegments;
 
             protected override void Act()
             {
@@ -234,40 +234,40 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             [Assert]
             public void Should_create_a_segment_for_each_supplied_property_name()
             {
-                _actualSegments.ClaimsAuthorizationSegments.Count.ShouldBe(2);
+                _actualSegments.Count.ShouldBe(2);
             }
 
             [Assert]
             public void
                 Should_create_first_segment_as_a_school_to_the_first_supplied_property_name_with_the_supplied_authorization_path_modifer_intact()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .TargetEndpoint.Name.ShouldBe("StudentUSI");
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(0)
+                _actualSegments.ElementAt(0)
                                .AuthorizationPathModifier.ShouldBe("OverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name_with_no_authorization_path_modifier()
             {
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                                .ShouldBeTrue();
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .TargetEndpoint.Name.ShouldBe("StaffUSI");
 
-                _actualSegments.ClaimsAuthorizationSegments.ElementAt(1)
+                _actualSegments.ElementAt(1)
                                .AuthorizationPathModifier.ShouldBeNull();
             }
         }
 
-#region Givens
+        #region Givens
 
         private static IEducationOrganizationCache Given_a_cache_that_indicates_no_organizations_exist()
         {
@@ -335,12 +335,12 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             Given_authorization_context_data_with_some_StaffUniqueId()
         {
             return new RelationshipsAuthorizationContextData
-                   {
-                       StaffUSI = 1234
-                   };
+            {
+                StaffUSI = 1234
+            };
         }
 
-#endregion
+        #endregion
     }
 
     public class
@@ -355,7 +355,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
 
         // Actual values
-        private AuthorizationSegmentCollection actualAuthorizationSegments;
+        private IReadOnlyList<ClaimsAuthorizationSegment> actualAuthorizationSegments;
         private List<Claim> suppliedClaims;
 
         // Supplied values
@@ -363,7 +363,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
         protected override void EstablishContext()
         {
-#region Commented out code for integration testing against SQL Server
+            #region Commented out code for integration testing against SQL Server
 
             //private IDatabaseConnectionStringProvider connectionStringProvider;
 
@@ -374,12 +374,13 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
             //executor.Execute(actualAuthorizationRules);
 
-#endregion
+            #endregion
 
             suppliedContextData = new RelationshipsAuthorizationContextData
-                                  {
-                                      SchoolId = 880001, StaffUSI = 738953 //340DFAFA-D39B-4A38-BEA4-AD705CC7EB7C
-                                  };
+            {
+                SchoolId = 880001,
+                StaffUSI = 738953 //340DFAFA-D39B-4A38-BEA4-AD705CC7EB7C
+            };
 
             _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
                 "manage",
@@ -412,55 +413,19 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             actualAuthorizationSegments = builder
                                          .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
-                                         .ExistingValuesMustBeAssociated(x => x.SchoolId, x => x.StaffUSI)
                                          .GetSegments();
 
-            _actualLocalEducationAgencySegment = actualAuthorizationSegments.ClaimsAuthorizationSegments.SingleOrDefault(
+            _actualLocalEducationAgencySegment = actualAuthorizationSegments.SingleOrDefault(
                 s =>
                     s.TargetEndpoint.Name == "LocalEducationAgencyId"
                     || s.ClaimsEndpoints.All(
                         x => x.Name == "LocalEducationAgencyId"));
-
-            _actualSchoolSegment = actualAuthorizationSegments.ExistingValuesAuthorizationSegments.SingleOrDefault(
-                s =>
-                    s.Endpoints.Any(ep => ep.Name == "SchoolId"));
         }
 
         [Test]
         public void Should_create_1_claims_authorization_segment()
         {
-            actualAuthorizationSegments.ClaimsAuthorizationSegments.Count()
-                                       .ShouldBe(1);
-        }
-
-        [Test]
-        public void Should_create_1_existing_values_authorization_segment()
-        {
-            actualAuthorizationSegments.ExistingValuesAuthorizationSegments.Count()
-                                       .ShouldBe(1);
-        }
-
-        [Test]
-        public void Should_require_the_contextual_SchoolId_to_be_associated_with_the_contextual_StaffUSI()
-        {
-            // School should appear first (alphabetically)
-            var schoolEndpoint = _actualSchoolSegment.Endpoints.SingleOrDefault(x => x.Name == "SchoolId")
-                as AuthorizationSegmentEndpointWithValue;
-
-            schoolEndpoint.ShouldNotBeNull(
-                "No SchoolId endpoint with a contextual value was found in the existing values authorization segment.");
-
-            schoolEndpoint.Name.ShouldBe("SchoolId");
-            schoolEndpoint.Value.ShouldBe(suppliedContextData.SchoolId);
-
-            var staffUsiEndpoint = _actualSchoolSegment.Endpoints.SingleOrDefault(x => x.Name == "StaffUSI")
-                as AuthorizationSegmentEndpointWithValue;
-
-            staffUsiEndpoint.ShouldNotBeNull(
-                "No staffUSI endpoint with a contextual value was found in the existing values authorization segment.");
-
-            staffUsiEndpoint.Name.ShouldBe("StaffUSI");
-            staffUsiEndpoint.Value.ShouldBe(suppliedContextData.StaffUSI);
+            actualAuthorizationSegments.Count().ShouldBe(1);
         }
 
         [Test]
@@ -480,7 +445,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                               .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int) x.Value)
+            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
                                               .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
                                               .ShouldBeTrue();
 
@@ -493,12 +458,6 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         public void Should_return_a_LocalEducationAgency_segment()
         {
             _actualLocalEducationAgencySegment.ShouldNotBeNull();
-        }
-
-        [Test]
-        public void Should_return_a_School_segment()
-        {
-            _actualSchoolSegment.ShouldNotBeNull();
         }
 
         [Test]
@@ -525,7 +484,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
 
         // Actual values
-        private AuthorizationSegmentCollection _actualAuthorizationSegments;
+        private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
         private List<Claim> suppliedClaims;
 
         // Supplied values
@@ -534,9 +493,9 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         protected override void EstablishContext()
         {
             suppliedContextData = new RelationshipsAuthorizationContextData
-                                  {
-                                      StudentUSI = 11111
-                                  };
+            {
+                StudentUSI = 11111
+            };
 
             _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
                 "manage",
@@ -571,7 +530,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                           .ClaimsMustBeAssociatedWith(x => x.StudentUSI, "OverTheRiverAndThroughTheWoods")
                                           .GetSegments();
 
-            _actualLocalEducationAgencySegment = _actualAuthorizationSegments.ClaimsAuthorizationSegments.FirstOrDefault(
+            _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
                 s =>
                     s.TargetEndpoint.Name == "LocalEducationAgencyId"
                     || s.ClaimsEndpoints.All(
@@ -589,8 +548,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_create_a_single_claims_authorization_segment()
         {
-            _actualAuthorizationSegments.ClaimsAuthorizationSegments.Count()
-                                        .ShouldBe(1);
+            _actualAuthorizationSegments.Count().ShouldBe(1);
         }
 
         [Test]
@@ -610,7 +568,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                               .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int) x.Value)
+            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
                                               .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
                                               .ShouldBeTrue();
 

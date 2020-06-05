@@ -32,12 +32,8 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             = new ConcurrentDictionary<string, object>();
 
         private readonly Lazy<List<Tuple<string, object>>> _claimAuthorizationValues;
-
         private readonly List<ClaimsAuthorizationSegment> _claimsAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
         private readonly TContextData _contextData;
-        private readonly List<ExistingValuesAuthorizationSegment> _existingValuesAuthorizationSegments =
-            new List<ExistingValuesAuthorizationSegment>();
-
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationBuilder<TContextData>));
         private readonly IEnumerable<Claim> _relevantClaims;
 
@@ -127,7 +123,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         /// Gets the rules that need to be executed against the source of data for performing the authorization decision.
         /// </summary>
         /// <returns>An enumerable set of AuthorizationRule instances representing the authorization decision.</returns>
-        public AuthorizationSegmentCollection GetSegments()
+        public IReadOnlyList<ClaimsAuthorizationSegment> GetSegments()
         {
             // Make sure no segments had empty values for the claims.
             if (_claimsAuthorizationSegments.Any(x => !x.ClaimsEndpoints.Any()))
@@ -143,7 +139,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                     "The request can not be authorized because the education organizations identifiers assigned to the claim did not exist in the underlying ODS.");
             }
 
-            return new AuthorizationSegmentCollection(_claimsAuthorizationSegments, _existingValuesAuthorizationSegments);
+            return _claimsAuthorizationSegments.ToArray();
         }
 
         /// <summary>
@@ -236,67 +232,6 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                                 segmentProperty.PropertyValue),
                             segmentProperty.AuthorizationPathModifier));
                 }
-            }
-
-            return this;
-        }
-
-        /// <summary>
-        /// Adds a rule that indicates that the values of the two Ed-Fi context data properties must be associated.
-        /// </summary>
-        /// <typeparam name="TResult1">The <see cref="Type"/> of the first Ed-Fi context data property that must be associated.</typeparam>
-        /// <typeparam name="TResult2">The <see cref="Type"/> of the second Ed-Fi context data property that must be associated.</typeparam>
-        /// <param name="propertyExpression1">The expression that references the first property.</param>
-        /// <param name="propertyExpression2">The expression that references the second property.</param>
-        /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
-        public AuthorizationBuilder<TContextData> ExistingValuesMustBeAssociated<TResult1, TResult2>(
-            Expression<Func<TContextData, TResult1>> propertyExpression1,
-            Expression<Func<TContextData, TResult2>> propertyExpression2)
-        {
-            return ExistingValuesMustBeAssociated(propertyExpression1, propertyExpression2, null);
-        }
-
-        /// <summary>
-        /// Adds a rule that indicates that the values of the two Ed-Fi context data properties must be associated.
-        /// </summary>
-        /// <typeparam name="TResult1">The <see cref="Type"/> of the first Ed-Fi context data property that must be associated.</typeparam>
-        /// <typeparam name="TResult2">The <see cref="Type"/> of the second Ed-Fi context data property that must be associated.</typeparam>
-        /// <param name="propertyExpression1">The expression that references the first property.</param>
-        /// <param name="propertyExpression2">The expression that references the second property.</param>
-        /// <param name="authorizationPathModifier">An optional value that identifies an alternative path through the ODS data model for authorization.</param>
-        /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
-        public AuthorizationBuilder<TContextData> ExistingValuesMustBeAssociated<TResult1, TResult2>(
-            Expression<Func<TContextData, TResult1>> propertyExpression1,
-            Expression<Func<TContextData, TResult2>> propertyExpression2,
-            string authorizationPathModifier)
-        {
-            if (_contextData == null)
-            {
-                var nameAndType1 = CreateSegment(propertyExpression1, authorizationPathModifier);
-                var nameAndType2 = CreateSegment(propertyExpression2, authorizationPathModifier);
-
-                _existingValuesAuthorizationSegments.Add(
-                    new ExistingValuesAuthorizationSegment(
-                        new AuthorizationSegmentEndpoint(nameAndType1.PropertyName, nameAndType1.PropertyType),
-                        new AuthorizationSegmentEndpoint(nameAndType2.PropertyName, nameAndType2.PropertyType),
-                        authorizationPathModifier));
-            }
-            else
-            {
-                var nameAndTypeAndValue1 = CreateSegmentWithValue(propertyExpression1, authorizationPathModifier);
-                var nameAndTypeAndValue2 = CreateSegmentWithValue(propertyExpression2, authorizationPathModifier);
-
-                _existingValuesAuthorizationSegments.Add(
-                    new ExistingValuesAuthorizationSegment(
-                        new AuthorizationSegmentEndpointWithValue(
-                            nameAndTypeAndValue1.PropertyName,
-                            nameAndTypeAndValue1.PropertyType,
-                            nameAndTypeAndValue1.PropertyValue),
-                        new AuthorizationSegmentEndpointWithValue(
-                            nameAndTypeAndValue2.PropertyName,
-                            nameAndTypeAndValue2.PropertyType,
-                            nameAndTypeAndValue2.PropertyValue),
-                        authorizationPathModifier));
             }
 
             return this;

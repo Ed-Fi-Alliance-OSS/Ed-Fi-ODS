@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -12,26 +12,39 @@ using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Security.Utilities;
+using log4net;
 
 namespace EdFi.Ods.Security.Authorization
 {
     public abstract class AuthorizationSegmentSqlProviderBase : IAuthorizationSegmentsSqlProvider
     {
-        private const string MainTemplate = @"SELECT 1 WHERE EXISTS ({0});";
-
+        private const string MainTemplate =
+@"SELECT 1 WHERE
+(
+{0}
+);";
         // TODO: Embedded convention, append authorization path modifier to view name
-        private const string StatementTemplate = "SELECT 1 FROM auth.{0}To{2}{4} a WHERE a.{0}{1} and a.{2}{3}";
+        private const string StatementTemplate = "EXISTS (SELECT 1 FROM {4} a WHERE a.{0}{1} and a.{2}{3})";
+
+        private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
 
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationSegmentSqlProviderBase));
 
-        public KeyValuePair<string, DbParameter[]> BuildAuthorization(
-            AuthorizationSegmentCollection authorizationSegments,
+        public AuthorizationSegmentSqlProviderBase(IAuthorizationViewsProvider authorizationViewsProvider)
+        {
+            _supportedAuthorizationViewNames = new Lazy<IReadOnlyList<string>>(authorizationViewsProvider.GetAuthorizationViews);
+        }
+
+        public QueryMetadata GetAuthorizationQueryMetadata(
+            IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments,
             ref int parameterIndex)
         {
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
 
-            foreach (var authorizationSegment in authorizationSegments.ClaimsAuthorizationSegments)
+            foreach (var authorizationSegment in authorizationSegments)
             {
                 // Within each claim segment, group the values by ed org type, and combine with "OR"
                 var claimEndpointsGroupedByName = authorizationSegment.ClaimsEndpoints
@@ -40,6 +53,8 @@ namespace EdFi.Ods.Security.Authorization
                     .ToList();
 
                 var segmentExpressions = new List<string>();
+
+                var unsupportedAuthorizationViews = new List<string>();
 
                 foreach (var claimEndpointsWithSameName in claimEndpointsGroupedByName)
                 {
@@ -65,106 +80,68 @@ namespace EdFi.Ods.Security.Authorization
                     // Perform defensive checks against the remote possibility of SQL injection attack
                     ValidateTableNameParts(claimEndpointName, targetEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    if (string.Compare(
-                        targetEndpointName,
-                        claimEndpointName,
-                        StringComparison.InvariantCultureIgnoreCase) < 0)
+                    string derivedAuthorizationViewName = BuildAuthorizationViewName(targetEndpointName, claimEndpointName, authorizationSegment.AuthorizationPathModifier);
+
+                    if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
                     {
-                        segmentExpressions.Add(
-                            string.Format(
+                        unsupportedAuthorizationViews.Add(derivedAuthorizationViewName);
+
+                        continue;
+                    }
+
+                    segmentExpressions.Add(CreateSegmentExpression(ref parameterIndex));
+
+                    string CreateSegmentExpression(ref int index)
+                    {
+                        if (string.Compare(targetEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
+                        {
+                            return string.Format(
                                 StatementTemplate,
                                 targetEndpointName,
-                                GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref parameterIndex),
+                                GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref index),
                                 claimEndpointName,
-                                GetMultiValueCriteriaExpression(
-                                    claimEndpointsWithSameName.ToList(),
-                                    parameters,
-                                    ref parameterIndex),
-                                authorizationSegment.AuthorizationPathModifier)
-                        );
-                    }
-                    else
-                    {
-                        segmentExpressions.Add(
-                            string.Format(
-                                StatementTemplate,
-                                claimEndpointName,
-                                GetMultiValueCriteriaExpression(
-                                    claimEndpointsWithSameName.ToList(),
-                                    parameters,
-                                    ref parameterIndex),
-                                targetEndpointName,
-                                GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref parameterIndex),
-                                authorizationSegment.AuthorizationPathModifier)
-                        );
+                                GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
+                                derivedAuthorizationViewName);
+                        }
+
+                        return string.Format(
+                            StatementTemplate,
+                            claimEndpointName,
+                            GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
+                            targetEndpointName,
+                            GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref index),
+                            derivedAuthorizationViewName);
                     }
                 }
 
-                // Combine multiple statements (resulting from multiple ed org types in claims) using "OR"
-                // this is used to support multiple ed org types, but not used for non identifying edorgs
-                // for example an lea with three schools.
-                // this may still be a YAGNI, but leaving it for now.
-                // this is for authorizing claims on multiple types of ed orgs (not supported).
-                segmentStatements.Add(
-                    string.Join($"){Environment.NewLine}\t OR EXISTS ({Environment.NewLine}\t", segmentExpressions));
+                if (!segmentExpressions.Any())
+                {
+                    _logger.Debug("Unable to authorize resource item because none of the following authorization views exist: "
+                        + $"'{string.Join("', '", unsupportedAuthorizationViews)}'");
+
+                    string edOrgTypes = string.Join(
+                        "', '",
+                        authorizationSegment.ClaimsEndpoints
+                            .Select(s => s.Name.TrimSuffix("Id"))
+                            .Distinct()
+                            .OrderBy(x => x));
+
+                    throw new EdFiSecurityException(
+                        $"Unable to authorize the request because there is no authorization support for associating the "
+                        + $"API client's associated education organization types ('{edOrgTypes}') with the resource.");
+                }
+
+                // Combine multiple statements resulting from multiple EdOrg types in the API client's claims using "OR"
+                // (This forces at least 1 of the relationships with the EdOrg types to exist)
+                segmentStatements.Add(string.Join($"{Environment.NewLine}OR ", segmentExpressions));
             }
 
-            foreach (var authorizationSegment in authorizationSegments.ExistingValuesAuthorizationSegments)
-            {
-                // This should never happen
-                if (authorizationSegment.Endpoints.Count != 2)
-                {
-                    throw new Exception(
-                        "The existing values authorization segment for a single-item authorization did not contain exactly two endpoints.");
-                }
-
-                var endpoint1 = authorizationSegment.Endpoints.ElementAt(0) as AuthorizationSegmentEndpointWithValue;
-                var endpoint2 = authorizationSegment.Endpoints.ElementAt(1) as AuthorizationSegmentEndpointWithValue;
-
-                // This should never happen
-                if (endpoint1 == null || endpoint2 == null)
-                {
-                    throw new Exception(
-                        "One or both of the existing values authorization segment endpoints for a single-item authorization was not defined with a value.");
-                }
-
-                // Perform defensive checks against the remote possibility of SQL injection attack
-                ValidateTableNameParts(endpoint1.Name, endpoint2.Name, authorizationSegment.AuthorizationPathModifier);
-
-                if (string.Compare(
-                    endpoint1.Name,
-                    endpoint2.Name,
-                    StringComparison.InvariantCultureIgnoreCase) < 0)
-                {
-                    segmentStatements.Add(
-                        string.Format(
-                            StatementTemplate,
-                            endpoint1.Name,
-                            GetSingleValueCriteriaExpression(endpoint1, parameters, ref parameterIndex),
-                            endpoint2.Name,
-                            GetSingleValueCriteriaExpression(endpoint2, parameters, ref parameterIndex),
-                            authorizationSegment.AuthorizationPathModifier)
-                    );
-                }
-                else
-                {
-                    segmentStatements.Add(
-                        string.Format(
-                            StatementTemplate,
-                            endpoint2.Name,
-                            GetSingleValueCriteriaExpression(endpoint2, parameters, ref parameterIndex),
-                            endpoint1.Name,
-                            GetSingleValueCriteriaExpression(endpoint1, parameters, ref parameterIndex),
-                            authorizationSegment.AuthorizationPathModifier)
-                    );
-                }
-            }
-
-            string statements = string.Join($"){Environment.NewLine}\tAND EXISTS (", segmentStatements);
+            // Combine multiple authorization segments with AND (forcing all segments to be satisfied)
+            string statements = string.Join($"{Environment.NewLine}){Environment.NewLine}AND{Environment.NewLine}({Environment.NewLine}", segmentStatements);
 
             string sql = string.Format(MainTemplate, statements);
 
-            return new KeyValuePair<string, DbParameter[]>(sql, parameters.ToArray());
+            return new QueryMetadata(sql, parameters.ToArray());
         }
 
         private static void ValidateTableNameParts(
@@ -203,6 +180,28 @@ namespace EdFi.Ods.Security.Authorization
             parameters.Add(CreateParameter(parameterName, segmentEndpoint));
 
             return " = " + parameterName;
+        }
+
+        private bool IsAuthorizationViewSupported(string authorizationViewName)
+        {
+            if (!_supportedAuthorizationViewNames.Value.Any(s => s.Equals(authorizationViewName, StringComparison.InvariantCultureIgnoreCase)))
+            {
+                _logger.Debug($"Authorization view '{authorizationViewName}' is not supported");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private string BuildAuthorizationViewName(string endpoint1, string endpoint2, string authorizationPathModifier)
+        {
+            if (string.Compare(endpoint1, endpoint2, StringComparison.InvariantCultureIgnoreCase) < 0)
+            {
+                return $"auth.{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            }
+
+            return $"auth.{endpoint2}To{endpoint1}{authorizationPathModifier}";
         }
 
         private string GetMultiValueCriteriaExpression(

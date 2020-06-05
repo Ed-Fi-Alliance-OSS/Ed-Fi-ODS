@@ -33,6 +33,7 @@ using EdFi.Ods.Standard;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.Security.Utilities;
 
 namespace EdFi.Ods.Api.Startup.Features.Installers
 {
@@ -91,6 +92,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             RegisterNHibernateFilterTextProvider(container);
             RegisterAuthorizationFilterContextProvider(container);
             RegisterAuthorizationSegmentsVerifier(container);
+            RegisterAuthorizationViewsProvider(container);
 
             container.Install(new AuthorizationStrategiesInstaller<Marker_EdFi_Ods_Security>());
         }
@@ -116,6 +118,15 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 Component.For<IEducationOrganizationHierarchyProvider>()
                     .ImplementedBy<EducationOrganizationHierarchyProvider>());
         }
+
+        private void RegisterAuthorizationViewsProvider(IWindsorContainer container)
+        {
+            container.Register(
+                Component
+                    .For<IAuthorizationViewsProvider>()
+                    .ImplementedBy<AuthorizationViewsProvider>());
+        }
+
 
         private void RegisterComponentsUsingLegacyMechanism(IWindsorContainer container)
         {

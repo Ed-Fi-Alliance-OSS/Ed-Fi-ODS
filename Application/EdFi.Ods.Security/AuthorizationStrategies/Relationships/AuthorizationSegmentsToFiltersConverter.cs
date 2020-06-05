@@ -15,7 +15,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 {
     public interface IAuthorizationSegmentsToFiltersConverter
     {
-        void Convert(Type entityType, AuthorizationSegmentCollection authorizationSegments, ParameterizedFilterBuilder filterBuilder);
+        void Convert(Type entityType, IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments, ParameterizedFilterBuilder filterBuilder);
     }
 
     public class AuthorizationSegmentsToFiltersConverter : IAuthorizationSegmentsToFiltersConverter
@@ -27,9 +27,9 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             _sessionFactory = sessionFactory;
         }
 
-        public void Convert(Type entityType, AuthorizationSegmentCollection authorizationSegments, ParameterizedFilterBuilder filterBuilder)
+        public void Convert(Type entityType, IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments, ParameterizedFilterBuilder filterBuilder)
         {
-            if (!authorizationSegments.ClaimsAuthorizationSegments.Any())
+            if (!authorizationSegments.Any())
             {
                 return;
             }
@@ -40,7 +40,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
             // For filter-based authorization, there is no sense/need in incorporating the "existing values" segments, 
             // as they would only serve to further constrain data that is already in the target table.
-            foreach (var segment in authorizationSegments.ClaimsAuthorizationSegments)
+            foreach (var segment in authorizationSegments)
             {
                 var targetEndpointName = segment.TargetEndpoint.Name;
 
