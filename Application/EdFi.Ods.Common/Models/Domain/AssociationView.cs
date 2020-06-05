@@ -417,6 +417,47 @@ namespace EdFi.Ods.Common.Models.Domain
             get { return Name; }
         }
 
+        /// <summary>
+        /// Indicates whether the association represents a <em>incoming</em> dependency from another aggregate where the association itself is not required
+        /// to be present either because the association is optional or it is a member of a child entity that is not required to be present in the aggregate
+        /// (because the collection, or one the containing collections, is not a required collections). 
+        /// </summary>
+        public bool IsSoftDependency
+        {
+            get
+            {
+                // Navigable relationships do not span aggregates and do not represent aggregate dependencies
+                if (IsNavigable)
+                {
+                    return false;
+                }
+
+                var isContainingEntityPresenceOptional = ThisEntity.AncestorsOrSelf
+                    .Select(e => e.ParentAssociation)
+                    .Where(av => av != null)
+                    .Any(av => 
+                        // An optional collection
+                        (av.AssociationType == AssociationViewType.ManyToOne && !av.Association.IsRequiredCollection)
+                        // An optional incoming one-to-one reference
+                        || (av.AssociationType == AssociationViewType.OneToOneIncoming && !av.IsRequired)
+                    );
+
+                if (isContainingEntityPresenceOptional)
+                {
+                    return true;
+                }
+
+                if (AssociationType == AssociationViewType.ManyToOne 
+                    || AssociationType == AssociationViewType.OneToOneIncoming)
+                {
+                    return !IsRequired;
+                }
+
+                // All other associations do not represent dependencies
+                return false;
+            } 
+        } 
+
         private void InitializeAssociationPropertyEntityBackReferences()
         {
             if (_backReferencesAlreadyInitialized)
@@ -623,6 +664,14 @@ namespace EdFi.Ods.Common.Models.Domain
 
                 case AssociationViewType.ToDerived:
                     cardinality = "<|---";
+                    break;
+
+                case AssociationViewType.ToExtension:
+                    cardinality = "(1)-->(X)";
+                    break;
+
+                case AssociationViewType.FromCore:
+                    cardinality = "(X)<--(1)";
                     break;
 
                 default:
