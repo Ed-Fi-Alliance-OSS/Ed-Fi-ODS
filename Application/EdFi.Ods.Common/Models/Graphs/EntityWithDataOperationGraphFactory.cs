@@ -60,17 +60,22 @@ namespace EdFi.Ods.Common.Models.Graphs
             IEntityWithDataOperationTransformer[] entityWithDataOperationTransformers,
             bool includeTransformations)
         {
-            var dataOperationGraph = BuildDataOperationGraph(domainModelProvider.GetDomainModel().ToAggregateGraph());
+            var aggregateGraph = domainModelProvider.GetDomainModel().ToAggregateGraph();
 
-            //Validate no circular dependencies
-            dataOperationGraph.ValidateGraph();
-
+            // Break any cycles present by removing a soft dependency from the model
+            aggregateGraph.BreakCycles(x => 
+                x.Target.IncomingAssociations
+                    .SingleOrDefault(a => a.Association == x.Association)
+                    ?.IsSoftDependency == true);
+            
+            var dataOperationGraph = BuildDataOperationGraph(aggregateGraph);
+            
             if (includeTransformations)
             {
                 // Invoke all the graph transformers
                 entityWithDataOperationTransformers.ForEach(x => x.Transform(dataOperationGraph));
 
-                //Validate no circular dependencies
+                // Validate no circular dependencies
                 dataOperationGraph.ValidateGraph();
             }
 

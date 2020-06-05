@@ -65,7 +65,7 @@ namespace EdFi.Ods.Common.Models.Graphs
             // For outbound edges spanning aggregates, move the target to the aggregate root.
             // isIdentifying and isRequired are not retained.
             // with the changes to the construction of the association we need to create a definition first, then we can create an association.
-            var aggregateAssociations =
+            var outboundAssociationsRelocatedToAggregateRoot =
                 aggregateOutboundAssociations.Select(
                                                   a => new AssociationDefinition(
                                                       a.Association.FullName,
@@ -74,8 +74,8 @@ namespace EdFi.Ods.Common.Models.Graphs
                                                       new EntityPropertyDefinition[0],
                                                       a.AssociationView.OtherEntity.Aggregate.FullName,
                                                       new EntityPropertyDefinition[0],
-                                                      isIdentifying: false,
-                                                      isRequired: false))
+                                                      isIdentifying: a.Association.IsIdentifying,
+                                                      isRequired: a.AssociationView.Inverse.IsSoftDependency))
                                              .Select(definition => new Association(domainModel, definition));
 
             // Add the edges for entities within an aggregate, and inter-aggregate dependencies as associations from the aggregate roots
@@ -83,8 +83,8 @@ namespace EdFi.Ods.Common.Models.Graphs
                 associations
                    .Select(x => x.Association)
                    .Except(aggregateOutboundAssociations.Select(x => x.Association), ModelComparers.Association)
-                   .Concat(aggregateAssociations)
-                   .Select(x => new AssociationEdge(x, domainModel)));
+                   .Concat(outboundAssociationsRelocatedToAggregateRoot)
+                   .Select(a => new AssociationEdge(a, domainModel)));
 
             return graph;
         }
