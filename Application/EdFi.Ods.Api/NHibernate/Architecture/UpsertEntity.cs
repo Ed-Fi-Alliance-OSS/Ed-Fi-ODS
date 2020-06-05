@@ -93,7 +93,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                     if (isModified)
                     {
                         // Make root dirty, NHibernate will override the value during insert (through a hook)
-                        persistedEntity.CreateDate = persistedEntity.CreateDate.AddSeconds(1);
+                        persistedEntity.LastModifiedDate = persistedEntity.LastModifiedDate.AddSeconds(1);
                     }
 
                     await _updateEntity.UpdateAsync(persistedEntity, cancellationToken);
