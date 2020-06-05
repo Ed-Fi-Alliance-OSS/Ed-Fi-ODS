@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.TestFixture;
@@ -196,9 +197,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
             public void Should_be_able_to_break_the_cycles()
             {
                 var clonedGraph = _graph.Clone();
+                
+                IReadOnlyList<IEdge<string>> removedEdges = null;
+
                 Should.NotThrow(() =>
                 {
-                    var removedEdges= clonedGraph.BreakCycles(e => true);
+                    removedEdges = clonedGraph.BreakCycles(e => true);
 
                     Console.WriteLine("Removed edges:");
                     foreach (IEdge<string> removedEdge in removedEdges)
@@ -209,6 +213,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 Should.NotThrow(() => clonedGraph.ValidateGraph());
                 
                 clonedGraph.Edges.Count().ShouldBe(_graph.Edges.Count() - 2);
+                
+                removedEdges.Count().ShouldBe(2);
+                removedEdges.SingleOrDefault(a => a.Source == "E2" && a.Target == "B").ShouldNotBeNull();
+                removedEdges.SingleOrDefault(a => a.Source == "D2" && a.Target == "A").ShouldNotBeNull();
             }
         }
 

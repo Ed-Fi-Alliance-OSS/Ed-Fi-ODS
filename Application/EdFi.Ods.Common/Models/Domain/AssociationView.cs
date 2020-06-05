@@ -31,6 +31,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
         private readonly Lazy<EntityProperty[]> _thisProperties;
         private readonly Lazy<AssociationProperty[]> _thisAssociationProperties;
+        private readonly Lazy<bool> _isSoftDependency;
 
         private bool _backReferencesAlreadyInitialized;
 
@@ -89,6 +90,41 @@ namespace EdFi.Ods.Common.Models.Domain
 
             _foreignKeyNameParts = new Lazy<ForeignKeyNameParts>(
                 () => GetForeignKeyNameParts(this));
+            
+            _isSoftDependency = new Lazy<bool>(
+                () =>
+                {
+                    // Navigable relationships do not span aggregates and do not represent aggregate dependencies
+                    if (IsNavigable)
+                    {
+                        return false;
+                    }
+
+                    bool isContainingEntityPresenceOptional = ThisEntity.AncestorsOrSelf.Select(e => e.ParentAssociation)
+                        // Exclude root's ParentAssociation (which will be null)
+                        .Where(av => av != null)
+                        .Any(av =>
+                            // An optional collection
+                            (av.AssociationType == AssociationViewType.ManyToOne && !av.Association.IsRequiredCollection)
+
+                            // An optional incoming one-to-one reference
+                            || (av.AssociationType == AssociationViewType.OneToOneIncoming && !av.IsRequired));
+
+                    if (isContainingEntityPresenceOptional)
+                    {
+                        return true;
+                    }
+
+                    // Containing entity is required, so evaluate the reference itself
+                    if (AssociationType == AssociationViewType.ManyToOne
+                        || AssociationType == AssociationViewType.OneToOneIncoming)
+                    {
+                        return !IsRequired;
+                    }
+
+                    // All other associations do not represent dependencies
+                    return false;
+                });
         }
 
         public AssociationViewType AssociationType
@@ -424,38 +460,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         public bool IsSoftDependency
         {
-            get
-            {
-                // Navigable relationships do not span aggregates and do not represent aggregate dependencies
-                if (IsNavigable)
-                {
-                    return false;
-                }
-
-                var isContainingEntityPresenceOptional = ThisEntity.AncestorsOrSelf
-                    .Select(e => e.ParentAssociation)
-                    .Where(av => av != null)
-                    .Any(av => 
-                        // An optional collection
-                        (av.AssociationType == AssociationViewType.ManyToOne && !av.Association.IsRequiredCollection)
-                        // An optional incoming one-to-one reference
-                        || (av.AssociationType == AssociationViewType.OneToOneIncoming && !av.IsRequired)
-                    );
-
-                if (isContainingEntityPresenceOptional)
-                {
-                    return true;
-                }
-
-                if (AssociationType == AssociationViewType.ManyToOne 
-                    || AssociationType == AssociationViewType.OneToOneIncoming)
-                {
-                    return !IsRequired;
-                }
-
-                // All other associations do not represent dependencies
-                return false;
-            } 
+            get => _isSoftDependency.Value;
         } 
 
         private void InitializeAssociationPropertyEntityBackReferences()

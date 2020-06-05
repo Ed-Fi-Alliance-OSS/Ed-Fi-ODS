@@ -144,27 +144,22 @@ namespace EdFi.Ods.Common.Models.Graphs
                             return new
                             {
                                 DependentVertex = dependentVertex,
-                                InEdges = graph.InEdges(dependentVertex)
+                                CycleEdges = graph.InEdges(dependentVertex).Where(IsCycleEdge)
                             };
                         })
                     .Reverse()
-                    .FirstOrDefault(x => 
-                        x.InEdges
-                            // Only consider edges that form the cycle
-                            .Where(IsCycleEdge)
-                            // All the cycle edges between these vertices must be removable
-                            .All(isRemovable));
+                    .FirstOrDefault(x => x.CycleEdges.All(isRemovable));
 
                 if (sacrificialDependency == null)
                 {
                     graph.ValidateGraph();
 
-                    // Should never get here, but throw an exception to satisfy code analysis warnings
+                    // Should never get here in this situation, but throw an exception to satisfy code analysis warnings
                     throw new NonAcyclicGraphException();
                 }
 
                 // Remove the chosen graph edge(s) to break the cyclical dependency
-                foreach (TEdge edge in sacrificialDependency.InEdges.Where(IsCycleEdge).ToArray())
+                foreach (TEdge edge in sacrificialDependency.CycleEdges.ToArray())
                 {
                     graph.RemoveEdge(edge);
                     removedEdges.Add(edge);
