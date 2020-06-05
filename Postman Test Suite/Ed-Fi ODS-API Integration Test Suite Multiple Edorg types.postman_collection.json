@@ -661,6 +661,68 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update studentProgramAssociations Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "2e023e47-038e-4a14-a2da-b543bddc169d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "2f0553a2-6a64-40bb-8939-718320d327eb",
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"    pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_MultipleEdorg_255901001_5001}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationGuid}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations",
+										"{{known:studentProgramAssociationGuid}}"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"event": [
@@ -689,7 +751,7 @@
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Scenario 3 Create a StudentProgramAssociation for a non-associated EducationOrganizationId value",
+					"name": "Scenario 3 Cannot Create a StudentProgramAssociation for a non-associated EducationOrganizationId value",
 					"item": [
 						{
 							"name": "Get Student by SchoolId",
