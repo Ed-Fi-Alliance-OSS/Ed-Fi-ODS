@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
 using NHibernate;
 using NHibernate.Type;
 using NUnit.Framework;

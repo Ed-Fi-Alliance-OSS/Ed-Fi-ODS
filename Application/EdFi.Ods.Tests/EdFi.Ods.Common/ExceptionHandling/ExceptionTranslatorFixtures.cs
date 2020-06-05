@@ -6,9 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling.Translators;
-using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.TestFixture;
 using FakeItEasy;

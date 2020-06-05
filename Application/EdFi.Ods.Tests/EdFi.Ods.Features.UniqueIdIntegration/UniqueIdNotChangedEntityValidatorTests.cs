@@ -6,9 +6,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using EdFi.Ods.Api.Models.Resources.Parent.EdFi;
-using EdFi.Ods.Api.Models.Resources.Staff.EdFi;
-using EdFi.Ods.Api.Models.Resources.Student.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;

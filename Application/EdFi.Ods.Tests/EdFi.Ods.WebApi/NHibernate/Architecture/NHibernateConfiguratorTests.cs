@@ -6,9 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Extensibility;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Common.Providers.Criteria;
 using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.NHibernate.Architecture.Criteria;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;

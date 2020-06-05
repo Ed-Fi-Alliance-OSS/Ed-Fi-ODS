@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using EdFi.Ods.Api.Identity;
+using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.TestObjects

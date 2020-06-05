@@ -5,8 +5,10 @@
  
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Common.Providers;
 using NHibernate.Exceptions;
 using NUnit.Framework;
 using Rhino.Mocks;

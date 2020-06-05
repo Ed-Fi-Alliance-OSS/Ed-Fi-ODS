@@ -6,11 +6,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using EdFi.Ods.Api.Services.Metadata.Models;
-using EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
 using FakeItEasy;

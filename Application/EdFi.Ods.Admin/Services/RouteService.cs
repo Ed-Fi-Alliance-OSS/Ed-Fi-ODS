@@ -2,10 +2,10 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Web;
 using System.Web.Mvc;
-using EdFi.Ods.Common.Http.Extensions;
+using EdFi.Ods.Admin.Extensions;
 
 namespace EdFi.Ods.Admin.Services
 {

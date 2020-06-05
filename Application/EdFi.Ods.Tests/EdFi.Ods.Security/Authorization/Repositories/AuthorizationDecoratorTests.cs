@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;

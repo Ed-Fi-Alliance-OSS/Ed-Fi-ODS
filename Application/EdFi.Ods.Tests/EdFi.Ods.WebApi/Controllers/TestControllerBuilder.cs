@@ -8,14 +8,15 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling.Translators;
-using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.InversionOfControl;
-using EdFi.Ods.Pipelines.Common;
-using EdFi.Ods.Pipelines.Factories;
 using Rhino.Mocks;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                                   new EdFiSecurityExceptionTranslator(),
                                   new NotFoundExceptionTranslator(),
                                   new NotModifiedExceptionTranslator(),
-                                  new ConcurencyExceptionTranslator(),
+                                  new ConcurrencyExceptionTranslator(),
                                   new DuplicateNaturalKeyCreateExceptionTranslator(new StubDatabaseMetadataProvider())
                               };
 

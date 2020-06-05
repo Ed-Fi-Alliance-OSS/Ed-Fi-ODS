@@ -11,14 +11,13 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Exceptions;
-using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Exceptions;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Pipelines;
-using EdFi.Ods.Pipelines.Common;
-using EdFi.Ods.Pipelines.GetMany;
-using EdFi.Ods.Pipelines.Put;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers

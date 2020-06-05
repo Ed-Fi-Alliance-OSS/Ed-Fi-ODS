@@ -5,7 +5,7 @@
  
 using System;
 using System.Collections;
-using System.Runtime.Remoting.Messaging;
+using EdFi.Ods.Common.Context;
 using NHibernate.Context;
 using NHibernate.Engine;
 
@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
         /// </summary>
         protected override void SetMap(IDictionary value)
         {
-            CallContext.LogicalSetData(SessionFactoryMapKey, value);
+            CallContext.SetData(SessionFactoryMapKey, value);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
         /// </summary>
         protected override IDictionary GetMap()
         {
-            return CallContext.LogicalGetData(SessionFactoryMapKey) as IDictionary;
+            return CallContext.GetData(SessionFactoryMapKey) as IDictionary;
         }
     }
 }

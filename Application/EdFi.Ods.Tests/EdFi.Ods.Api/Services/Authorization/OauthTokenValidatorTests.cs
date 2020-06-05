@@ -5,6 +5,7 @@
  
 using System;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Sandbox.Repositories;
 using FakeItEasy;

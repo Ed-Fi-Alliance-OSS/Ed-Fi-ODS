@@ -9,7 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using EdFi.Ods.Api.Models.Resources.Student.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.WebService.Tests.AuthorizationTests;
 using EdFi.Ods.WebService.Tests.Owin;
 using EdFi.Ods.WebService.Tests._Helpers;

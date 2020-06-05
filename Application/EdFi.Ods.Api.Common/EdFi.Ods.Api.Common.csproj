@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net48</TargetFrameworks>
+    <AssemblyName>EdFi.Ods.Api.Common</AssemblyName>
+    <RootNamespace>EdFi.Ods.Api.Common</RootNamespace>
+    <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
+    <PackageReference Include="Npgsql" Version="4.1.3.1" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
+  </ItemGroup>
+</Project>

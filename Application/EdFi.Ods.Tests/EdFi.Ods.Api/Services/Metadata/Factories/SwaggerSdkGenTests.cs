@@ -6,17 +6,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Services.Metadata.Factories;
-using EdFi.Ods.Api.Services.Metadata.Models;
-using EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
 using NUnit.Framework;
-using Swashbuckle.Swagger;
 using Test.Common;
 using EdFiSchema = EdFi.Ods.Common.Models.Domain.Schema;
 
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             private SdkGenExtensionResourceStrategy _resourceStrategy;
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "gb";
-            private SwaggerDocument _actualMetadataObject;
+            private OpenApiMetadataDocument _actualMetadataObject;
 
             protected override void Arrange()
             {
@@ -136,7 +136,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             private SdkGenExtensionResourceStrategy _resourceStrategy;
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "sample";
-            private SwaggerDocument _actualMetadataObject;
+            private OpenApiMetadataDocument _actualMetadataObject;
 
             protected override void Arrange()
             {

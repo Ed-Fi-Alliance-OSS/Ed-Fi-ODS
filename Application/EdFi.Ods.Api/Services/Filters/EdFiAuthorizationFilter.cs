@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Security.Claims;

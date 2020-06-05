@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>EdFi.Ods.NetCore.Tests</AssemblyName>
+    <RootNamespace>EdFi.Ods.NetCore.Tests</RootNamespace>
+    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <RestorePackages>true</RestorePackages>
+    <OutputType>Library</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <NoWarn>CS0618</NoWarn>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Autofac.Extras.FakeItEasy" Version="6.0.0" />
+    <PackageReference Include="FakeItEasy" Version="6.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Shouldly" Version="3.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
+  </ItemGroup>
+</Project>

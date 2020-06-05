@@ -5,7 +5,7 @@
  
 using System;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Identity;
+using EdFi.Ods.Api.Common.Models.Identity;
 
 namespace EdFi.Ods.Api.Services.Controllers.IdentityManagement
 {

@@ -10,7 +10,7 @@ using System.Web.Http.Metadata;
 using System.Web.Http.Metadata.Providers;
 using System.Web.Http.ModelBinding;
 using System.Web.Http.Routing;
-using EdFi.Ods.Api.Models.Requests.Students.EdFi;
+using EdFi.Ods.Api.Common.Models.Requests.Students.EdFi;
 using EdFi.Ods.Api.Services.Binders;
 using NUnit.Framework;
 using Shouldly;

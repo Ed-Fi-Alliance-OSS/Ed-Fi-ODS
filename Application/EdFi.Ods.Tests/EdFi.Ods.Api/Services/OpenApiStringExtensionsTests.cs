@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using EdFi.Ods.Api.Services.Metadata;
+using EdFi.Ods.Features.OpenApiMetadata;
 using NUnit.Framework;
 using Shouldly;
 

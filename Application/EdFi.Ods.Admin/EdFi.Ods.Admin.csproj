@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>EdFi.Ods.Admin</AssemblyName>
@@ -16,7 +16,7 @@
     <PackageReference Include="Antlr" Version="3.5.0.2" />
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
@@ -46,7 +46,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Common.Http\EdFi.Ods.Common.Http.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="App_Start\RazorGeneratorMvcStart.cs" />

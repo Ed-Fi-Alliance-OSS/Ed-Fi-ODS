@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using EdFi.Ods.Api.NHibernate.Composites;
+using EdFi.Ods.Api.Common.Infrastructure.Composites;
 using EdFi.TestFixture;
 using Newtonsoft.Json;
 using NUnit.Framework;

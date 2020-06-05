@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Metadata;

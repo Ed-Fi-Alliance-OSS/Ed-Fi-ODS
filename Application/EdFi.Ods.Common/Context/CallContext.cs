@@ -2,8 +2,9 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Concurrent;
+using System.Threading;
 
 namespace EdFi.Ods.Common.Context
 {
@@ -13,7 +14,8 @@ namespace EdFi.Ods.Common.Context
     /// </summary>
     public static class CallContext
     {
-        private static readonly ConcurrentDictionary<string, object> _state = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, AsyncLocal<object>> _state =
+            new ConcurrentDictionary<string, AsyncLocal<object>>();
 
         /// <summary>
         /// Stores a given object and associates it with the specified name.
@@ -22,7 +24,21 @@ namespace EdFi.Ods.Common.Context
         /// <param name="data">The object to store in the call context.</param>
         public static void SetData(string name, object data)
         {
-            _state.AddOrUpdate(name, data, (k, v) => v != data ? data : v);
+            var local = new AsyncLocal<object>(
+                a =>
+                {
+                    if (a.ThreadContextChanged && a.CurrentValue == null && a.PreviousValue != null)
+                    {
+                        _state[name].Value = a.PreviousValue;
+                    }
+                }) {Value = data};
+
+            _state.AddOrUpdate(
+                name,
+                local,
+                (k, v) => v != local
+                    ? local
+                    : v);
         }
 
         /// <summary>
@@ -32,8 +48,8 @@ namespace EdFi.Ods.Common.Context
         /// <returns>The object in the call context associated with the specified name, or <see langword="null"/> if not found.</returns>
         public static object GetData(string name)
         {
-            return _state.TryGetValue(name, out object data)
-                ? data
+            return _state.TryGetValue(name, out AsyncLocal<object> data)
+                ? data.Value
                 : null;
         }
     }

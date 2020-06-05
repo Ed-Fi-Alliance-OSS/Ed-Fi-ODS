@@ -4,18 +4,19 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
-using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Services.Metadata;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
 using Newtonsoft.Json;
-using Swashbuckle.Swagger;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
 {
     public static class OpenApiMetadataHelper
     {
-        public static SwaggerDocument DeserializeSwaggerDocument(string json)
+        public static OpenApiMetadataDocument DeserializeSwaggerDocument(string json)
         {
-            return JsonConvert.DeserializeObject<SwaggerDocument>(
+            return JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                 json,
                 new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore}
             );

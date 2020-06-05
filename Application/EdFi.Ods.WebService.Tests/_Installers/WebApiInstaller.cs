@@ -11,8 +11,10 @@ using Castle.Windsor;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Api;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.Identity;
+using EdFi.Ods.Api.Common;
+using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
 using EdFi.Ods.Common.Composites;
@@ -26,6 +28,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Profiles.Test;
 using EdFi.Ods.Security.Claims;
 using EdFi.Ods.Standard;
+
 
 namespace EdFi.Ods.WebService.Tests._Installers
 {
@@ -64,7 +67,7 @@ namespace EdFi.Ods.WebService.Tests._Installers
 
             container.Register(
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
-                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
+                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
 
             // TODO: GKM - Profiles - temporary workaround for lack of composability
@@ -96,7 +99,9 @@ namespace EdFi.Ods.WebService.Tests._Installers
                        .BasedOn<ApiController>()
                        .LifestyleScoped());
 
-           //container.Install(new SqlServerQueueSendOnlyInstaller());
+            // Register additional dependencies required by Bulk operations controllers
+
+            //container.Install(new SqlServerQueueSendOnlyInstaller());
 
             // TODO: GKM - IMPORTANT: Review these registrations from Muhammad's pull request
             container.Register(

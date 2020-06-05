@@ -4,17 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Linq;
-using EdFi.Ods.Api.Services.Metadata.Factories;
-using EdFi.Ods.Api.Services.Metadata.Models;
-using EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Swashbuckle.Swagger;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         {
             private IOpenApiMetadataResourceStrategy _stubbedOpenApiMetadataResourceStrategy;
             private string _actualJson;
-            private SwaggerDocument _swaggerDoc;
+            private OpenApiMetadataDocument _swaggerDoc;
             private SwaggerDocumentContext _swaggerDocumentContext;
 
             protected override void Arrange()
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 _actualJson = new SwaggerDocumentFactory(_swaggerDocumentContext)
                    .Create(_stubbedOpenApiMetadataResourceStrategy);
 
-                _swaggerDoc = JsonConvert.DeserializeObject<SwaggerDocument>(
+                _swaggerDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
                     new JsonSerializerSettings
                     {
@@ -137,7 +137,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         {
             private IOpenApiMetadataResourceStrategy _stubbedOpenApiMetadataResourceStrategy;
             private string _actualJson;
-            private SwaggerDocument _swaggerDoc;
+            private OpenApiMetadataDocument _swaggerDoc;
             private SwaggerDocumentContext _swaggerDocumentContext;
 
             protected override void Arrange()
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 _actualJson = new SwaggerDocumentFactory(_swaggerDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
 
-                _swaggerDoc = JsonConvert.DeserializeObject<SwaggerDocument>(
+                _swaggerDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
                     new JsonSerializerSettings
                     {

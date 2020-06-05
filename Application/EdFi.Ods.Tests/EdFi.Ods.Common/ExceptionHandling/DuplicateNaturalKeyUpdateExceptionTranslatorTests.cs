@@ -5,8 +5,8 @@
  
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling.Translators;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators;
+using EdFi.Ods.Api.Common.Models;
 using NHibernate;
 using NHibernate.Exceptions;
 using NUnit.Framework;

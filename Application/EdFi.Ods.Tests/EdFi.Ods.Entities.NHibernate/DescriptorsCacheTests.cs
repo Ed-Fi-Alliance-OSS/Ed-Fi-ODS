@@ -6,8 +6,10 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.IdentityValueMappers;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Common.IdentityValueMappers;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;

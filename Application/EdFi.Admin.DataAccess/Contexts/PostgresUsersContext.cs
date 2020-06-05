@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
@@ -15,6 +15,12 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public class PostgresUsersContext : UsersContext
     {
+#if NETFRAMEWORK
+        public PostgresUsersContext() { }
+#elif NETSTANDARD
+        public PostgresUsersContext(string connectionString) : base(connectionString) { }
+#endif
+
         protected override void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder)
         {
             // The column name in this linking table had to be shortened for Postgres

@@ -6,7 +6,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.TestObjects._Extensions;
 
 namespace EdFi.TestObjects.CustomBuilders

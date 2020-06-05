@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using EdFi.Ods.Api.Common.Models.Tokens;
 
 namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
 {

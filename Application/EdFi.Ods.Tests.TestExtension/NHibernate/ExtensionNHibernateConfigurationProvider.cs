@@ -5,8 +5,9 @@
 
 using System.Collections.Generic;
 using System.IO;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Configuration;
 using NHibernate.Cfg.MappingSchema;
 

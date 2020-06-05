@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Web;
+using EdFi.Ods.Api.Context;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Http.Context;
 using Http.TestLibrary;
 using NUnit.Framework;
 using Rhino.Mocks;

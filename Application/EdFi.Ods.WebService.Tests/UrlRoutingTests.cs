@@ -9,16 +9,17 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api;
+using EdFi.Ods.Api.Common;
 using EdFi.Ods.Api.Services.Controllers;
 using EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi;
 using EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
-using EdFi.Ods.Api.Services.Metadata.Controllers;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.WebService.Tests.Owin;
 using NUnit.Framework;
 using Test.Common;
@@ -129,6 +130,7 @@ namespace EdFi.Ods.WebService.Tests
             {
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Api>();
+                AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Api_Common>();
             }
 
             protected override void InstallOpenApiMetadata(IWindsorContainer container)

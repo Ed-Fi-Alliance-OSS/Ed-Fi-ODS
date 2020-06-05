@@ -8,12 +8,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Tests.EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
 {
     /// <summary>
     /// A class which represents the edfi.Staff table of the Staff aggregate in the ODS Database.

@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 
@@ -23,10 +23,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="args">Optional additional arguments for a custom format specifier on the
         /// exception message, starting with argument '{1}'.</param>
         /// <returns>The value for the supplied key if it exists.</returns>
-        /// <remarks>Generally it is considered to be a more secure development practice to 
+        /// <remarks>Generally it is considered to be a more secure development practice to
         /// not reveal potentially sensistive information in error messages, and this is why
         /// the .NET Dictionary implementation does not provide this in the exception message
-        /// when a key is not found. However, there are times when the information contained 
+        /// when a key is not found. However, there are times when the information contained
         /// is not sensitive and supplying the key or additional details in the exception message
         /// are helpful. It is for this usage scenario that this method exists. Please use it responsibly.</remarks>
         public static TValue GetValueOrThrow<TKey, TValue>(
@@ -96,10 +96,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="args">Optional additional arguments for a custom format specifier on the
         /// exception message, starting with argument '{1}'.</param>
         /// <returns>The value for the supplied key if it exists.</returns>
-        /// <remarks>Generally it is considered to be a more secure development practice to 
+        /// <remarks>Generally it is considered to be a more secure development practice to
         /// not reveal potentially sensistive information in error messages, and this is why
         /// the .NET Dictionary implementation does not provide this in the exception message
-        /// when a key is not found. However, there are times when the information contained 
+        /// when a key is not found. However, there are times when the information contained
         /// is not sensitive and supplying the key or additional details in the exception message
         /// are helpful. It is for this usage scenario that this method exists. Please use it responsibly.</remarks>
         public static TValue GetValueOrThrow<TKey, TValue>(
@@ -169,10 +169,10 @@ namespace EdFi.Ods.Common.Extensions
         /// <param name="args">Optional additional arguments for a custom format specifier on the
         /// exception message, starting with argument '{1}'.</param>
         /// <returns>The value for the supplied key if it exists.</returns>
-        /// <remarks>Generally it is considered to be a more secure development practice to 
+        /// <remarks>Generally it is considered to be a more secure development practice to
         /// not reveal potentially sensistive information in error messages, and this is why
         /// the .NET Dictionary implementation does not provide this in the exception message
-        /// when a key is not found. However, there are times when the information contained 
+        /// when a key is not found. However, there are times when the information contained
         /// is not sensitive and supplying the key or additional details in the exception message
         /// are helpful. It is for this usage scenario that this method exists. Please use it responsibly.</remarks>
         public static TValue GetValueOrThrow<TKey, TValue>(
@@ -198,7 +198,7 @@ namespace EdFi.Ods.Common.Extensions
             return value;
         }
 
-#if !NETSTANDARD2_1
+#if NETSTANDARD2_0 || NETFRAMEWORK
         /// <summary>
         /// Gets the value of the entry for the specified key, or the default value for the type if not found.
         /// </summary>

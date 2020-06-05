@@ -6,11 +6,11 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading;
-using EdFi.Ods.Api.Models.Resources.Student.EdFi;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Common.Models.Resources.Student.EdFi;
 using EdFi.Ods.Api.Services.Controllers.Students.EdFi;
-using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Pipelines.Factories;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;

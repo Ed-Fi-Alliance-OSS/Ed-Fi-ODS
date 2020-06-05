@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Models.Resources.AbsenceEventCategoryDescriptor.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.AbsenceEventCategoryDescriptor.EdFi;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi;
 using EdFi.TestFixture;

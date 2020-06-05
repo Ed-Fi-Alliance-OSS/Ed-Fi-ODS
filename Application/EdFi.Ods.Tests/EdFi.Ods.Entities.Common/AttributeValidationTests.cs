@@ -4,7 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Validation;
 using NUnit.Framework;
 using Shouldly;
 

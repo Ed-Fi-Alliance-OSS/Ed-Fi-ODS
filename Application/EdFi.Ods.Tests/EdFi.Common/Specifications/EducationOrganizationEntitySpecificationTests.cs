@@ -9,7 +9,7 @@ using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
 using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
-using ModelResources = EdFi.Ods.Api.Models.Resources;
+using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 
 namespace EdFi.Ods.Tests.EdFi.Common.Specifications
 {

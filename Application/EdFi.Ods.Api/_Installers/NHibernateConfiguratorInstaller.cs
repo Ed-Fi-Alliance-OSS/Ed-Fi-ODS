@@ -7,13 +7,16 @@ using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Common.Infrastructure.Configuration;
+using EdFi.Ods.Api.Common.Infrastructure.ConnectionProviders;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Configuration;
 using NHibernate;
-using NHibernate.Bytecode;
 using NHibernate.Cfg;
 using Environment = NHibernate.Cfg.Environment;
 

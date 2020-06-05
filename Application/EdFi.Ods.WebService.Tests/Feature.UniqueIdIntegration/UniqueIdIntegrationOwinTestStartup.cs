@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Http;
 using Castle.Windsor;
+using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Repositories;

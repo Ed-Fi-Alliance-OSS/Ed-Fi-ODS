@@ -4,11 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Collections.Generic;
-using EdFi.Ods.Api.Services.Metadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
-using Swashbuckle.Swagger;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories

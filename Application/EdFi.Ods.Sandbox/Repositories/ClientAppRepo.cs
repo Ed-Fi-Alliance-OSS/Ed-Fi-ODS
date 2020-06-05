@@ -1,8 +1,8 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,9 +12,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Admin.DataAccess.Extensions;
+using EdFi.Ods.Common;
+#if NETFRAMEWORK
+using EdFi.Ods.Common.Configuration;
+#elif NETSTANDARD
+using Microsoft.Extensions.Configuration;
+#endif
 using EdFi.Ods.Common.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox.Provisioners;
@@ -24,10 +28,14 @@ namespace EdFi.Ods.Sandbox.Repositories
     public class ClientAppRepo : IClientAppRepo
     {
         private const int DefaultDuration = 60;
-        private readonly IConfigValueProvider _configValueProvider;
         private readonly IUsersContextFactory _contextFactory;
         private readonly ISandboxProvisioner _provisioner;
+        private readonly Lazy<int> _duration;
+        private readonly Lazy<string> _defaultOperationalContextUri;
+        private readonly Lazy<string> _defaultAppName;
+        private readonly Lazy<string> _defaultClaimSetName;
 
+#if NETFRAMEWORK
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
             ISandboxProvisioner provisioner,
@@ -35,9 +43,62 @@ namespace EdFi.Ods.Sandbox.Repositories
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
             _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
-            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
-        }
+            Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
 
+            _duration = new Lazy<int>(
+                () =>
+                {
+                    // Get the config value, defaulting to 1 hour
+                    if (!int.TryParse(configValueProvider.GetValue("BearerTokenTimeoutMinutes"), out int duration))
+                    {
+                        duration = DefaultDuration;
+                    }
+
+                    return duration;
+                });
+
+            _defaultOperationalContextUri = new Lazy<string>(() => configValueProvider.GetValue("DefaultOperationalContextUri"));
+            _defaultAppName = new Lazy<string>(() => configValueProvider.GetValue("DefaultApplicationName"));
+            _defaultClaimSetName = new Lazy<string>(() => configValueProvider.GetValue("DefaultClaimSetName"));
+        }
+#elif NETSTANDARD
+        public ClientAppRepo(
+            IUsersContextFactory contextFactory,
+            ISandboxProvisioner provisioner,
+            IConfigurationRoot config)
+        {
+            _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
+            _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
+            Preconditions.ThrowIfNull(config, nameof(config));
+
+            _duration = new Lazy<int>(
+                () =>
+                {
+                    // Get the config value, defaulting to 1 hour
+                    if (!int.TryParse(
+                        config.GetSection("BearerTokenTimeoutMinutes")
+                            .Value,
+                        out int duration))
+                    {
+                        duration = DefaultDuration;
+                    }
+
+                    return duration;
+                });
+
+            _defaultOperationalContextUri = new Lazy<string>(
+                () => config.GetSection("DefaultOperationalContextUri")
+                    .Value);
+
+            _defaultAppName = new Lazy<string>(
+                () => config.GetSection("DefaultApplicationName")
+                    .Value);
+
+            _defaultClaimSetName = new Lazy<string>(
+                () => config.GetSection("DefaultClaimSetName")
+                    .Value);
+        }
+#endif
 
         private Profile GetOrCreateProfile(string profileName)
         {
@@ -47,7 +108,7 @@ namespace EdFi.Ods.Sandbox.Repositories
 
                 if (profiles == null)
                 {
-                    context.Profiles.Add(new Profile { ProfileName = profileName });
+                    context.Profiles.Add(new Profile {ProfileName = profileName});
                     context.SaveChanges();
                 }
 
@@ -64,17 +125,16 @@ namespace EdFi.Ods.Sandbox.Repositories
                     var profile = GetOrCreateProfile(profileName);
 
                     var currentProfile = context.Profiles
-                              .Include(u => u.Applications)
-                              .FirstOrDefault(u => u.ProfileId == profile.ProfileId);
+                        .Include(u => u.Applications)
+                        .FirstOrDefault(u => u.ProfileId == profile.ProfileId);
 
                     if (!currentProfile.Applications.Any(a => a.ApplicationId == applicationId))
                     {
                         var application = context.Applications.FirstOrDefault(a => a.ApplicationId == applicationId);
                         currentProfile.Applications.Add(application);
                     }
-
                 }
-                
+
                 context.SaveChanges();
             }
         }
@@ -84,14 +144,14 @@ namespace EdFi.Ods.Sandbox.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 // Used by Sandbox Admin only, therefore PostgreSQL support is not needed
-                var emailResult = await context.ExecuteQueryAsync<EmailResult>(
-                    @"select top 1 U.Email from webpages_Membership M join Users U on M.UserId = U.UserId and M.ConfirmationToken = {0}",
-                    token);
+                var result = await context
+                    .ExecuteQueryAsync<EmailResult>(
+                        $"select top 1 U.Email from webpages_Membership M join Users U on M.UserId = U.UserId and M.ConfirmationToken = {token}");
 
-                var result = emailResult.FirstOrDefault();
-                return result == null
+                return result.FirstOrDefault() == null
                     ? null
-                    : result.Email;
+                    : result.FirstOrDefault()
+                        .Email;
             }
         }
 
@@ -100,14 +160,14 @@ namespace EdFi.Ods.Sandbox.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 // Used by Sandbox Admin only, therefore PostgreSQL support is not needed
-                var confirmationTokenResult = await context.ExecuteQueryAsync<ConfirmationTokenResult>(
-                    @"select top 1 M.ConfirmationToken from webpages_Membership M join Users U on M.UserId = U.UserId and U.Email = {0}",
-                    userName);
+                var result = await context
+                    .ExecuteQueryAsync<ConfirmationTokenResult>(
+                        $"select top 1 M.ConfirmationToken from webpages_Membership M join Users U on M.UserId = U.UserId and U.Email = {userName}");
 
-                var result = confirmationTokenResult.FirstOrDefault();
-                return result == null
+                return result.FirstOrDefault() == null
                     ? null
-                    : result.ConfirmationToken;
+                    : result.FirstOrDefault()
+                        .ConfirmationToken;
             }
         }
 
@@ -127,7 +187,7 @@ namespace EdFi.Ods.Sandbox.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
-                              .ToList();
+                    .ToList();
             }
         }
 
@@ -137,7 +197,7 @@ namespace EdFi.Ods.Sandbox.Repositories
             {
                 return
                     context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
-                           .FirstOrDefault(u => u.UserId == userId);
+                        .FirstOrDefault(u => u.UserId == userId);
             }
         }
 
@@ -147,8 +207,8 @@ namespace EdFi.Ods.Sandbox.Repositories
             {
                 return
                     context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
-                           .Include(u => u.Vendor)
-                           .FirstOrDefault(x => x.Email == userName);
+                        .Include(u => u.Vendor)
+                        .FirstOrDefault(x => x.Email == userName);
             }
         }
 
@@ -158,7 +218,7 @@ namespace EdFi.Ods.Sandbox.Repositories
             {
                 var user =
                     context.Users.Include(u => u.ApiClients.Select(ac => ac.Application))
-                           .FirstOrDefault(x => x.UserId == userProfile.UserId);
+                        .FirstOrDefault(x => x.UserId == userProfile.UserId);
 
                 if (user == null)
                 {
@@ -182,12 +242,26 @@ namespace EdFi.Ods.Sandbox.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return context.Clients.Include(c => c.Application)
-                              .Include(c => c.Application.Vendor)
-                              .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
-                              .Include(c => c.Application.Profiles)
-                              .Include(c => c.ApplicationEducationOrganizations)
-                              .Include(c => c.CreatorOwnershipTokenId)
-                              .FirstOrDefault(c => c.Key == key);
+                    .Include(c => c.Application.Vendor)
+                    .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
+                    .Include(c => c.Application.Profiles)
+                    .Include(c => c.ApplicationEducationOrganizations)
+                    .Include(c => c.CreatorOwnershipTokenId)
+                    .FirstOrDefault(c => c.Key == key);
+            }
+        }
+
+        public async Task<ApiClient> GetClientAsync(string key)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return await context.Clients.Include(c => c.Application)
+                    .Include(c => c.Application.Vendor)
+                    .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
+                    .Include(c => c.Application.Profiles)
+                    .Include(c => c.ApplicationEducationOrganizations)
+                    .Include(c => c.CreatorOwnershipTokenId)
+                    .FirstOrDefaultAsync(c => c.Key == key);
             }
         }
 
@@ -217,13 +291,13 @@ namespace EdFi.Ods.Sandbox.Repositories
 
                 // TODO SF: AA-518
                 // Assuming that this is used by Admin App, although that will not actually be clear
-                // until we are able to start testing Admin App thoroughly. 
+                // until we are able to start testing Admin App thoroughly.
                 // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
                 // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
                 context.ExecuteSqlCommandAsync(
-                    @"delete ClientAccessTokens where ApiClient_ApiClientId = @clientId; 
+                        @"delete ClientAccessTokens where ApiClient_ApiClientId = @clientId; 
 delete ApiClients where ApiClientId = @clientId",
-                    new SqlParameter("@clientId", client.ApiClientId))
+                        new SqlParameter("@clientId", client.ApiClientId))
                     .Wait();
 
                 if (client.UseSandbox)
@@ -233,35 +307,34 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null)
+        public async Task<ClientAccessToken> AddClientAccessTokenAsync(int apiClientId, string tokenRequestScope = null)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = context.Clients
-                    .FirstOrDefault(c => c.ApiClientId == apiClientId);
-                
+                var client = await context.Clients.FirstOrDefaultAsync(c => c.ApiClientId == apiClientId);
+
                 if (client == null)
                 {
                     throw new InvalidOperationException("Cannot add client access token when the client does not exist.");
                 }
 
-                // Get the config value, defaulting to 1 hour
-                if (!int.TryParse(_configValueProvider.GetValue("BearerTokenTimeoutMinutes"), out int duration))
+                var token = new ClientAccessToken(TimeSpan.FromMinutes(_duration.Value))
                 {
-                    duration = DefaultDuration;
-                }
-
-                var token = new ClientAccessToken(TimeSpan.FromMinutes(duration))
-                {
-                    Scope = string.IsNullOrEmpty(tokenRequestScope) 
+                    Scope = string.IsNullOrEmpty(tokenRequestScope)
                         ? null
                         : tokenRequestScope.Trim()
                 };
 
                 client.ClientAccessTokens.Add(token);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return token;
             }
+        }
+
+        public ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null)
+        {
+            return AddClientAccessTokenAsync(apiClientId, tokenRequestScope)
+                .GetResultSafely();
         }
 
         public Application[] GetVendorApplications(int vendorId)
@@ -269,7 +342,7 @@ delete ApiClients where ApiClientId = @clientId",
             using (var context = _contextFactory.CreateContext())
             {
                 return context.Applications.Where(a => a.Vendor.VendorId == vendorId)
-                              .ToArray();
+                    .ToArray();
             }
         }
 
@@ -278,9 +351,9 @@ delete ApiClients where ApiClientId = @clientId",
             using (var context = _contextFactory.CreateContext())
             {
                 var user = context.Users
-                                  .Include(u => u.Vendor)
-                                  .Include(v => v.Vendor.Applications)
-                                  .SingleOrDefault(u => u.UserId == userId);
+                    .Include(u => u.Vendor)
+                    .Include(v => v.Vendor.Applications)
+                    .SingleOrDefault(u => u.UserId == userId);
 
                 if (user == null)
                 {
@@ -309,7 +382,13 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId)
+        public void SetupKeySecret(
+            string name,
+            SandboxType sandboxType,
+            string key,
+            string secret,
+            int userId,
+            int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -321,12 +400,17 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        private ApiClient CreateApiClient(IUsersContext context, int userId, string name, SandboxType sandboxType, string key, string secret)
+        private ApiClient CreateApiClient(
+            IUsersContext context,
+            int userId,
+            string name,
+            SandboxType sandboxType,
+            string key,
+            string secret)
         {
             var attachedUser = context.Users.Find(userId);
 
             return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
-            
         }
 
         public void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId)
@@ -348,7 +432,8 @@ delete ApiClients where ApiClientId = @clientId",
 
                 client.Application = application;
 
-                foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(s => leaIds.Contains(s.EducationOrganizationId)))
+                foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(
+                    s => leaIds.Contains(s.EducationOrganizationId)))
                 {
                     client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                 }
@@ -371,7 +456,13 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public ApiClient SetupDefaultSandboxClient(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId)
+        public ApiClient SetupDefaultSandboxClient(
+            string name,
+            SandboxType sandboxType,
+            string key,
+            string secret,
+            int userId,
+            int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
             {
@@ -397,12 +488,12 @@ delete ApiClients where ApiClientId = @clientId",
 
                     try
                     {
-                        //Admin.Web Creates table webpages_UsersInRoles. 
-                        //If exists remove rows, if not swallow exception. 
+                        //Admin.Web Creates table webpages_UsersInRoles.
+                        //If exists remove rows, if not swallow exception.
                         dbContext.DeleteAll<WebPagesUsersInRoles>();
                         context.SaveChanges();
                     }
-                    catch(Exception) { }
+                    catch (Exception) { }
 
                     dbContext.DeleteAll<ClientAccessToken>();
                     dbContext.DeleteAll<ApiClient>();
@@ -419,14 +510,13 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName)
         {
             var namePrefix = "uri://" + userEmail.Split('@')[1]
-                                                 .ToLower();
+                .ToLower();
 
             var vendorName = userName.Split(',')[0]
-                                     .Trim();
+                .Trim();
 
             using (var context = _contextFactory.CreateContext())
             {
@@ -443,28 +533,25 @@ delete ApiClients where ApiClientId = @clientId",
                 .Trim();
 
             var namePrefix = "uri://" + userEmail.Split('@')[1]
-                                 .ToLower();
+                .ToLower();
 
             using (var context = _contextFactory.CreateContext())
             {
                 var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
 
-                    if (vendor == null)
-                    {
-                        vendor = new Vendor
+                if (vendor == null)
+                {
+                    vendor = new Vendor {VendorName = vendorName};
+
+                    vendor.VendorNamespacePrefixes.Add(
+                        new VendorNamespacePrefix
                         {
-                            VendorName = vendorName
-                        };
+                            Vendor = vendor,
+                            NamespacePrefix = namePrefix
+                        });
+                }
 
-                        vendor.VendorNamespacePrefixes.Add(
-                            new VendorNamespacePrefix
-                            {
-                                Vendor = vendor,
-                                NamespacePrefix = namePrefix
-                            });
-                    }
-
-                    return vendor;
+                return vendor;
             }
         }
 
@@ -474,15 +561,13 @@ delete ApiClients where ApiClientId = @clientId",
 
             if (vendor == null)
             {
-                vendor = new Vendor
-                         {
-                             VendorName = vendorName
-                         };
+                vendor = new Vendor {VendorName = vendorName};
 
                 vendor.VendorNamespacePrefixes.Add(
                     new VendorNamespacePrefix
                     {
-                        Vendor = vendor, NamespacePrefix = namePrefix
+                        Vendor = vendor,
+                        NamespacePrefix = namePrefix
                     });
 
                 context.Vendors.AddOrUpdate(vendor);
@@ -496,8 +581,6 @@ delete ApiClients where ApiClientId = @clientId",
 
         public Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName)
         {
-            var defaultOperationalContextUri = _configValueProvider.GetValue("DefaultOperationalContextUri");
-
             using (var context = _contextFactory.CreateContext())
             {
                 var app =
@@ -516,7 +599,7 @@ delete ApiClients where ApiClientId = @clientId",
                     ApplicationName = applicationName,
                     Vendor = vendor,
                     ClaimSetName = claimSetName,
-                    OperationalContextUri = defaultOperationalContextUri
+                    OperationalContextUri = _defaultOperationalContextUri.Value
                 };
 
                 context.Applications.AddOrUpdate(app);
@@ -529,13 +612,9 @@ delete ApiClients where ApiClientId = @clientId",
 
         private void CreateDefaultApplicationForVendor(IUsersContext context, Vendor vendor)
         {
-            var defaultAppName = _configValueProvider.GetValue("DefaultApplicationName");
-            var defaultClaimSetName = _configValueProvider.GetValue("DefaultClaimSetName");
-            var defaultOperationalContextUri = _configValueProvider.GetValue("DefaultOperationalContextUri");
-
             var app =
                 context.Applications.SingleOrDefault(
-                    a => a.ApplicationName == defaultAppName && a.Vendor.VendorId == vendor.VendorId);
+                    a => a.ApplicationName == _defaultAppName.Value && a.Vendor.VendorId == vendor.VendorId);
 
             if (app != null)
             {
@@ -545,8 +624,10 @@ delete ApiClients where ApiClientId = @clientId",
             context.Applications.AddOrUpdate(
                 new Application
                 {
-                    ApplicationName = defaultAppName, Vendor = vendor, ClaimSetName = defaultClaimSetName,
-                    OperationalContextUri = defaultOperationalContextUri
+                    ApplicationName = _defaultAppName.Value,
+                    Vendor = vendor,
+                    ClaimSetName = _defaultClaimSetName.Value,
+                    OperationalContextUri = _defaultOperationalContextUri.Value
                 });
         }
 

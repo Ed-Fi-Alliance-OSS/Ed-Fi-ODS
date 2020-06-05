@@ -26,13 +26,13 @@ using EdFi.TestObjects;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
-using SchoolResource_Full = EdFi.Ods.Api.Models.Resources.School.EdFi.School;
-using StudentAssessmentResource_Full = EdFi.Ods.Api.Models.Resources.StudentAssessment.EdFi.StudentAssessment;
+using SchoolResource_Full = EdFi.Ods.Api.Common.Models.Resources.School.EdFi.School;
+using StudentAssessmentResource_Full = EdFi.Ods.Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment;
 using ScoreResult_Entity = EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentScoreResult;
 using PerformanceLevel_Entity =
     EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel;
-using ScoreResult_Full = EdFi.Ods.Api.Models.Resources.StudentAssessment.EdFi.StudentAssessmentStudentObjectiveAssessmentScoreResult;
-using PerformanceLevel_Full = EdFi.Ods.Api.Models.Resources.StudentAssessment.EdFi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel;
+using ScoreResult_Full = EdFi.Ods.Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessmentStudentObjectiveAssessmentScoreResult;
+using PerformanceLevel_Full = EdFi.Ods.Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel;
 using SchoolEntity = EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi.School;
 using StudentAssessment_Entity = EdFi.Ods.Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessment;
 using SchoolCategory_Entity = EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi.SchoolCategory;
@@ -40,11 +40,11 @@ using SchoolGradeLevel_Entity = EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdF
 using EducationOrganizationAddress_Entity = EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationAddress;
 using EducationOrganizationInternationalAddress_Entity =
     EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationInternationalAddress;
-using SchoolCategory_Full = EdFi.Ods.Api.Models.Resources.School.EdFi.SchoolCategory;
-using SchoolGradeLevel_Full = EdFi.Ods.Api.Models.Resources.School.EdFi.SchoolGradeLevel;
-using EducationOrganizationAddress_Full = EdFi.Ods.Api.Models.Resources.EducationOrganization.EdFi.EducationOrganizationAddress;
+using SchoolCategory_Full = EdFi.Ods.Api.Common.Models.Resources.School.EdFi.SchoolCategory;
+using SchoolGradeLevel_Full = EdFi.Ods.Api.Common.Models.Resources.School.EdFi.SchoolGradeLevel;
+using EducationOrganizationAddress_Full = EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.EducationOrganizationAddress;
 using EducationOrganizationInternationalAddress_Full =
-    EdFi.Ods.Api.Models.Resources.EducationOrganization.EdFi.EducationOrganizationInternationalAddress;
+    EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.EducationOrganizationInternationalAddress;
 
 namespace EdFi.Ods.WebService.Tests.Profiles
 {

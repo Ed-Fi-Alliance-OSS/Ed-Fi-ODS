@@ -6,9 +6,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Castle.Windsor;
-using EdFi.Ods.Api.Startup.Features.Installers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Features.Profiles;
 using EdFi.Ods.Profiles.Test;
 using EdFi.TestFixture;
 using FakeItEasy;

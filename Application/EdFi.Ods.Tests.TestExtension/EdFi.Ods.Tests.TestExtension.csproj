@@ -22,7 +22,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="System.IO" Version="4.3.0" />
@@ -33,10 +33,14 @@
     <PackageReference Include="System.Security.Cryptography.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />

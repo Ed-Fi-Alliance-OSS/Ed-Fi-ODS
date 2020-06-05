@@ -14,7 +14,7 @@ using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
-using EdFi.Ods.Security._Installers;
+using EdFi.Ods.Security.Container.Installers;
 using NUnit.Framework;
 using Shouldly;
 

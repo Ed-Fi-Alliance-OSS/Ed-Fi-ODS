@@ -11,8 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using EdFi.Ods.Api.Exceptions;
-using EdFi.Ods.Api.Identity;
+using EdFi.Ods.Api.Common.Exceptions;
+using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Filters;
 

@@ -6,7 +6,7 @@
 using System;
 using System.Linq;
 using System.Net.Http;
-using EdFi.Ods.Api.Identity;
+using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Common.Extensions;
 using Newtonsoft.Json;
 

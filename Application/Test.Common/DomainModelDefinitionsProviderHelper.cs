@@ -5,12 +5,12 @@
  
 using System.Collections.Generic;
 using System.Data;
-using EdFi.Ods.Api.Services.Metadata.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Standard;
 using PT = EdFi.Ods.Common.Models.Domain.PropertyType;
 using EId = EdFi.Ods.Common.Models.Definitions.EntityIdentifierDefinition;

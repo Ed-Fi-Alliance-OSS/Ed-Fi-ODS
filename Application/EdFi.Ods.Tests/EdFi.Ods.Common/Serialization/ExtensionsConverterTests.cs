@@ -10,16 +10,16 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
 using EdFi.Ods.Common.Utils.Extensions;
-using EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi;
-using EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Test1;
+using EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi;
+using EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Test1;
 using EdFi.TestFixture;
 using KellermanSoftware.CompareNetObjects;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Test.Common;
-using StaffExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffExtension;
-using StaffLanguageExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffLanguageExtension;
-using StaffLanguageUseExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffLanguageUseExtension;
+using StaffExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffExtension;
+using StaffLanguageExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffLanguageExtension;
+using StaffLanguageUseExtension2 = EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing.StaffLanguageUseExtension;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
 {

@@ -36,11 +36,11 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Api.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.
+                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.
                                 StaffEducationOrganizationAssignmentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Api.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi
+                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi
                                       .StaffEducationOrganizationAssignmentAssociation)), Is.True)
                 );
             }
@@ -66,11 +66,11 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Api.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.
+                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.
                                 StaffEducationOrganizationEmploymentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Api.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi
+                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi
                                       .StaffEducationOrganizationEmploymentAssociation)), Is.True)
                 );
             }
@@ -94,10 +94,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Api.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation)), Is.True),
+                            typeof(Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Api.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation)), Is.True)
+                            nameof(Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation)), Is.True)
                 );
             }
         }

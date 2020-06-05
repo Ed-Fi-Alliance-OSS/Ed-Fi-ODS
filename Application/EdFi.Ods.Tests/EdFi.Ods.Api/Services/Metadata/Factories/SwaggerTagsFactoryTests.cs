@@ -5,13 +5,13 @@
  
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Services.Metadata.Factories;
-using EdFi.Ods.Api.Services.Metadata.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.TestFixture;
 using NUnit.Framework;
-using Swashbuckle.Swagger;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories

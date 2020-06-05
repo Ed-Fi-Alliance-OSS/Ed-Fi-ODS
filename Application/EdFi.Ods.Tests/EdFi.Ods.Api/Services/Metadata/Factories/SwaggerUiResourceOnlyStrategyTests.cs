@@ -5,11 +5,11 @@
  
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;

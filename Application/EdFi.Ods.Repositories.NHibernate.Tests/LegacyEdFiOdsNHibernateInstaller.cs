@@ -6,9 +6,10 @@
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.NHibernate.Architecture.Criteria;
-using EdFi.Ods.Api.NHibernate.Composites;
+using EdFi.Ods.Api.Common.Infrastructure.Composites;
+using EdFi.Ods.Api.Common.Infrastructure.Repositories;
+using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Common.Providers.Criteria;
 using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Repositories;

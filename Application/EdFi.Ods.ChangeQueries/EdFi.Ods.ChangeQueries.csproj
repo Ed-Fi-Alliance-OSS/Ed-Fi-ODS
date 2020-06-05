@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>EdFi.Ods.ChangeQueries</AssemblyName>
     <RootNamespace>EdFi.Ods.ChangeQueries</RootNamespace>
     <Configurations>Debug;Release</Configurations>
@@ -13,19 +13,14 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
-    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
-    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="System.IO" Version="4.3.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
@@ -33,6 +28,19 @@
     <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
     <PackageReference Include="System.Security.Cryptography.Primitives" Version="4.3.0" />
     <PackageReference Include="System.Security.Cryptography.X509Certificates" Version="4.3.2" />
+    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <ProjectReference Include="..\EdFi.Ods.Api.NetCore\EdFi.Ods.Api.NetCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
+    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ChangeQueries.json" />
@@ -41,8 +49,7 @@
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Common.Http\EdFi.Ods.Common.Http.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>

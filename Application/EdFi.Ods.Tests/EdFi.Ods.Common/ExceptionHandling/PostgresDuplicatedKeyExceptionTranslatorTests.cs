@@ -5,8 +5,8 @@
  
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.ExceptionHandling.Translators.Postgres;
+using EdFi.Ods.Api.Common.ExceptionHandling.Translators.Postgres;
+using EdFi.Ods.Api.Common.Models;
 using EdFi.TestFixture;
 using NHibernate.Exceptions;
 using NUnit.Framework;

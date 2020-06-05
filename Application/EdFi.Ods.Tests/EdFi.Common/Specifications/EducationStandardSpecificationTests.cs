@@ -5,7 +5,7 @@
  
 using System.Diagnostics.CodeAnalysis;
 using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
-using ModelResources = EdFi.Ods.Api.Models.Resources;
+using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 using EdFi.Ods.Common.Specifications;
 using EdFi.TestFixture;
 using NUnit.Framework;

@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Web.Http.Controllers;
-using EdFi.Ods.Common.Http.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;

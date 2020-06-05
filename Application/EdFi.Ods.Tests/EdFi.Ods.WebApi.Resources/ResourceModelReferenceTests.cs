@@ -5,9 +5,9 @@
  
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Models.Resources.BellSchedule.EdFi;
-using EdFi.Ods.Api.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi;
-using EdFi.Ods.Api.Models.Resources.StudentSchoolAttendanceEvent.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.BellSchedule.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi;
 using EdFi.Ods.Entities.Common.EdFi;
 using Newtonsoft.Json;
 using NUnit.Framework;

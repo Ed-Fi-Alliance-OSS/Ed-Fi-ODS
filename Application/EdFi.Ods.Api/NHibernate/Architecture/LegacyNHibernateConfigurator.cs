@@ -8,13 +8,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate.Architecture.Criteria;
-using EdFi.Ods.Api.NHibernate.Filtering;
+using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
+using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
+using EdFi.Ods.Api.Common.Infrastructure.Configuration;
+using EdFi.Ods.Api.Common.Infrastructure.ConnectionProviders;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Api.Common.Infrastructure.Filtering;
+using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Common.Providers.Criteria;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common._Installers.ComponentNaming;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -39,8 +44,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
         public Configuration Configure(IWindsorContainer container)
         {
             //Resolve all extensions to include in core mapping
-            var extensionConfigurationProviders = container.ResolveAll<IExtensionNHibernateConfigurationProvider>()
-                .ToList();
+            var extensionConfigurationProviders = Enumerable.ToList(container.ResolveAll<IExtensionNHibernateConfigurationProvider>());
 
             _entityExtensionHbmBagsByEntityName = extensionConfigurationProviders
                 .SelectMany(x => x.EntityExtensionHbmBagByEntityName)
@@ -210,23 +214,20 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
             {
                 var classMappingByEntityName = e.Mapping.Items.OfType<HbmClass>()
                     .ToDictionary(
-                        x => x.Name.Split('.')
-                            .Last(),
+                        x => Enumerable.Last<string>(x.Name.Split('.')),
                         x => x);
 
                 var joinedSubclassMappingByEntityName = e.Mapping.Items.OfType<HbmClass>()
                     .SelectMany(i => i.JoinedSubclasses)
                     .ToDictionary(
-                        x => x.Name.Split('.')
-                            .Last(),
+                        x => Enumerable.Last<string>(x.Name.Split('.')),
                         x => x);
 
                 var subclassJoinMappingByEntityName = e.Mapping.Items.OfType<HbmClass>()
                     .SelectMany(i => i.Subclasses)
                     .Where(sc => sc.Joins.Count() == 1)
                     .ToDictionary(
-                        x => x.Name.Split('.')
-                            .Last(),
+                        x => Enumerable.Last<string>(x.Name.Split('.')),
                         x => x.Joins.Single());
 
                 MapExtensionsToCoreEntity(
@@ -258,7 +259,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                         $"The subclass extension to entity '{entityName}' could not be applied because the class mapping could not be found.");
                 }
 
-                var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object) x).ToArray();
+                var hbmSubclasses = Enumerable.ToArray<object>(_extensionDerivedEntityByEntityName[entityName].Select(x => (object) x));
 
                 classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmSubclasses).ToArray();
             }
@@ -278,9 +279,9 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                         $"The subclass extension to entity '{entityName}' could not be applied because the class mapping could not be found.");
                 }
 
-                var hbmJoinedSubclasses = _extensionDescriptorByEntityName[entityName]
-                    .Select(x => (object) x)
-                    .ToArray();
+                var hbmJoinedSubclasses = Enumerable.ToArray<object>(
+                        _extensionDescriptorByEntityName[entityName]
+                            .Select(x => (object) x));
 
                 classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmJoinedSubclasses)
                     .ToArray();
@@ -310,25 +311,22 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                 var extensionComponent = new HbmDynamicComponent
                 {
                     name = AggregateExtensionMemberName,
-                    Items = _aggregateExtensionHbmBagsByEntityName[entityName]
-                        .Select(x => (object) x)
-                        .ToArray()
+                    Items = Enumerable.ToArray<object>(
+                            _aggregateExtensionHbmBagsByEntityName[entityName]
+                                .Select(x => (object) x))
                 };
 
                 if (classMapping != null)
                 {
-                    classMapping.Items = classMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    classMapping.Items = Enumerable.ToArray<object>(classMapping.Items.Concat(extensionComponent));
                 }
                 else if (joinedSubclassMapping != null)
                 {
-                    joinedSubclassMapping.Items = joinedSubclassMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    joinedSubclassMapping.Items = Enumerable.ToArray<object>(joinedSubclassMapping.Items.Concat(extensionComponent));
                 }
                 else
                 {
-                    subclassJoinMapping.Items = subclassJoinMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    subclassJoinMapping.Items = Enumerable.ToArray<object>(subclassJoinMapping.Items.Concat(extensionComponent));
                 }
             }
         }
@@ -356,25 +354,22 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                 var extensionComponent = new HbmDynamicComponent
                 {
                     name = EntityExtensionMemberName,
-                    Items = _entityExtensionHbmBagsByEntityName[entityName]
-                        .Select(x => (object) x)
-                        .ToArray()
+                    Items = Enumerable.ToArray<object>(
+                            _entityExtensionHbmBagsByEntityName[entityName]
+                                .Select(x => (object) x))
                 };
 
                 if (classMapping != null)
                 {
-                    classMapping.Items = classMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    classMapping.Items = Enumerable.ToArray<object>(classMapping.Items.Concat(extensionComponent));
                 }
                 else if (joinedSubclassMapping != null)
                 {
-                    joinedSubclassMapping.Items = joinedSubclassMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    joinedSubclassMapping.Items = Enumerable.ToArray<object>(joinedSubclassMapping.Items.Concat(extensionComponent));
                 }
                 else
                 {
-                    subclassJoinMapping.Items = subclassJoinMapping.Items.Concat(extensionComponent)
-                        .ToArray();
+                    subclassJoinMapping.Items = Enumerable.ToArray<object>(subclassJoinMapping.Items.Concat(extensionComponent));
                 }
             }
         }

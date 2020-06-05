@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>net48;netcoreapp3.1</TargetFrameworks>
     <AssemblyName>EdFi.Ods.Standard</AssemblyName>
     <RootNamespace>EdFi.Ods.Standard</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -13,16 +13,23 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <ProjectReference Include="..\EdFi.Ods.Api.NetCore\EdFi.Ods.Api.NetCore.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>

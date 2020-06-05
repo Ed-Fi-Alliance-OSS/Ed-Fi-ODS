@@ -13,6 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
+using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Common.Configuration;

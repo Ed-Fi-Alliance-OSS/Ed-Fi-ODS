@@ -6,12 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Castle.Core.Resource;
-using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Models.Domain
 {

@@ -12,8 +12,8 @@ using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
 using StaffEntity = EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.Staff;
-using StaffResource = EdFi.Ods.Api.Models.Resources.Staff.EdFi.Staff;
-using StaffProfileResource = EdFi.Ods.Api.Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Writable.Staff;
+using StaffResource = EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Staff;
+using StaffProfileResource = EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Writable.Staff;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
 {

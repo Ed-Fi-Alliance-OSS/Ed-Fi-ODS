@@ -7,7 +7,8 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EdFi.Ods.Api;
-using EdFi.Ods.Api.Services.Metadata.Providers;
+using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Features.OpenApiMetadata.Providers;
 
 namespace EdFi.Ods.WebService.Tests._Installers
 {

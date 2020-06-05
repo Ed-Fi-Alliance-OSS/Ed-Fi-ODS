@@ -2,12 +2,14 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+#if NETFRAMEWORK
 using Castle.Core.Internal;
+#endif
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -81,7 +83,7 @@ namespace EdFi.Ods.Common.Conventions
 
                 extensionAssemblyName = isProfileAssembly
                     ? edFiStandardType.Assembly.GetName()
-                                      .Name
+                        .Name
                     : GetExtensionAssemblyName(extensionName);
 
                 var profileName = string.Empty;
@@ -93,7 +95,7 @@ namespace EdFi.Ods.Common.Conventions
                     if (!string.IsNullOrWhiteSpace(edFiStandardType.Namespace))
                     {
                         profileName = edFiStandardType.Namespace.Split('.')
-                                                      .Last();
+                            .Last();
                     }
                 }
 
@@ -131,7 +133,7 @@ namespace EdFi.Ods.Common.Conventions
             }
 
             int startPos = edFiStandardType.FullName.Substring(0, endPos)
-                                           .LastIndexOf(".");
+                .LastIndexOf(".");
 
             if (startPos < 0)
             {
@@ -197,7 +199,7 @@ namespace EdFi.Ods.Common.Conventions
         public static string GetProperCaseNameForLogicalName(string logicalName)
         {
             return logicalName.NormalizeCompositeTermForDisplay('-')
-                              .Replace(" ", string.Empty);
+                .Replace(" ", string.Empty);
         }
 
         /// <summary>
@@ -208,7 +210,7 @@ namespace EdFi.Ods.Common.Conventions
         public static string GetProperCaseNameFromAssemblyName(string assemblyName)
         {
             return assemblyName.Split('.')
-                               .Last();
+                .Last();
         }
 
         /// <summary>
@@ -223,8 +225,9 @@ namespace EdFi.Ods.Common.Conventions
             }
 
             string extensionName =
-                aggregateExtensionEntity.DomainModel.SchemaNameMapProvider.GetSchemaMapByPhysicalName(aggregateExtensionEntity.Schema)
-                                        .ProperCaseName;
+                aggregateExtensionEntity.DomainModel.SchemaNameMapProvider
+                    .GetSchemaMapByPhysicalName(aggregateExtensionEntity.Schema)
+                    .ProperCaseName;
 
             // Use the association's name (which incorporates the role name, if applicable)
             string roleName = aggregateExtensionEntity.ParentAssociation.Inverse.RoleName;
@@ -234,6 +237,7 @@ namespace EdFi.Ods.Common.Conventions
             return $"{extensionName}_{roleName}{pluralName}";
         }
 
+#if NETFRAMEWORK
         private static string GetExtensionClassTypeName(string @namespace, string extensionName, string className)
         {
             string extensionSegment = extensionName.IsNullOrEmpty()
@@ -242,13 +246,14 @@ namespace EdFi.Ods.Common.Conventions
 
             return $"{@namespace}{extensionSegment}.{GetExtensionClassName(className)}";
         }
-
+#endif
         public static string GetExtensionClassName(string className)
         {
             return $"{className}{ExtensionSuffix}";
         }
 
-        public static string GetExtendedClassName(string extensionClassName) => extensionClassName.Replace(ExtensionSuffix, string.Empty);
+        public static string GetExtendedClassName(string extensionClassName)
+            => extensionClassName.Replace(ExtensionSuffix, string.Empty);
 
         public static bool IsExtensionClassName(string className) => className.EndsWith(ExtensionSuffix);
 

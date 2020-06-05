@@ -10,7 +10,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Tests.EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
 {
     /// <summary>
     /// A class which represents the edfi.StaffLanguageUse table of the Staff aggregate in the ODS Database.

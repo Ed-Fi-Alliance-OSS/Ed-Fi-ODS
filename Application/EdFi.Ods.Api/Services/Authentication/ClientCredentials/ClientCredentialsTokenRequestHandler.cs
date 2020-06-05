@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Api.Common.Models.Tokens;
 
 namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
 {
@@ -42,8 +43,8 @@ namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
             var client = _clientAppRepo.GetClient(apiClientIdentity.Key);
 
             // Convert empty scope to null
-            string tokenRequestScope = string.IsNullOrEmpty(tokenRequest.Scope) 
-                ? null 
+            string tokenRequestScope = string.IsNullOrEmpty(tokenRequest.Scope)
+                ? null
                 : tokenRequest.Scope.Trim();
 
             // Validate the requested scope
@@ -58,10 +59,10 @@ namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
             }
 
             var token = _clientAppRepo.AddClientAccessToken(
-                client.ApiClientId, 
+                client.ApiClientId,
                 tokenRequestScope);
-            
-            resp.SetToken(token);
+
+            resp.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);
 
             actionResult = new AuthenticationSuccess(httpRequest, resp);
             return true;
@@ -74,9 +75,9 @@ namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
                 // Verify that the scope is a single number (EdOrg)
                 if (!int.TryParse(tokenRequestScope, out int educationOrganizationScope))
                 {
-                    return new AuthenticationError(httpRequest, 
+                    return new AuthenticationError(httpRequest,
                         new TokenError(
-                            TokenErrorType.InvalidScope, 
+                            TokenErrorType.InvalidScope,
                             "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client)."));
                 }
 
@@ -85,9 +86,9 @@ namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
                     .Select(x => x.EducationOrganizationId)
                     .Contains(educationOrganizationScope))
                 {
-                    return new AuthenticationError(httpRequest, 
+                    return new AuthenticationError(httpRequest,
                         new TokenError(
-                            TokenErrorType.InvalidScope, 
+                            TokenErrorType.InvalidScope,
                             "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'."));
                 }
 

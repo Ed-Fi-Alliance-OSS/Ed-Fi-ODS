@@ -16,39 +16,44 @@ using System.Web.Http.Dispatcher;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api;
 using EdFi.Ods.Sandbox.Security;
 using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.ExceptionHandling;
-using EdFi.Ods.Api.Extensibility;
+using EdFi.Ods.Api.Common;
+using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.HttpRouteConfigurations;
+using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.Pipelines.Factories;
 using EdFi.Ods.Api.Services;
 using EdFi.Ods.Api.Services.ActionFilters;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Startup;
-using EdFi.Ods.Api.Startup.HttpRouteConfigurations;
-using EdFi.Ods.ChangeQueries._Installers;
+using EdFi.Ods.ChangeQueries.Container.Installers;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common.ChainOfResponsibility;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Http.InversionOfControl;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Pipelines;
-using EdFi.Ods.Pipelines.Common;
-using EdFi.Ods.Pipelines.Factories;
-using EdFi.Ods.Security._Installers;
+using EdFi.Ods.Common.Validation;
+using EdFi.Ods.Features.Container.Installers;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Security.DataAccess.Repositories;
+using EdFi.Ods.Security.Container.Installers;
 using EdFi.Ods.Security.Profiles;
 using EdFi.Ods.Standard;
 using EdFi.Ods.WebService.Tests._Installers;
@@ -59,6 +64,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;
 using ChangeQueryFeature = EdFi.Ods.Api.ChangeQueries.ChangeQueryFeature;
+using OpenApiMetadataInstaller = EdFi.Ods.WebService.Tests._Installers.OpenApiMetadataInstaller;
 
 namespace EdFi.Ods.WebService.Tests.Owin
 {
@@ -91,18 +97,18 @@ namespace EdFi.Ods.WebService.Tests.Owin
         {
             container.Register(
                 Component.For<ISecretVerifier>()
-                    .ImplementedBy<AutoUpgradingHashedSecretVerifierDecorator>());
+                         .ImplementedBy<AutoUpgradingHashedSecretVerifierDecorator>());
 
             container.Register(
                 Component.For<ISecretVerifier>()
-                    .ImplementedBy<SecureHashAwareSecretVerifier>());
+                         .ImplementedBy<SecureHashAwareSecretVerifier>());
         }
 
         protected virtual void InstallHashConfigProvider(IWindsorContainer container)
         {
             container.Register(
                 Component.For<IHashConfigurationProvider>()
-                    .ImplementedBy<DefaultHashConfigurationProvider>()
+                         .ImplementedBy<DefaultHashConfigurationProvider>()
             );
         }
 
@@ -110,7 +116,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
         {
             container.Register(
                 Component.For<ISecureHasher>()
-                    .ImplementedBy<Pbkdf2HmacSha1SecureHasher>()
+                         .ImplementedBy<Pbkdf2HmacSha1SecureHasher>()
             );
         }
 
@@ -118,13 +124,13 @@ namespace EdFi.Ods.WebService.Tests.Owin
         {
             container.Register(
                 Component.For<IApiClientAuthenticator>()
-                    .ImplementedBy<ApiClientAuthenticator>(),
+                         .ImplementedBy<ApiClientAuthenticator>(),
                 Component.For<IApiClientIdentityProvider, IApiClientSecretProvider>()
-                    .ImplementedBy<EdFiAdminApiClientIdentityProvider>(),
+                         .ImplementedBy<EdFiAdminApiClientIdentityProvider>(),
                 Component.For<IPackedHashConverter>()
-                    .ImplementedBy<PackedHashConverter>(),
+                         .ImplementedBy<PackedHashConverter>(),
                 Component.For<ISecurePackedHashProvider>()
-                    .ImplementedBy<SecurePackedHashProvider>()
+                         .ImplementedBy<SecurePackedHashProvider>()
             );
 
             InstallSecureHasher(container);
@@ -135,9 +141,9 @@ namespace EdFi.Ods.WebService.Tests.Owin
         public virtual void FinalizeContainer(IWindsorContainer container)
         {
             container.Kernel.GetFacilities()
-                .OfType<ChainOfResponsibilityFacility>()
-                .SingleOrDefault()
-                ?.FinalizeChains();
+                     .OfType<ChainOfResponsibilityFacility>()
+                     .SingleOrDefault()
+                    ?.FinalizeChains();
         }
 
         public virtual void Configuration(IAppBuilder appBuilder)
@@ -148,6 +154,15 @@ namespace EdFi.Ods.WebService.Tests.Owin
             InstallWebApiComponents();
             InstallSecretHashingSupport(Container);
             InstallConfigurationSpecificInstaller(Container);
+
+            if (!Container.Kernel.HasComponent(typeof(IEntityExtensionsFactory)))
+            {
+                // add default extensions to be disabled and to allow activator to behave.
+                Container.Register(
+                    Component.For<IEntityExtensionsFactory>().ImplementedBy<NoEntityExtensionsFactory>().IsFallback()
+                        .LifestyleSingleton());
+            }
+
             InstallExtensions(Container);
 
             if (ChangeQueryFeature.IsEnabled)
@@ -158,31 +173,31 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // NHibernate initialization
 
 #pragma warning disable 618
-            Container.Register(
-                Component.For<IAssembliesProvider>()
-                    .ImplementedBy<AssembliesProvider>());
+            Container.Register(Component.For<IAssembliesProvider>().ImplementedBy<AssembliesProvider>());
 
-            Container.Register(
-                Component.For<IOrmMappingFileDataProvider>()
-                    .ImplementedBy<OrmMappingFileDataProvider>()
-                    .DependsOn(Dependency.OnValue<string>(OrmMappingFileConventions.OrmMappingAssembly))
-                    .DependsOn(Dependency.OnValue<DatabaseEngine>(DatabaseEngine.SqlServer)));
+            Container.Register(Component.For<IOrmMappingFileDataProvider>()
+                .ImplementedBy<OrmMappingFileDataProvider>()
+                .DependsOn(Dependency.OnValue<string>(OrmMappingFileConventions.OrmMappingAssembly))
+                .DependsOn(Dependency.OnValue<DatabaseEngine>(DatabaseEngine.SqlServer)));
 
             new LegacyNHibernateConfigurator().Configure(Container);
 #pragma warning restore 618
 
-            var httpConfig = new HttpConfiguration {DependencyResolver = Container.Resolve<IDependencyResolver>()};
+            var httpConfig = new HttpConfiguration
+                             {
+                                 DependencyResolver = Container.Resolve<IDependencyResolver>()
+                             };
 
             var domainModelProvider = Container.Resolve<IDomainModelProvider>();
 
             Container.Register(
                 Component.For<ISchemaNameMapProvider>()
-                    .ImplementedBy<SchemaNameMapProvider>()
-                    .DependsOn(
-                        Dependency.OnValue(
-                            "schemas",
-                            domainModelProvider.GetDomainModel()
-                                .Schemas)));
+                         .ImplementedBy<SchemaNameMapProvider>()
+                         .DependsOn(
+                              Dependency.OnValue(
+                                  "schemas",
+                                  domainModelProvider.GetDomainModel()
+                                                     .Schemas)));
 
             // Replace the default controller selector with one based on the final namespace segment (to enable support of Profiles)
             httpConfig.Services.Replace(
@@ -201,12 +216,12 @@ namespace EdFi.Ods.WebService.Tests.Owin
             RegisterAuthenticationProvider(Container);
 
             appBuilder.Use(
-                    (context, next) =>
-                    {
-                        context.Response.Headers.Remove("Server");
-                        return next();
-                    })
-                .UseWebApi(httpConfig);
+                           (context, next) =>
+                           {
+                               context.Response.Headers.Remove("Server");
+                               return next();
+                           })
+                      .UseWebApi(httpConfig);
 
             XmlConfigurator.Configure();
             appBuilder.SetLoggerFactory(new Log4NetLoggerFactory());
@@ -223,11 +238,16 @@ namespace EdFi.Ods.WebService.Tests.Owin
 
             Container.Register(
                 Component.For<HttpRouteCollection>()
-                    .Instance(httpConfig.Routes));
+                         .Instance(httpConfig.Routes));
 
             InstallOpenApiMetadata(Container);
 
             FinalizeContainer(Container);
+
+            if (!Container.Kernel.HasComponent(typeof(IEntityExtensionsFactory)))
+            {
+                EntityExtensionsFactory.Instance = new NoEntityExtensionsFactory();
+            }
         }
 
         protected virtual void InstallOpenApiMetadata(IWindsorContainer container)
@@ -240,7 +260,9 @@ namespace EdFi.Ods.WebService.Tests.Owin
             container.Install(
                 new EdFiExtensionsInstaller(
                     new AssembliesProvider(),
-                    EntityExtensionsFactory.Instance));
+                    new AppConfigValueProvider()));
+
+            EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
         }
 
         protected virtual void InstallWebApiComponents()
@@ -253,7 +275,10 @@ namespace EdFi.Ods.WebService.Tests.Owin
                     .For<IPipelineFactory>()
                     .ImplementedBy<PipelineFactory>()
                     .DependsOn(
-                        new {locator = Container})
+                        new
+                        {
+                            locator = Container
+                        })
             );
 
             Container.Register(
@@ -264,7 +289,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
 
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
                     .BasedOn(typeof(IStep<,>))
                     .WithService
                     .Self());
@@ -272,7 +297,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // Register the providers of the core pipeline steps
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
                     .BasedOn<IPipelineStepsProvider>()
                     .WithServiceFirstInterface());
         }
@@ -295,7 +320,9 @@ namespace EdFi.Ods.WebService.Tests.Owin
         /// <summary>
         /// Location to reference types in assemblies to ensure the assemblies are loaded.
         /// </summary>
-        protected virtual void EnsureAssembliesLoaded() { }
+        protected virtual void EnsureAssembliesLoaded()
+        {
+        }
 
         protected virtual void InitializeContainer(IWindsorContainer container)
         {
@@ -307,7 +334,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // Web API Dependency Injection
             container.Register(
                 Component.For<IDependencyResolver>()
-                    .Instance(new WindsorDependencyResolver(Container))
+                         .Instance(new WindsorDependencyResolver(Container))
             );
         }
 
@@ -377,7 +404,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // TODO: Remove with ODS-2973, deprecated by ODS-2874
             container.Register(
                 Component.For<IAuthenticationProvider>()
-                    .ImplementedBy<OAuthAuthenticationProvider>());
+                         .ImplementedBy<OAuthAuthenticationProvider>());
         }
 
         private void IncludeAuthorizationRoute(HttpConfiguration config)
@@ -385,7 +412,10 @@ namespace EdFi.Ods.WebService.Tests.Owin
             config.Routes.MapHttpRoute(
                 name: "OAuthToken",
                 routeTemplate: "oauth/token",
-                defaults: new {controller = "Token"}
+                defaults: new
+                          {
+                              controller = "Token"
+                          }
             );
         }
 
@@ -394,54 +424,52 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // TODO: Remove with ODS-2973, deprecated by ODS-2874
             var domainModelProvider = Container.Resolve<IDomainModelProvider>();
 
-            var schemaNameConstraints = string.Join(
-                "|",
-                domainModelProvider.GetDomainModel()
-                    .Schemas.Select(s => s.PhysicalName));
+            var schemaNameConstraints = string.Join("|", domainModelProvider.GetDomainModel().Schemas.Select(s => s.PhysicalName));
 
             var schoolYearConstraint = useSchoolYear
-                ? new {schoolYearFromRoute = @"^\d{4}$"}
+                ? new
+                  {
+                      schoolYearFromRoute = @"^\d{4}$"
+                  }
                 : null;
 
             var schemaNameConstraint = useSchoolYear
                 ? (object) new
-                {
-                    schoolYearFromRoute = @"^\d{4}$",
-                    schemaName = $@"({schemaNameConstraints})"
-                }
-                : new {schemaName = $@"({schemaNameConstraints})"};
+                           {
+                               schoolYearFromRoute = @"^\d{4}$", schemaName = $@"({schemaNameConstraints})"
+                           }
+                : new
+                  {
+                      schemaName = $@"({schemaNameConstraints})"
+                  };
 
             config.Routes.MapHttpRoute(
                 name: "MetadataSections",
                 routeTemplate: "metadata/" + (useSchoolYear
-                    ? "{schoolYearFromRoute}"
-                    : string.Empty),
+                                   ? "{schoolYearFromRoute}"
+                                   : string.Empty),
                 defaults: new
-                {
-                    controller = "openapimetadata",
-                    action = "getsections",
-                    apiVersion = ApiVersionConstants.Ods,
-                    identityVersion = ApiVersionConstants.Identity
-                },
+                          {
+                              controller = "openapimetadata", action = "getsections", apiVersion = ApiVersionConstants.Ods, identityVersion = ApiVersionConstants.Identity
+                          },
                 constraints: schoolYearConstraint
             );
 
             var resourceTypesConstraint = useSchoolYear
                 ? (object) new
-                {
-                    resourceType = @"(resources|descriptors)",
-                    schoolYearFromRoute = @"^\d{4}$"
-                }
-                : new {resourceType = @"(resources|descriptors)"};
+                           {
+                               resourceType = @"(resources|descriptors)", schoolYearFromRoute = @"^\d{4}$"
+                           }
+                : new
+                  {
+                      resourceType = @"(resources|descriptors)"
+                  };
 
             var apiDefaults = new
-            {
-                controller = "openapimetadata",
-                apiVersion = ApiVersionConstants.Ods,
-                identityVersion = ApiVersionConstants.Identity,
-                compositeVersion = ApiVersionConstants.Composite,
-                action = "get"
-            };
+                              {
+                                  controller = "openapimetadata", apiVersion = ApiVersionConstants.Ods,
+                                  identityVersion = ApiVersionConstants.Identity, compositeVersion = ApiVersionConstants.Composite, action = "get"
+                              };
 
             string schoolYearRoute = useSchoolYear
                 ? "{schoolYearFromRoute}/"
@@ -452,27 +480,23 @@ namespace EdFi.Ods.WebService.Tests.Owin
             ConfigureCompositeMetadataRoutes(config, apiDefaults, schoolYearConstraint, schoolYearRoute);
             ConfigureSchemaSpecificMetadataRoutes(config, apiDefaults, schemaNameConstraint, schoolYearRoute);
             ConfigureComprehensiveMetadataRoute(config, apiDefaults, schoolYearConstraint, schoolYearRoute);
+            ConfigureBulkMetadataRoute(config, apiDefaults, schoolYearConstraint, schoolYearRoute);
             ConfigureIdentityMetadataRoute(config, apiDefaults, schoolYearConstraint, schoolYearRoute);
             ConfigureDependencyMetadataRoute(config, schoolYearConstraint, schoolYearRoute);
         }
 
-        protected virtual void ConfigureDependencyMetadataRoute(
-            HttpConfiguration config,
-            object constraints,
-            string schoolYearSegment)
+        protected virtual void ConfigureDependencyMetadataRoute(HttpConfiguration config, object constraints, string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "AggregateDependencies",
-                    routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "dependencies",
-                    defaults: new
-                    {
-                        controller = "aggregatedependency",
-                        apiVersion = ApiVersionConstants.Ods,
-                        action = "get"
-                    },
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(RouteConstants.Dependencies);
+                       name: "AggregateDependencies",
+                       routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "dependencies",
+                       defaults: new
+                                 {
+                                     controller = "aggregatedependency", apiVersion = ApiVersionConstants.Ods, action = "get"
+                                 },
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(RouteConstants.Dependencies);
         }
 
         protected virtual void ConfigureResourceTypeMetadataRoutes(
@@ -482,27 +506,23 @@ namespace EdFi.Ods.WebService.Tests.Owin
             string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadataResourceTypes",
-                    routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "{resourceType}/swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.ResourceTypes);
+                       name: "OpenApiMetadataResourceTypes",
+                       routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "{resourceType}/swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.ResourceTypes);
         }
 
-        protected virtual void ConfigureProfileMetadataRoutes(
-            HttpConfiguration config,
-            object defaults,
-            object constraints,
-            string schoolYearSegment)
+        protected virtual void ConfigureProfileMetadataRoutes(HttpConfiguration config, object defaults, object constraints, string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadataProfiles",
-                    routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "profiles/{profileName}/swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.Profiles);
+                       name: "OpenApiMetadataProfiles",
+                       routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "profiles/{profileName}/swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.Profiles);
         }
 
         // TODO: Remove with ODS-2973, deprecated by CompositesRouteConfiguration
@@ -513,13 +533,13 @@ namespace EdFi.Ods.WebService.Tests.Owin
             string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadataComposites",
-                    routeTemplate: "metadata/composites/v{compositeVersion}/" + schoolYearSegment
-                                                                              + "{organizationCode}/{compositeCategoryName}/swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.Composites);
+                       name: "OpenApiMetadataComposites",
+                       routeTemplate: "metadata/composites/v{compositeVersion}/" + schoolYearSegment
+                                                                                 + "{organizationCode}/{compositeCategoryName}/swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.Composites);
         }
 
         protected virtual void ConfigureSchemaSpecificMetadataRoutes(
@@ -529,12 +549,12 @@ namespace EdFi.Ods.WebService.Tests.Owin
             string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadataSchema",
-                    routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "{schemaName}/swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.Schema);
+                       name: "OpenApiMetadataSchema",
+                       routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "{schemaName}/swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.Schema);
         }
 
         protected virtual void ConfigureComprehensiveMetadataRoute(
@@ -544,42 +564,49 @@ namespace EdFi.Ods.WebService.Tests.Owin
             string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadata",
-                    routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.All);
+                       name: "OpenApiMetadata",
+                       routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.All);
         }
 
-        protected virtual void ConfigureIdentityMetadataRoute(
-            HttpConfiguration config,
-            object defaults,
-            object constraints,
-            string schoolYearSegment)
+        protected virtual void ConfigureBulkMetadataRoute(HttpConfiguration config, object defaults, object constraints, string schoolYearSegment)
         {
             config.Routes.MapHttpRoute(
-                    name: "OpenApiMetadataIdentity",
-                    routeTemplate: "metadata/{otherName}/v{identityVersion}/" + schoolYearSegment + "swagger.json",
-                    defaults: defaults,
-                    constraints: constraints
-                )
-                .SetDataTokenRouteName(MetadataRouteConstants.Identity);
+                       name: "OpenApiMetadataBulk",
+                       routeTemplate: "metadata/{otherName}/v{bulkVersion}/" + schoolYearSegment + "swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.Bulk);
+        }
+
+        protected virtual void ConfigureIdentityMetadataRoute(HttpConfiguration config, object defaults, object constraints, string schoolYearSegment)
+        {
+            config.Routes.MapHttpRoute(
+                       name: "OpenApiMetadataIdentity",
+                       routeTemplate: "metadata/{otherName}/v{identityVersion}/" + schoolYearSegment + "swagger.json",
+                       defaults: defaults,
+                       constraints: constraints
+                   )
+                  .SetDataTokenRouteName(MetadataRouteConstants.Identity);
         }
 
         private void ConfigureDefaultRoute(HttpConfiguration config, bool useSchoolYear = false)
         {
             var apiDefaults = new
-            {
-                apiVersion = ApiVersionConstants.Ods,
-                identityVersion = ApiVersionConstants.Identity
-            };
+                              {
+                                  apiVersion = ApiVersionConstants.Ods,
+                                  identityVersion = ApiVersionConstants.Identity
+                              };
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApiCollection",
                 routeTemplate: "data/v{apiVersion}/" + (useSchoolYear
-                    ? "{schoolYearFromRoute}/"
-                    : string.Empty) + "{schema}/{controller}",
+                                   ? "{schoolYearFromRoute}/"
+                                   : string.Empty) + "{schema}/{controller}",
                 defaults: apiDefaults,
                 constraints: useSchoolYear
                     ? CreateSchoolYearRouteConstraints()
@@ -588,8 +615,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
             config.Routes.MapHttpRoute(
                 name: "DefaultApiItem",
                 routeTemplate: "data/v{apiVersion}/" + (useSchoolYear
-                    ? "{schoolYearFromRoute}/"
-                    : string.Empty) + "{schema}/{controller}/{id}",
+                                   ? "{schoolYearFromRoute}/"
+                                   : string.Empty) + "{schema}/{controller}/{id}",
                 defaults: apiDefaults,
                 constraints: useSchoolYear
                     ? CreateSchoolYearWithIdRouteConstraints()
@@ -599,11 +626,73 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 name: "Root",
                 routeTemplate: "",
                 defaults: new
-                {
-                    controller = "Version",
-                    action = "Index"
-                });
+                          {
+                              controller = "Version", action = "Index"
+                          });
         }
+
+        // protected virtual void ConfigureBulkRoutes(HttpConfiguration config, bool useSchoolYear = false)
+        // {
+        //     var routeConstraints = useSchoolYear
+        //         ? CreateSchoolYearRouteConstraints()
+        //         : CreateRouteConstraints();
+        //
+        //     // Bulk Operation Routes
+        //     config.Routes.MapHttpRoute(
+        //         name: "BulkOperationsPost",
+        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
+        //                            ? "{schoolYearFromRoute}/"
+        //                            : string.Empty) + "bulkOperations",
+        //         defaults: new
+        //                   {
+        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperations", action = "post"
+        //                   },
+        //         constraints: routeConstraints);
+        //
+        //     config.Routes.MapHttpRoute(
+        //         name: "BulkOperations",
+        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
+        //                            ? "{schoolYearFromRoute}/"
+        //                            : string.Empty) + "bulkOperations/{id}",
+        //         defaults: new
+        //                   {
+        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperations", action = "get"
+        //                   },
+        //         constraints: routeConstraints);
+        //
+        //     config.Routes.MapHttpRoute(
+        //         name: "BulkOperationsExceptions",
+        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
+        //                            ? "{schoolYearFromRoute}/"
+        //                            : string.Empty) + "bulkOperations/{id}/exceptions/{uploadId}",
+        //         defaults: new
+        //                   {
+        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperationsexceptions", action = "get"
+        //                   },
+        //         constraints: routeConstraints);
+        //
+        //     config.Routes.MapHttpRoute(
+        //         name: "BulkUploadChunk",
+        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
+        //                            ? "{schoolYearFromRoute}/"
+        //                            : string.Empty) + "uploads/{uploadId}/chunk",
+        //         defaults: new
+        //                   {
+        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "uploads", action = "postchunk"
+        //                   },
+        //         constraints: routeConstraints);
+        //
+        //     config.Routes.MapHttpRoute(
+        //         name: "BulkUploadCommit",
+        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
+        //                            ? "{schoolYearFromRoute}/"
+        //                            : string.Empty) + "uploads/{uploadId}/commit",
+        //         defaults: new
+        //                   {
+        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "uploads", action = "postcommit"
+        //                   },
+        //         constraints: routeConstraints);
+        // }
 
         protected virtual void ConfigureIdentityRoutes(HttpConfiguration config, bool useSchoolYear = false)
         {
@@ -615,45 +704,48 @@ namespace EdFi.Ods.WebService.Tests.Owin
         private static object CreateRouteConstraints()
         {
             return new
-            {
-                controller = @"^((?!(identities)).)*$",
-            };
+                   {
+                       controller = @"^((?!(identities)).)*$",
+                   };
         }
 
         private static object CreateIdRouteConstraints()
         {
             return new
-            {
-                controller = @"^((?!(identities)).)*$",
-                id = @"^((?!(deletes)).)*$",
-            };
+                   {
+                       controller = @"^((?!(identities)).)*$",
+                       id = @"^((?!(deletes)).)*$",
+                   };
         }
 
         private static object CreateSchoolYearRouteConstraints()
         {
             return new
-            {
-                //do not use this path for the swagger, and other controllers not needing school year
-                controller = @"^((?!(identities)).)*$",
-                schoolYearFromRoute = @"^\d{4}$",
-            };
+                   {
+                       //do not use this path for the swagger, and other controllers not needing school year
+                       controller = @"^((?!(identities)).)*$",
+                       schoolYearFromRoute = @"^\d{4}$",
+                   };
         }
 
         private static object CreateSchoolYearWithIdRouteConstraints()
         {
             return new
-            {
-                //do not use this path for the swagger, and other controllers not needing school year
-                controller = @"^((?!(identities)).)*$",
-                schoolYearFromRoute = @"^\d{4}$",
-                id = @"^((?!(deletes)).)*$",
-            };
+                   {
+                       //do not use this path for the swagger, and other controllers not needing school year
+                       controller = @"^((?!(identities)).)*$",
+                       schoolYearFromRoute = @"^\d{4}$",
+                       id = @"^((?!(deletes)).)*$",
+                   };
         }
 
         private static object CreateSchoolYearConstraint(bool useSchoolYear)
         {
             return useSchoolYear
-                ? new {schoolYearFromRoute = @"^\d{4}$"}
+                ? new
+                {
+                    schoolYearFromRoute = @"^\d{4}$"
+                }
                 : null;
         }
 
@@ -666,6 +758,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             IncludeAuthorizationRoute(config);
             ConfigureMetadataRoutes(config, useSchoolYear);
             ConfigureCompositeRoutes(config, useSchoolYear);
+            // ConfigureBulkRoutes(config, useSchoolYear);
             ConfigureIdentityRoutes(config, useSchoolYear);
             ConfigureDefaultRoute(config, useSchoolYear);
 
@@ -689,13 +782,13 @@ namespace EdFi.Ods.WebService.Tests.Owin
             var compositeMetadataProvider = Container.Resolve<ICompositesMetadataProvider>();
 
             string compositeRouteBase = "composites/v{compositeVersion}/" + (useSchoolYear
-                ? "{schoolYearFromRoute}/"
-                : string.Empty) + "{organizationCode}/{compositeCategory}/";
+                                            ? "{schoolYearFromRoute}/"
+                                            : string.Empty) + "{organizationCode}/{compositeCategory}/";
 
             // Construct the route constraint pattern for the composite categories defined.
             var compositeCategoryNames = compositeMetadataProvider.GetAllCategories()
-                .Select(x => x.Name)
-                .ToList();
+                                                                  .Select(x => x.Name)
+                                                                  .ToList();
 
             // Don't add routes for composites, if none exit.
             if (!compositeCategoryNames.Any())
@@ -712,17 +805,18 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 name: "Composites",
                 routeTemplate: compositeRouteBase + "{compositeName}/{id}",
                 defaults: new
-                {
-                    id = RouteParameter.Optional,
-                    controller = "CompositeResource"
-                },
+                          {
+                              id = RouteParameter.Optional, controller = "CompositeResource"
+                          },
                 constraints: useSchoolYear
                     ? (object) new
-                    {
-                        compositeCategory = allCompositeCategoriesConstraintExpression,
-                        schoolYearFromRoute = @"^\d{4}$"
-                    }
-                    : new {compositeCategory = allCompositeCategoriesConstraintExpression}
+                               {
+                                   compositeCategory = allCompositeCategoriesConstraintExpression, schoolYearFromRoute = @"^\d{4}$"
+                               }
+                    : new
+                      {
+                          compositeCategory = allCompositeCategoriesConstraintExpression
+                      }
             );
 
             var routeMetadataGroupedByCompositeCategory = compositeMetadataProvider.GetAllRoutes();
@@ -735,13 +829,19 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 foreach (var routeElt in routeGrouping.Value)
                 {
                     string relativeRouteTemplate = routeElt.AttributeValue("relativeRouteTemplate")
-                        .TrimStart('/');
+                                                           .TrimStart('/');
 
                     httpConfig.Routes.MapHttpRoute(
                         name: $"{categoryName}Composites{routeNumber++}",
                         routeTemplate: compositeRouteBase + relativeRouteTemplate,
-                        defaults: new {controller = "CompositeResource"},
-                        constraints: new {compositeCategory = categoryName});
+                        defaults: new
+                                  {
+                                      controller = "CompositeResource"
+                                  },
+                        constraints: new
+                                     {
+                                         compositeCategory = categoryName
+                                     });
                 }
             }
         }

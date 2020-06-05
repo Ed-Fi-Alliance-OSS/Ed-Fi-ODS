@@ -2,10 +2,10 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Security.Authorization.Pipeline

@@ -6,8 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.ChangeQueries;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Infrastructure.Architecture;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Common.Infrastructure.Repositories;
+using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.ChangeQueries.SqlServer;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;

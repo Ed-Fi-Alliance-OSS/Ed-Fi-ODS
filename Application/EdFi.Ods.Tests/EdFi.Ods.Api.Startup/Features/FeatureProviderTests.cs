@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Startup.Features;
+using EdFi.Ods.Api.Features;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.TestFixture;
 using FakeItEasy;

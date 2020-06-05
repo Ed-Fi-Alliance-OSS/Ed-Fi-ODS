@@ -7,7 +7,9 @@ namespace EdFi.Ods.Common.Configuration
 {
     public static class ApiConfigurationConstants
     {
+#if NETFRAMEWORK
         public const string ApiStartupType = "apiStartup:type";
+#endif
         public const string Sandbox = "sandbox";
         public const string YearSpecific = "yearspecific";
         public const string SharedInstance = "sharedinstance";

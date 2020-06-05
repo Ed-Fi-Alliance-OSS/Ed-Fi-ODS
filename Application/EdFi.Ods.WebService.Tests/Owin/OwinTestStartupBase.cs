@@ -10,6 +10,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Diagnostics;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;

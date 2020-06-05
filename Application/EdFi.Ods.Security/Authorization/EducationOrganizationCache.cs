@@ -2,18 +2,18 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Api.Common.IdentityValueMappers;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Http.Context;
 using log4net;
 
 namespace EdFi.Ods.Security.Authorization
@@ -79,7 +79,8 @@ namespace EdFi.Ods.Security.Authorization
             EducationOrganizationIdentifiers educationOrganizationIdentifiers;
 
             // Get the cache first, initializing it if necessary
-            var educationOrganizationIdentifiersByEducationOrganizationId = GetEducationOrganizationIdentifiersByEducationOrganizationIdMap(context);
+            var educationOrganizationIdentifiersByEducationOrganizationId =
+                GetEducationOrganizationIdentifiersByEducationOrganizationIdMap(context);
 
             // Check the cache for the value
             if (educationOrganizationIdentifiersByEducationOrganizationId != null &&
@@ -106,7 +107,8 @@ namespace EdFi.Ods.Security.Authorization
             return valueMap;
         }
 
-        private ConcurrentDictionary<string, EducationOrganizationIdentifiers> GetEducationOrganizationIdentifiersByEducationOrganizationIdMap(
+        private ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+            GetEducationOrganizationIdentifiersByEducationOrganizationIdMap(
             string context)
         {
             EducationOrganizationValueMaps identityValueMaps;
@@ -119,7 +121,8 @@ namespace EdFi.Ods.Security.Authorization
             return identityValueMaps.EducationOrganizationIdentifiersByEducationOrganizationId;
         }
 
-        private ConcurrentDictionary<string, EducationOrganizationIdentifiers> GetEducationOrganizationIdentifiersByStateOrganizationIdMap(
+        private ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+            GetEducationOrganizationIdentifiersByStateOrganizationIdMap(
             string context)
         {
             EducationOrganizationValueMaps identityValueMaps;
@@ -230,7 +233,7 @@ namespace EdFi.Ods.Security.Authorization
                     var valueMap in
                     await
                         _educationOrganizationIdentifiersProvider.GetAllEducationOrganizationIdentifiers()
-                                                                 .ConfigureAwait(false))
+                            .ConfigureAwait(false))
                 {
                     string key =
                         GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(
@@ -278,10 +281,12 @@ namespace EdFi.Ods.Security.Authorization
 
         private string GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(int educationOrganizationId)
         {
-            return GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(educationOrganizationId, GetEdOrgIdKeyTokenContext());
+            return GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(
+                educationOrganizationId, GetEdOrgIdKeyTokenContext());
         }
 
-        private string GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(int educationOrganizationId, string context)
+        private string GetEducationOrganizationIdentifiersByEducationOrganizationIdCacheKey(int educationOrganizationId,
+            string context)
         {
             string key = string.Format(
                 "{0}_{1}",
@@ -291,22 +296,26 @@ namespace EdFi.Ods.Security.Authorization
             return key;
         }
 
-        private EducationOrganizationIdentifiers GetEducationOrganizationIdentifiersFromEducationOrganizationId(int educationOrganizationId)
+        private EducationOrganizationIdentifiers GetEducationOrganizationIdentifiersFromEducationOrganizationId(
+            int educationOrganizationId)
         {
             return _educationOrganizationIdentifiersValueMapper.GetEducationOrganizationIdentifiers(educationOrganizationId);
         }
 
-        private EducationOrganizationIdentifiers GetEducationOrganizationIdentifiersFromStateOrganizationId(string stateOrganizationId)
+        private EducationOrganizationIdentifiers GetEducationOrganizationIdentifiersFromStateOrganizationId(
+            string stateOrganizationId)
         {
             return _educationOrganizationIdentifiersValueMapper.GetEducationOrganizationIdentifiers(stateOrganizationId);
         }
 
         private string GetEducationOrganizationIdentifiersByStateOrganizationIdCacheKey(string stateOrganizationId)
         {
-            return GetEducationOrganizationIdentifiersByStateOrganizationIdCacheKey(stateOrganizationId, GetEdOrgIdKeyTokenContext());
+            return GetEducationOrganizationIdentifiersByStateOrganizationIdCacheKey(
+                stateOrganizationId, GetEdOrgIdKeyTokenContext());
         }
 
-        private string GetEducationOrganizationIdentifiersByStateOrganizationIdCacheKey(string stateOrganizationId, string context)
+        private string GetEducationOrganizationIdentifiersByStateOrganizationIdCacheKey(string stateOrganizationId,
+            string context)
         {
             return string.Format("education_organization_id_{0}_by_state_organization_id_{1}", context, stateOrganizationId);
         }
@@ -320,11 +329,14 @@ namespace EdFi.Ods.Security.Authorization
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
-            private ConcurrentDictionary<string, EducationOrganizationIdentifiers> _educationOrganizationIdentifiersByEducationOrganizationId;
+            private ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                _educationOrganizationIdentifiersByEducationOrganizationId;
 
-            private ConcurrentDictionary<string, EducationOrganizationIdentifiers> _educationOrganizationIdentifiersByStateOrganizationId;
+            private ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                _educationOrganizationIdentifiersByStateOrganizationId;
 
-            public ConcurrentDictionary<string, EducationOrganizationIdentifiers> EducationOrganizationIdentifiersByStateOrganizationId
+            public ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                EducationOrganizationIdentifiersByStateOrganizationId
             {
                 get
                 {
@@ -344,7 +356,8 @@ namespace EdFi.Ods.Security.Authorization
                 }
             }
 
-            public ConcurrentDictionary<string, EducationOrganizationIdentifiers> EducationOrganizationIdentifiersByEducationOrganizationId
+            public ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                EducationOrganizationIdentifiersByEducationOrganizationId
             {
                 get
                 {
@@ -367,8 +380,10 @@ namespace EdFi.Ods.Security.Authorization
             public Task InitializationTask { get; set; }
 
             public void SetMaps(
-                ConcurrentDictionary<string, EducationOrganizationIdentifiers> educationOrganizationIdentifiersByStateOrganizationId,
-                ConcurrentDictionary<string, EducationOrganizationIdentifiers> educationOrganizationIdentifiersByEducationOrganizationId)
+                ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                    educationOrganizationIdentifiersByStateOrganizationId,
+                ConcurrentDictionary<string, EducationOrganizationIdentifiers>
+                    educationOrganizationIdentifiersByEducationOrganizationId)
             {
                 try
                 {

@@ -5,7 +5,7 @@
  
 using System;
 using System.Linq;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;

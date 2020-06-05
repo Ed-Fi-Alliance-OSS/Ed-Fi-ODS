@@ -7,10 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using EdFi.Ods.Api.Services.Metadata.Factories;
-using EdFi.Ods.Api.Services.Metadata.Models;
-using EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrategies;
-using EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
@@ -19,11 +15,15 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Features.OpenApiMetadata.Dtos;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
+using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
-using Swashbuckle.Swagger;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories

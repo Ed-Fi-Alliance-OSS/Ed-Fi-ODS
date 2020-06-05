@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFrameworks>netstandard2.1;net48</TargetFrameworks>
     <AsssembyName>EdFi.Ods.Security</AsssembyName>
     <RootNampespace>EdFi.Ods.Security</RootNampespace>
     <RestorePackages>true</RestorePackages>
@@ -14,12 +14,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
-    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.8" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
@@ -28,11 +26,18 @@
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
+  </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Common.Http\EdFi.Ods.Common.Http.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
 
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />

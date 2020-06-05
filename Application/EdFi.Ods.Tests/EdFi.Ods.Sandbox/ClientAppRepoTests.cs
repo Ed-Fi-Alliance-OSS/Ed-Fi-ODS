@@ -7,15 +7,14 @@ using System;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common.Configuration;
+using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.TestFixture;
 
 // ReSharper disable once InconsistentNaming
-
 namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
 {
     public class ClientAppRepoTests

@@ -19,15 +19,18 @@
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
-    <PackageReference Include="FakeItEasy" Version="5.5.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
+    <PackageReference Include="FakeItEasy" Version="6.0.1" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="NCrunch.Framework" Version="4.0.0.1" />
-    <PackageReference Include="NHibernate" Version="5.2.6" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="RhinoMocks" Version="3.6.1" />
@@ -40,9 +43,9 @@
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Common.Http\EdFi.Ods.Common.Http.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\Test.Common\Test.Common.csproj" />

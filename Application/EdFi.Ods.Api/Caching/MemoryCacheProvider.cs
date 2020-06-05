@@ -4,19 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
-using System.Linq;
 using System.Runtime.Caching;
-using System.Web.Caching;
+using EdFi.Ods.Api.Common.Caching;
 
 namespace EdFi.Ods.Api.Caching
 {
     public class MemoryCacheProvider : ICacheProvider
     {
-        private static readonly object NullObject = new object();
-        private static readonly CacheItemPolicy NeverExpireCacheItemPolicy = new CacheItemPolicy
-                                                                             {
-                                                                                 AbsoluteExpiration = DateTimeOffset.MaxValue
-                                                                             };
+        private static readonly object _nullObject = new object();
+        private static readonly CacheItemPolicy _neverExpireCacheItemPolicy = new CacheItemPolicy
+        {
+            AbsoluteExpiration = DateTimeOffset.MaxValue
+        };
 
         public MemoryCache MemoryCache { get; set; } = MemoryCache.Default;
 
@@ -24,7 +23,7 @@ namespace EdFi.Ods.Api.Caching
         {
             value = MemoryCache.Get(key);
 
-            if (value == NullObject)
+            if (value == _nullObject)
             {
                 value = null;
                 return true;
@@ -35,14 +34,14 @@ namespace EdFi.Ods.Api.Caching
 
         public void SetCachedObject(string key, object value)
         {
-            MemoryCache.Set(key, value ?? NullObject, NeverExpireCacheItemPolicy);
+            MemoryCache.Set(key, value ?? _nullObject, _neverExpireCacheItemPolicy);
         }
 
         public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             MemoryCache.Set(
                 key,
-                value ?? NullObject,
+                value ?? _nullObject,
                 new CacheItemPolicy
                 {
                     AbsoluteExpiration = absoluteExpiration == DateTime.MaxValue

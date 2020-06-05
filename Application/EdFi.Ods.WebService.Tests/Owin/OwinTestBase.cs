@@ -14,14 +14,18 @@ using System.Transactions;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Common.IdentityValueMappers;
 using EdFi.Ods.Api.Services.Authorization;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common._Installers.ComponentNaming;
+using EdFi.Ods.Features.AggregateDepenedencies;
+using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.Features.UniqueIdIntegration.IdentityValueMappers;
 using EdFi.Ods.Features.UniqueIdIntegration.Installers;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Security.Profiles;
-using EdFi.Ods.Security.Utilities;
-using EdFi.Ods.Standard._Installers;
+using EdFi.Ods.Standard.Container.Installers;
 using Microsoft.Owin.Testing;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -268,6 +272,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 }
 
                 container.Install(new EdFiOdsStandardInstaller());
+
+                container.Register(Component.For<AggregateDependencyController>().LifestyleScoped());
             }
 
             protected virtual IAdminProfileNamesPublisher CreateAdminProfileNamesPublisher()

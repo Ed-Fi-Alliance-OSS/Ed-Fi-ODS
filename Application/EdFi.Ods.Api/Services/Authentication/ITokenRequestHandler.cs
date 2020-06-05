@@ -5,7 +5,7 @@
  
 using System.Net.Http;
 using System.Web.Http;
-using EdFi.Ods.Api.Services.Authentication.ClientCredentials;
+using EdFi.Ods.Api.Common.Models.Tokens;
 
 namespace EdFi.Ods.Api.Services.Authentication
 {

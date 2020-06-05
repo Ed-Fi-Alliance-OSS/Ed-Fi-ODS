@@ -15,8 +15,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using Castle.Windsor;
-using EdFi.Ods.Api.Models.Resources.Actual.EdFi;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Models.Resources.Actual.EdFi;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
@@ -38,18 +38,18 @@ using LocalEducationAgencyEntity = EdFi.Ods.Entities.NHibernate.LocalEducationAg
 using StudentEntity = EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.Student;
 using AssessmentEntity = EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.Assessment;
 using AssessmentContentStandardEntity = EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentContentStandard;
-using SchoolResource_Full = EdFi.Ods.Api.Models.Resources.School.EdFi.School;
-using LocalEducationAgencyResource_Full = EdFi.Ods.Api.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency;
-using StudentResource_Full = EdFi.Ods.Api.Models.Resources.Student.EdFi.Student;
-using AssessmentResource_Full = EdFi.Ods.Api.Models.Resources.Assessment.EdFi.Assessment;
+using SchoolResource_Full = EdFi.Ods.Api.Common.Models.Resources.School.EdFi.School;
+using LocalEducationAgencyResource_Full = EdFi.Ods.Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency;
+using StudentResource_Full = EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Student;
+using AssessmentResource_Full = EdFi.Ods.Api.Common.Models.Resources.Assessment.EdFi.Assessment;
 using MetadataProfiles = EdFi.Ods.Common.Metadata.Schemas.Profiles;
 using Property = EdFi.Ods.Common.Metadata.Schemas.PropertyDefinition;
 using AcademicWeekEntity = EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek;
-using AcademicWeekResource_Full = EdFi.Ods.Api.Models.Resources.AcademicWeek.EdFi.AcademicWeek;
+using AcademicWeekResource_Full = EdFi.Ods.Api.Common.Models.Resources.AcademicWeek.EdFi.AcademicWeek;
 using StudentSpecialEducationProgramAssociationEntity =
     EdFi.Ods.Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation;
 using StudentSpecialEducationProgramAssociation_Full =
-    EdFi.Ods.Api.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation;
+    EdFi.Ods.Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation;
 
 namespace EdFi.Ods.WebService.Tests.Profiles
 {
