@@ -3,14 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common;
+
 namespace EdFi.Ods.CodeGen.Generators
 {
-    public class Controllers : ControllersBase
+    // TODO: remove when NET48 is removed from the ODS/API
+    public class LegacyControllers : ControllersBase
     {
         protected override void Configure()
         {
-            BaseNamespaceName = "EdFi.Ods.Api.NetCore.Controllers";
-            RequestBaseNamespaceName = "EdFi.Ods.Api.Models.Requests";
+            BaseNamespaceName = Namespaces.Api.Controllers;
+            RequestBaseNamespaceName = Namespaces.Requests.RelativeNamespace;
         }
     }
 }

@@ -1,34 +1,33 @@
-using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Models.Requests;
+using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.{{ProperCaseName}};
-using EdFi.Ods.Pipelines.Factories;
-using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.Services.Queries;
-using EdFi.Ods.Api.Services.Requests;
 {{#IsExtensionContext}}
 using {{ControllersBaseNamespace}};
 {{/IsExtensionContext}}
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 {{#Controllers}}
 
 namespace {{ControllersNamespace}}
 {
     {{#NullRequests}}
-    [ProfileContentType("{{ContentType}}")]
+    [ContentType("{{ContentType}}")]
     [ExcludeFromCodeCoverage]
     public class {{ClassName}} : NullRequestBase { }
 
     {{/NullRequests}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class {{ControllerClass}} : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("{{RouteTemplate}}")]
+    public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
         {{ResourceWriteModel}},
         {{EntityInterface}},
@@ -72,12 +71,14 @@ namespace {{ControllersNamespace}}
         {{/ReadContentType}}
         {{#OverrideHttpFunctions}}
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}."));
         }
         {{/OverrideHttpFunctions}}
     }
 }
 {{/Controllers}}
+#endif

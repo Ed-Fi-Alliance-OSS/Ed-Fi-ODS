@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Providers;
 
 namespace {{NamespaceName}}
 {
@@ -17,9 +19,9 @@ namespace {{NamespaceName}}
         }
 
         private static readonly Dictionary<string, IndexDetails> IndexDetailsByName = new Dictionary<string, IndexDetails>(StringComparer.InvariantCultureIgnoreCase) {
-        {{#IndexMetaData}}
+        {{#IndexMetadata}}
             { "{{Name}}", new IndexDetails { IndexName = "{{Name}}", TableName = "{{TableName}}", ColumnNames = new List<string> { {{{ColumnNames}}} } } },
-        {{/IndexMetaData}}
+        {{/IndexMetadata}}
         };
     }
 }

@@ -2,8 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
-using System;
+
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common;
@@ -27,9 +26,16 @@ namespace EdFi.Ods.CodeGen.Generators
             TemplateContext = Preconditions.ThrowIfNull(templateContext, nameof(templateContext));
             ResourceModelProvider = new ResourceModelProvider(TemplateContext.DomainModelProvider);
 
-            ValidatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(TemplateContext.ProjectPath, ResourceModelProvider);
+            ValidatingProfileMetadataProvider = new ValidatingProfileMetadataProvider(
+                TemplateContext.ProjectPath,
+                ResourceModelProvider);
+
             ProfileResourceNamesProvider = ValidatingProfileMetadataProvider;
-            ProfileResourceModelProvider = new ProfileResourceModelProvider(ResourceModelProvider, ValidatingProfileMetadataProvider);
+
+            ProfileResourceModelProvider = new ProfileResourceModelProvider(
+                ResourceModelProvider,
+                ValidatingProfileMetadataProvider);
+
             ProjectHasProfileDefinition = ValidatingProfileMetadataProvider.HasProfileData;
 
             Configure();

@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.ETag;
-using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Common.Dependencies;
+using EdFi.Ods.Api.Common.Extensions;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
@@ -15,10 +14,10 @@ using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: {{AggregateName}}
 
 namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
-{ 
+{
     {{#Mappers}}
     [ExcludeFromCodeCoverage]
-    public static class {{ModelName}}Mapper 
+    public static class {{ModelName}}Mapper
     {
         public static bool SynchronizeTo(this I{{ModelName}} source, I{{ModelName}} target)
         {
@@ -39,7 +38,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 {{#AnnotatedLocalPrimaryKeyList}}
                 {{#NotFirst}}||{{/NotFirst}} (target.{{PrimaryKeyName}} != source.{{PrimaryKeyName}}){{#IsLast}}){{/IsLast}}
                 {{/AnnotatedLocalPrimaryKeyList}}
-            {            
+            {
                 isModified = true;
 
                 var sourceWithPrimaryKeyValues = (source as IHasPrimaryKeyValues);
@@ -88,9 +87,9 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             {{/NonPrimaryKeyList}}
 
             {{#HasOneToOneRelationships}}
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             {{#OneToOneClassList}}
             // {{OtherClassName}}
             if (sourceSupport == null || sourceSupport.Is{{OtherClassName}}Supported)
@@ -116,7 +115,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                 }
             }
             {{/OneToOneClassList}}
-            
+
             // -------------------------------------------------------------
             {{/HasOneToOneRelationships}}
             {{#IsDerivedEntity}}
@@ -134,10 +133,10 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             {{#NavigableChildrenList}}
             if (sourceSupport == null || sourceSupport.Is{{ChildClassPlural}}Supported)
             {
-                isModified |= 
+                isModified |=
                     source.{{ChildClassPlural}}.SynchronizeCollectionTo(
-                        target.{{ChildClassPlural}}, 
-                        onChildAdded: child => 
+                        target.{{ChildClassPlural}},
+                        onChildAdded: child =>
                             {
                                 child.{{ModelName}} = target;
                 {{#IsExtensionClass}}
@@ -146,8 +145,8 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                                 (child as IChildEntity)?.SetParent(target.{{ParentName}});
                 {{/IsExtensionClass}}
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.Is{{ChildClassSingular}}Included);
             }
 
@@ -174,7 +173,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             {{#IsBaseEntity}}
             // =======================================================================================
-            // Detect and map derived types (compiler is unable to correctly link to appropriate 
+            // Detect and map derived types (compiler is unable to correctly link to appropriate
             //      mapping methods when there are base/derived interfaces and a concrete base class)
             // ---------------------------------------------------------------------------------------
             {{#DerivedEntitiesList}}
@@ -190,7 +189,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             // =======================================================================================
 
             {{/IsBaseEntity}}
-            {{#IsRootEntity}}    
+            {{#IsRootEntity}}
             // Copy resource Id
             target.Id = source.Id;
 
@@ -209,7 +208,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             else
                 targetSynchSupport.Is{{BasePropertyName}}Supported = false;
             {{/BaseClassNonPkPropertyList}}
-            {{/IsDerivedEntity}}    
+            {{/IsDerivedEntity}}
 
             // Copy non-PK properties
             {{#NonPrimaryKeyList}}
@@ -222,7 +221,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
 
             // Copy Aggregate Reference Data
             {{#HasAggregateReferences}}
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
             {{#AggregateReferences}}
@@ -245,9 +244,9 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             if (sourceSynchSupport.Is{{OtherClassName}}Supported)
             {
                 var itemProperty = target.GetType().GetProperty("{{OtherClassName}}");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.{{OtherClassName}} == null)
                     {
                         target.{{OtherClassName}} = null;
@@ -258,7 +257,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
                         object target{{OtherClassName}} = Activator.CreateInstance(itemType);
                         (target{{OtherClassName}} as IChildEntity)?.SetParent(target{{#IsEntityExtension}}.{{ModelParentName}}{{/IsEntityExtension}});
                         source.{{OtherClassName}}.Map(target{{OtherClassName}});
-                        
+
                         // Update the target reference appropriately
                         target.{{OtherClassName}} = (I{{OtherClassName}}) target{{OtherClassName}};
                     }
@@ -266,7 +265,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             }
             else
             {
-                targetSynchSupport.Is{{OtherClassName}}Supported = false; 
+                targetSynchSupport.Is{{OtherClassName}}Supported = false;
             }
             {{/OneToOneClassList}}
             // -------------------------------------------------------------
@@ -292,7 +291,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
             {{#NavigableChildrenList}}
 
             if (sourceSynchSupport.Is{{ChildClassPlural}}Supported)
-            {    
+            {
                 targetSynchSupport.Is{{ChildClassSingular}}Included = sourceSynchSupport.Is{{ChildClassSingular}}Included;
                 source.{{ChildClassPlural}}.MapCollectionTo(target.{{ChildClassPlural}}, {{#IsCollectionAggregateExtension}}target.{{ParentName}}{{/IsCollectionAggregateExtension}}{{^IsCollectionAggregateExtension}}target{{/IsCollectionAggregateExtension}});
             }
@@ -325,7 +324,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -338,7 +337,7 @@ namespace {{NamespaceName}} //.{{AggregateName}}Aggregate
         Func<I{{PropertyName}}, bool> Is{{PropertyName}}Included { get; set; }
         {{/FilterDelegatePropertyList}}
     }
- 
+
 {{/Mappers}}
 }
 {{/Aggregates}}

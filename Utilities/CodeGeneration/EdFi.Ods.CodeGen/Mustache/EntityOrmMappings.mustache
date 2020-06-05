@@ -147,7 +147,7 @@
     <joined-subclass name="{{ClassName}}" table="{{TableName}}" lazy="false"{{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}>
       {{/IsJoinedSubclass}}
       {{^IsJoinedSubclass}}
-    <subclass name="{{ClassName}}" lazy="false" discriminator-value="{{DiscriminatorValue}}" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="{{ClassName}}" lazy="false" discriminator-value="{{DiscriminatorValue}}" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="{{TableName}}" {{#SchemaName}} schema="{{SchemaName}}"{{/SchemaName}}>
       {{/IsJoinedSubclass}}
           <key>

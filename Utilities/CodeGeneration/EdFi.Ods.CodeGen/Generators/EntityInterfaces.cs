@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Linq;
 using System.Text;
 using EdFi.Ods.CodeGen.Extensions;
@@ -20,160 +20,171 @@ namespace EdFi.Ods.CodeGen.Generators
         protected override object Build()
         {
             var resourceClassesToRender = ResourceModelProvider.GetResourceModel()
-                                                               .GetAllResources()
-                                                               .SelectMany(
-                                                                    r => r.AllContainedItemTypesOrSelf.Where(
-                                                                        i => TemplateContext.ShouldRenderResourceClass(i)
+                .GetAllResources()
+                .SelectMany(
+                    r => r.AllContainedItemTypesOrSelf.Where(
+                        i => TemplateContext.ShouldRenderResourceClass(i)
 
-                                                                             // Don't render artifacts for base class children in the context of derived resources
-                                                                             && !i.IsInheritedChildItem()))
-                                                               .OrderBy(r => r.Name)
-                                                               .ToList();
+                             // Don't render artifacts for base class children in the context of derived resources
+                             && !i.IsInheritedChildItem()))
+                .OrderBy(r => r.Name)
+                .ToList();
 
             var entityInterfacesModel = new
-                                        {
-                                            EntitiesBaseNamespace =
-                                                EdFiConventions.BuildNamespace(
-                                                    Namespaces.Entities.Common.BaseNamespace, TemplateContext.SchemaProperCaseName),
-                                            Interfaces = resourceClassesToRender
-                                                        .Where(TemplateContext.ShouldRenderResourceClass)
-                                                        .Select(
-                                                             r => new
-                                                                  {
-                                                                      r.FullName.Schema, r.Name, AggregateName = r.Name,
-                                                                      ImplementedInterfaces = GetImplementedInterfaceString(r),
-                                                                      ParentInterfaceName = GetParentInterfaceName(r),
-                                                                      ParentClassName = GetParentClassName(r), IdentifyingProperties = r
-                                                                                                                                      .IdentifyingProperties
+            {
+                EntitiesBaseNamespace =
+                    EdFiConventions.BuildNamespace(
+                        Namespaces.Entities.Common.BaseNamespace,
+                        TemplateContext.SchemaProperCaseName),
+                Interfaces = resourceClassesToRender
+                    .Where(TemplateContext.ShouldRenderResourceClass)
+                    .Select(
+                        r => new
+                        {
+                            r.FullName.Schema,
+                            r.Name,
+                            AggregateName = r.Name,
+                            ImplementedInterfaces = GetImplementedInterfaceString(r),
+                            ParentInterfaceName = GetParentInterfaceName(r),
+                            ParentClassName = GetParentClassName(r),
+                            IdentifyingProperties = r
+                                .IdentifyingProperties
 
-                                                                                                                                       // Exclude inherited identifying properties where the property has not been renamed
-                                                                                                                                      .Where(
-                                                                                                                                           p => !(
-                                                                                                                                               p.EntityProperty
-                                                                                                                                               ?.IsInheritedIdentifying ==
-                                                                                                                                               true
-                                                                                                                                               && !p
-                                                                                                                                                  .EntityProperty
-                                                                                                                                                 ?.IsInheritedIdentifyingRenamed ==
-                                                                                                                                               true))
-                                                                                                                                      .OrderBy(
-                                                                                                                                           p => p
-                                                                                                                                              .PropertyName)
-                                                                                                                                      .Select(
-                                                                                                                                           p =>
-                                                                                                                                               new
-                                                                                                                                               {
-                                                                                                                                                   p.IsServerAssigned,
-                                                                                                                                                   IsUniqueId
-                                                                                                                                                       = UniqueIdSpecification
-                                                                                                                                                            .IsUniqueId(
-                                                                                                                                                                 p.PropertyName)
-                                                                                                                                                         &&
-                                                                                                                                                         PersonEntitySpecification
-                                                                                                                                                            .IsPersonEntity(
-                                                                                                                                                                 r.Name),
-                                                                                                                                                   p.IsLookup,
-                                                                                                                                                   CSharpType
-                                                                                                                                                       = p
-                                                                                                                                                        .PropertyType
-                                                                                                                                                        .ToCSharp(
-                                                                                                                                                             false),
-                                                                                                                                                   Name
-                                                                                                                                                       = p
-                                                                                                                                                          .PropertyName,
-                                                                                                                                                   CSharpSafePropertyName
-                                                                                                                                                       = p
-                                                                                                                                                        .PropertyName
-                                                                                                                                                        .MakeSafeForCSharpClass(
-                                                                                                                                                             r.Name),
-                                                                                                                                                   LookupName
-                                                                                                                                                       = p
-                                                                                                                                                          .PropertyName
-                                                                                                                                               })
-                                                                                                                                      .ToList(),
-                                                                      r.IsDerived, InheritedNonIdentifyingProperties = r.IsDerived
-                                                                          ? r.AllProperties
-                                                                             .Where(p => p.IsInherited && !p.IsIdentifying)
-                                                                             .OrderBy(p => p.PropertyName)
-                                                                             .Where(IsModelInterfaceProperty)
-                                                                             .Select(
-                                                                                  p =>
-                                                                                      new
-                                                                                      {
-                                                                                          p.IsLookup, CSharpType = p.PropertyType.ToCSharp(true),
-                                                                                          Name = p.PropertyName,
-                                                                                          LookupName = p.PropertyName.TrimSuffix("Id")
-                                                                                      })
-                                                                             .ToList()
-                                                                          : null,
-                                                                      NonIdentifyingProperties = r.NonIdentifyingProperties
-                                                                                                  .Where(p => !p.IsInherited)
-                                                                                                  .OrderBy(p => p.PropertyName)
-                                                                                                  .Where(IsModelInterfaceProperty)
-                                                                                                  .Select(
-                                                                                                       p =>
-                                                                                                           new
-                                                                                                           {
-                                                                                                               p.IsLookup, CSharpType =
-                                                                                                                   p.PropertyType.ToCSharp(true),
-                                                                                                               Name = p.PropertyName,
-                                                                                                               CSharpSafePropertyName =
-                                                                                                                   p.PropertyName
-                                                                                                                    .MakeSafeForCSharpClass(r.Name),
-                                                                                                               LookupName =
-                                                                                                                   p.PropertyName.TrimSuffix("Id")
-                                                                                                           })
-                                                                                                  .ToList(),
-                                                                      HasNavigableOneToOnes = r.EmbeddedObjects.Any(), NavigableOneToOnes = r
-                                                                                                                                           .EmbeddedObjects
-                                                                                                                                           .Where(eo => !eo.IsInherited)
-                                                                                                                                           .OrderBy(
-                                                                                                                                                eo
-                                                                                                                                                    => eo
-                                                                                                                                                       .PropertyName)
-                                                                                                                                           .Select(
-                                                                                                                                                eo
-                                                                                                                                                    => new
-                                                                                                                                                       {
-                                                                                                                                                           Name
-                                                                                                                                                               = eo
-                                                                                                                                                                  .PropertyName
-                                                                                                                                                       })
-                                                                                                                                           .ToList(),
-                                                                      InheritedLists = r.IsDerived
-                                                                          ? r.Collections
-                                                                             .Where(c => c.IsInherited)
-                                                                             .OrderBy(c => c.PropertyName)
-                                                                             .Select(
-                                                                                  c => new
-                                                                                       {
-                                                                                           c.ItemType.Name, PluralName = c.PropertyName
-                                                                                       })
-                                                                             .ToList()
-                                                                          : null,
-                                                                      Lists = r.Collections
-                                                                               .Where(c => !c.IsInherited)
-                                                                               .OrderBy(c => c.PropertyName)
-                                                                               .Select(
-                                                                                    c => new
-                                                                                         {
-                                                                                             c.ItemType.Name, PluralName = c.PropertyName
-                                                                                         })
-                                                                               .ToList(),
-                                                                      HasDiscriminator = r.HasDiscriminator(), AggregateReferences =
-                                                                          r.Entity?.GetAssociationsToReferenceableAggregateRoots()
-                                                                           .OrderBy(a => a.Name)
-                                                                           .Select(
-                                                                                a => new
-                                                                                     {
-                                                                                         AggregateReferenceName = a.Name,
-                                                                                         MappedReferenceDataHasDiscriminator =
-                                                                                             a.OtherEntity.HasDiscriminator()
-                                                                                     })
-                                                                           .ToList()
-                                                                  })
-                                                        .ToList()
-                                        };
+                                // Exclude inherited identifying properties where the property has not been renamed
+                                .Where(
+                                    p => !(
+                                        p.EntityProperty
+                                            ?.IsInheritedIdentifying ==
+                                        true
+                                        && !p
+                                            .EntityProperty
+                                            ?.IsInheritedIdentifyingRenamed ==
+                                        true))
+                                .OrderBy(
+                                    p => p
+                                        .PropertyName)
+                                .Select(
+                                    p =>
+                                        new
+                                        {
+                                            p.IsServerAssigned,
+                                            IsUniqueId
+                                                = UniqueIdSpecification
+                                                      .IsUniqueId(
+                                                          p.PropertyName)
+                                                  &&
+                                                  PersonEntitySpecification
+                                                      .IsPersonEntity(
+                                                          r.Name),
+                                            p.IsLookup,
+                                            CSharpType
+                                                = p
+                                                    .PropertyType
+                                                    .ToCSharp(
+                                                        false),
+                                            Name
+                                                = p
+                                                    .PropertyName,
+                                            CSharpSafePropertyName
+                                                = p
+                                                    .PropertyName
+                                                    .MakeSafeForCSharpClass(
+                                                        r.Name),
+                                            LookupName
+                                                = p
+                                                    .PropertyName
+                                        })
+                                .ToList(),
+                            r.IsDerived,
+                            InheritedNonIdentifyingProperties = r.IsDerived
+                                ? r.AllProperties
+                                    .Where(p => p.IsInherited && !p.IsIdentifying)
+                                    .OrderBy(p => p.PropertyName)
+                                    .Where(IsModelInterfaceProperty)
+                                    .Select(
+                                        p =>
+                                            new
+                                            {
+                                                p.IsLookup,
+                                                CSharpType = p.PropertyType.ToCSharp(true),
+                                                Name = p.PropertyName,
+                                                LookupName = p.PropertyName.TrimSuffix("Id")
+                                            })
+                                    .ToList()
+                                : null,
+                            NonIdentifyingProperties = r.NonIdentifyingProperties
+                                .Where(p => !p.IsInherited)
+                                .OrderBy(p => p.PropertyName)
+                                .Where(IsModelInterfaceProperty)
+                                .Select(
+                                    p =>
+                                        new
+                                        {
+                                            p.IsLookup,
+                                            CSharpType =
+                                                p.PropertyType.ToCSharp(true),
+                                            Name = p.PropertyName,
+                                            CSharpSafePropertyName =
+                                                p.PropertyName
+                                                    .MakeSafeForCSharpClass(r.Name),
+                                            LookupName =
+                                                p.PropertyName.TrimSuffix("Id")
+                                        })
+                                .ToList(),
+                            HasNavigableOneToOnes = r.EmbeddedObjects.Any(),
+                            NavigableOneToOnes = r
+                                .EmbeddedObjects
+                                .Where(eo => !eo.IsInherited)
+                                .OrderBy(
+                                    eo
+                                        => eo
+                                            .PropertyName)
+                                .Select(
+                                    eo
+                                        => new
+                                        {
+                                            Name
+                                                = eo
+                                                    .PropertyName
+                                        })
+                                .ToList(),
+                            InheritedLists = r.IsDerived
+                                ? r.Collections
+                                    .Where(c => c.IsInherited)
+                                    .OrderBy(c => c.PropertyName)
+                                    .Select(
+                                        c => new
+                                        {
+                                            c.ItemType.Name,
+                                            PluralName = c.PropertyName
+                                        })
+                                    .ToList()
+                                : null,
+                            Lists = r.Collections
+                                .Where(c => !c.IsInherited)
+                                .OrderBy(c => c.PropertyName)
+                                .Select(
+                                    c => new
+                                    {
+                                        c.ItemType.Name,
+                                        PluralName = c.PropertyName
+                                    })
+                                .ToList(),
+                            HasDiscriminator = r.HasDiscriminator(),
+                            AggregateReferences =
+                                r.Entity?.GetAssociationsToReferenceableAggregateRoots()
+                                    .OrderBy(a => a.Name)
+                                    .Select(
+                                        a => new
+                                        {
+                                            AggregateReferenceName = a.Name,
+                                            MappedReferenceDataHasDiscriminator =
+                                                a.OtherEntity.HasDiscriminator()
+                                        })
+                                    .ToList()
+                        })
+                    .ToList()
+            };
 
             return entityInterfacesModel;
         }
@@ -233,7 +244,7 @@ namespace EdFi.Ods.CodeGen.Generators
             }
 
             if (resourceClass.Properties.Where(p => p.IsIdentifying)
-                             .Any(p => UniqueIdSpecification.IsUniqueId(p.PropertyName) && p.IsLocallyDefined))
+                .Any(p => UniqueIdSpecification.IsUniqueId(p.PropertyName) && p.IsLocallyDefined))
             {
                 AddInterface("IIdentifiablePerson", interfaceStringBuilder);
             }
@@ -258,9 +269,11 @@ namespace EdFi.Ods.CodeGen.Generators
         private bool IsModelInterfaceProperty(ResourceProperty p)
         {
             return !new[]
-                    {
-                        "Id", "LastModifiedDate", "CreateDate"
-                    }.Contains(p.PropertyName);
+            {
+                "Id",
+                "LastModifiedDate",
+                "CreateDate"
+            }.Contains(p.PropertyName);
         }
     }
 }

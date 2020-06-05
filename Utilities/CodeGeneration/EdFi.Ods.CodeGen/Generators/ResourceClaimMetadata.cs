@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Linq;
 using EdFi.Ods.Common.Extensions;
@@ -18,21 +18,20 @@ namespace EdFi.Ods.CodeGen.Generators
             var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
 
             var orderedAggregates = domainModel
-                                   .Entities
-                                   .Where(x => x.IsAggregateRoot && !x.IsAbstract)
-                                   .OrderBy(x => x.FullName.Name)
-                                   .Select(
-                                        x => new
-                                             {
-                                                 DisplayName = x.Name.ToCamelCase(), ResourceName = x.Name.ToCamelCase(),
-                                                 ParentResourceName = GetParentResource(x), HasParent = GetParentResource(x) != null
-                                             })
-                                   .ToList();
+                .Entities
+                .Where(x => x.IsAggregateRoot && !x.IsAbstract)
+                .OrderBy(x => x.FullName.Name)
+                .Select(
+                    x => new
+                    {
+                        DisplayName = x.Name.ToCamelCase(),
+                        ResourceName = x.Name.ToCamelCase(),
+                        ParentResourceName = GetParentResource(x),
+                        HasParent = GetParentResource(x) != null
+                    })
+                .ToList();
 
-            return new
-                   {
-                       Aggregates = orderedAggregates
-                   };
+            return new {Aggregates = orderedAggregates};
         }
 
         private string GetParentResource(Entity entity)

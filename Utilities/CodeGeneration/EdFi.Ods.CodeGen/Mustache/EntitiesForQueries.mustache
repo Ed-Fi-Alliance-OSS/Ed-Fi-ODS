@@ -1,17 +1,16 @@
- 
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Dtos;
 using Newtonsoft.Json;
 
 {{#Aggregates}}
 // Aggregate: {{AggregateName}}
 
 namespace {{AggregateNamespace}}
-{ 
+{
     {{#Classes}}
 
     /// <summary>
@@ -94,9 +93,7 @@ namespace {{AggregateNamespace}}
             {{/NonNavigableParents}}
         {{/HasNonNavigableParents}}
         // -------------------------------------------------------------
-    } 
+    }
     {{/Classes}}
 }
 {{/Aggregates}}
-
-

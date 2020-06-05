@@ -2,17 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api;
-using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Common.Adapters;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 {{#HasExtensionDerivedFromEdFiBaseEntity}}
@@ -163,8 +161,8 @@ namespace {{AggregateNamespace}}
             {{CollectionName}} = new HashSet<{{ContextualCollectionItemName}}>();
             {{/Collections}}
             {{#IsExtendable}}
-            Extensions = new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
-            AggregateExtensions = new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateAggregateExtensions<{{ContextualClassName}}>());
+            Extensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateRequiredEntityExtensions<{{ContextualClassName}}>(this));
+            AggregateExtensions = EntityExtensionsFactory.Instance == null ? new Dictionary<string, object>() : new Dictionary<string, object>(EntityExtensionsFactory.Instance.CreateAggregateExtensions<{{ContextualClassName}}>());
             {{/IsExtendable}}
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -226,7 +224,7 @@ namespace {{AggregateNamespace}}
         {{/InheritedProperties}}
         {{/IsDerived}}
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -354,7 +352,7 @@ namespace {{AggregateNamespace}}
         {{^ExtendableConcreteBase}}
         [ValidateExtensions]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions { get; set; }
-        
+
         [ValidateAggregateExtensions]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions { get; set; }
         {{/ExtendableConcreteBase}}
@@ -468,7 +466,7 @@ namespace {{AggregateNamespace}}
 
                 if ({{ChildCollectionFieldName}} == null)
                     {{ChildCollectionFieldName}} = new CovariantCollectionAdapter<{{ChildRelativeNamespace}}I{{ChildClassName}}, {{AggregateNamespacePrefix}}{{ChildClassName}}>(sourceList);
-                
+
                 return {{ChildCollectionFieldName}};
             }
             set
@@ -667,5 +665,3 @@ namespace {{AggregateNamespace}}
     {{/Classes}}
 }
 {{/Aggregates}}
-
-

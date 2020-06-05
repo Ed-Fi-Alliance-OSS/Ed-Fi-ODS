@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +26,7 @@ namespace EdFi.Ods.CodeGen.Generators
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Dictionary<Entity, List<ClassMappingContext>> _classMappingsForEntities;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
+        private readonly string _propertyAccessor = $"EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, {Namespaces.Api.AssemblyName}.Common";
 
         public EntityOrmMappings(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
@@ -301,7 +302,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     {
                         Name = ch.OtherEntity.Name,
                         Access =
-                            $"{Namespaces.Api.NHibernate.Architecture}.EmbeddedObjectPropertyAccessor, {Namespaces.Api.AssemblyName}",
+                            _propertyAccessor,
                         IsQueryModelMapping = classMappingContext.IsQueryModel,
                         ClassName = GetEntityFullNameForContext(
                             ch.OtherEntity,

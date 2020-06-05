@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 {{ConditionalInclude}}
 {{#RenderGroups}}
 {{#Resources}}
 namespace {{Namespace}}
-{ 
+{
     {{#ReadableContentType}}
-   
+
     {{#AllProperties}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}GetByExample
     {
         {{#Properties}}
         public {{Systype}} {{PropertyName}} { get; set; }
-        {{/Properties}}        
+        {{/Properties}}
     }
     {{/AllProperties}}
 
@@ -49,7 +50,7 @@ namespace {{Namespace}}
     {{/GenerateWritableFormat}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}Put : {{ResourceClassTypeName}}
-    { 
+    {
     }
 
     {{/WritableContentType}}
@@ -57,11 +58,11 @@ namespace {{Namespace}}
 
     {{/WritableContentType}}
     [ExcludeFromCodeCoverage]
-    public class {{ResourceName}}Delete : IHasIdentifier 
+    public class {{ResourceName}}Delete : IHasIdentifier
     {
         public {{ResourceName}}Delete() { }
 
-        public {{ResourceName}}Delete(Guid id) 
+        public {{ResourceName}}Delete(Guid id)
         {
             Id = id;
         }

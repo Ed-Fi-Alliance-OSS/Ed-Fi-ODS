@@ -13,7 +13,7 @@ using {{Include}};
 #endregion
 
 namespace {{ContextDataProviderNamespace}}
-{ 
+{
 
 {{#ResourcesToRender}}
     /// <summary>
@@ -22,7 +22,7 @@ namespace {{ContextDataProviderNamespace}}
     [ExcludeFromCodeCoverage]
     public class {{ResourceName}}RelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<I{{ResourceName}}, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -35,11 +35,11 @@ namespace {{ContextDataProviderNamespace}}
 
             {{#SchemaIsEdFi}}
             var contextData = new TContextData();
-            {{/SchemaIsEdFi}}          
+            {{/SchemaIsEdFi}}
             {{^SchemaIsEdFi}}
             dynamic contextData = new TContextData();
             {{/SchemaIsEdFi}}
-            {{#AuthorizationResourceProperties}}   
+            {{#AuthorizationResourceProperties}}
               {{#ContextPropertyIsIncludedAndNumeric}}
             contextData.{{ContextPropertyName}} = entity.{{ContextPropertyName}} == default({{ContextPropertyType}}) ? null as {{ContextPropertyType}}? : entity.{{ContextPropertyName}}; // {{#IsIdentifying}}Primary key property, {{/IsIdentifying}}{{ContextPropertyReason}}
               {{/ContextPropertyIsIncludedAndNumeric}}
@@ -62,7 +62,7 @@ namespace {{ContextDataProviderNamespace}}
         {
            var properties = new string[]
                 {
-            {{#AuthorizationResourceProperties}}                                                
+            {{#AuthorizationResourceProperties}}
                     {{#ContextPropertyIsIncludedAndNumeric}}
                     "{{ContextPropertyName}}",
                     {{/ContextPropertyIsIncludedAndNumeric}}
@@ -81,8 +81,8 @@ namespace {{ContextDataProviderNamespace}}
         public TContextData GetContextData(object resource)
         {
             return GetContextData(({{ResourceName}}) resource);
-        } 
-    } 
+        }
+    }
 
 {{/ResourcesToRender}}
 }

@@ -3,14 +3,16 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Net;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Serialization;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Common.Adapters;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Dependencies;
+using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Common.Validation;
 {{#SchemaNamespaces}}
 using {{Namespace}};
 {{/SchemaNamespaces}}
@@ -103,7 +105,7 @@ namespace {{ResourceClassesNamespace}}
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -239,7 +241,7 @@ namespace {{ResourceClassesNamespace}}
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -576,13 +578,13 @@ namespace {{ResourceClassesNamespace}}
         {
             #pragma warning disable 472
             var compareTo = obj as {{NamespacePrefix}}I{{EntityName}};
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             {{#Properties}}
             {{#HasParent}}
             // Parent Property
@@ -594,46 +596,46 @@ namespace {{ResourceClassesNamespace}}
             {{#Property}}
             // Property
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
-                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}})) 
+                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
             {{/Property}}
             {{/Usi}}
             {{#Standard}}
             {{#Property}}
- 
+
             // Standard Property
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} == null
-                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}})) 
+                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
                 return false;
             {{/Property}}
             {{/Standard}}
             {{#Referenced}}
             {{#Property}}
- 
+
             // Referenced Property
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
-                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}})) 
+                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
             {{/Property}}
             {{/Referenced}}
             {{#UnifiedType}}
             {{#Property}}
- 
+
             // Unified Type Property
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
-                ||!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}})) 
+                ||!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
             {{/Property}}
             {{/UnifiedType}}
             {{#Derived}}
             {{#Property}}
- 
+
             // Derived Property
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
-                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}})) 
+                || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
             {{/Property}}
-            {{/Derived}}           
+            {{/Derived}}
             {{/Properties}}
             #pragma warning disable 472
 
@@ -662,39 +664,39 @@ namespace {{ResourceClassesNamespace}}
                 {{#Property}}
 
                 //Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null) 
+                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/Usi}}
                 {{#Standard}}
                 {{#Property}}
- 
+
                 // Standard Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} != null) 
+                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/Standard}}
                 {{#Referenced}}
                 {{#Property}}
- 
+
                 //Referenced Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null) 
+                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/Referenced}}
                 {{#UnifiedType}}
                 {{#Property}}
- 
+
                 //Unified Type Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null) 
+                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/UnifiedType}}
                 {{#Derived}}
                 {{#Property}}
- 
+
                 //Derived Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null) 
+                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/Derived}}
@@ -815,7 +817,7 @@ namespace {{ResourceClassesNamespace}}
             get
             {
                 {{#UnifiedKeys}}
-                if (Implicit{{ReferenceName}}Reference != null 
+                if (Implicit{{ReferenceName}}Reference != null
                     && (_SuspendReferenceAssignmentCheck || Implicit{{ReferenceName}}Reference.IsReferenceFullyDefined()))
                     {
                         return Implicit{{ReferenceName}}Reference.{{ParentPropertyName}};
@@ -823,7 +825,7 @@ namespace {{ResourceClassesNamespace}}
 
                 {{/UnifiedKeys}}
                 {{#UnifiedExtensions}}
-                if (Implicit{{ReferenceName}}Reference != null 
+                if (Implicit{{ReferenceName}}Reference != null
                     && (_SuspendReferenceAssignmentCheck || Implicit{{ReferenceName}}Reference.IsReferenceFullyDefined()))
                     {
                         return Implicit{{ReferenceName}}Reference.{{ParentPropertyName}};
@@ -909,7 +911,7 @@ namespace {{ResourceClassesNamespace}}
         {{/Null}}
         {{/NavigableOneToOnes}}
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1024,7 +1026,7 @@ namespace {{ResourceClassesNamespace}}
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         {{/IsExtendable}}
         // -------------------------------------------------------------
@@ -1195,17 +1197,17 @@ namespace {{ResourceClassesNamespace}}
         {{#FilteredDelegates}}
         {{#Standard}}
         Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        { 
+        {
             get { return null; }
             set { }
         }
         {{/Standard}}
         {{#Filtered}}
         Func<{{ItemTypeNamespacePrefix}}I{{ItemType}}, bool> {{NamespacePrefix}}I{{ParentName}}SynchronizationSourceSupport.Is{{ItemType}}Included
-        { 
-            get 
-            { 
-                return x => 
+        {
+            get
+            {
+                return x =>
                     {{#FilteredValues}}
                     {{#NotFirst}}{{#IsIncluded}}||{{/IsIncluded}}{{^IsIncluded}}&&{{/IsIncluded}}{{/NotFirst}} {{^IsIncluded}}!{{/IsIncluded}}x.{{FilteredPropertyName}}.EqualsIgnoreCase("{{FilteredValue}}"){{#IsLast}};{{/IsLast}}
                     {{/FilteredValues}}
@@ -1234,8 +1236,8 @@ namespace {{ResourceClassesNamespace}}
         //                    Resource Reference Data
         // -----------------------------------------------------------------
         {{#ResourceReferences}}
-        Guid? {{Namespace}}.I{{ClassName}}.{{ReferenceName}}ResourceId 
-        { 
+        Guid? {{Namespace}}.I{{ClassName}}.{{ReferenceName}}ResourceId
+        {
             get { return null; }
             {{^ReferenceIncluded}}
             // Profile excluded the Reference

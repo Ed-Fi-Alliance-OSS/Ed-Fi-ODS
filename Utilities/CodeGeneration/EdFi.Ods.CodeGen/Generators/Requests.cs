@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,115 +17,124 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class Requests : GeneratorBase
     {
-        protected override object Build() => ProjectHasProfileDefinition
-            ? GetTemplateModelFromProfileResourceModel()
-            : GetTemplateModelFromResourceModel();
+        protected string BaseNamespaceName
+        {
+            get => Namespaces.Requests.BaseNamespace;
+        }
+
+        protected override object Build()
+            => ProjectHasProfileDefinition
+                ? GetTemplateModelFromProfileResourceModel()
+                : GetTemplateModelFromResourceModel();
 
         private object GetTemplateModelFromProfileResourceModel()
         {
             return new
-                   {
-                       ConditionalInclude = GetConditionalInclude(), RenderGroups = GetProfileResourceModels()
-                          .Select(
-                               model => new
-                                        {
-                                            Resources = model.ResourceByName.OrderBy(resource => resource.Key)
-                                                             .Where(
-                                                                  resource => !model.GetResourceByName(resource.Key)
-                                                                                    .IsAbstract())
-                                                             .Select(
-                                                                  resource =>
-                                                                      GetTemplateModelPropertiesForResource(
-                                                                          GetNamespace(model.GetResourceByName(resource.Key), model.ProfileName),
-                                                                          ResourceModelProvider.GetResourceModel()
-                                                                                               .GetResourceByFullName(resource.Key),
-                                                                          GetResourceClassTypeName(
-                                                                              model.GetResourceByName(resource.Key),
-                                                                              model.ProfileName),
-                                                                          model.ResourceIsReadable(resource.Key),
-                                                                          model.ResourceIsWritable(resource.Key)
-                                                                          || model.ResourceByName
-                                                                                  .Any(
-                                                                                       r => r.Value.Writable != null
-                                                                                            && r.Value.Writable.Entity.IncomingAssociations
-                                                                                                .Any(
-                                                                                                     a => a.OtherEntity.FullName == resource.Key
-                                                                                                          && a.AssociationType
-                                                                                                          == AssociationViewType.FromBase)),
-                                                                          model.ResourceIsWritable(resource.Key)
-                                                                          || model.ResourceByName
-                                                                                  .Any(
-                                                                                       r => r.Value.Writable != null
-                                                                                            && r.Value.Writable.Entity.IncomingAssociations
-                                                                                                .Any(
-                                                                                                     a => a.OtherEntity.FullName == resource.Key
-                                                                                                          && a.AssociationType
-                                                                                                          == AssociationViewType.FromBase)),
-                                                                          GetProfileContentWritableFormat(resource.Key.Name, model.ProfileName)
-                                                                      ))
-                                        })
-                   };
+            {
+                ConditionalInclude = GetConditionalInclude(),
+                RenderGroups = GetProfileResourceModels()
+                    .Select(
+                        model => new
+                        {
+                            Resources = model.ResourceByName.OrderBy(resource => resource.Key)
+                                .Where(
+                                    resource => !model.GetResourceByName(resource.Key)
+                                        .IsAbstract())
+                                .Select(
+                                    resource =>
+                                        GetTemplateModelPropertiesForResource(
+                                            GetNamespace(model.GetResourceByName(resource.Key), model.ProfileName),
+                                            ResourceModelProvider.GetResourceModel()
+                                                .GetResourceByFullName(resource.Key),
+                                            GetResourceClassTypeName(
+                                                model.GetResourceByName(resource.Key),
+                                                model.ProfileName),
+                                            model.ResourceIsReadable(resource.Key),
+                                            model.ResourceIsWritable(resource.Key)
+                                            || model.ResourceByName
+                                                .Any(
+                                                    r => r.Value.Writable != null
+                                                         && r.Value.Writable.Entity.IncomingAssociations
+                                                             .Any(
+                                                                 a => a.OtherEntity.FullName == resource.Key
+                                                                      && a.AssociationType
+                                                                      == AssociationViewType.FromBase)),
+                                            model.ResourceIsWritable(resource.Key)
+                                            || model.ResourceByName
+                                                .Any(
+                                                    r => r.Value.Writable != null
+                                                         && r.Value.Writable.Entity.IncomingAssociations
+                                                             .Any(
+                                                                 a => a.OtherEntity.FullName == resource.Key
+                                                                      && a.AssociationType
+                                                                      == AssociationViewType.FromBase)),
+                                            GetProfileContentWritableFormat(resource.Key.Name, model.ProfileName)
+                                        ))
+                        })
+            };
         }
 
         private object GetTemplateModelFromResourceModel()
         {
             return new
-                   {
-                       ConditionalInclude = string.Empty, RenderGroups = new object[]
-                                                                         {
-                                                                             new
-                                                                             {
-                                                                                 Resources = ResourceModelProvider.GetResourceModel()
-                                                                                                                  .GetAllResources()
-                                                                                                                  .Where(
-                                                                                                                       resource
-                                                                                                                           => !resource.IsAbstract()
-                                                                                                                              && TemplateContext
-                                                                                                                                 .ShouldRenderResourceClass(
-                                                                                                                                      resource))
-                                                                                                                  .Select(
-                                                                                                                       resource =>
-                                                                                                                           GetTemplateModelPropertiesForResource(
-                                                                                                                               GetNamespace(
-                                                                                                                                   resource),
-                                                                                                                               resource,
-                                                                                                                               GetResourceClassTypeName(
-                                                                                                                                   resource),
-                                                                                                                               true,
-                                                                                                                               true,
-                                                                                                                               false))
-                                                                             }
-                                                                         }
-                   };
+            {
+                ConditionalInclude = string.Empty,
+                RenderGroups = new object[]
+                {
+                    new
+                    {
+                        Resources = ResourceModelProvider.GetResourceModel()
+                            .GetAllResources()
+                            .Where(
+                                resource
+                                    => !resource.IsAbstract()
+                                       && TemplateContext
+                                           .ShouldRenderResourceClass(
+                                               resource))
+                            .Select(
+                                resource =>
+                                    GetTemplateModelPropertiesForResource(
+                                        GetNamespace(
+                                            resource),
+                                        resource,
+                                        GetResourceClassTypeName(
+                                            resource),
+                                        true,
+                                        true,
+                                        false))
+                    }
+                }
+            };
         }
 
         private object GetReadableContentTypeForResource(Resource resource)
         {
             return new
-                   {
-                       IdentifyingProperties = new
-                                               {
-                                                   Properties = resource.AllRequestProperties()
-                                                                        .Where(property => property.IsIdentifying)
-                                                                        .OrderBy(x => x.PropertyName)
-                                                                        .Select(
-                                                                             property => new
-                                                                                         {
-                                                                                             property.PropertyName,
-                                                                                             Systype = GetPropertyDatatype(property)
-                                                                                         })
-                                               },
-                       AllProperties = new
-                                       {
-                                           Properties = resource.AllRequestProperties()
-                                                                .OrderBy(x => x.PropertyName)
-                                                                .Select(
-                                                                     property => new
-                                                                                 {
-                                                                                     property.PropertyName, Systype = GetPropertyDatatype(property)
-                                                                                 })
-                                       }
-                   };
+            {
+                IdentifyingProperties = new
+                {
+                    Properties = resource.AllRequestProperties()
+                        .Where(property => property.IsIdentifying)
+                        .OrderBy(x => x.PropertyName)
+                        .Select(
+                            property => new
+                            {
+                                property.PropertyName,
+                                Systype = GetPropertyDatatype(property)
+                            })
+                },
+                AllProperties = new
+                {
+                    Properties = resource.AllRequestProperties()
+                        .OrderBy(x => x.PropertyName)
+                        .Select(
+                            property => new
+                            {
+                                property.PropertyName,
+                                Systype = GetPropertyDatatype(property)
+                            })
+                }
+            };
         }
 
         private object GetTemplateModelPropertiesForResource(
@@ -138,27 +147,31 @@ namespace EdFi.Ods.CodeGen.Generators
             string profileContentWritableFormat = "")
         {
             return new
-                   {
-                       Namespace = namespaceName, ResourceName = resource.Name, ResourcePluralName = resource.Entity.PluralName,
-                       RouteName = resource.Entity.PluralName.ToCamelCase(),
-                       ResourceClassTypeName = NamespaceHelper.GetRelativeNamespace(namespaceName, resourceClassTypeName), ReadableContentType =
-                           readableContentType
-                               ? GetReadableContentTypeForResource(resource)
-                               : null,
-                       WritableContentType = writableContentType, GenerateWritableFormat = generateWritableFormat,
-                       ProfileContentWritableFormat = profileContentWritableFormat
-                   };
+            {
+                Namespace = namespaceName,
+                ResourceName = resource.Name,
+                ResourcePluralName = resource.Entity.PluralName,
+                RouteName = resource.Entity.PluralName.ToCamelCase(),
+                ResourceClassTypeName = NamespaceHelper.GetRelativeNamespace(namespaceName, resourceClassTypeName),
+                ReadableContentType =
+                    readableContentType
+                        ? GetReadableContentTypeForResource(resource)
+                        : null,
+                WritableContentType = writableContentType,
+                GenerateWritableFormat = generateWritableFormat,
+                ProfileContentWritableFormat = profileContentWritableFormat
+            };
         }
 
         private IEnumerable<ProfileResourceModel> GetProfileResourceModels()
         {
             return ProfileResourceNamesProvider
-                  .GetProfileResourceNames()
-                  .Select(prn => prn.ProfileName)
-                  .Distinct()
-                  .Select(
-                       profileName =>
-                           ProfileResourceModelProvider.GetProfileResourceModel(profileName));
+                .GetProfileResourceNames()
+                .Select(prn => prn.ProfileName)
+                .Distinct()
+                .Select(
+                    profileName =>
+                        ProfileResourceModelProvider.GetProfileResourceModel(profileName));
         }
 
         private string GetProfileNamespaceName(string profileName)
@@ -178,7 +191,7 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return
                 EdFiConventions.BuildNamespace(
-                    Namespaces.Requests.BaseNamespace,
+                    BaseNamespaceName,
                     TemplateContext.SchemaProperCaseName,
                     resource.Entity.PluralName,
                     resource.Entity.IsExtensionEntity);
@@ -187,15 +200,12 @@ namespace EdFi.Ods.CodeGen.Generators
         private string GetNamespace(Resource resource, string profileName)
         {
             string baseNamespace = EdFiConventions.BuildNamespace(
-                Namespaces.Requests.BaseNamespace,
+                BaseNamespaceName,
                 TemplateContext.GetSchemaProperCaseNameForResource(resource),
                 resource.Entity.PluralName,
                 resource.Entity.IsExtensionEntity);
 
-            return string.Format(
-                "{0}.{1}",
-                baseNamespace,
-                GetProfileNamespaceName(profileName));
+            return $"{baseNamespace}.{GetProfileNamespaceName(profileName)}";
         }
 
         private string GetResourceClassTypeName(Resource resource)
