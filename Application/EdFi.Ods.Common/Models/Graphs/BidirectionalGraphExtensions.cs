@@ -16,7 +16,7 @@ namespace EdFi.Ods.Common.Models.Graphs
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(BidirectionalGraphExtensions));
         
-        public static void ValidateGraph<TVertex, TEdge>(
+        public static IReadOnlyList<Cycle<TVertex>> GetCycles<TVertex, TEdge>(
             this BidirectionalGraph<TVertex, TEdge> graph)
             where TEdge : IEdge<TVertex>
         {
@@ -29,9 +29,18 @@ namespace EdFi.Ods.Common.Models.Graphs
             foreach (var vertex in graph.Vertices)
             {
                 _logger.Debug($"Probing node '{vertex}' for cyclical dependencies...");
-                graph.EnsureAcyclic(vertex, visited, stack, cycles);
+                graph.FindCycles(vertex, visited, stack, cycles);
             }
 
+            return cycles;
+        }
+
+        public static void ValidateGraph<TVertex, TEdge>(
+            this BidirectionalGraph<TVertex, TEdge> graph)
+            where TEdge : IEdge<TVertex>
+        {
+            var cycles = GetCycles(graph);
+            
             if (cycles.Any())
             {
                 string cycleExplanations = string.Join(
@@ -45,8 +54,8 @@ namespace EdFi.Ods.Common.Models.Graphs
                 throw new NonAcyclicGraphException($@"Circular {dependencyPluralization} found:{Environment.NewLine}{cycleExplanations}");
             }
         }
-        
-        private static void EnsureAcyclic<TVertex, TEdge>(
+
+        private static void FindCycles<TVertex, TEdge>(
             this BidirectionalGraph<TVertex, TEdge> executionGraph,
             TVertex vertex, 
             HashSet<TVertex> visited, 
@@ -92,7 +101,7 @@ namespace EdFi.Ods.Common.Models.Graphs
                 
                 foreach (var child in children)
                 {
-                    executionGraph.EnsureAcyclic(child, visited, stack, cycles);
+                    executionGraph.FindCycles(child, visited, stack, cycles);
                 }
             }
             finally
@@ -101,9 +110,86 @@ namespace EdFi.Ods.Common.Models.Graphs
             }
         }
 
+        /// <summary>
+        /// Attempts to break cycles in the graph by removing the deepest remove edge, as defined
+        /// by the supplied predicate function.
+        /// </summary>
+        /// <param name="graph">The bidirectional graph to be processed.</param>
+        /// <param name="isRemovable">A function indicating whether or not a particular edge can be removed (i.e. is a "soft" dependency).</param>
+        /// <typeparam name="TVertex">The <see cref="Type" /> of the vertices of the graph.</typeparam>
+        /// <typeparam name="TEdge">The <see cref="Type" /> of the edges of the graph.</typeparam>
+        /// <returns>The list of edges that were removed to break the cycle(s).</returns>
+        /// <exception cref="NonAcyclicGraphException">Occurs if one or more of the cycles present in the graph cannot be broken by removing one of its edges.</exception>
+        public static IReadOnlyList<TEdge> BreakCycles<TVertex, TEdge>(this BidirectionalGraph<TVertex, TEdge> graph, Func<TEdge, bool> isRemovable)
+            where TEdge : IEdge<TVertex>
+        {
+            var removedEdges = new List<TEdge>();
+            
+            // Get cyclical dependencies found in the graph
+            var cycles = graph.GetCycles();
+
+            // Break circular dependencies
+            foreach (var cycle in cycles)
+            {
+                // Last element of Path repeats first element (so ignore duplicate)
+                var distinctPathVertices = cycle.Path.Take(cycle.Path.Count - 1).ToArray();
+                
+                var sacrificialDependency = distinctPathVertices  
+                    .Select(
+                        (e, i) =>
+                        {
+                            // Get the next entity in the path (circling around to the first entity on the last item)
+                            var dependentVertex = distinctPathVertices[(i + 1) % distinctPathVertices.Length];
+                            
+                            return new
+                            {
+                                DependentVertex = dependentVertex,
+                                InEdges = graph.InEdges(dependentVertex)
+                            };
+                        })
+                    .Reverse()
+                    .FirstOrDefault(x => 
+                        x.InEdges
+                            // Only consider edges that form the cycle
+                            .Where(IsCycleEdge)
+                            // All the cycle edges between these vertices must be removable
+                            .All(isRemovable));
+
+                if (sacrificialDependency == null)
+                {
+                    graph.ValidateGraph();
+
+                    // Should never get here, but throw an exception to satisfy code analysis warnings
+                    throw new NonAcyclicGraphException();
+                }
+
+                // Remove the chosen graph edge(s) to break the cyclical dependency
+                foreach (TEdge edge in sacrificialDependency.InEdges.Where(IsCycleEdge).ToArray())
+                {
+                    graph.RemoveEdge(edge);
+                    removedEdges.Add(edge);
+                }
+                
+                bool IsCycleEdge(TEdge edge) => distinctPathVertices.Contains(edge.Source);
+            }
+
+            return removedEdges;
+        } 
+
+        /// <summary>
+        /// Represents a cycle in the graph.
+        /// </summary>
+        /// <typeparam name="TVertex">The Type of the vertices in the graph.</typeparam>
         public class Cycle<TVertex>
         {
+            /// <summary>
+            /// The string representation of the initial vertex being probed when the cycle was found.
+            /// </summary>
             public string Vertex { get; set; }
+            
+            /// <summary>
+            /// The list of vertices found that form the cycle, with the first vertex also appearing as the last vertex.
+            /// </summary>
             public List<TVertex> Path { get; set; }
         }
     }
