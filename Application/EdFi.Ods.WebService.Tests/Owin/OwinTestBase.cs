@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,6 +25,7 @@ using EdFi.Ods.Features.UniqueIdIntegration.IdentityValueMappers;
 using EdFi.Ods.Features.UniqueIdIntegration.Installers;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Security.Profiles;
+using EdFi.Ods.Security.Utilities;
 using EdFi.Ods.Standard.Container.Installers;
 using Microsoft.Owin.Testing;
 using NUnit.Framework;

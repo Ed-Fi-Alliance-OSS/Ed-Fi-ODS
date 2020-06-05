@@ -4,6 +4,6 @@ namespace EdFi.Ods.Security.Utilities
 {
     public interface IAuthorizationViewsProvider
     {
-        IReadOnlyList<string> GetAuthorizationViews();
+        IList<string> GetAuthorizationViews();
     }
 }

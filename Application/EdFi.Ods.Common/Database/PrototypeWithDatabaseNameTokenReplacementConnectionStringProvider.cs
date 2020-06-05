@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETSTANDARD
 using System;
 using System.Configuration;
 using EdFi.Ods.Common.Configuration;
@@ -14,9 +15,10 @@ namespace EdFi.Ods.Common.Database
     /// Gets the connection string using a configured named connection string as a prototype for the connection string
     /// with an injected <see cref="IDatabaseNameReplacementTokenProvider"/> to replace token in database name.
     /// </summary>
-    public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IDatabaseConnectionStringProvider
+    public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IOdsDatabaseConnectionStringProvider
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
+
         private readonly IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
         private readonly string _prototypeConnectionStringName;
@@ -86,3 +88,4 @@ namespace EdFi.Ods.Common.Database
         }
     }
 }
+#endif

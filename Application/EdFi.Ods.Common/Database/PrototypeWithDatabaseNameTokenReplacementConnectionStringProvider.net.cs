@@ -1,11 +1,10 @@
-﻿#if NETFRAMEWORK
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+#if NETFRAMEWORK
 using System;
-using System.Collections.Concurrent;
 using System.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
@@ -19,14 +18,10 @@ namespace EdFi.Ods.Common.Database
     public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IDatabaseConnectionStringProvider
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
-        private readonly Func<IDbConnectionStringBuilderAdapter> _dbConnectionStringBuilderAdapterFactory;
 
-        private readonly ConcurrentDictionary<Tuple<string, string>, string> _connectionStringsByNames
-            = new ConcurrentDictionary<Tuple<string, string>, string>();
         private readonly IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
         private readonly string _prototypeConnectionStringName;
-
-        private string _prototypeConnectionString;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider"/> class using
@@ -40,43 +35,12 @@ namespace EdFi.Ods.Common.Database
             string prototypeConnectionStringName,
             IDatabaseNameReplacementTokenProvider databaseNameReplacementTokenProvider,
             IConfigConnectionStringsProvider configConnectionStringsProvider,
-            Func<IDbConnectionStringBuilderAdapter> dbConnectionStringBuilderAdapterFactory)
+            IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory)
         {
             _prototypeConnectionStringName = prototypeConnectionStringName;
             _databaseNameReplacementTokenProvider = databaseNameReplacementTokenProvider;
             _configConnectionStringsProvider = configConnectionStringsProvider;
             _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
-        }
-
-        private string PrototypeConnectionString
-        {
-            get
-            {
-                if (_prototypeConnectionString == null)
-                {
-                    if (_configConnectionStringsProvider.Count == 0)
-                    {
-                        throw new ConfigurationErrorsException("No connection strings were found in the configuration file.");
-                    }
-
-                    if (string.IsNullOrWhiteSpace(_prototypeConnectionStringName))
-                    {
-                        throw new ArgumentNullException("prototypeConnectionStringName");
-                    }
-
-                    var connectionString = _configConnectionStringsProvider.GetConnectionString(_prototypeConnectionStringName);
-
-                    if (connectionString == null)
-                    {
-                        throw new ConfigurationErrorsException(
-                            $"No connection string named '{_prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
-                    }
-
-                    _prototypeConnectionString = connectionString;
-                }
-
-                return _prototypeConnectionString;
-            }
         }
 
         /// <summary>
@@ -85,8 +49,17 @@ namespace EdFi.Ods.Common.Database
         /// <returns>The connection string.</returns>
         public string GetConnectionString()
         {
-            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory();
-            connectionStringBuilder.ConnectionString = PrototypeConnectionString;
+            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
+
+            string protoTypeConnectionString = PrototypeConnectionString();
+
+            if (string.IsNullOrEmpty(protoTypeConnectionString))
+            {
+                throw new ConfigurationErrorsException(
+                    $"No connection string named '{_prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
+            }
+
+            connectionStringBuilder.ConnectionString = protoTypeConnectionString;
 
             // Override the Database Name, format if string coming in has a format replacement token,
             // otherwise use database name set in the Initial Catalog.
@@ -96,9 +69,22 @@ namespace EdFi.Ods.Common.Database
                     _databaseNameReplacementTokenProvider.GetReplacementToken())
                 : connectionStringBuilder.DatabaseName;
 
-            return _connectionStringsByNames.GetOrAdd(
-                Tuple.Create(_prototypeConnectionStringName, connectionStringBuilder.DatabaseName),
-                x => connectionStringBuilder.ConnectionString);
+            return connectionStringBuilder.ConnectionString;
+
+            string PrototypeConnectionString()
+            {
+                if (_configConnectionStringsProvider.Count == 0)
+                {
+                    throw new ConfigurationErrorsException("No connection strings were found in the configuration file.");
+                }
+
+                if (string.IsNullOrWhiteSpace(_prototypeConnectionStringName))
+                {
+                    throw new ArgumentNullException("prototypeConnectionStringName");
+                }
+
+                return _configConnectionStringsProvider.GetConnectionString(_prototypeConnectionStringName);
+            }
         }
     }
 }

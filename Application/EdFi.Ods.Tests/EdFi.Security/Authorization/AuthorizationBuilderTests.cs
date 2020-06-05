@@ -354,11 +354,11 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
 
         // Actual values
-        private IReadOnlyList<ClaimsAuthorizationSegment> actualAuthorizationSegments;
-        private List<Claim> suppliedClaims;
+        private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
+        private List<Claim> _suppliedClaims;
 
         // Supplied values
-        private RelationshipsAuthorizationContextData suppliedContextData;
+        private RelationshipsAuthorizationContextData _suppliedContextData;
 
         protected override void EstablishContext()
         {
@@ -375,7 +375,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             #endregion
 
-            suppliedContextData = new RelationshipsAuthorizationContextData
+            _suppliedContextData = new RelationshipsAuthorizationContextData
             {
                 SchoolId = 880001,
                 StaffUSI = 738953 //340DFAFA-D39B-4A38-BEA4-AD705CC7EB7C
@@ -388,7 +388,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                     780, 880, 980
                 });
 
-            suppliedClaims = new List<Claim>
+            _suppliedClaims = new List<Claim>
                              {
                                  JsonClaimHelper.CreateClaim(
                                      "http://ed-fi.org/ods/identity/claims/domains/generalData",
@@ -406,15 +406,15 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         protected override void ExecuteBehavior()
         {
             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
-                suppliedClaims,
+                _suppliedClaims,
                 _educationOrganizationCache,
-                suppliedContextData);
+                _suppliedContextData);
 
-            actualAuthorizationSegments = builder
+            _actualAuthorizationSegments = builder
                                          .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                                          .GetSegments();
 
-            _actualLocalEducationAgencySegment = actualAuthorizationSegments.SingleOrDefault(
+            _actualLocalEducationAgencySegment = _actualAuthorizationSegments.SingleOrDefault(
                 s =>
                     s.SubjectEndpoint.Name == "LocalEducationAgencyId"
                     || s.ClaimsEndpoints.All(
@@ -424,7 +424,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_create_1_claims_authorization_segment()
         {
-            actualAuthorizationSegments.Count().ShouldBe(1);
+            _actualAuthorizationSegments.Count().ShouldBe(1);
         }
 
         [Test]
@@ -437,7 +437,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 "The staffUSI endpoint in the claims based authorization segment did not have a contextual value.");
 
             staffUniqueIdEndpointWithValue.Name.ShouldBe("StaffUSI");
-            staffUniqueIdEndpointWithValue.Value.ShouldBe(suppliedContextData.StaffUSI);
+            staffUniqueIdEndpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
 
             // Make sure the counts are the same
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
@@ -468,7 +468,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             endpointWithValue.ShouldNotBeNull(
                 "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
 
-            endpointWithValue.Value.ShouldBe(suppliedContextData.StaffUSI);
+            endpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
         }
     }
 
