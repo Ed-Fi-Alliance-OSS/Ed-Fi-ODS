@@ -13,10 +13,9 @@ using System.Text;
 using System.Xml.Linq;
 using EdFi.Ods.Api.Common.Exceptions;
 using EdFi.Ods.Api.Common.Extensions;
+using EdFi.Ods.Api.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Composites;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
@@ -30,7 +29,7 @@ using Newtonsoft.Json;
 using NHibernate;
 using NHibernate.Context;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public class CompositeResourceResponseProvider : ICompositeResourceResponseProvider
     {
@@ -162,7 +161,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
             }
 
             string logicalSchema = currentElt.Attributes()
-                                             .SingleOrDefault(x => x.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.LogicalSchema))
+                                             .SingleOrDefault(x => StringExtensions.EqualsIgnoreCase(x.Name.ToString(), CompositeDefinitionHelper.LogicalSchema))
                                             ?.Value ?? EdFiConventions.LogicalName;
 
             var physicalName = resourceModel.GetPhysicalNameForLogicalName(logicalSchema);

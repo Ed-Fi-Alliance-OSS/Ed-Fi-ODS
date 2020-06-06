@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -15,9 +15,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Infrastructure.Composites;
+using EdFi.Ods.Api.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Services.Authorization;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models.Definitions;
@@ -27,6 +26,8 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
+using EdFi.Ods.Features.Composites;
+using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Ods.Security.Claims;
@@ -115,7 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 var suppliedFilterText = $"TheField = :{SuppliedParameterName}";
 
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<INHibernateFilterTextProvider>()
                     .TryGetHqlFilterText(
                                 A<Type>.Ignored,
@@ -124,12 +125,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
                     .Returns(true);
 
                 Supplied("ResourceUriValue", "uri://some-value");
-                
-                A.CallTo(() => 
+
+                A.CallTo(() =>
                     Given<IResourceClaimUriProvider>()
                     .GetResourceClaimUris(A<Resource>.Ignored))
                     .Returns(new[] {Supplied<string>("ResourceUriValue")});
-                
+
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
                     new ApiKeyContextProvider(new CallContextStorage()),
                     new StubSecurityRepository());
@@ -269,7 +270,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             /// </summary>
             protected override void Arrange()
             {
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IEdFiAuthorizationProvider>()
                     .GetAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored))
                     .Throws(new EdFiSecurityException("Test exception"));
@@ -300,7 +301,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 SystemUnderTest.TryIncludeResource(processorContext, hqlBuilderContext);
             }
-            
+
             [Assert]
             public void Should_throw_a_security_exception()
             {

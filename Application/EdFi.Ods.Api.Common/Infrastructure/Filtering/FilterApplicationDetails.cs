@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
-using EdFi.Ods.Api.Common.Infrastructure.Composites;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Engine;

@@ -6,7 +6,7 @@
 using System.Collections;
 using EdFi.Ods.Common;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     /// <summary>
     /// Provides an implementation of <see cref="IEnumeratorWithCompletion" /> that wraps an existing enumerator

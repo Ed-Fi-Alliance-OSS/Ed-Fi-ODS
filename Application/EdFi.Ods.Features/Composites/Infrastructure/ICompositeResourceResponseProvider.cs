@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public interface ICompositeResourceResponseProvider
     {

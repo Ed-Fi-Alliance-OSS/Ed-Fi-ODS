@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Linq;
 using System.Web.Http;
@@ -19,6 +19,7 @@ using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.WebService.Tests.Owin;
 using NUnit.Framework;

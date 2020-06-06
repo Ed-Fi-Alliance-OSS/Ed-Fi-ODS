@@ -14,6 +14,7 @@ using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using CompositeResourceController = EdFi.Ods.Features.Controllers.CompositeResourceController;
 
 namespace EdFi.Ods.Features.Conventions
 {

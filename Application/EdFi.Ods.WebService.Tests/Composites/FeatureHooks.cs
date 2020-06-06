@@ -2,20 +2,23 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using EdFi.Ods.Common.Composites;
+using System.Web.Http;
+using Castle.MicroKernel.Lifestyle;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features;
+using EdFi.Ods.Features.Composites;
 using EdFi.Ods.WebService.Tests.Owin;
 using log4net;
 using log4net.Appender;
@@ -46,6 +49,10 @@ namespace EdFi.Ods.WebService.Tests.Composites
             FeatureContext.Current.Set(server);
             FeatureContext.Current.Set(_startup.InternalContainer);
             FeatureContext.Current.Set(_startup, "OWINstartup");
+
+            var scope = _startup.InternalContainer.BeginScope();
+            var controllers  = _startup.InternalContainer.ResolveAll(typeof(ApiController));
+            scope.Dispose();
 
             var client = new HttpClient(server.Handler);
 
@@ -125,6 +132,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
         {
             // Ensure that the assembly containing the composites metadata has been loaded
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
+            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Features>();
 
             var compositeMetadataProvider = new CompositesMetadataProvider();
             FeatureContext.Current.Set(compositeMetadataProvider, FeatureContextKeys.CompositesMetadataProvider);

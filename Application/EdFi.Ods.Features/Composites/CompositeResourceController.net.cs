@@ -2,7 +2,8 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ using System.Web.Http.Description;
 using System.Web.Http.Results;
 using System.Xml.Linq;
 using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Composites;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
@@ -22,12 +22,12 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Metadata;
+using EdFi.Ods.Features.Composites.Infrastructure;
 using log4net;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Api.Services.Controllers
+namespace EdFi.Ods.Features.Composites
 {
-    // TODO: As part of ODS-2973 move this to another namespace so it doesn't get registered with the other api controllers, and explicitly register it in the CompositesFeatureInstaller
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authenticate]
     public class CompositeResourceController : ApiController
@@ -86,10 +86,10 @@ namespace EdFi.Ods.Api.Services.Controllers
                 var rawQueryStringParameters = ActionContext.Request.RequestUri.ParseQueryString();
 
                 var queryStringParameters =
-                    rawQueryStringParameters.AllKeys.ToDictionary<string, string, object>(
+                    Enumerable.ToDictionary<string, string, object>(
 
                         // Replace underscores with periods for appropriate processing
-                        kvp => kvp.Replace('_', '.'),
+                        rawQueryStringParameters.AllKeys, kvp => kvp.Replace('_', '.'),
                         kvp => rawQueryStringParameters[kvp],
                         StringComparer.InvariantCultureIgnoreCase);
 
@@ -110,8 +110,7 @@ namespace EdFi.Ods.Api.Services.Controllers
 
                 // Ensure all matched route key values were used by the current composite
                 var suppliedSpecificationParameters =
-                    routeDataValues
-                        .Where(kvp => !StandardApiRouteKeys.Contains(kvp.Key));
+                    Enumerable.Where<KeyValuePair<string, object>>(routeDataValues, kvp => !StandardApiRouteKeys.Contains(kvp.Key));
 
                 var unusedSpecificationParameters =
                     suppliedSpecificationParameters
@@ -264,3 +263,4 @@ namespace EdFi.Ods.Api.Services.Controllers
         }
     }
 }
+#endif

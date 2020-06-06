@@ -6,10 +6,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 
-namespace EdFi.Ods.Common.Composites
+namespace EdFi.Ods.Features.Composites
 {
     public static class CompositeDefinitionHelper
     {
@@ -28,7 +29,7 @@ namespace EdFi.Ods.Common.Composites
         public const string UseReferencedHierarchy = "useReferencedHierarchy";
         public const string Property = "Property";
         public const string DisplayName = "displayName";
-        
+
         public const string AliasPrefix = "comp_";
         public const string Fields = "fields";
         public const string NamespaceMarker = "__Namespace";
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Common.Composites
         {
             Preconditions.ThrowIfNull(childElement, nameof(childElement));
 
-            bool.TryParse(childElement.AttributeValue(Flatten), out bool result);
+            bool.TryParse((string) childElement.AttributeValue(Flatten), out bool result);
 
             return result;
         }

@@ -5,7 +5,7 @@
 
 using System.Collections;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     /// <summary>
     /// Defines a property for determining whether the enumeration of an enumerator has completed.

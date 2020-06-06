@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     /// <summary>
     /// Defines a method for parsing the "fields" expression supplied in a query string parameter.

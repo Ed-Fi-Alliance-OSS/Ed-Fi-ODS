@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Extensions;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public class CompositeQuery
     {
@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         /// </summary>
         /// <param name="displayName">The name to be used for the collection of data represented by the composite query.</param>
         /// <param name="orderedFieldNames">The names of the fields in selection order.</param>
-        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="Hashtable"/> instances.</param>
+        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="System.Collections.Hashtable"/> instances.</param>
         /// <param name="isSingleItemResult">Indicates that the results should be treated as a single result in the output.</param>
         public CompositeQuery(
             string displayName,
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         /// <param name="parentCompositeQuery">The composite query that provides the data for the next level up in the composite resource.</param>
         /// <param name="displayName">The name to be used for the collection of data represented by the composite query.</param>
         /// <param name="orderedFieldNames">The names of the fields in selection order.</param>
-        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="Hashtable"/> instances.</param>
+        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="System.Collections.Hashtable"/> instances.</param>
         /// <param name="isSingleItemResult">Indicates that the results should be treated as a single result in the output.</param>
         public CompositeQuery(
             CompositeQuery parentCompositeQuery,
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         /// <param name="parentCompositeQuery">The composite query that provides the data for the next level up in the composite resource.</param>
         /// <param name="displayName">The name to be used for the collection of data represented by the composite query.</param>
         /// <param name="orderedFieldNames">The names of the fields in selection order.</param>
-        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="Hashtable"/> instances.</param>
+        /// <param name="futureQuery">The results of the query, exposed by NHibernate as a collection of <see cref="System.Collections.Hashtable"/> instances.</param>
         /// <param name="isSingleItemResult">Indicates that the results should be treated as a single result in the output.</param>
         /// <param name="recursiveChildKeyMap">For recursive relationship, contains the names of the child instance's keys by parent key name for performing the appropriate join for recursion.</param>
         public CompositeQuery(

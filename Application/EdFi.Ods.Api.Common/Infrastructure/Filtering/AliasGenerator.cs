@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Api.Common.Infrastructure.Filtering
 {
     /// <summary>
     /// A thread-safe alias generator for use in building filters requiring unique aliases.

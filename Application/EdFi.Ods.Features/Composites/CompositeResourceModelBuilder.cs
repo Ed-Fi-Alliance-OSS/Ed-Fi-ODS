@@ -7,14 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
 
-namespace EdFi.Ods.Common.Composites
+namespace EdFi.Ods.Features.Composites
 {
     public class CompositeResourceModelBuilder : ICompositeItemBuilder<CompositeResourceModelBuilderContext, Resource>
     {
@@ -54,7 +53,7 @@ namespace EdFi.Ods.Common.Composites
         }
 
         /// <summary>
-        /// Apply the provided property projections onto the build result with the provided builder and composite 
+        /// Apply the provided property projections onto the build result with the provided builder and composite
         /// definition processor contexts.
         /// </summary>
         /// <param name="propertyProjections">A list of property projections to be applied to the build result.</param>
@@ -74,7 +73,7 @@ namespace EdFi.Ods.Common.Composites
             var orderedPropertyProjections =
                 propertyProjections.Where(isIdProperty)
                                    .Concat(propertyProjections.Where(p => !isIdProperty(p)));
-            
+
             if (processorContext.ShouldIncludeResourceSubtype())
             {
                 Logger.Debug($"Adding the resource type the property collection");
@@ -100,9 +99,9 @@ namespace EdFi.Ods.Common.Composites
                 Logger.Debug($"Projecting property {property.ResourceProperty.PropertyName}.");
                 var entityProperty = property.ResourceProperty.EntityProperty;
 
-                if (!builderContext.CurrentResource.IsAbstract() 
-                    || builderContext.CurrentResource.IsAbstract() 
-                    && entityProperty.IsIdentifying 
+                if (!builderContext.CurrentResource.IsAbstract()
+                    || builderContext.CurrentResource.IsAbstract()
+                    && entityProperty.IsIdentifying
                     && processorContext.ShouldIncludeResourceSubtype())
                 {
                     Logger.Debug($"Adding property {property.ResourceProperty.PropertyName} to the builder context.");
@@ -257,7 +256,7 @@ namespace EdFi.Ods.Common.Composites
         /// </summary>
         /// <seealso cref="ICompositeItemBuilder{TBuilderContext,TBuildResult}.CreateParentingContext"/>
         /// <param name="builderContext">The current build context.</param>
-        /// <remarks>Implementations should use this as a means for preserving part of the current 
+        /// <remarks>Implementations should use this as a means for preserving part of the current
         /// context for future use by storing the snapshot context within the current context.</remarks>
         public void SnapshotParentingContext(CompositeResourceModelBuilderContext builderContext)
         {

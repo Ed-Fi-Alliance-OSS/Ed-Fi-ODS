@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,6 +22,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Composites.Enrollment;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Standard.Container.Installers;
 using EdFi.Ods.WebService.Tests.Owin;
@@ -42,6 +43,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             // Ensure assembly containing Composites specification is loaded
             AssemblyLoader.EnsureLoaded<
                 Marker_EdFi_Ods_Composites_Test,
+                Marker_EdFi_Ods_Features,
                 Marker_EdFi_Ods_Composites_Enrollment>();
         }
 

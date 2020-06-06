@@ -6,10 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using EdFi.Ods.Common.Composites;
+using EdFi.Ods.Api.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public class HqlBuilderContext
     {
@@ -44,10 +44,10 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         /// of the pertinent context needed for parenting (i.e. a baseline for children to build from without
         /// additional changes at the parent level from "bleeding" down).
         /// </summary>
-        /// <param name="baseSelect">The <see cref="StringBuilder"/> containing the SELECT statement to be snapshotted.</param>
-        /// <param name="baseFrom">The <see cref="StringBuilder"/> containing the FROM statement to be snapshotted.</param>
-        /// <param name="baseWhere">The <see cref="StringBuilder"/> containing the WHERE clause to be snapshotted.</param>
-        /// <param name="baseOrderBy">The <see cref="StringBuilder"/> containing the ORDER BY statement to be snapshotted.</param>
+        /// <param name="baseSelect">The <see cref="System.Text.StringBuilder"/> containing the SELECT statement to be snapshotted.</param>
+        /// <param name="baseFrom">The <see cref="System.Text.StringBuilder"/> containing the FROM statement to be snapshotted.</param>
+        /// <param name="baseWhere">The <see cref="System.Text.StringBuilder"/> containing the WHERE clause to be snapshotted.</param>
+        /// <param name="baseOrderBy">The <see cref="System.Text.StringBuilder"/> containing the ORDER BY statement to be snapshotted.</param>
         public HqlBuilderContext(
             StringBuilder baseSelect,
             StringBuilder baseFrom,

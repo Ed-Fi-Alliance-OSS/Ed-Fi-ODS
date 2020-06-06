@@ -2,12 +2,13 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Security.Claims;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using Castle.Windsor.Installer;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Api;
@@ -15,16 +16,17 @@ using EdFi.Ods.Api.Common;
 using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.Models.Identity;
-using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Features.Composites;
+using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Profiles.Test;
 using EdFi.Ods.Security.Claims;
 using EdFi.Ods.Standard;
@@ -48,16 +50,6 @@ namespace EdFi.Ods.WebService.Tests._Installers
 
             container.Register(
                 Component
-                    .For(typeof(ICompositeDefinitionProcessor<,>))
-                    .ImplementedBy(typeof(CompositeDefinitionProcessor<,>)));
-
-            container.Register(
-                Component
-                    .For<IResourceJoinPathExpressionProcessor>()
-                    .ImplementedBy<ResourceJoinPathExpressionProcessor>());
-
-            container.Register(
-                Component
                     .For<IFileSystem>()
                     .ImplementedBy<FileSystemWrapper>());
 
@@ -74,6 +66,20 @@ namespace EdFi.Ods.WebService.Tests._Installers
             RegisterNHibernateComponents(container);
 
             container.Install(new LegacyEdFiOdsApiInstaller());
+
+            container.Register(Component.For<ICompositesMetadataProvider>().ImplementedBy<CompositesMetadataProvider>());
+            container.Register(
+                Component.For(typeof(ICompositeDefinitionProcessor<,>)).ImplementedBy(typeof(CompositeDefinitionProcessor<,>)));
+            container.Register(
+                Component.For<IResourceJoinPathExpressionProcessor>().ImplementedBy<ResourceJoinPathExpressionProcessor>());
+            container.Register(Component.For<IFieldsExpressionParser>().ImplementedBy<FieldsExpressionParser>());
+            container.Register(
+
+                // decorators must be installed first, we are implying that security is needed for the api
+                // Component.For<ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>()
+                //     .ImplementedBy<HqlBuilderAuthorizationDecorator>().IsDecorator(),
+                Component.For<ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>().ImplementedBy<HqlBuilder>());
+            container.Register(Component.For<ICompositeResourceResponseProvider>().ImplementedBy<CompositeResourceResponseProvider>());
 
             RegisterEduIdDependencies(container);
             RegisterOAuthTokenValidator(container);
@@ -99,6 +105,10 @@ namespace EdFi.Ods.WebService.Tests._Installers
                        .BasedOn<ApiController>()
                        .LifestyleScoped());
 
+            container.Register(
+                Component.For<CompositeResourceController>()
+                    .LifestyleScoped());
+
             // Register additional dependencies required by Bulk operations controllers
 
             //container.Install(new SqlServerQueueSendOnlyInstaller());
@@ -119,11 +129,6 @@ namespace EdFi.Ods.WebService.Tests._Installers
             container.Register(
                 Component.For<IProfileResourceNamesProvider, IProfileMetadataProvider>()
                          .ImplementedBy<ProfileResourceNamesProvider>());
-
-            // TODO: Remove with ODS-2973, deprecated by CompositesFeatureInstaller
-            container.Register(
-                Component.For<ICompositesMetadataProvider>()
-                         .ImplementedBy<CompositesMetadataProvider>());
         }
 
         protected virtual void RegisterNHibernateComponents(IWindsorContainer container)

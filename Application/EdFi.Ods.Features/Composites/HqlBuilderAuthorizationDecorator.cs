@@ -9,22 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using EdFi.Ods.Api.Common.Infrastructure.Composites;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Extensions;
+using EdFi.Ods.Features.Composites.Infrastructure;
+using EdFi.Ods.Security.Authorization;
+using EdFi.Ods.Security.Authorization.Repositories;
 using log4net;
-using log4net.Core;
-using log4net.Repository.Hierarchy;
 
-namespace EdFi.Ods.Security.Authorization.Repositories
+namespace EdFi.Ods.Features.Composites
 {
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
@@ -100,7 +98,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                 if (processorContext.IsAbstract())
                 {
                     Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} has no claim.");
-                    
+
 
                     if (processorContext.ShouldIncludeResourceSubtype())
                     {
@@ -194,7 +192,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
         }
 
         /// <summary>
-        /// Apply the provided property projections onto the build result with the provided builder and composite 
+        /// Apply the provided property projections onto the build result with the provided builder and composite
         /// definition processor contexts.
         /// </summary>
         /// <param name="propertyProjections">A list of property projections to be applied to the build result.</param>
@@ -248,7 +246,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
         /// </summary>
         /// <seealso cref="ICompositeItemBuilder{TBuilderContext,TBuildResult}.CreateParentingContext"/>
         /// <param name="builderContext">The current build context.</param>
-        /// <remarks>Implementations should use this as a means for preserving part of the current 
+        /// <remarks>Implementations should use this as a means for preserving part of the current
         /// context for future use by storing the snapshotted context within the current context.</remarks>
         public void SnapshotParentingContext(HqlBuilderContext builderContext)
         {

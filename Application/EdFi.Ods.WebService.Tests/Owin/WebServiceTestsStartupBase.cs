@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -630,69 +630,6 @@ namespace EdFi.Ods.WebService.Tests.Owin
                               controller = "Version", action = "Index"
                           });
         }
-
-        // protected virtual void ConfigureBulkRoutes(HttpConfiguration config, bool useSchoolYear = false)
-        // {
-        //     var routeConstraints = useSchoolYear
-        //         ? CreateSchoolYearRouteConstraints()
-        //         : CreateRouteConstraints();
-        //
-        //     // Bulk Operation Routes
-        //     config.Routes.MapHttpRoute(
-        //         name: "BulkOperationsPost",
-        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
-        //                            ? "{schoolYearFromRoute}/"
-        //                            : string.Empty) + "bulkOperations",
-        //         defaults: new
-        //                   {
-        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperations", action = "post"
-        //                   },
-        //         constraints: routeConstraints);
-        //
-        //     config.Routes.MapHttpRoute(
-        //         name: "BulkOperations",
-        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
-        //                            ? "{schoolYearFromRoute}/"
-        //                            : string.Empty) + "bulkOperations/{id}",
-        //         defaults: new
-        //                   {
-        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperations", action = "get"
-        //                   },
-        //         constraints: routeConstraints);
-        //
-        //     config.Routes.MapHttpRoute(
-        //         name: "BulkOperationsExceptions",
-        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
-        //                            ? "{schoolYearFromRoute}/"
-        //                            : string.Empty) + "bulkOperations/{id}/exceptions/{uploadId}",
-        //         defaults: new
-        //                   {
-        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "bulkoperationsexceptions", action = "get"
-        //                   },
-        //         constraints: routeConstraints);
-        //
-        //     config.Routes.MapHttpRoute(
-        //         name: "BulkUploadChunk",
-        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
-        //                            ? "{schoolYearFromRoute}/"
-        //                            : string.Empty) + "uploads/{uploadId}/chunk",
-        //         defaults: new
-        //                   {
-        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "uploads", action = "postchunk"
-        //                   },
-        //         constraints: routeConstraints);
-        //
-        //     config.Routes.MapHttpRoute(
-        //         name: "BulkUploadCommit",
-        //         routeTemplate: "bulk/v{bulkVersion}/" + (useSchoolYear
-        //                            ? "{schoolYearFromRoute}/"
-        //                            : string.Empty) + "uploads/{uploadId}/commit",
-        //         defaults: new
-        //                   {
-        //                       bulkVersion = ApiVersionConstants.Bulk, controller = "uploads", action = "postcommit"
-        //                   },
-        //         constraints: routeConstraints);
-        // }
 
         protected virtual void ConfigureIdentityRoutes(HttpConfiguration config, bool useSchoolYear = false)
         {

@@ -13,7 +13,6 @@ using EdFi.Ods.Api.Common.Extensions;
 using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -25,7 +24,7 @@ using NHibernate;
 using NHibernate.Exceptions;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Api.Common.Infrastructure.Composites
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public class HqlBuilder : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
@@ -41,7 +40,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
 
         // Support date and numeric ranges (e.g. [2016-05-23..2016-06-30])
         private static readonly Regex _rangeRegex = new Regex(
-            @"(?<PropertyName>\w+):(?<BeginRangeSymbol>[\[\{])((?<BeginValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})(\.\.\.|\.\.|…)(?<EndValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})|(?<BeginValue>[0-9\.]+?)(\.\.\.|\.\.|…)(?<EndValue>[0-9\.]+?))(?<EndRangeSymbol>[\}\]])",
+            @"(?<PropertyName>\w+):(?<BeginRangeSymbol>[\[\{])((?<BeginValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})(\.\.\.|\.\.|â€¦)(?<EndValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})|(?<BeginValue>[0-9\.]+?)(\.\.\.|\.\.|â€¦)(?<EndValue>[0-9\.]+?))(?<EndRangeSymbol>[\}\]])",
             RegexOptions.Compiled);
         private readonly IDescriptorsCache _descriptorsCache;
 
@@ -88,7 +87,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
                 && processorContext.CurrentResourceClass.Entity.HasSelfReferencingAssociations;
 
             // Prevent use of hierarchical resources as the BaseResource of a composite
-            // NOTE: To support this behavior, it will require a different approach involving the use of 
+            // NOTE: To support this behavior, it will require a different approach involving the use of
             // NHibernate <sql-query> entries in the mapping, with embedded server-specific SQL CTE queries
             if (isHierarchicalResource)
             {
@@ -472,7 +471,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         /// </summary>
         /// <seealso cref="CreateParentingContext"/>
         /// <param name="builderContext">The current build context.</param>
-        /// <remarks>Implementations should use this as a means for preserving part of the current 
+        /// <remarks>Implementations should use this as a means for preserving part of the current
         /// context for future use by storing the snapshotted context within the current context.</remarks>
         public void SnapshotParentingContext(HqlBuilderContext builderContext)
         {
@@ -565,7 +564,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Composites
         }
 
         /// <summary>
-        /// Apply the provided property projections onto the build result with the provided builder and composite 
+        /// Apply the provided property projections onto the build result with the provided builder and composite
         /// definition processor contexts.
         /// </summary>
         /// <param name="propertyProjections">A list of property projections to be applied to the build result.</param>

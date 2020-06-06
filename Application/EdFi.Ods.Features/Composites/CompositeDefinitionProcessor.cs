@@ -13,7 +13,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
 
-namespace EdFi.Ods.Common.Composites
+namespace EdFi.Ods.Features.Composites
 {
     public class CompositeDefinitionProcessor<TBuilderContext, TBuildResult> : ICompositeDefinitionProcessor<TBuilderContext, TBuildResult>
         where TBuildResult : class

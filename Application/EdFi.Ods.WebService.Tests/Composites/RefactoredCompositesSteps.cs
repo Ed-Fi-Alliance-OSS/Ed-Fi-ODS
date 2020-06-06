@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -282,11 +282,18 @@ namespace EdFi.Ods.WebService.Tests.Composites
 
             var uri = OwinUriHelper.BuildCompositeUri(requestUrl);
 
-            var getResponseMessage = httpClient.GetAsync(uri)
-                                               .Sync();
-
-            // Save the response, and the resource collection name for the scenario
-            ScenarioContext.Current.Set(getResponseMessage);
+            try
+            {
+                var getResponseMessage = httpClient.GetAsync(uri)
+                    .Sync();
+                // Save the response, and the resource collection name for the scenario
+                ScenarioContext.Current.Set(getResponseMessage);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
 
             string json = GetContentFromResponse();
             var logger = LogManager.GetLogger(GetType());

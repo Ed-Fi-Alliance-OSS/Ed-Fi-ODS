@@ -6,7 +6,7 @@
 using System.Xml.Linq;
 using EdFi.Ods.Common.Models.Resource;
 
-namespace EdFi.Ods.Common.Composites {
+namespace EdFi.Ods.Features.Composites {
     public interface ICompositeDefinitionProcessor<in TBuilderContext, out TBuildResult>
         where TBuildResult : class
     {

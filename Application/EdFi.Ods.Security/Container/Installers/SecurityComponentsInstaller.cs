@@ -3,7 +3,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +11,9 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Api.Common.Dependencies;
-using EdFi.Ods.Api.Common.Infrastructure.Composites;
 using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Providers.Criteria;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.InversionOfControl;
@@ -49,9 +47,6 @@ namespace EdFi.Ods.Security.Container.Installers
             {typeof(IDeleteEntityById<>), typeof(DeleteEntityByIdAuthorizationDecorator<>)},
             {typeof(IUpdateEntity<>), typeof(UpdateEntityAuthorizationDecorator<>)},
             {typeof(IUpsertEntity<>), typeof(UpsertEntityAuthorizationDecorator<>)},
-
-            // TODO: Remove with ODS-2973, deprecated by CompositesFeatureInstaller
-            {typeof(ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>), typeof(HqlBuilderAuthorizationDecorator)}
         };
 
         protected virtual void RegisterIAuthorizationSegmentsToFiltersConverter(IWindsorContainer container)
