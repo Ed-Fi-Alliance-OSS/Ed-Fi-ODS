@@ -73,7 +73,12 @@ namespace EdFi.Ods.Common.Models.Graphs
                                             .Concat(new[] { vertex })
                                             .ToList()
                             };
-             
+
+                if (_logger.IsDebugEnabled)
+                {
+                    _logger.Debug($"Cycle found for vertex '{cycle.Vertex}': {string.Join(" --> ", cycle.Path.Select(x => x.ToString()))}");
+                }
+                
                 cycles.Add(cycle);
                 visited.Add(vertex);
                 return;
@@ -96,7 +101,10 @@ namespace EdFi.Ods.Common.Models.Graphs
 
                 if (_logger.IsDebugEnabled)
                 {
-                    _logger.Debug($"Children of {vertex}: {string.Join(" => ", children.Select(x => x.ToString()))}");
+                    if (children.Any())
+                    {
+                        _logger.Debug($"Children of {vertex}: {string.Join(" => ", children.Select(x => x.ToString()))}");
+                    }
                 }
                 
                 foreach (var child in children)
