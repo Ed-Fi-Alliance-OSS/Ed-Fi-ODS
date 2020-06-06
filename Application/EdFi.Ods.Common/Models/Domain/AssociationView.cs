@@ -684,14 +684,18 @@ namespace EdFi.Ods.Common.Models.Domain
             }
 
             return string.Format(
-                "{0}{1}{2}",
+                "{0}{1}{2}{3}",
                 _isPrimaryEntity
                     ? Association.PrimaryEntityFullName
                     : Association.SecondaryEntityFullName,
                 cardinality,
                 _isPrimaryEntity
                     ? Association.SecondaryEntityFullName
-                    : Association.PrimaryEntityFullName);
+                    : Association.PrimaryEntityFullName,
+                string.IsNullOrEmpty(RoleName)
+                    ? null
+                    : $" ({RoleName})"
+                );
         }
 
         private class ForeignKeyNameParts

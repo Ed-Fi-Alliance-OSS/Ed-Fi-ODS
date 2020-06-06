@@ -2477,13 +2477,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             private IEnumerable<AssociationView> _optionalCollectionChildrenWithRequiredAssociations;
             private IEnumerable<AssociationView> _requiredEmbeddedObjectsWithRequiredAssociations;
             private IEnumerable<AssociationView> _optionalEmbeddedObjectsWithRequiredAssociations;
+            private IEnumerable<AssociationView> _selfReferencingAssociations;
 
             protected override void Act()
             {
                 _domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
-                var allAssociations = _domainModel.AssociationViewsByEntityFullName.SelectMany(x => x.Value).ToList();
+                var allAssociations = _domainModel.AssociationViewsByEntityFullName
+                    .SelectMany(x => x.Value)
+                    .ToList();
 
+                _selfReferencingAssociations = allAssociations.Where(
+                    a => a.AssociationType == AssociationViewType.ManyToOne && a.IsSelfReferencing)
+                    .ToList();
+                
                 _inheritanceAssociations = allAssociations.Where(a => 
                         a.AssociationType == AssociationViewType.FromBase
                         || a.AssociationType == AssociationViewType.ToDerived)
@@ -2494,23 +2501,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         || a.AssociationType == AssociationViewType.ToExtension)
                     .ToList();
 
-                _outgoingRelationships = allAssociations.Where(a => 
-                    a.AssociationType == AssociationViewType.OneToOneOutgoing
-                    || a.AssociationType == AssociationViewType.OneToMany);
+                _navigableAssociations = allAssociations.Where(a => 
+                        a.IsNavigable
+                        && a.AssociationType != AssociationViewType.ToExtension
+                        && a.AssociationType != AssociationViewType.FromCore)
+                    .ToList();
 
-                _navigableAssociations = allAssociations.Where(a => a.IsNavigable);
-                
-                _nonNavigableOptionalManyToOneAssociations = allAssociations.Where(a => 
-                    a.AssociationType == AssociationViewType.ManyToOne && !a.IsNavigable && !a.IsRequired);
+                _outgoingRelationships = allAssociations.Where(a => 
+                    !a.IsNavigable
+                    && (a.AssociationType == AssociationViewType.OneToOneOutgoing
+                        || a.AssociationType == AssociationViewType.OneToMany))
+                    .ToList();
+
+                _nonNavigableOptionalManyToOneAssociations = allAssociations.Where(a =>
+                    !a.IsNavigable && !a.IsSelfReferencing && !a.IsRequired
+                    && a.AssociationType == AssociationViewType.ManyToOne)
+                    .ToList();
                 
                 _nonNavigableOptionalOneToOneIncomingAssociations = allAssociations.Where(a => 
-                    a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired);
+                    a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired)
+                    .ToList();
 
                 _topLevelRequiredManyToOneAssociations = allAssociations.Where(
                     a => a.AssociationType == AssociationViewType.ManyToOne
                         && !a.IsNavigable
                         && a.IsRequired
-                        && a.ThisEntity.IsAggregateRoot);
+                        && a.ThisEntity.IsAggregateRoot)
+                    .ToList();
 
                 var childRequiredManyToOneAssociations = allAssociations.Where(
                         a => a.AssociationType == AssociationViewType.ManyToOne
@@ -2525,14 +2542,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection
                         && a.ThisEntity.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false
                         && a.ThisEntity.Parent?.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false
-                        && a.ThisEntity.Parent?.Parent?.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false);
+                        && a.ThisEntity.Parent?.Parent?.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false)
+                    .ToList();
 
                 _optionalCollectionChildrenWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType != AssociationViewType.OneToOneIncoming)
                     .Where(a => 
                         (!a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection)  
                             || (a.ThisEntity.Parent?.Parent != null && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
-                            || (a.ThisEntity?.Parent?.Parent?.Parent != null && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection));
+                            || (a.ThisEntity?.Parent?.Parent?.Parent != null && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection))
+                    .ToList();
 
                 _requiredEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
@@ -2549,7 +2568,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne 
                                 && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
-                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired)));
+                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired)))
+                    .ToList();
 
                 _optionalEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
@@ -2562,13 +2582,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         // Check two levels up for optional child items (if it's in the there)
                         || (a.ThisEntity.Parent.Parent?.Parent != null 
                             && ((a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
-                                || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired))));
+                                || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired))))
+                    .ToList();
 
                 _untestedAssociations = allAssociations
+                    .Remove(_selfReferencingAssociations, nameof(_selfReferencingAssociations))
                     .Remove(_inheritanceAssociations, nameof(_inheritanceAssociations))
                     .Remove(_extensionAssociations, nameof(_extensionAssociations))
-                    .Remove(_outgoingRelationships, nameof(_outgoingRelationships))
                     .Remove(_navigableAssociations, nameof(_navigableAssociations))
+                    .Remove(_outgoingRelationships, nameof(_outgoingRelationships))
                     .Remove(_nonNavigableOptionalManyToOneAssociations, nameof(_nonNavigableOptionalManyToOneAssociations))
                     .Remove(_nonNavigableOptionalOneToOneIncomingAssociations, nameof(_nonNavigableOptionalOneToOneIncomingAssociations))
                     .Remove(_topLevelRequiredManyToOneAssociations, nameof(_topLevelRequiredManyToOneAssociations))
@@ -2580,7 +2602,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
 
             [Test]
-            public void Should_indicate_association_views_that_are_involved_in_inheritance_are_NOT_soft_dependencies()
+            public void Should_indicate_self_referencing_associations_ARE_soft_dependencies()
+            {
+                if (!_selfReferencingAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+                
+                _selfReferencingAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+            
+            [Test]
+            public void Should_indicate_association_views_that_are_involved_in_inheritance_ARE_NOT_soft_dependencies()
             {
                 if (!_inheritanceAssociations.Any())
                 {
@@ -2591,7 +2624,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
             
             [Test]
-            public void Should_indicate_all_associations_that_are_involved_in_extensions_are_NOT_soft_dependencies()
+            public void Should_indicate_all_associations_that_are_involved_in_extensions_ARE_NOT_soft_dependencies()
             {
                 if (!_extensionAssociations.Any())
                 {
@@ -2602,7 +2635,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
             
             [Test]
-            public void Should_indicate_all_outgoing_associations_are_NOT_soft_dependencies()
+            public void Should_indicate_all_outgoing_associations_ARE_NOT_soft_dependencies()
             {
                 if (!_outgoingRelationships.Any())
                 {
@@ -2613,7 +2646,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
 
             [Test]
-            public void Should_indicate_all_navigable_relationships_are_NOT_soft_dependencies()
+            public void Should_indicate_all_navigable_relationships_ARE_NOT_soft_dependencies()
             {
                 if (!_navigableAssociations.Any())
                 {
@@ -2646,7 +2679,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
 
             [Test]
-            public void Should_indicate_top_level_required_many_to_one_associations_are_NOT_soft_dependencies()
+            public void Should_indicate_top_level_required_many_to_one_associations_ARE_NOT_soft_dependencies()
             {
                 if (!_topLevelRequiredManyToOneAssociations.Any())
                 {
@@ -2657,7 +2690,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
 
             [Test]
-            public void Should_indicate_required_child_items_with_required_references_are_NOT_soft_dependencies()
+            public void Should_indicate_required_child_items_with_required_references_ARE_NOT_soft_dependencies()
             {
                 if (!_requiredCollectionChildrenWithRequiredAssociations.Any())
                 {
@@ -2679,7 +2712,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
             
             [Test]
-            public void Should_indicate_required_embedded_objects_with_required_references_are_NOT_soft_dependencies()
+            public void Should_indicate_required_embedded_objects_with_required_references_ARE_NOT_soft_dependencies()
             {
                 if (!_requiredEmbeddedObjectsWithRequiredAssociations.Any())
                 {
@@ -2870,26 +2903,38 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         private static readonly ConcurrentDictionary<IEnumerable, List<Tuple<string, string>>> _itemsRemovedByList 
             = new ConcurrentDictionary<IEnumerable, List<Tuple<string,string>>>();
         
+        static object locker = new object();
+        
         public static List<T> Remove<T>(this List<T> list, IEnumerable<T> items, string description)
         {
-            foreach (T item in items.ToList())
-            {
-                if (!list.Remove(item))
-                {
-                    var trackingList = _itemsRemovedByList.GetOrAdd(list, x => new List<Tuple<string, string>>());
+            lock (locker)
+            {    
+                var trackingList = _itemsRemovedByList.GetOrAdd(list, x => new List<Tuple<string, string>>());
 
-                    var trackedItem = trackingList.Single(x => x.Item1 == item.ToString());
-                    
-                    Console.WriteLine($"'{description}' is covering '{item}', but it was already covered by '{trackedItem.Item2}'.");
-                }
-                else
+                foreach (T item in items.ToList())
                 {
-                    var trackingList = _itemsRemovedByList.GetOrAdd(list, x => new List<Tuple<string, string>>());
-                    trackingList.Add(Tuple.Create(item.ToString(), description));
+                    if (!list.Remove(item))
+                    {
+                        var trackedItems = trackingList.Where(x => x.Item1 == item.ToString()).ToArray();
+
+                        if (trackedItems.Length > 1)
+                        {
+                            throw new Exception(
+                                $"Multiple items matched on remove: {string.Join(", ", trackedItems.Select(x => x.Item1))}");
+                        }
+
+                        var trackedItem = trackedItems.Single();
+                        
+                        Console.WriteLine($"'{description}' is covering '{item}', but it was already covered by '{trackedItem.Item2}'.");
+                    }
+                    else
+                    {
+                        trackingList.Add(Tuple.Create(item.ToString(), description));
+                    }
                 }
-            }
     
-            return list;
+                return list;
+            }
         }
     }
 }
