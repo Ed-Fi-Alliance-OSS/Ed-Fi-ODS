@@ -148,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
             bool Is_any_cycle_edge(IEdge<string> e) => Is_B_to_C2(e) || Is_C2_to_E2(e) || Is_E2_to_B(e);
         }
 
-        public class When_a_graph_has_two_cycles : TestFixtureBase
+        public class When_a_graph_has_two_cycles_and_a_self_referencing_association : TestFixtureBase
         {
             private BidirectionalGraph<string, IEdge<string>> _graph;
 
@@ -158,7 +158,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
 
                 /*    .--------------------------------.
                  *    |       .----------------------.  \
-                 *    v       V                       \  \
+                 *    |     .-|-.    .--.             \  \             
+                 *    v     V V /    V  /              |  |
                  *   (A) --> (B) --> (C1) --> (D1)     |  |
                  *               \                     |  |
                  *                --> (C2) --> (D2) ---+--'
@@ -184,7 +185,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 _graph.AddEdge(new Edge<string>("C2", "E2"));
                 _graph.AddEdge(new Edge<string>("E2", "B"));
                 
+                // Add a second cyclical dependency
                 _graph.AddEdge(new Edge<string>("D2", "A"));
+                
+                // Add a self-referencing dependencies
+                _graph.AddEdge(new Edge<string>("B", "B"));
+                _graph.AddEdge(new Edge<string>("C1", "C1"));
             }
             
             [Test]
@@ -212,16 +218,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                 });
                 Should.NotThrow(() => clonedGraph.ValidateGraph());
                 
-                clonedGraph.Edges.Count().ShouldBe(_graph.Edges.Count() - 2);
+                clonedGraph.Edges.Count().ShouldBe(_graph.Edges.Count() - 4);
                 
-                removedEdges.Count().ShouldBe(2);
+                removedEdges.Count().ShouldBe(4);
                 removedEdges.SingleOrDefault(a => a.Source == "E2" && a.Target == "B").ShouldNotBeNull();
                 removedEdges.SingleOrDefault(a => a.Source == "D2" && a.Target == "A").ShouldNotBeNull();
+                removedEdges.SingleOrDefault(a => a.Source == "C1" && a.Target == "C1").ShouldNotBeNull();
+                removedEdges.SingleOrDefault(a => a.Source == "B" && a.Target == "B").ShouldNotBeNull();
             }
         }
 
         public class When_evaluating_a_graph_with_self_referencing_vertices : TestFixtureBase
         {
+            private BidirectionalGraph<string, IEdge<string>> _graph;
+
             protected override void Act()
             {
                 var graph = new BidirectionalGraph<string, IEdge<string>>();
@@ -231,27 +241,39 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Graphs
                  *                   V  /
                  *   (A) --> (B) --> (C) --> (D)
                 */
-                
-                graph.AddVertex("A");
-                graph.AddVertex("B");
-                graph.AddVertex("C");
-                graph.AddVertex("D");
 
-                graph.AddEdge(new Edge<string>("A", "B"));
-                graph.AddEdge(new Edge<string>("B", "C"));
-                graph.AddEdge(new Edge<string>("C", "D"));
+                _graph = graph;
+                _graph.AddVertex("A");
+                _graph.AddVertex("B");
+                _graph.AddVertex("C");
+                _graph.AddVertex("D");
+
+                _graph.AddEdge(new Edge<string>("A", "B"));
+                _graph.AddEdge(new Edge<string>("B", "C"));
+                _graph.AddEdge(new Edge<string>("C", "D"));
 
                 // Add a self-referencing edge that creates a cyclical dependency
                 // But is not something that we are concerned with for resources/aggregates
-                graph.AddEdge(new Edge<string>("C", "C"));
-
-                graph.ValidateGraph();
+                _graph.AddEdge(new Edge<string>("C", "C"));
             }
 
             [Test]
-            public void Should_throw_an_exception()
+            public void Should_throw_an_exception_on_validation()
             {
-                Assert.That(ActualException, Is.TypeOf<NonAcyclicGraphException>());
+                Should.Throw<NonAcyclicGraphException>(() => _graph.ValidateGraph());
+            }
+
+            [Test]
+            public void Should_be_able_to_break_the_cycle_by_removing_the_self_referencing_edge()
+            {
+                var clonedGraph = _graph.Clone();
+                
+                var removedEdges = clonedGraph.BreakCycles(e => true);
+                
+                clonedGraph.Edges.Count().ShouldBe(_graph.Edges.Count() - 1);
+                
+                removedEdges.Count().ShouldBe(1);
+                removedEdges.SingleOrDefault(a => a.Source == "C" && a.Target == "C").ShouldNotBeNull();
             }
         }
     }
