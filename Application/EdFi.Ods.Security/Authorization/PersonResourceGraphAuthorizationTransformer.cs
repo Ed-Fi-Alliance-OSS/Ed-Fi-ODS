@@ -19,7 +19,7 @@ namespace EdFi.Ods.Security.Authorization
         {
             ApplyStudentTransformation(resourceGraph);
             ApplyStaffTransformation(resourceGraph);
-            // ApplyParentTransformation(resourceGraph);
+            ApplyParentTransformation(resourceGraph);
         }
 
         private static void ApplyStaffTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -63,37 +63,6 @@ namespace EdFi.Ods.Security.Authorization
                 resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgAssignAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
                 resourceGraph.AddEdge(new AssociationViewEdge(staffEdOrgEmployAssoc, directStaffDependency.Target, directStaffDependency.AssociationView));
             }
-
-            // StaffEducationOrganizationEmploymentAssociation or StaffEducationOrganizationAssignmentAssociation
-            //must be created before Staff can be updated.
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(staffEdOrgEmployAssoc, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(staffResource, DataOperation.Update)
-            //     });
-            //
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(staffEdOrgAssignAssoc, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(staffResource, DataOperation.Update)
-            //     });
-
-            //Creates before updates since they have different security.
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(staffEdOrgEmployAssoc, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(staffEdOrgEmployAssoc, DataOperation.Update)
-            //     });
-            //
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(staffEdOrgAssignAssoc, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(staffEdOrgAssignAssoc, DataOperation.Update)
-            //     });
         }
 
         private static void ApplyStudentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
@@ -127,67 +96,39 @@ namespace EdFi.Ods.Security.Authorization
                 resourceGraph.RemoveEdge(directStudentDependency);
                 resourceGraph.AddEdge(new AssociationViewEdge(studentSchoolAssociationResource, directStudentDependency.Target, directStudentDependency.AssociationView));
             }
-
-            // Run these separately since Create and update have different strategies.
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(studentSchoolAssociationResource, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(studentSchoolAssociationResource, DataOperation.Update)
-            //     });
-            //
-            // // StudentSchoolAssociation must be created before Students can be updated.
-            // resourceGraph.AddEdge(
-            //     new DataOperationEdge
-            //     {
-            //         Source = new EntityWithDataOperation(studentSchoolAssociationResource, DataOperation.Create),
-            //         Target = new EntityWithDataOperation(studentResource, DataOperation.Update)
-            //     });
         }
 
-        // private static void ApplyParentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
-        // {
-        //     var resources = resourceGraph.Vertices.ToList();
-        //
-        //     var parentResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
-        //     var studentParentAssociation = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentParentAssociation"));
-        //     var studentSchoolAssociation = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentSchoolAssociation"));
-        //
-        //     // No parent entity in the graph, nothing to do.
-        //     if (parentResource == null)
-        //     {
-        //         return;
-        //     }
-        //
-        //     if (studentParentAssociation == null)
-        //     {
-        //         throw new EdFiSecurityException(
-        //             "Unable to transform resource load graph since StudentParentAssociation was not found in the graph.");
-        //     }
-        //
-        //     // StudentParentAssociation must be created before Parents can be updated.
-        //     resourceGraph.AddEdge(
-        //         new DataOperationEdge
-        //         {
-        //             Source = new EntityWithDataOperation(studentParentAssociationEntity, DataOperation.Create),
-        //             Target = new EntityWithDataOperation(parentEntity, DataOperation.Update)
-        //         });
-        //
-        //     // StudentSchoolAssociation must be created before Parents can be updated.
-        //     resourceGraph.AddEdge(
-        //         new DataOperationEdge
-        //         {
-        //             Source = new EntityWithDataOperation(studentSchoolAssociationEntity, DataOperation.Create),
-        //             Target = new EntityWithDataOperation(parentEntity, DataOperation.Update)
-        //         });
-        //
-        //     // StudentSchoolAssociation must be created before ParentAssociations can be updated.
-        //     resourceGraph.AddEdge(
-        //         new DataOperationEdge
-        //         {
-        //             Source = new EntityWithDataOperation(studentSchoolAssociationEntity, DataOperation.Create),
-        //             Target = new EntityWithDataOperation(studentParentAssociationEntity, DataOperation.Update)
-        //         });
-        // }
+        private static void ApplyParentTransformation(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        {
+            var resources = resourceGraph.Vertices.ToList();
+
+            var parentResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "Parent"));
+            var studentParentAssociationResource = resources.FirstOrDefault(x => x.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "StudentParentAssociation"));
+
+            // No parent entity in the graph, nothing to do.
+            if (parentResource == null)
+            {
+                return;
+            }
+
+            if (studentParentAssociationResource == null)
+            {
+                throw new EdFiSecurityException(
+                    "Unable to transform resource load graph as StudentParentAssociation was not found in the graph.");
+            }
+
+            // Get direct parent dependencies
+            var directParentDependencies = resourceGraph.OutEdges(parentResource)
+                .Where(e => e.Target != studentParentAssociationResource)
+                .ToList();
+
+            // Add dependency on primaryRelationship path
+            foreach (var directParentDependency in directParentDependencies)
+            {
+                // Re-point the edge to the primary relationships
+                resourceGraph.RemoveEdge(directParentDependency);
+                resourceGraph.AddEdge(new AssociationViewEdge(studentParentAssociationResource, directParentDependency.Target, directParentDependency.AssociationView));
+            }
+        }
     }
 }
