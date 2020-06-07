@@ -35,19 +35,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
     {
         public class When_getting_the_dependencies_for_loading_data : LegacyTestFixtureBase
         {
-            private IResourceModelProvider _resourceModelProvider;
+            private IResourceLoadGraphFactory _resourceLoadGraphFactory;
             private AggregateDependencyController _controller;
             private HttpResponseMessage _actualResult;
 
             protected override void Arrange()
             {
-                _resourceModelProvider = MockRepository.GenerateMock<IResourceModelProvider>();
+                _resourceLoadGraphFactory = MockRepository.GenerateMock<IResourceLoadGraphFactory>();
 
-                var domainModel = (new DomainModelBuilder()).Build();
+                var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
+                graph.AddVertex(new Resource("Test"));
 
-                _resourceModelProvider.Stub(x => x.GetResourceModel()).Return(new ResourceModel(domainModel));
+                _resourceLoadGraphFactory.Stub(x => x.CreateResourceLoadGraph())
+                    .Return(graph);
 
-                _controller = CreateController(_resourceModelProvider);
+                _controller = CreateController(_resourceLoadGraphFactory);
             }
 
             protected override void Act()
@@ -58,7 +60,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             [Test]
             public void Should_get_the_resource_model_for_building_the_output()
             {
-                _resourceModelProvider.AssertWasCalled(x => x.GetResourceModel());
+                _resourceLoadGraphFactory.AssertWasCalled(x => x.CreateResourceLoadGraph());
             }
 
             [Test]
@@ -77,21 +79,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
 
         public class When_getting_the_dependency_graph : LegacyTestFixtureBase
         {
-            private IResourceModelProvider _resourceModelProvider;
+            private IResourceLoadGraphFactory _resourceLoadGraphFactory;
             private AggregateDependencyController _controller;
             private HttpResponseMessage _actualResult;
             private string _actualResultContent;
 
             protected override void Arrange()
             {
-                _resourceModelProvider = MockRepository.GenerateMock<IResourceModelProvider>();
+                _resourceLoadGraphFactory = MockRepository.GenerateMock<IResourceLoadGraphFactory>();
 
-                var domainModel = (new DomainModelBuilder()).Build();
+                var graph = new BidirectionalGraph<Resource, AssociationViewEdge>();
+                graph.AddVertex(new Resource("Test"));
 
-                _resourceModelProvider.Stub(x => x.GetResourceModel())
-                                                     .Return(new ResourceModel(domainModel));
+                _resourceLoadGraphFactory.Stub(x => x.CreateResourceLoadGraph())
+                    .Return(graph);
 
-                _controller = CreateController(_resourceModelProvider, true);
+                _controller = CreateController(_resourceLoadGraphFactory, true);
             }
 
             protected override void Act()
@@ -103,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             [Test]
             public void Should_call_the_resource_model_provider_to_get_the_model_for_building_the_output()
             {
-                _resourceModelProvider.AssertWasCalled(x => x.GetResourceModel());
+                _resourceLoadGraphFactory.AssertWasCalled(x => x.CreateResourceLoadGraph());
             }
 
             [Test]
@@ -122,7 +125,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             }
         }
 
-        private static AggregateDependencyController CreateController(IResourceModelProvider resourceModelProvider,
+        private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
             bool isGraphRequest = false)
         {
             var config = new HttpConfiguration();
@@ -138,7 +141,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
 
             var route = config.Routes.MapHttpRoute(RouteConstants.Dependencies, "metadata/data/v3/dependencies");
 
-            var controller = new AggregateDependencyController(resourceModelProvider);
+            var controller = new AggregateDependencyController(graphFactory);
 
             var routeData = new HttpRouteData(
                 route,
