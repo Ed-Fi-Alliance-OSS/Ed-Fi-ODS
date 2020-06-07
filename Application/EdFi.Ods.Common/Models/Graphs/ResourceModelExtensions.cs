@@ -8,14 +8,27 @@ using System.Linq;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security;
 using QuickGraph;
 
 namespace EdFi.Ods.Common.Models.Graphs
 {
-    public static class ResourceModelExtensions
+    public class ResourceLoadGraphFactory : IResourceLoadGraphFactory
     {
-        public static BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceGraph(this ResourceModel resourceModel)
+        private readonly IResourceModelProvider _resourceModelProvider;
+        private readonly IResourceLoadGraphTransformer[] _graphTransformers;
+
+        public ResourceLoadGraphFactory(IResourceModelProvider resourceModelProvider,
+            IResourceLoadGraphTransformer[] graphTransformers)
         {
+            _resourceModelProvider = resourceModelProvider;
+            _graphTransformers = graphTransformers;
+        }
+        
+        public BidirectionalGraph<Resource.Resource, AssociationViewEdge> CreateResourceLoadGraph()
+        {
+            var resourceModel = _resourceModelProvider.GetResourceModel();
+            
             var resourceGraph = new BidirectionalGraph<Resource.Resource, AssociationViewEdge>();
 
             var resources = resourceModel.GetAllResources()
@@ -49,8 +62,17 @@ namespace EdFi.Ods.Common.Models.Graphs
             
             resourceGraph.AddEdgeRange(edges.Where(e => !e.Source.FullName.IsEdFiSchoolYearType()));
 
-            resourceGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
+            // Apply predefined graph transformations
+            if (_graphTransformers.Any())
+            {
+                foreach (var graphTransformer in _graphTransformers)
+                {
+                    graphTransformer.Transform(resourceGraph);
+                }
+            }
             
+            resourceGraph.BreakCycles(edge => edge.AssociationView.IsSoftDependency);
+
             return resourceGraph;
         }
     }
@@ -81,7 +103,7 @@ namespace EdFi.Ods.Common.Models.Graphs
         {
             if (reference.ReferencedResource.IsAbstract())
             {
-                // Need to expand this to include all concrete types of the source
+                // Need to expand and replace this to include all concrete types of the source instead
                 var derivedEntities = reference.ReferencedResource.Entity.DerivedEntities;
 
                 foreach (var derivedEntity in derivedEntities)

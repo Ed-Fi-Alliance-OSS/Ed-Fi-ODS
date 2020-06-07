@@ -96,6 +96,10 @@ namespace EdFi.Ods.Api.Startup.ContainerBuilders
                 Component
                     .For<IProfileResourceModelProvider>()
                     .ImplementedBy<ProfilePassthroughResourceModelProvider>().IsFallback());
+            
+            container.Register(
+                Component.For<IResourceLoadGraphTransformer>()
+                    .ImplementedBy<PersonResourceLoadGraphTransformer>());
         }
 
         private void InstallCoreFeatures(IWindsorContainer container)

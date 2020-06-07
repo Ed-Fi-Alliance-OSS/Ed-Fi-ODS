@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -21,17 +21,13 @@ namespace EdFi.Ods.Api.Services.Metadata.Controllers
 {
     public class AggregateDependencyController : ApiController
     {
-        private readonly Lazy<BidirectionalGraph<Resource, AssociationViewEdge>> _resourceGraph;
+        private readonly IResourceLoadGraphFactory _resourceLoadGraphFactory;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
 
-        public AggregateDependencyController(IResourceModelProvider resourceModelProvider)
+        public AggregateDependencyController(IResourceLoadGraphFactory resourceLoadGraphFactory)
         {
-            Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
-
-            _resourceGraph =
-                new Lazy<BidirectionalGraph<Resource, AssociationViewEdge>>(
-                    () => resourceModelProvider.GetResourceModel().CreateResourceGraph());
+            _resourceLoadGraphFactory = Preconditions.ThrowIfNull(resourceLoadGraphFactory, nameof(resourceLoadGraphFactory));
         }
 
         [HttpGet]
@@ -41,10 +37,10 @@ namespace EdFi.Ods.Api.Services.Metadata.Controllers
             {
                 if (Request.Headers.Accept.Contains(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML)))
                 {
-                    return Ok(CreateGraphML(_resourceGraph.Value));
+                    return Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
                 }
 
-                return Ok(GetGroupedLoadOrder(_resourceGraph.Value));
+                return Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
             }
             catch (NonAcyclicGraphException e)
             {
