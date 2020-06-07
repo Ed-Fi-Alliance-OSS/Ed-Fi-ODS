@@ -169,13 +169,24 @@ namespace EdFi.Ods.Common.Models.Graphs
                 // Remove the chosen graph edge(s) to break the cyclical dependency
                 foreach (TEdge edge in sacrificialDependency.CycleEdges.ToArray())
                 {
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($"Edge '{edge.ToString()}' removed to prevent the following cycle: {string.Join(" --> ", cycle.Path.Select(x => x.ToString()))}");
+                    }
+                        
                     graph.RemoveEdge(edge);
                     removedEdges.Add(edge);
                 }
-                
+
                 bool IsCycleEdge(TEdge edge) => distinctPathVertices.Contains(edge.Source);
             }
 
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($@"The following edges were removed from the graph to prevent cycles:
+{string.Join(Environment.NewLine, removedEdges.Select(x => x.ToString()))}");
+            }
+            
             return removedEdges;
         } 
 

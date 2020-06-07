@@ -17,7 +17,11 @@ using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Services.Metadata.Controllers;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
+using EdFi.Ods.Common.Models.Resource;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using QuickGraph;
@@ -29,8 +33,97 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
     [TestFixture]
     public class AggregateDependencyControllerTests
     {
-        protected static AggregateDependencyController CreateController(IEntityWithDataOperationGraphFactory entityWithDataOperationGraphFactory,
-                                                                        bool isGraphRequest = false)
+        public class When_getting_the_dependencies_for_loading_data : LegacyTestFixtureBase
+        {
+            private IResourceModelProvider _resourceModelProvider;
+            private AggregateDependencyController _controller;
+            private HttpResponseMessage _actualResult;
+
+            protected override void Arrange()
+            {
+                _resourceModelProvider = MockRepository.GenerateMock<IResourceModelProvider>();
+
+                var domainModel = (new DomainModelBuilder()).Build();
+
+                _resourceModelProvider.Stub(x => x.GetResourceModel()).Return(new ResourceModel(domainModel));
+
+                _controller = CreateController(_resourceModelProvider);
+            }
+
+            protected override void Act()
+            {
+                _actualResult = _controller.Get().ExecuteAsync(CancellationToken.None).GetResultSafely();
+            }
+
+            [Test]
+            public void Should_get_the_resource_model_for_building_the_output()
+            {
+                _resourceModelProvider.AssertWasCalled(x => x.GetResourceModel());
+            }
+
+            [Test]
+            public void Should_have_content_type_of_AggregateLoadOrder()
+            {
+                var actualContent = JsonConvert.DeserializeObject<List<ResourceLoadOrder>>(_actualResult.Content.ReadAsStringAsync().Result);
+                Assert.That(actualContent, Is.Not.Null);
+            }
+
+            [Test]
+            public void Should_return_an_ok_status()
+            {
+                Assert.That(_actualResult.IsSuccessStatusCode, Is.True);
+            }
+        }
+
+        public class When_getting_the_dependency_graph : LegacyTestFixtureBase
+        {
+            private IResourceModelProvider _resourceModelProvider;
+            private AggregateDependencyController _controller;
+            private HttpResponseMessage _actualResult;
+            private string _actualResultContent;
+
+            protected override void Arrange()
+            {
+                _resourceModelProvider = MockRepository.GenerateMock<IResourceModelProvider>();
+
+                var domainModel = (new DomainModelBuilder()).Build();
+
+                _resourceModelProvider.Stub(x => x.GetResourceModel())
+                                                     .Return(new ResourceModel(domainModel));
+
+                _controller = CreateController(_resourceModelProvider, true);
+            }
+
+            protected override void Act()
+            {
+                _actualResult = _controller.Get().ExecuteAsync(CancellationToken.None).GetResultSafely();
+                _actualResultContent = _actualResult.Content.ReadAsStringAsync().GetResultSafely();
+            }
+            
+            [Test]
+            public void Should_call_the_resource_model_provider_to_get_the_model_for_building_the_output()
+            {
+                _resourceModelProvider.AssertWasCalled(x => x.GetResourceModel());
+            }
+
+            [Test]
+            public void Should_have_result_content_of_xml()
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(_actualResultContent);
+
+                Assert.That(doc.ChildNodes.Count, Is.GreaterThan(1));
+            }
+
+            [Test]
+            public void Should_return_an_ok_status()
+            {
+                Assert.That(_actualResult.IsSuccessStatusCode, Is.True);
+            }
+        }
+
+        private static AggregateDependencyController CreateController(IResourceModelProvider resourceModelProvider,
+            bool isGraphRequest = false)
         {
             var config = new HttpConfiguration();
 
@@ -45,7 +138,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
 
             var route = config.Routes.MapHttpRoute(RouteConstants.Dependencies, "metadata/data/v3/dependencies");
 
-            var controller = new AggregateDependencyController(entityWithDataOperationGraphFactory);
+            var controller = new AggregateDependencyController(resourceModelProvider);
 
             var routeData = new HttpRouteData(
                 route,
@@ -63,92 +156,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             controller.RequestContext.VirtualPathRoot = "/";
 
             return controller;
-        }
-
-        public class When_getting_the_dependencies_for_loading_data : LegacyTestFixtureBase
-        {
-            private IEntityWithDataOperationGraphFactory _entityWithDataOperationGraphFactory;
-            private AggregateDependencyController _controller;
-            private HttpResponseMessage _actualResult;
-
-            protected override void Arrange()
-            {
-                _entityWithDataOperationGraphFactory = MockRepository.GenerateMock<IEntityWithDataOperationGraphFactory>();
-
-                _entityWithDataOperationGraphFactory.Stub(x => x.CreateGraph(includeTransformations: true))
-                                                     .Return(new BidirectionalGraph<EntityWithDataOperation, DataOperationEdge>());
-
-                _controller = CreateController(_entityWithDataOperationGraphFactory);
-            }
-
-            protected override void Act()
-            {
-                _actualResult = _controller.Get().ExecuteAsync(CancellationToken.None).GetResultSafely();
-            }
-
-            [Test]
-            public void Should_build_a_graph_with_transformations()
-            {
-                _entityWithDataOperationGraphFactory.AssertWasCalled(x => x.CreateGraph(includeTransformations: true));
-            }
-
-            [Test]
-            public void Should_have_content_type_of_AggregateLoadOrder()
-            {
-                var actualContent = JsonConvert.DeserializeObject<List<AggregateLoadOrder>>(_actualResult.Content.ReadAsStringAsync().Result);
-                Assert.That(actualContent, Is.Not.Null);
-            }
-
-            [Test]
-            public void Should_return_an_ok_status()
-            {
-                Assert.That(_actualResult.IsSuccessStatusCode, Is.True);
-            }
-        }
-
-        public class When_getting_the_dependency_graph : LegacyTestFixtureBase
-        {
-            private IEntityWithDataOperationGraphFactory _entityWithDataOperationGraphFactory;
-            private AggregateDependencyController _controller;
-            private HttpResponseMessage _actualResult;
-            private string _actualResultContent;
-
-            protected override void Arrange()
-            {
-                _entityWithDataOperationGraphFactory = MockRepository.GenerateMock<IEntityWithDataOperationGraphFactory>();
-
-                _entityWithDataOperationGraphFactory.Stub(x => x.CreateGraph(includeTransformations: false))
-                                                     .Return(new BidirectionalGraph<EntityWithDataOperation, DataOperationEdge>());
-
-                _controller = CreateController(_entityWithDataOperationGraphFactory, true);
-            }
-
-            protected override void Act()
-            {
-                _actualResult = _controller.Get().ExecuteAsync(CancellationToken.None).GetResultSafely();
-                _actualResultContent = _actualResult.Content.ReadAsStringAsync().GetResultSafely();
-            }
-            
-            [Test]
-            public void Should_build_the_graph_without_transformations()
-            {
-                _entityWithDataOperationGraphFactory.AssertWasCalled(x => x.CreateGraph(includeTransformations: false));
-            }
-
-            [Test]
-            public void Should_have_result_content_of_xml()
-            {
-                var doc = new XmlDocument();
-                doc.LoadXml(_actualResultContent);
-
-                Assert.That(doc.ChildNodes.Count, Is.GreaterThan(1));
-            }
-
-            [Test]
-            public void Should_return_an_ok_status()
-            {
-                Assert.That(_actualResult.IsSuccessStatusCode, Is.True);
-            }
         }
     }
 }

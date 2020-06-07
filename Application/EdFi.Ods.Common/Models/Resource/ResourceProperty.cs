@@ -5,6 +5,7 @@
  
 using System.Data;
 using System.Linq;
+using System.Xml;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
@@ -70,6 +71,10 @@ namespace EdFi.Ods.Common.Models.Resource
                 ? null
                 : entityProperty.LookupEntity.Name;
 
+            DescriptorResource = entityProperty.LookupEntity == null
+                ? null
+                : resourceClass.ResourceModel.GetResourceByFullName(entityProperty.LookupEntity.FullName);
+
             PropertyType = GetResourcePropertyType(entityProperty);
             Description = entityProperty.Description;
             IsDeprecated = entityProperty.IsDeprecated;
@@ -104,6 +109,10 @@ namespace EdFi.Ods.Common.Models.Resource
                 ? null
                 : characteristics.LookupEntityName.Value.Name;
 
+            DescriptorResource = characteristics.LookupEntityName == null
+                ? null
+                : resourceClass.ResourceModel.GetResourceByFullName(characteristics.LookupEntityName.Value);
+            
             if (resourceClass.Entity != null)
             {
                 ParentFullName = resourceClass.Entity.FullName;
@@ -111,6 +120,11 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         public string LookupTypeName { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="Resource" /> representing the descriptor referenced by the property.
+        /// </summary>
+        public Resource DescriptorResource { get; }
 
         public EntityProperty EntityProperty { get; }
 
