@@ -81,10 +81,6 @@ namespace EdFi.Ods.WebService.Tests.Owin
             //ensure assembly reference:
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Standard>();
             container.Install(new SecurityComponentsInstaller());
-
-            container.Register(
-                Component.For<IEntityWithDataOperationTransformer>()
-                    .ImplementedBy<PersonAuthorizationStrategyTransformer>());
         }
 
         protected virtual void InstallSecretVerifier(IWindsorContainer container)
