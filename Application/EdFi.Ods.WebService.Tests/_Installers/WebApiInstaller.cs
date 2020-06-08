@@ -59,8 +59,8 @@ namespace EdFi.Ods.WebService.Tests._Installers
                     .ImplementedBy<FileSystemWrapper>());
 
             container.Register(Component
-                .For<IEntityWithDataOperationGraphFactory>()
-                .ImplementedBy<EntityWithDataOperationGraphFactory>());
+                .For<IResourceLoadGraphFactory>()
+                .ImplementedBy<ResourceLoadGraphFactory>());
 
             container.Register(
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),

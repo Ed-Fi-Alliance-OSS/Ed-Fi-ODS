@@ -83,8 +83,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
             container.Install(new SecurityComponentsInstaller());
 
             container.Register(
-                Component.For<IEntityWithDataOperationTransformer>()
-                    .ImplementedBy<PersonAuthorizationStrategyTransformer>());
+                Component.For<IResourceLoadGraphTransformer>()
+                    .ImplementedBy<PersonResourceLoadGraphTransformer>());
         }
 
         protected virtual void InstallSecretVerifier(IWindsorContainer container)

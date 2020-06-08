@@ -68,11 +68,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                    .ImplementedBy<FileSystemWrapper>());
         }
 
-        protected virtual void RegisterIEntityWithDataOperationGraphProvider(IWindsorContainer container)
+        protected virtual void RegisterResourceLoadGraphFactory(IWindsorContainer container)
         {
-            container.Register(Component
-                              .For<IEntityWithDataOperationGraphFactory>()
-                              .ImplementedBy<EntityWithDataOperationGraphFactory>());
+            // Graph Model
+            container.Register(
+                Component.For<IResourceLoadGraphFactory>().ImplementedBy<ResourceLoadGraphFactory>());
         }
     }
 }

@@ -47,12 +47,12 @@ namespace EdFi.Ods.Api.Architecture
 
             sb.AppendLine($"<graph id=\"{graphML.Id}\" edgedefault=\"directed\">");
 
-            foreach (Node node in graphML.Nodes)
+            foreach (GraphMLNode node in graphML.Nodes)
             {
                 sb.AppendLine($"<node id=\"{node.Id}\"/>");
             }
 
-            foreach (Edge edge in graphML.Edges)
+            foreach (GraphMLEdge edge in graphML.Edges)
             {
                 sb.AppendLine($"<edge source=\"{edge.Source}\" target=\"{edge.Target}\"/>");
             }

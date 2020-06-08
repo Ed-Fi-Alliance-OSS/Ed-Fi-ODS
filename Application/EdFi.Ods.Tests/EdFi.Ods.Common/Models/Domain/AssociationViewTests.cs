@@ -2,14 +2,20 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.TestFixture;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 using Agg = EdFi.Ods.Common.Models.Definitions.AggregateDefinition;
 using E = EdFi.Ods.Common.Models.Definitions.EntityDefinition;
@@ -2456,6 +2462,431 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
         }
 
+        public class When_evaluating_AssociationViews_through_entity_associations_as_soft_dependencies : TestFixtureBase
+        {
+            private DomainModel _domainModel;
+            private List<AssociationView> _inheritanceAssociations;
+            private List<AssociationView> _extensionAssociations;
+            private IEnumerable<AssociationView> _outgoingRelationships;
+            private IEnumerable<AssociationView> _navigableAssociations;
+            private IEnumerable<AssociationView> _nonNavigableOptionalManyToOneAssociations;
+            private IEnumerable<AssociationView> _nonNavigableOptionalOneToOneIncomingAssociations;
+            private List<AssociationView> _untestedAssociations;
+            private IEnumerable<AssociationView> _topLevelRequiredManyToOneAssociations;
+            private IEnumerable<AssociationView> _requiredCollectionChildrenWithRequiredAssociations;
+            private IEnumerable<AssociationView> _optionalCollectionChildrenWithRequiredAssociations;
+            private IEnumerable<AssociationView> _requiredEmbeddedObjectsWithRequiredAssociations;
+            private IEnumerable<AssociationView> _optionalEmbeddedObjectsWithRequiredAssociations;
+            private IEnumerable<AssociationView> _selfReferencingAssociations;
+
+            protected override void Act()
+            {
+                _domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+
+                var allAssociations = _domainModel.AssociationViewsByEntityFullName
+                    .SelectMany(x => x.Value)
+                    .ToList();
+
+                _selfReferencingAssociations = allAssociations.Where(
+                    a => a.AssociationType == AssociationViewType.ManyToOne && a.IsSelfReferencing)
+                    .ToList();
+                
+                _inheritanceAssociations = allAssociations.Where(a => 
+                        a.AssociationType == AssociationViewType.FromBase
+                        || a.AssociationType == AssociationViewType.ToDerived)
+                    .ToList();
+
+                _extensionAssociations = allAssociations.Where(a => 
+                        a.AssociationType == AssociationViewType.FromCore
+                        || a.AssociationType == AssociationViewType.ToExtension)
+                    .ToList();
+
+                _navigableAssociations = allAssociations.Where(a => 
+                        a.IsNavigable
+                        && a.AssociationType != AssociationViewType.ToExtension
+                        && a.AssociationType != AssociationViewType.FromCore)
+                    .ToList();
+
+                _outgoingRelationships = allAssociations.Where(a => 
+                    !a.IsNavigable
+                    && (a.AssociationType == AssociationViewType.OneToOneOutgoing
+                        || a.AssociationType == AssociationViewType.OneToMany))
+                    .ToList();
+
+                _nonNavigableOptionalManyToOneAssociations = allAssociations.Where(a =>
+                    !a.IsNavigable && !a.IsSelfReferencing && !a.IsRequired
+                    && a.AssociationType == AssociationViewType.ManyToOne)
+                    .ToList();
+                
+                _nonNavigableOptionalOneToOneIncomingAssociations = allAssociations.Where(a => 
+                    a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired)
+                    .ToList();
+
+                _topLevelRequiredManyToOneAssociations = allAssociations.Where(
+                    a => a.AssociationType == AssociationViewType.ManyToOne
+                        && !a.IsNavigable
+                        && a.IsRequired
+                        && a.ThisEntity.IsAggregateRoot)
+                    .ToList();
+
+                var childRequiredManyToOneAssociations = allAssociations.Where(
+                        a => a.AssociationType == AssociationViewType.ManyToOne
+                            && !a.IsNavigable
+                            && a.IsRequired
+                            && !a.ThisEntity.IsAggregateRoot)
+                    .ToList();
+                    
+                _requiredCollectionChildrenWithRequiredAssociations = childRequiredManyToOneAssociations
+                    .Where(a => a.ThisEntity.ParentAssociation.AssociationType != AssociationViewType.OneToOneIncoming)
+                    .Where(a =>
+                        a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection
+                        && a.ThisEntity.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false
+                        && a.ThisEntity.Parent?.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false
+                        && a.ThisEntity.Parent?.Parent?.Parent?.ParentAssociation?.Inverse?.IsRequiredCollection != false)
+                    .ToList();
+
+                _optionalCollectionChildrenWithRequiredAssociations = childRequiredManyToOneAssociations
+                    .Where(a => a.ThisEntity.ParentAssociation.AssociationType != AssociationViewType.OneToOneIncoming)
+                    .Where(a => 
+                        (!a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection)  
+                            || (a.ThisEntity.Parent?.Parent != null && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
+                            || (a.ThisEntity?.Parent?.Parent?.Parent != null && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection))
+                    .ToList();
+
+                _requiredEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
+                    .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
+                    .Where(a =>
+                        a.ThisEntity.ParentAssociation.Inverse.IsRequired
+                        // Check one level up for required child items (if it's in the there)
+                        && (a.ThisEntity.Parent.Parent == null 
+                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne 
+                                && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection) 
+                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming 
+                                && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired))
+                        // Check two levels up for required child items (if it's in the there)
+                        && (a.ThisEntity.Parent.Parent?.Parent == null 
+                            || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne 
+                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
+                            || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
+                                && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired)))
+                    .ToList();
+
+                _optionalEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
+                    .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
+                    .Where(a =>
+                        !a.ThisEntity.ParentAssociation.Inverse.IsRequired
+                        // Check one level up for optional child items (if it's in the there)
+                        || (a.ThisEntity.Parent.Parent != null 
+                            && ((a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection) 
+                                || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired)))
+                        // Check two levels up for optional child items (if it's in the there)
+                        || (a.ThisEntity.Parent.Parent?.Parent != null 
+                            && ((a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
+                                || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired))))
+                    .ToList();
+
+                _untestedAssociations = allAssociations
+                    .Remove(_selfReferencingAssociations, nameof(_selfReferencingAssociations))
+                    .Remove(_inheritanceAssociations, nameof(_inheritanceAssociations))
+                    .Remove(_extensionAssociations, nameof(_extensionAssociations))
+                    .Remove(_navigableAssociations, nameof(_navigableAssociations))
+                    .Remove(_outgoingRelationships, nameof(_outgoingRelationships))
+                    .Remove(_nonNavigableOptionalManyToOneAssociations, nameof(_nonNavigableOptionalManyToOneAssociations))
+                    .Remove(_nonNavigableOptionalOneToOneIncomingAssociations, nameof(_nonNavigableOptionalOneToOneIncomingAssociations))
+                    .Remove(_topLevelRequiredManyToOneAssociations, nameof(_topLevelRequiredManyToOneAssociations))
+                    .Remove(_requiredCollectionChildrenWithRequiredAssociations, nameof(_requiredCollectionChildrenWithRequiredAssociations))
+                    .Remove(_optionalCollectionChildrenWithRequiredAssociations, nameof(_optionalCollectionChildrenWithRequiredAssociations))
+                    .Remove(_requiredEmbeddedObjectsWithRequiredAssociations, nameof(_requiredEmbeddedObjectsWithRequiredAssociations))
+                    .Remove(_optionalEmbeddedObjectsWithRequiredAssociations, nameof(_optionalEmbeddedObjectsWithRequiredAssociations))
+                    .ToList();
+            }
+
+            [Test]
+            public void Should_indicate_self_referencing_associations_ARE_soft_dependencies()
+            {
+                if (!_selfReferencingAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+                
+                _selfReferencingAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+            
+            [Test]
+            public void Should_indicate_association_views_that_are_involved_in_inheritance_ARE_NOT_soft_dependencies()
+            {
+                if (!_inheritanceAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+                
+                _inheritanceAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+            
+            [Test]
+            public void Should_indicate_all_associations_that_are_involved_in_extensions_ARE_NOT_soft_dependencies()
+            {
+                if (!_extensionAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _extensionAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+            
+            [Test]
+            public void Should_indicate_all_outgoing_associations_ARE_NOT_soft_dependencies()
+            {
+                if (!_outgoingRelationships.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _outgoingRelationships.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+
+            [Test]
+            public void Should_indicate_all_navigable_relationships_ARE_NOT_soft_dependencies()
+            {
+                if (!_navigableAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _navigableAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+
+            [Test]
+            public void Should_indicate_optional_many_to_one_associations_ARE_soft_dependencies()
+            {
+                if (!_nonNavigableOptionalManyToOneAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _nonNavigableOptionalManyToOneAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+            
+            [Test]
+            public void Should_indicate_optional_one_to_one_incoming_associations_ARE_soft_dependencies()
+            {
+                if (!_nonNavigableOptionalOneToOneIncomingAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+                
+                _nonNavigableOptionalOneToOneIncomingAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+
+            [Test]
+            public void Should_indicate_top_level_required_many_to_one_associations_ARE_NOT_soft_dependencies()
+            {
+                if (!_topLevelRequiredManyToOneAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+                
+                _topLevelRequiredManyToOneAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+
+            [Test]
+            public void Should_indicate_required_child_items_with_required_references_ARE_NOT_soft_dependencies()
+            {
+                if (!_requiredCollectionChildrenWithRequiredAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _requiredCollectionChildrenWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+            
+            [Test]
+            public void Should_indicate_optional_child_items_with_required_references_ARE_soft_dependencies()
+            {
+                if (!_optionalCollectionChildrenWithRequiredAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _optionalCollectionChildrenWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+            
+            [Test]
+            public void Should_indicate_required_embedded_objects_with_required_references_ARE_NOT_soft_dependencies()
+            {
+                if (!_requiredEmbeddedObjectsWithRequiredAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _requiredEmbeddedObjectsWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
+            }
+            
+            [Test]
+            public void Should_indicate_optional_embedded_objects_with_required_references_ARE_soft_dependencies()
+            {
+                if (!_optionalEmbeddedObjectsWithRequiredAssociations.Any())
+                {
+                    Assert.Inconclusive("No associations available to exercise test.");
+                }
+
+                _optionalEmbeddedObjectsWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
+            }
+            
+            [Test]
+            public void All_associations_should_have_been_tested()
+            {
+                _untestedAssociations.ShouldBeEmpty();
+            }
+        }
+
+        public class When_evaluating_AssociationViews_through_resource_references_as_soft_dependencies : TestFixtureBase
+        {
+            private DomainModel _domainModel;
+            private ResourceModel _resourceModel;
+
+            protected override void Act()
+            {
+                _domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
+                _resourceModel = new ResourceModel(_domainModel);
+            }
+
+            [Assert]
+            public void Should_indicate_that_a_required_reference_on_a_resource_root_is_NOT_a_soft_dependency()
+            {
+                var association = 
+                    _resourceModel.GetAllResources()
+                    .SelectMany(res => res.References.Where(r => r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+
+                association.ShouldNotBeNull();
+                association.IsSoftDependency.ShouldBe(false);
+            }
+            
+            [Assert]
+            public void Should_indicate_that_an_optional_reference_on_a_resource_root_IS_a_soft_dependency()
+            {
+                var association = 
+                    _resourceModel.GetAllResources()
+                    .SelectMany(res => res.References.Where(r => !r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+
+                association.ShouldNotBeNull();
+                association.IsSoftDependency.ShouldBe(true);
+            }
+            
+            [Assert]
+            public void Should_indicate_that_an_optional_reference_on_an_item_in_an_optional_resource_child_collection_IS_a_soft_dependency()
+            {
+                var association = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.Collections)
+                    .Where(c => !c.Association.IsRequiredCollection)
+                    .SelectMany(c => c.ItemType.References.Where(r => !r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+
+                if (association == null)
+                {
+                    Assert.Inconclusive("Unable to find an optional reference on an item in an optional collection for testing.");
+                }
+
+                association.ShouldNotBeNull();
+                association.IsSoftDependency.ShouldBe(true);
+            }
+            
+            [Assert]
+            public void Should_indicate_that_a_required_reference_on_an_item_in_an_optional_child_collection_IS_a_soft_dependency()
+            {
+                var association = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.Collections)
+                    .Where(c => !c.Association.IsRequiredCollection)
+                    .SelectMany(c => c.ItemType.References.Where(r => r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+                
+                if (association == null)
+                {
+                    Assert.Inconclusive("Unable to find a required reference on a optional collection for testing.");
+                }
+                
+                association.IsSoftDependency.ShouldBe(true);
+            }
+            
+            [Assert]
+            public void Should_indicate_that_an_optional_reference_on_an_item_in_a_required_collection_IS_a_soft_dependency()
+            {
+                var association = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.Collections)
+                    .Where(c => c.Association.IsRequiredCollection)
+                    .SelectMany(c => c.ItemType.References.Where(r => !r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+                
+                if (association == null)
+                {
+                    Assert.Inconclusive("Unable to find an optional reference on a required collection for testing.");
+                }
+
+                association.IsSoftDependency.ShouldBe(true);
+            }
+
+            [Assert]
+            public void Should_indicate_that_a_required_reference_on_an_item_in_a_required_collection_IS_NOT_a_soft_dependency()
+            {
+                var association = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.Collections)
+                    .Where(c => c.Association.IsRequiredCollection)
+                    .SelectMany(c => c.ItemType.References.Where(r => r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+
+                if (association == null)
+                {
+                    Assert.Inconclusive("Unable to find a required reference on a required collection for testing.");
+                }
+
+                association.IsSoftDependency.ShouldBe(false);
+            }
+
+            [Assert]
+            public void Should_indicate_that_all_optional_references_on_embedded_objects_ARE_soft_dependencies()
+            {
+                var associations = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.EmbeddedObjects)
+                    // .Where(eo => eo.Association.IsRequired)
+                    .SelectMany(eo => eo.ObjectType.References.Where(r => !r.IsRequired))
+                    .Select(r => r.Association)
+                    .ToList();
+
+                if (!associations.Any())
+                {
+                    Assert.Inconclusive("Unable to find an optional reference on an embedded object for testing.");
+                }
+                
+                associations.All(a => a.IsSoftDependency).ShouldBe(true);
+            }
+
+            [Assert]
+            public void Should_indicate_that_a_required_reference_on_a_required_embedded_object_IS_NOT_a_soft_dependency()
+            {
+                var association = _resourceModel.GetAllResources()
+                    .SelectMany(res => res.EmbeddedObjects)
+                    .Where(eo => eo.Association.IsRequired)
+                    .SelectMany(eo => eo.ObjectType.References.Where(r => r.IsRequired))
+                    .Select(r => r.Association)
+                    .FirstOrDefault();
+
+                if (association == null)
+                {
+                    Assert.Inconclusive("Unable to find a required reference on a required embedded object for testing.");
+                }
+                
+                association.IsSoftDependency.ShouldBe(false);
+            }
+        }
+
         private static EP CreateInt32Property(string name)
         {
             return new EntityPropertyDefinition(name, new PropertyType(DbType.Int32), null);
@@ -2464,6 +2895,46 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         private static EP CreateIdentifyingInt32Property(string name)
         {
             return new EntityPropertyDefinition(name, new PropertyType(DbType.Int32), null, isIdentifying: true);
+        }
+    }
+
+    static class ListExtensions
+    {
+        private static readonly ConcurrentDictionary<IEnumerable, List<Tuple<string, string>>> _itemsRemovedByList 
+            = new ConcurrentDictionary<IEnumerable, List<Tuple<string,string>>>();
+        
+        static object locker = new object();
+        
+        public static List<T> Remove<T>(this List<T> list, IEnumerable<T> items, string description)
+        {
+            lock (locker)
+            {    
+                var trackingList = _itemsRemovedByList.GetOrAdd(list, x => new List<Tuple<string, string>>());
+
+                foreach (T item in items.ToList())
+                {
+                    if (!list.Remove(item))
+                    {
+                        var trackedItems = trackingList.Where(x => x.Item1 == item.ToString()).ToArray();
+
+                        if (trackedItems.Length > 1)
+                        {
+                            throw new Exception(
+                                $"Multiple items matched on remove: {string.Join(", ", trackedItems.Select(x => x.Item1))}");
+                        }
+
+                        var trackedItem = trackedItems.Single();
+                        
+                        Console.WriteLine($"'{description}' is covering '{item}', but it was already covered by '{trackedItem.Item2}'.");
+                    }
+                    else
+                    {
+                        trackingList.Add(Tuple.Create(item.ToString(), description));
+                    }
+                }
+    
+                return list;
+            }
         }
     }
 }

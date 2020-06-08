@@ -87,7 +87,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             RegisterExceptionHandling(container);
             RegisterSecureHashing(container);
             RegisterPipeline(container);
-            RegisterEntityWithDataOperationGraphFactory(container);
+            RegisterResourceLoadGraphFactory(container);
             RegisterSandboxProvisioner(container);
             RegisterApiControllers(container);
             RegisterProfilesProcessing(container);
@@ -99,11 +99,11 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             container.Register(Component.For<ISandboxProvisioner>().ImplementedBy<SqlSandboxProvisioner>());
         }
 
-        private void RegisterEntityWithDataOperationGraphFactory(IWindsorContainer container)
+        private void RegisterResourceLoadGraphFactory(IWindsorContainer container)
         {
             // Graph Model
             container.Register(
-                Component.For<IEntityWithDataOperationGraphFactory>().ImplementedBy<EntityWithDataOperationGraphFactory>());
+                Component.For<IResourceLoadGraphFactory>().ImplementedBy<ResourceLoadGraphFactory>());
         }
 
         private void RegisterDomainModel(IWindsorContainer container)
