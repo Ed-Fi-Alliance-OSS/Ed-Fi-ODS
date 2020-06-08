@@ -81,7 +81,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             //ensure assembly reference:
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Standard>();
             container.Install(new SecurityComponentsInstaller());
-            
+
             container.Register(
                 Component.For<IResourceLoadGraphTransformer>()
                     .ImplementedBy<PersonResourceLoadGraphTransformer>());

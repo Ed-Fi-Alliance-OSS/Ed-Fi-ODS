@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Web.Http;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
-using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EdFi.Ods.Api._Installers;
 using EdFi.Ods.Api.Caching;
@@ -17,7 +16,6 @@ using EdFi.Ods.Api.Dependencies;
 using EdFi.Ods.Api.Startup.Features;
 using EdFi.Ods.Api.Startup.Features.Installers;
 using EdFi.Ods.Api.Startup.HttpConfigurators;
-using EdFi.Ods.ChangeQueries;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.ChainOfResponsibility;
@@ -30,8 +28,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Common.Security;
 using log4net;
-using EdFi.Ods.Features.OwnershipBasedAuthorization;
-using EdFi.Ods.Features.UniqueIdIntegration;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Api.Startup.ContainerBuilders
@@ -96,7 +92,7 @@ namespace EdFi.Ods.Api.Startup.ContainerBuilders
                 Component
                     .For<IProfileResourceModelProvider>()
                     .ImplementedBy<ProfilePassthroughResourceModelProvider>().IsFallback());
-            
+
             container.Register(
                 Component.For<IResourceLoadGraphTransformer>()
                     .ImplementedBy<PersonResourceLoadGraphTransformer>());

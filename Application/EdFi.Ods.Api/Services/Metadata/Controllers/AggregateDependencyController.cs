@@ -11,7 +11,6 @@ using System.Web.Http;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
@@ -78,17 +77,10 @@ namespace EdFi.Ods.Api.Services.Metadata.Controllers
 
             var executionGraph = resourceGraph.Clone();
 
-            while (true)
+            var loadableResources = GetLoadableResources();
+
+            while (loadableResources.Any())
             {
-                var loadableResources = executionGraph.Vertices.Where(v => !executionGraph.InEdges(v).Any())
-                    .OrderBy(GetNodeId)
-                    .ToList();
-
-                if (!loadableResources.Any())
-                {
-                    break;
-                }
-
                 foreach (Resource loadableResource in loadableResources)
                 {
                     executionGraph.RemoveVertex(loadableResource);
@@ -101,6 +93,15 @@ namespace EdFi.Ods.Api.Services.Metadata.Controllers
                 }
 
                 groupNumber++;
+
+                loadableResources = GetLoadableResources();
+            }
+
+            List<Resource> GetLoadableResources()
+            {
+                return executionGraph.Vertices.Where(v => !executionGraph.InEdges(v).Any())
+                    .OrderBy(GetNodeId)
+                    .ToList();
             }
         }
 
