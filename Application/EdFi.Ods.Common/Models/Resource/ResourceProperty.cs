@@ -73,7 +73,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             DescriptorResource = entityProperty.LookupEntity == null
                 ? null
-                : resourceClass.ResourceModel.GetResourceByFullName(entityProperty.LookupEntity.FullName);
+                : resourceClass?.ResourceModel?.GetResourceByFullName(entityProperty.LookupEntity.FullName);
 
             PropertyType = GetResourcePropertyType(entityProperty);
             Description = entityProperty.Description;
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             DescriptorResource = characteristics.LookupEntityName == null
                 ? null
-                : resourceClass.ResourceModel.GetResourceByFullName(characteristics.LookupEntityName.Value);
+                : resourceClass?.ResourceModel?.GetResourceByFullName(characteristics.LookupEntityName.GetValueOrDefault());
             
             if (resourceClass.Entity != null)
             {
