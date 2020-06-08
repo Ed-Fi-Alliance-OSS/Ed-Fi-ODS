@@ -1,2294 +1,1976 @@
 ﻿[
   {
     "resource": "/ed-fi/absenceEventCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/academicHonorCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/academicSubjectDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/accommodationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/accountClassificationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/achievementCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/additionalCreditTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/addressTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/administrationEnvironmentDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/administrativeFundingControlDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentIdentificationSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentItemCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentItemResultDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentPeriodDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentReportingMethodDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/attemptStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/attendanceEventCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/behaviorDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/calendarEventDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/calendarTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/careerPathwayDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/charterApprovalAgencyTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/charterStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/citizenshipStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/classroomPositionDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/cohortScopeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/cohortTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/cohortYearTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/competencyLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/contactTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/contentClassDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/continuationOfServicesReasonDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/costRateDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/countryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseAttemptResultDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseDefinedByDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseGPAApplicabilityDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseIdentificationSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseLevelCharacteristicDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseRepeatCodeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/credentialFieldDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/credentialTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/creditCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/creditTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/cteProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/curriculumUsedDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/deliveryMethodDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/diagnosisDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/diplomaLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/diplomaTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disabilityDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disabilityDesignationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disabilityDeterminationSourceTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disciplineActionLengthDifferenceReasonDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disciplineDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/disciplineIncidentParticipationCodeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationalEnvironmentDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationOrganizationCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationOrganizationIdentificationSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationPlanDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/electronicMailTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/employmentStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/entryGradeLevelReasonDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/entryTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/eventCircumstanceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/exitWithdrawTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradebookEntryTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradeLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradePointAverageTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradeTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradingPeriodDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/graduationPlanTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gunFreeSchoolsActReportingStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/homelessPrimaryNighttimeResidenceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/homelessProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/identificationDocumentUseDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/incidentLocationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/institutionTelephoneNumberTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/interactivityStyleDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/internetAccessDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/interventionClassDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/interventionEffectivenessRatingDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/languageDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/languageInstructionProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/languageUseDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningStandardCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningStandardEquivalenceStrengthDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningStandardScopeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/levelOfEducationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/licenseStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/licenseTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/limitedEnglishProficiencyDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/localeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/localEducationAgencyCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/magnetSpecialProgramEmphasisSchoolDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/mediumOfInstructionDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/methodCreditEarnedDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/migrantEducationProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/monitoredDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/neglectedOrDelinquentProgramDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/neglectedOrDelinquentProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/networkPurposeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/oldEthnicityDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/operationalStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/otherNameTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/participationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/participationStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/performanceBaseConversionDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/performanceLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/personalInformationVerificationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/platformTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/populationServedDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/postingResultDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/postSecondaryEventCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/postSecondaryInstitutionLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/proficiencyDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/programAssignmentDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/programCharacteristicDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/programSponsorDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/programTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/progressDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/progressLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/providerCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/providerProfitabilityDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/providerStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/publicationStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/questionFormDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/raceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/reasonExitedDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/reasonNotTestedDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/recognitionTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/relationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/repeatIdentifierDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/reporterDescriptionDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/residencyStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/responseIndicatorDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/responsibilityDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/restraintEventReasonDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/resultDatatypeTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/retestIndicatorDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/schoolCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/schoolChoiceImplementStatusDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/schoolFoodServiceProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/schoolTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/sectionCharacteristicDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/separationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/separationReasonDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/serviceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/sexDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/sourceSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/specialEducationProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/specialEducationSettingDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffClassificationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffIdentificationSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffLeaveEventCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/stateAbbreviationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCharacteristicDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentIdentificationSystemDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentParticipationCodeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyCategoryDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyLevelDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/teachingCredentialBasisDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/teachingCredentialDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/technicalSkillsAssessmentDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/telephoneNumberTypeDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/termDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/titleIPartAParticipantDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/titleIPartAProgramServiceDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/titleIPartASchoolDesignationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/tribalAffiliationDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/visaDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/weaponDescriptors",
-    "order": 2,
+    "order": 1,
     "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/credentials",
-    "order": 3,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/people",
-    "order": 3,
-    "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/communityOrganizations",
-    "order": 4,
+    "order": 2,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/credentials",
+    "order": 2,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationOrganizationNetworks",
-    "order": 4,
+    "order": 2,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
-    "resource": "/ed-fi/parents",
-    "order": 4,
+    "resource": "/ed-fi/people",
+    "order": 2,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/postSecondaryInstitutions",
-    "order": 4,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffs",
-    "order": 4,
+    "order": 2,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/stateEducationAgencies",
-    "order": 4,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/students",
-    "order": 4,
+    "order": 2,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/communityProviders",
-    "order": 6,
+    "order": 3,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationServiceCenters",
-    "order": 6,
+    "order": 3,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/parents",
+    "order": 3,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffs",
+    "order": 3,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/students",
+    "order": 3,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/communityProviderLicenses",
-    "order": 7,
+    "order": 4,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/localEducationAgencies",
-    "order": 8,
+    "order": 4,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/schools",
-    "order": 10,
+    "order": 5,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/academicWeeks",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/accountabilityRatings",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/accountCodes",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/calendars",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/classPeriods",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/competencyObjectives",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationOrganizationNetworkAssociations",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationOrganizationPeerAssociations",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/feederSchoolAssociations",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradingPeriods",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningStandards",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/locations",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/openStaffPositions",
-    "order": 11,
+    "order": 6,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffEducationOrganizationEmploymentAssociations",
-    "order": 11,
+    "order": 6,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/accounts",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/bellSchedules",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/calendarDates",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/educationContents",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningObjectives",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/learningStandardEquivalenceAssociations",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/sessions",
-    "order": 12,
+    "order": 7,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffEducationOrganizationAssignmentAssociations",
+    "order": 7,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/actuals",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/budgets",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/contractedStaffs",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/courses",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/disciplineIncidents",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/interventionPrescriptions",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/payrolls",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/programs",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffAbsenceEvents",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffEducationOrganizationContactAssociations",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffLeaves",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffSchoolAssociations",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveys",
+    "order": 8,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/cohorts",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/courseOfferings",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/educationOrganizationInterventionPrescriptionAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/interventions",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/interventionStudies",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffDisciplineIncidentAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffProgramAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyCourseAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyProgramAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySections",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/sections",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffCohortAssociations",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyQuestions",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/assessments",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/gradebookEntries",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/sectionAttendanceTakenEvents",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffSectionAssociations",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionAssociations",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/assessmentItems",
     "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/staffEducationOrganizationEmploymentAssociations",
+    "resource": "/ed-fi/graduationPlans",
     "order": 12,
     "operations": [
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/actuals",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/budgets",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/contractedStaffs",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/courses",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/disciplineIncidents",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/interventionPrescriptions",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/payrolls",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/programs",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffs",
-    "order": 13,
-    "operations": [
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffAbsenceEvents",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffEducationOrganizationAssignmentAssociations",
-    "order": 13,
-    "operations": [
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffEducationOrganizationContactAssociations",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffLeaves",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffSchoolAssociations",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveys",
-    "order": 13,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/cohorts",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/courseOfferings",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/educationOrganizationInterventionPrescriptionAssociations",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/interventions",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/interventionStudies",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffDisciplineIncidentAssociations",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffProgramAssociations",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyCourseAssociations",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyProgramAssociations",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveySections",
-    "order": 14,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/sections",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffCohortAssociations",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyQuestions",
-    "order": 15,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/assessments",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/gradebookEntries",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/sectionAttendanceTakenEvents",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffSectionAssociations",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveySectionAssociations",
-    "order": 16,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/assessmentItems",
-    "order": 17,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/graduationPlans",
-    "order": 17,
-    "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/objectiveAssessments",
-    "order": 18,
+    "order": 13,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSchoolAssociations",
-    "order": 18,
+    "order": 13,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/postSecondaryEvents",
-    "order": 19,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/restraintEvents",
-    "order": 19,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/students",
-    "order": 19,
-    "operations": [
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentAssessments",
-    "order": 19,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCohortAssociations",
-    "order": 19,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentDisciplineIncidentAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentEducationOrganizationAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentEducationOrganizationResponsibilityAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentInterventionAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentInterventionAttendanceEvents",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentParentAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentProgramAttendanceEvents",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentSchoolAssociations",
-    "order": 19,
-    "operations": [
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentSchoolAttendanceEvents",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentSectionAssociations",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/studentSectionAttendanceEvents",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyResponses",
-    "order": 19,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/disciplineActions",
-    "order": 20,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/grades",
-    "order": 20,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/parents",
-    "order": 20,
-    "operations": [
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCTEProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
-    "resource": "/ed-fi/studentGradebookEntries",
-    "order": 20,
+    "resource": "/ed-fi/studentDisciplineIncidentAssociations",
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentEducationOrganizationAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentEducationOrganizationResponsibilityAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentHomelessProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentInterventionAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentInterventionAttendanceEvents",
+    "order": 14,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentLanguageInstructionProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentMigrantEducationProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentNeglectedOrDelinquentProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentParentAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentProgramAttendanceEvents",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentSchoolAttendanceEvents",
+    "order": 14,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSchoolFoodServiceProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentSectionAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentSectionAttendanceEvents",
+    "order": 14,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSpecialEducationProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentTitleIPartAProgramAssociations",
-    "order": 20,
+    "order": 14,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
-    "resource": "/ed-fi/surveyQuestionResponses",
-    "order": 20,
+    "resource": "/ed-fi/disciplineActions",
+    "order": 15,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
-    "resource": "/ed-fi/surveyResponseEducationOrganizationTargetAssociations",
-    "order": 20,
+    "resource": "/ed-fi/grades",
+    "order": 15,
     "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveyResponseStaffTargetAssociations",
-    "order": 20,
-    "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveySectionResponses",
-    "order": 20,
-    "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCompetencyObjectives",
-    "order": 21,
+    "order": 15,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentGradebookEntries",
+    "order": 15,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentLearningObjectives",
-    "order": 21,
+    "order": 15,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
-    "resource": "/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations",
-    "order": 21,
+    "resource": "/ed-fi/surveyResponses",
+    "order": 15,
     "operations": [
-      "Create",
-      "Update"
-    ]
-  },
-  {
-    "resource": "/ed-fi/surveySectionResponseStaffTargetAssociations",
-    "order": 21,
-    "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/reportCards",
-    "order": 22,
+    "order": 16,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyQuestionResponses",
+    "order": 16,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyResponseEducationOrganizationTargetAssociations",
+    "order": 16,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyResponseStaffTargetAssociations",
+    "order": 16,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponses",
+    "order": 16,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentAcademicRecords",
-    "order": 23,
+    "order": 17,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations",
+    "order": 17,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveySectionResponseStaffTargetAssociations",
+    "order": 17,
+    "operations": [
+      "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseTranscripts",
-    "order": 24,
+    "order": 18,
     "operations": [
-      "Create",
-      "Update"
+      "Create"
     ]
   }
 ]
