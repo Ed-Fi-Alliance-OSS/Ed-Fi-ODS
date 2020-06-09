@@ -26,8 +26,8 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<AggregateDependencyRouteConvention>()
                 .As<IApplicationModelConvention>();
 
-            builder.RegisterType<EntityWithDataOperationGraphFactory>()
-                .As<IEntityWithDataOperationGraphFactory>();
+            builder.RegisterType<ResourceLoadGraphFactory>()
+                .As<IResourceLoadGraphFactory>();
         }
     }
 }

@@ -10,14 +10,15 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Common.Models.GraphML;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
 using QuickGraph;
 
-namespace EdFi.Ods.Features.AggregateDepenedencies
+namespace EdFi.Ods.Features.AggregateDependencies
 {
     public class AggregateDependencyController : ApiController
     {

@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,12 +16,14 @@ using System.Xml;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Common.Models.GraphML;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
-using EdFi.Ods.Features.AggregateDepenedencies;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.AggregateDependencies;
 using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -67,7 +69,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             [Test]
             public void Should_have_content_type_of_AggregateLoadOrder()
             {
-                var actualContent = JsonConvert.DeserializeObject<List<ResourceLoadOrder>>(_actualResult.Content.ReadAsStringAsync().Result);
+                var actualContent =
+                    JsonConvert.DeserializeObject<List<ResourceLoadOrder>>(_actualResult.Content.ReadAsStringAsync().Result);
+
                 Assert.That(actualContent, Is.Not.Null);
             }
 
@@ -103,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
                 _actualResult = _controller.Get().ExecuteAsync(CancellationToken.None).GetResultSafely();
                 _actualResultContent = _actualResult.Content.ReadAsStringAsync().GetResultSafely();
             }
-            
+
             [Test]
             public void Should_call_the_resource_model_provider_to_get_the_model_for_building_the_output()
             {
@@ -146,12 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
 
             var routeData = new HttpRouteData(
                 route,
-                new HttpRouteValueDictionary
-                {
-                    {
-                        "controller", "aggregatedependency"
-                    }
-                });
+                new HttpRouteValueDictionary {{"controller", "aggregatedependency"}});
 
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;

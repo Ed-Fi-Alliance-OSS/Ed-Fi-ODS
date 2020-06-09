@@ -19,7 +19,7 @@ using EdFi.Ods.Api.Common.IdentityValueMappers;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common._Installers.ComponentNaming;
-using EdFi.Ods.Features.AggregateDepenedencies;
+using EdFi.Ods.Features.AggregateDependencies;
 using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.Features.UniqueIdIntegration.IdentityValueMappers;
 using EdFi.Ods.Features.UniqueIdIntegration.Installers;

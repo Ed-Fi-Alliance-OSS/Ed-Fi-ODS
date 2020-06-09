@@ -13,53 +13,13 @@ using EntitySpecification = EdFi.Ods.Common.Specifications.EntitySpecification;
 
 namespace EdFi.Ods.Api.Common.Models.GraphML
 {
+    // ReSharper disable once InconsistentNaming
     public class GraphML
     {
         public string Id { get; set; }
 
-        public IList<Node> Nodes { get; set; }
+        public IList<GraphMLNode> Nodes { get; set; }
 
-        public IList<Edge> Edges { get; set; }
-
-        public static GraphML Create(BidirectionalGraph<EntityWithDataOperation, DataOperationEdge> graph)
-        {
-            return new GraphML
-            {
-                Id = "EdFi Dependencies",
-                Nodes = graph.Vertices
-                    .Where(
-                        x => EntitySpecification.HasResourceRepresentation(x.Entity))
-                    .Select(
-                        x =>
-                        {
-                            var entity = x.ContextualConcreteEntity ?? x.Entity;
-
-                            return new Node
-                            {
-                                Id =
-                                    $"/{entity.SchemaUriSegment()}/{entity.PluralName.ToCamelCase()}"
-                            };
-                        })
-                    .Distinct(Node.NodeComparer)
-                    .ToList(),
-                Edges = graph.Edges
-                    .Where(
-                        x => EntitySpecification.HasResourceRepresentation(x.Source.Entity))
-                    .Select(
-                        x =>
-                        {
-                            var source = x.Source.ContextualConcreteEntity ?? x.Source.Entity;
-                            var target = x.Target.ContextualConcreteEntity ?? x.Target.Entity;
-
-                            return new Edge
-                            {
-                                Source = $"/{source.SchemaUriSegment()}/{source.PluralName.ToCamelCase()}",
-                                Target = $"/{target.SchemaUriSegment()}/{target.PluralName.ToCamelCase()}"
-                            };
-                        })
-                    .Distinct(Edge.SourceTargetComparer)
-                    .ToList()
-            };
-        }
+        public IList<GraphMLEdge> Edges { get; set; }
     }
 }

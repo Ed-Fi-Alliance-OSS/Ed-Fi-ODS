@@ -5,16 +5,15 @@
 
 #if NETCOREAPP
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Common.Models.GraphML;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Graphs;
-using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Common.Models.Resource;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickGraph;
@@ -26,13 +25,15 @@ namespace EdFi.Ods.Features.Controllers
     [AllowAnonymous]
     public class AggregateDependencyController : ControllerBase
     {
-        private readonly IEntityWithDataOperationGraphFactory _entityWithDataOperationGraphFactory;
+        private readonly IResourceLoadGraphFactory _resourceLoadGraphFactory;
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(AggregateDependencyController));
         private readonly bool _isEnabled;
 
-        public AggregateDependencyController(ApiSettings apiSettings, IEntityWithDataOperationGraphFactory entityWithDataOperationGraphFactory = null)
+        public AggregateDependencyController(ApiSettings apiSettings, IResourceLoadGraphFactory resourceLoadGraphFactory)
         {
-            _entityWithDataOperationGraphFactory = entityWithDataOperationGraphFactory;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName());
+            _resourceLoadGraphFactory = resourceLoadGraphFactory;
         }
 
         [HttpGet]
@@ -43,119 +44,78 @@ namespace EdFi.Ods.Features.Controllers
                 return NotFound();
             }
 
-            if (Request.Headers["Accept"]
-                .ToString()
-                .EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
-
+            try
             {
-                return Ok(GraphML.Create(_entityWithDataOperationGraphFactory.CreateGraph(includeTransformations: false)));
+                return Request.Headers["Accept"].ToString().EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
+                    ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
+                    : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
             }
+            catch (NonAcyclicGraphException e)
+            {
+                // return a bad request if a circular reference occurs, with the path information of the reference.
+                string message = e.Message.Replace($"{Environment.NewLine}    is used by ", " -> ")
+                    .Replace(Environment.NewLine, " ");
 
-            var aggregateLoadOrders = SortEntities(_entityWithDataOperationGraphFactory.CreateGraph(includeTransformations: true))
-                .Where(
-                    x => EntitySpecification.HasResourceRepresentation(x.Item1.Entity))
-                .ToList();
-
-            return Ok(aggregateLoadOrders.Select(x => AggregateLoadOrder.Create(x.Item1, x.Item2)));
+                return BadRequest(message);
+            }
         }
 
-        private IEnumerable<Tuple<EntityWithDataOperation, int>> SortEntities(
-            BidirectionalGraph<EntityWithDataOperation, DataOperationEdge> executionGraph)
+        // ReSharper disable once InconsistentNaming
+        private static GraphML CreateGraphML(BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
         {
-            var visited =
-                new ConcurrentDictionary<EntityWithDataOperation, bool>(executionGraph.Vertices.ToDictionary(k => k, v => false));
-
-            var resolved = new List<Tuple<EntityWithDataOperation, int>>();
-
-            int groupSet = 0;
-
-            while (visited.Values.Any(x => x == false))
+            return new GraphML
             {
-                var executableItemGroupings = GetUnvisitedVertices();
+                Id = "EdFi Dependencies",
+                Nodes = resourceGraph.Vertices
+                    .Select(r => new GraphMLNode {Id = GetNodeId(r)})
+                    .OrderBy(n => n.Id)
+                    .ToList(),
+                Edges = resourceGraph.Edges
+                    .Select(edge => new GraphMLEdge(GetNodeId(edge.Source), GetNodeId(edge.Target)))
+                    .GroupBy(x => x.Source)
+                    .OrderBy(g => g.Key)
+                    .SelectMany(g => g.OrderBy(x => x.Target))
+                    .ToList()
+            };
+        }
 
-                // this embedded convention allows for grouping of resources that can be run in parallel and in what order
-                groupSet++;
+        private static IEnumerable<ResourceLoadOrder> GetGroupedLoadOrder(
+            BidirectionalGraph<Resource, AssociationViewEdge> resourceGraph)
+        {
+            int groupNumber = 1;
 
-                foreach (var grouping in executableItemGroupings)
+            var executionGraph = resourceGraph.Clone();
+
+            var loadableResources = GetLoadableResources();
+
+            while (loadableResources.Any())
+            {
+                foreach (Resource loadableResource in loadableResources)
                 {
-                    var operation = grouping.Aggregate(
-                        DataOperation.None,
-                        (current, entityWithBulkOperation) => current | entityWithBulkOperation.DataOperation);
+                    executionGraph.RemoveVertex(loadableResource);
 
-                    var distinctEntity = grouping
-                        .Select(x => x.Entity)
-                        .Distinct()
-                        .ToList();
-
-                    var entity = distinctEntity.FirstOrDefault();
-
-                    var distinctConcreteContext = grouping
-                        .Select(x => x.ContextualConcreteEntity)
-                        .Distinct()
-                        .ToList();
-
-                    var contextualConcreteEntity = distinctConcreteContext.FirstOrDefault();
-
-                    // Don't sort updates independently unless the corresponding create operation has been sorted independently
-                    if (operation == DataOperation.Update &&
-                        !visited[new EntityWithDataOperation(entity, DataOperation.Create, contextualConcreteEntity)])
+                    yield return new ResourceLoadOrder
                     {
-                        continue;
-                    }
-
-                    var withDataOperations = new[]
-                    {
-                        new EntityWithDataOperation(
-                            entity,
-                            DataOperation.Create & operation,
-                            contextualConcreteEntity),
-                        new EntityWithDataOperation(
-                            entity,
-                            DataOperation.Update & operation,
-                            contextualConcreteEntity)
-                    }.Where(x => x.DataOperation != DataOperation.None);
-
-                    UpdateVisitedVertices();
-
-                    var resolvedEntity = new EntityWithDataOperation(entity, operation, contextualConcreteEntity);
-
-                    resolved.Add(new Tuple<EntityWithDataOperation, int>(resolvedEntity, groupSet));
-
-                    void UpdateVisitedVertices()
-                    {
-                        foreach (var withDataOperation in withDataOperations)
-                        {
-                            visited[withDataOperation] = true;
-                        }
-                    }
+                        Resource = GetNodeId(loadableResource),
+                        Order = groupNumber
+                    };
                 }
+
+                groupNumber++;
+
+                loadableResources = GetLoadableResources();
             }
 
-            return resolved;
-
-            List<IGrouping<string, EntityWithDataOperation>> GetUnvisitedVertices()
+            List<Resource> GetLoadableResources()
             {
-                return executionGraph.Vertices
-                    .GroupJoin(
-                        executionGraph.Edges,
-                        v => v,
-                        e => e.Target,
-                        (v, edges) =>
-                        {
-                            return new
-                            {
-                                Vertex = v,
-                                UnexecutedDependencyCount = edges.Count(e => !e.Source.Equals(v) && !visited[e.Source])
-                            };
-                        })
-                    .Where(vc => vc.UnexecutedDependencyCount == 0 && !visited[vc.Vertex])
-                    .Select(vc => vc.Vertex)
-                    .GroupBy(
-                        x => $"{x.Entity.FullName}|{(x.ContextualConcreteEntity == null ? string.Empty : x.ContextualConcreteEntity.FullName.ToString())}",
-                        x => x)
+                return executionGraph.Vertices.Where(v => !executionGraph.InEdges(v).Any())
+                    .OrderBy(GetNodeId)
                     .ToList();
             }
         }
+
+        private static string GetNodeId(Resource resource)
+            => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
     }
 }
 #endif

@@ -13,7 +13,7 @@ using EdFi.Ods.Api.Common.ExternalTasks;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.AggregateDepenedencies;
+using EdFi.Ods.Features.AggregateDependencies;
 using EdFi.Ods.Features.OpenApiMetadata;
 using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
