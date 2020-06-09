@@ -574,7 +574,9 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.Applicants
         public string MaidenName { get; set; }
         public string MiddleName { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string TeacherCandidateIdentifier { get; set; }
         public decimal YearsOfPriorProfessionalExperience { get; set; }
         public decimal YearsOfPriorTeachingExperience { get; set; }
@@ -1060,21 +1062,34 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.BackgroundCheckTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors
+namespace EdFi.Ods.Api.Models.Requests.TPDM.Certifications
 { 
    
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorGetByExample
+    public class CertificationGetByExample
     {
-        public int BoardCertificationTypeDescriptorId { get; set; }
+        public string CertificationFieldDescriptor { get; set; }
+        public string CertificationIdentifier { get; set; }
+        public string CertificationLevelDescriptor { get; set; }
+        public string CertificationStandardDescriptor { get; set; }
+        public string CertificationTitle { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string EducatorRoleDescriptor { get; set; }
+        public DateTime EffectiveDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Guid Id { get; set; }
+        public string InstructionalSettingDescriptor { get; set; }
+        public string IssuerNamespace { get; set; }
+        public string MinimumDegreeDescriptor { get; set; }
+        public string PopulationServedDescriptor { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    public class CertificationGetByIds : IHasIdentifiers<Guid>
     {
-        public BoardCertificationTypeDescriptorGetByIds() { }
+        public CertificationGetByIds() { }
 
-        public BoardCertificationTypeDescriptorGetByIds(params Guid[] ids)
+        public CertificationGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -1083,21 +1098,129 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.BoardCertificationTypeDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorPost : Resources.BoardCertificationTypeDescriptor.TPDM.BoardCertificationTypeDescriptor
+    public class CertificationPost : Resources.Certification.TPDM.Certification
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorPut : Resources.BoardCertificationTypeDescriptor.TPDM.BoardCertificationTypeDescriptor
+    public class CertificationPut : Resources.Certification.TPDM.Certification
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class BoardCertificationTypeDescriptorDelete : IHasIdentifier 
+    public class CertificationDelete : IHasIdentifier 
     {
-        public BoardCertificationTypeDescriptorDelete() { }
+        public CertificationDelete() { }
 
-        public BoardCertificationTypeDescriptorDelete(Guid id) 
+        public CertificationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationExams
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamGetByExample
+    {
+        public string CertificationExamIdentifier { get; set; }
+        public string CertificationExamTitle { get; set; }
+        public string CertificationExamTypeDescriptor { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public DateTime EffectiveDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationExamGetByIds() { }
+
+        public CertificationExamGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamPost : Resources.CertificationExam.TPDM.CertificationExam
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamPut : Resources.CertificationExam.TPDM.CertificationExam
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamDelete : IHasIdentifier 
+    {
+        public CertificationExamDelete() { }
+
+        public CertificationExamDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationExamResults
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultGetByExample
+    {
+        public int AttemptNumber { get; set; }
+        public DateTime CertificationExamDate { get; set; }
+        public string CertificationExamIdentifier { get; set; }
+        public bool CertificationExamPassIndicator { get; set; }
+        public decimal CertificationExamScore { get; set; }
+        public string CertificationExamStatusDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationExamResultGetByIds() { }
+
+        public CertificationExamResultGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultPost : Resources.CertificationExamResult.TPDM.CertificationExamResult
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultPut : Resources.CertificationExamResult.TPDM.CertificationExamResult
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationExamResultDelete : IHasIdentifier 
+    {
+        public CertificationExamResultDelete() { }
+
+        public CertificationExamResultDelete(Guid id) 
         {
             Id = id;
         }
@@ -1190,6 +1313,190 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationExamTypeDescriptors
         public CertificationExamTypeDescriptorDelete() { }
 
         public CertificationExamTypeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationFieldDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorGetByExample
+    {
+        public int CertificationFieldDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationFieldDescriptorGetByIds() { }
+
+        public CertificationFieldDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorPost : Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorPut : Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationFieldDescriptorDelete : IHasIdentifier 
+    {
+        public CertificationFieldDescriptorDelete() { }
+
+        public CertificationFieldDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationLevelDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorGetByExample
+    {
+        public int CertificationLevelDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationLevelDescriptorGetByIds() { }
+
+        public CertificationLevelDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorPost : Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorPut : Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationLevelDescriptorDelete : IHasIdentifier 
+    {
+        public CertificationLevelDescriptorDelete() { }
+
+        public CertificationLevelDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationRouteDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorGetByExample
+    {
+        public int CertificationRouteDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationRouteDescriptorGetByIds() { }
+
+        public CertificationRouteDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorPost : Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorPut : Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationRouteDescriptorDelete : IHasIdentifier 
+    {
+        public CertificationRouteDescriptorDelete() { }
+
+        public CertificationRouteDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationStandardDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorGetByExample
+    {
+        public int CertificationStandardDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public CertificationStandardDescriptorGetByIds() { }
+
+        public CertificationStandardDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorPost : Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorPut : Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CertificationStandardDescriptorDelete : IHasIdentifier 
+    {
+        public CertificationStandardDescriptorDelete() { }
+
+        public CertificationStandardDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -1292,28 +1599,26 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CoteachingStyleObservedDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseCourseTranscriptFacts
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CredentialEvents
 { 
    
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsGetByExample
+    public class CredentialEventGetByExample
     {
-        public string CourseCode { get; set; }
-        public string CourseTitle { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
+        public DateTime CredentialEventDate { get; set; }
+        public string CredentialEventReason { get; set; }
+        public string CredentialEventTypeDescriptor { get; set; }
+        public string CredentialIdentifier { get; set; }
         public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
+        public string StateOfIssueStateAbbreviationDescriptor { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsGetByIds : IHasIdentifiers<Guid>
+    public class CredentialEventGetByIds : IHasIdentifiers<Guid>
     {
-        public CourseCourseTranscriptFactsGetByIds() { }
+        public CredentialEventGetByIds() { }
 
-        public CourseCourseTranscriptFactsGetByIds(params Guid[] ids)
+        public CredentialEventGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -1322,21 +1627,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseCourseTranscriptFacts
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsPost : Resources.CourseCourseTranscriptFacts.TPDM.CourseCourseTranscriptFacts
+    public class CredentialEventPost : Resources.CredentialEvent.TPDM.CredentialEvent
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsPut : Resources.CourseCourseTranscriptFacts.TPDM.CourseCourseTranscriptFacts
+    public class CredentialEventPut : Resources.CredentialEvent.TPDM.CredentialEvent
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseCourseTranscriptFactsDelete : IHasIdentifier 
+    public class CredentialEventDelete : IHasIdentifier 
     {
-        public CourseCourseTranscriptFactsDelete() { }
+        public CredentialEventDelete() { }
 
-        public CourseCourseTranscriptFactsDelete(Guid id) 
+        public CredentialEventDelete(Guid id) 
         {
             Id = id;
         }
@@ -1345,27 +1650,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseCourseTranscriptFacts
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CredentialEventTypeDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsGetByExample
+    public class CredentialEventTypeDescriptorGetByExample
     {
-        public decimal AggregatedGPAMax { get; set; }
-        public string CourseCode { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
+        public int CredentialEventTypeDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsGetByIds : IHasIdentifiers<Guid>
+    public class CredentialEventTypeDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public CourseStudentAcademicRecordFactsGetByIds() { }
+        public CredentialEventTypeDescriptorGetByIds() { }
 
-        public CourseStudentAcademicRecordFactsGetByIds(params Guid[] ids)
+        public CredentialEventTypeDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -1374,21 +1673,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsPost : Resources.CourseStudentAcademicRecordFacts.TPDM.CourseStudentAcademicRecordFacts
+    public class CredentialEventTypeDescriptorPost : Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsPut : Resources.CourseStudentAcademicRecordFacts.TPDM.CourseStudentAcademicRecordFacts
+    public class CredentialEventTypeDescriptorPut : Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAcademicRecordFactsDelete : IHasIdentifier 
+    public class CredentialEventTypeDescriptorDelete : IHasIdentifier 
     {
-        public CourseStudentAcademicRecordFactsDelete() { }
+        public CredentialEventTypeDescriptorDelete() { }
 
-        public CourseStudentAcademicRecordFactsDelete(Guid id) 
+        public CredentialEventTypeDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -1397,31 +1696,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAcademicRecordFacts
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAssessmentFacts
+namespace EdFi.Ods.Api.Models.Requests.TPDM.CredentialStatusDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsGetByExample
+    public class CredentialStatusDescriptorGetByExample
     {
-        public string AcademicSubjectDescriptor { get; set; }
-        public DateTime AdministrationDate { get; set; }
-        public string AssessmentCategoryDescriptor { get; set; }
-        public string AssessmentTitle { get; set; }
-        public string CourseCode { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public string GradeLevelDescriptor { get; set; }
-        public Guid Id { get; set; }
-        public short TakenSchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
+        public int CredentialStatusDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsGetByIds : IHasIdentifiers<Guid>
+    public class CredentialStatusDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public CourseStudentAssessmentFactsGetByIds() { }
+        public CredentialStatusDescriptorGetByIds() { }
 
-        public CourseStudentAssessmentFactsGetByIds(params Guid[] ids)
+        public CredentialStatusDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -1430,21 +1719,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAssessmentFacts
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsPost : Resources.CourseStudentAssessmentFacts.TPDM.CourseStudentAssessmentFacts
+    public class CredentialStatusDescriptorPost : Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsPut : Resources.CourseStudentAssessmentFacts.TPDM.CourseStudentAssessmentFacts
+    public class CredentialStatusDescriptorPut : Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentAssessmentFactsDelete : IHasIdentifier 
+    public class CredentialStatusDescriptorDelete : IHasIdentifier 
     {
-        public CourseStudentAssessmentFactsDelete() { }
+        public CredentialStatusDescriptorDelete() { }
 
-        public CourseStudentAssessmentFactsDelete(Guid id) 
+        public CredentialStatusDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -1453,24 +1742,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentAssessmentFacts
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentFacts
+namespace EdFi.Ods.Api.Models.Requests.TPDM.DegreeDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsGetByExample
+    public class DegreeDescriptorGetByExample
     {
-        public string CourseCode { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
+        public int DegreeDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsGetByIds : IHasIdentifiers<Guid>
+    public class DegreeDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public CourseStudentFactsGetByIds() { }
+        public DegreeDescriptorGetByIds() { }
 
-        public CourseStudentFactsGetByIds(params Guid[] ids)
+        public DegreeDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -1479,73 +1765,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CourseStudentFacts
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsPost : Resources.CourseStudentFacts.TPDM.CourseStudentFacts
+    public class DegreeDescriptorPost : Resources.DegreeDescriptor.TPDM.DegreeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsPut : Resources.CourseStudentFacts.TPDM.CourseStudentFacts
+    public class DegreeDescriptorPut : Resources.DegreeDescriptor.TPDM.DegreeDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class CourseStudentFactsDelete : IHasIdentifier 
+    public class DegreeDescriptorDelete : IHasIdentifier 
     {
-        public CourseStudentFactsDelete() { }
+        public DegreeDescriptorDelete() { }
 
-        public CourseStudentFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationCourseTranscriptFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsGetByExample
-    {
-        public string CourseTitle { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationCourseTranscriptFactsGetByIds() { }
-
-        public EducationOrganizationCourseTranscriptFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsPost : Resources.EducationOrganizationCourseTranscriptFacts.TPDM.EducationOrganizationCourseTranscriptFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsPut : Resources.EducationOrganizationCourseTranscriptFacts.TPDM.EducationOrganizationCourseTranscriptFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationCourseTranscriptFactsDelete : IHasIdentifier 
-    {
-        public EducationOrganizationCourseTranscriptFactsDelete() { }
-
-        public EducationOrganizationCourseTranscriptFactsDelete(Guid id) 
+        public DegreeDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -1613,112 +1847,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationFacts
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationStudentAcademicRecordFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsGetByExample
-    {
-        public decimal AggregatedGPAMax { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationStudentAcademicRecordFactsGetByIds() { }
-
-        public EducationOrganizationStudentAcademicRecordFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsPost : Resources.EducationOrganizationStudentAcademicRecordFacts.TPDM.EducationOrganizationStudentAcademicRecordFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsPut : Resources.EducationOrganizationStudentAcademicRecordFacts.TPDM.EducationOrganizationStudentAcademicRecordFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAcademicRecordFactsDelete : IHasIdentifier 
-    {
-        public EducationOrganizationStudentAcademicRecordFactsDelete() { }
-
-        public EducationOrganizationStudentAcademicRecordFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationStudentAssessmentFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsGetByExample
-    {
-        public string AcademicSubjectDescriptor { get; set; }
-        public DateTime AdministrationDate { get; set; }
-        public string AssessmentCategoryDescriptor { get; set; }
-        public string AssessmentTitle { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public string GradeLevelDescriptor { get; set; }
-        public Guid Id { get; set; }
-        public short TakenSchoolYear { get; set; }
-        public string TermDescriptor { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationStudentAssessmentFactsGetByIds() { }
-
-        public EducationOrganizationStudentAssessmentFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsPost : Resources.EducationOrganizationStudentAssessmentFacts.TPDM.EducationOrganizationStudentAssessmentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsPut : Resources.EducationOrganizationStudentAssessmentFacts.TPDM.EducationOrganizationStudentAssessmentFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentAssessmentFactsDelete : IHasIdentifier 
-    {
-        public EducationOrganizationStudentAssessmentFactsDelete() { }
-
-        public EducationOrganizationStudentAssessmentFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationStudentFacts
 { 
    
@@ -1759,6 +1887,52 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationStudentFacts
         public EducationOrganizationStudentFactsDelete() { }
 
         public EducationOrganizationStudentFactsDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EducatorRoleDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorGetByExample
+    {
+        public int EducatorRoleDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EducatorRoleDescriptorGetByIds() { }
+
+        public EducatorRoleDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorPost : Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorPut : Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorRoleDescriptorDelete : IHasIdentifier 
+    {
+        public EducatorRoleDescriptorDelete() { }
+
+        public EducatorRoleDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -2058,6 +2232,530 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.EnglishLanguageExamDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.TPDM.Evaluations
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationGetByExample
+    {
+        public string EvaluationTitle { get; set; }
+        public string EvaluationTypeDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public int InterRaterReliabilityScore { get; set; }
+        public decimal MaxRating { get; set; }
+        public decimal MinRating { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationGetByIds() { }
+
+        public EvaluationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPost : Resources.Evaluation.TPDM.Evaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPut : Resources.Evaluation.TPDM.Evaluation
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationDelete : IHasIdentifier 
+    {
+        public EvaluationDelete() { }
+
+        public EvaluationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationElements
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementGetByExample
+    {
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public string EvaluationTypeDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public decimal MaxRating { get; set; }
+        public decimal MinRating { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public int SortOrder { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationElementGetByIds() { }
+
+        public EvaluationElementGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementPost : Resources.EvaluationElement.TPDM.EvaluationElement
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementPut : Resources.EvaluationElement.TPDM.EvaluationElement
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementDelete : IHasIdentifier 
+    {
+        public EvaluationElementDelete() { }
+
+        public EvaluationElementDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationElementRatings
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingGetByExample
+    {
+        public string AreaOfRefinement { get; set; }
+        public string AreaOfReinforcement { get; set; }
+        public string Comments { get; set; }
+        public DateTime EvaluationDate { get; set; }
+        public string EvaluationElementRatingLevelDescriptor { get; set; }
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public string Feedback { get; set; }
+        public Guid Id { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationElementRatingGetByIds() { }
+
+        public EvaluationElementRatingGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingPost : Resources.EvaluationElementRating.TPDM.EvaluationElementRating
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingPut : Resources.EvaluationElementRating.TPDM.EvaluationElementRating
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingDelete : IHasIdentifier 
+    {
+        public EvaluationElementRatingDelete() { }
+
+        public EvaluationElementRatingDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorGetByExample
+    {
+        public int EvaluationElementRatingLevelDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationElementRatingLevelDescriptorGetByIds() { }
+
+        public EvaluationElementRatingLevelDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorPost : Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorPut : Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationElementRatingLevelDescriptorDelete : IHasIdentifier 
+    {
+        public EvaluationElementRatingLevelDescriptorDelete() { }
+
+        public EvaluationElementRatingLevelDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationObjectives
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveGetByExample
+    {
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public string EvaluationTypeDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public decimal MaxRating { get; set; }
+        public decimal MinRating { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public int SortOrder { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationObjectiveGetByIds() { }
+
+        public EvaluationObjectiveGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectivePost : Resources.EvaluationObjective.TPDM.EvaluationObjective
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectivePut : Resources.EvaluationObjective.TPDM.EvaluationObjective
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveDelete : IHasIdentifier 
+    {
+        public EvaluationObjectiveDelete() { }
+
+        public EvaluationObjectiveDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationObjectiveRatings
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingGetByExample
+    {
+        public string Comments { get; set; }
+        public DateTime EvaluationDate { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public Guid Id { get; set; }
+        public string ObjectiveRatingLevelDescriptor { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationObjectiveRatingGetByIds() { }
+
+        public EvaluationObjectiveRatingGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingPost : Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingPut : Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationObjectiveRatingDelete : IHasIdentifier 
+    {
+        public EvaluationObjectiveRatingDelete() { }
+
+        public EvaluationObjectiveRatingDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationPeriodDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorGetByExample
+    {
+        public int EvaluationPeriodDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationPeriodDescriptorGetByIds() { }
+
+        public EvaluationPeriodDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorPost : Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorPut : Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationPeriodDescriptorDelete : IHasIdentifier 
+    {
+        public EvaluationPeriodDescriptorDelete() { }
+
+        public EvaluationPeriodDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationRatings
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingGetByExample
+    {
+        public DateTime EvaluationDate { get; set; }
+        public string EvaluationRatingLevelDescriptor { get; set; }
+        public string EvaluationTitle { get; set; }
+        public Guid Id { get; set; }
+        public string LocalCourseCode { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string SectionIdentifier { get; set; }
+        public string SessionName { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationRatingGetByIds() { }
+
+        public EvaluationRatingGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingPost : Resources.EvaluationRating.TPDM.EvaluationRating
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingPut : Resources.EvaluationRating.TPDM.EvaluationRating
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingDelete : IHasIdentifier 
+    {
+        public EvaluationRatingDelete() { }
+
+        public EvaluationRatingDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationRatingLevelDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorGetByExample
+    {
+        public int EvaluationRatingLevelDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationRatingLevelDescriptorGetByIds() { }
+
+        public EvaluationRatingLevelDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorPost : Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorPut : Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingLevelDescriptorDelete : IHasIdentifier 
+    {
+        public EvaluationRatingLevelDescriptorDelete() { }
+
+        public EvaluationRatingLevelDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.EvaluationTypeDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorGetByExample
+    {
+        public int EvaluationTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationTypeDescriptorGetByIds() { }
+
+        public EvaluationTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorPost : Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorPut : Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationTypeDescriptorDelete : IHasIdentifier 
+    {
+        public EvaluationTypeDescriptorDelete() { }
+
+        public EvaluationTypeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Models.Requests.TPDM.FederalLocaleCodeDescriptors
 { 
    
@@ -2242,6 +2940,114 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.GenderDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.TPDM.Goals
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class GoalGetByExample
+    {
+        public DateTime AssignmentDate { get; set; }
+        public string Comments { get; set; }
+        public DateTime CompletedDate { get; set; }
+        public bool CompletedIndicator { get; set; }
+        public DateTime DueDate { get; set; }
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public string GoalDescription { get; set; }
+        public string GoalTitle { get; set; }
+        public string GoalTypeDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalGetByIds : IHasIdentifiers<Guid>
+    {
+        public GoalGetByIds() { }
+
+        public GoalGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalPost : Resources.Goal.TPDM.Goal
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalPut : Resources.Goal.TPDM.Goal
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalDelete : IHasIdentifier 
+    {
+        public GoalDelete() { }
+
+        public GoalDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.GoalTypeDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorGetByExample
+    {
+        public int GoalTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public GoalTypeDescriptorGetByIds() { }
+
+        public GoalTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorPost : Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorPut : Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class GoalTypeDescriptorDelete : IHasIdentifier 
+    {
+        public GoalTypeDescriptorDelete() { }
+
+        public GoalTypeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Models.Requests.TPDM.HireStatusDescriptors
 { 
    
@@ -2326,6 +3132,52 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.HiringSourceDescriptors
         public HiringSourceDescriptorDelete() { }
 
         public HiringSourceDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.InstructionalSettingDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorGetByExample
+    {
+        public int InstructionalSettingDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public InstructionalSettingDescriptorGetByIds() { }
+
+        public InstructionalSettingDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorPost : Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorPut : Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InstructionalSettingDescriptorDelete : IHasIdentifier 
+    {
+        public InstructionalSettingDescriptorDelete() { }
+
+        public InstructionalSettingDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -2426,21 +3278,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.LevelOfDegreeAwardedDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.LevelTypeDescriptors
+namespace EdFi.Ods.Api.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorGetByExample
+    public class ObjectiveRatingLevelDescriptorGetByExample
     {
-        public int LevelTypeDescriptorId { get; set; }
+        public int ObjectiveRatingLevelDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    public class ObjectiveRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public LevelTypeDescriptorGetByIds() { }
+        public ObjectiveRatingLevelDescriptorGetByIds() { }
 
-        public LevelTypeDescriptorGetByIds(params Guid[] ids)
+        public ObjectiveRatingLevelDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -2449,21 +3301,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.LevelTypeDescriptors
     }
 
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorPost : Resources.LevelTypeDescriptor.TPDM.LevelTypeDescriptor
+    public class ObjectiveRatingLevelDescriptorPost : Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorPut : Resources.LevelTypeDescriptor.TPDM.LevelTypeDescriptor
+    public class ObjectiveRatingLevelDescriptorPut : Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class LevelTypeDescriptorDelete : IHasIdentifier 
+    public class ObjectiveRatingLevelDescriptorDelete : IHasIdentifier 
     {
-        public LevelTypeDescriptorDelete() { }
+        public ObjectiveRatingLevelDescriptorDelete() { }
 
-        public LevelTypeDescriptorDelete(Guid id) 
+        public ObjectiveRatingLevelDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -2661,33 +3513,87 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.OpenStaffPositionReasonDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasures
+namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceEvaluations
 { 
    
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureGetByExample
+    public class PerformanceEvaluationGetByExample
     {
         public string AcademicSubjectDescriptor { get; set; }
-        public DateTime ActualDateOfPerformanceMeasure { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public short SchoolYear { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PerformanceEvaluationGetByIds : IHasIdentifiers<Guid>
+    {
+        public PerformanceEvaluationGetByIds() { }
+
+        public PerformanceEvaluationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PerformanceEvaluationPost : Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PerformanceEvaluationPut : Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PerformanceEvaluationDelete : IHasIdentifier 
+    {
+        public PerformanceEvaluationDelete() { }
+
+        public PerformanceEvaluationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceEvaluationRatings
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class PerformanceEvaluationRatingGetByExample
+    {
+        public DateTime ActualDate { get; set; }
+        public int ActualDuration { get; set; }
+        public TimeSpan ActualTime { get; set; }
         public bool Announced { get; set; }
         public string Comments { get; set; }
         public string CoteachingStyleObservedDescriptor { get; set; }
-        public int DurationOfPerformanceMeasure { get; set; }
         public Guid Id { get; set; }
-        public string PerformanceMeasureIdentifier { get; set; }
-        public string PerformanceMeasureInstanceDescriptor { get; set; }
-        public string PerformanceMeasureTypeDescriptor { get; set; }
-        public DateTime ScheduleDateOfPerformanceMeasure { get; set; }
+        public string PerformanceEvaluationRatingLevelDescriptor { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public DateTime ScheduleDate { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string TermDescriptor { get; set; }
-        public TimeSpan TimeOfPerformanceMeasure { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureGetByIds : IHasIdentifiers<Guid>
+    public class PerformanceEvaluationRatingGetByIds : IHasIdentifiers<Guid>
     {
-        public PerformanceMeasureGetByIds() { }
+        public PerformanceEvaluationRatingGetByIds() { }
 
-        public PerformanceMeasureGetByIds(params Guid[] ids)
+        public PerformanceEvaluationRatingGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -2696,21 +3602,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasures
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasurePost : Resources.PerformanceMeasure.TPDM.PerformanceMeasure
+    public class PerformanceEvaluationRatingPost : Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasurePut : Resources.PerformanceMeasure.TPDM.PerformanceMeasure
+    public class PerformanceEvaluationRatingPut : Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureDelete : IHasIdentifier 
+    public class PerformanceEvaluationRatingDelete : IHasIdentifier 
     {
-        public PerformanceMeasureDelete() { }
+        public PerformanceEvaluationRatingDelete() { }
 
-        public PerformanceMeasureDelete(Guid id) 
+        public PerformanceEvaluationRatingDelete(Guid id) 
         {
             Id = id;
         }
@@ -2719,24 +3625,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasures
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations
+namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationGetByExample
+    public class PerformanceEvaluationRatingLevelDescriptorGetByExample
     {
-        public string CourseCode { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public Guid Id { get; set; }
-        public string PerformanceMeasureIdentifier { get; set; }
+        public int PerformanceEvaluationRatingLevelDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationGetByIds : IHasIdentifiers<Guid>
+    public class PerformanceEvaluationRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public PerformanceMeasureCourseAssociationGetByIds() { }
+        public PerformanceEvaluationRatingLevelDescriptorGetByIds() { }
 
-        public PerformanceMeasureCourseAssociationGetByIds(params Guid[] ids)
+        public PerformanceEvaluationRatingLevelDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -2745,21 +3648,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationPost : Resources.PerformanceMeasureCourseAssociation.TPDM.PerformanceMeasureCourseAssociation
+    public class PerformanceEvaluationRatingLevelDescriptorPost : Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationPut : Resources.PerformanceMeasureCourseAssociation.TPDM.PerformanceMeasureCourseAssociation
+    public class PerformanceEvaluationRatingLevelDescriptorPut : Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureCourseAssociationDelete : IHasIdentifier 
+    public class PerformanceEvaluationRatingLevelDescriptorDelete : IHasIdentifier 
     {
-        public PerformanceMeasureCourseAssociationDelete() { }
+        public PerformanceEvaluationRatingLevelDescriptorDelete() { }
 
-        public PerformanceMeasureCourseAssociationDelete(Guid id) 
+        public PerformanceEvaluationRatingLevelDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -2768,28 +3671,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureCourseAssociations
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureFacts
+namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsGetByExample
+    public class PerformanceEvaluationTypeDescriptorGetByExample
     {
-        public string AcademicSubjectDescriptor { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public string PerformanceMeasureTypeDescriptor { get; set; }
-        public string RubricTitle { get; set; }
-        public string RubricTypeDescriptor { get; set; }
-        public short SchoolYear { get; set; }
+        public int PerformanceEvaluationTypeDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsGetByIds : IHasIdentifiers<Guid>
+    public class PerformanceEvaluationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public PerformanceMeasureFactsGetByIds() { }
+        public PerformanceEvaluationTypeDescriptorGetByIds() { }
 
-        public PerformanceMeasureFactsGetByIds(params Guid[] ids)
+        public PerformanceEvaluationTypeDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -2798,113 +3694,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureFacts
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsPost : Resources.PerformanceMeasureFacts.TPDM.PerformanceMeasureFacts
+    public class PerformanceEvaluationTypeDescriptorPost : Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsPut : Resources.PerformanceMeasureFacts.TPDM.PerformanceMeasureFacts
+    public class PerformanceEvaluationTypeDescriptorPut : Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureFactsDelete : IHasIdentifier 
+    public class PerformanceEvaluationTypeDescriptorDelete : IHasIdentifier 
     {
-        public PerformanceMeasureFactsDelete() { }
+        public PerformanceEvaluationTypeDescriptorDelete() { }
 
-        public PerformanceMeasureFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureInstanceDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorGetByExample
-    {
-        public int PerformanceMeasureInstanceDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public PerformanceMeasureInstanceDescriptorGetByIds() { }
-
-        public PerformanceMeasureInstanceDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorPost : Resources.PerformanceMeasureInstanceDescriptor.TPDM.PerformanceMeasureInstanceDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorPut : Resources.PerformanceMeasureInstanceDescriptor.TPDM.PerformanceMeasureInstanceDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureInstanceDescriptorDelete : IHasIdentifier 
-    {
-        public PerformanceMeasureInstanceDescriptorDelete() { }
-
-        public PerformanceMeasureInstanceDescriptorDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.PerformanceMeasureTypeDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorGetByExample
-    {
-        public int PerformanceMeasureTypeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public PerformanceMeasureTypeDescriptorGetByIds() { }
-
-        public PerformanceMeasureTypeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorPost : Resources.PerformanceMeasureTypeDescriptor.TPDM.PerformanceMeasureTypeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorPut : Resources.PerformanceMeasureTypeDescriptor.TPDM.PerformanceMeasureTypeDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class PerformanceMeasureTypeDescriptorDelete : IHasIdentifier 
-    {
-        public PerformanceMeasureTypeDescriptorDelete() { }
-
-        public PerformanceMeasureTypeDescriptorDelete(Guid id) 
+        public PerformanceEvaluationTypeDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -3125,6 +3929,7 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.Prospects
         public string MiddleName { get; set; }
         public string Notes { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public int PreScreeningRating { get; set; }
         public string ProspectIdentifier { get; set; }
         public string ProspectTypeDescriptor { get; set; }
@@ -3133,6 +3938,7 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.Prospects
         public string SexDescriptor { get; set; }
         public string SocialMediaNetworkName { get; set; }
         public string SocialMediaUserName { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string TeacherCandidateIdentifier { get; set; }
     }
 
@@ -3271,6 +4077,211 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.ProspectTypeDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.TPDM.QuantitativeMeasures
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureGetByExample
+    {
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public Guid Id { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string QuantitativeMeasureDatatypeDescriptor { get; set; }
+        public string QuantitativeMeasureIdentifier { get; set; }
+        public string QuantitativeMeasureTypeDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureGetByIds : IHasIdentifiers<Guid>
+    {
+        public QuantitativeMeasureGetByIds() { }
+
+        public QuantitativeMeasureGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasurePost : Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasurePut : Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDelete : IHasIdentifier 
+    {
+        public QuantitativeMeasureDelete() { }
+
+        public QuantitativeMeasureDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorGetByExample
+    {
+        public int QuantitativeMeasureDatatypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public QuantitativeMeasureDatatypeDescriptorGetByIds() { }
+
+        public QuantitativeMeasureDatatypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorPost : Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorPut : Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureDatatypeDescriptorDelete : IHasIdentifier 
+    {
+        public QuantitativeMeasureDatatypeDescriptorDelete() { }
+
+        public QuantitativeMeasureDatatypeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.QuantitativeMeasureScores
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScoreGetByExample
+    {
+        public DateTime EvaluationDate { get; set; }
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public Guid Id { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public string QuantitativeMeasureIdentifier { get; set; }
+        public decimal ScoreValue { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public decimal StandardError { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScoreGetByIds : IHasIdentifiers<Guid>
+    {
+        public QuantitativeMeasureScoreGetByIds() { }
+
+        public QuantitativeMeasureScoreGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScorePost : Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScorePut : Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureScoreDelete : IHasIdentifier 
+    {
+        public QuantitativeMeasureScoreDelete() { }
+
+        public QuantitativeMeasureScoreDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorGetByExample
+    {
+        public int QuantitativeMeasureTypeDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public QuantitativeMeasureTypeDescriptorGetByIds() { }
+
+        public QuantitativeMeasureTypeDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorPost : Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorPut : Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class QuantitativeMeasureTypeDescriptorDelete : IHasIdentifier 
+    {
+        public QuantitativeMeasureTypeDescriptorDelete() { }
+
+        public QuantitativeMeasureTypeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Models.Requests.TPDM.RecruitmentEvents
 { 
    
@@ -3368,26 +4379,31 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.RecruitmentEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.Rubrics
+namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricDimensions
 { 
    
     [ExcludeFromCodeCoverage]
-    public class RubricGetByExample
+    public class RubricDimensionGetByExample
     {
-        public int EducationOrganizationId { get; set; }
+        public string CriterionDescription { get; set; }
+        public int DimensionOrder { get; set; }
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
-        public int InterRaterReliabilityScore { get; set; }
-        public string RubricDescription { get; set; }
-        public string RubricTitle { get; set; }
-        public string RubricTypeDescriptor { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public int RubricRating { get; set; }
+        public string RubricRatingLevelDescriptor { get; set; }
+        public string TermDescriptor { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricGetByIds : IHasIdentifiers<Guid>
+    public class RubricDimensionGetByIds : IHasIdentifiers<Guid>
     {
-        public RubricGetByIds() { }
+        public RubricDimensionGetByIds() { }
 
-        public RubricGetByIds(params Guid[] ids)
+        public RubricDimensionGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -3396,21 +4412,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.Rubrics
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricPost : Resources.Rubric.TPDM.Rubric
+    public class RubricDimensionPost : Resources.RubricDimension.TPDM.RubricDimension
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricPut : Resources.Rubric.TPDM.Rubric
+    public class RubricDimensionPut : Resources.RubricDimension.TPDM.RubricDimension
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricDelete : IHasIdentifier 
+    public class RubricDimensionDelete : IHasIdentifier 
     {
-        public RubricDelete() { }
+        public RubricDimensionDelete() { }
 
-        public RubricDelete(Guid id) 
+        public RubricDimensionDelete(Guid id) 
         {
             Id = id;
         }
@@ -3419,25 +4435,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.Rubrics
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricLevels
+namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricRatingLevelDescriptors
 { 
    
     [ExcludeFromCodeCoverage]
-    public class RubricLevelGetByExample
+    public class RubricRatingLevelDescriptorGetByExample
     {
-        public int EducationOrganizationId { get; set; }
-        public Guid Id { get; set; }
-        public string RubricLevelCode { get; set; }
-        public string RubricTitle { get; set; }
-        public string RubricTypeDescriptor { get; set; }
+        public int RubricRatingLevelDescriptorId { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricLevelGetByIds : IHasIdentifiers<Guid>
+    public class RubricRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
     {
-        public RubricLevelGetByIds() { }
+        public RubricRatingLevelDescriptorGetByIds() { }
 
-        public RubricLevelGetByIds(params Guid[] ids)
+        public RubricRatingLevelDescriptorGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -3446,175 +4458,21 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricLevels
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricLevelPost : Resources.RubricLevel.TPDM.RubricLevel
+    public class RubricRatingLevelDescriptorPost : Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricLevelPut : Resources.RubricLevel.TPDM.RubricLevel
+    public class RubricRatingLevelDescriptorPut : Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class RubricLevelDelete : IHasIdentifier 
+    public class RubricRatingLevelDescriptorDelete : IHasIdentifier 
     {
-        public RubricLevelDelete() { }
+        public RubricRatingLevelDescriptorDelete() { }
 
-        public RubricLevelDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricLevelResponses
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseGetByExample
-    {
-        public bool AreaOfRefinement { get; set; }
-        public bool AreaOfReinforcement { get; set; }
-        public string Comments { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public Guid Id { get; set; }
-        public int NumericResponse { get; set; }
-        public string PerformanceMeasureIdentifier { get; set; }
-        public string RubricLevelCode { get; set; }
-        public string RubricTitle { get; set; }
-        public string RubricTypeDescriptor { get; set; }
-        public string TextResponse { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseGetByIds : IHasIdentifiers<Guid>
-    {
-        public RubricLevelResponseGetByIds() { }
-
-        public RubricLevelResponseGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponsePost : Resources.RubricLevelResponse.TPDM.RubricLevelResponse
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponsePut : Resources.RubricLevelResponse.TPDM.RubricLevelResponse
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseDelete : IHasIdentifier 
-    {
-        public RubricLevelResponseDelete() { }
-
-        public RubricLevelResponseDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricLevelResponseFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public string RubricLevelCode { get; set; }
-        public string RubricTitle { get; set; }
-        public string RubricTypeDescriptor { get; set; }
-        public short SchoolYear { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public RubricLevelResponseFactsGetByIds() { }
-
-        public RubricLevelResponseFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsPost : Resources.RubricLevelResponseFacts.TPDM.RubricLevelResponseFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsPut : Resources.RubricLevelResponseFacts.TPDM.RubricLevelResponseFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricLevelResponseFactsDelete : IHasIdentifier 
-    {
-        public RubricLevelResponseFactsDelete() { }
-
-        public RubricLevelResponseFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.RubricTypeDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorGetByExample
-    {
-        public int RubricTypeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public RubricTypeDescriptorGetByIds() { }
-
-        public RubricTypeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorPost : Resources.RubricTypeDescriptor.TPDM.RubricTypeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorPut : Resources.RubricTypeDescriptor.TPDM.RubricTypeDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class RubricTypeDescriptorDelete : IHasIdentifier 
-    {
-        public RubricTypeDescriptorDelete() { }
-
-        public RubricTypeDescriptorDelete(Guid id) 
+        public RubricRatingLevelDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -3715,223 +4573,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.SchoolStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.SectionCourseTranscriptFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsGetByExample
-    {
-        public string CourseTitle { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public SectionCourseTranscriptFactsGetByIds() { }
-
-        public SectionCourseTranscriptFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsPost : Resources.SectionCourseTranscriptFacts.TPDM.SectionCourseTranscriptFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsPut : Resources.SectionCourseTranscriptFacts.TPDM.SectionCourseTranscriptFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionCourseTranscriptFactsDelete : IHasIdentifier 
-    {
-        public SectionCourseTranscriptFactsDelete() { }
-
-        public SectionCourseTranscriptFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.SectionStudentAcademicRecordFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsGetByExample
-    {
-        public decimal AggregatedGPAMax { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public SectionStudentAcademicRecordFactsGetByIds() { }
-
-        public SectionStudentAcademicRecordFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsPost : Resources.SectionStudentAcademicRecordFacts.TPDM.SectionStudentAcademicRecordFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsPut : Resources.SectionStudentAcademicRecordFacts.TPDM.SectionStudentAcademicRecordFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAcademicRecordFactsDelete : IHasIdentifier 
-    {
-        public SectionStudentAcademicRecordFactsDelete() { }
-
-        public SectionStudentAcademicRecordFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.SectionStudentAssessmentFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsGetByExample
-    {
-        public string AcademicSubjectDescriptor { get; set; }
-        public DateTime AdministrationDate { get; set; }
-        public string AssessmentCategoryDescriptor { get; set; }
-        public string AssessmentTitle { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public string GradeLevelDescriptor { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-        public short TakenSchoolYear { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public SectionStudentAssessmentFactsGetByIds() { }
-
-        public SectionStudentAssessmentFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsPost : Resources.SectionStudentAssessmentFacts.TPDM.SectionStudentAssessmentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsPut : Resources.SectionStudentAssessmentFacts.TPDM.SectionStudentAssessmentFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentAssessmentFactsDelete : IHasIdentifier 
-    {
-        public SectionStudentAssessmentFactsDelete() { }
-
-        public SectionStudentAssessmentFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.SectionStudentFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsGetByExample
-    {
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public SectionStudentFactsGetByIds() { }
-
-        public SectionStudentFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsPost : Resources.SectionStudentFacts.TPDM.SectionStudentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsPut : Resources.SectionStudentFacts.TPDM.SectionStudentFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SectionStudentFactsDelete : IHasIdentifier 
-    {
-        public SectionStudentFactsDelete() { }
-
-        public SectionStudentFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffApplicantAssociations
 { 
    
@@ -3973,468 +4614,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffApplicantAssociations
         public StaffApplicantAssociationDelete() { }
 
         public StaffApplicantAssociationDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluations
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public Guid Id { get; set; }
-        public decimal MaxRating { get; set; }
-        public decimal MinRating { get; set; }
-        public short SchoolYear { get; set; }
-        public string StaffEvaluationPeriodDescriptor { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-        public string StaffEvaluationTypeDescriptor { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationGetByIds() { }
-
-        public StaffEvaluationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPost : Resources.StaffEvaluation.TPDM.StaffEvaluation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPut : Resources.StaffEvaluation.TPDM.StaffEvaluation
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationDelete : IHasIdentifier 
-    {
-        public StaffEvaluationDelete() { }
-
-        public StaffEvaluationDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationComponents
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public string EvaluationComponent { get; set; }
-        public Guid Id { get; set; }
-        public decimal MaxRating { get; set; }
-        public decimal MinRating { get; set; }
-        public string RubricReference { get; set; }
-        public short SchoolYear { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-        public string StaffEvaluationTypeDescriptor { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationComponentGetByIds() { }
-
-        public StaffEvaluationComponentGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentPost : Resources.StaffEvaluationComponent.TPDM.StaffEvaluationComponent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentPut : Resources.StaffEvaluationComponent.TPDM.StaffEvaluationComponent
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentDelete : IHasIdentifier 
-    {
-        public StaffEvaluationComponentDelete() { }
-
-        public StaffEvaluationComponentDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationComponentRatings
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingGetByExample
-    {
-        public decimal ComponentRating { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public string EvaluationComponent { get; set; }
-        public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public DateTime StaffEvaluationDate { get; set; }
-        public string StaffEvaluationRatingLevelDescriptor { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationComponentRatingGetByIds() { }
-
-        public StaffEvaluationComponentRatingGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingPost : Resources.StaffEvaluationComponentRating.TPDM.StaffEvaluationComponentRating
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingPut : Resources.StaffEvaluationComponentRating.TPDM.StaffEvaluationComponentRating
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationComponentRatingDelete : IHasIdentifier 
-    {
-        public StaffEvaluationComponentRatingDelete() { }
-
-        public StaffEvaluationComponentRatingDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationElements
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public string EvaluationComponent { get; set; }
-        public string EvaluationElement { get; set; }
-        public Guid Id { get; set; }
-        public decimal MaxRating { get; set; }
-        public decimal MinRating { get; set; }
-        public string RubricReference { get; set; }
-        public short SchoolYear { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationElementGetByIds() { }
-
-        public StaffEvaluationElementGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementPost : Resources.StaffEvaluationElement.TPDM.StaffEvaluationElement
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementPut : Resources.StaffEvaluationElement.TPDM.StaffEvaluationElement
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementDelete : IHasIdentifier 
-    {
-        public StaffEvaluationElementDelete() { }
-
-        public StaffEvaluationElementDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationElementRatings
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public decimal ElementRating { get; set; }
-        public string EvaluationComponent { get; set; }
-        public string EvaluationElement { get; set; }
-        public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
-        public DateTime StaffEvaluationDate { get; set; }
-        public string StaffEvaluationRatingLevelDescriptor { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationElementRatingGetByIds() { }
-
-        public StaffEvaluationElementRatingGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingPost : Resources.StaffEvaluationElementRating.TPDM.StaffEvaluationElementRating
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingPut : Resources.StaffEvaluationElementRating.TPDM.StaffEvaluationElementRating
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationElementRatingDelete : IHasIdentifier 
-    {
-        public StaffEvaluationElementRatingDelete() { }
-
-        public StaffEvaluationElementRatingDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationPeriodDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorGetByExample
-    {
-        public int StaffEvaluationPeriodDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationPeriodDescriptorGetByIds() { }
-
-        public StaffEvaluationPeriodDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorPost : Resources.StaffEvaluationPeriodDescriptor.TPDM.StaffEvaluationPeriodDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorPut : Resources.StaffEvaluationPeriodDescriptor.TPDM.StaffEvaluationPeriodDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationPeriodDescriptorDelete : IHasIdentifier 
-    {
-        public StaffEvaluationPeriodDescriptorDelete() { }
-
-        public StaffEvaluationPeriodDescriptorDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationRatings
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public string EvaluatedByStaffUniqueId { get; set; }
-        public Guid Id { get; set; }
-        public decimal Rating { get; set; }
-        public short SchoolYear { get; set; }
-        public DateTime StaffEvaluationDate { get; set; }
-        public string StaffEvaluationRatingLevelDescriptor { get; set; }
-        public string StaffEvaluationTitle { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationRatingGetByIds() { }
-
-        public StaffEvaluationRatingGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingPost : Resources.StaffEvaluationRating.TPDM.StaffEvaluationRating
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingPut : Resources.StaffEvaluationRating.TPDM.StaffEvaluationRating
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingDelete : IHasIdentifier 
-    {
-        public StaffEvaluationRatingDelete() { }
-
-        public StaffEvaluationRatingDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationRatingLevelDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorGetByExample
-    {
-        public int StaffEvaluationRatingLevelDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationRatingLevelDescriptorGetByIds() { }
-
-        public StaffEvaluationRatingLevelDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorPost : Resources.StaffEvaluationRatingLevelDescriptor.TPDM.StaffEvaluationRatingLevelDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorPut : Resources.StaffEvaluationRatingLevelDescriptor.TPDM.StaffEvaluationRatingLevelDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationRatingLevelDescriptorDelete : IHasIdentifier 
-    {
-        public StaffEvaluationRatingLevelDescriptorDelete() { }
-
-        public StaffEvaluationRatingLevelDescriptorDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffEvaluationTypeDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorGetByExample
-    {
-        public int StaffEvaluationTypeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffEvaluationTypeDescriptorGetByIds() { }
-
-        public StaffEvaluationTypeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorPost : Resources.StaffEvaluationTypeDescriptor.TPDM.StaffEvaluationTypeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorPut : Resources.StaffEvaluationTypeDescriptor.TPDM.StaffEvaluationTypeDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffEvaluationTypeDescriptorDelete : IHasIdentifier 
-    {
-        public StaffEvaluationTypeDescriptorDelete() { }
-
-        public StaffEvaluationTypeDescriptorDelete(Guid id) 
         {
             Id = id;
         }
@@ -5071,24 +5250,25 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.StudentGrowthTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.TalentManagementGoals
+namespace EdFi.Ods.Api.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations
 { 
    
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalGetByExample
+    public class SurveyResponseTeacherCandidateTargetAssociationGetByExample
     {
-        public string GoalTitle { get; set; }
-        public decimal GoalValue { get; set; }
         public Guid Id { get; set; }
-        public short SchoolYear { get; set; }
+        public string Namespace { get; set; }
+        public string SurveyIdentifier { get; set; }
+        public string SurveyResponseIdentifier { get; set; }
+        public string TeacherCandidateIdentifier { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalGetByIds : IHasIdentifiers<Guid>
+    public class SurveyResponseTeacherCandidateTargetAssociationGetByIds : IHasIdentifiers<Guid>
     {
-        public TalentManagementGoalGetByIds() { }
+        public SurveyResponseTeacherCandidateTargetAssociationGetByIds() { }
 
-        public TalentManagementGoalGetByIds(params Guid[] ids)
+        public SurveyResponseTeacherCandidateTargetAssociationGetByIds(params Guid[] ids)
         {
             Ids = new List<Guid>(ids);
         }
@@ -5097,21 +5277,131 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.TalentManagementGoals
     }
 
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalPost : Resources.TalentManagementGoal.TPDM.TalentManagementGoal
+    public class SurveyResponseTeacherCandidateTargetAssociationPost : Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation
     {
     }
 
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalPut : Resources.TalentManagementGoal.TPDM.TalentManagementGoal
+    public class SurveyResponseTeacherCandidateTargetAssociationPut : Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation
     { 
     }
 
     [ExcludeFromCodeCoverage]
-    public class TalentManagementGoalDelete : IHasIdentifier 
+    public class SurveyResponseTeacherCandidateTargetAssociationDelete : IHasIdentifier 
     {
-        public TalentManagementGoalDelete() { }
+        public SurveyResponseTeacherCandidateTargetAssociationDelete() { }
 
-        public TalentManagementGoalDelete(Guid id) 
+        public SurveyResponseTeacherCandidateTargetAssociationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.SurveySectionAggregateResponses
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponseGetByExample
+    {
+        public DateTime EvaluationDate { get; set; }
+        public string EvaluationElementTitle { get; set; }
+        public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationTitle { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string PerformanceEvaluationTitle { get; set; }
+        public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public string PersonId { get; set; }
+        public decimal ScoreValue { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+        public string SurveyIdentifier { get; set; }
+        public string SurveySectionTitle { get; set; }
+        public string TermDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponseGetByIds : IHasIdentifiers<Guid>
+    {
+        public SurveySectionAggregateResponseGetByIds() { }
+
+        public SurveySectionAggregateResponseGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponsePost : Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponsePut : Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionAggregateResponseDelete : IHasIdentifier 
+    {
+        public SurveySectionAggregateResponseDelete() { }
+
+        public SurveySectionAggregateResponseDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationGetByExample
+    {
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string SurveyIdentifier { get; set; }
+        public string SurveyResponseIdentifier { get; set; }
+        public string SurveySectionTitle { get; set; }
+        public string TeacherCandidateIdentifier { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public SurveySectionResponseTeacherCandidateTargetAssociationGetByIds() { }
+
+        public SurveySectionResponseTeacherCandidateTargetAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationPost : Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationPut : Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SurveySectionResponseTeacherCandidateTargetAssociationDelete : IHasIdentifier 
+    {
+        public SurveySectionResponseTeacherCandidateTargetAssociationDelete() { }
+
+        public SurveySectionResponseTeacherCandidateTargetAssociationDelete(Guid id) 
         {
             Id = id;
         }
@@ -5151,10 +5441,12 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherCandidates
         public bool MultipleBirthStatus { get; set; }
         public string OldEthnicityDescriptor { get; set; }
         public string PersonalTitlePrefix { get; set; }
+        public string PersonId { get; set; }
         public string PreviousCareerDescriptor { get; set; }
         public string ProfileThumbnail { get; set; }
         public bool ProgramComplete { get; set; }
         public string SexDescriptor { get; set; }
+        public string SourceSystemDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
         public string TeacherCandidateIdentifier { get; set; }
         public decimal TuitionCost { get; set; }
@@ -6111,52 +6403,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherPreparationProviderPrograms
         public TeacherPreparationProviderProgramDelete() { }
 
         public TeacherPreparationProviderProgramDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.ThemeDescriptors
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorGetByExample
-    {
-        public int ThemeDescriptorId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorGetByIds : IHasIdentifiers<Guid>
-    {
-        public ThemeDescriptorGetByIds() { }
-
-        public ThemeDescriptorGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorPost : Resources.ThemeDescriptor.TPDM.ThemeDescriptor
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorPut : Resources.ThemeDescriptor.TPDM.ThemeDescriptor
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ThemeDescriptorDelete : IHasIdentifier 
-    {
-        public ThemeDescriptorDelete() { }
-
-        public ThemeDescriptorDelete(Guid id) 
         {
             Id = id;
         }
