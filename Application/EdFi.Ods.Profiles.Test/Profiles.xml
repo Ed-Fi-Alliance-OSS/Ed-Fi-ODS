@@ -647,4 +647,15 @@
     </Resource>
   </Profile>
 
+  <Profile name="MinimalStudentSchoolAssociation-IncludeOnly">
+    <Resource name="StudentSchoolAssociation">
+      <ReadContentType memberSelection ="IncludeOnly">
+        <Property name="EntryDate" />
+        <Property name="ExitWithdrawDate" />
+        <Property name="PrimarySchool" />
+        <Property name="EntryGradeLevelDescriptor" />
+      </ReadContentType>
+    </Resource>
+  </Profile>
+
 </Profiles>
