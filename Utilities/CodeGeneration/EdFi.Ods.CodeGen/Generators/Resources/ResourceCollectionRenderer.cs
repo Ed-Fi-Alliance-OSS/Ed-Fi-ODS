@@ -421,7 +421,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
                                 .Any(a => a.IsNavigable),
                             References = rp.EntityProperty.IncomingAssociations
-                                .Where(a => !a.IsNavigable)
+                                .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
                                 .Select(a => new
                                 {
                                     Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
