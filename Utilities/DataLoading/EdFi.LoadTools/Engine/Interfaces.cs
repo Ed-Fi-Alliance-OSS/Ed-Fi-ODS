@@ -158,11 +158,13 @@ namespace EdFi.LoadTools.Engine
     {
         bool IsSuccess { get; }
 
-        string ErrorMessage { get; }
+        string Message { get; }
 
         string Content { get; }
 
         HttpStatusCode StatusCode { get; }
+
+        int RequestNumber { get; }
     }
 
     public interface ISdkLibraryConfiguration
