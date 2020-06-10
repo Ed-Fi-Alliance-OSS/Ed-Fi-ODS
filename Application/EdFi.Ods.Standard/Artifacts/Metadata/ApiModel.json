@@ -1,9 +1,9 @@
 {
-  "odsApiVersion": "3.4.0",
+  "odsApiVersion": "4.0.0",
   "schemaDefinition": {
     "logicalName": "Ed-Fi",
     "physicalName": "edfi",
-    "version": "3.2.0-b"
+    "version": "3.2.0-c"
   },
   "aggregateDefinitions": [
     {
