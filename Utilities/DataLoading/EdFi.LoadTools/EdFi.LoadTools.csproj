@@ -9,6 +9,8 @@
         <RootNamespace>EdFi.LoadTools</RootNamespace>
         <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/DataLoading</PackageProjectUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <DebugType>full</DebugType>
@@ -29,4 +31,7 @@
     <ItemGroup>
       <Folder Include="Properties\" />
     </ItemGroup>
+	<ItemGroup>
+		<None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+	</ItemGroup>
 </Project>

@@ -10,7 +10,7 @@
     <Product>Ed-Fi Ods Code Generation</Product>
     <Description>Code generation for the Ed-Fi ODS/API solution.</Description>
     <PackageId>EdFi.Ods.CodeGen</PackageId>
-    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master-v3/Utilities/CodeGeneration</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/CodeGeneration</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
     <PackageType>DotnetTool</PackageType>
