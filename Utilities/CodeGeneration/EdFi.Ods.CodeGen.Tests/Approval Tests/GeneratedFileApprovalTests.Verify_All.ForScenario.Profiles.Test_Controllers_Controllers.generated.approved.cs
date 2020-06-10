@@ -361,6 +361,156 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
+{
+    [ProfileContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.writable+json")]
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationsNullWriteRequest : NullRequestBase { }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class StudentSchoolAssociationsController : EdFiControllerBase<
+        Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly_Readable.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        Entities.Common.EdFi.IStudentSchoolAssociation,
+        Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        StudentSchoolAssociationsNullWriteRequest,
+        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationDelete,
+        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample>
+    {
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CalendarCode = request.CalendarCode;
+            specification.ClassOfSchoolYear = request.ClassOfSchoolYear;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EmployedWhileEnrolled = request.EmployedWhileEnrolled;
+            specification.EntryDate = request.EntryDate;
+            specification.EntryGradeLevelDescriptor = request.EntryGradeLevelDescriptor;
+            specification.EntryGradeLevelReasonDescriptor = request.EntryGradeLevelReasonDescriptor;
+            specification.EntryTypeDescriptor = request.EntryTypeDescriptor;
+            specification.ExitWithdrawDate = request.ExitWithdrawDate;
+            specification.ExitWithdrawTypeDescriptor = request.ExitWithdrawTypeDescriptor;
+            specification.FullTimeEquivalency = request.FullTimeEquivalency;
+            specification.GraduationPlanTypeDescriptor = request.GraduationPlanTypeDescriptor;
+            specification.GraduationSchoolYear = request.GraduationSchoolYear;
+            specification.Id = request.Id;
+            specification.PrimarySchool = request.PrimarySchool;
+            specification.RepeatGradeIndicator = request.RepeatGradeIndicator;
+            specification.ResidencyStatusDescriptor = request.ResidencyStatusDescriptor;
+            specification.SchoolChoiceTransfer = request.SchoolChoiceTransfer;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.StudentUniqueId = request.StudentUniqueId;
+            specification.TermCompletionIndicator = request.TermCompletionIndicator;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "studentSchoolAssociations";
+        }
+
+        protected override string GetReadContentType()
+        {
+            return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.readable+json";
+        }
+
+        public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
+
+        public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
+{
+    [ProfileContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.writable+json")]
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationsNullWriteRequest : NullRequestBase { }
+
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class StudentSchoolAssociationsController : EdFiControllerBase<
+        Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_IncludeOnly_Readable.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        Entities.Common.EdFi.IStudentSchoolAssociation,
+        Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
+        StudentSchoolAssociationsNullWriteRequest,
+        StudentSchoolAssociationsNullWriteRequest,
+        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationDelete,
+        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample>
+    {
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.CalendarCode = request.CalendarCode;
+            specification.ClassOfSchoolYear = request.ClassOfSchoolYear;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EmployedWhileEnrolled = request.EmployedWhileEnrolled;
+            specification.EntryDate = request.EntryDate;
+            specification.EntryGradeLevelDescriptor = request.EntryGradeLevelDescriptor;
+            specification.EntryGradeLevelReasonDescriptor = request.EntryGradeLevelReasonDescriptor;
+            specification.EntryTypeDescriptor = request.EntryTypeDescriptor;
+            specification.ExitWithdrawDate = request.ExitWithdrawDate;
+            specification.ExitWithdrawTypeDescriptor = request.ExitWithdrawTypeDescriptor;
+            specification.FullTimeEquivalency = request.FullTimeEquivalency;
+            specification.GraduationPlanTypeDescriptor = request.GraduationPlanTypeDescriptor;
+            specification.GraduationSchoolYear = request.GraduationSchoolYear;
+            specification.Id = request.Id;
+            specification.PrimarySchool = request.PrimarySchool;
+            specification.RepeatGradeIndicator = request.RepeatGradeIndicator;
+            specification.ResidencyStatusDescriptor = request.ResidencyStatusDescriptor;
+            specification.SchoolChoiceTransfer = request.SchoolChoiceTransfer;
+            specification.SchoolId = request.SchoolId;
+            specification.SchoolYear = request.SchoolYear;
+            specification.StudentUniqueId = request.StudentUniqueId;
+            specification.TermCompletionIndicator = request.TermCompletionIndicator;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "studentSchoolAssociations";
+        }
+
+        protected override string GetReadContentType()
+        {
+            return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.readable+json";
+        }
+
+        public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
+
+        public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restricted
 {
     [ProfileContentType("application/vnd.ed-fi.student.student-readable-restricted.writable+json")]

@@ -2095,3 +2095,117 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByExample
+    {
+        public string CalendarCode { get; set; }
+        public short ClassOfSchoolYear { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public bool EmployedWhileEnrolled { get; set; }
+        public DateTime EntryDate { get; set; }
+        public string EntryGradeLevelDescriptor { get; set; }
+        public string EntryGradeLevelReasonDescriptor { get; set; }
+        public string EntryTypeDescriptor { get; set; }
+        public DateTime ExitWithdrawDate { get; set; }
+        public string ExitWithdrawTypeDescriptor { get; set; }
+        public decimal FullTimeEquivalency { get; set; }
+        public string GraduationPlanTypeDescriptor { get; set; }
+        public short GraduationSchoolYear { get; set; }
+        public Guid Id { get; set; }
+        public bool PrimarySchool { get; set; }
+        public bool RepeatGradeIndicator { get; set; }
+        public string ResidencyStatusDescriptor { get; set; }
+        public bool SchoolChoiceTransfer { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string StudentUniqueId { get; set; }
+        public bool TermCompletionIndicator { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentSchoolAssociationGetByIds() { }
+
+        public StudentSchoolAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationDelete : IHasIdentifier 
+    {
+        public StudentSchoolAssociationDelete() { }
+
+        public StudentSchoolAssociationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByExample
+    {
+        public string CalendarCode { get; set; }
+        public short ClassOfSchoolYear { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public bool EmployedWhileEnrolled { get; set; }
+        public DateTime EntryDate { get; set; }
+        public string EntryGradeLevelDescriptor { get; set; }
+        public string EntryGradeLevelReasonDescriptor { get; set; }
+        public string EntryTypeDescriptor { get; set; }
+        public DateTime ExitWithdrawDate { get; set; }
+        public string ExitWithdrawTypeDescriptor { get; set; }
+        public decimal FullTimeEquivalency { get; set; }
+        public string GraduationPlanTypeDescriptor { get; set; }
+        public short GraduationSchoolYear { get; set; }
+        public Guid Id { get; set; }
+        public bool PrimarySchool { get; set; }
+        public bool RepeatGradeIndicator { get; set; }
+        public string ResidencyStatusDescriptor { get; set; }
+        public bool SchoolChoiceTransfer { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string StudentUniqueId { get; set; }
+        public bool TermCompletionIndicator { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentSchoolAssociationGetByIds() { }
+
+        public StudentSchoolAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentSchoolAssociationDelete : IHasIdentifier 
+    {
+        public StudentSchoolAssociationDelete() { }
+
+        public StudentSchoolAssociationDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
