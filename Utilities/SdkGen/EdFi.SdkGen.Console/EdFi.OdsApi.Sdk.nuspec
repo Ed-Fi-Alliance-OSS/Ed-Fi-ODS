@@ -6,6 +6,7 @@
     <title>EdFi.OdsApi.Sdk</title>
     <authors>$authors$</authors>
     <owners>$owners$</owners>
+	<projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pregenerated sdk for use with the Ed-Fi Ods Api.</description>
     <releaseNotes>Packaged Ed-Fi SDK.</releaseNotes>
