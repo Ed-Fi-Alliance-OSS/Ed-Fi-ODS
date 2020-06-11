@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -57,7 +57,7 @@ namespace EdFi.LoadTools.Engine
 
     public interface IInterchangePipelineStep
     {
-        bool Process(string sourceFileName, Stream stream);
+        bool Process(FileContext fileContext, Stream stream);
     }
 
     public interface IMappingStrategy
@@ -118,13 +118,6 @@ namespace EdFi.LoadTools.Engine
     public interface IOAuthSessionToken
     {
         string SessionToken { get; set; }
-    }
-
-    public interface IResourceStreamFactory
-    {
-        Dictionary<string, List<string>> GetInterchangeToInterchangeFilesMap();
-
-        Stream GetStream(string interchangeFileName);
     }
 
     public interface IHashProvider

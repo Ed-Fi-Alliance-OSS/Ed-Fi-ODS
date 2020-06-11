@@ -2,12 +2,13 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Linq;
+using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.InterchangePipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,9 +43,10 @@ namespace EdFi.LoadTools.Test
         {
             _cache = new TestXmlReferenceCache();
             _findStep = new FindReferencesStep(_cache);
-            _findStep.Process("sourceFileName", GetStream());
+            var fileContext = new FileContext {FileName = "sourceFileName"};
+            _findStep.Process(fileContext, GetStream());
             _loadStep = new PreloadReferencesStep(_cache);
-            _loadStep.Process("sourceFileName", GetStream());
+            _loadStep.Process(fileContext, GetStream());
         }
 
         [TestMethod]

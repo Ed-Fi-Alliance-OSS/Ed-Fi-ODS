@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -27,7 +27,6 @@ namespace EdFi.LoadTools
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
         private readonly IResourceHashCache _xmlResourceHashCache;
         private readonly DependenciesRetriever _dependenciesRetriever;
-        private readonly ResourceToInterchangeMapProvider _resourceToInterchangeMapProvider;
 
         public ApiLoaderApplication(
             InterchangePipeline interchangePipeline,
@@ -36,8 +35,7 @@ namespace EdFi.LoadTools
             IResourceHashCache xmlResourceHashCache,
             IXmlReferenceCacheFactory xmlReferenceCacheFactory,
             IApiConfiguration apiConfiguration,
-            DependenciesRetriever dependenciesRetriever,
-            ResourceToInterchangeMapProvider resourceToInterchangeMapProvider)
+            DependenciesRetriever dependenciesRetriever)
         {
             _interchangePipeline = interchangePipeline;
             _resourcePipeline = resourcePipeline;
@@ -46,7 +44,6 @@ namespace EdFi.LoadTools
             _xmlReferenceCacheFactory = xmlReferenceCacheFactory;
             _apiConfiguration = apiConfiguration;
             _dependenciesRetriever = dependenciesRetriever;
-            _resourceToInterchangeMapProvider = resourceToInterchangeMapProvider;
         }
 
         public async Task<int> Run()
@@ -65,7 +62,7 @@ namespace EdFi.LoadTools
                 var resources = dependencyLevelGroup.Select(s => s.Resource).ToList();
                 var dependency = dependencyLevelGroup.First();
 
-                foreach (var resource in _interchangePipeline.RetrieveResourcesFromInterchange(resources, dependency.Order))
+                foreach (var resource in _interchangePipeline.RetrieveResourcesFromFiles(resources, dependency.Order))
                 {
                     await resourcePipeline.StartBlock.SendAsync(resource).ConfigureAwait(false);
                     foundFilesToUpload = true;
@@ -73,7 +70,7 @@ namespace EdFi.LoadTools
 
                 resourcePipeline.StartBlock.Complete();
                 await resourcePipeline.Completion.ConfigureAwait(false);
-                
+
                 if (retryQueue.Count > 0)
                 {
                     var retryPipeline = CreateRetryPipeline(retryQueue.Count);

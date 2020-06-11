@@ -2,16 +2,18 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using EdFi.LoadTools.ApiClient;
 using log4net;
 
 namespace EdFi.LoadTools.Engine.InterchangePipeline
 {
     public class FindReferencesStep : IInterchangePipelineStep
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(FindReferencesStep).Name);
+        private static readonly ILog _log = LogManager.GetLogger(nameof(FindReferencesStep));
         private readonly IXmlReferenceCacheProvider _referenceCacheProvider;
 
         public FindReferencesStep(IXmlReferenceCacheProvider referenceCacheProvider)
@@ -19,10 +21,21 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
             _referenceCacheProvider = referenceCacheProvider;
         }
 
-        public bool Process(string sourceFileName, Stream stream)
+        public bool Process(FileContext fileContext, Stream stream)
         {
+            var contextPrefix = LogContext.BuildContextPrefix(Path.GetFileNameWithoutExtension(fileContext.FileName));
+
+            if (fileContext.NumberOfIdRefs == 0)
+            {
+                _log.Debug($"{contextPrefix} No file references are found. Skipping finding references.");
+                return true;
+            }
+
+            var sw = new Stopwatch();
+            sw.Start();
+
             var total = 0;
-            var referenceCache = _referenceCacheProvider.GetXmlReferenceCache(sourceFileName);
+            var referenceCache = _referenceCacheProvider.GetXmlReferenceCache(fileContext.FileName);
 
             using (var reader = new XmlTextReader(stream))
             {
@@ -42,9 +55,18 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                     }
                 }
 
-                Log.Info($"{total} references to {referenceCache.NumberOfReferences} resources found");
+                if (total != fileContext.NumberOfIdRefs)
+                {
+                    _log.Warn(
+                        $"{contextPrefix} miss match in reference ids found (expected: {fileContext.NumberOfIdRefs} vs. actual: {total}.");
+                }
+
+                _log.Info($"{contextPrefix} {total} references to {referenceCache.NumberOfReferences} resources found");
             }
 
+            sw.Stop();
+
+            _log.Debug($"Finished finding references in {sw.Elapsed.TotalSeconds} seconds.");
             return true;
         }
     }

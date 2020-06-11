@@ -2,9 +2,10 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -14,43 +15,41 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
 {
     public class InterchangePipeline
     {
+        private readonly Lazy<Dictionary<string, List<FileTypeInfo>>> _resourceByFileTypeInfo;
         private readonly IInterchangePipelineStep[] _steps;
-        private readonly IResourceStreamFactory _streamFactory;
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
-        private readonly Lazy<Dictionary<string, List<InterchangeInfo>>> _resourceToInterchangeMap;
 
-        public InterchangePipeline(IResourceStreamFactory streamFactory,
-                                   IXmlReferenceCacheFactory xmlReferenceCacheFactory,
-                                   IInterchangePipelineStep[] steps,
-                                   ResourceToInterchangeMapProvider resourceToInterchangeMapProvider)
+        public InterchangePipeline(IXmlReferenceCacheFactory xmlReferenceCacheFactory,
+            IInterchangePipelineStep[] steps,
+            IResourceToFileTypeInfoProvider resourceToFileTypeInfoProvider)
         {
-            _streamFactory = streamFactory;
             _xmlReferenceCacheFactory = xmlReferenceCacheFactory;
             _steps = steps;
-            _resourceToInterchangeMap =
-                new Lazy<Dictionary<string, List<InterchangeInfo>>>(resourceToInterchangeMapProvider.GetResourceToInterchangeMap);
 
+            _resourceByFileTypeInfo =
+                new Lazy<Dictionary<string, List<FileTypeInfo>>>(resourceToFileTypeInfoProvider.GetResourceByFileTypeInfo);
         }
-        public IEnumerable<ApiLoaderWorkItem> RetrieveResourcesFromInterchange(List<string> resources, int level)
-        {
-            var interchangeFileNames = GetUniqueInterchangeFiles(resources);
 
-            foreach (var interchangeFileName in interchangeFileNames)
+        public IEnumerable<ApiLoaderWorkItem> RetrieveResourcesFromFiles(List<string> resources, int level)
+        {
+            var uniqueFileContexts = GetUniqueFileContexts(resources);
+
+            foreach (var fileContext in uniqueFileContexts)
             {
-                using (LogContext.SetFileName(interchangeFileName))
+                using (LogContext.SetFileName(Path.GetFileName(fileContext.FileName)))
                 {
-                    _xmlReferenceCacheFactory.InitializeCache(interchangeFileName);
+                    _xmlReferenceCacheFactory.InitializeCache(fileContext.FileName);
 
                     if (_steps.All(
                         s =>
                         {
-                            using (var stream = _streamFactory.GetStream(interchangeFileName))
+                            using (var stream = CreateFileStream(fileContext))
                             {
-                                return s.Process(interchangeFileName, stream);
+                                return s.Process(fileContext, stream);
                             }
                         }))
                     {
-                        using (var reader = new XmlTextReader(_streamFactory.GetStream(interchangeFileName)))
+                        using (var reader = new XmlTextReader(CreateFileStream(fileContext)))
                         {
                             while (reader.Read())
                             {
@@ -65,38 +64,43 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                                 }
 
                                 var lineNumber = reader.LineNumber;
+
                                 using (var r = reader.ReadSubtree())
                                 {
                                     var xElement = XElement.Load(r);
 
-                                    if (!resources.Any(s => s.Equals(xElement.Name.LocalName,StringComparison.InvariantCultureIgnoreCase)))
+                                    if (!resources.Any(
+                                        s => s.Equals(xElement.Name.LocalName, StringComparison.InvariantCultureIgnoreCase)))
                                     {
                                         continue;
                                     }
 
                                     yield return
-                                        new ApiLoaderWorkItem(interchangeFileName, lineNumber, xElement, level);
+                                        new ApiLoaderWorkItem(fileContext.FileName, lineNumber, xElement, level);
                                 }
                             }
                         }
                     }
                 }
             }
+
+            FileStream CreateFileStream(FileContext fileContext)
+                => new FileStream(fileContext.FileName, FileMode.Open, FileAccess.Read);
         }
 
-        private IEnumerable<string> GetUniqueInterchangeFiles(IEnumerable<string> resources)
+        private IEnumerable<FileContext> GetUniqueFileContexts(IEnumerable<string> resources)
         {
-            HashSet<string> interchangeFileNames = new HashSet<string>();
+            var fileInfos = new HashSet<FileContext>();
 
             foreach (var resource in resources)
             {
-                if (_resourceToInterchangeMap.Value.TryGetValue(resource, out List<InterchangeInfo> interchangeInfoList))
+                if (_resourceByFileTypeInfo.Value.TryGetValue(resource, out List<FileTypeInfo> fileTypeInfos))
                 {
-                    interchangeFileNames.UnionWith(interchangeInfoList.SelectMany(s => s.InterchangeFileNames));
+                    fileInfos.UnionWith(fileTypeInfos.SelectMany(s => s.FileContexts.Where(f => f.IsValid)));
                 }
             }
 
-            return interchangeFileNames;
+            return fileInfos;
         }
     }
 }
