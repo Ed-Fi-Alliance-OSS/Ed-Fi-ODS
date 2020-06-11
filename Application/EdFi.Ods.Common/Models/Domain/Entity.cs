@@ -49,7 +49,7 @@ namespace EdFi.Ods.Common.Models.Domain
             Schema = entityDefinition.Schema;
             Name = entityDefinition.Name;
 
-            TableNameByDatabaseEngine = entityDefinition.TableNames;
+            TableNameByDatabaseEngine = new Dictionary<string, string>(entityDefinition.TableNames, StringComparer.InvariantCultureIgnoreCase);
 
             Description = entityDefinition.Description?.Trim();
             IsAbstract = entityDefinition.IsAbstract;
