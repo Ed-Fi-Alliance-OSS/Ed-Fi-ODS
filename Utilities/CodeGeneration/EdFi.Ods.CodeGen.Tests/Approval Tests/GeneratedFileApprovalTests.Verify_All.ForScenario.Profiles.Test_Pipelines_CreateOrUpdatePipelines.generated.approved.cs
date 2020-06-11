@@ -321,3 +321,11 @@ namespace EdFi.Ods.Api.Pipelines.StudentSpecialEducationProgramAssociation_Deriv
     }
 
 }
+
+namespace EdFi.Ods.Api.Pipelines.MinimalStudentSchoolAssociation_IncludeOnly
+{
+}
+
+namespace EdFi.Ods.Api.Pipelines.MinimalStudentSchoolAssociation_ExcludeOnly
+{
+}

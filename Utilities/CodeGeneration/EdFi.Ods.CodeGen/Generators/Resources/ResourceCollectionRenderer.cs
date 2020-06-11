@@ -339,7 +339,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             public IEnumerable<UnifiedReferenceProperty> References { get; set; }
         }
 
-        public class KeyUnificationValidation 
+        public class KeyUnificationValidation
         {
             public string ResourceClassName { get; set; }
 
@@ -401,7 +401,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 : ResourceRenderer.DoNotRenderProperty
                         }),
                 HasProfileItemFilterValidations = profileData.HasProfile
-                    && profileData.IsWritable 
+                    && profileData.IsWritable
                     && profileData.HasFilteredCollection()
                     && GetItemFilterValidations().Any(),
                 ProfileItemFilterValidations = GetItemFilterValidations(),
@@ -421,23 +421,23 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
                                 .Any(a => a.IsNavigable),
                             References = rp.EntityProperty.IncomingAssociations
-                                .Where(a => !a.IsNavigable)
+                                .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
                                 .Select(a => new
                                 {
                                     Reference = rp.Parent.ReferenceByName[a.Name + "Reference"],
-                                    OtherEntityPropertyName = a.PropertyMappings.Where(pm => pm.ThisProperty.Equals(rp.EntityProperty)).Select(pm => pm.OtherProperty.PropertyName).Single(), 
+                                    OtherEntityPropertyName = a.PropertyMappings.Where(pm => pm.ThisProperty.Equals(rp.EntityProperty)).Select(pm => pm.OtherProperty.PropertyName).Single(),
                                 })
                                 // TODO: Remove this filter with dynamic profiles
                                 .Where(x => !profileData.HasProfile || profileData.IsIncluded(resource, x.Reference))
                                 .Select(x => new
                                 {
                                     Reference = x.Reference,
-                                    ReferenceProperty = 
+                                    ReferenceProperty =
                                         (x.Reference.ReferenceTypeProperties
                                                 .SingleOrDefault(rtp => rtp.EntityProperty.PropertyName == x.OtherEntityPropertyName)
                                             // Deal with the special case of the re-pointing of the identifying property from USI to UniqueId in Person entities
                                             ?? x.Reference.ReferenceTypeProperties
-                                                .Single(rtp => rtp.EntityProperty.PropertyName == 
+                                                .Single(rtp => rtp.EntityProperty.PropertyName ==
                                                     EdFi.Ods.Common.Specifications.UniqueIdSpecification.GetUniqueIdPropertyName(x.OtherEntityPropertyName)))
                                 })
                                 .Select(x => new UnifiedReferenceProperty
@@ -521,7 +521,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                                 : referenceName,
                                         Name = x.ParentFullName.Name,
 
-                                        // using the property name so we do not break the data member contract 
+                                        // using the property name so we do not break the data member contract
                                         // from the original template.
                                         JsonPropertyName = x.PropertyName.ToCamelCase(),
                                         PropertyName = x.PropertyName,
@@ -610,7 +610,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 Collection = x.ItemType.PluralName,
                                 PropertyName = x.PropertyName,
 
-                                // using the property name so we do not break the data member contract 
+                                // using the property name so we do not break the data member contract
                                 // from the original template.
                                 JsonPropertyName = x.PropertyName
                                     .TrimPrefix(x.ParentFullName.Name)
@@ -639,7 +639,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 ReferenceTypeName = x.ReferenceTypeName,
                                 PropertyFieldName = x.ReferenceTypeName.ToCamelCase()
                             })
-                        .ToList(),                    
+                        .ToList(),
                     Standard = resource.Collections.Any(x => !x.IsInherited)
                         ? ResourceRenderer.DoRenderProperty
                         : ResourceRenderer.DoNotRenderProperty,
@@ -652,7 +652,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 Collection = x.ItemType.PluralName,
                                 PropertyName = x.PropertyName,
 
-                                // using the property name so we do not break the data member contract 
+                                // using the property name so we do not break the data member contract
                                 // from the original template.
                                 JsonPropertyName = x.PropertyName
                                     .TrimPrefix(x.ParentFullName.Name)
