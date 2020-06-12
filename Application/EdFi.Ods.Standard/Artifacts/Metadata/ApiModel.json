@@ -21808,15 +21808,15 @@
           }
         },
         {
-          "identifierName": "Parent_UI_ParentUniqueId",
+          "identifierName": "Parent_UX_ParentUniqueId",
           "identifyingPropertyNames": [
             "ParentUniqueId"
           ],
           "isPrimary": false,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "Parent_UI_ParentUniqueId",
-            "postgreSql": "Parent_UI_ParentUniqueId"
+            "sqlServer": "Parent_UX_ParentUniqueId",
+            "postgreSql": "Parent_UX_ParentUniqueId"
           }
         },
         {
@@ -26843,15 +26843,15 @@
           }
         },
         {
-          "identifierName": "Staff_UI_StaffUniqueId",
+          "identifierName": "Staff_UX_StaffUniqueId",
           "identifyingPropertyNames": [
             "StaffUniqueId"
           ],
           "isPrimary": false,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "Staff_UI_StaffUniqueId",
-            "postgreSql": "Staff_UI_StaffUniqueId"
+            "sqlServer": "Staff_UX_StaffUniqueId",
+            "postgreSql": "Staff_UX_StaffUniqueId"
           }
         },
         {
@@ -31059,15 +31059,15 @@
           }
         },
         {
-          "identifierName": "Student_UI_StudentUniqueId",
+          "identifierName": "Student_UX_StudentUniqueId",
           "identifyingPropertyNames": [
             "StudentUniqueId"
           ],
           "isPrimary": false,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "Student_UI_StudentUniqueId",
-            "postgreSql": "Student_UI_StudentUniqueId"
+            "sqlServer": "Student_UX_StudentUniqueId",
+            "postgreSql": "Student_UX_StudentUniqueId"
           }
         },
         {
