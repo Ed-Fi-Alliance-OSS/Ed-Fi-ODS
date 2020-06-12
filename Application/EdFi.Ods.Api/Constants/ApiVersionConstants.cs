@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Reflection;
 
 namespace EdFi.Ods.Api.Constants
@@ -32,12 +32,12 @@ namespace EdFi.Ods.Api.Constants
         /// <summary>
         /// Informational version of the ods api.
         /// </summary>
-        public const string InformationalVersion = "3.4.0";
+        public const string InformationalVersion = "4.0.0";
 
         /// <summary>
         /// Semantic version of the ods api.
         /// </summary>
-        public const string Version = "3.4.0";
+        public const string Version = "4.0.0";
 
         /// <summary>
         /// Suite version of the ods api.
