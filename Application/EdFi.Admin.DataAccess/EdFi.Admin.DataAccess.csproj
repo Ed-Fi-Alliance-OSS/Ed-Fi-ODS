@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <AssemblyName>EdFi.Admin.DataAccess</AssemblyName>
     <RootNamespace>EdFi.Admin.DataAccess</RootNamespace>
     <RestorePackages>true</RestorePackages>
@@ -21,5 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
 </Project>

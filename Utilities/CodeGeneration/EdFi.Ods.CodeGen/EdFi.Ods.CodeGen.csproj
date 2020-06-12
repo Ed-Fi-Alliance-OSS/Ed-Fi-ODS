@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,22 +9,20 @@
     <Product>Ed-Fi Ods Code Generation</Product>
     <Description>Code generation for the Ed-Fi ODS/API solution.</Description>
     <PackageId>EdFi.Ods.CodeGen</PackageId>
-    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance/Ed-Fi-ODS/tree/master-v3/Utilities/CodeGeneration</PackageProjectUrl>
-    <PackageLicenseUrl>https://www.ed-fi.org/license</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/CodeGeneration</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
     <PackageType>DotnetTool</PackageType>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>EdFi.Ods.CodeGen</ToolCommandName>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="AsyncEnumerator" Version="4.0.2" />
     <PackageReference Include="Autofac" Version="5.1.2" />
@@ -44,21 +41,18 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Mustache\*.mustache" />
     <None Remove="TemplateSets.json" />
+    <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Mustache\*.mustache" />
     <EmbeddedResource Include="TemplateSets.json" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
