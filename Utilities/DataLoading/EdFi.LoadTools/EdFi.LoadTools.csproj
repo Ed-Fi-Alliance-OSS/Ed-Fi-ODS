@@ -1,37 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>Library</OutputType>
-        <TargetFramework>net48</TargetFramework>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <RestorePackages>true</RestorePackages>
-        <Configurations>Debug;Release</Configurations>
-        <AssemblyName>EdFi.LoadTools</AssemblyName>
-        <RootNamespace>EdFi.LoadTools</RootNamespace>
-        <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
-        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-		<PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/DataLoading</PackageProjectUrl>
-        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugType>full</DebugType>
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="EdFi.Common" Version="3.4.0" />
-        <PackageReference Include="log4net" Version="2.0.8" />
-        <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.4" />
-        <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-        <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
-        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-        <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
-        <PackageReference Include="RestSharp" Version="105.2.3" />
-        <PackageReference Include="SimpleInjector" Version="4.1.0" />
-        <PackageReference Include="System.ValueTuple" Version="4.4.0" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Properties\" />
-    </ItemGroup>
-	<ItemGroup>
-		<None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <RestorePackages>true</RestorePackages>
+    <Configurations>Debug;Release</Configurations>
+    <AssemblyName>EdFi.LoadTools</AssemblyName>
+    <RootNamespace>EdFi.LoadTools</RootNamespace>
+    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/DataLoading</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EdFi.Common" Version="3.4.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
+    <PackageReference Include="RestSharp" Version="105.2.3" />
+    <PackageReference Include="SimpleInjector" Version="4.1.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+  </ItemGroup>
 </Project>

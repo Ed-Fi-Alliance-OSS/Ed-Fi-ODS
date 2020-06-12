@@ -68,6 +68,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-		<None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
-	</ItemGroup>
+    <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+  </ItemGroup>
 </Project>
