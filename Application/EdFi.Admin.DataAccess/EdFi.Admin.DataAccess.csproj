@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
-	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <AssemblyName>EdFi.Admin.DataAccess</AssemblyName>
     <RootNamespace>EdFi.Admin.DataAccess</RootNamespace>
     <RestorePackages>true</RestorePackages>
