@@ -32,7 +32,7 @@ namespace EdFi.LoadTools.Test
             {
                 const string data = "value";
                 var sourceElement = XElement.Parse($"<A><B>{data}</B></A>");
-                var resourceWorkItem = new ApiLoaderWorkItem("interchange", "source.xml", sourceElement, 1);
+                var resourceWorkItem = new ApiLoaderWorkItem("source.xml", 1, sourceElement, 1);
                 Assert.IsTrue(_step.Process(resourceWorkItem));
                 dynamic result = JObject.Parse(resourceWorkItem.Json);
                 Assert.AreEqual(data, result.B.Value);
@@ -43,7 +43,7 @@ namespace EdFi.LoadTools.Test
             {
                 const string data = "value";
                 var sourceElement = XElement.Parse($"<A><C>{data}</C></A>");
-                var resourceWorkItem = new ApiLoaderWorkItem("interchange", "source.xml", sourceElement, 1);
+                var resourceWorkItem = new ApiLoaderWorkItem("source.xml", 1, sourceElement, 1);
                 Assert.IsTrue(_step.Process(resourceWorkItem));
                 dynamic result = JObject.Parse(resourceWorkItem.Json);
                 Assert.AreEqual(data, result.C.D.E.F.Value);

@@ -192,7 +192,7 @@ namespace EdFi.LoadTools.Test
                                         _metadata
                                     });
 
-                _resourceWorkItem = new ApiLoaderWorkItem("interchange", "filename", element, 1);
+                _resourceWorkItem = new ApiLoaderWorkItem("filename", 1, element, 1);
             }
 
             [TestCleanup]

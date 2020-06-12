@@ -5,6 +5,7 @@
  
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Xml.Linq;
@@ -19,17 +20,15 @@ namespace EdFi.LoadTools.Engine
         private byte[] _hash =
             { };
         private XElement _jElement = new XElement("empty");
-        private int _level = 0;
 
-        public ApiLoaderWorkItem(string interchangeName, string sourceFileName, XElement xElement, int level)
+        public ApiLoaderWorkItem(string sourceFileName, int lineNumber, XElement xElement, int level)
         {
-            InterchangeName = interchangeName;
             SourceFileName = sourceFileName;
+            LineNumber = lineNumber;
             XElement = xElement;
-            _level = level;
+            Level = level;
         }
 
-        public int Level => _level;
         public string ResourceType => XElement.Name.LocalName;
 
         public string ElementName => XElement.Name.LocalName;
@@ -38,11 +37,15 @@ namespace EdFi.LoadTools.Engine
 
         public string HashString { get; private set; }
 
-        public string InterchangeName { get; }
-
         public string SourceFileName { get; }
 
+        public int LineNumber { get; }
+
+        public int Level { get; }
+
         public string Json => JsonConvert.SerializeXNode(_jElement, Formatting.None, true);
+
+        public bool IsSuccess => Responses.Any(y => y.IsSuccess);
 
         public IList<IResponse> Responses => _responses;
 
@@ -63,12 +66,12 @@ namespace EdFi.LoadTools.Engine
             _jElement = xElement;
         }
 
-        public void AddSubmissionResult(HttpResponseMessage response)
+        public void AddSubmissionResult(HttpResponseMessage response, int requestNumber)
         {
             var tmpResponse = new Response
                               {
-                                  IsSuccess = response.IsSuccessStatusCode, StatusCode = response.StatusCode, ErrorMessage = response.ReasonPhrase,
-                                  Content = response.Content?.ReadAsStringAsync().Result
+                                  IsSuccess = response.IsSuccessStatusCode, StatusCode = response.StatusCode, Message = response.ReasonPhrase,
+                                  Content = response.Content?.ReadAsStringAsync().Result, RequestNumber = requestNumber
                               };
 
             _responses.Add(tmpResponse);
@@ -85,11 +88,13 @@ namespace EdFi.LoadTools.Engine
         {
             public string Content { get; set; }
 
-            public string ErrorMessage { get; set; }
+            public string Message { get; set; }
 
             public bool IsSuccess { get; set; }
 
             public HttpStatusCode StatusCode { get; set; }
+
+            public int RequestNumber { get; set; }
         }
     }
 }

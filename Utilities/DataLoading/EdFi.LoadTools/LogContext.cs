@@ -4,46 +4,63 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using EdFi.LoadTools.Engine;
 using log4net;
+using Newtonsoft.Json;
 
 namespace EdFi.LoadTools
 {
     public static class LogContext
     {
+        public static string JsonPrettify(string json)
+        {
+            using (var stringReader = new StringReader(json))
+               using (var stringWriter = new StringWriter())
+               {
+                   var jsonReader = new JsonTextReader(stringReader);
+                   var jsonWriter = new JsonTextWriter(stringWriter) {Formatting = Formatting.Indented};
+                   jsonWriter.WriteToken(jsonReader);
+                   return stringWriter.ToString();
+               }
+        }
+
         public static string BuildContextPrefix(ApiLoaderWorkItem resourceWorkItem)
         {
             return BuildContextPrefix(
-                resourceWorkItem.InterchangeName, resourceWorkItem.SourceFileName,
-                resourceWorkItem.ElementName, resourceWorkItem.HashString);
+                resourceWorkItem.SourceFileName, resourceWorkItem.ElementName, resourceWorkItem.LineNumber,
+                resourceWorkItem.Level);
         }
 
-        public static string BuildContextPrefix(string interchangeName, string fileName = null,
+        public static string BuildContextPrefix(string fileName = null,
                                                 string resourceName = null,
-                                                string resourceHash = null)
+                                                int? lineNumber = null,
+                                                int? level = null)
         {
-            var response = new StringBuilder();
-            response.Append(interchangeName);
+            var contextParts = new List<string>();
 
             if (!string.IsNullOrWhiteSpace(fileName))
             {
-                response.Append(" " + Path.GetFileName(fileName));
+                contextParts.Add(Path.GetFileName(fileName));
             }
 
             if (!string.IsNullOrWhiteSpace(resourceName))
             {
-                response.Append(" " + resourceName);
+                contextParts.Add(resourceName);
             }
 
-            if (!string.IsNullOrWhiteSpace(resourceHash))
+            if (lineNumber.HasValue)
             {
-                response.Append(" " + resourceHash);
+                contextParts.Add($"Line {lineNumber}");
             }
 
-            response.Append(" ");
-            return response.ToString();
+            if (level.HasValue)
+            {
+                contextParts.Add("Level: " + level.Value);
+            }
+
+            return string.Join(" ", contextParts);
         }
 
         public static IDisposable SetInterchangeName(string interchangeName)

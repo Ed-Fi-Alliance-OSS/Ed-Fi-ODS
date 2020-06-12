@@ -98,6 +98,40 @@ namespace EdFi.LoadTools
             return 0;
         }
 
+        private static void LogResource(ApiLoaderWorkItem resource)
+        {
+            var contextPrefix = LogContext.BuildContextPrefix(resource);
+
+            var successfulResponse = resource.Responses.FirstOrDefault(r => r.IsSuccess);
+            if (successfulResponse != null)
+            {
+                _log.Info($"{contextPrefix} #{successfulResponse.RequestNumber} {successfulResponse.Message} - {(int)successfulResponse.StatusCode}");
+                return;
+            }
+
+            int responseCount = resource.Responses.Count;
+
+            for (int i = 0; i < responseCount; ++i)
+            {
+                var response = resource.Responses[i];
+
+                if (i == responseCount - 1)
+                {
+                    _log.Error($"{contextPrefix} #{response.RequestNumber} {response.Message} - {(int)response.StatusCode} - {response.Content}");
+                }
+                else
+                {
+                    _log.Debug($"{contextPrefix} #{response.RequestNumber} {response.Message} - {(int)response.StatusCode} - {response.Content}");
+                }
+
+                if (_log.IsDebugEnabled)
+                {
+                    _log.Debug(
+                        $"{Environment.NewLine}{resource.XElement}{Environment.NewLine}{LogContext.JsonPrettify(resource.Json)}");
+                }
+            }
+        }
+
         private DataFlowPipeline<ApiLoaderWorkItem> CreateResourcePipeline(ConcurrentQueue<ApiLoaderWorkItem> retryQueue)
         {
             // Create blocks
@@ -111,13 +145,15 @@ namespace EdFi.LoadTools
                 });
 
             var successBlock = new ActionBlock<ApiLoaderWorkItem>(
-                x => _xmlResourceHashCache.Add(x.Hash)
-            );
+                x =>
+                {
+                    LogResource(x);
+                    _xmlResourceHashCache.Add(x.Hash);
+                });
 
             var noPostBlock = new ActionBlock<ApiLoaderWorkItem>(
                 x =>
                 {
-                    //string contextPrefix = LogContext.BuildContextPrefix(x);
                     _log.Debug("Found in cache - Not Submitted");
                 });
 
@@ -130,10 +166,7 @@ namespace EdFi.LoadTools
                     }
                     else
                     {
-                        var contextPrefix = LogContext.BuildContextPrefix(x);
-
-                        _log.Error(
-                            $"{contextPrefix} {x.Responses.Last().StatusCode} - {x.Responses.Last().Content}{Environment.NewLine}{x.XElement}{Environment.NewLine}{x.Json} - Level: {x.Level}");
+                        LogResource(x);
                     }
                 },
                 new ExecutionDataflowBlockOptions
@@ -165,7 +198,7 @@ namespace EdFi.LoadTools
                 {
                     PropagateCompletion = true
                 },
-                x => x.Responses.Any(y => y.IsSuccess));
+                x => x.IsSuccess);
 
             postingBlock.LinkTo(
                 retryQueueBlock,
@@ -201,11 +234,7 @@ namespace EdFi.LoadTools
             var errorBlock = new TransformBlock<ApiLoaderWorkItem, ApiLoaderWorkItem>(
                 delegate(ApiLoaderWorkItem resource)
                 {
-                    var contextPrefix = LogContext.BuildContextPrefix(resource);
-
-                    _log.Error(
-                        $"{contextPrefix} {resource.Responses.Last().StatusCode} - {resource.Responses.Last().Content}{Environment.NewLine}{resource.XElement}{Environment.NewLine}{resource.Json}");
-
+                    LogResource(resource);
                     return resource;
                 });
 
@@ -238,7 +267,7 @@ namespace EdFi.LoadTools
                 {
                     PropagateCompletion = true
                 },
-                x => x.Responses.Count < _apiConfiguration.Retries && !x.Responses.Any(y => y.IsSuccess));
+                x => x.Responses.Count <= _apiConfiguration.Retries && !x.IsSuccess);
 
             retryBlock.LinkTo(
                 successBlock,
@@ -246,7 +275,7 @@ namespace EdFi.LoadTools
                 {
                     PropagateCompletion = true
                 },
-                x => x.Responses.Any(y => y.IsSuccess));
+                x => x.IsSuccess);
 
             retryBlock.LinkTo(
                 errorBlock,

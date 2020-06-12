@@ -64,6 +64,7 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                                     continue;
                                 }
 
+                                var lineNumber = reader.LineNumber;
                                 using (var r = reader.ReadSubtree())
                                 {
                                     var xElement = XElement.Load(r);
@@ -74,7 +75,7 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                                     }
 
                                     yield return
-                                        new ApiLoaderWorkItem(reader.Name, interchangeFileName, xElement, level);
+                                        new ApiLoaderWorkItem(interchangeFileName, lineNumber, xElement, level);
                                 }
                             }
                         }

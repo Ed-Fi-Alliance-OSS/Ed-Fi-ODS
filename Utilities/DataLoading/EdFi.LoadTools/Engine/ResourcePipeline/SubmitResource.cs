@@ -26,7 +26,8 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
         {
             var contextPrefix = LogContext.BuildContextPrefix(resourceWorkItem);
 
-            _log.Debug($"\n\r{contextPrefix}{Interlocked.Increment(ref _count)} submitting");
+            var count = Interlocked.Increment(ref _count);
+            _log.Debug($"{contextPrefix} #{count} submitting");
 
             var refreshToken = false;
 
@@ -41,50 +42,17 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
                         && !refreshToken)
                     {
                         _log.Info("Expired token detected, refreshing and retrying request.");
-                        refreshToken = !refreshToken;
+                        refreshToken = true;
                         continue;
                     }
 
                     // if we refreshed the token we should then disable refresh token until it is needed again.
                     if (refreshToken)
                     {
-                        refreshToken = !refreshToken;
+                        refreshToken = false;
                     }
 
-                    if (_log.IsDebugEnabled)
-                    {
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} xelement:                        {resourceWorkItem.XElement}");
-
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} json:                            {resourceWorkItem.Json}");
-
-                        _log.Debug($"\n\r{contextPrefix}{_count} response.Content:                {response.Content}");
-
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} response.StatusCode:             {response.StatusCode}");
-
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} response.RequestMessage:         {response.RequestMessage}");
-
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} response.RequestMessage.Content: {response.RequestMessage?.Content}");
-
-                        _log.Debug(
-                            $"\n\r{contextPrefix}{_count} response.ReasonPhrase:           {response.ReasonPhrase}");
-                    }
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        _log.Info($"{contextPrefix}{_count} {response.ReasonPhrase} - {(int) response.StatusCode} - Level: {resourceWorkItem.Level}");
-                    }
-                    else
-                    {
-                        var msg = await response.Content.ReadAsStringAsync();
-                        _log.Warn($"{contextPrefix}{_count} {response.ReasonPhrase} - {(int) response.StatusCode} {msg} - Level: {resourceWorkItem.Level}");
-                    }
-
-                    resourceWorkItem.AddSubmissionResult(response);
+                    resourceWorkItem.AddSubmissionResult(response, count);
                 }
 
                 return resourceWorkItem;
