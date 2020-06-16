@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,18 +61,22 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
         /// </summary>
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
-        /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
-        /// <returns>The dictionary containing the filter information as appropriate, or <b>null</b> if no filters are required.</returns>
-        public void ApplyAuthorizationFilters(
+        /// <returns>The collection of authorization filters to be applied to the query.</returns>
+        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
             IEnumerable<Claim> relevantClaims,
-            EdFiAuthorizationContext authorizationContext,
-            ParameterizedFilterBuilder filterBuilder)
+            EdFiAuthorizationContext authorizationContext)
         {
             var claimNamespacePrefix = GetClaimNamespacePrefix(authorizationContext);
 
-            filterBuilder
-               .Filter("Namespace")
-               .Set("Namespace", claimNamespacePrefix + "%");
+            return new[]
+            {
+                new AuthorizationFilterDetails
+                {
+                    FilterName = "Namespace",
+                    ClaimEndpointName = "Namespace",
+                    ClaimValues = new object[] {claimNamespacePrefix + "%"}
+                }
+            };
         }
 
         private static string GetClaimNamespacePrefix(EdFiAuthorizationContext authorizationContext)

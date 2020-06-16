@@ -19,7 +19,6 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         protected override void BuildAuthorizationSegments(
             AuthorizationBuilder<TContextData> authorizationBuilder,
-            Type entityType,
             string[] authorizationContextPropertyNames)
         {
             authorizationBuilder.ClaimsMustBeAssociatedWith(

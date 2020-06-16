@@ -18,19 +18,19 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// Initializes a new instance of the <see cref="ClaimsAuthorizationSegment"/> class using the supplied claim values and target endpoint.
         /// </summary>
         /// <param name="claimNamesAndValues">The claim names and values, represented as a collection of tuples.</param>
-        /// <param name="targetEndpoint"></param>
-        public ClaimsAuthorizationSegment(IEnumerable<Tuple<string, object>> claimNamesAndValues, AuthorizationSegmentEndpoint targetEndpoint)
-            : this(claimNamesAndValues, targetEndpoint, null) { }
+        /// <param name="subjectEndpoint"></param>
+        public ClaimsAuthorizationSegment(IEnumerable<Tuple<string, object>> claimNamesAndValues, AuthorizationSegmentEndpoint subjectEndpoint)
+            : this(claimNamesAndValues, subjectEndpoint, null) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClaimsAuthorizationSegment"/> class using the supplied claim values and target endpoint.
         /// </summary>
         /// <param name="claimNamesAndValues">The claim names and values, represented as a collection of tuples.</param>
-        /// <param name="targetEndpoint"></param>
+        /// <param name="subjectEndpoint">The endpoint representing the subject of authorization.</param>
         /// <param name="authorizationPathModifier">A value that identifies an alternative path through the ODS data model for authorization.</param>
         public ClaimsAuthorizationSegment(
             IEnumerable<Tuple<string, object>> claimNamesAndValues,
-            AuthorizationSegmentEndpoint targetEndpoint,
+            AuthorizationSegmentEndpoint subjectEndpoint,
             string authorizationPathModifier)
         {
             ClaimsEndpoints = claimNamesAndValues
@@ -43,29 +43,29 @@ namespace EdFi.Ods.Common.Security.Authorization
                              .ToList()
                              .AsReadOnly();
 
-            TargetEndpoint = targetEndpoint;
+            SubjectEndpoint = subjectEndpoint;
             AuthorizationPathModifier = authorizationPathModifier;
         }
 
         public ClaimsAuthorizationSegment(
             IReadOnlyList<AuthorizationSegmentEndpointWithValue> claimsEndpoints,
-            AuthorizationSegmentEndpoint targetEndpoint,
+            AuthorizationSegmentEndpoint subjectEndpoint,
             string authorizationPathModifier)
         {
             ClaimsEndpoints = claimsEndpoints;
-            TargetEndpoint = targetEndpoint;
+            SubjectEndpoint = subjectEndpoint;
             AuthorizationPathModifier = authorizationPathModifier;
         }
 
         /// <summary>
-        /// Gets the collection of values, one of which must be associated with the <see cref="TargetEndpoint"/>.
+        /// Gets the collection of claim endpoints (with values), one of which must be associated with the <see cref="SubjectEndpoint"/>.
         /// </summary>
         public IReadOnlyList<AuthorizationSegmentEndpointWithValue> ClaimsEndpoints { get; }
 
         /// <summary>
-        /// Gets the target endpoint for the segment.
+        /// Gets the endpoint for the subject of authorization.
         /// </summary>
-        public AuthorizationSegmentEndpoint TargetEndpoint { get; }
+        public AuthorizationSegmentEndpoint SubjectEndpoint { get; }
 
         /// <summary>
         /// Gets a value that identifies an alternative path through the ODS data model for authorization.
@@ -82,7 +82,7 @@ namespace EdFi.Ods.Common.Security.Authorization
             return string.Format(
                 "Claims: {0} to {1}",
                 string.Join(", ", ClaimsEndpoints.Select(x => x.ToString())),
-                TargetEndpoint);
+                SubjectEndpoint);
         }
     }
 }

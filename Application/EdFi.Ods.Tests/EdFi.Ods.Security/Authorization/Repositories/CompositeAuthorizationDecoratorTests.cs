@@ -113,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
                         SuppliedParameterName,
                         SuppliedParameterValue));
 
-                var suppliedFilterText = "TheField = :" + SuppliedParameterName;
+                var suppliedFilterText = $"TheField = :{SuppliedParameterName}";
 
                 A.CallTo(() => 
                     Given<INHibernateFilterTextProvider>()
@@ -248,11 +248,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             }
 
             [Assert]
-            public void
-                Should_apply_the_supplied_filter_and_parameter_values_to_the_builder_context_for_subsequent_inclusion_at_execution_of_the_query()
+            public void Should_apply_the_supplied_filter_and_parameter_values_to_the_builder_context_for_subsequent_inclusion_at_execution_of_the_query()
             {
                 Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName, Has.Count.EqualTo(1));
 
+                Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName.Keys, Is.EquivalentTo(new [] { SuppliedParameterName }));
+                
                 Assert.That(
                     _hqlBuilderContext.CurrentQueryFilterParameterValueByName[SuppliedParameterName],
                     Is.EqualTo(SuppliedParameterValue));
@@ -270,7 +271,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             {
                 A.CallTo(() => 
                     Given<IEdFiAuthorizationProvider>()
-                    .ApplyAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored, A<ParameterizedFilterBuilder>.Ignored))
+                    .GetAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored))
                     .Throws(new EdFiSecurityException("Test exception"));
             }
 
@@ -326,7 +327,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             /// Authorizes a single-item request using the claims, resource, action and entity instance supplied in the <see cref="EdFiAuthorizationContext"/>.
             /// </summary>
             /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-            public Task AuthorizeSingleItemAsync(EdFiAuthorizationContext authorizationContext,
+            public Task AuthorizeSingleItemAsync(
+                EdFiAuthorizationContext authorizationContext,
                 CancellationToken cancellationToken)
             {
                 throw new NotImplementedException();
@@ -338,14 +340,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
             /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
             /// <returns></returns>
-            public void ApplyAuthorizationFilters(
-                EdFiAuthorizationContext authorizationContext,
-                ParameterizedFilterBuilder filterBuilder)
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext)
             {
                 ActualAuthorizationContext = authorizationContext;
 
-                filterBuilder.Filter(_filterName)
-                    .Set(_parameterName, _parameterValue);
+                return new[]
+                {
+                    new AuthorizationFilterDetails
+                    {
+                        FilterName = _filterName,
+                        ClaimEndpointName = _parameterName,
+                        ClaimValues = new [] {_parameterValue}
+                    }
+                };
             }
 
             public bool TryAuthorizeResourceActionOnly(EdFiAuthorizationContext authorizationContext,

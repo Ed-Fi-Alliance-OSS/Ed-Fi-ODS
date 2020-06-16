@@ -20,8 +20,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
         public TotalCountCriteriaProviderDecorator(
             ITotalCountCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IDescriptorsCache descriptorsCache)
-            : base(decoratedInstance, authorizationFilterContextProvider, authorizationCriteriaApplicatorProvider, descriptorsCache) { }
+            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider)
+            : base(decoratedInstance, authorizationFilterContextProvider, authorizationCriteriaApplicatorProvider) { }
     }
 }
