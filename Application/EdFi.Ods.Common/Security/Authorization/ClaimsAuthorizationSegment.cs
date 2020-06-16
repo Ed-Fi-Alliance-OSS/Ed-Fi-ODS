@@ -79,10 +79,9 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <returns>A representation of the claims authorization segment.</returns>
         public override string ToString()
         {
-            return string.Format(
-                "Claims: {0} to {1}",
-                string.Join(", ", ClaimsEndpoints.Select(x => x.ToString())),
-                SubjectEndpoint);
+            string claimEndpointNames = string.Join(", ", ClaimsEndpoints.Select(x => x.ToString()));
+
+            return $"Claims: {claimEndpointNames} to {SubjectEndpoint}";
         }
     }
 }

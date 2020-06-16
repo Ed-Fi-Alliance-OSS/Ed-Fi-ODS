@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture.Criteria
 
             // Add special query fields
             ProcessQueryParameters(idQueryCriteria, queryParameters);
-            
+
             return idQueryCriteria;
         }
 

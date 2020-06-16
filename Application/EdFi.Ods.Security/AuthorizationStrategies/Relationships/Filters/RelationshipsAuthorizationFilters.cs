@@ -4,15 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using EdFi.Ods.Api.NHibernate.Filtering;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Security.AuthorizationStrategies.NHibernateConfiguration;
-using NHibernate;
-using NHibernate.Criterion;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
 {

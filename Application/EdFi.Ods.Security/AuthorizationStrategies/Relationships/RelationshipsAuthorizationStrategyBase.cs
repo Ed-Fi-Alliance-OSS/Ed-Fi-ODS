@@ -76,9 +76,6 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             var concreteContextData =
                 _concreteEducationOrganizationIdAuthorizationContextDataTransformer.GetConcreteAuthorizationContextData(contextData);
 
-            // Find the signature authorization provider and authorize
-            Type entityType = authorizationContext.Type;
-
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, concreteContextData);
 
             var multipleSegmentsErrorMessages = new List<string>();
@@ -155,10 +152,10 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
                 foreach (var claimsAuthorizationSegment in authorizationSegments)
                 {
-                    var segmentEndpointWithValue = claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+                    var subjectEndpointWithValue = claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
                     // This should never happen
-                    if (segmentEndpointWithValue == null)
+                    if (subjectEndpointWithValue == null)
                     {
                         throw new Exception(
                             "The subject endpoint association for a single-item claims authorization check did not have a value available from context.");
@@ -169,18 +166,18 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                     // Find all the claims endpoint (values) on this segment that *could* be used to authorize the segment
                     var inlinableClaimsEndpoints =
                         claimsAuthorizationSegment.ClaimsEndpoints
-                            .Where(x => x.Name.EqualsIgnoreCase(segmentEndpointWithValue.Name))
+                            .Where(x => x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name))
                             .ToList();
 
                     var nonInlinableClaimsEndpoints =
                         claimsAuthorizationSegment.ClaimsEndpoints
-                            .Where(x => !x.Name.EqualsIgnoreCase(segmentEndpointWithValue.Name));
+                            .Where(x => !x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name));
 
                     //If we found any claim values that *could* authorize the current segment...
                     if (inlinableClaimsEndpoints.Any())
                     {
                         // Do we have any that actually *do* authorize the segment?
-                        if (inlinableClaimsEndpoints.Any(x => x.Value.Equals(segmentEndpointWithValue.Value)))
+                        if (inlinableClaimsEndpoints.Any(x => x.Value.Equals(subjectEndpointWithValue.Value)))
                         {
                             inlineAuthorizationOccurred = true;
                             continue;
@@ -191,7 +188,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                         if (!nonInlinableClaimsEndpoints.Any())
                         {
                             throw new EdFiSecurityException(
-                                $"Authorization denied.  Access to the requested '{segmentEndpointWithValue.Name}' was denied.");
+                                $"Authorization denied.  Access to the requested '{subjectEndpointWithValue.Name}' was denied.");
                         }
 
                         // We found claim value(s) for inlining the authorization check, but it failed to authorize and should not be retried with the database.

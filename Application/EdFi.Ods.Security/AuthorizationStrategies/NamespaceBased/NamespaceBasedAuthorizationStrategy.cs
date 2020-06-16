@@ -73,6 +73,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
                 new AuthorizationFilterDetails
                 {
                     FilterName = "Namespace",
+                    SubjectEndpointName = "Namespace",
                     ClaimEndpointName = "Namespace",
                     ClaimValues = new object[] {claimNamespacePrefix + "%"}
                 }
@@ -88,9 +89,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
             if (namespaceClaim == null || string.IsNullOrWhiteSpace(namespaceClaim.Value))
             {
                 throw new EdFiSecurityException(
-                    string.Format(
-                        "Access to the resource could not be authorized because the caller did not have a NamespacePrefix claim ('{0}') or the claim value was empty.",
-                        EdFiOdsApiClaimTypes.NamespacePrefix));
+                    $"Access to the resource could not be authorized because the caller did not have a NamespacePrefix claim ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim value was empty.");
             }
 
             return namespaceClaim.Value;

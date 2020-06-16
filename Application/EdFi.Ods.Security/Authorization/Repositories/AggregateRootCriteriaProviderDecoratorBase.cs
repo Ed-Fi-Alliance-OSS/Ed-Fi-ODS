@@ -57,23 +57,28 @@ namespace EdFi.Ods.Security.Authorization.Repositories
 
             var authorizationFilters = _authorizationFilterContextProvider.GetFilterContext();
             
-            string[] claimEdOrgTypes = 
+            // This behavior was introduced to handle support for multiple EdOrg types, but this logic must handle all
+            // authorizations performed. Currently, there are no other authorization strategies that use multiple claim types
+            // so this is functional today, but would need to be revisited if such an authorization strategy was introduced.
+            string[] distinctClaimEndpointNames = 
                 authorizationFilters
-                    .Select(s => s.ClaimEndpointName.TrimSuffix("Id"))
+                    .Select(s => s.ClaimEndpointName)
                     .Distinct()
                     .OrderBy(x => x)
                     .ToArray();
 
-            bool hasMultipleClaimEndpoints = claimEdOrgTypes.Count() > 1;
+            bool hasMultipleClaimEndpoints = distinctClaimEndpointNames.Length > 1;
 
             var allFiltersGroupedBySubjectName = authorizationFilters.GroupBy(
                 x => x.SubjectEndpointName, 
                 x => x);
 
+            // ICriterions combined using AND
             var conjunction = new Conjunction();
             
             foreach (var subjectNameGrouping in allFiltersGroupedBySubjectName)
             {
+                // ICriterions combined using OR
                 var disjunction = new Disjunction();
 
                 bool isSubjectNameAuthorizable = false;
@@ -113,7 +118,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                     
                     throw new EdFiSecurityException(
                         $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated education organization types ('{string.Join("', '", claimEdOrgTypes)}') with the resource.");
+                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource.");
                 }
                 
                 conjunction.Add(disjunction);
