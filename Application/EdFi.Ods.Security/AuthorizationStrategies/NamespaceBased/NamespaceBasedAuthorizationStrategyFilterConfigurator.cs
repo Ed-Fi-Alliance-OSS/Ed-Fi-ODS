@@ -25,10 +25,25 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
                     "Namespace",
                     @"(Namespace IS NOT NULL AND Namespace LIKE :Namespace)",
                     @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
-                    (c, w, p, jt) => w.Add(
-                        new AndExpression(
-                            Restrictions.IsNotNull("Namespace"),
-                            Restrictions.Like("Namespace", p["Namespace"]))),
+                    (c, w, p, jt) =>
+                    {
+                        // Ensure the Namespace parameter is represented as an object array
+                        var namespacePrefixes = p["Namespace"] as object[] ?? new [] { p["Namespace"] };
+                        
+                        // Combine the namespace filters using OR (only one must match to grant authorization)
+                        var namespacesDisjunction = new Disjunction();
+                        
+                        foreach (var namespacePrefix in namespacePrefixes)
+                        {
+                            namespacesDisjunction.Add(Restrictions.Like("Namespace", namespacePrefix));
+                        }
+                        
+                        // Add the final namespaces criteria to the supplied WHERE clause (junction)
+                        w.Add(
+                            new AndExpression(
+                                Restrictions.IsNotNull("Namespace"),
+                                namespacesDisjunction));
+                    },
                     (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("Namespace")),
             }.AsReadOnly();
 
