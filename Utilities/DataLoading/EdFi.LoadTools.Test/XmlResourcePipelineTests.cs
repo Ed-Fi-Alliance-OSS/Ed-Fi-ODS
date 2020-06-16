@@ -8,26 +8,26 @@ using System.Xml.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.ResourcePipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.Test
 {
     public class XmlResourcePipelineTests
     {
-        [TestClass]
+       [TestFixture]
         public class WhenRunningTheMapElementStep
         {
             private MapElementStep _step;
 
-            [TestInitialize]
+            [SetUp]
             public void Initialize()
             {
                 var metadataMappingFactory = new FakeMetadataMappingFactory();
                 _step = new MapElementStep(metadataMappingFactory);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_map_to_shallow_elements()
             {
                 const string data = "value";
@@ -38,7 +38,7 @@ namespace EdFi.LoadTools.Test
                 Assert.AreEqual(data, result.B.Value);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_map_to_deep_elements()
             {
                 const string data = "value";

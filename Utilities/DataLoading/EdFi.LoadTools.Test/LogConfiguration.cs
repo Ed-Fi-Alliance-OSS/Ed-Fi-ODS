@@ -4,14 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using log4net.Config;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+   [TestFixture]
     public class LogConfiguration
     {
-        [AssemblyInitialize]
+        [SetUp]
         public static void ConfigureLogging(TestContext context)
         {
             BasicConfigurator.Configure();
