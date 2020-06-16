@@ -6,11 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Security.Authorization;
-using NHibernate;
-using NHibernate.Metadata;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 {
@@ -28,7 +25,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 return new AuthorizationFilterDetails[0];
             }
 
-            var filterByName = new Dictionary<string, AuthorizationFilterDetails>();
+            var filterByName = new Dictionary<string, AuthorizationFilterDetails>(StringComparer.InvariantCultureIgnoreCase);
 
             foreach (var segment in authorizationSegments)
             {
@@ -58,7 +55,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
                 foreach (var segmentFilter in segmentFilters)
                 {
-                    if (!filterByName.TryGetValue(segmentFilter.FilterName, out AuthorizationFilterDetails filter))
+                    if (!filterByName.ContainsKey(segmentFilter.FilterName))
                     {
                         filterByName[segmentFilter.FilterName] = segmentFilter;
                     }
