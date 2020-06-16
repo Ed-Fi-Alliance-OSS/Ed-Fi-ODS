@@ -8,10 +8,29 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.InterchangePipeline;
 using log4net.Config;
 using NUnit.Framework;
-[assembly: XmlConfigurator(Watch = true)]
+
+
+[SetUpFixture]
+public class AssemblyLevelSetUpClass
+{
+    [OneTimeSetUp]
+    public void RunBeforeAnyTests()
+    {
+        // Executes once before the test run. (Optional)
+        XmlConfigurator.Configure();
+        
+    }
+
+    [OneTimeTearDown]
+    public void RunAfterAnyTests()
+    {
+        // Executes once after the test run. (Optional)
+    }
+}
+
 namespace EdFi.LoadTools.Test
 {
-   [TestFixture]
+    [TestFixture]
     public class ValidateXmlStepTests : IXsdConfiguration
     {
         private TestAppender _testAppender;
