@@ -6,11 +6,11 @@
 using System.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.InterchangePipeline;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EdFi.LoadTools.Test
 {
-   [TestFixture]
+   [TestClass]
     public class ValidateXmlStepTests : IXsdConfiguration
     {
         private TestAppender _testAppender;
@@ -19,20 +19,20 @@ namespace EdFi.LoadTools.Test
 
         bool IXsdConfiguration.DoNotValidateXml => true;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             _testAppender = new TestAppender();
             _testAppender.AttachToRoot();
         }
 
-        [TearDown]
+        [TestCleanup]
         public void Teardown()
         {
             _testAppender.DetachFromRoot();
         }
 
-        [Test]
+        [TestMethod]
         public void Should_skip_processing_when_DoNotValidateXml_is_set()
         {
             var step = new ValidateXmlStep(null, this);
