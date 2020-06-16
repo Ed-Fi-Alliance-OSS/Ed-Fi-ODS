@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
  
-using System.Collections;
 using System.Collections.Generic;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Filtering;
 using NHibernate;
 using NUnit.Framework;
@@ -13,8 +13,6 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Filtering
 {
-    using Parameters = IDictionary<string, IDictionary<string, object>>;
-
     [TestFixture]
     public class AuthorizationFilterContextProviderTests
     {
@@ -26,34 +24,46 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Filtering
 
                 Given<ISession>();
 
-                Supplied<Parameters>(CreateTestParameters());
+                Supplied<IReadOnlyList<AuthorizationFilterDetails>>(CreateTestParameters());
             }
 
             protected override void Act()
             {
-                TestSubject.SetFilterContext(Supplied<Parameters>());
+                TestSubject.SetFilterContext(Supplied<IReadOnlyList<AuthorizationFilterDetails>>());
             }
 
             [Assert]
             public void Should_save_the_parameters_into_context_storage()
             {
                 Assert.That(
-                    Given<IContextStorage>().GetValue<Parameters>("FilterContextProvider.FilterContext"), 
-                    Is.EquivalentTo(Supplied<Parameters>()));
+                    Given<IContextStorage>().GetValue<IReadOnlyList<AuthorizationFilterDetails>>("FilterContextProvider.FilterContext"), 
+                    Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
             }
 
             [Assert]
             public void Should_return_the_saved_authorization_filter_context()
             {
-                Assert.That(TestSubject.GetFilterContext(), Is.EquivalentTo(Supplied<Parameters>()));
+                Assert.That(TestSubject.GetFilterContext(), Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
             }
 
-            private static Dictionary<string, IDictionary<string, object>> CreateTestParameters() => 
-                new Dictionary<string, IDictionary<string, object>>
+            private static IReadOnlyList<AuthorizationFilterDetails> CreateTestParameters()
             {
-                { "key1", new Dictionary<string, object> { { "prop1", 1} } },
-                { "key2", new Dictionary<string, object> { { "prop1", 1}, { "prop2", "two"} } },
-            };
+                return new List<AuthorizationFilterDetails>
+                {
+                    new AuthorizationFilterDetails
+                    {
+                        FilterName = "key1",
+                        ClaimEndpointName = "prop1",
+                        ClaimValues = new object[] {1}
+                    },
+                    new AuthorizationFilterDetails
+                    {
+                        FilterName = "key1",
+                        ClaimEndpointName = "prop2",
+                        ClaimValues = new object[] {2}
+                    }
+                };
+            }
         }
     }
 }

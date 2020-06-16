@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
  
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Security.Authorization;
@@ -24,9 +25,8 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Authorizes a multiple-item read request using the claims, resource, action and entity instance supplied in the <see cref="EdFiAuthorizationContext"/>.
         /// </summary>
         /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-        /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
-        /// <returns></returns>
-        void ApplyAuthorizationFilters(EdFiAuthorizationContext authorizationContext, ParameterizedFilterBuilder filterBuilder);
+        /// <returns>A collection of filters to be applied to the query.</returns>
+        IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext);
 
         /// <summary>
         /// Performs a claims authorization evaluation on the request related to the resource and action only 

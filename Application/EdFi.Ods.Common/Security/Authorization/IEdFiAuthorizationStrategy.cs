@@ -31,11 +31,9 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// </summary>
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
-        /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
-        /// <returns>The dictionary containing the filter information as appropriate, or <b>null</b> if no filters are required.</returns>
-        void ApplyAuthorizationFilters(
+        /// <returns>The list of filters to be applied to the query for authorization.</returns>
+        IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
             IEnumerable<Claim> relevantClaims,
-            EdFiAuthorizationContext authorizationContext,
-            ParameterizedFilterBuilder filterBuilder);
+            EdFiAuthorizationContext authorizationContext);
     }
 }

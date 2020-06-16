@@ -132,19 +132,12 @@ namespace EdFi.Ods.Security.Authorization
         /// Authorizes a multiple-item read request using the claims, resource, and action supplied in the <see cref="EdFiAuthorizationContext"/>.
         /// </summary>
         /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-        /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
-        /// <returns>The dictionary containing the filter information as appropriate, or <b>null</b> if no filters are required.</returns>
-        public void ApplyAuthorizationFilters(EdFiAuthorizationContext authorizationContext, ParameterizedFilterBuilder filterBuilder)
+        /// <returns>The list of filters to be applied to the query for authorization.</returns>
+        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext)
         {
             var details = GetAuthorizationDetails(authorizationContext);
 
-            details.AuthorizationStrategy.ApplyAuthorizationFilters(
-                new[]
-                {
-                    details.RelevantClaim
-                },
-                authorizationContext,
-                filterBuilder);
+            return details.AuthorizationStrategy.GetAuthorizationFilters(new[] {details.RelevantClaim}, authorizationContext);
         }
 
         /// <summary>

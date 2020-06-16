@@ -145,7 +145,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .TargetEndpoint.Name.ShouldBe("StudentUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
@@ -156,7 +156,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .TargetEndpoint.Name.ShouldBe("StaffUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
 
@@ -195,7 +195,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .TargetEndpoint.Name.ShouldBe("StudentUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
@@ -206,7 +206,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .TargetEndpoint.Name.ShouldBe("StaffUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
 
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .TargetEndpoint.Name.ShouldBe("StudentUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
 
                 _actualSegments.ElementAt(0)
                                .AuthorizationPathModifier.ShouldBe("OverTheRiverAndThroughTheWoods");
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                                .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .TargetEndpoint.Name.ShouldBe("StaffUSI");
+                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
 
                 _actualSegments.ElementAt(1)
                                .AuthorizationPathModifier.ShouldBeNull();
@@ -348,7 +348,6 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         : LegacyTestFixtureBase
     {
         private ClaimsAuthorizationSegment _actualLocalEducationAgencySegment;
-        private ExistingValuesAuthorizationSegment _actualSchoolSegment;
 
         // Dependencies
         private IEducationOrganizationCache _educationOrganizationCache;
@@ -417,7 +416,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             _actualLocalEducationAgencySegment = actualAuthorizationSegments.SingleOrDefault(
                 s =>
-                    s.TargetEndpoint.Name == "LocalEducationAgencyId"
+                    s.SubjectEndpoint.Name == "LocalEducationAgencyId"
                     || s.ClaimsEndpoints.All(
                         x => x.Name == "LocalEducationAgencyId"));
         }
@@ -431,7 +430,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_require_the_StaffUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
         {
-            var staffUniqueIdEndpointWithValue = _actualLocalEducationAgencySegment.TargetEndpoint
+            var staffUniqueIdEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
                 as AuthorizationSegmentEndpointWithValue;
 
             staffUniqueIdEndpointWithValue.ShouldNotBeNull(
@@ -463,8 +462,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
         {
-            _actualLocalEducationAgencySegment.TargetEndpoint.Name.ShouldBe("StaffUSI");
-            var endpointWithValue = _actualLocalEducationAgencySegment.TargetEndpoint as AuthorizationSegmentEndpointWithValue;
+            _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StaffUSI");
+            var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
             endpointWithValue.ShouldNotBeNull(
                 "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
@@ -532,7 +531,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
                 s =>
-                    s.TargetEndpoint.Name == "LocalEducationAgencyId"
+                    s.SubjectEndpoint.Name == "LocalEducationAgencyId"
                     || s.ClaimsEndpoints.All(
                         x => x.Name == "LocalEducationAgencyId"));
         }
@@ -554,7 +553,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_require_the_StudentUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
         {
-            var studentUSIEndpointWithValue = _actualLocalEducationAgencySegment.TargetEndpoint
+            var studentUSIEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
                 as AuthorizationSegmentEndpointWithValue;
 
             studentUSIEndpointWithValue.ShouldNotBeNull(
@@ -586,8 +585,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         [Test]
         public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
         {
-            _actualLocalEducationAgencySegment.TargetEndpoint.Name.ShouldBe("StudentUSI");
-            var endpointWithValue = _actualLocalEducationAgencySegment.TargetEndpoint as AuthorizationSegmentEndpointWithValue;
+            _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StudentUSI");
+            var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
             endpointWithValue.ShouldNotBeNull(
                 "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");

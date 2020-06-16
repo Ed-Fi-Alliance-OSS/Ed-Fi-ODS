@@ -213,10 +213,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public void ApplyAuthorizationFilters(
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
                 IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext,
-                ParameterizedFilterBuilder filterBuilder)
+                EdFiAuthorizationContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
@@ -230,10 +229,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public void ApplyAuthorizationFilters(
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
                 IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext,
-                ParameterizedFilterBuilder filterBuilder)
+                EdFiAuthorizationContext authorizationContext)
             {
                 throw new NotImplementedException();
             }
@@ -309,12 +307,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public void ApplyAuthorizationFilters(
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
                 IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext,
-                ParameterizedFilterBuilder filterBuilder)
+                EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
+                
+                return new AuthorizationFilterDetails[0];
             }
         }
 
@@ -1908,12 +1907,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public void ApplyAuthorizationFilters(
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
                 IEnumerable<Claim> relevantClaims,
-                EdFiAuthorizationContext authorizationContext,
-                ParameterizedFilterBuilder filterBuilder)
+                EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
+                
+                return new AuthorizationFilterDetails[0];
             }
         }
 

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Collections.Generic;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Security.Authorization.Filtering
 {
@@ -15,13 +16,13 @@ namespace EdFi.Ods.Security.Authorization.Filtering
         /// <summary>
         /// Sets parameterized filters to the current context.
         /// </summary>
-        /// <param name="filters">A dictionary keyed by filter name, whose values are dictionaries keyed by parameter name.</param>
-        void SetFilterContext(IDictionary<string, IDictionary<string, object>> filters);
+        /// <param name="filters">A list of authorization filters.</param>
+        void SetFilterContext(IReadOnlyList<AuthorizationFilterDetails> filters);
 
         /// <summary>
-        /// Gets parameterized filters from the current context, or an empty dictionary if none have been set.
+        /// Gets the authorization filters from the current context, or an empty list if none have been set.
         /// </summary>
-        /// <returns>A dictionary keyed by filter name, whose values are dictionaries keyed by parameter name.</returns>
-        IDictionary<string, IDictionary<string, object>> GetFilterContext();
+        /// <returns>A list of authorization filters.</returns>
+        IReadOnlyList<AuthorizationFilterDetails> GetFilterContext();
     }
 }

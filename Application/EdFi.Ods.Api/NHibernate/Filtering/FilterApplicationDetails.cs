@@ -10,7 +10,9 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using NHibernate;
+using NHibernate.Criterion;
 using NHibernate.Engine;
+using NHibernate.SqlCommand;
 using NHibernate.Type;
 
 namespace EdFi.Ods.Api.NHibernate.Filtering
@@ -43,7 +45,7 @@ namespace EdFi.Ods.Api.NHibernate.Filtering
             string filterName,
             string friendlyDefaultConditionFormat,
             string friendlyHqlConditionFormat,
-            Action<ICriteria, IDictionary<string, object>> criteriaApplicator,
+            Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
             Func<Type, PropertyInfo[], bool> shouldApply)
         {
             ShouldApply = shouldApply;
@@ -126,7 +128,7 @@ namespace EdFi.Ods.Api.NHibernate.Filtering
         /// <summary>
         /// Gets the function for applying the filter using NHibernate's <see cref="ICriteria"/> API.
         /// </summary>
-        public Action<ICriteria, IDictionary<string, object>> CriteriaApplicator { get; }
+        public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; }
 
         /// <summary>
         /// Gets the predicate functional for determining whether the filter should be applied to a particular entity.

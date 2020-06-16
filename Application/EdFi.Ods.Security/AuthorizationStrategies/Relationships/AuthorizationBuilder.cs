@@ -107,7 +107,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                         continue;
                     }
 
-                    // TODO: GKM - Embedded convention (Concrete EducationOrganization identifiers use format of "TypeName+Id")
+                    // NOTE: Embedded convention (Concrete EducationOrganization identifiers use format of "TypeName+Id")
                     var claimNameValueTuple = Tuple.Create(
                         identifiers.EducationOrganizationType + "Id",
                         (object) educationOrganizationId);

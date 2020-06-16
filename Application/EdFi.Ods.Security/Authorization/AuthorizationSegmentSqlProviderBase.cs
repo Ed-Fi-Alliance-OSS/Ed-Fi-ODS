@@ -59,28 +59,28 @@ namespace EdFi.Ods.Security.Authorization
                 foreach (var claimEndpointsWithSameName in claimEndpointsGroupedByName)
                 {
                     string claimEndpointName = claimEndpointsWithSameName.Key;
-                    string targetEndpointName = authorizationSegment.TargetEndpoint.Name;
+                    string subjectEndpointName = authorizationSegment.SubjectEndpoint.Name;
 
-                    var targetEndpointWithValue =
-                        authorizationSegment.TargetEndpoint as AuthorizationSegmentEndpointWithValue;
+                    var subjectEndpointWithValue =
+                        authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
                     // This should never happen
-                    if (targetEndpointWithValue == null)
+                    if (subjectEndpointWithValue == null)
                     {
                         throw new Exception(
-                            "The claims-based authorization segment target endpoint for a single-item authorization was not defined with a value.");
+                            "The claims-based authorization segment subject endpoint for a single-item authorization was not defined with a value.");
                     }
 
-                    if (targetEndpointWithValue.Value == null)
+                    if (subjectEndpointWithValue.Value == null)
                     {
                         throw new EdFiSecurityException(
-                            $"Access to the resource item could not be authorized because the '{targetEndpointWithValue.Name}' of the resource is empty.");
+                            $"Access to the resource item could not be authorized because the '{subjectEndpointWithValue.Name}' of the resource is empty.");
                     }
 
                     // Perform defensive checks against the remote possibility of SQL injection attack
-                    ValidateTableNameParts(claimEndpointName, targetEndpointName, authorizationSegment.AuthorizationPathModifier);
+                    ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    string derivedAuthorizationViewName = BuildAuthorizationViewName(targetEndpointName, claimEndpointName, authorizationSegment.AuthorizationPathModifier);
+                    string derivedAuthorizationViewName = "auth." + ViewNameHelper.GetAuthorizationViewName(subjectEndpointName, claimEndpointName, authorizationSegment.AuthorizationPathModifier);
 
                     if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
                     {
@@ -93,12 +93,12 @@ namespace EdFi.Ods.Security.Authorization
 
                     string CreateSegmentExpression(ref int index)
                     {
-                        if (string.Compare(targetEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
+                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
                         {
                             return string.Format(
                                 StatementTemplate,
-                                targetEndpointName,
-                                GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref index),
+                                subjectEndpointName,
+                                GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                                 claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
@@ -108,8 +108,8 @@ namespace EdFi.Ods.Security.Authorization
                             StatementTemplate,
                             claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                            targetEndpointName,
-                            GetSingleValueCriteriaExpression(targetEndpointWithValue, parameters, ref index),
+                            subjectEndpointName,
+                            GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                             derivedAuthorizationViewName);
                     }
                 }
@@ -146,17 +146,17 @@ namespace EdFi.Ods.Security.Authorization
 
         private static void ValidateTableNameParts(
             string claimEndpointName,
-            string targetEndpointName,
+            string subjectEndpointName,
             string authorizationPathModifier)
         {
             if (!_identifierRegex.IsMatch(claimEndpointName))
             {
-                throw new Exception("Claim endpoint name is not safe for use in SQL.");
+                throw new Exception("Authorization claim endpoint name is not safe for use in SQL.");
             }
 
-            if (!_identifierRegex.IsMatch(targetEndpointName))
+            if (!_identifierRegex.IsMatch(subjectEndpointName))
             {
-                throw new Exception("Target endpoint name is not safe for use in SQL.");
+                throw new Exception("Authorization subject endpoint name is not safe for use in SQL.");
             }
 
             if (!string.IsNullOrEmpty(authorizationPathModifier)
@@ -192,16 +192,6 @@ namespace EdFi.Ods.Security.Authorization
             }
 
             return true;
-        }
-
-        private string BuildAuthorizationViewName(string endpoint1, string endpoint2, string authorizationPathModifier)
-        {
-            if (string.Compare(endpoint1, endpoint2, StringComparison.InvariantCultureIgnoreCase) < 0)
-            {
-                return $"auth.{endpoint1}To{endpoint2}{authorizationPathModifier}";
-            }
-
-            return $"auth.{endpoint2}To{endpoint1}{authorizationPathModifier}";
         }
 
         private string GetMultiValueCriteriaExpression(
