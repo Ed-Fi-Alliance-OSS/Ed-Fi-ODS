@@ -94,7 +94,7 @@ namespace EdFi.LoadTools.ApiClient
 
                 _log.Debug($"{contextPrefix} Start processing");
 
-                FileContext fileContext = CreateFileContext(file, contextPrefix);
+                var fileContext = CreateFileContext(file, contextPrefix);
 
                 if (!fileContext.IsValid)
                 {
