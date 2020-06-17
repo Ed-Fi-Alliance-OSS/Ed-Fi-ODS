@@ -27,14 +27,22 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToCommunityProviderId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityProviderId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
+
+                              // Property-based filter authorizations (for direct API Client associations)
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.SchoolIdToSchoolId,
+                              RelationshipsAuthorizationFilters.CommunityProviderIdToCommunityProviderId,
+                              RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityOrganizationId,
+                              RelationshipsAuthorizationFilters.PostSecondaryInstitutionIdToPostSecondaryInstitutionId,
+                              RelationshipsAuthorizationFilters.StateEducationAgencyIdToStateEducationAgencyId,
 
                               // TPDM
+                              RelationshipsAuthorizationFilters.EducationOrganizationIdToUniversityId,
+                              RelationshipsAuthorizationFilters.EducationOrganizationIdToTeacherPreparationProviderId,
+
+                              // TPDM property-based filter authorizations (for direct API Client associations)
                               RelationshipsAuthorizationFilters.UniversityIdToUniversityId,
                               RelationshipsAuthorizationFilters.TeacherPreparationProviderIdToTeacherPreparationProviderId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToUniversityId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToTeacherPreparationProviderId
                           };
 
             return filters;

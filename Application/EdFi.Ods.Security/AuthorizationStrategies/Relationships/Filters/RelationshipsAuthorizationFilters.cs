@@ -12,25 +12,33 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
 {
     public static class RelationshipsAuthorizationFilters
     {
-        private static readonly Lazy<FilterApplicationDetails> _schoolIdToSchoolId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "SchoolIdToSchoolId",
-                        @"SchoolId IN (:SchoolId)",
-                        @"{currentAlias}.SchoolId IN (:SchoolId)",
-                        (c, w, p, jt) => w.ApplyPropertyFilters(p, "SchoolId"),
-                        (t, p) => p.HasPropertyNamed("SchoolId")));
+        private static readonly Lazy<FilterApplicationDetails> _schoolIdToSchoolId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("SchoolId"));
 
-        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToLocalEducationAgencyId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "LocalEducationAgencyIdToLocalEducationAgencyId",
-                        @"LocalEducationAgencyId IN (:LocalEducationAgencyId)",
-                        @"{currentAlias}.LocalEducationAgencyId IN (:LocalEducationAgencyId)",
-                        (c, w, p, jt) => w.ApplyPropertyFilters(p, "LocalEducationAgencyId"),
-                        (t, p) => p.HasPropertyNamed("LocalEducationAgencyId")));
+        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToLocalEducationAgencyId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("LocalEducationAgencyId"));
+
+        private static readonly Lazy<FilterApplicationDetails> _communityProviderIdToCommunityProviderId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("CommunityProviderId"));
+
+        private static readonly Lazy<FilterApplicationDetails> _communityOrganizationIdToCommunityOrganizationId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("CommunityOrganizationId"));
+
+        private static readonly Lazy<FilterApplicationDetails> _postSecondaryInstitutionIdToPostSecondaryInstitutionId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("PostSecondaryInstitutionId"));
+
+        private static readonly Lazy<FilterApplicationDetails> _stateEducationAgencyIdToStateEducationAgencyId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("StateEducationAgencyId"));
+
+        private static FilterApplicationDetails CreateClaimValuePropertyFilter(string propertyName)
+        {
+            return new FilterApplicationDetails(
+                $"{propertyName}To{propertyName}",
+                $"{propertyName} IN (:{propertyName})",
+                $"{{currentAlias}}.{propertyName} IN (:{propertyName})",
+                (c, w, p, jt) => w.ApplyPropertyFilters(p, propertyName),
+                (t, p) => p.HasPropertyNamed(propertyName));
+        }
 
         private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSI
             = new Lazy<FilterApplicationDetails>(
@@ -272,11 +280,24 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToPostSecondaryInstitutionId", "EducationOrganizationId", "PostSecondaryInstitutionId", jt),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
 
+        // Add non-join authorization entries for each EdOrg which can be associated with an API client
         public static FilterApplicationDetails SchoolIdToSchoolId => _schoolIdToSchoolId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToLocalEducationAgencyId
             => _localEducationAgencyIdToLocalEducationAgencyId.Value;
 
+        public static FilterApplicationDetails CommunityProviderIdToCommunityProviderId
+            => _communityProviderIdToCommunityProviderId.Value;
+
+        public static FilterApplicationDetails CommunityOrganizationIdToCommunityOrganizationId
+            => _communityOrganizationIdToCommunityOrganizationId.Value;
+
+        public static FilterApplicationDetails PostSecondaryInstitutionIdToPostSecondaryInstitutionId
+            => _postSecondaryInstitutionIdToPostSecondaryInstitutionId.Value;
+        
+        public static FilterApplicationDetails StateEducationAgencyIdToStateEducationAgencyId
+            => _stateEducationAgencyIdToStateEducationAgencyId.Value;
+        
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSI => _localEducationAgencyIdToStudentUSI.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation
@@ -311,25 +332,11 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
         public static FilterApplicationDetails EducationOrganizationIdToPostSecondaryInstitutionId
             => _educationOrganizationIdToPostSecondaryInstitutionId.Value;
 
-        private static readonly Lazy<FilterApplicationDetails> _universityIdToUniversityId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "UniversityIdToUniversityId",
-                        @"UniversityId IN (:UniversityId)",
-                        @"{currentAlias}.UniversityId IN (:UniversityId)",
-                        (c, w, p, jt) => w.ApplyPropertyFilters(p, "UniversityId"),
-                        (t, p) => p.HasPropertyNamed("UniversityId")));
+        private static readonly Lazy<FilterApplicationDetails> _universityIdToUniversityId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("UniversityId"));
 
-        private static readonly Lazy<FilterApplicationDetails> _teacherPreparationProviderIdToTeacherPreparationProviderId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "TeacherPreparationProviderIdToTeacherPreparationProviderId",
-                        @"TeacherPreparationProviderId IN (:TeacherPreparationProviderId)",
-                        @"{currentAlias}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId)",
-                        (c, w, p, jt) => w.ApplyPropertyFilters(p, "TeacherPreparationProviderId"),
-                        (t, p) => p.HasPropertyNamed("TeacherPreparationProviderId")));
+        private static readonly Lazy<FilterApplicationDetails> _teacherPreparationProviderIdToTeacherPreparationProviderId =
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("TeacherPreparationProviderId"));
 
         private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToUniversityId
             = new Lazy<FilterApplicationDetails>(
