@@ -80,7 +80,10 @@ namespace EdFi.Ods.Security.Authorization
                     // Perform defensive checks against the remote possibility of SQL injection attack
                     ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    string derivedAuthorizationViewName = "auth." + ViewNameHelper.GetAuthorizationViewName(subjectEndpointName, claimEndpointName, authorizationSegment.AuthorizationPathModifier);
+                    string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                        subjectEndpointName,
+                        claimEndpointName,
+                        authorizationSegment.AuthorizationPathModifier);
 
                     if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
                     {
