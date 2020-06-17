@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using EdFi.LoadTools.Engine.InterchangePipeline;
+using EdFi.LoadTools.Engine.FileImportPipeline;
 using EdFi.LoadTools.Engine.ResourcePipeline;
 using log4net;
 
@@ -21,7 +21,7 @@ namespace EdFi.LoadTools
         private static readonly ILog _log = LogManager.GetLogger(nameof(ApiLoaderApplication));
 
         private readonly IApiConfiguration _apiConfiguration;
-        private readonly InterchangePipeline _interchangePipeline;
+        private readonly FileImportPipeline _fileImportPipeline;
         private readonly ResourcePipeline _resourcePipeline;
         private readonly SubmitResource _submitResourcesProcessor;
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
@@ -29,7 +29,7 @@ namespace EdFi.LoadTools
         private readonly DependenciesRetriever _dependenciesRetriever;
 
         public ApiLoaderApplication(
-            InterchangePipeline interchangePipeline,
+            FileImportPipeline fileImportPipeline,
             ResourcePipeline resourcePipeline,
             SubmitResource submitResourcesProcessor,
             IResourceHashCache xmlResourceHashCache,
@@ -37,7 +37,7 @@ namespace EdFi.LoadTools
             IApiConfiguration apiConfiguration,
             DependenciesRetriever dependenciesRetriever)
         {
-            _interchangePipeline = interchangePipeline;
+            _fileImportPipeline = fileImportPipeline;
             _resourcePipeline = resourcePipeline;
             _submitResourcesProcessor = submitResourcesProcessor;
             _xmlResourceHashCache = xmlResourceHashCache;
@@ -62,7 +62,7 @@ namespace EdFi.LoadTools
                 var resources = dependencyLevelGroup.Select(s => s.Resource).ToList();
                 var dependency = dependencyLevelGroup.First();
 
-                foreach (var resource in _interchangePipeline.RetrieveResourcesFromFiles(resources, dependency.Order))
+                foreach (var resource in _fileImportPipeline.RetrieveResourcesFromFiles(resources, dependency.Order))
                 {
                     await resourcePipeline.StartBlock.SendAsync(resource).ConfigureAwait(false);
                     foundFilesToUpload = true;

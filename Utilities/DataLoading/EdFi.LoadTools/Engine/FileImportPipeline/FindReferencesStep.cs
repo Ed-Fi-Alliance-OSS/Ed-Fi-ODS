@@ -6,18 +6,17 @@
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using log4net;
 
-namespace EdFi.LoadTools.Engine.InterchangePipeline
+namespace EdFi.LoadTools.Engine.FileImportPipeline
 {
-    public class PreloadReferencesStep : IInterchangePipelineStep
+    public class FindReferencesStep : IFileImportPipelineStep
     {
-        private static readonly ILog _log = LogManager.GetLogger(nameof(PreloadReferencesStep));
+        private static readonly ILog _log = LogManager.GetLogger(nameof(FindReferencesStep));
         private readonly IXmlReferenceCacheProvider _referenceCacheProvider;
 
-        public PreloadReferencesStep(IXmlReferenceCacheProvider referenceCacheProvider)
+        public FindReferencesStep(IXmlReferenceCacheProvider referenceCacheProvider)
         {
             _referenceCacheProvider = referenceCacheProvider;
         }
@@ -28,13 +27,14 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
 
             if (fileContext.NumberOfIdRefs == 0)
             {
-                _log.Debug($"{contextPrefix} No file references are found. Skipping preload of references.");
+                _log.Debug($"{contextPrefix} No file references are found. Skipping finding references.");
                 return true;
             }
 
             var sw = new Stopwatch();
             sw.Start();
 
+            var total = 0;
             var referenceCache = _referenceCacheProvider.GetXmlReferenceCache(fileContext.FileName);
 
             using (var reader = new XmlTextReader(stream))
@@ -46,26 +46,21 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                         continue;
                     }
 
-                    var id = reader.GetAttribute("id");
+                    var refId = reader.GetAttribute("ref");
 
-                    if (string.IsNullOrEmpty(id))
+                    if (!string.IsNullOrEmpty(refId))
                     {
-                        continue;
-                    }
-
-                    using (var r = reader.ReadSubtree())
-                    {
-                        var referenceSource = XElement.Load(r);
-                        referenceCache.PreloadReferenceSource(id, referenceSource);
+                        referenceCache.LoadReference(refId);
+                        total++;
                     }
                 }
 
-                _log.Info($"{contextPrefix} {referenceCache.NumberOfLoadedReferences} references preloaded.");
+                _log.Info($"{contextPrefix} {total} references to {referenceCache.NumberOfReferences} resources found");
             }
 
             sw.Stop();
 
-            _log.Debug($"{contextPrefix} finished preloading in {sw.Elapsed.TotalSeconds} seconds.");
+            _log.Debug($"Finished finding references in {sw.Elapsed.TotalSeconds} seconds.");
             return true;
         }
     }

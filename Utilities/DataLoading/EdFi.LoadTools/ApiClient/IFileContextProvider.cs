@@ -7,10 +7,8 @@ using System.Collections.Generic;
 
 namespace EdFi.LoadTools.ApiClient
 {
-    public class FileTypeInfo
+    public interface IFileContextProvider
     {
-        public string FileType { get; set; }
-
-        public List<FileContext> FileContexts { get; set; } = new List<FileContext>();
+        IEnumerable<FileContext> GetFileContexts();
     }
 }

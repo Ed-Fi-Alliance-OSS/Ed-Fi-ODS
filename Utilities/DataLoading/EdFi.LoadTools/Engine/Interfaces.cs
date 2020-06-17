@@ -55,7 +55,7 @@ namespace EdFi.LoadTools.Engine
         string Folder { get; }
     }
 
-    public interface IInterchangePipelineStep
+    public interface IFileImportPipelineStep
     {
         bool Process(FileContext fileContext, Stream stream);
     }

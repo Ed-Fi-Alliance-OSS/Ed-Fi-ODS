@@ -6,17 +6,18 @@
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using log4net;
 
-namespace EdFi.LoadTools.Engine.InterchangePipeline
+namespace EdFi.LoadTools.Engine.FileImportPipeline
 {
-    public class FindReferencesStep : IInterchangePipelineStep
+    public class PreloadReferencesStep : IFileImportPipelineStep
     {
-        private static readonly ILog _log = LogManager.GetLogger(nameof(FindReferencesStep));
+        private static readonly ILog _log = LogManager.GetLogger(nameof(PreloadReferencesStep));
         private readonly IXmlReferenceCacheProvider _referenceCacheProvider;
 
-        public FindReferencesStep(IXmlReferenceCacheProvider referenceCacheProvider)
+        public PreloadReferencesStep(IXmlReferenceCacheProvider referenceCacheProvider)
         {
             _referenceCacheProvider = referenceCacheProvider;
         }
@@ -27,14 +28,13 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
 
             if (fileContext.NumberOfIdRefs == 0)
             {
-                _log.Debug($"{contextPrefix} No file references are found. Skipping finding references.");
+                _log.Debug($"{contextPrefix} No file references are found. Skipping preload of references.");
                 return true;
             }
 
             var sw = new Stopwatch();
             sw.Start();
 
-            var total = 0;
             var referenceCache = _referenceCacheProvider.GetXmlReferenceCache(fileContext.FileName);
 
             using (var reader = new XmlTextReader(stream))
@@ -46,27 +46,26 @@ namespace EdFi.LoadTools.Engine.InterchangePipeline
                         continue;
                     }
 
-                    var refId = reader.GetAttribute("ref");
+                    var id = reader.GetAttribute("id");
 
-                    if (!string.IsNullOrEmpty(refId))
+                    if (string.IsNullOrEmpty(id))
                     {
-                        referenceCache.LoadReference(refId);
-                        total++;
+                        continue;
+                    }
+
+                    using (var r = reader.ReadSubtree())
+                    {
+                        var referenceSource = XElement.Load(r);
+                        referenceCache.PreloadReferenceSource(id, referenceSource);
                     }
                 }
 
-                if (total != fileContext.NumberOfIdRefs)
-                {
-                    _log.Warn(
-                        $"{contextPrefix} miss match in reference ids found (expected: {fileContext.NumberOfIdRefs} vs. actual: {total}.");
-                }
-
-                _log.Info($"{contextPrefix} {total} references to {referenceCache.NumberOfReferences} resources found");
+                _log.Info($"{contextPrefix} {referenceCache.NumberOfLoadedReferences} references preloaded.");
             }
 
             sw.Stop();
 
-            _log.Debug($"Finished finding references in {sw.Elapsed.TotalSeconds} seconds.");
+            _log.Debug($"{contextPrefix} finished preloading in {sw.Elapsed.TotalSeconds} seconds.");
             return true;
         }
     }

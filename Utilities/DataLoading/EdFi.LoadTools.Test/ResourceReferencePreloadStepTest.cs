@@ -10,7 +10,7 @@ using System.Text;
 using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using EdFi.LoadTools.Engine.InterchangePipeline;
+using EdFi.LoadTools.Engine.FileImportPipeline;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EdFi.LoadTools.Test
@@ -43,7 +43,7 @@ namespace EdFi.LoadTools.Test
         {
             _cache = new TestXmlReferenceCache();
             _findStep = new FindReferencesStep(_cache);
-            var fileContext = new FileContext {FileName = "sourceFileName"};
+            var fileContext = new FileContext {FileName = "sourceFileName", NumberOfIdRefs = 3};
             _findStep.Process(fileContext, GetStream());
             _loadStep = new PreloadReferencesStep(_cache);
             _loadStep.Process(fileContext, GetStream());
