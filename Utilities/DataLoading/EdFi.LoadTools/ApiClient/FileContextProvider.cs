@@ -48,8 +48,13 @@ namespace EdFi.LoadTools.ApiClient
             {
                 var contextPrefix = LogContext.BuildContextPrefix(Path.GetFileName(file));
 
-                var sw = new Stopwatch();
-                sw.Start();
+                Stopwatch sw = null;
+
+                if (_log.IsDebugEnabled)
+                {
+                    sw = new Stopwatch();
+                    sw.Start();
+                }
 
                 _log.Debug($"{contextPrefix} Start processing");
 
@@ -57,9 +62,12 @@ namespace EdFi.LoadTools.ApiClient
 
                 fileContexts.Add(fileContext);
 
-                sw.Stop();
+                if (_log.IsDebugEnabled)
+                {
+                    sw.Stop();
 
-                _log.Debug($"{contextPrefix} Finished processing in {sw.Elapsed.TotalSeconds} seconds.");
+                    _log.Debug($"{contextPrefix} Finished processing in {sw.Elapsed.TotalSeconds} seconds.");
+                }
             }
 
             return fileContexts;
