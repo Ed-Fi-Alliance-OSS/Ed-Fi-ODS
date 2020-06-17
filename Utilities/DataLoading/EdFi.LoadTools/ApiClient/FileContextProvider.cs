@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
 using EdFi.LoadTools.Engine;
+using EdFi.Ods.Common.Extensions;
 using log4net;
 
 namespace EdFi.LoadTools.ApiClient
@@ -35,7 +36,9 @@ namespace EdFi.LoadTools.ApiClient
             _fileContexts = new Lazy<List<FileContext>> (() => CreateFileContexts().Where(x => x.IsValid).ToList());
         }
 
-        public IEnumerable<FileContext> GetFileContexts() => _fileContexts.Value;
+        public IEnumerable<FileContext> GetFileContexts(List<string> resources)
+            => _fileContexts.Value
+                .Where(fc => fc.Resources.Any(r => resources.Contains(r, StringComparer.InvariantCultureIgnoreCase)));
 
         private IEnumerable<FileContext> CreateFileContexts()
         {
@@ -63,7 +66,7 @@ namespace EdFi.LoadTools.ApiClient
 
             FileContext CreateFileContext(string fileName, string contextPrefix)
             {
-                var fileContext = new FileContext {FileName = fileName};
+                var fileContext = new FileContext {FileName = fileName, Resources = new HashSet<string>()};
 
                 var xmlReaderSettings = new XmlReaderSettings {CloseInput = true};
 
@@ -102,7 +105,7 @@ namespace EdFi.LoadTools.ApiClient
                             }
                         }
 
-                        _log.Debug($"{contextPrefix} Checking for reference identities");
+                        _log.Debug($"{contextPrefix} Checking for reference identities and resources");
 
                         // loop through and count the ids refs
                         while (reader.Read())
@@ -110,6 +113,11 @@ namespace EdFi.LoadTools.ApiClient
                             if (reader.NodeType != XmlNodeType.Element)
                             {
                                 continue;
+                            }
+
+                            if (reader.Depth == 1)
+                            {
+                                fileContext.Resources.Add(reader.Name);
                             }
 
                             string refId = reader.GetAttribute("ref");
@@ -133,6 +141,7 @@ namespace EdFi.LoadTools.ApiClient
 
                 if (_xsdConfiguration.DoNotValidateXml)
                 {
+                    _log.Debug($"{contextPrefix} was not validated with XSD validation.");
                     return fileContext;
                 }
 

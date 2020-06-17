@@ -30,7 +30,7 @@ namespace EdFi.LoadTools.Engine.FileImportPipeline
 
         public IEnumerable<ApiLoaderWorkItem> RetrieveResourcesFromFiles(List<string> resources, int level)
         {
-            foreach (var fileContext in _fileContextProvider.GetFileContexts())
+            foreach (var fileContext in _fileContextProvider.GetFileContexts(resources))
             {
                 using (LogContext.SetFileName(Path.GetFileName(fileContext.FileName)))
                 {

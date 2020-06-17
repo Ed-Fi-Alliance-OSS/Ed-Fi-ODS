@@ -9,6 +9,6 @@ namespace EdFi.LoadTools.ApiClient
 {
     public interface IFileContextProvider
     {
-        IEnumerable<FileContext> GetFileContexts();
+        IEnumerable<FileContext> GetFileContexts(List<string> resources);
     }
 }
