@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_sqlServer()
-                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.SqlServer.ResolvedFolderName()));
+                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.SqlServer.ScriptsFolderName));
         }
 
         public class When_getting_orm_mapping_data_for_the_standard_assembly_using_postgreSql : TestFixtureBase
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_postgreSql()
-                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.Postgres.ResolvedFolderName()));
+                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.Postgres.ScriptsFolderName));
         }
 
         public class When_getting_orm_mapping_data_for_an_assembly_not_found_using_sqlServer : TestFixtureBase
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_sqlServer()
-                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.Postgres.ResolvedFolderName()));
+                => _result.MappingFileFullNames.All(x => x.ContainsIgnoreCase(DatabaseEngine.Postgres.ScriptsFolderName));
         }
     }
 }

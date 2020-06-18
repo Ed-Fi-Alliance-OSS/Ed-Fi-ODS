@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.IO;
 using EdFi.Ods.Api.Extensibility;
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Tests.TestExtension.NHibernate
                 MappingFileFullNames = new[]
                     {
                         Path.Combine(
-                            "NHibernate", "Mappings", DatabaseEngine.SqlServer.ResolvedFolderName(),
+                            "NHibernate", "Mappings", DatabaseEngine.SqlServer.ScriptsFolderName,
                             OrmMappingFileConventions.EntityOrmMappings + ".hbm.xml")
                     }
             };
