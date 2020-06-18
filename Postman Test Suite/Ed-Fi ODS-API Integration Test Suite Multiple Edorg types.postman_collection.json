@@ -2991,7 +2991,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated claim values (of 'CommunityProviderId', 'PostSecondaryInstitutionId') with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated claim values (of 'CommunityProviderId', 'PostSecondaryInstitutionId') with the requested resource ('StudentDisciplineIncidentAssociation').\");",
 											"});"
 										],
 										"type": "text/javascript"
