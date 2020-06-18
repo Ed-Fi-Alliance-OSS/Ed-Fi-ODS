@@ -118,7 +118,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                     
                     throw new EdFiSecurityException(
                         $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource.");
+                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
                 }
                 
                 conjunction.Add(disjunction);
