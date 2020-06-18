@@ -8,13 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
-using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization.Filtering;
 using NHibernate;
-using NHibernate.Context;
 
 namespace EdFi.Ods.Security.Authorization.Repositories
 {
@@ -51,35 +48,29 @@ namespace EdFi.Ods.Security.Authorization.Repositories
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
         }
 
-        private ISession Session
-        {
-            get => _sessionFactory.GetCurrentSession();
-        }
-
         /// <summary>
         /// Authorizes a call to get multiple entities using an open query specification.
         /// </summary>
         /// <param name="specification">An entity instance that has all the primary key properties assigned with values.</param>
         /// <param name="queryParameters">The additional query parameter to apply the results (e.g. paging, sorting).</param>
         /// <returns>A list of matching resources, or an empty result.</returns>
-        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(TEntity specification,
-            IQueryParameters queryParameters, CancellationToken cancellationToken)
+        public async Task<GetBySpecificationResult<TEntity>> GetBySpecificationAsync(
+            TEntity specification,
+            IQueryParameters queryParameters,
+            CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var filterBuilder = new ParameterizedFilterBuilder();
-            ApplyAuthorizationFilters<TEntity>(filterBuilder);
+            var authorizationFilters = GetAuthorizationFilters<TEntity>();
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))
             {
                 // Apply authorization filtering to the entity for the current session
-                _authorizationFilterContextProvider.SetFilterContext(filterBuilder.Value);
+                _authorizationFilterContextProvider.SetFilterContext(authorizationFilters);
 
                 // Pass call through to the repository operation implementation to execute the query
                 return await _next.GetBySpecificationAsync(specification, queryParameters, cancellationToken);
             }
-
-            // ----------------------------------------------------------------------------
         }
     }
 }

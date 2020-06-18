@@ -80,14 +80,14 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                 entityType);
 
             // Authorize and apply filtering
-            var filterBuilder = new ParameterizedFilterBuilder();
+            IReadOnlyList<AuthorizationFilterDetails> authorizationFilters;
 
             try
             {
-                // TODO: GKM - Performance optimization - Allow for "Try" semantics (so no exceptions are thrown here?)
-                _authorizationProvider.ApplyAuthorizationFilters(authorizationContext, filterBuilder);
+                // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
+                authorizationFilters = _authorizationProvider.GetAuthorizationFilters(authorizationContext);
             }
-            catch (EdFiSecurityException e)
+            catch (EdFiSecurityException ex)
             {
                 // If this is the base resource, rethrow the exception to achieve a 401 response
                 if (processorContext.IsBaseResource())
@@ -111,13 +111,13 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                 }
 
                 Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} is excluded from the request.");
-                Logger.Debug($"Security Exception Message: {e.Message}.");
+                Logger.Debug($"Security Exception Message: {ex.Message}.");
 
                 return false;
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryFilterByName = filterBuilder.Value;
+            builderContext.CurrentQueryFilterByName = authorizationFilters.ToDictionary(x => x.FilterName, x => x);
 
             return true;
         }
@@ -356,11 +356,21 @@ namespace EdFi.Ods.Security.Authorization.Repositories
                             filterHql);
 
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
-                        filterInfo.Value
-                                  .Where(kvp => filterHql.Contains(":" + kvp.Key))
-                                  .ForEach(
-                                       kvp =>
-                                           builderContext.CurrentQueryFilterParameterValueByName[kvp.Key] = kvp.Value);
+                        var authorizationFilterDetails = filterInfo.Value;
+
+                        string parameterName = authorizationFilterDetails.ClaimEndpointName;
+
+                        if (filterHql.Contains($":{parameterName}"))
+                        {
+                            if (authorizationFilterDetails.ClaimValues.Length == 1)
+                            {
+                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] = authorizationFilterDetails.ClaimValues.Single();
+                            }
+                            else
+                            {
+                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] = authorizationFilterDetails.ClaimValues;
+                            }
+                        }
                     }
                 }
             }

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using EdFi.Ods.Api.NHibernate.Filtering;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Security.Authorization.Filtering
 {
@@ -31,7 +32,7 @@ namespace EdFi.Ods.Security.Authorization.Filtering
         /// Sets parameterized filters to the current context.
         /// </summary>
         /// <param name="filters">A dictionary keyed by filter name, whose values are dictionaries keyed by parameter name.</param>
-        public void SetFilterContext(IDictionary<string, IDictionary<string, object>> filters)
+        public void SetFilterContext(IReadOnlyList<AuthorizationFilterDetails> filters)
         {
             // Store the filters into context
             _contextStorage.SetValue(FilterContextKeyName, filters);
@@ -41,10 +42,10 @@ namespace EdFi.Ods.Security.Authorization.Filtering
         /// Gets parameterized filters from the current context, or an empty dictionary if none have been set.
         /// </summary>
         /// <returns>A dictionary keyed by filter name, whose values are dictionaries keyed by parameter name.</returns>
-        public IDictionary<string, IDictionary<string, object>> GetFilterContext()
+        public IReadOnlyList<AuthorizationFilterDetails> GetFilterContext()
         {
-            return _contextStorage.GetValue<IDictionary<string, IDictionary<string, object>>>(FilterContextKeyName)
-                ?? new Dictionary<string, IDictionary<string, object>>();
+            return _contextStorage.GetValue<IReadOnlyList<AuthorizationFilterDetails>>(FilterContextKeyName)
+                ?? new AuthorizationFilterDetails[0];
         }
     }
 }

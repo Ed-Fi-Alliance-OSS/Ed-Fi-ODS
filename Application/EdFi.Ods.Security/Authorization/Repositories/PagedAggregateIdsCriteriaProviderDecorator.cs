@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using EdFi.Ods.Api.NHibernate.Architecture.Criteria;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Security.Authorization.Filtering;
 
 namespace EdFi.Ods.Security.Authorization.Repositories
@@ -20,8 +19,7 @@ namespace EdFi.Ods.Security.Authorization.Repositories
         public PagedAggregateIdsCriteriaProviderDecorator(
             IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IDescriptorsCache descriptorsCache)
-            : base(decoratedInstance, authorizationFilterContextProvider, authorizationCriteriaApplicatorProvider, descriptorsCache) { }
+            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider)
+            : base(decoratedInstance, authorizationFilterContextProvider, authorizationCriteriaApplicatorProvider) { }
     }
 }

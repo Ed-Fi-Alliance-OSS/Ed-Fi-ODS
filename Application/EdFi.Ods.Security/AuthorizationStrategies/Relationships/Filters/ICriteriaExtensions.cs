@@ -5,67 +5,87 @@
  
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 
-public static class ICriteriaExtensions
+namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
 {
-    /// <summary>
-    /// Applies a join-based filter to the criteria for the specified authorization view.
-    /// </summary>
-    /// <param name="criteria">The criteria to which filters should be applied.</param>
-    /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
-    /// <param name="viewName">The name of the view to be filtered.</param>
-    /// <param name="joinPropertyName">The name of the property to be joined between the entity being queried and the authorization view.</param>
-    public static void ApplyJoinFilter(this ICriteria criteria, IDictionary<string, object> parameters, string viewName, string joinPropertyName, string filterPropertyName)
+    public static class ICriteriaExtensions
     {
-        string authViewAlias = $"authView{viewName}";
-
-        // Apply authorization join using ICriteria
-        criteria.CreateEntityAlias(
-            authViewAlias,
-            Restrictions.EqProperty($"aggregateRoot.{joinPropertyName}", $"{authViewAlias}.{joinPropertyName}"),
-            JoinType.InnerJoin,
-            $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
-
-        object value;
-
-        // Defensive check to ensure required parameter is present
-        if (!parameters.TryGetValue(filterPropertyName, out value))
-            throw new Exception($"Unable to find parameter for filtering '{filterPropertyName}' on view '{viewName}'.");
-
-        var arrayOfValues = value as object[];
-
-        if (arrayOfValues != null)
-            criteria.Add(Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues));
-        else
-            criteria.Add(Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value));
-    }
-
-    /// <summary>
-    /// Applies property-level filter expressions to the criteria as either Equal or In expressions based on the supplied parameters.
-    /// </summary>
-    /// <param name="criteria">The criteria to which filters should be applied.</param>
-    /// <param name="parameters">The named parameters to be processed into the criteria query.</param>
-    public static void ApplyPropertyFilters(this ICriteria criteria, IDictionary<string, object> parameters, params string[] properties)
-    {
-        foreach (var nameAndValue in parameters.Where(x => properties.Contains(x.Key, StringComparer.OrdinalIgnoreCase)))
+        /// <summary>
+        /// Applies a join-based filter to the criteria for the specified authorization view.
+        /// </summary>
+        /// <param name="criteria">The criteria to which filters should be applied.</param>
+        /// <param name="whereJunction">The <see cref="ICriterion" /> container for adding WHERE clause criterion.</param>
+        /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
+        /// <param name="viewName">The name of the view to be filtered.</param>
+        /// <param name="joinPropertyName">The name of the property to be joined between the entity being queried and the authorization view.</param>
+        /// <param name="filterPropertyName">The name of the property to be used for applying filter values.</param>
+        /// <param name="joinType">The <see cref="JoinType" /> to be used.</param>
+        public static void ApplyJoinFilter(
+            this ICriteria criteria,
+            Junction whereJunction,
+            IDictionary<string, object> parameters,
+            string viewName,
+            string joinPropertyName,
+            string filterPropertyName,
+            JoinType joinType)
         {
-            var arrayOfValues = nameAndValue.Value as object[];
+            string authViewAlias = $"authView{viewName}";
+
+            // Apply authorization join using ICriteria
+            criteria.CreateEntityAlias(
+                authViewAlias,
+                Restrictions.EqProperty($"aggregateRoot.{joinPropertyName}", $"{authViewAlias}.{joinPropertyName}"),
+                joinType,
+                $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
+
+            object value;
+
+            // Defensive check to ensure required parameter is present
+            if (!parameters.TryGetValue(filterPropertyName, out value))
+                throw new Exception($"Unable to find parameter for filtering '{filterPropertyName}' on view '{viewName}'.");
+
+            var arrayOfValues = value as object[];
 
             if (arrayOfValues != null)
-                criteria.Add(Restrictions.In($"{nameAndValue.Key}", arrayOfValues));
+            {
+                if (joinType == JoinType.InnerJoin)
+                {
+                    whereJunction.Add(Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues));
+                }
+                else
+                {
+                    var and = new AndExpression(
+                        Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues),
+                        Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
+                
+                    whereJunction.Add(and);
+                }
+            }
             else
-                criteria.Add(Restrictions.Eq($"{nameAndValue.Key}", nameAndValue.Value));
+            {
+                if (joinType == JoinType.InnerJoin)
+                {
+                    whereJunction.Add(Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value));
+                }
+                else
+                {
+                    var and = new AndExpression(
+                        Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value),
+                        Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
+                
+                    whereJunction.Add(and);
+                }
+            }
         }
-    }
 
-    private static string GetFullNameForView(this string viewName)
-    {
-        return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
+        private static string GetFullNameForView(this string viewName)
+        {
+            return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
+        }
     }
 }

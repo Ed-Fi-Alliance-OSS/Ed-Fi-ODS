@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -63,20 +64,20 @@ namespace EdFi.Ods.Security.Authorization.Repositories
             await _authorizationProvider.AuthorizeSingleItemAsync(authorizationContext, cancellationToken);
         }
 
-        protected void ApplyAuthorizationFilters<TEntity>(ParameterizedFilterBuilder filterBuilder)
+        protected IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters<TEntity>()
         {
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
 
             // Build the AuthorizationContext
-            EdFiAuthorizationContext authorizationContext = new EdFiAuthorizationContext(
+            var authorizationContext = new EdFiAuthorizationContext(
                 ClaimsPrincipal.Current,
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 typeof(TEntity));
 
-            // Authorize the call
-            _authorizationProvider.ApplyAuthorizationFilters(authorizationContext, filterBuilder);
+            // Get authorization filters
+            return _authorizationProvider.GetAuthorizationFilters(authorizationContext);
         }
 
         protected void AuthorizeResourceActionOnly(T entity, string actionUri)

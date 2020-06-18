@@ -33,16 +33,15 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NoFurtherAuthorization
         /// </summary>
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
-        /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
-        /// <returns>The dictionary containing the filter information as appropriate, or <b>null</b> if no filters are required.</returns>
-        public void ApplyAuthorizationFilters(
+        /// <returns>The collection of authorization filters to be applied to the query.</returns>
+        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
             IEnumerable<Claim> relevantClaims,
-            EdFiAuthorizationContext authorizationContext,
-            ParameterizedFilterBuilder filterBuilder)
+            EdFiAuthorizationContext authorizationContext)
         {
             // Note: all claim checks are done in the implementation of the IEdFiAuthorizationProvider.
             // Do nothing because the resource authorization metadata provider should have returned claims for the
-            // requested action and the EdFi authorization provider should have validated. 
+            // requested action and the EdFi authorization provider should have validated.
+            return new AuthorizationFilterDetails[0];
         }
     }
 }
