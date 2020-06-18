@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.NHibernate.Architecture;
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.Extensibility
                     Assembly = assembly,
                     MappingFileFullNames = new[]
                         {
-                            $"{assembly.GetName().Name}.{OrmMappingFileConventions.EntityOrmMappings}.{_databaseEngine.ResolvedFolderName()}.{OrmMappingFileConventions.EntityOrmMappingsGeneratedHbm}"
+                            $"{assembly.GetName().Name}.{OrmMappingFileConventions.EntityOrmMappings}.{_databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsGeneratedHbm}"
                         }
                 };
             }
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Api.Extensibility
                                     .Select(
                                         p => new HbmColumn
                                         {
-                                            name = p.ColumnName(_databaseEngine.ResolvedFolderName(), p.PropertyName)
+                                            name = p.ColumnName(_databaseEngine, p.PropertyName)
                                         }).ToArray()
                             },
                             Item = new HbmOneToMany {@class = GetExtensionEntityAssemblyQualifiedName(e)}
@@ -137,7 +137,7 @@ namespace EdFi.Ods.Api.Extensibility
                                     .Select(
                                         p => new HbmColumn
                                         {
-                                            name = p.ColumnName(_databaseEngine.ResolvedFolderName(), p.PropertyName)
+                                            name = p.ColumnName(_databaseEngine, p.PropertyName)
                                         }).ToArray()
                             },
                             Item = new HbmOneToMany {@class = GetExtensionEntityAssemblyQualifiedName(e)}
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Api.Extensibility
 
                 return new HbmJoinedSubclass
                 {
-                    table = entity.TableName(_databaseEngine.ResolvedFolderName()),
+                    table = entity.TableName(_databaseEngine),
                     schema = PhysicalName,
                     name = GetExtensionEntityAssemblyQualifiedName(entity),
                     key = CreateHbmKey(entity.Properties.Where(p => p.IsIdentifying).OrderBy(p => p.PropertyName)),
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Api.Extensibility
 
                 var hbmJoin = new HbmJoin
                 {
-                    table = entity.TableName(_databaseEngine.ResolvedFolderName()),
+                    table = entity.TableName(_databaseEngine),
                     schema = entity.Schema,
                     key = CreateHbmKey(
                         entity.Properties.Where(p => p.IsIdentifying)
@@ -318,7 +318,7 @@ namespace EdFi.Ods.Api.Extensibility
             return new HbmProperty
             {
                 name = p.PropertyName,
-                column = p.ColumnName(_databaseEngine.ResolvedFolderName(), p.PropertyName),
+                column = p.ColumnName(_databaseEngine, p.PropertyName),
                 notnull = !p.PropertyType.IsNullable,
                 insert = !entity.Identifier.Properties
                     .Where(i => !i.IsFromParent)
@@ -336,7 +336,7 @@ namespace EdFi.Ods.Api.Extensibility
             return new HbmKey
             {
                 column = properties
-                    .Select(p => new HbmColumn {name = p.ColumnName(_databaseEngine.ResolvedFolderName(), p.PropertyName)})
+                    .Select(p => new HbmColumn {name = p.ColumnName(_databaseEngine, p.PropertyName)})
                     .ToArray()
             };
         }
