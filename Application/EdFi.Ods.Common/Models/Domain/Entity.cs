@@ -2,10 +2,11 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
@@ -49,7 +50,7 @@ namespace EdFi.Ods.Common.Models.Domain
             Schema = entityDefinition.Schema;
             Name = entityDefinition.Name;
 
-            TableNameByDatabaseEngine = new Dictionary<string, string>(entityDefinition.TableNames, StringComparer.InvariantCultureIgnoreCase);
+            TableNameByDatabaseEngine = new Dictionary<DatabaseEngine, string>(entityDefinition.TableNames);
 
             Description = entityDefinition.Description?.Trim();
             IsAbstract = entityDefinition.IsAbstract;
@@ -232,7 +233,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <summary>
         /// Gets a mapping of the entity's physical table names by database engine identifier.
         /// </summary>
-        public IDictionary<string, string> TableNameByDatabaseEngine { get; }
+        public IDictionary<DatabaseEngine, string> TableNameByDatabaseEngine { get; }
 
         /// <summary>
         /// Gets the pluralized name of the entity.

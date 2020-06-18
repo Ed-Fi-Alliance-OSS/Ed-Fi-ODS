@@ -2,12 +2,13 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Castle.Core.Resource;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
@@ -231,7 +232,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="databaseEngine"></param>
         /// <param name="legacyColumnName"></param>
         /// <returns></returns>
-        public static string ColumnName(this EntityProperty property, string databaseEngine, string legacyColumnName)
+        public static string ColumnName(this EntityProperty property, DatabaseEngine databaseEngine, string legacyColumnName)
         {
             return property.ColumnNameByDatabaseEngine == null || property.ColumnNameByDatabaseEngine.Count == 0
                 ? legacyColumnName
@@ -248,7 +249,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="explicitTableName">Explicit name to use instead of the <see cref="Entity.Name" /> property if no
         /// entry is found for the specified database engine.</param>
         /// <returns></returns>
-        public static string TableName(this Entity entity, string databaseEngine, string explicitTableName = null)
+        public static string TableName(this Entity entity, DatabaseEngine databaseEngine, string explicitTableName = null)
         {
             return entity.TableNameByDatabaseEngine == null || entity.TableNameByDatabaseEngine.Count == 0
                 ? explicitTableName ?? entity.Name
