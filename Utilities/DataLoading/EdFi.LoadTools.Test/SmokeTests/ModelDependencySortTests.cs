@@ -10,18 +10,18 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.SdkTests;
 using EdFi.OdsApi.Sdk.Apis.All;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
-    [TestClass]
+    [TestFixture]
     public class DirectedGraphTests
     {
         private static readonly ISdkLibraryFactory SdkLibraryFactory =
             Mock.Of<ISdkLibraryFactory>(f => f.SdkLibrary == typeof(AcademicWeeksApi).Assembly);
 
-        [TestMethod]
+        [Test]
         public void Should_order_types()
         {
             var cat = Mock.Of<ISdkCategorizer>(
@@ -55,7 +55,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(sortedResult.IndexOf(typeof(FDescriptor)) > sortedResult.IndexOf(typeof(FType)));
         }
 
-        [TestMethod]
+        [Test]
         public void Should_resolve_longer_reference()
         {
             var cat = Mock.Of<ISdkCategorizer>(
@@ -76,8 +76,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(sortedResult.IndexOf(typeof(Alpha)) > sortedResult.IndexOf(typeof(AlphaBravoCharlieType)));
         }
 
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void Should_order_types_from_Sdk()
         {
             var cat = new SdkCategorizer(SdkLibraryFactory);
@@ -90,8 +90,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
             }
         }
 
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void Should_order_Apis_from_Sdk()
         {
             var cat = new SdkCategorizer(SdkLibraryFactory);

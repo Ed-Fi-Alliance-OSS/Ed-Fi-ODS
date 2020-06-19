@@ -8,11 +8,11 @@ using System.Collections.Generic;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Test.Properties;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class JsonMetadataTests
     {
         public static IApiMetadataConfiguration ApiMetadataConfiguration
@@ -30,8 +30,8 @@ namespace EdFi.LoadTools.Test
             get { return new TestInterchangeOrderConfiguration(); }
         }
 
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void Should_display_all_Json_metadata()
         {
             var loader = new SwaggerMetadataRetriever(

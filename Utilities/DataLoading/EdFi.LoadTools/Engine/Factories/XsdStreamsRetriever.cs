@@ -22,7 +22,8 @@ namespace EdFi.LoadTools.Engine.Factories
 
         public IEnumerable<Stream> GetStreams()
         {
-            var files = Directory.GetFiles(_configuration.Folder, "*.xsd").ToList();
+            var standardFullPath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, _configuration.Folder));
+            var files = Directory.GetFiles(standardFullPath, "*.xsd").ToList();
 
             // Find any interchange with an extension, and select the core file name for removal
             var coreInterchangesToRemove =

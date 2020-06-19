@@ -7,16 +7,16 @@ using System.Configuration;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.CommonTests;
 using Microsoft.Owin.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Owin;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
-    [TestClass]
+    [TestFixture]
     public class GetDependenciesTests
     {
-        [TestMethod]
+        [Test]
         public void Should_succeed_against_a_running_server()
         {
             var address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
@@ -31,7 +31,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Should_fail_against_no_server()
         {
             const string DependenciesUrl = "http://localhost:12345";

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Test.Properties;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class SwaggerRetrieverTests
     {
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public async Task Should_retrieve_swagger_information()
         {
             var retriever = new SwaggerRetriever(new TestApiMetadataConfiguration());

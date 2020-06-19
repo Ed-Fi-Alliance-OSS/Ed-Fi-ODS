@@ -6,18 +6,18 @@
 using System;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Test.Properties;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
     /// <summary>
     ///     These tests are meant to be run manually with a functioning API
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class OAuthTokenHandlerTests
     {
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void ShouldSuccessfullyRetrieveBearerToken()
         {
             var sandboxCredentials = SandboxCredentialsHelper.GetMinimalSandboxCredential();

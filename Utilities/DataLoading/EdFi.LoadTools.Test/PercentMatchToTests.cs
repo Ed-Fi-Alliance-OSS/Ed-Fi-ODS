@@ -7,11 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.Engine;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class PercentMatchToTests
     {
         private static Map[] CreateMappings(IEnumerable<string> xml, IEnumerable<string> json)
@@ -65,7 +65,7 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Descriptor_Values()
         {
             string[] xml =
@@ -81,7 +81,7 @@ namespace EdFi.LoadTools.Test
             PerformTest(xml, json);
         }
 
-        [TestMethod]
+        [Test]
         public void AssessmentFamilyTitle_to_title()
         {
             string[] xml =
@@ -97,7 +97,7 @@ namespace EdFi.LoadTools.Test
             PerformTest(xml, json);
         }
 
-        [TestMethod]
+        [Test]
         public void CohortScope_to_scopeType()
         {
             string[] xml =
@@ -113,7 +113,7 @@ namespace EdFi.LoadTools.Test
             PerformTest(xml, json);
         }
 
-        [TestMethod]
+        [Test]
         public void KeyConsolidation()
         {
             string[] xml =
@@ -132,7 +132,7 @@ namespace EdFi.LoadTools.Test
             PerformTest(xml, json);
         }
 
-        [TestMethod]
+        [Test]
         public void CalendarDateReference()
         {
             string[] xml =
@@ -148,7 +148,7 @@ namespace EdFi.LoadTools.Test
             PerformTest(xml, json);
         }
 
-        [TestMethod]
+        [Test]
         public void URI_to_uri()
         {
             string[] xml =

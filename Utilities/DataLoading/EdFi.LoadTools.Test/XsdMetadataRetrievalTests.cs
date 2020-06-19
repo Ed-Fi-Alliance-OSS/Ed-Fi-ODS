@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Factories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
 
@@ -16,7 +16,7 @@ namespace EdFi.LoadTools.Test
 {
     public class XsdMetadataRetrievalTests
     {
-        [TestClass]
+        [TestFixture]
         public class When_using_the_XsdMetadataFactory
         {
             protected IEnumerable<XmlModelMetadata> _metadata;
@@ -26,14 +26,14 @@ namespace EdFi.LoadTools.Test
 
             protected virtual XsdMetadataFactory Factory => new XsdMetadataFactory(ssBuilder.GetSchemaSet());
 
-            [TestInitialize]
-            public virtual void Initialize()
+            [OneTimeSetUp]
+            public virtual void SetUp()
             {
                 _metadata = Factory.GetMetadata();
             }
 
-            [TestMethod]
-            [TestCategory("Run Manually")]
+            [Test]
+            [Category("Run Manually")]
             public void Should_display_all_Xml_metadata()
             {
                 Assert.IsTrue(_metadata.Any());
@@ -47,7 +47,7 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_using_the_XsdApiTypesMetadataFactory : When_using_the_XsdMetadataFactory
         {
             protected override XsdMetadataFactory Factory => new XsdApiTypesMetadataFactory(ssBuilder.GetSchemaSet());

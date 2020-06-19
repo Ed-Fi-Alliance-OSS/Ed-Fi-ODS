@@ -11,11 +11,11 @@ using System.Xml.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.FileImportPipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class ResourceReferencePreloadStepTest
     {
         private TestXmlReferenceCache _cache;
@@ -38,8 +38,8 @@ namespace EdFi.LoadTools.Test
             return new MemoryStream(Encoding.UTF8.GetBytes(xml));
         }
 
-        [TestInitialize]
-        public void Initialize()
+        [OneTimeSetUp]
+        public void SetUp()
         {
             _cache = new TestXmlReferenceCache();
             _findStep = new FindReferencesStep(_cache);
@@ -49,13 +49,13 @@ namespace EdFi.LoadTools.Test
             _loadStep.Process(fileContext, GetStream());
         }
 
-        [TestMethod]
+        [Test]
         public void Should_find_all_ids()
         {
             Assert.AreEqual(4, _cache.PreloadReferenceSourceIds.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_find_all_references()
         {
             Assert.AreEqual(4, _cache.LoadReferenceIds.Count);

@@ -7,12 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.Mapping;
 using EdFi.OdsApi.Sdk.Models.All;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Newtonsoft.Json;
 
 namespace EdFi.LoadTools.Test.Mapping
 {
-    [TestClass]
+    [TestFixture]
     public class MapperTests
     {
 #region StaffJson
@@ -65,7 +65,7 @@ namespace EdFi.LoadTools.Test.Mapping
 
 #endregion
 
-        [TestMethod]
+        [Test]
         public void MappingTests_should_resolve_properties()
         {
             var config = new MapperConfiguration(cfg => cfg.CreateMap<SourceA, TargetA>());
@@ -98,7 +98,7 @@ namespace EdFi.LoadTools.Test.Mapping
             Assert.AreEqual(source.SourceD?.PropertyD, target.TargetB?.PropertyD);
         }
 
-        [TestMethod]
+        [Test]
         public void MappingTests_for_EdFi_models()
         {
             var config = new MapperConfiguration(
