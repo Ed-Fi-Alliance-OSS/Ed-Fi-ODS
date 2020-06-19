@@ -11,7 +11,7 @@ namespace EdFi.LoadTools.Test
 {
     public static class SandboxCredentialsHelper
     {
-        private const string CredentialsFile = @"Ed-Fi-ODS-Implementation\Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config";
+        private const string CredentialsFile = @"../../../../../../../../Ed-Fi-ODS-Implementation/Application/EdFi.Ods.SandboxAdmin.Web/AdminCredential.config";
 
         public static SandboxCredential GetMinimalSandboxCredential()
         {
@@ -25,7 +25,7 @@ namespace EdFi.LoadTools.Test
 
         private static XmlDocument GetCredentialFile()
         {
-            string CredentialsFilePath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"../../../../../../../../")) + CredentialsFile;
+            string CredentialsFilePath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, CredentialsFile));
             if (!File.Exists(CredentialsFilePath))
             {
                 Assert.Fail("The sandbox credentials file does not exist.");
