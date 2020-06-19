@@ -28,7 +28,7 @@ namespace EdFi.Ods.Common.Configuration
                 return SqlServer;
             }
 
-            if (databaseProviderName.EqualsIgnoreCase(ApiConfigurationConstants.PostgreSQL))
+            if (databaseProviderName.EqualsIgnoreCase(ApiConfigurationConstants.PostgresProviderName))
             {
                 return Postgres;
             }
