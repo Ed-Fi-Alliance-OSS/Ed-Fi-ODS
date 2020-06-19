@@ -24,7 +24,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
         private MetadataMapping[] _mappings;
         private List<XmlModelMetadata> _xmlMetadata;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             var retriever = new SwaggerRetriever(JsonMetadataTests.ApiMetadataConfiguration);

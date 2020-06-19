@@ -77,7 +77,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private Resource _resource;
         private IDisposable _webApp;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _resource = new Resource
@@ -135,7 +135,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                          });
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public void Cleanup()
         {
             _webApp.Dispose();

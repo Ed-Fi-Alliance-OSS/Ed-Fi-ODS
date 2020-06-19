@@ -17,7 +17,7 @@ namespace EdFi.LoadTools.Test
         private readonly dynamic _foo = new ExpandoObject();
         private string _json;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             _foo.Bar = new ExpandoObject();

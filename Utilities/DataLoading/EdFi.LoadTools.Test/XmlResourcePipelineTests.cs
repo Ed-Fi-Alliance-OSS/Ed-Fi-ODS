@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.Test
         {
             private MapElementStep _step;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 var metadataMappingFactory = new FakeMetadataMappingFactory();

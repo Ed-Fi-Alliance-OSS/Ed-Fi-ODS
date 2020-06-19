@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
         private MetadataMapping[] _mappings;
         private List<XmlModelMetadata> _xmlMetadata;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             var ssbuilder = new SchemaSetFactory(new XsdStreamsRetriever(JsonMetadataTests.XmlMetadataConfiguration));

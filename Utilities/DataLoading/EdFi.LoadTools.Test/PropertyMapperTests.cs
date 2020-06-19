@@ -16,7 +16,7 @@ namespace EdFi.LoadTools.Test
         private List<ModelMetadata> _jsonModels;
         private List<ModelMetadata> _xmlModels;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _jsonModels = new List<ModelMetadata>

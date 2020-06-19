@@ -18,7 +18,7 @@ namespace EdFi.LoadTools.Test
     {
         private MapXmlLookupToGetByExampleJsonStep _mapStep;
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
             var mappings = new[]

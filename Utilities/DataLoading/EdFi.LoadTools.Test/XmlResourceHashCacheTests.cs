@@ -32,7 +32,7 @@ namespace EdFi.LoadTools.Test
             private readonly HashProvider _hashProvider = new HashProvider();
             private ResourceHashCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 var rnd = new Random(100);
@@ -71,7 +71,7 @@ namespace EdFi.LoadTools.Test
             private ResourceHashCache _cache2;
             private string _filename;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _filename = Path.Combine(_configuration.Folder, Path.GetRandomFileName());
@@ -92,7 +92,7 @@ namespace EdFi.LoadTools.Test
                 _cache2.Load(_filename);
             }
 
-            [TearDown]
+            [OneTimeTearDown]
             public void Cleanup()
             {
                 File.Delete(_filename);

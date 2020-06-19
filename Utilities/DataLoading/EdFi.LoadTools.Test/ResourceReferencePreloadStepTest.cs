@@ -38,7 +38,7 @@ namespace EdFi.LoadTools.Test
             return new MemoryStream(Encoding.UTF8.GetBytes(xml));
         }
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             _cache = new TestXmlReferenceCache();

@@ -42,7 +42,7 @@ namespace EdFi.LoadTools.Test
         {
             private XmlReferenceCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -62,7 +62,7 @@ namespace EdFi.LoadTools.Test
         {
             private XmlReferenceCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -84,7 +84,7 @@ namespace EdFi.LoadTools.Test
         {
             private XmlReferenceCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -106,7 +106,7 @@ namespace EdFi.LoadTools.Test
         {
             private XmlReferenceCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -132,7 +132,7 @@ namespace EdFi.LoadTools.Test
         {
             private XmlReferenceCache _cache;
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -171,7 +171,7 @@ namespace EdFi.LoadTools.Test
 
             string IAppender.Name { get; set; }
 
-            [SetUp]
+            [OneTimeSetUp]
             public void Setup()
             {
                 ((Hierarchy) LogManager.GetRepository()).Root.AddAppender(this);
@@ -195,7 +195,7 @@ namespace EdFi.LoadTools.Test
                 _resourceWorkItem = new ApiLoaderWorkItem("filename", 1, element, 1);
             }
 
-            [TearDown]
+            [OneTimeTearDown]
             public void Teardown()
             {
                 ((Hierarchy) LogManager.GetRepository()).Root.RemoveAppender(this);
