@@ -11,7 +11,7 @@ namespace EdFi.LoadTools.Test
 {
     public static class SandboxCredentialsHelper
     {
-        private const string CredentialsFile = @"../../../../../../../../Ed-Fi-ODS-Implementation/Application/EdFi.Ods.SandboxAdmin.Web/AdminCredential.config";
+        private const string CredentialsFile = @"../../../../../../../Ed-Fi-ODS-Implementation/Application/EdFi.Ods.SandboxAdmin.Web/AdminCredential.config";
 
         public static SandboxCredential GetMinimalSandboxCredential()
         {
