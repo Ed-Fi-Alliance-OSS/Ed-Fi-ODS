@@ -26,6 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
             var claims = new List<Claim>
                          {
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
                              new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
                          };
 
@@ -47,8 +48,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     .WaitSafely());
 
             exception.Message.ShouldBe(
-                "Access to the resource could not be authorized because the caller did not have a NamespacePrefix claim ('"
-                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim value was empty.");
+                "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
+                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
 
             //Assert
         }
@@ -61,7 +62,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
             var claims = new List<Claim>
                          {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/")
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                          };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -94,7 +96,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
             var claims = new List<Claim>
                          {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/")
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                          };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -122,7 +125,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
             var claims = new List<Claim>
                          {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/")
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
                          };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
@@ -142,7 +146,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
                         .WaitSafely());
 
-            exception.Message.ShouldBe("Access to the resource item with namespace 'uri://www.TEST.org/' could not be authorized based on the caller's NamespacePrefix claim of 'uri://ed-fi.org/'.");
+            exception.Message.ShouldBe("Access to the resource item with namespace 'uri://www.TEST.org/' could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
             //Assert
         }
 
@@ -172,8 +176,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                         .WaitSafely());
 
             exception.Message.ShouldBe(
-                "Access to the resource could not be authorized because the caller did not have a NamespacePrefix claim ('"
-                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim value was empty.");
+                "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
+                + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
 
             //Assert
         }

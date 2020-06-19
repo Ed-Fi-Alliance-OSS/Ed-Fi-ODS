@@ -47,7 +47,7 @@ namespace EdFi.Ods.Security.Claims
             IEnumerable<string> namespacePrefixes,
             IReadOnlyList<string> assignedProfileNames)
         {
-            var filteredNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
+            var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
 
             var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Security.Claims
             // Create Identity Claims
 
             // NamespacePrefixes
-            filteredNamespacePrefixes.ForEach(
+            nonEmptyNamespacePrefixes.ForEach(
                 namespacePrefix => claims.Add(new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, namespacePrefix)));
 
             // Add Assigned Profile names
