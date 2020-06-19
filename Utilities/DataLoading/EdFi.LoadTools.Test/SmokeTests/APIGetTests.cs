@@ -11,7 +11,7 @@ using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
 using Microsoft.Owin.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +20,7 @@ using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
-    [TestClass]
+    [TestFixture]
     public class ApiGetTests
     {
         private const string ResourceName = "testResource";
@@ -77,7 +77,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private Resource _resource;
         private IDisposable _webApp;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             _resource = new Resource
@@ -135,13 +135,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
                          });
         }
 
-        [TestCleanup]
+        [TearDown]
         public void Cleanup()
         {
             _webApp.Dispose();
         }
 
-        [TestMethod]
+        [Test]
         public void GetAll_should_store_results_in_dictionary()
         {
             var dictionary = new Dictionary<string, JArray>();
@@ -153,7 +153,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSkipLimitTest_should_retrieve_second_object()
         {
             var dictionary = new Dictionary<string, JArray>
@@ -167,7 +167,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetByIdTest_should_retrieve_single_object()
         {
             var dictionary = new Dictionary<string, JArray>
@@ -181,7 +181,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetByExampleTest_should_retrieve_array()
         {
             var dictionary = new Dictionary<string, JArray>

@@ -11,21 +11,21 @@ using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.MappingFactories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 // ReSharper disable LocalizableElement
 
 namespace EdFi.LoadTools.Test.MappingFactories
 {
-    [TestClass]
+    [TestFixture]
     public class ResourceToResourceMetadataMappingFactoryTests
     {
         private List<JsonModelMetadata> _jsonMetadata;
         private MetadataMapping[] _mappings;
         private List<XmlModelMetadata> _xmlMetadata;
 
-        [TestInitialize]
-        public void Initialize()
+        [SetUp]
+        public void SetUp()
         {
             var retriever = new SwaggerRetriever(JsonMetadataTests.ApiMetadataConfiguration);
 
@@ -52,8 +52,8 @@ namespace EdFi.LoadTools.Test.MappingFactories
             _mappings = factory.GetMetadataMappings().ToArray();
         }
 
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void Should_map_resource_to_resource()
         {
             foreach (var m in _mappings.OrderBy(x => x.SourceName))

@@ -10,17 +10,17 @@ using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.MappingFactories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test.MappingFactories
 {
-    [TestClass]
+    [TestFixture]
     public class LookupToIdentityMetadataMappingFactoryTests
     {
         private MetadataMapping[] _mappings;
         private List<XmlModelMetadata> _xmlMetadata;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             var ssbuilder = new SchemaSetFactory(new XsdStreamsRetriever(JsonMetadataTests.XmlMetadataConfiguration));
@@ -36,8 +36,8 @@ namespace EdFi.LoadTools.Test.MappingFactories
             _mappings = factory.GetMetadataMappings().ToArray();
         }
 
-        [TestMethod]
-        [TestCategory("Run Manually")]
+        [Test]
+        [Category("Run Manually")]
         public void Should_map_lookup_to_identity()
         {
             foreach (var mapping in _mappings.OrderBy(x => x.SourceName))

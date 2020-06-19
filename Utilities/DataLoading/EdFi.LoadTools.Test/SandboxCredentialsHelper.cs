@@ -5,13 +5,13 @@
  
 using System.IO;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
     public static class SandboxCredentialsHelper
     {
-        private const string CredentialsFile = @"..\..\..\..\..\..\..\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config";
+        private const string CredentialsFile = @"Ed-Fi-ODS-Implementation\Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config";
 
         public static SandboxCredential GetMinimalSandboxCredential()
         {
@@ -25,13 +25,14 @@ namespace EdFi.LoadTools.Test
 
         private static XmlDocument GetCredentialFile()
         {
-            if (!File.Exists(CredentialsFile))
+            string CredentialsFilePath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"../../../../../../../../")) + CredentialsFile;
+            if (!File.Exists(CredentialsFilePath))
             {
                 Assert.Fail("The sandbox credentials file does not exist.");
             }
 
             var sandboxCredentials = new XmlDocument();
-            sandboxCredentials.Load(CredentialsFile);
+            sandboxCredentials.Load(CredentialsFilePath);
             return sandboxCredentials;
         }
     }

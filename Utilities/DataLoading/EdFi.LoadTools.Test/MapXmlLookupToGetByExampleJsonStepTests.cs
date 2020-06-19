@@ -9,16 +9,16 @@ using System.Xml.Linq;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
 using EdFi.LoadTools.Test.MappingFactories;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class MapXmlLookupToGetByExampleJsonStepTests
     {
         private MapXmlLookupToGetByExampleJsonStep _mapStep;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             var mappings = new[]
@@ -137,7 +137,7 @@ namespace EdFi.LoadTools.Test
             _mapStep = new MapXmlLookupToGetByExampleJsonStep(mappingFactory);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_perform_simple_element_name_translations()
         {
             var xelement = new XElement(
@@ -161,7 +161,7 @@ namespace EdFi.LoadTools.Test
             Assert.AreEqual(expected.ToString(), item.GetByExampleXElement.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void Should_perform_reference_type_translations()
         {
             var xelement = new XElement("Foo", new XElement("FooDescriptor", "NameSpace#descriptor"));
@@ -179,7 +179,7 @@ namespace EdFi.LoadTools.Test
             Assert.AreEqual(expected.ToString(), item.GetByExampleXElement.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void Should_perform_array_translations()
         {
             XNamespace json = "http://james.newtonking.com/projects/json";

@@ -6,18 +6,18 @@
 using System;
 using System.Dynamic;
 using EdFi.LoadTools.ApiClient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class UtilitiesTests
     {
         private readonly dynamic _foo = new ExpandoObject();
         private string _json;
 
-        [TestInitialize]
+        [SetUp]
         public void Setup()
         {
             _foo.Bar = new ExpandoObject();
@@ -29,7 +29,7 @@ namespace EdFi.LoadTools.Test
             Console.WriteLine(_json);
         }
 
-        [TestMethod]
+        [Test]
         public void ShouldConvertJsonToQueryString()
         {
             var queryStr = Utilities.ConvertJsonToQueryString(_json);

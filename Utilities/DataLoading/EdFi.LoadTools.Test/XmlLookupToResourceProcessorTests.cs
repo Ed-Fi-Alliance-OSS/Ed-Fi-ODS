@@ -12,11 +12,11 @@ using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class XmlLookupToResourceProcessorTests
     {
         private readonly XElement _a1Identity = XElement.Parse("<AIdentity><Id>1</Id></AIdentity>");
@@ -63,7 +63,7 @@ namespace EdFi.LoadTools.Test
             return xmlResult;
         }
 
-        [TestMethod]
+        [Test]
         public void Should_add_identity_for_successful_lookup()
         {
             var xmlSource = XElement.Parse("<AReference>" + _a1Lookup + "</AReference>");
@@ -72,7 +72,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsNotNull(xmlResult.Element("AIdentity"));
         }
 
-        [TestMethod]
+        [Test]
         public void Should_ignore_identity_for_no_lookup()
         {
             var xmlSource = XElement.Parse("<AReference>" + _a1Identity + "</AReference>");
@@ -81,7 +81,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsFalse(xmlResult.Nodes().Any(x => x.NodeType == XmlNodeType.Comment));
         }
 
-        [TestMethod]
+        [Test]
         public void Should_prefer_provided_identity_information_over_lookup()
         {
             var xmlSource = XElement.Parse("<AReference>" + _a1Identity + _a1Lookup + "</AReference>");
@@ -91,7 +91,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsTrue(identities.All(x => x.PreviousNode == null));
         }
 
-        [TestMethod]
+        [Test]
         public void Should_show_failure_comment_for_unsuccessful_lookup()
         {
             var xmlSource = XElement.Parse("<BReference>" + _bLookup + "</BReference>");
@@ -102,7 +102,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsTrue(xmlResult.ToString().Contains("No BIdentity could be retrieved"));
         }
 
-        [TestMethod]
+        [Test]
         public void Should_recurse_identity_lookups()
         {
             var xmlSource = XElement.Parse(

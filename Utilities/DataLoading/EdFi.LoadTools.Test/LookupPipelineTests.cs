@@ -12,11 +12,11 @@ using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class LookupPipelineTests
     {
         public IEnumerable<ILookupPipelineStep> Pipeline(IDictionary<string, XElement> hashIdentities)
@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.Test
                    };
         }
 
-        [TestMethod]
+        [Test]
         public void Should_not_perform_lookup_multiple_times_for_the_same_value()
         {
             var xml = XElement.Parse(

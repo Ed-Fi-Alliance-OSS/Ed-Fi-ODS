@@ -10,11 +10,11 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test.XmlLookupPipeline
 {
-    [TestClass]
+    [TestFixture]
     public class XmlToWorkItemsProcessorTests
     {
         private readonly XElement _lookupInsideIdentity = XElement.Parse(
@@ -160,21 +160,21 @@ namespace EdFi.LoadTools.Test.XmlLookupPipeline
             return workItems;
         }
 
-        [TestMethod]
+        [Test]
         public void Should_have_one_work_items_lookup()
         {
             var items = TestWorkItems(_resolvedLookup);
             Assert.AreEqual(1, items.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_have_two_work_items_lookup()
         {
             var items = TestWorkItems(_lookupInsideIdentity);
             Assert.AreEqual(2, items.Length);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_have_three_work_items_lookups()
         {
             var items = TestWorkItems(_nestedLookups);

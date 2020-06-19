@@ -5,58 +5,58 @@
  
 using System;
 using EdFi.LoadTools.Engine;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
     public class ExtensionMethodsTests
     {
-        [TestClass]
+        [TestFixture]
         public class InitialUpperCase
         {
             private const string LowerCase = "test";
             private const string UpperCase = "Test";
 
-            [TestMethod]
+            [Test]
             public void Should_capitalize_initial_lower_case()
             {
                 Assert.AreEqual(LowerCase.InitialUpperCase(), UpperCase);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_not_change_initial_upper_case()
             {
                 Assert.AreEqual(UpperCase.InitialUpperCase(), UpperCase);
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class AreMatchingSimpleTypes
         {
-            [TestMethod]
+            [Test]
             public void Should_match_overlapping_types()
             {
                 Assert.IsTrue(ExtensionMethods.AreMatchingSimpleTypes("string", "String"));
                 Assert.IsTrue(ExtensionMethods.AreMatchingSimpleTypes("string", "Token"));
             }
 
-            [TestMethod]
+            [Test]
             public void Should_identify_unmatched_types()
             {
                 Assert.IsFalse(ExtensionMethods.AreMatchingSimpleTypes("string", "Int"));
             }
 
-            [TestMethod]
+            [Test]
             public void Should_not_match_simple_to_complex_types()
             {
                 Assert.IsFalse(ExtensionMethods.AreMatchingSimpleTypes("string", "ComplexType"));
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class IsPrimitiveType
         {
-            [TestMethod]
+            [Test]
             public void Should_match_my_types()
             {
                 Assert.IsTrue(typeof(int).IsPrimitiveType());
@@ -67,10 +67,10 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class GetUnderlyingTypeTests
         {
-            [TestMethod]
+            [Test]
             public void Should_work_for_nullables()
             {
                 Assert.AreEqual(ExtensionMethods.GetUnderlyingType(typeof(int?)), typeof(int));
@@ -79,10 +79,10 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_matching_namespace_for_assessments
         {
-            [TestMethod]
+            [Test]
             public void Should_match_the_assessment_reference_assessment_identity_namespace_to_assessment_reference_namespace()
             {
                 string xmlPropertyPath = "AssessmentReference/AssessmentIdentity/Namespace";

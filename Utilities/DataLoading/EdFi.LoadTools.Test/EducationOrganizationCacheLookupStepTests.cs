@@ -7,11 +7,11 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class EducationOrganizationCacheLookupStepTests
     {
         private static Dictionary<string, List<LookupProperty>> _lookupPropertyValuesByName;
@@ -25,7 +25,7 @@ namespace EdFi.LoadTools.Test
 			                                                        <EducationOrganizationCategory>uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School</EducationOrganizationCategory>
                                                                     </EducationOrganizationLookup>";
 
-        [TestMethod]
+        [Test]
         public void Should_correctly_build_lookup_property_dictionary_from_LookupXml()
         {
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
@@ -57,7 +57,7 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestMethod]
+        [Test]
         public void Should_correctly_set_IdentityXElement_if_EdOrg_found_in_identity_cache()
         {
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
@@ -82,7 +82,7 @@ namespace EdFi.LoadTools.Test
                 new XElement(item.IdentityName, new XElement($"{item.ResourceName}Id", 9999)).ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void Should_not_set_IdentityXElement_if_no_EdOrg_is_found_in_cache()
         {
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
@@ -101,7 +101,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsNull(item.IdentityXElement);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_not_set_IdentityXElement_more_than_1_edorg_is_found_in_cache_for_provided_lookup_columns()
         {
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);
@@ -124,7 +124,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsNull(item.IdentityXElement);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_only_process_education_organization_lookups()
         {
             var xelement = XElement.Parse(_educationOrganizationReferenceElement);

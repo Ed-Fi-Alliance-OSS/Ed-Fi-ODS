@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.LoadTools.SmokeTest.PropertyBuilders;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using Moq;
 using Swashbuckle.Swagger;
 
@@ -17,12 +17,12 @@ using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
-    [TestClass]
+    [TestFixture]
     public class PropertyBuilderTests
     {
 #region ExistingResourceBuilder tests
 
-        [TestMethod]
+        [Test]
         public void ExistingResourceBuilder_should_copy_resource()
         {
             var obj = new Class1();
@@ -50,7 +50,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region ListPropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void ListPropertyBuilder_should_create_empty_list_when_required_is_true()
         {
             var obj = new Class1();
@@ -73,7 +73,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region ReferencePropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void ReferencePropertyBuilder_should_build_reference()
         {
             var obj = new Class1();
@@ -102,7 +102,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region StringPropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void StringPropertyBuilder_should_set_string_properties()
         {
             var obj = new Class1();
@@ -125,7 +125,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region TimeStringPropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void TimeStringPropertyBuilder_should_set_string_properties()
         {
             DateTime result;
@@ -153,7 +153,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region UniqueIdPropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void UniqueIdPropertyBuilder_should_generate_a_value()
         {
             var obj = new Class1();
@@ -167,7 +167,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region DateTimePropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void DateTimePropertyBuilder_should_generate_a_value_for_a_required_property()
         {
             var obj = new Class1();
@@ -184,7 +184,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.AreNotEqual(obj.dateTimeProperty1, default(DateTime));
         }
 
-        [TestMethod]
+        [Test]
         public void DateTimePropertyBuilder_should_not_generate_a_value_for_an_optional_property()
         {
             var obj = new Class1();
@@ -253,7 +253,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region IgnorePropertyBuilder tests
 
-        [TestMethod]
+        [Test]
         public void IgnorePropertyBuilder_should_ignore_id_property()
         {
             var obj = new Class1();
@@ -263,7 +263,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(string.IsNullOrEmpty(obj.id));
         }
 
-        [TestMethod]
+        [Test]
         public void IgnorePropertyBuilder_should_ignore_etag_property()
         {
             var obj = new Class1();
@@ -273,7 +273,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsTrue(string.IsNullOrEmpty(obj._etag));
         }
 
-        [TestMethod]
+        [Test]
         public void IgnorePropertyBuilder_should_ignore_link_property()
         {
             var obj = new Class1();
@@ -287,7 +287,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
 #region SimplePropertyBuilder
 
-        [TestMethod]
+        [Test]
         public void SimplePropertyBuilder_should_ignore_nullable_properties()
         {
             var obj = new Class1();
@@ -305,7 +305,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.IsFalse(obj.nullableProperty1.HasValue);
         }
 
-        [TestMethod]
+        [Test]
         public void SimplePropertyBuilder_should_generate_a_value_if_required()
         {
             var obj = new Class1();
@@ -323,7 +323,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
             Assert.AreNotEqual(default(int), obj.nullableProperty1);
         }
 
-        [TestMethod]
+        [Test]
         public void SimplePropertyBuilder_should_not_generate_a_value_if_optional()
         {
             var obj = new Class1();

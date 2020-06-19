@@ -6,17 +6,17 @@
 using System.Collections.Generic;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Mapping;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
-    [TestClass]
+    [TestFixture]
     public class DoNotMapPropertyMapperTests
     {
         private List<ModelMetadata> _jsonModels;
         private List<ModelMetadata> _xmlModels;
 
-        [TestInitialize]
+        [SetUp]
         public void SetUp()
         {
             _jsonModels = new List<ModelMetadata>
@@ -44,7 +44,7 @@ namespace EdFi.LoadTools.Test
                          };
         }
 
-        [TestMethod]
+        [Test]
         public void Should_remove_all_properties()
         {
             var mapper = new TestDoNotMapPropertyMapper();

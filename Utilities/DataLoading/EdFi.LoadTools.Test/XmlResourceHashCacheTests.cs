@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using EdFi.LoadTools.Engine;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
 {
@@ -24,7 +24,7 @@ namespace EdFi.LoadTools.Test
             public int MaxSimultaneousRequests => 5;
         }
 
-        [TestClass]
+        [TestFixture]
         public class WhenCreatingLotsOfHashes
         {
             private readonly List<byte[]> _bytes = new List<byte[]>();
@@ -32,7 +32,7 @@ namespace EdFi.LoadTools.Test
             private readonly HashProvider _hashProvider = new HashProvider();
             private ResourceHashCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 var rnd = new Random(100);
@@ -51,7 +51,7 @@ namespace EdFi.LoadTools.Test
                 }
             }
 
-            [TestMethod]
+            [Test]
             public void Should_find_all_cached_values()
             {
                 foreach (var item in _bytes)
@@ -61,7 +61,7 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class WhenSavingAndLoadingToFile
         {
             private readonly List<byte[]> _bytes = new List<byte[]>();
@@ -71,7 +71,7 @@ namespace EdFi.LoadTools.Test
             private ResourceHashCache _cache2;
             private string _filename;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _filename = Path.Combine(_configuration.Folder, Path.GetRandomFileName());
@@ -92,13 +92,13 @@ namespace EdFi.LoadTools.Test
                 _cache2.Load(_filename);
             }
 
-            [TestCleanup]
+            [TearDown]
             public void Cleanup()
             {
                 File.Delete(_filename);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_find_all_cached_values_in_loaded_cache()
             {
                 foreach (var item in _bytes)

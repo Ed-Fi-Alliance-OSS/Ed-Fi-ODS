@@ -13,7 +13,7 @@ using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 // ReSharper disable InconsistentNaming
 
@@ -37,19 +37,19 @@ namespace EdFi.LoadTools.Test
             );
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_id_but_no_references
         {
             private XmlReferenceCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
                 _cache.PreloadReferenceSource(Id1, CreateElement(ElementA, Id1));
             }
 
-            [TestMethod]
+            [Test]
             public void Should_not_have_reference_element()
             {
                 Assert.IsTrue(_cache.Exists(Id1));
@@ -57,12 +57,12 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_id_with_reference_second
         {
             private XmlReferenceCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -70,7 +70,7 @@ namespace EdFi.LoadTools.Test
                 _cache.LoadReference(Id1);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_not_have_reference_element()
             {
                 Assert.IsTrue(_cache.Exists(Id1));
@@ -79,12 +79,12 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_id_with_reference_first
         {
             private XmlReferenceCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -92,7 +92,7 @@ namespace EdFi.LoadTools.Test
                 _cache.PreloadReferenceSource(Id1, CreateElement(ElementA, Id1));
             }
 
-            [TestMethod]
+            [Test]
             public void Should_have_reference_element()
             {
                 Assert.IsTrue(_cache.Exists(Id1));
@@ -101,12 +101,12 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_loading_reference_for_non_preloaded_reference
         {
             private XmlReferenceCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -116,7 +116,7 @@ namespace EdFi.LoadTools.Test
                 _cache.LoadReferenceSource(Id1, element);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_have_reference_element()
             {
                 Assert.IsTrue(_cache.Exists(Id1));
@@ -127,12 +127,12 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_loading_reference_for_preloaded_reference
         {
             private XmlReferenceCache _cache;
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 _cache = new XmlReferenceCache(CreateEmptyMetadata());
@@ -142,7 +142,7 @@ namespace EdFi.LoadTools.Test
                 _cache.LoadReferenceSource(Id1, element);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_have_reference_element()
             {
                 Assert.IsTrue(_cache.Exists(Id1));
@@ -153,7 +153,7 @@ namespace EdFi.LoadTools.Test
             }
         }
 
-        [TestClass]
+        [TestFixture]
         public class When_resolving_references : IAppender
         {
             private TestCacheProvider _cacheProvider;
@@ -171,7 +171,7 @@ namespace EdFi.LoadTools.Test
 
             string IAppender.Name { get; set; }
 
-            [TestInitialize]
+            [SetUp]
             public void Setup()
             {
                 ((Hierarchy) LogManager.GetRepository()).Root.AddAppender(this);
@@ -195,13 +195,13 @@ namespace EdFi.LoadTools.Test
                 _resourceWorkItem = new ApiLoaderWorkItem("filename", 1, element, 1);
             }
 
-            [TestCleanup]
+            [TearDown]
             public void Teardown()
             {
                 ((Hierarchy) LogManager.GetRepository()).Root.RemoveAppender(this);
             }
 
-            [TestMethod]
+            [Test]
             public void Should_not_throw_exception_on_unresolved_references()
             {
                 _step.Process(_resourceWorkItem);

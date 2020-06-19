@@ -24,10 +24,10 @@
       <Value Profile="(Default)">..\..\..\..\..\Application\EdFi.Ods.Standard\Artifacts\Metadata</Value>
     </Setting>
     <Setting Name="XsdFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\..\..\..\..\..\..\Ed-Fi-Standard\v3.2\Schemas\Bulk</Value>
+      <Value Profile="(Default)">..\..\..\..\..\..\Ed-Fi-Standard\Schemas\Bulk</Value>
     </Setting>
     <Setting Name="InterchangeFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\..\..\..\..\..\..\Ed-Fi-Standard\v3.2\Samples\Sample XML</Value>
+      <Value Profile="(Default)">..\..\..\..\..\..\Ed-Fi-Standard\Samples\Sample XML</Value>
     </Setting>
   </Settings>
 </SettingsFile>
