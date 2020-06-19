@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using EdFi.LoadTools.Engine.InterchangePipeline;
+using EdFi.LoadTools.Engine.FileImportPipeline;
 using EdFi.LoadTools.Engine.ResourcePipeline;
 using log4net;
 
@@ -21,32 +21,29 @@ namespace EdFi.LoadTools
         private static readonly ILog _log = LogManager.GetLogger(nameof(ApiLoaderApplication));
 
         private readonly IApiConfiguration _apiConfiguration;
-        private readonly InterchangePipeline _interchangePipeline;
+        private readonly FileImportPipeline _fileImportPipeline;
         private readonly ResourcePipeline _resourcePipeline;
         private readonly SubmitResource _submitResourcesProcessor;
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
         private readonly IResourceHashCache _xmlResourceHashCache;
         private readonly DependenciesRetriever _dependenciesRetriever;
-        private readonly ResourceToInterchangeMapProvider _resourceToInterchangeMapProvider;
 
         public ApiLoaderApplication(
-            InterchangePipeline interchangePipeline,
+            FileImportPipeline fileImportPipeline,
             ResourcePipeline resourcePipeline,
             SubmitResource submitResourcesProcessor,
             IResourceHashCache xmlResourceHashCache,
             IXmlReferenceCacheFactory xmlReferenceCacheFactory,
             IApiConfiguration apiConfiguration,
-            DependenciesRetriever dependenciesRetriever,
-            ResourceToInterchangeMapProvider resourceToInterchangeMapProvider)
+            DependenciesRetriever dependenciesRetriever)
         {
-            _interchangePipeline = interchangePipeline;
+            _fileImportPipeline = fileImportPipeline;
             _resourcePipeline = resourcePipeline;
             _submitResourcesProcessor = submitResourcesProcessor;
             _xmlResourceHashCache = xmlResourceHashCache;
             _xmlReferenceCacheFactory = xmlReferenceCacheFactory;
             _apiConfiguration = apiConfiguration;
             _dependenciesRetriever = dependenciesRetriever;
-            _resourceToInterchangeMapProvider = resourceToInterchangeMapProvider;
         }
 
         public async Task<int> Run()
@@ -65,7 +62,7 @@ namespace EdFi.LoadTools
                 var resources = dependencyLevelGroup.Select(s => s.Resource).ToList();
                 var dependency = dependencyLevelGroup.First();
 
-                foreach (var resource in _interchangePipeline.RetrieveResourcesFromInterchange(resources, dependency.Order))
+                foreach (var resource in _fileImportPipeline.RetrieveResourcesFromFiles(resources, dependency.Order))
                 {
                     await resourcePipeline.StartBlock.SendAsync(resource).ConfigureAwait(false);
                     foundFilesToUpload = true;
@@ -73,7 +70,7 @@ namespace EdFi.LoadTools
 
                 resourcePipeline.StartBlock.Complete();
                 await resourcePipeline.Completion.ConfigureAwait(false);
-                
+
                 if (retryQueue.Count > 0)
                 {
                     var retryPipeline = CreateRetryPipeline(retryQueue.Count);

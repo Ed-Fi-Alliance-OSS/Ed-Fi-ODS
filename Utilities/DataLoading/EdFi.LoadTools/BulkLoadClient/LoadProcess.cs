@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.BulkLoadClient.Application;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
-using EdFi.LoadTools.Engine.InterchangePipeline;
+using EdFi.LoadTools.Engine.FileImportPipeline;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.MappingFactories;
 using EdFi.LoadTools.Engine.ResourcePipeline;
@@ -23,14 +23,14 @@ using SimpleInjector;
 
 namespace EdFi.LoadTools.BulkLoadClient
 {
-    public static class LoadProcess 
+    public static class LoadProcess
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(LoadProcess));
 
         public static int Run(Configuration configuration)
         {
             ConfigureTls();
-           
+
             int exitCode;
 
             if (!configuration.IsValid)
@@ -145,7 +145,7 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<SwaggerMetadataRetriever>();
             container.RegisterSingleton<SwaggerRetriever>();
             container.RegisterSingleton<XsdStreamsRetriever>();
-            container.RegisterSingleton<ResourceToInterchangeMapProvider>();
+            container.RegisterSingleton<IFileContextProvider, FileContextProvider>();
 
             container.RegisterSingleton<IEnumerable<JsonModelMetadata>>(
                 () => container.GetInstance<IMetadataFactory<JsonModelMetadata>>().GetMetadata().ToArray());
@@ -166,13 +166,12 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<IMetadataFactory<JsonModelMetadata>, JsonMetadataFactory>();
             container.RegisterSingleton<IMetadataFactory<XmlModelMetadata>, XsdApiTypesMetadataFactory>();
             container.RegisterSingleton<IMetadataMappingFactory, ResourceToResourceMetadataMappingFactory>();
-            container.RegisterSingleton<IResourceStreamFactory, ResourceFileStreamFactory>();
             container.RegisterSingleton<ITokenRetriever, TokenRetriever>();
 
-            container.RegisterCollection<IInterchangePipelineStep>(
+            container.RegisterCollection<IFileImportPipelineStep>(
                 new[]
                 {
-                    typeof(IsNotEmptyStep), typeof(ValidateXmlStep), typeof(FindReferencesStep), typeof(PreloadReferencesStep)
+                    typeof(FindReferencesStep), typeof(PreloadReferencesStep)
                 });
 
             container.RegisterCollection<IResourcePipelineStep>(
