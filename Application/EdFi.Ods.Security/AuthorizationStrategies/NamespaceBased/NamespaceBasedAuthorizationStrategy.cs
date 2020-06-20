@@ -10,6 +10,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
             EdFiAuthorizationContext authorizationContext,
             CancellationToken cancellationToken)
         {
-            var claimNamespacePrefix = GetClaimNamespacePrefix(authorizationContext);
+            var claimNamespacePrefixes = GetClaimNamespacePrefixes(authorizationContext);
 
             var contextData = _authorizationContextDataFactory
                .CreateContextData<NamespaceBasedAuthorizationContextData>(
@@ -35,7 +36,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
             if (contextData == null)
             {
                 throw new NotSupportedException(
-                    "No 'Namespace' property could be found on the resource in order to perform authorization.  Should a different authorization strategy be used?");
+                    "No 'Namespace' property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?");
             }
 
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
@@ -44,13 +45,12 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
                     "Access to the resource item could not be authorized because the Namespace of the resource is empty.");
             }
 
-            if (!contextData.Namespace.StartsWith(claimNamespacePrefix))
+            if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
             {
+                string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
+                
                 throw new EdFiSecurityException(
-                    string.Format(
-                        "Access to the resource item with namespace '{0}' could not be authorized based on the caller's NamespacePrefix claim of '{1}'.",
-                        contextData.Namespace,
-                        claimNamespacePrefix));
+                    $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'.");
             }
 
             return Task.CompletedTask;
@@ -66,7 +66,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var claimNamespacePrefix = GetClaimNamespacePrefix(authorizationContext);
+            var claimNamespacePrefixes = GetClaimNamespacePrefixes(authorizationContext);
 
             return new[]
             {
@@ -75,24 +75,24 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
                     FilterName = "Namespace",
                     SubjectEndpointName = "Namespace",
                     ClaimEndpointName = "Namespace",
-                    ClaimValues = new object[] {claimNamespacePrefix + "%"}
+                    ClaimValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
                 }
             };
         }
 
-        private static string GetClaimNamespacePrefix(EdFiAuthorizationContext authorizationContext)
+        private static IReadOnlyList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
         {
-            var namespaceClaim =
-                authorizationContext.Principal.Claims.FirstOrDefault(
-                    c => c.Type == EdFiOdsApiClaimTypes.NamespacePrefix);
+            var namespacePrefixes = authorizationContext.Principal.Claims
+                .Where(c => c.Type == EdFiOdsApiClaimTypes.NamespacePrefix)
+                .Select(c => c.Value)
+                .ToList();
 
-            if (namespaceClaim == null || string.IsNullOrWhiteSpace(namespaceClaim.Value))
+            if (!namespacePrefixes.Any() || namespacePrefixes.All(string.IsNullOrEmpty))
             {
-                throw new EdFiSecurityException(
-                    $"Access to the resource could not be authorized because the caller did not have a NamespacePrefix claim ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim value was empty.");
+                throw new EdFiSecurityException($"Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('{EdFiOdsApiClaimTypes.NamespacePrefix}') or the claim values were all empty.");
             }
 
-            return namespaceClaim.Value;
+            return namespacePrefixes;
         }
     }
 }

@@ -2,8 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -48,47 +47,40 @@ namespace EdFi.Ods.Security.Claims
             IEnumerable<string> namespacePrefixes,
             IReadOnlyList<string> assignedProfileNames)
         {
-            var filteredNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np))
-                                                             .ToList();
+            var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
 
             var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
             // Group the resource claims by name to combine actions (and by claim set name if multiple claim sets are supported in the future)
-            var resourceClaimsByClaimName =
-                from c in resourceClaims
-                group c by c.ResourceClaim.ClaimName
-                into g
-                select g;
+            var resourceClaimsByClaimName = resourceClaims.GroupBy(c => c.ResourceClaim.ClaimName);
 
             // Create a list of resource claims to be issued.
-            var claims = (from grouping in resourceClaimsByClaimName
-                          let claimValue = new EdFiResourceClaimValue
-                                           {
-                                               Actions = grouping.Select(
-                                                                      x =>
-                                                                          new ResourceAction(
-                                                                              x.Action.ActionUri,
-                                                                              x.AuthorizationStrategyOverride == null
-                                                                                  ? null
-                                                                                  : x.AuthorizationStrategyOverride.AuthorizationStrategyName,
-                                                                              x.ValidationRuleSetNameOverride))
-                                                                 .ToArray(),
-                                               EducationOrganizationIds = educationOrganizationIds.ToList()
-                                           }
-                          select JsonClaimHelper.CreateClaim(grouping.Key, claimValue))
-               .ToList();
-
-            // Create Identity Claims
+            var claims = resourceClaimsByClaimName.Select(
+                    g => new
+                    {
+                        ClaimName = g.Key,
+                        ClaimValue = new EdFiResourceClaimValue
+                        {
+                            Actions = g.Select(
+                                    x => new ResourceAction(
+                                        x.Action.ActionUri,
+                                        x.AuthorizationStrategyOverride == null
+                                            ? null
+                                            : x.AuthorizationStrategyOverride.AuthorizationStrategyName,
+                                        x.ValidationRuleSetNameOverride))
+                                .ToArray(),
+                            EducationOrganizationIds = educationOrganizationIds.ToList()
+                        }
+                    })
+                .Select(x => JsonClaimHelper.CreateClaim(x.ClaimName, x.ClaimValue))
+                .ToList();
 
             // NamespacePrefixes
-            filteredNamespacePrefixes.ForEach(
-                namespacePrefix =>
-                    claims.Add(new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, namespacePrefix)));
+            nonEmptyNamespacePrefixes.ForEach(
+                namespacePrefix => claims.Add(new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, namespacePrefix)));
 
             // Add Assigned Profile names
-            assignedProfileNames.ForEach(
-                profileName =>
-                    claims.Add(new Claim(EdFiOdsApiClaimTypes.Profile, profileName)));
+            assignedProfileNames.ForEach(profileName => claims.Add(new Claim(EdFiOdsApiClaimTypes.Profile, profileName)));
 
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }
