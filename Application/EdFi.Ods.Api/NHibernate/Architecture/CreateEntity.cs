@@ -20,8 +20,13 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
     public class CreateEntity<TEntity> : ValidatingNHibernateRepositoryOperationBase, ICreateEntity<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory, validators) { }
+        private readonly ICachedEntityIdentifierEvictor[] _cachedEntityIdentifierEvictors;
+
+        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators, ICachedEntityIdentifierEvictor[] cachedEntityIdentifierEvictors)
+            : base(sessionFactory, validators)
+        {
+            _cachedEntityIdentifierEvictors = cachedEntityIdentifierEvictors;
+        }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
@@ -59,8 +64,26 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                         // Make sure identifier has NOT been assigned
                         if (identifierValueAssigned)
                         {
-                            throw new BadRequestException(
-                                $"Value for the auto-assigned identifier property '{metadata.IdentifierPropertyName}' cannot be assigned by the client (value was '{identifierValue}'.)");
+                            bool identifierEvicted = false;
+                            
+                            // Try evicting a cache entry as the source of an obsolete entity identifier
+                            foreach (var entityIdentifierEvictor in _cachedEntityIdentifierEvictors)
+                            {
+                                if (entityIdentifierEvictor.TryEvictIdentifier(entity, identifierValue))
+                                {
+                                    // Clear the obsolete auto-assigned identifier that was set erroneously by the cache
+                                    metadata.SetIdentifier(entity, identifierDefaultValue);
+                                    identifierEvicted = true;
+
+                                    break;
+                                }
+                            }
+
+                            if (!identifierEvicted)
+                            {
+                                throw new BadRequestException(
+                                    $"Value for the auto-assigned identifier property '{metadata.IdentifierPropertyName}' cannot be assigned by the client (value was '{identifierValue}').");
+                            }
                         }
                     }
                 }

@@ -237,7 +237,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         {
             container.Register(
                 Component
-                    .For<IPersonUniqueIdToUsiCache>()
+                    .For<IPersonUniqueIdToUsiCache, ICachedEntityIdentifierEvictor>()
                     .ImplementedBy<PersonUniqueIdToUsiCache>()
                     .DependsOn(Dependency.OnValue("synchronousInitialization", false)));
         }

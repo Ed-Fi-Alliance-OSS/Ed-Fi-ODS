@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
@@ -18,7 +19,7 @@ using log4net;
 
 namespace EdFi.Ods.Api.Caching
 {
-    public class PersonUniqueIdToUsiCache : IPersonUniqueIdToUsiCache
+    public class PersonUniqueIdToUsiCache : IPersonUniqueIdToUsiCache, ICachedEntityIdentifierEvictor
     {
         private const string CacheKeyPrefix = "IdentityValueMaps_";
 
@@ -469,6 +470,31 @@ namespace EdFi.Ods.Api.Caching
                     _mapLock.ExitWriteLock();
                 }
             }
+        }
+
+        public bool TryEvictIdentifier(object entity, object identifierValue)
+        {
+            var entityType = entity.GetType();
+
+            if (PersonEntitySpecification.IsPersonEntity(entityType))
+            {
+                string personType = entityType.Name;
+                string uniqueId = GetUniqueId(personType, (int) identifierValue);
+                
+                string context = GetUsiKeyTokenContext();
+
+                string usiByUniqueIdCacheKey = GetUsiByUniqueIdCacheKey(entityType.Name, uniqueId, context);
+                var usiByUniqueIdMap = GetUsiByUniqueIdMap(personType, context);
+                
+                string uniqueIdByUsiCacheKey = GetUniqueIdByUsiCacheKey(entityType.Name, (int) identifierValue, context);
+                var uniqueIdByUsiMap = GetUniqueIdByUsiMap(personType, context);
+                
+                return 
+                    usiByUniqueIdMap.TryRemove(usiByUniqueIdCacheKey, out int ignoredUsi)
+                    && uniqueIdByUsiMap.TryRemove(uniqueIdByUsiCacheKey, out string ignoredUniqueId);
+            }
+
+            return false;
         }
     }
 }
