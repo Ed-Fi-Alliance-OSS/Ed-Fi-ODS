@@ -52,9 +52,7 @@ namespace EdFi.Ods.Security.Claims
             var resourceClaims = _securityRepository.GetClaimsForClaimSet(claimSetName);
 
             // Group the resource claims by name to combine actions (and by claim set name if multiple claim sets are supported in the future)
-            var resourceClaimsByClaimName = from c in resourceClaims
-                group c by c.ResourceClaim.ClaimName into g
-                select g;
+            var resourceClaimsByClaimName = resourceClaims.GroupBy(c => c.ResourceClaim.ClaimName);
 
             // Create a list of resource claims to be issued.
             var claims = (from grouping in resourceClaimsByClaimName
