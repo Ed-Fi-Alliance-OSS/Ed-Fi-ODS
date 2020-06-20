@@ -55,22 +55,25 @@ namespace EdFi.Ods.Security.Claims
             var resourceClaimsByClaimName = resourceClaims.GroupBy(c => c.ResourceClaim.ClaimName);
 
             // Create a list of resource claims to be issued.
-            var claims = (from grouping in resourceClaimsByClaimName
-                let claimValue = new EdFiResourceClaimValue
-                {
-                    Actions = grouping.Select(
-                            x => new ResourceAction(
-                                x.Action.ActionUri,
-                                x.AuthorizationStrategyOverride == null
-                                    ? null
-                                    : x.AuthorizationStrategyOverride.AuthorizationStrategyName,
-                                x.ValidationRuleSetNameOverride))
-                        .ToArray(),
-                    EducationOrganizationIds = educationOrganizationIds.ToList()
-                }
-                select JsonClaimHelper.CreateClaim(grouping.Key, claimValue)).ToList();
-
-            // Create Identity Claims
+            var claims = resourceClaimsByClaimName.Select(
+                    g => new
+                    {
+                        ClaimName = g.Key,
+                        ClaimValue = new EdFiResourceClaimValue
+                        {
+                            Actions = g.Select(
+                                    x => new ResourceAction(
+                                        x.Action.ActionUri,
+                                        x.AuthorizationStrategyOverride == null
+                                            ? null
+                                            : x.AuthorizationStrategyOverride.AuthorizationStrategyName,
+                                        x.ValidationRuleSetNameOverride))
+                                .ToArray(),
+                            EducationOrganizationIds = educationOrganizationIds.ToList()
+                        }
+                    })
+                .Select(x => JsonClaimHelper.CreateClaim(x.ClaimName, x.ClaimValue))
+                .ToList();
 
             // NamespacePrefixes
             nonEmptyNamespacePrefixes.ForEach(
