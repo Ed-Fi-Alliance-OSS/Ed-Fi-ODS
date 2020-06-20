@@ -59,17 +59,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                 {
                     string messageFormat = string.Empty;
 
-                    string statementType = match.Groups["StatementType"]
-                                                .Value;
+                    string statementType = match.Groups["StatementType"].Value;
 
-                    string constraintType = match.Groups["ConstraintType"]
-                                                 .Value;
+                    string constraintType = match.Groups["ConstraintType"].Value;
 
-                    string tableName = match.Groups["TableName"]
-                                            .Value;
+                    string tableName = match.Groups["TableName"].Value;
 
-                    string columnName = match.Groups["ColumnName"]
-                                             .Value;
+                    string columnName = match.Groups["ColumnName"].Value;
 
                     switch (statementType)
                     {
@@ -79,6 +75,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                             if (constraintType == "FOREIGN KEY")
                             {
                                 messageFormat = "The value supplied for the related '{0}' resource does not exist.";
+
                                 break;
                             }
 
@@ -110,9 +107,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                     string message = string.Format(messageFormat, tableName.ToCamelCase(), columnName.ToCamelCase());
 
                     webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = message
-                                      };
+                    {
+                        Code = (int) HttpStatusCode.Conflict,
+                        Type = "Conflict",
+                        Message = message
+                    };
 
                     return true;
                 }
