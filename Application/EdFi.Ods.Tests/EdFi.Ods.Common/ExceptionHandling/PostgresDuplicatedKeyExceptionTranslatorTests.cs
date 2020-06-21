@@ -24,7 +24,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -34,7 +34,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -46,7 +46,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_RestError_be_null()
             {
-                actualError.ShouldBeNull();
+                actualTranslationResult.ShouldBeNull();
             }
         }
 
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -77,7 +77,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_RestError_be_null()
             {
-                actualError.ShouldBeNull();
+                actualTranslationResult.ShouldBeNull();
             }
         }
 
@@ -86,7 +86,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -110,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_RestError_be_null()
             {
-                actualError.ShouldBeNull();
+                actualTranslationResult.ShouldBeNull();
             }
         }
 
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -130,7 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -143,9 +143,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_RestError_show_single_value_message()
             {
                 AssertHelper.All(
-                    () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualTranslationResult.ShouldNotBeNull(),
+                    () => actualTranslationResult.Error.Code = 409,
+                    () => actualTranslationResult.Error.Type = "Conflict"
                 );
             }
         }
@@ -154,7 +154,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -166,7 +166,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -179,9 +179,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_RestError_show_multiple_values_message()
             {
                 AssertHelper.All(
-                    () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualTranslationResult.ShouldNotBeNull(),
+                    () => actualTranslationResult.Error.Code = 409,
+                    () => actualTranslationResult.Error.Type = "Conflict"
                 );
             }
         }
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void Arrange()
             {
@@ -202,7 +202,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Act()
             {
                 var translator = new PostgresDuplicatedKeyExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -215,9 +215,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             public void Should_RestError_show_unknown_value_message()
             {
                 AssertHelper.All(
-                    () => actualError.ShouldNotBeNull(),
-                    () => actualError.Code = 409,
-                    () => actualError.Type = "Conflict"
+                    () => actualTranslationResult.ShouldNotBeNull(),
+                    () => actualTranslationResult.Error.Code = 409,
+                    () => actualTranslationResult.Error.Type = "Conflict"
                 );
             }
         }

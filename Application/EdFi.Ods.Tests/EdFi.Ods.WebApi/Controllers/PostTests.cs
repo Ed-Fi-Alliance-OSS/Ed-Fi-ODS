@@ -42,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 
                 var pipelineFactory =
                     new PipelineFactory(
-                        _locator, null, null, null, new SingleStepPipelineProviderForTest(typeof(PersistNewModel<,,,>)), null);
+                        _locator, null, null, null, new SingleStepPipelineProviderForTest(typeof(PersistNewModel<,,,>)), null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -94,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         _container, null, null, null, new SingleStepPipelineProviderForTest(typeof(PersistExistingModel<,,,>)),
-                        null);
+                        null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 
                 var pipelineFactory =
                     new PipelineFactory(
-                        container, null, null, null, new SingleStepPipelineProviderForTest(typeof(PersistNewModel<,,,>)), null);
+                        container, null, null, null, new SingleStepPipelineProviderForTest(typeof(PersistNewModel<,,,>)), null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -193,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, null, null,
-                        new SingleStepPipelineProviderForTest(typeof(InsertUniqueIdExceptionStep<,,,>)), null);
+                        new SingleStepPipelineProviderForTest(typeof(InsertUniqueIdExceptionStep<,,,>)), null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -240,7 +240,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, null, null,
-                        new SingleStepPipelineProviderForTest(typeof(InsertReferentialExceptionStep<,,,>)), null);
+                        new SingleStepPipelineProviderForTest(typeof(InsertReferentialExceptionStep<,,,>)), null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -287,7 +287,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, null, null, new SingleStepPipelineProviderForTest(typeof(ValidationExceptionStep<,,,>)),
-                        null);
+                        null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
@@ -329,7 +329,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, null, null,
-                        new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null);
+                        new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, id.ToString("N"));
 
@@ -357,7 +357,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, null, null, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)),
-                        null);
+                        null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, id.ToString("N"));
 

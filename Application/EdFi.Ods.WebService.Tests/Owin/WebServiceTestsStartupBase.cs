@@ -364,7 +364,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 new EdFiAuthorizationFilter(
                     Container.Resolve<IEdFiAuthorizationProvider>(),
                     Container.Resolve<ISecurityRepository>(),
-                    Container.Resolve<IRESTErrorProvider>()));
+                    Container.Resolve<IExceptionTranslationProvider>()));
 
             config.Filters.Add(
                 new ProfilesAuthorizationFilter(

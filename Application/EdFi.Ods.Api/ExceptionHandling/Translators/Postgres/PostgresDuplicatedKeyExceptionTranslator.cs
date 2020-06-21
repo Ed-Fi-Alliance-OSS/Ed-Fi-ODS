@@ -13,14 +13,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     public class PostgresDuplicatedKeyExceptionTranslator : IExceptionTranslator
     {
-        private static readonly Regex _expression = new Regex(@"(?<ErrorCode>\d*): duplicate key value violates unique constraint ""(?<ConstraintName>.*?)""");
-        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) (?<ConstraintType>already exists).");
         private const string SimpleKeyMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
         private const string ComposedKeyMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+        private static readonly Regex _expression = new Regex( @"(?<ErrorCode>\d*): duplicate key value violates unique constraint ""(?<ConstraintName>.*?)""");
+        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) (?<ConstraintType>already exists).");
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             var exception = ex is GenericADOException
                 ? ex.InnerException
@@ -34,16 +34,22 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
                 {
                     var exceptionInfo = new PostgresExceptionInfo(postgresException, _detailExpression);
 
-                    string message = string.Format(exceptionInfo.IsComposedKeyConstraint
-                        ? ComposedKeyMessageFormat
-                        : SimpleKeyMessageFormat, exceptionInfo.Values, exceptionInfo.ColumnNames, exceptionInfo.TableName);
+                    string message = string.Format(
+                        exceptionInfo.IsComposedKeyConstraint
+                            ? ComposedKeyMessageFormat
+                            : SimpleKeyMessageFormat,
+                        exceptionInfo.Values,
+                        exceptionInfo.ColumnNames,
+                        exceptionInfo.TableName);
 
-                    webServiceError = new RESTError
+                    var error = new RESTError
                     {
-                        Code = (int)HttpStatusCode.Conflict,
+                        Code = (int) HttpStatusCode.Conflict,
                         Type = "Conflict",
                         Message = message
                     };
+
+                    translationResult = new ExceptionTranslationResult(error, ex);
 
                     return true;
                 }

@@ -40,6 +40,7 @@ using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Pipelines;
 using EdFi.Ods.Pipelines.Common;
 using EdFi.Ods.Pipelines.Factories;
+using EdFi.Ods.Pipelines.Put;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Security.Claims;
 using FluentValidation;
@@ -300,7 +301,10 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         private void RegisterExceptionHandling(IWindsorContainer container)
         {
             container.Register(
+                // TODO: DELETE THIS REGISTRATION
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
+                Component.For<IExceptionTranslationProvider>().ImplementedBy<ExceptionTranslationProvider>(),
+                
                 Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
         }
@@ -336,8 +340,13 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 Component
                     .For<IPipelineFactory>()
                     .ImplementedBy<PipelineFactory>()
-                    .DependsOn(
-                        new {locator = container}),
+                    .DependsOn(new {locator = container}),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(StaleDescriptorCachePutPipelineDecorator<,>)),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(PutPipeline<,>)),
                 Classes.FromAssembly(_standardAssembly)
                     .BasedOn(typeof(ICreateOrUpdatePipeline<,>))
                     .WithService.AllInterfaces(),

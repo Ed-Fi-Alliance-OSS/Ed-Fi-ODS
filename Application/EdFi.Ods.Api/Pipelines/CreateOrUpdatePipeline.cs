@@ -18,7 +18,7 @@ namespace EdFi.Ods.Api.Pipelines
         where TResourceModel : IHasETag
         where TEntityModel : class, IHasIdentifier, new()
     {
-        private readonly PutPipeline<TResourceModel, TEntityModel> _pipeline;
+        private readonly IPutPipeline<TResourceModel, TEntityModel> _pipeline;
 
         protected CreateOrUpdatePipeline(IPipelineFactory factory)
         {

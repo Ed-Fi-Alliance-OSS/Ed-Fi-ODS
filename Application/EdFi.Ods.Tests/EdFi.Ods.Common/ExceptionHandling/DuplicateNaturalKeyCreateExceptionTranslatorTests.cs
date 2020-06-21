@@ -31,8 +31,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(mocks.StrictMock<IDatabaseMetadataProvider>());
-                RESTError actualError;
-                result = translator.TryTranslateMessage(exception, out actualError);
+                ExceptionTranslationResult actualTranslationResult;
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -48,7 +48,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(mocks.StrictMock<IDatabaseMetadataProvider>());
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(mocks.StrictMock<IDatabaseMetadataProvider>());
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -127,7 +127,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -139,20 +139,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualTranslationResult.Error.Message.ShouldBe(
                     "A natural key conflict occurred when attempting to create a new resource 'Session' with a duplicate key.  The duplicated columns and values are [Column1, Column2, Column3] (900007, 9, 2014) This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was inserted.");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe("Conflict");
+                actualTranslationResult.Error.Type.ShouldBe("Conflict");
             }
 
             [Test]
             public void Should_translate_the_exception_to_a_409_error()
             {
-                actualError.Code.ShouldBe(409);
+                actualTranslationResult.Error.Code.ShouldBe(409);
             }
         }
 
@@ -162,7 +162,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -179,7 +179,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -191,7 +191,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualTranslationResult.Error.Message.ShouldBe(
                     "A natural key conflict occurred when attempting to create a new resource 'unknown' with a duplicate key.  The duplicated columns and values are [unknown] (900007, 9, 2014) This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was inserted.");
             }
         }
@@ -203,7 +203,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private IDatabaseMetadataProvider suppliedMetadataProvider;
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -220,7 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -249,7 +249,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(mocks.StrictMock<IDatabaseMetadataProvider>());
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]

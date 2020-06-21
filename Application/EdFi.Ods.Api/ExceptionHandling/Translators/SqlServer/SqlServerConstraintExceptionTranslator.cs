@@ -38,13 +38,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
          * 
          */
 
-        private static readonly Regex expression = new Regex(
+        private static readonly Regex _sqlErrorMessageRegex = new Regex(
             @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""[a-z]+\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
 
         // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             var exception = ex is GenericADOException
                 ? ex.InnerException
@@ -53,18 +53,17 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             if (exception is SqlException)
             {
                 // Is this a constraint violation message from SQL Server?
-                var match = expression.Match(exception.Message);
+                var match = _sqlErrorMessageRegex.Match(exception.Message);
 
                 if (match.Success)
                 {
                     string messageFormat = string.Empty;
 
                     string statementType = match.Groups["StatementType"].Value;
-
                     string constraintType = match.Groups["ConstraintType"].Value;
-
+                    string constraintName = match.Groups["ConstraintName"].Value;
+                    string databaseName = match.Groups["DatabaseName"].Value;
                     string tableName = match.Groups["TableName"].Value;
-
                     string columnName = match.Groups["ColumnName"].Value;
 
                     switch (statementType)
@@ -106,13 +105,16 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     string message = string.Format(messageFormat, tableName.ToCamelCase(), columnName.ToCamelCase());
 
-                    webServiceError = new RESTError
+                    var error = new RESTError
                     {
                         Code = (int) HttpStatusCode.Conflict,
                         Type = "Conflict",
                         Message = message
                     };
 
+                    translationResult = new ReferentialConstraintViolationExceptionTranslationResult(
+                        constraintName, databaseName, tableName, columnName, error, exception);
+                    
                     return true;
                 }
             }

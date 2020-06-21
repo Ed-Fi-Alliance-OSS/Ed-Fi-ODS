@@ -10,5 +10,7 @@ namespace EdFi.Ods.Common.Caching
         int GetId(string descriptorName, string descriptorValue);
 
         string GetValue(string descriptorName, int id);
+
+        bool TryRefreshSingleDescriptorCache(string descriptorName);
     }
 }

@@ -9,11 +9,13 @@ using System.Net;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {
+    // TODO: DELETE THIS! Convert to IExceptionTranslationProvider
     public interface IRESTErrorProvider
     {
         RESTError GetRestErrorFromException(Exception exception);
     }
-
+    
+    // TODO: DELETE THIS!
     public class RESTErrorProvider : IRESTErrorProvider
     {
         private readonly IEnumerable<IExceptionTranslator> _translators;
@@ -28,11 +30,11 @@ namespace EdFi.Ods.Api.ExceptionHandling
             // Try to translate the exception explicitly
             foreach (var translator in _translators)
             {
-                RESTError error;
+                ExceptionTranslationResult error;
 
                 if (translator.TryTranslateMessage(exception, out error))
                 {
-                    return error;
+                    return error.Error;
                 }
             }
 

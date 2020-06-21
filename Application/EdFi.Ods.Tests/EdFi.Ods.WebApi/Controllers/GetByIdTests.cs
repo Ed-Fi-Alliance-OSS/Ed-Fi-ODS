@@ -33,7 +33,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var container = TestControllerBuilder.GetWindsorContainer();
 
                 var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(SimpleResourceCreationStep<,,,>)), null, null, null, null);
+                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(SimpleResourceCreationStep<,,,>)), null, null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var container = TestControllerBuilder.GetWindsorContainer();
 
                 var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof (NotFoundExceptionStep<,,,>)), null, null, null, null);
+                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof (NotFoundExceptionStep<,,,>)), null, null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var container = TestControllerBuilder.GetWindsorContainer();
 
                 var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(NotModifiedExceptionStep<,,,>)), null, null, null, null);
+                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(NotModifiedExceptionStep<,,,>)), null, null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -139,7 +139,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var container = TestControllerBuilder.GetWindsorContainer();
 
                 var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null, null, null, null);
+                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null, null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -169,7 +169,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var container = TestControllerBuilder.GetWindsorContainer();
 
                 var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)), null, null, null, null);
+                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)), null, null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();

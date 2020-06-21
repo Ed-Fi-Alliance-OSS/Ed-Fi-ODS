@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Configuration;
@@ -45,6 +47,27 @@ namespace EdFi.Ods.Common.InversionOfControl
                     throw new Exception(
                         string.Format("Self-registering {0} is not allowed", invalidType.FullName));
                 }
+            }
+        }
+
+        private static int _depth = 0;
+        
+        public T Resolve<T>(IEnumerable<KeyValuePair<string, object>> arguments)
+        {
+            try
+            {
+                _depth++;
+
+                if (_depth > 10)
+                {
+                    throw new Exception("This ain't going well.");
+                }
+                
+                return WindsorContainerExtensions.Resolve<T>(this, arguments);
+            }
+            finally
+            {
+                _depth--;
             }
         }
     }

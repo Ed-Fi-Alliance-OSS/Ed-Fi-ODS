@@ -25,7 +25,7 @@ namespace EdFi.Ods.Pipelines.Factories
         GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class;
 
-        PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
+        IPutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag;
 

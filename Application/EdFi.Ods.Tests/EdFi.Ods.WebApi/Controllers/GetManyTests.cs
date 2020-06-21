@@ -33,7 +33,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, new SingleStepPipelineProviderForTest(typeof(SimpleGetManyResourceCreationStep<,,,>)),
-                        null, null, null);
+                        null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
 
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, new SingleStepPipelineProviderForTest(typeof(SimpleGetManyResourceCreationStep<,,,>)),
-                        null, null, null);
+                        null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
 
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, new SingleStepPipelineProviderForTest(typeof(SimpleGetManyResourceCreationStep<,,,>)),
-                        null, null, null);
+                        null, null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
 
@@ -137,7 +137,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null,
-                        null, null);
+                        null, null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
 
@@ -168,7 +168,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 var pipelineFactory =
                     new PipelineFactory(
                         container, null, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)), null, null,
-                        null);
+                        null, null);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
 

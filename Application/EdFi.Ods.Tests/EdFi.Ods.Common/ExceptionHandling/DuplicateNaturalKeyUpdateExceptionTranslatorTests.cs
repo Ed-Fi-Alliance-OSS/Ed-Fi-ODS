@@ -32,8 +32,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                RESTError actualError;
-                result = translator.TryTranslateMessage(exception, out actualError);
+                ExceptionTranslationResult actualTranslationResult;
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool wasHandled;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                wasHandled = translator.TryTranslateMessage(exception, out actualError);
+                wasHandled = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -113,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]
@@ -125,20 +125,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             [Test]
             public void Should_set_a_reasonable_message()
             {
-                actualError.Message.ShouldBe(
+                actualTranslationResult.Error.Message.ShouldBe(
                     "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
             }
 
             [Test]
             public void Should_set_the_exception_type_to_conflict()
             {
-                actualError.Type.ShouldBe("Conflict");
+                actualTranslationResult.Error.Type.ShouldBe("Conflict");
             }
 
             [Test]
             public void Should_translate_the_exception_to_a_409_error()
             {
-                actualError.Code.ShouldBe(409);
+                actualTranslationResult.Error.Code.ShouldBe(409);
             }
         }
 
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             private Exception exception;
             private bool result;
-            private RESTError actualError;
+            private ExceptionTranslationResult actualTranslationResult;
 
             protected override void EstablishContext()
             {
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void ExecuteBehavior()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
+                result = translator.TryTranslateMessage(exception, out actualTranslationResult);
             }
 
             [Test]

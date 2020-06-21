@@ -66,7 +66,7 @@ namespace EdFi.Ods.Api.Services.Controllers
         protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> getManyPipeline;
         protected Lazy<GetDeletedResourcePipeline<TAggregateRoot>> getDeletedResourcePipeline;
 
-        protected Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>> putPipeline;
+        protected Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>> putPipeline;
 
         //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider schoolYearContextProvider;
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             getDeletedResourcePipeline = new Lazy<GetDeletedResourcePipeline<TAggregateRoot>>
                 (pipelineFactory.CreateGetDeletedResourcePipeline<TResourceReadModel, TAggregateRoot>);
 
-            putPipeline = new Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>>
+            putPipeline = new Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>>
                 (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);
 
             deletePipeline = new Lazy<DeletePipeline>
@@ -113,21 +113,27 @@ namespace EdFi.Ods.Api.Services.Controllers
         }
 
         private IHttpActionResult CreateActionResultFromException(
-            Exception exception,
+            ExceptionTranslationResult exceptionTranslation,
             bool enforceOptimisticLock = false)
         {
-            var restError = restErrorProvider.GetRestErrorFromException(exception);
-
-            if (exception is ConcurrencyException && enforceOptimisticLock)
+            int code;
+            string message;
+            
+            if (exceptionTranslation.OriginalException is ConcurrencyException && enforceOptimisticLock)
             {
                 // See RFC 5789 - Conflicting modification (with "If-Match" header)
-                restError.Code = (int) HttpStatusCode.PreconditionFailed;
-                restError.Message = "Resource was modified by another consumer.";
+                code = (int) HttpStatusCode.PreconditionFailed;
+                message = "Resource was modified by another consumer.";
+            }
+            else
+            {
+                code = exceptionTranslation.Error.Code;
+                message = exceptionTranslation.Error.Message;
             }
 
-            return string.IsNullOrWhiteSpace(restError.Message)
-                ? new StatusCodeResult((HttpStatusCode) restError.Code, this)
-                : new StatusCodeResult((HttpStatusCode) restError.Code, this).WithError(restError.Message);
+            return string.IsNullOrWhiteSpace(message)
+                ? new StatusCodeResult((HttpStatusCode) code, this)
+                : new StatusCodeResult((HttpStatusCode) code, this).WithError(message);
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -169,7 +175,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("GetAllRequest", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
             var response = Request.CreateResponse(HttpStatusCode.OK, result.Resources);
@@ -196,7 +202,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("GetByIdRequest", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
             // Handle success result
@@ -236,7 +242,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Put", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.ExceptionTranslation, enforceOptimisticLock);
             }
 
             var status = result.ResourceWasCreated
@@ -281,11 +287,10 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
-            //Once here either the resource was created or it already existed and it was updated
-            //NEW GUY QUESTION: Is this the expected behavior?  Should a create fail if the resource exists?
+            // Once here either the resource was created or it already existed and it was updated
             var status = result.ResourceWasCreated
                 ? HttpStatusCode.Created
                 : HttpStatusCode.OK;
@@ -320,7 +325,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Delete", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.ExceptionTranslation, enforceOptimisticLock);
             }
 
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).

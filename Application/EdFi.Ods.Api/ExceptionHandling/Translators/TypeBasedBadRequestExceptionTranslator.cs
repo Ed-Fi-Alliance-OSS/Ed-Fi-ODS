@@ -21,22 +21,24 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
             typeof(FormatException)
         };
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (!_badRequestExceptionTypes.Contains(ex.GetType()))
             {
                 return false;
             }
 
-            webServiceError = new RESTError
+            var error = new RESTError
             {
                 Code = (int) HttpStatusCode.BadRequest,
                 Type = "Bad Request",
                 Message = ex.GetAllMessages()
             };
 
+            translationResult = new ExceptionTranslationResult(error, ex);
+            
             return true;
         }
     }

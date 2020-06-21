@@ -245,6 +245,7 @@ namespace EdFi.Ods.Api.Caching
 
             if (descriptorLookup == null)
             {
+                
                 return false;
             }
 
@@ -254,7 +255,7 @@ namespace EdFi.Ods.Api.Caching
             return true;
         }
 
-        private bool TryRefreshSingleDescriptorCache(string descriptorName)
+        public bool TryRefreshSingleDescriptorCache(string descriptorName)
         {
             var descriptorLookups = _descriptorLookupProvider.GetDescriptorLookupsByDescriptorName(descriptorName);
 

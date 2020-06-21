@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.ChangeQueries.Pipelines.GetDeletedResource;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Pipelines.Factories;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.InversionOfControl;
@@ -22,6 +23,7 @@ namespace EdFi.Ods.Pipelines.Factories
     {
         private readonly IServiceLocator _locator;
         private readonly IDeletePipelineStepsProvider deletePipelineStepsProvider;
+        private readonly IExceptionTranslationProvider _exceptionTranslationProvider;
         private readonly IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider;
         private readonly IGetPipelineStepsProvider getPipelineStepsProvider;
         private readonly IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider;
@@ -33,7 +35,8 @@ namespace EdFi.Ods.Pipelines.Factories
             IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider,
             IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider,
             IPutPipelineStepsProvider putPipelineStepsProvider,
-            IDeletePipelineStepsProvider deletePipelineStepsProvider)
+            IDeletePipelineStepsProvider deletePipelineStepsProvider,
+            IExceptionTranslationProvider exceptionTranslationProvider)
         {
             _locator = locator;
             this.getPipelineStepsProvider = getPipelineStepsProvider;
@@ -41,6 +44,7 @@ namespace EdFi.Ods.Pipelines.Factories
             this.getDeletedResourceIdsPipelineStepsProvider = getDeletedResourceIdsPipelineStepsProvider;
             this.putPipelineStepsProvider = putPipelineStepsProvider;
             this.deletePipelineStepsProvider = deletePipelineStepsProvider;
+            _exceptionTranslationProvider = exceptionTranslationProvider;
         }
 
         public GetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
@@ -49,7 +53,7 @@ namespace EdFi.Ods.Pipelines.Factories
         {
             var stepTypes = getPipelineStepsProvider.GetSteps();
             var steps = ResolvePipelineSteps<GetContext<TEntityModel>, GetResult<TResourceModel>, TResourceModel, TEntityModel>(stepTypes);
-            return new GetPipeline<TResourceModel, TEntityModel>(steps);
+            return new GetPipeline<TResourceModel, TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
         public GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
@@ -62,7 +66,7 @@ namespace EdFi.Ods.Pipelines.Factories
                 ResolvePipelineSteps<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>, TResourceModel, TEntityModel>(
                     stepTypes);
 
-            return new GetManyPipeline<TResourceModel, TEntityModel>(steps);
+            return new GetManyPipeline<TResourceModel, TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
         public GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
@@ -70,23 +74,31 @@ namespace EdFi.Ods.Pipelines.Factories
         {
             var stepsTypes = getDeletedResourceIdsPipelineStepsProvider.GetSteps();
             var steps = ResolvePipelineSteps<GetDeletedResourceContext<TEntityModel>, GetDeletedResourceResult, TResourceModel, TEntityModel>(stepsTypes);
-            return new GetDeletedResourcePipeline<TEntityModel>(steps);
+            return new GetDeletedResourcePipeline<TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
-        public PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
+        public IPutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag
         {
             var stepTypes = putPipelineStepsProvider.GetSteps();
             var steps = ResolvePipelineSteps<PutContext<TResourceModel, TEntityModel>, PutResult, TResourceModel, TEntityModel>(stepTypes);
-            return new PutPipeline<TResourceModel, TEntityModel>(steps);
+
+            var pipeline = _locator.Resolve<IPutPipeline<TResourceModel, TEntityModel>>(
+                new[]
+                {
+                    new KeyValuePair<string, object>("steps", steps),
+                });
+
+            return pipeline;
+            // return new PutPipeline<TResourceModel, TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
         public DeletePipeline CreateDeletePipeline<TResourceModel, TEntityModel>()
         {
             var stepTypes = deletePipelineStepsProvider.GetSteps();
             var steps = ResolvePipelineSteps<DeleteContext, DeleteResult, TResourceModel, TEntityModel>(stepTypes);
-            return new DeletePipeline(steps);
+            return new DeletePipeline(steps, _exceptionTranslationProvider);
         }
 
         private IStep<TContext, TResult>[] ResolvePipelineSteps<TContext, TResult, TResourceModel, TEntityModel>(IEnumerable<Type> stepTypes)
