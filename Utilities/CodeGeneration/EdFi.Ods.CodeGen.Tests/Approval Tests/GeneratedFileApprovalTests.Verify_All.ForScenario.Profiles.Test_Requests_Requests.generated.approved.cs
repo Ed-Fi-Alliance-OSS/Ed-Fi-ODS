@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 using EdFi.Ods.Api.Architecture;
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -44,15 +45,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Includ
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -61,9 +62,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Includ
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -101,15 +102,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Exclud
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -118,9 +119,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Exclud
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -158,15 +159,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Refere
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-References-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_References_IncludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -175,9 +176,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Refere
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -215,15 +216,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Refere
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-References-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_References_ExcludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -232,9 +233,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Refere
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -272,15 +273,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Includ
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_IncludeAll_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -289,9 +290,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Includ
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -339,15 +340,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resour
     [ProfileContentType("application/vnd.ed-fi.staff.Test-Profile-StaffOnly-Resource-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -356,9 +357,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resour
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -405,15 +406,15 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Re
     [ProfileContentType("application/vnd.ed-fi.student.Test-Profile-StudentOnly-Resource-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentPut : Resources.Student.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll_Writable.Student
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }
@@ -422,9 +423,9 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Re
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -471,15 +472,15 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_R
     [ProfileContentType("application/vnd.ed-fi.student.Test-Profile-StudentOnly2-Resource-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentPut : Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Writable.Student
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }
@@ -488,9 +489,9 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_R
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -520,11 +521,11 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOn
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -533,8 +534,8 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOn
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly
-{ 
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly
+{
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPost : Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
@@ -544,15 +545,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteO
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-WriteOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -561,9 +562,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteO
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -601,15 +602,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -618,9 +619,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -658,15 +659,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -675,9 +676,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -715,15 +716,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -732,9 +733,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -764,11 +765,11 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -777,9 +778,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseCl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -817,15 +818,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-IncludeOnly-Specific-Descriptors.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -834,9 +835,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -874,15 +875,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -891,9 +892,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentAssessmentGetByExample
     {
@@ -938,15 +939,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Reso
     [ProfileContentType("application/vnd.ed-fi.studentAssessment.Test-Profile-Resource-Nested-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentAssessmentPut : Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentAssessmentDelete : IHasIdentifier 
+    public class StudentAssessmentDelete : IHasIdentifier
     {
         public StudentAssessmentDelete() { }
 
-        public StudentAssessmentDelete(Guid id) 
+        public StudentAssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -955,9 +956,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Reso
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentAssessmentGetByExample
     {
@@ -1002,15 +1003,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Reso
     [ProfileContentType("application/vnd.ed-fi.studentAssessment.Test-Profile-Resource-Nested-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentAssessmentPut : Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentAssessmentDelete : IHasIdentifier 
+    public class StudentAssessmentDelete : IHasIdentifier
     {
         public StudentAssessmentDelete() { }
 
-        public StudentAssessmentDelete(Guid id) 
+        public StudentAssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -1019,9 +1020,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Reso
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -1059,15 +1060,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_Sch
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-Student-and-School-Include-All.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_Student_and_School_Include_All_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -1076,9 +1077,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_Sch
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -1125,15 +1126,15 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_Sc
     [ProfileContentType("application/vnd.ed-fi.student.Test-Profile-Student-and-School-Include-All.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentPut : Resources.Student.EdFi.Test_Profile_Student_and_School_Include_All_Writable.Student
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }
@@ -1142,9 +1143,9 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_Sc
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class LocalEducationAgencyGetByExample
     {
@@ -1178,15 +1179,15 @@ namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_
     [ProfileContentType("application/vnd.ed-fi.localEducationAgency.Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class LocalEducationAgencyPut : Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.LocalEducationAgency
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class LocalEducationAgencyDelete : IHasIdentifier 
+    public class LocalEducationAgencyDelete : IHasIdentifier
     {
         public LocalEducationAgencyDelete() { }
 
-        public LocalEducationAgencyDelete(Guid id) 
+        public LocalEducationAgencyDelete(Guid id)
         {
             Id = id;
         }
@@ -1195,9 +1196,9 @@ namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -1235,15 +1236,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resource
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -1252,9 +1253,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resource
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class LocalEducationAgencyGetByExample
     {
@@ -1288,15 +1289,15 @@ namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_
     [ProfileContentType("application/vnd.ed-fi.localEducationAgency.Test-Profile-EdOrgs-Resources-Child-Collection-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class LocalEducationAgencyPut : Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.LocalEducationAgency
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class LocalEducationAgencyDelete : IHasIdentifier 
+    public class LocalEducationAgencyDelete : IHasIdentifier
     {
         public LocalEducationAgencyDelete() { }
 
-        public LocalEducationAgencyDelete(Guid id) 
+        public LocalEducationAgencyDelete(Guid id)
         {
             Id = id;
         }
@@ -1305,9 +1306,9 @@ namespace EdFi.Ods.Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -1345,15 +1346,15 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resource
     [ProfileContentType("application/vnd.ed-fi.school.Test-Profile-EdOrgs-Resources-Child-Collection-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -1362,9 +1363,9 @@ namespace EdFi.Ods.Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resource
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Readable_Restricted
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Students.EdFi.Student_Readable_Restricted
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -1403,11 +1404,11 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Readable_Restricted
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }
@@ -1416,9 +1417,9 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Readable_Restricted
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
+{
+
     [ExcludeFromCodeCoverage]
     public class AssessmentGetByExample
     {
@@ -1451,11 +1452,11 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Incl
     }
 
     [ExcludeFromCodeCoverage]
-    public class AssessmentDelete : IHasIdentifier 
+    public class AssessmentDelete : IHasIdentifier
     {
         public AssessmentDelete() { }
 
-        public AssessmentDelete(Guid id) 
+        public AssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -1464,9 +1465,9 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Incl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
+{
+
     [ExcludeFromCodeCoverage]
     public class AssessmentGetByExample
     {
@@ -1499,11 +1500,11 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excl
     }
 
     [ExcludeFromCodeCoverage]
-    public class AssessmentDelete : IHasIdentifier 
+    public class AssessmentDelete : IHasIdentifier
     {
         public AssessmentDelete() { }
 
-        public AssessmentDelete(Guid id) 
+        public AssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -1512,8 +1513,8 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
-{ 
+namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
+{
     [ProfileContentType("application/vnd.ed-fi.assessment.Assessment-Writable-Includes-Embedded-Object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentPost : Resources.Assessment.EdFi.Assessment_Writable_Includes_Embedded_Object_Writable.Assessment
@@ -1523,15 +1524,15 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Incl
     [ProfileContentType("application/vnd.ed-fi.assessment.Assessment-Writable-Includes-Embedded-Object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentPut : Resources.Assessment.EdFi.Assessment_Writable_Includes_Embedded_Object_Writable.Assessment
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AssessmentDelete : IHasIdentifier 
+    public class AssessmentDelete : IHasIdentifier
     {
         public AssessmentDelete() { }
 
-        public AssessmentDelete(Guid id) 
+        public AssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -1540,8 +1541,8 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Incl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
-{ 
+namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
+{
     [ProfileContentType("application/vnd.ed-fi.assessment.Assessment-Writable-Excludes-Embedded-Object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentPost : Resources.Assessment.EdFi.Assessment_Writable_Excludes_Embedded_Object_Writable.Assessment
@@ -1551,15 +1552,15 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excl
     [ProfileContentType("application/vnd.ed-fi.assessment.Assessment-Writable-Excludes-Embedded-Object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentPut : Resources.Assessment.EdFi.Assessment_Writable_Excludes_Embedded_Object_Writable.Assessment
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AssessmentDelete : IHasIdentifier 
+    public class AssessmentDelete : IHasIdentifier
     {
         public AssessmentDelete() { }
 
-        public AssessmentDelete(Guid id) 
+        public AssessmentDelete(Guid id)
         {
             Id = id;
         }
@@ -1568,9 +1569,9 @@ namespace EdFi.Ods.Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excl
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
+{
+
     [ExcludeFromCodeCoverage]
     public class AcademicWeekGetByExample
     {
@@ -1596,11 +1597,11 @@ namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable
     }
 
     [ExcludeFromCodeCoverage]
-    public class AcademicWeekDelete : IHasIdentifier 
+    public class AcademicWeekDelete : IHasIdentifier
     {
         public AcademicWeekDelete() { }
 
-        public AcademicWeekDelete(Guid id) 
+        public AcademicWeekDelete(Guid id)
         {
             Id = id;
         }
@@ -1609,8 +1610,8 @@ namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
-{ 
+namespace EdFi.Ods.Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
+{
     [ProfileContentType("application/vnd.ed-fi.academicWeek.Academic-Week-Writable-Excludes-Optional-References.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AcademicWeekPost : Resources.AcademicWeek.EdFi.Academic_Week_Writable_Excludes_Optional_References_Writable.AcademicWeek
@@ -1620,15 +1621,15 @@ namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable
     [ProfileContentType("application/vnd.ed-fi.academicWeek.Academic-Week-Writable-Excludes-Optional-References.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AcademicWeekPut : Resources.AcademicWeek.EdFi.Academic_Week_Writable_Excludes_Optional_References_Writable.AcademicWeek
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class AcademicWeekDelete : IHasIdentifier 
+    public class AcademicWeekDelete : IHasIdentifier
     {
         public AcademicWeekDelete() { }
 
-        public AcademicWeekDelete(Guid id) 
+        public AcademicWeekDelete(Guid id)
         {
             Id = id;
         }
@@ -1637,9 +1638,9 @@ namespace EdFi.Ods.Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -1679,11 +1680,11 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_W
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -1692,9 +1693,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_W
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationGetByExample
     {
@@ -1723,11 +1724,11 @@ namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationDelete : IHasIdentifier 
+    public class StudentEducationOrganizationAssociationDelete : IHasIdentifier
     {
         public StudentEducationOrganizationAssociationDelete() { }
 
-        public StudentEducationOrganizationAssociationDelete(Guid id) 
+        public StudentEducationOrganizationAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -1736,9 +1737,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationGetByExample
     {
@@ -1767,11 +1768,11 @@ namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentEducationOrganizationAssociationDelete : IHasIdentifier 
+    public class StudentEducationOrganizationAssociationDelete : IHasIdentifier
     {
         public StudentEducationOrganizationAssociationDelete() { }
 
-        public StudentEducationOrganizationAssociationDelete(Guid id) 
+        public StudentEducationOrganizationAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -1780,9 +1781,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentEducationOrganizationAssociations.
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationGetByExample
     {
@@ -1826,15 +1827,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     [ProfileContentType("application/vnd.ed-fi.studentSpecialEducationProgramAssociation.Test-ParentNonAbstractBaseClass-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationPut : Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier 
+    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier
     {
         public StudentSpecialEducationProgramAssociationDelete() { }
 
-        public StudentSpecialEducationProgramAssociationDelete(Guid id) 
+        public StudentSpecialEducationProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -1843,9 +1844,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationGetByExample
     {
@@ -1889,15 +1890,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     [ProfileContentType("application/vnd.ed-fi.studentSpecialEducationProgramAssociation.Test-ParentNonAbstractBaseClass-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationPut : Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Writable.StudentSpecialEducationProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier 
+    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier
     {
         public StudentSpecialEducationProgramAssociationDelete() { }
 
-        public StudentSpecialEducationProgramAssociationDelete(Guid id) 
+        public StudentSpecialEducationProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -1906,9 +1907,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationGetByExample
     {
@@ -1952,15 +1953,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     [ProfileContentType("application/vnd.ed-fi.studentSpecialEducationProgramAssociation.StudentSpecialEducationProgramAssociation-Derived-Association-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationPut : Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly_Writable.StudentSpecialEducationProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier 
+    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier
     {
         public StudentSpecialEducationProgramAssociationDelete() { }
 
-        public StudentSpecialEducationProgramAssociationDelete(Guid id) 
+        public StudentSpecialEducationProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -1969,9 +1970,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationGetByExample
     {
@@ -2015,15 +2016,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     [ProfileContentType("application/vnd.ed-fi.studentSpecialEducationProgramAssociation.StudentSpecialEducationProgramAssociation-Derived-Association-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationPut : Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier 
+    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier
     {
         public StudentSpecialEducationProgramAssociationDelete() { }
 
-        public StudentSpecialEducationProgramAssociationDelete(Guid id) 
+        public StudentSpecialEducationProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -2032,9 +2033,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationGetByExample
     {
@@ -2078,15 +2079,15 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     [ProfileContentType("application/vnd.ed-fi.studentSpecialEducationProgramAssociation.StudentSpecialEducationProgramAssociation-Derived-Association-IncludeAll.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationPut : Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll_Writable.StudentSpecialEducationProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier 
+    public class StudentSpecialEducationProgramAssociationDelete : IHasIdentifier
     {
         public StudentSpecialEducationProgramAssociationDelete() { }
 
-        public StudentSpecialEducationProgramAssociationDelete(Guid id) 
+        public StudentSpecialEducationProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -2095,9 +2096,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSpecialEducationProgramAssociation
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationGetByExample
     {
@@ -2139,11 +2140,11 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStu
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationDelete : IHasIdentifier 
+    public class StudentSchoolAssociationDelete : IHasIdentifier
     {
         public StudentSchoolAssociationDelete() { }
 
-        public StudentSchoolAssociationDelete(Guid id) 
+        public StudentSchoolAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -2152,9 +2153,9 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStu
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationGetByExample
     {
@@ -2196,11 +2197,11 @@ namespace EdFi.Ods.Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStu
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationDelete : IHasIdentifier 
+    public class StudentSchoolAssociationDelete : IHasIdentifier
     {
         public StudentSchoolAssociationDelete() { }
 
-        public StudentSchoolAssociationDelete(Guid id) 
+        public StudentSchoolAssociationDelete(Guid id)
         {
             Id = id;
         }

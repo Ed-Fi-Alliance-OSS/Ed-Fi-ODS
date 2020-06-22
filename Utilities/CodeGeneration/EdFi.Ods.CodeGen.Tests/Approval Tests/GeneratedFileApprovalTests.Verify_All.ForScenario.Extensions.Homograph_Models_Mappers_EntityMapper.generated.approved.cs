@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.ETag;
-using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Common.Dependencies;
+using EdFi.Ods.Api.Common.Extensions;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
@@ -12,9 +11,9 @@ using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: Name
 
 namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class NameMapper 
+    public static class NameMapper
     {
         public static bool SynchronizeTo(this IName source, IName target)
         {
@@ -84,21 +83,21 @@ namespace EdFi.Ods.Entities.Common.Homograph //.NameAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface INameSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: Parent
 
 namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class ParentMapper 
+    public static class ParentMapper
     {
         public static bool SynchronizeTo(this IParent source, IParent target)
         {
@@ -122,29 +121,29 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsParentAddressesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentAddresses.SynchronizeCollectionTo(
-                        target.ParentAddresses, 
-                        onChildAdded: child => 
+                        target.ParentAddresses,
+                        onChildAdded: child =>
                             {
                                 child.Parent = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentAddressIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentStudentSchoolAssociationsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentStudentSchoolAssociations.SynchronizeCollectionTo(
-                        target.ParentStudentSchoolAssociations, 
-                        onChildAdded: child => 
+                        target.ParentStudentSchoolAssociations,
+                        onChildAdded: child =>
                             {
                                 child.Parent = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentStudentSchoolAssociationIncluded);
             }
 
@@ -169,7 +168,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.ParentNameResourceId = source.ParentNameResourceId;
@@ -185,7 +184,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             // Map lists
 
             if (sourceSynchSupport.IsParentAddressesSupported)
-            {    
+            {
                 targetSynchSupport.IsParentAddressIncluded = sourceSynchSupport.IsParentAddressIncluded;
                 source.ParentAddresses.MapCollectionTo(target.ParentAddresses, target);
             }
@@ -195,7 +194,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentStudentSchoolAssociationsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentStudentSchoolAssociationIncluded = sourceSynchSupport.IsParentStudentSchoolAssociationIncluded;
                 source.ParentStudentSchoolAssociations.MapCollectionTo(target.ParentStudentSchoolAssociations, target);
             }
@@ -223,7 +222,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -234,9 +233,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
         Func<IParentAddress, bool> IsParentAddressIncluded { get; set; }
         Func<IParentStudentSchoolAssociation, bool> IsParentStudentSchoolAssociationIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentAddressMapper 
+    public static class ParentAddressMapper
     {
         public static bool SynchronizeTo(this IParentAddress source, IParentAddress target)
         {
@@ -298,16 +297,16 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentAddressSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentStudentSchoolAssociationMapper 
+    public static class ParentStudentSchoolAssociationMapper
     {
         public static bool SynchronizeTo(this IParentStudentSchoolAssociation source, IParentStudentSchoolAssociation target)
         {
@@ -352,7 +351,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StudentSchoolAssociationResourceId = source.StudentSchoolAssociationResourceId;
@@ -386,21 +385,21 @@ namespace EdFi.Ods.Entities.Common.Homograph //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentStudentSchoolAssociationSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: School
 
 namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class SchoolMapper 
+    public static class SchoolMapper
     {
         public static bool SynchronizeTo(this ISchool source, ISchool target)
         {
@@ -423,9 +422,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // SchoolAddress
             if (sourceSupport == null || sourceSupport.IsSchoolAddressSupported)
             {
@@ -449,7 +448,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                     isModified |= source.SchoolAddress.Synchronize(target.SchoolAddress);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
@@ -478,7 +477,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                 targetSynchSupport.IsSchoolYearSupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
@@ -494,9 +493,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             if (sourceSynchSupport.IsSchoolAddressSupported)
             {
                 var itemProperty = target.GetType().GetProperty("SchoolAddress");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.SchoolAddress == null)
                     {
                         target.SchoolAddress = null;
@@ -507,7 +506,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
                         object targetSchoolAddress = Activator.CreateInstance(itemType);
                         (targetSchoolAddress as IChildEntity)?.SetParent(target);
                         source.SchoolAddress.Map(targetSchoolAddress);
-                        
+
                         // Update the target reference appropriately
                         target.SchoolAddress = (ISchoolAddress) targetSchoolAddress;
                     }
@@ -515,7 +514,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
             }
             else
             {
-                targetSynchSupport.IsSchoolAddressSupported = false; 
+                targetSynchSupport.IsSchoolAddressSupported = false;
             }
             // -------------------------------------------------------------
 
@@ -540,7 +539,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -549,9 +548,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
         bool IsSchoolAddressSupported { get; set; }
         bool IsSchoolYearSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class SchoolAddressMapper 
+    public static class SchoolAddressMapper
     {
         public static bool SynchronizeTo(this ISchoolAddress source, ISchoolAddress target)
         {
@@ -620,7 +619,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -628,14 +627,14 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolAggregate
     {
         bool IsCitySupported { get; set; }
     }
- 
+
 }
 // Aggregate: SchoolYearType
 
 namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class SchoolYearTypeMapper 
+    public static class SchoolYearTypeMapper
     {
         public static bool SynchronizeTo(this ISchoolYearType source, ISchoolYearType target)
         {
@@ -700,21 +699,21 @@ namespace EdFi.Ods.Entities.Common.Homograph //.SchoolYearTypeAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface ISchoolYearTypeSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: Staff
 
 namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StaffMapper 
+    public static class StaffMapper
     {
         public static bool SynchronizeTo(this IStaff source, IStaff target)
         {
@@ -738,29 +737,29 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStaffAddressesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StaffAddresses.SynchronizeCollectionTo(
-                        target.StaffAddresses, 
-                        onChildAdded: child => 
+                        target.StaffAddresses,
+                        onChildAdded: child =>
                             {
                                 child.Staff = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStaffAddressIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStaffStudentSchoolAssociationsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StaffStudentSchoolAssociations.SynchronizeCollectionTo(
-                        target.StaffStudentSchoolAssociations, 
-                        onChildAdded: child => 
+                        target.StaffStudentSchoolAssociations,
+                        onChildAdded: child =>
                             {
                                 child.Staff = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStaffStudentSchoolAssociationIncluded);
             }
 
@@ -785,7 +784,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StaffNameResourceId = source.StaffNameResourceId;
@@ -801,7 +800,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             // Map lists
 
             if (sourceSynchSupport.IsStaffAddressesSupported)
-            {    
+            {
                 targetSynchSupport.IsStaffAddressIncluded = sourceSynchSupport.IsStaffAddressIncluded;
                 source.StaffAddresses.MapCollectionTo(target.StaffAddresses, target);
             }
@@ -811,7 +810,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             }
 
             if (sourceSynchSupport.IsStaffStudentSchoolAssociationsSupported)
-            {    
+            {
                 targetSynchSupport.IsStaffStudentSchoolAssociationIncluded = sourceSynchSupport.IsStaffStudentSchoolAssociationIncluded;
                 source.StaffStudentSchoolAssociations.MapCollectionTo(target.StaffStudentSchoolAssociations, target);
             }
@@ -839,7 +838,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -850,9 +849,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
         Func<IStaffAddress, bool> IsStaffAddressIncluded { get; set; }
         Func<IStaffStudentSchoolAssociation, bool> IsStaffStudentSchoolAssociationIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StaffAddressMapper 
+    public static class StaffAddressMapper
     {
         public static bool SynchronizeTo(this IStaffAddress source, IStaffAddress target)
         {
@@ -914,16 +913,16 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStaffAddressSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StaffStudentSchoolAssociationMapper 
+    public static class StaffStudentSchoolAssociationMapper
     {
         public static bool SynchronizeTo(this IStaffStudentSchoolAssociation source, IStaffStudentSchoolAssociation target)
         {
@@ -968,7 +967,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StudentSchoolAssociationResourceId = source.StudentSchoolAssociationResourceId;
@@ -1002,21 +1001,21 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStaffStudentSchoolAssociationSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: Student
 
 namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentMapper 
+    public static class StudentMapper
     {
         public static bool SynchronizeTo(this IStudent source, IStudent target)
         {
@@ -1047,15 +1046,15 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentAddressesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentAddresses.SynchronizeCollectionTo(
-                        target.StudentAddresses, 
-                        onChildAdded: child => 
+                        target.StudentAddresses,
+                        onChildAdded: child =>
                             {
                                 child.Student = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentAddressIncluded);
             }
 
@@ -1085,7 +1084,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
                 targetSynchSupport.IsSchoolYearSupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.SchoolYearTypeResourceId = source.SchoolYearTypeResourceId;
@@ -1103,7 +1102,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
             // Map lists
 
             if (sourceSynchSupport.IsStudentAddressesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentAddressIncluded = sourceSynchSupport.IsStudentAddressIncluded;
                 source.StudentAddresses.MapCollectionTo(target.StudentAddresses, target);
             }
@@ -1131,7 +1130,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -1141,9 +1140,9 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
         bool IsStudentAddressesSupported { get; set; }
         Func<IStudentAddress, bool> IsStudentAddressIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentAddressMapper 
+    public static class StudentAddressMapper
     {
         public static bool SynchronizeTo(this IStudentAddress source, IStudentAddress target)
         {
@@ -1205,21 +1204,21 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentAddressSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: StudentSchoolAssociation
 
 namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentSchoolAssociationMapper 
+    public static class StudentSchoolAssociationMapper
     {
         public static bool SynchronizeTo(this IStudentSchoolAssociation source, IStudentSchoolAssociation target)
         {
@@ -1232,7 +1231,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
                  (target.SchoolName != source.SchoolName)
                 || (target.StudentFirstName != source.StudentFirstName)
                 || (target.StudentLastSurname != source.StudentLastSurname))
-            {            
+            {
                 isModified = true;
 
                 var sourceWithPrimaryKeyValues = (source as IHasPrimaryKeyValues);
@@ -1286,7 +1285,7 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.SchoolResourceId = source.SchoolResourceId;
@@ -1322,12 +1321,12 @@ namespace EdFi.Ods.Entities.Common.Homograph //.StudentSchoolAssociationAggregat
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentSchoolAssociationSynchronizationSourceSupport 
     {
     }
- 
+
 }

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
+
 #pragma warning disable 108,114
 
 namespace EdFi.Ods.Entities.Common.Homograph
-{ 
+{
 
     /// <summary>
     /// Defines available properties and methods for the abstraction of the Name model.

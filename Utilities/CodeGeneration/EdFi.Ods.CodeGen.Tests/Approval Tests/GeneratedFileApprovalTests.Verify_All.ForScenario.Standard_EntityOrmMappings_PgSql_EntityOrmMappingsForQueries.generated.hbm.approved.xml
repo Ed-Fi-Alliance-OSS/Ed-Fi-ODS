@@ -8611,7 +8611,7 @@
     </set>
 
     <!-- Derived classes -->
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityOrganizationAggregate.EdFi.CommunityOrganizationQ" lazy="false" discriminator-value="edfi.CommunityOrganization" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityOrganizationAggregate.EdFi.CommunityOrganizationQ" lazy="false" discriminator-value="edfi.CommunityOrganization" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="CommunityOrganization" >
           <key>
             <column name="CommunityOrganizationId" />
@@ -8634,7 +8634,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ" lazy="false" discriminator-value="edfi.CommunityProvider" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ" lazy="false" discriminator-value="edfi.CommunityProvider" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="CommunityProvider" >
           <key>
             <column name="CommunityProviderId" />
@@ -8677,7 +8677,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ" lazy="false" discriminator-value="edfi.EducationOrganizationNetwork" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ" lazy="false" discriminator-value="edfi.EducationOrganizationNetwork" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="EducationOrganizationNetwork" >
           <key>
             <column name="EducationOrganizationNetworkId" />
@@ -8706,7 +8706,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationServiceCenterAggregate.EdFi.EducationServiceCenterQ" lazy="false" discriminator-value="edfi.EducationServiceCenter" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationServiceCenterAggregate.EdFi.EducationServiceCenterQ" lazy="false" discriminator-value="edfi.EducationServiceCenter" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="EducationServiceCenter" >
           <key>
             <column name="EducationServiceCenterId" />
@@ -8735,7 +8735,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQ" lazy="false" discriminator-value="edfi.LocalEducationAgency" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQ" lazy="false" discriminator-value="edfi.LocalEducationAgency" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="LocalEducationAgency" >
           <key>
             <column name="LocalEducationAgencyId" />
@@ -8794,7 +8794,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQH" lazy="false" discriminator-value="edfi.LocalEducationAgencyH" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQH" lazy="false" discriminator-value="edfi.LocalEducationAgencyH" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="LocalEducationAgencyH" >
           <key>
             <column name="LocalEducationAgencyId" />
@@ -8853,7 +8853,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ" lazy="false" discriminator-value="edfi.PostSecondaryInstitution" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ" lazy="false" discriminator-value="edfi.PostSecondaryInstitution" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="PostSecondaryInstitution" >
           <key>
             <column name="PostSecondaryInstitutionId" />
@@ -8893,7 +8893,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ" lazy="false" discriminator-value="edfi.School" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ" lazy="false" discriminator-value="edfi.School" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="School" >
           <key>
             <column name="SchoolId" />
@@ -9087,7 +9087,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi.StateEducationAgencyQ" lazy="false" discriminator-value="edfi.StateEducationAgency" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi.StateEducationAgencyQ" lazy="false" discriminator-value="edfi.StateEducationAgency" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StateEducationAgency" >
           <key>
             <column name="StateEducationAgencyId" />
@@ -9588,7 +9588,7 @@
     </set>
 
     <!-- Derived classes -->
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentCTEProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentCTEProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentCTEProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9658,7 +9658,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssociationAggregate.EdFi.StudentHomelessProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentHomelessProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssociationAggregate.EdFi.StudentHomelessProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentHomelessProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentHomelessProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9704,7 +9704,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentLanguageInstructionProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentLanguageInstructionProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentLanguageInstructionProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9756,7 +9756,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentMigrantEducationProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentMigrantEducationProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentMigrantEducationProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9808,7 +9808,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentNeglectedOrDelinquentProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentNeglectedOrDelinquentProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentNeglectedOrDelinquentProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9860,7 +9860,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggregate.EdFi.StudentProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggregate.EdFi.StudentProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9898,7 +9898,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi.StudentSchoolFoodServiceProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentSchoolFoodServiceProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi.StudentSchoolFoodServiceProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentSchoolFoodServiceProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentSchoolFoodServiceProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -9937,7 +9937,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentSpecialEducationProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentSpecialEducationProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentSpecialEducationProgramAssociation" >
           <key>
             <column name="BeginDate" />
@@ -10014,7 +10014,7 @@
 
       </join>
     </subclass>
-    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentTitleIPartAProgramAssociation" persister="EdFi.Ods.Api.NHibernate.Architecture.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api">
+    <subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociationQ" lazy="false" discriminator-value="edfi.StudentTitleIPartAProgramAssociation" persister="EdFi.Ods.Api.Common.Infrastructure.Architecture.Persisters.DiscriminatedSubclassWithDynamicComponentEntityPersister, EdFi.Ods.Api.Common">
       <join table="StudentTitleIPartAProgramAssociation" >
           <key>
             <column name="BeginDate" />

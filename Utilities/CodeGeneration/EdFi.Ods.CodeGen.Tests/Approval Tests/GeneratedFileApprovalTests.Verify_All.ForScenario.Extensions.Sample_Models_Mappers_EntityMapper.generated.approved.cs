@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.ETag;
-using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Common.Dependencies;
+using EdFi.Ods.Api.Common.Extensions;
+using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
@@ -12,9 +11,9 @@ using EdFi.Ods.Entities.Common.EdFi;
 // Aggregate: ArtMediumDescriptor
 
 namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class ArtMediumDescriptorMapper 
+    public static class ArtMediumDescriptorMapper
     {
         public static bool SynchronizeTo(this IArtMediumDescriptor source, IArtMediumDescriptor target)
         {
@@ -172,7 +171,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -186,14 +185,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ArtMediumDescriptorAggregate
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: Bus
 
 namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class BusMapper 
+    public static class BusMapper
     {
         public static bool SynchronizeTo(this IBus source, IBus target)
         {
@@ -258,21 +257,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IBusSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: BusRoute
 
 namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class BusRouteMapper 
+    public static class BusRouteMapper
     {
         public static bool SynchronizeTo(this IBusRoute source, IBusRoute target)
         {
@@ -394,71 +393,71 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsBusRouteBusYearsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.BusRouteBusYears.SynchronizeCollectionTo(
-                        target.BusRouteBusYears, 
-                        onChildAdded: child => 
+                        target.BusRouteBusYears,
+                        onChildAdded: child =>
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsBusRouteBusYearIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsBusRouteProgramsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.BusRoutePrograms.SynchronizeCollectionTo(
-                        target.BusRoutePrograms, 
-                        onChildAdded: child => 
+                        target.BusRoutePrograms,
+                        onChildAdded: child =>
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsBusRouteProgramIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsBusRouteServiceAreaPostalCodesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.BusRouteServiceAreaPostalCodes.SynchronizeCollectionTo(
-                        target.BusRouteServiceAreaPostalCodes, 
-                        onChildAdded: child => 
+                        target.BusRouteServiceAreaPostalCodes,
+                        onChildAdded: child =>
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsBusRouteServiceAreaPostalCodeIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsBusRouteStartTimesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.BusRouteStartTimes.SynchronizeCollectionTo(
-                        target.BusRouteStartTimes, 
-                        onChildAdded: child => 
+                        target.BusRouteStartTimes,
+                        onChildAdded: child =>
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsBusRouteStartTimeIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsBusRouteTelephonesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.BusRouteTelephones.SynchronizeCollectionTo(
-                        target.BusRouteTelephones, 
-                        onChildAdded: child => 
+                        target.BusRouteTelephones,
+                        onChildAdded: child =>
                             {
                                 child.BusRoute = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsBusRouteTelephoneIncluded);
             }
 
@@ -553,7 +552,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
                 targetSynchSupport.IsWeeklyMileageSupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StaffEducationOrganizationAssignmentAssociationResourceId = source.StaffEducationOrganizationAssignmentAssociationResourceId;
@@ -569,7 +568,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             // Map lists
 
             if (sourceSynchSupport.IsBusRouteBusYearsSupported)
-            {    
+            {
                 targetSynchSupport.IsBusRouteBusYearIncluded = sourceSynchSupport.IsBusRouteBusYearIncluded;
                 source.BusRouteBusYears.MapCollectionTo(target.BusRouteBusYears, target);
             }
@@ -579,7 +578,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             }
 
             if (sourceSynchSupport.IsBusRouteProgramsSupported)
-            {    
+            {
                 targetSynchSupport.IsBusRouteProgramIncluded = sourceSynchSupport.IsBusRouteProgramIncluded;
                 source.BusRoutePrograms.MapCollectionTo(target.BusRoutePrograms, target);
             }
@@ -589,7 +588,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             }
 
             if (sourceSynchSupport.IsBusRouteServiceAreaPostalCodesSupported)
-            {    
+            {
                 targetSynchSupport.IsBusRouteServiceAreaPostalCodeIncluded = sourceSynchSupport.IsBusRouteServiceAreaPostalCodeIncluded;
                 source.BusRouteServiceAreaPostalCodes.MapCollectionTo(target.BusRouteServiceAreaPostalCodes, target);
             }
@@ -599,7 +598,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             }
 
             if (sourceSynchSupport.IsBusRouteStartTimesSupported)
-            {    
+            {
                 targetSynchSupport.IsBusRouteStartTimeIncluded = sourceSynchSupport.IsBusRouteStartTimeIncluded;
                 source.BusRouteStartTimes.MapCollectionTo(target.BusRouteStartTimes, target);
             }
@@ -609,7 +608,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             }
 
             if (sourceSynchSupport.IsBusRouteTelephonesSupported)
-            {    
+            {
                 targetSynchSupport.IsBusRouteTelephoneIncluded = sourceSynchSupport.IsBusRouteTelephoneIncluded;
                 source.BusRouteTelephones.MapCollectionTo(target.BusRouteTelephones, target);
             }
@@ -637,7 +636,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -668,9 +667,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         Func<IBusRouteStartTime, bool> IsBusRouteStartTimeIncluded { get; set; }
         Func<IBusRouteTelephone, bool> IsBusRouteTelephoneIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class BusRouteBusYearMapper 
+    public static class BusRouteBusYearMapper
     {
         public static bool SynchronizeTo(this IBusRouteBusYear source, IBusRouteBusYear target)
         {
@@ -732,16 +731,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IBusRouteBusYearSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class BusRouteProgramMapper 
+    public static class BusRouteProgramMapper
     {
         public static bool SynchronizeTo(this IBusRouteProgram source, IBusRouteProgram target)
         {
@@ -786,7 +785,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.ProgramResourceId = source.ProgramResourceId;
@@ -820,16 +819,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IBusRouteProgramSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class BusRouteServiceAreaPostalCodeMapper 
+    public static class BusRouteServiceAreaPostalCodeMapper
     {
         public static bool SynchronizeTo(this IBusRouteServiceAreaPostalCode source, IBusRouteServiceAreaPostalCode target)
         {
@@ -891,16 +890,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class BusRouteStartTimeMapper 
+    public static class BusRouteStartTimeMapper
     {
         public static bool SynchronizeTo(this IBusRouteStartTime source, IBusRouteStartTime target)
         {
@@ -962,16 +961,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IBusRouteStartTimeSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class BusRouteTelephoneMapper 
+    public static class BusRouteTelephoneMapper
     {
         public static bool SynchronizeTo(this IBusRouteTelephone source, IBusRouteTelephone target)
         {
@@ -1074,7 +1073,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -1084,14 +1083,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.BusRouteAggregate
         bool IsOrderOfPrioritySupported { get; set; }
         bool IsTextMessageCapabilityIndicatorSupported { get; set; }
     }
- 
+
 }
 // Aggregate: FavoriteBookCategoryDescriptor
 
 namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class FavoriteBookCategoryDescriptorMapper 
+    public static class FavoriteBookCategoryDescriptorMapper
     {
         public static bool SynchronizeTo(this IFavoriteBookCategoryDescriptor source, IFavoriteBookCategoryDescriptor target)
         {
@@ -1249,7 +1248,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -1263,14 +1262,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.FavoriteBookCategoryDescriptorAggre
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: MembershipTypeDescriptor
 
 namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class MembershipTypeDescriptorMapper 
+    public static class MembershipTypeDescriptorMapper
     {
         public static bool SynchronizeTo(this IMembershipTypeDescriptor source, IMembershipTypeDescriptor target)
         {
@@ -1428,7 +1427,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -1442,14 +1441,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.MembershipTypeDescriptorAggregate
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: Parent
 
 namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class ParentAddressExtensionMapper 
+    public static class ParentAddressExtensionMapper
     {
         public static bool SynchronizeTo(this IParentAddressExtension source, IParentAddressExtension target)
         {
@@ -1484,35 +1483,35 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsParentAddressSchoolDistrictsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentAddressSchoolDistricts.SynchronizeCollectionTo(
-                        target.ParentAddressSchoolDistricts, 
-                        onChildAdded: child => 
+                        target.ParentAddressSchoolDistricts,
+                        onChildAdded: child =>
                             {
                                 child.ParentAddressExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ParentAddress);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentAddressSchoolDistrictIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentAddressTermsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentAddressTerms.SynchronizeCollectionTo(
-                        target.ParentAddressTerms, 
-                        onChildAdded: child => 
+                        target.ParentAddressTerms,
+                        onChildAdded: child =>
                             {
                                 child.ParentAddressExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.ParentAddress);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentAddressTermIncluded);
             }
 
@@ -1551,7 +1550,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Map lists
 
             if (sourceSynchSupport.IsParentAddressSchoolDistrictsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentAddressSchoolDistrictIncluded = sourceSynchSupport.IsParentAddressSchoolDistrictIncluded;
                 source.ParentAddressSchoolDistricts.MapCollectionTo(target.ParentAddressSchoolDistricts, target.ParentAddress);
             }
@@ -1561,7 +1560,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentAddressTermsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentAddressTermIncluded = sourceSynchSupport.IsParentAddressTermIncluded;
                 source.ParentAddressTerms.MapCollectionTo(target.ParentAddressTerms, target.ParentAddress);
             }
@@ -1589,7 +1588,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -1602,9 +1601,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         Func<IParentAddressSchoolDistrict, bool> IsParentAddressSchoolDistrictIncluded { get; set; }
         Func<IParentAddressTerm, bool> IsParentAddressTermIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentAddressSchoolDistrictMapper 
+    public static class ParentAddressSchoolDistrictMapper
     {
         public static bool SynchronizeTo(this IParentAddressSchoolDistrict source, IParentAddressSchoolDistrict target)
         {
@@ -1666,16 +1665,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentAddressSchoolDistrictSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentAddressTermMapper 
+    public static class ParentAddressTermMapper
     {
         public static bool SynchronizeTo(this IParentAddressTerm source, IParentAddressTerm target)
         {
@@ -1737,16 +1736,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentAddressTermSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentAuthorMapper 
+    public static class ParentAuthorMapper
     {
         public static bool SynchronizeTo(this IParentAuthor source, IParentAuthor target)
         {
@@ -1808,16 +1807,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentAuthorSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentCeilingHeightMapper 
+    public static class ParentCeilingHeightMapper
     {
         public static bool SynchronizeTo(this IParentCeilingHeight source, IParentCeilingHeight target)
         {
@@ -1879,16 +1878,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentCeilingHeightSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentCTEProgramMapper 
+    public static class ParentCTEProgramMapper
     {
         public static bool SynchronizeTo(this IParentCTEProgram source, IParentCTEProgram target)
         {
@@ -1993,7 +1992,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -2004,9 +2003,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         bool IsCTEProgramCompletionIndicatorSupported { get; set; }
         bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentEducationContentMapper 
+    public static class ParentEducationContentMapper
     {
         public static bool SynchronizeTo(this IParentEducationContent source, IParentEducationContent target)
         {
@@ -2041,7 +2040,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.EducationContentResourceId = source.EducationContentResourceId;
@@ -2075,16 +2074,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentEducationContentSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentExtensionMapper 
+    public static class ParentExtensionMapper
     {
         public static bool SynchronizeTo(this IParentExtension source, IParentExtension target)
         {
@@ -2178,9 +2177,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // ParentCTEProgram
             if (sourceSupport == null || sourceSupport.IsParentCTEProgramSupported)
             {
@@ -2227,92 +2226,92 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                     isModified |= source.ParentTeacherConference.Synchronize(target.ParentTeacherConference);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsParentAuthorsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentAuthors.SynchronizeCollectionTo(
-                        target.ParentAuthors, 
-                        onChildAdded: child => 
+                        target.ParentAuthors,
+                        onChildAdded: child =>
                             {
                                 child.ParentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentAuthorIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentCeilingHeightsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentCeilingHeights.SynchronizeCollectionTo(
-                        target.ParentCeilingHeights, 
-                        onChildAdded: child => 
+                        target.ParentCeilingHeights,
+                        onChildAdded: child =>
                             {
                                 child.ParentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentCeilingHeightIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentEducationContentsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentEducationContents.SynchronizeCollectionTo(
-                        target.ParentEducationContents, 
-                        onChildAdded: child => 
+                        target.ParentEducationContents,
+                        onChildAdded: child =>
                             {
                                 child.ParentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentEducationContentIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentFavoriteBookTitlesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentFavoriteBookTitles.SynchronizeCollectionTo(
-                        target.ParentFavoriteBookTitles, 
-                        onChildAdded: child => 
+                        target.ParentFavoriteBookTitles,
+                        onChildAdded: child =>
                             {
                                 child.ParentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentFavoriteBookTitleIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsParentStudentProgramAssociationsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.ParentStudentProgramAssociations.SynchronizeCollectionTo(
-                        target.ParentStudentProgramAssociations, 
-                        onChildAdded: child => 
+                        target.ParentStudentProgramAssociations,
+                        onChildAdded: child =>
                             {
                                 child.ParentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Parent);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsParentStudentProgramAssociationIncluded);
             }
 
@@ -2396,9 +2395,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             if (sourceSynchSupport.IsParentCTEProgramSupported)
             {
                 var itemProperty = target.GetType().GetProperty("ParentCTEProgram");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.ParentCTEProgram == null)
                     {
                         target.ParentCTEProgram = null;
@@ -2409,7 +2408,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                         object targetParentCTEProgram = Activator.CreateInstance(itemType);
                         (targetParentCTEProgram as IChildEntity)?.SetParent(target.Parent);
                         source.ParentCTEProgram.Map(targetParentCTEProgram);
-                        
+
                         // Update the target reference appropriately
                         target.ParentCTEProgram = (IParentCTEProgram) targetParentCTEProgram;
                     }
@@ -2417,15 +2416,15 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
             else
             {
-                targetSynchSupport.IsParentCTEProgramSupported = false; 
+                targetSynchSupport.IsParentCTEProgramSupported = false;
             }
             // ParentTeacherConference (Source)
             if (sourceSynchSupport.IsParentTeacherConferenceSupported)
             {
                 var itemProperty = target.GetType().GetProperty("ParentTeacherConference");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.ParentTeacherConference == null)
                     {
                         target.ParentTeacherConference = null;
@@ -2436,7 +2435,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
                         object targetParentTeacherConference = Activator.CreateInstance(itemType);
                         (targetParentTeacherConference as IChildEntity)?.SetParent(target.Parent);
                         source.ParentTeacherConference.Map(targetParentTeacherConference);
-                        
+
                         // Update the target reference appropriately
                         target.ParentTeacherConference = (IParentTeacherConference) targetParentTeacherConference;
                     }
@@ -2444,14 +2443,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
             else
             {
-                targetSynchSupport.IsParentTeacherConferenceSupported = false; 
+                targetSynchSupport.IsParentTeacherConferenceSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsParentAuthorsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentAuthorIncluded = sourceSynchSupport.IsParentAuthorIncluded;
                 source.ParentAuthors.MapCollectionTo(target.ParentAuthors, target.Parent);
             }
@@ -2461,7 +2460,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentCeilingHeightsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentCeilingHeightIncluded = sourceSynchSupport.IsParentCeilingHeightIncluded;
                 source.ParentCeilingHeights.MapCollectionTo(target.ParentCeilingHeights, target.Parent);
             }
@@ -2471,7 +2470,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentEducationContentsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentEducationContentIncluded = sourceSynchSupport.IsParentEducationContentIncluded;
                 source.ParentEducationContents.MapCollectionTo(target.ParentEducationContents, target.Parent);
             }
@@ -2481,7 +2480,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentFavoriteBookTitlesSupported)
-            {    
+            {
                 targetSynchSupport.IsParentFavoriteBookTitleIncluded = sourceSynchSupport.IsParentFavoriteBookTitleIncluded;
                 source.ParentFavoriteBookTitles.MapCollectionTo(target.ParentFavoriteBookTitles, target.Parent);
             }
@@ -2491,7 +2490,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             }
 
             if (sourceSynchSupport.IsParentStudentProgramAssociationsSupported)
-            {    
+            {
                 targetSynchSupport.IsParentStudentProgramAssociationIncluded = sourceSynchSupport.IsParentStudentProgramAssociationIncluded;
                 source.ParentStudentProgramAssociations.MapCollectionTo(target.ParentStudentProgramAssociations, target.Parent);
             }
@@ -2519,7 +2518,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -2549,9 +2548,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         Func<IParentFavoriteBookTitle, bool> IsParentFavoriteBookTitleIncluded { get; set; }
         Func<IParentStudentProgramAssociation, bool> IsParentStudentProgramAssociationIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentFavoriteBookTitleMapper 
+    public static class ParentFavoriteBookTitleMapper
     {
         public static bool SynchronizeTo(this IParentFavoriteBookTitle source, IParentFavoriteBookTitle target)
         {
@@ -2613,16 +2612,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentFavoriteBookTitleSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentStudentProgramAssociationMapper 
+    public static class ParentStudentProgramAssociationMapper
     {
         public static bool SynchronizeTo(this IParentStudentProgramAssociation source, IParentStudentProgramAssociation target)
         {
@@ -2682,7 +2681,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StudentProgramAssociationResourceId = source.StudentProgramAssociationResourceId;
@@ -2715,16 +2714,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IParentStudentProgramAssociationSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class ParentTeacherConferenceMapper 
+    public static class ParentTeacherConferenceMapper
     {
         public static bool SynchronizeTo(this IParentTeacherConference source, IParentTeacherConference target)
         {
@@ -2817,7 +2816,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -2827,14 +2826,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.ParentAggregate
         bool IsEndTimeSupported { get; set; }
         bool IsStartTimeSupported { get; set; }
     }
- 
+
 }
 // Aggregate: School
 
 namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class SchoolCTEProgramMapper 
+    public static class SchoolCTEProgramMapper
     {
         public static bool SynchronizeTo(this ISchoolCTEProgram source, ISchoolCTEProgram target)
         {
@@ -2939,7 +2938,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -2950,9 +2949,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
         bool IsCTEProgramCompletionIndicatorSupported { get; set; }
         bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class SchoolDirectlyOwnedBusMapper 
+    public static class SchoolDirectlyOwnedBusMapper
     {
         public static bool SynchronizeTo(this ISchoolDirectlyOwnedBus source, ISchoolDirectlyOwnedBus target)
         {
@@ -2987,7 +2986,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.DirectlyOwnedBusResourceId = source.DirectlyOwnedBusResourceId;
@@ -3021,16 +3020,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface ISchoolDirectlyOwnedBusSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class SchoolExtensionMapper 
+    public static class SchoolExtensionMapper
     {
         public static bool SynchronizeTo(this ISchoolExtension source, ISchoolExtension target)
         {
@@ -3054,9 +3053,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // SchoolCTEProgram
             if (sourceSupport == null || sourceSupport.IsSchoolCTEProgramSupported)
             {
@@ -3080,24 +3079,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                     isModified |= source.SchoolCTEProgram.Synchronize(target.SchoolCTEProgram);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsSchoolDirectlyOwnedBusesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.SchoolDirectlyOwnedBuses.SynchronizeCollectionTo(
-                        target.SchoolDirectlyOwnedBuses, 
-                        onChildAdded: child => 
+                        target.SchoolDirectlyOwnedBuses,
+                        onChildAdded: child =>
                             {
                                 child.SchoolExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.School);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsSchoolDirectlyOwnedBusIncluded);
             }
 
@@ -3131,9 +3130,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             if (sourceSynchSupport.IsSchoolCTEProgramSupported)
             {
                 var itemProperty = target.GetType().GetProperty("SchoolCTEProgram");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.SchoolCTEProgram == null)
                     {
                         target.SchoolCTEProgram = null;
@@ -3144,7 +3143,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
                         object targetSchoolCTEProgram = Activator.CreateInstance(itemType);
                         (targetSchoolCTEProgram as IChildEntity)?.SetParent(target.School);
                         source.SchoolCTEProgram.Map(targetSchoolCTEProgram);
-                        
+
                         // Update the target reference appropriately
                         target.SchoolCTEProgram = (ISchoolCTEProgram) targetSchoolCTEProgram;
                     }
@@ -3152,14 +3151,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
             }
             else
             {
-                targetSynchSupport.IsSchoolCTEProgramSupported = false; 
+                targetSynchSupport.IsSchoolCTEProgramSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsSchoolDirectlyOwnedBusesSupported)
-            {    
+            {
                 targetSynchSupport.IsSchoolDirectlyOwnedBusIncluded = sourceSynchSupport.IsSchoolDirectlyOwnedBusIncluded;
                 source.SchoolDirectlyOwnedBuses.MapCollectionTo(target.SchoolDirectlyOwnedBuses, target.School);
             }
@@ -3187,7 +3186,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3198,14 +3197,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.SchoolAggregate
         bool IsSchoolDirectlyOwnedBusesSupported { get; set; }
         Func<ISchoolDirectlyOwnedBus, bool> IsSchoolDirectlyOwnedBusIncluded { get; set; }
     }
- 
+
 }
 // Aggregate: Staff
 
 namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StaffExtensionMapper 
+    public static class StaffExtensionMapper
     {
         public static bool SynchronizeTo(this IStaffExtension source, IStaffExtension target)
         {
@@ -3229,9 +3228,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // StaffPetPreference
             if (sourceSupport == null || sourceSupport.IsStaffPetPreferenceSupported)
             {
@@ -3255,24 +3254,24 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                     isModified |= source.StaffPetPreference.Synchronize(target.StaffPetPreference);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStaffPetsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StaffPets.SynchronizeCollectionTo(
-                        target.StaffPets, 
-                        onChildAdded: child => 
+                        target.StaffPets,
+                        onChildAdded: child =>
                             {
                                 child.StaffExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Staff);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStaffPetIncluded);
             }
 
@@ -3306,9 +3305,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             if (sourceSynchSupport.IsStaffPetPreferenceSupported)
             {
                 var itemProperty = target.GetType().GetProperty("StaffPetPreference");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.StaffPetPreference == null)
                     {
                         target.StaffPetPreference = null;
@@ -3319,7 +3318,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
                         object targetStaffPetPreference = Activator.CreateInstance(itemType);
                         (targetStaffPetPreference as IChildEntity)?.SetParent(target.Staff);
                         source.StaffPetPreference.Map(targetStaffPetPreference);
-                        
+
                         // Update the target reference appropriately
                         target.StaffPetPreference = (IStaffPetPreference) targetStaffPetPreference;
                     }
@@ -3327,14 +3326,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
             }
             else
             {
-                targetSynchSupport.IsStaffPetPreferenceSupported = false; 
+                targetSynchSupport.IsStaffPetPreferenceSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsStaffPetsSupported)
-            {    
+            {
                 targetSynchSupport.IsStaffPetIncluded = sourceSynchSupport.IsStaffPetIncluded;
                 source.StaffPets.MapCollectionTo(target.StaffPets, target.Staff);
             }
@@ -3362,7 +3361,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3373,9 +3372,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
         bool IsStaffPetsSupported { get; set; }
         Func<IStaffPet, bool> IsStaffPetIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StaffPetMapper 
+    public static class StaffPetMapper
     {
         public static bool SynchronizeTo(this IStaffPet source, IStaffPet target)
         {
@@ -3449,7 +3448,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3457,9 +3456,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
     {
         bool IsIsFixedSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StaffPetPreferenceMapper 
+    public static class StaffPetPreferenceMapper
     {
         public static bool SynchronizeTo(this IStaffPetPreference source, IStaffPetPreference target)
         {
@@ -3540,7 +3539,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3549,14 +3548,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StaffAggregate
         bool IsMaximumWeightSupported { get; set; }
         bool IsMinimumWeightSupported { get; set; }
     }
- 
+
 }
 // Aggregate: Student
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentAquaticPetMapper 
+    public static class StudentAquaticPetMapper
     {
         public static bool SynchronizeTo(this IStudentAquaticPet source, IStudentAquaticPet target)
         {
@@ -3635,7 +3634,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3643,9 +3642,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     {
         bool IsIsFixedSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentExtensionMapper 
+    public static class StudentExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentExtension source, IStudentExtension target)
         {
@@ -3662,9 +3661,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
 
             // Copy non-PK properties
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // StudentPetPreference
             if (sourceSupport == null || sourceSupport.IsStudentPetPreferenceSupported)
             {
@@ -3688,58 +3687,58 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                     isModified |= source.StudentPetPreference.Synchronize(target.StudentPetPreference);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentAquaticPetsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentAquaticPets.SynchronizeCollectionTo(
-                        target.StudentAquaticPets, 
-                        onChildAdded: child => 
+                        target.StudentAquaticPets,
+                        onChildAdded: child =>
                             {
                                 child.StudentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentAquaticPetIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentFavoriteBooksSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentFavoriteBooks.SynchronizeCollectionTo(
-                        target.StudentFavoriteBooks, 
-                        onChildAdded: child => 
+                        target.StudentFavoriteBooks,
+                        onChildAdded: child =>
                             {
                                 child.StudentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentFavoriteBookIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentPetsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentPets.SynchronizeCollectionTo(
-                        target.StudentPets, 
-                        onChildAdded: child => 
+                        target.StudentPets,
+                        onChildAdded: child =>
                             {
                                 child.StudentExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.Student);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentPetIncluded);
             }
 
@@ -3768,9 +3767,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             if (sourceSynchSupport.IsStudentPetPreferenceSupported)
             {
                 var itemProperty = target.GetType().GetProperty("StudentPetPreference");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.StudentPetPreference == null)
                     {
                         target.StudentPetPreference = null;
@@ -3781,7 +3780,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
                         object targetStudentPetPreference = Activator.CreateInstance(itemType);
                         (targetStudentPetPreference as IChildEntity)?.SetParent(target.Student);
                         source.StudentPetPreference.Map(targetStudentPetPreference);
-                        
+
                         // Update the target reference appropriately
                         target.StudentPetPreference = (IStudentPetPreference) targetStudentPetPreference;
                     }
@@ -3789,14 +3788,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             }
             else
             {
-                targetSynchSupport.IsStudentPetPreferenceSupported = false; 
+                targetSynchSupport.IsStudentPetPreferenceSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsStudentAquaticPetsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentAquaticPetIncluded = sourceSynchSupport.IsStudentAquaticPetIncluded;
                 source.StudentAquaticPets.MapCollectionTo(target.StudentAquaticPets, target.Student);
             }
@@ -3806,7 +3805,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             }
 
             if (sourceSynchSupport.IsStudentFavoriteBooksSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentFavoriteBookIncluded = sourceSynchSupport.IsStudentFavoriteBookIncluded;
                 source.StudentFavoriteBooks.MapCollectionTo(target.StudentFavoriteBooks, target.Student);
             }
@@ -3816,7 +3815,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             }
 
             if (sourceSynchSupport.IsStudentPetsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentPetIncluded = sourceSynchSupport.IsStudentPetIncluded;
                 source.StudentPets.MapCollectionTo(target.StudentPets, target.Student);
             }
@@ -3844,7 +3843,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3858,9 +3857,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         Func<IStudentFavoriteBook, bool> IsStudentFavoriteBookIncluded { get; set; }
         Func<IStudentPet, bool> IsStudentPetIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentFavoriteBookMapper 
+    public static class StudentFavoriteBookMapper
     {
         public static bool SynchronizeTo(this IStudentFavoriteBook source, IStudentFavoriteBook target)
         {
@@ -3887,15 +3886,15 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentFavoriteBookArtMediaSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentFavoriteBookArtMedia.SynchronizeCollectionTo(
-                        target.StudentFavoriteBookArtMedia, 
-                        onChildAdded: child => 
+                        target.StudentFavoriteBookArtMedia,
+                        onChildAdded: child =>
                             {
                                 child.StudentFavoriteBook = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentFavoriteBookArtMediumIncluded);
             }
 
@@ -3930,7 +3929,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
             // Map lists
 
             if (sourceSynchSupport.IsStudentFavoriteBookArtMediaSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentFavoriteBookArtMediumIncluded = sourceSynchSupport.IsStudentFavoriteBookArtMediumIncluded;
                 source.StudentFavoriteBookArtMedia.MapCollectionTo(target.StudentFavoriteBookArtMedia, target);
             }
@@ -3958,7 +3957,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -3968,9 +3967,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         bool IsStudentFavoriteBookArtMediaSupported { get; set; }
         Func<IStudentFavoriteBookArtMedium, bool> IsStudentFavoriteBookArtMediumIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentFavoriteBookArtMediumMapper 
+    public static class StudentFavoriteBookArtMediumMapper
     {
         public static bool SynchronizeTo(this IStudentFavoriteBookArtMedium source, IStudentFavoriteBookArtMedium target)
         {
@@ -4044,7 +4043,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -4052,9 +4051,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     {
         bool IsArtPiecesSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentPetMapper 
+    public static class StudentPetMapper
     {
         public static bool SynchronizeTo(this IStudentPet source, IStudentPet target)
         {
@@ -4128,7 +4127,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -4136,9 +4135,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     {
         bool IsIsFixedSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentPetPreferenceMapper 
+    public static class StudentPetPreferenceMapper
     {
         public static bool SynchronizeTo(this IStudentPetPreference source, IStudentPetPreference target)
         {
@@ -4219,7 +4218,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -4228,14 +4227,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentAggregate
         bool IsMaximumWeightSupported { get; set; }
         bool IsMinimumWeightSupported { get; set; }
     }
- 
+
 }
 // Aggregate: StudentArtProgramAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentArtProgramAssociationMapper 
+    public static class StudentArtProgramAssociationMapper
     {
         public static bool SynchronizeTo(this IStudentArtProgramAssociation source, IStudentArtProgramAssociation target)
         {
@@ -4372,9 +4371,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // GeneralStudentProgramAssociationParticipationStatus
             if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported)
             {
@@ -4398,7 +4397,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                     isModified |= source.GeneralStudentProgramAssociationParticipationStatus.Synchronize(target.GeneralStudentProgramAssociationParticipationStatus);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Synch inherited lists
@@ -4406,57 +4405,57 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationArtMediaSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentArtProgramAssociationArtMedia.SynchronizeCollectionTo(
-                        target.StudentArtProgramAssociationArtMedia, 
-                        onChildAdded: child => 
+                        target.StudentArtProgramAssociationArtMedia,
+                        onChildAdded: child =>
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentArtProgramAssociationArtMediumIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentArtProgramAssociationPortfolioYears.SynchronizeCollectionTo(
-                        target.StudentArtProgramAssociationPortfolioYears, 
-                        onChildAdded: child => 
+                        target.StudentArtProgramAssociationPortfolioYears,
+                        onChildAdded: child =>
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationServicesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentArtProgramAssociationServices.SynchronizeCollectionTo(
-                        target.StudentArtProgramAssociationServices, 
-                        onChildAdded: child => 
+                        target.StudentArtProgramAssociationServices,
+                        onChildAdded: child =>
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentArtProgramAssociationServiceIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationStylesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentArtProgramAssociationStyles.SynchronizeCollectionTo(
-                        target.StudentArtProgramAssociationStyles, 
-                        onChildAdded: child => 
+                        target.StudentArtProgramAssociationStyles,
+                        onChildAdded: child =>
                             {
                                 child.StudentArtProgramAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentArtProgramAssociationStyleIncluded);
             }
 
@@ -4557,7 +4556,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                 targetSynchSupport.IsProgramFeesSupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.EducationOrganizationResourceId = source.EducationOrganizationResourceId;
@@ -4577,9 +4576,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             if (sourceSynchSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported)
             {
                 var itemProperty = target.GetType().GetProperty("GeneralStudentProgramAssociationParticipationStatus");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.GeneralStudentProgramAssociationParticipationStatus == null)
                     {
                         target.GeneralStudentProgramAssociationParticipationStatus = null;
@@ -4590,7 +4589,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
                         object targetGeneralStudentProgramAssociationParticipationStatus = Activator.CreateInstance(itemType);
                         (targetGeneralStudentProgramAssociationParticipationStatus as IChildEntity)?.SetParent(target);
                         source.GeneralStudentProgramAssociationParticipationStatus.Map(targetGeneralStudentProgramAssociationParticipationStatus);
-                        
+
                         // Update the target reference appropriately
                         target.GeneralStudentProgramAssociationParticipationStatus = (IGeneralStudentProgramAssociationParticipationStatus) targetGeneralStudentProgramAssociationParticipationStatus;
                     }
@@ -4598,7 +4597,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
             else
             {
-                targetSynchSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported = false; 
+                targetSynchSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported = false;
             }
             // -------------------------------------------------------------
 
@@ -4607,7 +4606,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // Map lists
 
             if (sourceSynchSupport.IsStudentArtProgramAssociationArtMediaSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentArtProgramAssociationArtMediumIncluded = sourceSynchSupport.IsStudentArtProgramAssociationArtMediumIncluded;
                 source.StudentArtProgramAssociationArtMedia.MapCollectionTo(target.StudentArtProgramAssociationArtMedia, target);
             }
@@ -4617,7 +4616,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
 
             if (sourceSynchSupport.IsStudentArtProgramAssociationPortfolioYearsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded = sourceSynchSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded;
                 source.StudentArtProgramAssociationPortfolioYears.MapCollectionTo(target.StudentArtProgramAssociationPortfolioYears, target);
             }
@@ -4627,7 +4626,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
 
             if (sourceSynchSupport.IsStudentArtProgramAssociationServicesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentArtProgramAssociationServiceIncluded = sourceSynchSupport.IsStudentArtProgramAssociationServiceIncluded;
                 source.StudentArtProgramAssociationServices.MapCollectionTo(target.StudentArtProgramAssociationServices, target);
             }
@@ -4637,7 +4636,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             }
 
             if (sourceSynchSupport.IsStudentArtProgramAssociationStylesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentArtProgramAssociationStyleIncluded = sourceSynchSupport.IsStudentArtProgramAssociationStyleIncluded;
                 source.StudentArtProgramAssociationStyles.MapCollectionTo(target.StudentArtProgramAssociationStyles, target);
             }
@@ -4665,7 +4664,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -4695,9 +4694,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         Func<IStudentArtProgramAssociationService, bool> IsStudentArtProgramAssociationServiceIncluded { get; set; }
         Func<IStudentArtProgramAssociationStyle, bool> IsStudentArtProgramAssociationStyleIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentArtProgramAssociationArtMediumMapper 
+    public static class StudentArtProgramAssociationArtMediumMapper
     {
         public static bool SynchronizeTo(this IStudentArtProgramAssociationArtMedium source, IStudentArtProgramAssociationArtMedium target)
         {
@@ -4759,16 +4758,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentArtProgramAssociationPortfolioYearsMapper 
+    public static class StudentArtProgramAssociationPortfolioYearsMapper
     {
         public static bool SynchronizeTo(this IStudentArtProgramAssociationPortfolioYears source, IStudentArtProgramAssociationPortfolioYears target)
         {
@@ -4830,16 +4829,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentArtProgramAssociationServiceMapper 
+    public static class StudentArtProgramAssociationServiceMapper
     {
         public static bool SynchronizeTo(this IStudentArtProgramAssociationService source, IStudentArtProgramAssociationService target)
         {
@@ -4937,7 +4936,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -4947,9 +4946,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         bool IsServiceBeginDateSupported { get; set; }
         bool IsServiceEndDateSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentArtProgramAssociationStyleMapper 
+    public static class StudentArtProgramAssociationStyleMapper
     {
         public static bool SynchronizeTo(this IStudentArtProgramAssociationStyle source, IStudentArtProgramAssociationStyle target)
         {
@@ -5011,21 +5010,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentArtProgramAssociationStyleSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: StudentCTEProgramAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentCTEProgramAssociationExtensionMapper 
+    public static class StudentCTEProgramAssociationExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentCTEProgramAssociationExtension source, IStudentCTEProgramAssociationExtension target)
         {
@@ -5111,7 +5110,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -5120,14 +5119,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentCTEProgramAssociationAggrega
         bool IsAnalysisCompletedSupported { get; set; }
         bool IsAnalysisDateSupported { get; set; }
     }
- 
+
 }
 // Aggregate: StudentEducationOrganizationAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentEducationOrganizationAssociationAddressExtensionMapper 
+    public static class StudentEducationOrganizationAssociationAddressExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressExtension source, IStudentEducationOrganizationAssociationAddressExtension target)
         {
@@ -5162,35 +5161,35 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentEducationOrganizationAssociationAddressSchoolDistricts.SynchronizeCollectionTo(
-                        target.StudentEducationOrganizationAssociationAddressSchoolDistricts, 
-                        onChildAdded: child => 
+                        target.StudentEducationOrganizationAssociationAddressSchoolDistricts,
+                        onChildAdded: child =>
                             {
                                 child.StudentEducationOrganizationAssociationAddressExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentEducationOrganizationAssociationAddressTerms.SynchronizeCollectionTo(
-                        target.StudentEducationOrganizationAssociationAddressTerms, 
-                        onChildAdded: child => 
+                        target.StudentEducationOrganizationAssociationAddressTerms,
+                        onChildAdded: child =>
                             {
                                 child.StudentEducationOrganizationAssociationAddressExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationAddress);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded);
             }
 
@@ -5229,7 +5228,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             // Map lists
 
             if (sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded;
                 source.StudentEducationOrganizationAssociationAddressSchoolDistricts.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressSchoolDistricts, target.StudentEducationOrganizationAssociationAddress);
             }
@@ -5239,7 +5238,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             }
 
             if (sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressTermsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded;
                 source.StudentEducationOrganizationAssociationAddressTerms.MapCollectionTo(target.StudentEducationOrganizationAssociationAddressTerms, target.StudentEducationOrganizationAssociationAddress);
             }
@@ -5267,7 +5266,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -5280,9 +5279,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         Func<IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded { get; set; }
         Func<IStudentEducationOrganizationAssociationAddressTerm, bool> IsStudentEducationOrganizationAssociationAddressTermIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentEducationOrganizationAssociationAddressSchoolDistrictMapper 
+    public static class StudentEducationOrganizationAssociationAddressSchoolDistrictMapper
     {
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressSchoolDistrict source, IStudentEducationOrganizationAssociationAddressSchoolDistrict target)
         {
@@ -5344,16 +5343,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentEducationOrganizationAssociationAddressTermMapper 
+    public static class StudentEducationOrganizationAssociationAddressTermMapper
     {
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationAddressTerm source, IStudentEducationOrganizationAssociationAddressTerm target)
         {
@@ -5415,16 +5414,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentEducationOrganizationAssociationStudentCharacteristicExtensionMapper 
+    public static class StudentEducationOrganizationAssociationStudentCharacteristicExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationStudentCharacteristicExtension source, IStudentEducationOrganizationAssociationStudentCharacteristicExtension target)
         {
@@ -5445,18 +5444,18 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.SynchronizeCollectionTo(
-                        target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, 
-                        onChildAdded: child => 
+                        target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds,
+                        onChildAdded: child =>
                             {
                                 child.StudentEducationOrganizationAssociationStudentCharacteristicExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentEducationOrganizationAssociationStudentCharacteristic);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded);
             }
 
@@ -5485,7 +5484,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
             // Map lists
 
             if (sourceSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded = sourceSynchSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded;
                 source.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds.MapCollectionTo(target.StudentEducationOrganizationAssociationStudentCharacteristicStudentNeeds, target.StudentEducationOrganizationAssociationStudentCharacteristic);
             }
@@ -5513,7 +5512,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -5522,9 +5521,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         bool IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedsSupported { get; set; }
         Func<IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMapper 
+    public static class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeedMapper
     {
         public static bool SynchronizeTo(this IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed source, IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed target)
         {
@@ -5610,7 +5609,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -5619,14 +5618,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentEducationOrganizationAssocia
         bool IsEndDateSupported { get; set; }
         bool IsPrimaryStudentNeedIndicatorSupported { get; set; }
     }
- 
+
 }
 // Aggregate: StudentGraduationPlanAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationMapper 
+    public static class StudentGraduationPlanAssociationMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociation source, IStudentGraduationPlanAssociation target)
         {
@@ -5717,9 +5716,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // StudentGraduationPlanAssociationCTEProgram
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationCTEProgramSupported)
             {
@@ -5743,105 +5742,105 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                     isModified |= source.StudentGraduationPlanAssociationCTEProgram.Synchronize(target.StudentGraduationPlanAssociationCTEProgram);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationAcademicSubjects.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationAcademicSubjects, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationAcademicSubjects,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationCareerPathwayCodes.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationCareerPathwayCodes, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationCareerPathwayCodes,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationDescriptionsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationDescriptions.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationDescriptions, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationDescriptions,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationDescriptionIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationDesignatedBies.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationDesignatedBies, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationDesignatedBies,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationIndustryCredentials.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationIndustryCredentials, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationIndustryCredentials,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationStudentParentAssociations.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationStudentParentAssociations, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationStudentParentAssociations,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentGraduationPlanAssociationYearsAttendeds.SynchronizeCollectionTo(
-                        target.StudentGraduationPlanAssociationYearsAttendeds, 
-                        onChildAdded: child => 
+                        target.StudentGraduationPlanAssociationYearsAttendeds,
+                        onChildAdded: child =>
                             {
                                 child.StudentGraduationPlanAssociation = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded);
             }
 
@@ -5913,7 +5912,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                 targetSynchSupport.IsTargetGPASupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.GraduationPlanResourceId = source.GraduationPlanResourceId;
@@ -5933,9 +5932,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationCTEProgramSupported)
             {
                 var itemProperty = target.GetType().GetProperty("StudentGraduationPlanAssociationCTEProgram");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.StudentGraduationPlanAssociationCTEProgram == null)
                     {
                         target.StudentGraduationPlanAssociationCTEProgram = null;
@@ -5946,7 +5945,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
                         object targetStudentGraduationPlanAssociationCTEProgram = Activator.CreateInstance(itemType);
                         (targetStudentGraduationPlanAssociationCTEProgram as IChildEntity)?.SetParent(target);
                         source.StudentGraduationPlanAssociationCTEProgram.Map(targetStudentGraduationPlanAssociationCTEProgram);
-                        
+
                         // Update the target reference appropriately
                         target.StudentGraduationPlanAssociationCTEProgram = (IStudentGraduationPlanAssociationCTEProgram) targetStudentGraduationPlanAssociationCTEProgram;
                     }
@@ -5954,14 +5953,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
             else
             {
-                targetSynchSupport.IsStudentGraduationPlanAssociationCTEProgramSupported = false; 
+                targetSynchSupport.IsStudentGraduationPlanAssociationCTEProgramSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded;
                 source.StudentGraduationPlanAssociationAcademicSubjects.MapCollectionTo(target.StudentGraduationPlanAssociationAcademicSubjects, target);
             }
@@ -5971,7 +5970,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded;
                 source.StudentGraduationPlanAssociationCareerPathwayCodes.MapCollectionTo(target.StudentGraduationPlanAssociationCareerPathwayCodes, target);
             }
@@ -5981,7 +5980,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationDescriptionsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationDescriptionIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationDescriptionIncluded;
                 source.StudentGraduationPlanAssociationDescriptions.MapCollectionTo(target.StudentGraduationPlanAssociationDescriptions, target);
             }
@@ -5991,7 +5990,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationDesignatedBiesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded;
                 source.StudentGraduationPlanAssociationDesignatedBies.MapCollectionTo(target.StudentGraduationPlanAssociationDesignatedBies, target);
             }
@@ -6001,7 +6000,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded;
                 source.StudentGraduationPlanAssociationIndustryCredentials.MapCollectionTo(target.StudentGraduationPlanAssociationIndustryCredentials, target);
             }
@@ -6011,7 +6010,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded;
                 source.StudentGraduationPlanAssociationStudentParentAssociations.MapCollectionTo(target.StudentGraduationPlanAssociationStudentParentAssociations, target);
             }
@@ -6021,7 +6020,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             }
 
             if (sourceSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded = sourceSynchSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded;
                 source.StudentGraduationPlanAssociationYearsAttendeds.MapCollectionTo(target.StudentGraduationPlanAssociationYearsAttendeds, target);
             }
@@ -6049,7 +6048,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -6080,9 +6079,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         Func<IStudentGraduationPlanAssociationStudentParentAssociation, bool> IsStudentGraduationPlanAssociationStudentParentAssociationIncluded { get; set; }
         Func<IStudentGraduationPlanAssociationYearsAttended, bool> IsStudentGraduationPlanAssociationYearsAttendedIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationAcademicSubjectMapper 
+    public static class StudentGraduationPlanAssociationAcademicSubjectMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationAcademicSubject source, IStudentGraduationPlanAssociationAcademicSubject target)
         {
@@ -6144,16 +6143,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationCareerPathwayCodeMapper 
+    public static class StudentGraduationPlanAssociationCareerPathwayCodeMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCareerPathwayCode source, IStudentGraduationPlanAssociationCareerPathwayCode target)
         {
@@ -6215,16 +6214,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationCTEProgramMapper 
+    public static class StudentGraduationPlanAssociationCTEProgramMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationCTEProgram source, IStudentGraduationPlanAssociationCTEProgram target)
         {
@@ -6329,7 +6328,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -6340,9 +6339,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
         bool IsCTEProgramCompletionIndicatorSupported { get; set; }
         bool IsPrimaryCTEProgramIndicatorSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationDescriptionMapper 
+    public static class StudentGraduationPlanAssociationDescriptionMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationDescription source, IStudentGraduationPlanAssociationDescription target)
         {
@@ -6404,16 +6403,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationDesignatedByMapper 
+    public static class StudentGraduationPlanAssociationDesignatedByMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationDesignatedBy source, IStudentGraduationPlanAssociationDesignatedBy target)
         {
@@ -6475,16 +6474,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationIndustryCredentialMapper 
+    public static class StudentGraduationPlanAssociationIndustryCredentialMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationIndustryCredential source, IStudentGraduationPlanAssociationIndustryCredential target)
         {
@@ -6546,16 +6545,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationStudentParentAssociationMapper 
+    public static class StudentGraduationPlanAssociationStudentParentAssociationMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationStudentParentAssociation source, IStudentGraduationPlanAssociationStudentParentAssociation target)
         {
@@ -6590,7 +6589,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StudentParentAssociationResourceId = source.StudentParentAssociationResourceId;
@@ -6624,16 +6623,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentGraduationPlanAssociationYearsAttendedMapper 
+    public static class StudentGraduationPlanAssociationYearsAttendedMapper
     {
         public static bool SynchronizeTo(this IStudentGraduationPlanAssociationYearsAttended source, IStudentGraduationPlanAssociationYearsAttended target)
         {
@@ -6695,21 +6694,21 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentGraduationPlanAssociationAgg
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport 
     {
     }
- 
+
 }
 // Aggregate: StudentParentAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationDisciplineMapper 
+    public static class StudentParentAssociationDisciplineMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationDiscipline source, IStudentParentAssociationDiscipline target)
         {
@@ -6771,16 +6770,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentParentAssociationDisciplineSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationExtensionMapper 
+    public static class StudentParentAssociationExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationExtension source, IStudentParentAssociationExtension target)
         {
@@ -6888,9 +6887,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 isModified = true;
             }
 
-            // ----------------------------------            
+            // ----------------------------------
             //   Synch One-to-one relationships
-            // ----------------------------------            
+            // ----------------------------------
             // StudentParentAssociationTelephone
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationTelephoneSupported)
             {
@@ -6914,92 +6913,92 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                     isModified |= source.StudentParentAssociationTelephone.Synchronize(target.StudentParentAssociationTelephone);
                 }
             }
-            
+
             // -------------------------------------------------------------
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationDisciplinesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentParentAssociationDisciplines.SynchronizeCollectionTo(
-                        target.StudentParentAssociationDisciplines, 
-                        onChildAdded: child => 
+                        target.StudentParentAssociationDisciplines,
+                        onChildAdded: child =>
                             {
                                 child.StudentParentAssociationExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentParentAssociationDisciplineIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationFavoriteBookTitlesSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentParentAssociationFavoriteBookTitles.SynchronizeCollectionTo(
-                        target.StudentParentAssociationFavoriteBookTitles, 
-                        onChildAdded: child => 
+                        target.StudentParentAssociationFavoriteBookTitles,
+                        onChildAdded: child =>
                             {
                                 child.StudentParentAssociationExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentParentAssociationFavoriteBookTitleIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationHoursPerWeeksSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentParentAssociationHoursPerWeeks.SynchronizeCollectionTo(
-                        target.StudentParentAssociationHoursPerWeeks, 
-                        onChildAdded: child => 
+                        target.StudentParentAssociationHoursPerWeeks,
+                        onChildAdded: child =>
                             {
                                 child.StudentParentAssociationExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentParentAssociationHoursPerWeekIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationPagesReadsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentParentAssociationPagesReads.SynchronizeCollectionTo(
-                        target.StudentParentAssociationPagesReads, 
-                        onChildAdded: child => 
+                        target.StudentParentAssociationPagesReads,
+                        onChildAdded: child =>
                             {
                                 child.StudentParentAssociationExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentParentAssociationPagesReadIncluded);
             }
 
             if (sourceSupport == null || sourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.SynchronizeCollectionTo(
-                        target.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, 
-                        onChildAdded: child => 
+                        target.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations,
+                        onChildAdded: child =>
                             {
                                 child.StudentParentAssociationExtension = target;
 
                                 // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
                                 (child as IChildEntity)?.SetParent(target.StudentParentAssociation);
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded);
             }
 
@@ -7084,7 +7083,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                 targetSynchSupport.IsStudentReadSupported = false;
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.InterventionStudyResourceId = source.InterventionStudyResourceId;
@@ -7100,9 +7099,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             if (sourceSynchSupport.IsStudentParentAssociationTelephoneSupported)
             {
                 var itemProperty = target.GetType().GetProperty("StudentParentAssociationTelephone");
-                
+
                 if (itemProperty != null)
-                {                    
+                {
                     if (source.StudentParentAssociationTelephone == null)
                     {
                         target.StudentParentAssociationTelephone = null;
@@ -7113,7 +7112,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
                         object targetStudentParentAssociationTelephone = Activator.CreateInstance(itemType);
                         (targetStudentParentAssociationTelephone as IChildEntity)?.SetParent(target.StudentParentAssociation);
                         source.StudentParentAssociationTelephone.Map(targetStudentParentAssociationTelephone);
-                        
+
                         // Update the target reference appropriately
                         target.StudentParentAssociationTelephone = (IStudentParentAssociationTelephone) targetStudentParentAssociationTelephone;
                     }
@@ -7121,14 +7120,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
             else
             {
-                targetSynchSupport.IsStudentParentAssociationTelephoneSupported = false; 
+                targetSynchSupport.IsStudentParentAssociationTelephoneSupported = false;
             }
             // -------------------------------------------------------------
 
             // Map lists
 
             if (sourceSynchSupport.IsStudentParentAssociationDisciplinesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentParentAssociationDisciplineIncluded = sourceSynchSupport.IsStudentParentAssociationDisciplineIncluded;
                 source.StudentParentAssociationDisciplines.MapCollectionTo(target.StudentParentAssociationDisciplines, target.StudentParentAssociation);
             }
@@ -7138,7 +7137,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
 
             if (sourceSynchSupport.IsStudentParentAssociationFavoriteBookTitlesSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentParentAssociationFavoriteBookTitleIncluded = sourceSynchSupport.IsStudentParentAssociationFavoriteBookTitleIncluded;
                 source.StudentParentAssociationFavoriteBookTitles.MapCollectionTo(target.StudentParentAssociationFavoriteBookTitles, target.StudentParentAssociation);
             }
@@ -7148,7 +7147,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
 
             if (sourceSynchSupport.IsStudentParentAssociationHoursPerWeeksSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentParentAssociationHoursPerWeekIncluded = sourceSynchSupport.IsStudentParentAssociationHoursPerWeekIncluded;
                 source.StudentParentAssociationHoursPerWeeks.MapCollectionTo(target.StudentParentAssociationHoursPerWeeks, target.StudentParentAssociation);
             }
@@ -7158,7 +7157,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
 
             if (sourceSynchSupport.IsStudentParentAssociationPagesReadsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentParentAssociationPagesReadIncluded = sourceSynchSupport.IsStudentParentAssociationPagesReadIncluded;
                 source.StudentParentAssociationPagesReads.MapCollectionTo(target.StudentParentAssociationPagesReads, target.StudentParentAssociation);
             }
@@ -7168,7 +7167,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             }
 
             if (sourceSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationsSupported)
-            {    
+            {
                 targetSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded = sourceSynchSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded;
                 source.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations.MapCollectionTo(target.StudentParentAssociationStaffEducationOrganizationEmploymentAssociations, target.StudentParentAssociation);
             }
@@ -7196,7 +7195,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -7227,9 +7226,9 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         Func<IStudentParentAssociationPagesRead, bool> IsStudentParentAssociationPagesReadIncluded { get; set; }
         Func<IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationFavoriteBookTitleMapper 
+    public static class StudentParentAssociationFavoriteBookTitleMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationFavoriteBookTitle source, IStudentParentAssociationFavoriteBookTitle target)
         {
@@ -7291,16 +7290,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationHoursPerWeekMapper 
+    public static class StudentParentAssociationHoursPerWeekMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationHoursPerWeek source, IStudentParentAssociationHoursPerWeek target)
         {
@@ -7362,16 +7361,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationPagesReadMapper 
+    public static class StudentParentAssociationPagesReadMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationPagesRead source, IStudentParentAssociationPagesRead target)
         {
@@ -7433,16 +7432,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentParentAssociationPagesReadSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMapper 
+    public static class StudentParentAssociationStaffEducationOrganizationEmploymentAssociationMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation source, IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation target)
         {
@@ -7492,7 +7491,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
             // Copy non-PK properties
 
             // Copy Aggregate Reference Data
-            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null 
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
                 target.StaffEducationOrganizationEmploymentAssociationResourceId = source.StaffEducationOrganizationEmploymentAssociationResourceId;
@@ -7526,16 +7525,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
     public interface IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport 
     {
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class StudentParentAssociationTelephoneMapper 
+    public static class StudentParentAssociationTelephoneMapper
     {
         public static bool SynchronizeTo(this IStudentParentAssociationTelephone source, IStudentParentAssociationTelephone target)
         {
@@ -7652,7 +7651,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -7664,14 +7663,14 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentParentAssociationAggregate
         bool IsTelephoneNumberTypeDescriptorSupported { get; set; }
         bool IsTextMessageCapabilityIndicatorSupported { get; set; }
     }
- 
+
 }
 // Aggregate: StudentSchoolAssociation
 
 namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class StudentSchoolAssociationExtensionMapper 
+    public static class StudentSchoolAssociationExtensionMapper
     {
         public static bool SynchronizeTo(this IStudentSchoolAssociationExtension source, IStudentSchoolAssociationExtension target)
         {
@@ -7745,7 +7744,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -7753,5 +7752,5 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
     {
         bool IsMembershipTypeDescriptorSupported { get; set; }
     }
- 
+
 }

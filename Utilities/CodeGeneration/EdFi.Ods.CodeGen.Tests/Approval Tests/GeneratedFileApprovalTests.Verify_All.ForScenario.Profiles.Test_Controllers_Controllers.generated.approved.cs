@@ -1,43 +1,42 @@
-using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Models.Requests;
+using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Pipelines.Factories;
-using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.Services.Queries;
-using EdFi.Ods.Api.Services.Requests;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
+namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
 {
-    [ProfileContentType("application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.writable+json")]
+    [ContentType("application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AcademicWeeksNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AcademicWeeksController : EdFiControllerBase<
-        Models.Resources.AcademicWeek.EdFi.Academic_Week_Readable_Excludes_Optional_References_Readable.AcademicWeek,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/academicWeeks")]
+    public partial class AcademicWeeksController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AcademicWeek.EdFi.Academic_Week_Readable_Excludes_Optional_References_Readable.AcademicWeek,
         AcademicWeeksNullWriteRequest,
         Entities.Common.EdFi.IAcademicWeek,
         Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek,
         AcademicWeeksNullWriteRequest,
         AcademicWeeksNullWriteRequest,
-        Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekDelete,
-        Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample>
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekDelete,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample>
     {
         public AcademicWeeksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample request, IAcademicWeek specification)
+        protected override void MapAll(Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References.AcademicWeekGetByExample request, IAcademicWeek specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -59,36 +58,42 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Rea
             return "application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(AcademicWeeksNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(AcademicWeeksNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
+namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
 {
-    [ProfileContentType("application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json")]
+    [ContentType("application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json")]
     [ExcludeFromCodeCoverage]
     public class AcademicWeeksNullReadRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AcademicWeeksController : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/academicWeeks")]
+    public partial class AcademicWeeksController : DataManagementControllerBase<
         AcademicWeeksNullReadRequest,
-        Models.Resources.AcademicWeek.EdFi.Academic_Week_Writable_Excludes_Optional_References_Writable.AcademicWeek,
+        Api.Common.Models.Resources.AcademicWeek.EdFi.Academic_Week_Writable_Excludes_Optional_References_Writable.AcademicWeek,
         Entities.Common.EdFi.IAcademicWeek,
         Entities.NHibernate.AcademicWeekAggregate.EdFi.AcademicWeek,
-        Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekPut,
-        Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekPost,
-        Api.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekDelete,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekPut,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekPost,
+        Api.Common.Models.Requests.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References.AcademicWeekDelete,
         AcademicWeeksNullReadRequest>
     {
         public AcademicWeeksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
@@ -111,44 +116,50 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Wri
             return "application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Get(Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AcademicWeeksNullReadRequest specification = null)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
+namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
 {
-    [ProfileContentType("application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.writable+json")]
+    [ContentType("application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AssessmentsController : EdFiControllerBase<
-        Models.Resources.Assessment.EdFi.Assessment_Readable_Excludes_Embedded_Object_Readable.Assessment,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/assessments")]
+    public partial class AssessmentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Assessment.EdFi.Assessment_Readable_Excludes_Embedded_Object_Readable.Assessment,
         AssessmentsNullWriteRequest,
         Entities.Common.EdFi.IAssessment,
         Entities.NHibernate.AssessmentAggregate.EdFi.Assessment,
         AssessmentsNullWriteRequest,
         AssessmentsNullWriteRequest,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentDelete,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentGetByExample>
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentDelete,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentGetByExample>
     {
         public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentGetByExample request, IAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object.AssessmentGetByExample request, IAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -177,44 +188,50 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             return "application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(AssessmentsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(AssessmentsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
+namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
 {
-    [ProfileContentType("application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.writable+json")]
+    [ContentType("application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.writable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AssessmentsController : EdFiControllerBase<
-        Models.Resources.Assessment.EdFi.Assessment_Readable_Includes_Embedded_Object_Readable.Assessment,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/assessments")]
+    public partial class AssessmentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Assessment.EdFi.Assessment_Readable_Includes_Embedded_Object_Readable.Assessment,
         AssessmentsNullWriteRequest,
         Entities.Common.EdFi.IAssessment,
         Entities.NHibernate.AssessmentAggregate.EdFi.Assessment,
         AssessmentsNullWriteRequest,
         AssessmentsNullWriteRequest,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentDelete,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentGetByExample>
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentDelete,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentGetByExample>
     {
         public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentGetByExample request, IAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object.AssessmentGetByExample request, IAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -243,36 +260,42 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             return "application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(AssessmentsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(AssessmentsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
+namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
 {
-    [ProfileContentType("application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json")]
+    [ContentType("application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentsNullReadRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AssessmentsController : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/assessments")]
+    public partial class AssessmentsController : DataManagementControllerBase<
         AssessmentsNullReadRequest,
-        Models.Resources.Assessment.EdFi.Assessment_Writable_Excludes_Embedded_Object_Writable.Assessment,
+        Api.Common.Models.Resources.Assessment.EdFi.Assessment_Writable_Excludes_Embedded_Object_Writable.Assessment,
         Entities.Common.EdFi.IAssessment,
         Entities.NHibernate.AssessmentAggregate.EdFi.Assessment,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentPut,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentPost,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentDelete,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentPut,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentPost,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object.AssessmentDelete,
         AssessmentsNullReadRequest>
     {
         public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
@@ -295,36 +318,42 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
             return "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Get(Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
+namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
 {
-    [ProfileContentType("application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.readable+json")]
+    [ContentType("application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.readable+json")]
     [ExcludeFromCodeCoverage]
     public class AssessmentsNullReadRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class AssessmentsController : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/assessments")]
+    public partial class AssessmentsController : DataManagementControllerBase<
         AssessmentsNullReadRequest,
-        Models.Resources.Assessment.EdFi.Assessment_Writable_Includes_Embedded_Object_Writable.Assessment,
+        Api.Common.Models.Resources.Assessment.EdFi.Assessment_Writable_Includes_Embedded_Object_Writable.Assessment,
         Entities.Common.EdFi.IAssessment,
         Entities.NHibernate.AssessmentAggregate.EdFi.Assessment,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentPut,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentPost,
-        Api.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentDelete,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentPut,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentPost,
+        Api.Common.Models.Requests.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object.AssessmentDelete,
         AssessmentsNullReadRequest>
     {
         public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
@@ -347,44 +376,50 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
             return "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Get(Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
 {
-    [ProfileContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.writable+json")]
+    [ContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSchoolAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly_Readable.StudentSchoolAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSchoolAssociations")]
+    public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly_Readable.StudentSchoolAssociation,
         StudentSchoolAssociationsNullWriteRequest,
         Entities.Common.EdFi.IStudentSchoolAssociation,
         Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
         StudentSchoolAssociationsNullWriteRequest,
         StudentSchoolAssociationsNullWriteRequest,
-        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationDelete,
-        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationDelete,
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample>
     {
         public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -422,44 +457,50 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
 {
-    [ProfileContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.writable+json")]
+    [ContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSchoolAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_IncludeOnly_Readable.StudentSchoolAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSchoolAssociations")]
+    public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.MinimalStudentSchoolAssociation_IncludeOnly_Readable.StudentSchoolAssociation,
         StudentSchoolAssociationsNullWriteRequest,
         Entities.Common.EdFi.IStudentSchoolAssociation,
         Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation,
         StudentSchoolAssociationsNullWriteRequest,
         StudentSchoolAssociationsNullWriteRequest,
-        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationDelete,
-        Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationDelete,
+        Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample>
     {
         public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -497,44 +538,50 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restricted
+namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Readable_Restricted
 {
-    [ProfileContentType("application/vnd.ed-fi.student.student-readable-restricted.writable+json")]
+    [ContentType("application/vnd.ed-fi.student.student-readable-restricted.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentsController : EdFiControllerBase<
-        Models.Resources.Student.EdFi.Student_Readable_Restricted_Readable.Student,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Student_Readable_Restricted_Readable.Student,
         StudentsNullWriteRequest,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
         StudentsNullWriteRequest,
         StudentsNullWriteRequest,
-        Api.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentDelete,
-        Api.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentGetByExample>
+        Api.Common.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentGetByExample>
     {
         public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Readable_Restricted.StudentGetByExample request, IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -569,40 +616,46 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restr
             return "application/vnd.ed-fi.student.student-readable-restricted.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StudentsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StudentsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSpecialEducationProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly_Readable.StudentSpecialEducationProgramAssociation,
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSpecialEducationProgramAssociations")]
+    public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly_Readable.StudentSpecialEducationProgramAssociation,
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationPut,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationPost,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationDelete,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationPut,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationPost,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationDelete,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
     {
         public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -636,26 +689,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSpecialEducationProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll_Readable.StudentSpecialEducationProgramAssociation,
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll_Writable.StudentSpecialEducationProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSpecialEducationProgramAssociations")]
+    public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll_Readable.StudentSpecialEducationProgramAssociation,
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll_Writable.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationPut,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationPost,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationDelete,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationPut,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationPost,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationDelete,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample>
     {
         public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -689,26 +746,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSpecialEducationProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly_Readable.StudentSpecialEducationProgramAssociation,
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly_Writable.StudentSpecialEducationProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSpecialEducationProgramAssociations")]
+    public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly_Readable.StudentSpecialEducationProgramAssociation,
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly_Writable.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationPut,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationPost,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationDelete,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationPut,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationPost,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationDelete,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
     {
         public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -742,26 +803,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSpecialEducationProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Readable.StudentSpecialEducationProgramAssociation,
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSpecialEducationProgramAssociations")]
+    public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Readable.StudentSpecialEducationProgramAssociation,
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly_Writable.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationPut,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationPost,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationDelete,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationPut,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationPost,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationDelete,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample>
     {
         public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -795,26 +860,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentSpecialEducationProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Readable.StudentSpecialEducationProgramAssociation,
-        Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Writable.StudentSpecialEducationProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentSpecialEducationProgramAssociations")]
+    public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Readable.StudentSpecialEducationProgramAssociation,
+        Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll_Writable.StudentSpecialEducationProgramAssociation,
         Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation,
         Entities.NHibernate.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociation,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationPut,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationPost,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationDelete,
-        Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample>
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationPut,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationPost,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationDelete,
+        Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample>
     {
         public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -848,26 +917,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class LocalEducationAgenciesController : EdFiControllerBase<
-        Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Readable.LocalEducationAgency,
-        Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.LocalEducationAgency,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/localEducationAgencies")]
+    public partial class LocalEducationAgenciesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Readable.LocalEducationAgency,
+        Api.Common.Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.LocalEducationAgency,
         Entities.Common.EdFi.ILocalEducationAgency,
         Entities.NHibernate.LocalEducationAgencyAggregate.EdFi.LocalEducationAgency,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyPut,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyPost,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyDelete,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyGetByExample>
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyPut,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyPost,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyDelete,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyGetByExample>
     {
         public LocalEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
+        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -891,26 +964,30 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -938,26 +1015,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class LocalEducationAgenciesController : EdFiControllerBase<
-        Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Readable.LocalEducationAgency,
-        Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.LocalEducationAgency,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/localEducationAgencies")]
+    public partial class LocalEducationAgenciesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Readable.LocalEducationAgency,
+        Api.Common.Models.Resources.LocalEducationAgency.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.LocalEducationAgency,
         Entities.Common.EdFi.ILocalEducationAgency,
         Entities.NHibernate.LocalEducationAgencyAggregate.EdFi.LocalEducationAgency,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyPut,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyPost,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyDelete,
-        Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyGetByExample>
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyPut,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyPost,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyDelete,
+        Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyGetByExample>
     {
         public LocalEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
+        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -981,26 +1062,30 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1028,30 +1113,34 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
-    [ProfileContentType("application/vnd.ed-fi.staff.test-profile-for-composites-with-multiple-resources.writable+json")]
+    [ContentType("application/vnd.ed-fi.staff.test-profile-for-composites-with-multiple-resources.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Test_Profile_For_Composites_With_Multiple_Resources_Readable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Test_Profile_For_Composites_With_Multiple_Resources_Readable.Staff,
         StaffsNullWriteRequest,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
         StaffsNullWriteRequest,
         StaffsNullWriteRequest,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1087,44 +1176,50 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composi
             return "application/vnd.ed-fi.staff.test-profile-for-composites-with-multiple-resources.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StaffsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StaffsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
-    [ProfileContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.writable+json")]
+    [ContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentEducationOrganizationAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentEducationOrganizationAssociation.EdFi.Test_Profile_For_Composites_With_Multiple_Resources_Readable.StudentEducationOrganizationAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentEducationOrganizationAssociations")]
+    public partial class StudentEducationOrganizationAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.Test_Profile_For_Composites_With_Multiple_Resources_Readable.StudentEducationOrganizationAssociation,
         StudentEducationOrganizationAssociationsNullWriteRequest,
         Entities.Common.EdFi.IStudentEducationOrganizationAssociation,
         Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociation,
         StudentEducationOrganizationAssociationsNullWriteRequest,
         StudentEducationOrganizationAssociationsNullWriteRequest,
-        Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationDelete,
-        Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationGetByExample>
+        Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationDelete,
+        Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationGetByExample>
     {
         public StudentEducationOrganizationAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1149,40 +1244,46 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1210,30 +1311,34 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
 {
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly-2.writable+json")]
+    [ContentType("application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly-2.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2_Readable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2_Readable.School,
         SchoolsNullWriteRequest,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
         SchoolsNullWriteRequest,
         SchoolsNullWriteRequest,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1259,40 +1364,46 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly-2.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1320,26 +1431,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1367,26 +1482,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1414,26 +1533,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1461,26 +1584,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1508,26 +1635,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_IncludeAll_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_IncludeAll_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeAll_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeAll_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeAll.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1555,26 +1686,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1602,26 +1737,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentAssessmentsController : EdFiControllerBase<
-        Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors_Readable.StudentAssessment,
-        Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentAssessments")]
+    public partial class StudentAssessmentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors_Readable.StudentAssessment,
+        Api.Common.Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment,
         Entities.Common.EdFi.IStudentAssessment,
         Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessment,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPut,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPost,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentDelete,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample>
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPut,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPost,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentDelete,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample>
     {
         public StudentAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample request, IStudentAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample request, IStudentAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1656,26 +1795,30 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentAssessmentsController : EdFiControllerBase<
-        Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors_Readable.StudentAssessment,
-        Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentAssessments")]
+    public partial class StudentAssessmentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors_Readable.StudentAssessment,
+        Api.Common.Models.Resources.StudentAssessment.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors_Writable.StudentAssessment,
         Entities.Common.EdFi.IStudentAssessment,
         Entities.NHibernate.StudentAssessmentAggregate.EdFi.StudentAssessment,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPut,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPost,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentDelete,
-        Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample>
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPut,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentPost,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentDelete,
+        Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample>
     {
         public StudentAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample request, IStudentAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors.StudentAssessmentGetByExample request, IStudentAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1710,30 +1853,34 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json")]
+    [ContentType("application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.School,
         SchoolsNullWriteRequest,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
         SchoolsNullWriteRequest,
         SchoolsNullWriteRequest,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1759,40 +1906,46 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_References_ExcludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_References_ExcludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_References_ExcludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_References_ExcludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1820,26 +1973,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Resource_References_IncludeOnly_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Resource_References_IncludeOnly_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_References_IncludeOnly_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_References_IncludeOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1867,22 +2024,26 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
-    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json")]
+    [ContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolsNullReadRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
         SchoolsNullReadRequest,
-        Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolDelete,
         SchoolsNullReadRequest>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
@@ -1905,40 +2066,46 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
             return "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Get(Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
         }
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Readable.Staff,
-        Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1976,26 +2143,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_R
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_and_School_Include_All
+namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Student_and_School_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class SchoolsController : EdFiControllerBase<
-        Models.Resources.School.EdFi.Test_Profile_Student_and_School_Include_All_Readable.School,
-        Models.Resources.School.EdFi.Test_Profile_Student_and_School_Include_All_Writable.School,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/schools")]
+    public partial class SchoolsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Student_and_School_Include_All_Readable.School,
+        Api.Common.Models.Resources.School.EdFi.Test_Profile_Student_and_School_Include_All_Writable.School,
         Entities.Common.EdFi.ISchool,
         Entities.NHibernate.SchoolAggregate.EdFi.School,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolPut,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolPost,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolDelete,
-        Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolGetByExample>
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolPut,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolPost,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolDelete,
+        Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolGetByExample>
     {
         public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Student_and_School_Include_All.SchoolGetByExample request, ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2023,26 +2194,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_an
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_and_School_Include_All
+namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_Student_and_School_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentsController : EdFiControllerBase<
-        Models.Resources.Student.EdFi.Test_Profile_Student_and_School_Include_All_Readable.Student,
-        Models.Resources.Student.EdFi.Test_Profile_Student_and_School_Include_All_Writable.Student,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_Student_and_School_Include_All_Readable.Student,
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_Student_and_School_Include_All_Writable.Student,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
-        Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentPut,
-        Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentPost,
-        Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentDelete,
-        Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentGetByExample>
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentPut,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentPost,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentGetByExample>
     {
         public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Test_Profile_Student_and_School_Include_All.StudentGetByExample request, IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2079,26 +2254,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_a
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentsController : EdFiControllerBase<
-        Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Readable.Student,
-        Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Writable.Student,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Readable.Student,
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll_Writable.Student,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPut,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPost,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentDelete,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample>
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPut,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentPost,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample>
     {
         public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll.StudentGetByExample request, IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2135,26 +2314,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
+namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentsController : EdFiControllerBase<
-        Models.Resources.Student.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll_Readable.Student,
-        Models.Resources.Student.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll_Writable.Student,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll_Readable.Student,
+        Api.Common.Models.Resources.Student.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll_Writable.Student,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentPut,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentPost,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentDelete,
-        Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentGetByExample>
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentPut,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentPost,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentGetByExample>
     {
         public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll.StudentGetByExample request, IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2191,30 +2374,34 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
+namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
 {
-    [ProfileContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-studenteducationorganizationassociation-exclude-all-addrs-except-physical.writable+json")]
+    [ContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-studenteducationorganizationassociation-exclude-all-addrs-except-physical.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationsNullWriteRequest : NullRequestBase { }
 
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentEducationOrganizationAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentEducationOrganizationAssociation.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical_Readable.StudentEducationOrganizationAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/studentEducationOrganizationAssociations")]
+    public partial class StudentEducationOrganizationAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical_Readable.StudentEducationOrganizationAssociation,
         StudentEducationOrganizationAssociationsNullWriteRequest,
         Entities.Common.EdFi.IStudentEducationOrganizationAssociation,
         Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociation,
         StudentEducationOrganizationAssociationsNullWriteRequest,
         StudentEducationOrganizationAssociationsNullWriteRequest,
-        Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationDelete,
-        Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationGetByExample>
+        Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationDelete,
+        Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationGetByExample>
     {
         public StudentEducationOrganizationAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2239,16 +2426,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "application/vnd.ed-fi.studenteducationorganizationassociation.test-studenteducationorganizationassociation-exclude-all-addrs-except-physical.readable+json";
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
         }
 
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
                 .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
         }
     }
 }
+#endif

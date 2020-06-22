@@ -19,18 +19,7 @@ namespace EdFi.Ods.Api.Common.Configuration
 
         public ApiSettings()
         {
-            _databaseEngine = new Lazy<DatabaseEngine>(
-                () =>
-                {
-                    if (DatabaseEngine.TryParse(x => x.Value.EqualsIgnoreCase(Engine), out DatabaseEngine databaseEngine))
-                    {
-                        return databaseEngine;
-                    }
-
-                    throw new NotSupportedException(
-                        $"Not supported database provider name \"{Engine}\". Supported database providers: {ApiConfigurationConstants.PostgresProviderName}, and {ApiConfigurationConstants.SqlServerProviderName}.");
-                }
-            );
+            _databaseEngine = new Lazy<DatabaseEngine>(() => DatabaseEngine.FromValue(Engine));
 
             _apiMode = new Lazy<ApiMode>(
                 () =>

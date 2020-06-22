@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Providers;
 
-namespace EdFi.Ods.Api.ExceptionHandling.Sample
+namespace EdFi.Ods.Api.Common.ExceptionHandling.Sample
 {
     [ExcludeFromCodeCoverage]
     public class DatabaseMetadataProvider : IDatabaseMetadataProvider

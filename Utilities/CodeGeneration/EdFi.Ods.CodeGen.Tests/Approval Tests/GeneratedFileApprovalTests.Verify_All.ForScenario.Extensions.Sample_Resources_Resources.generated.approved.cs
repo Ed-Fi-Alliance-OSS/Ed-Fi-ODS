@@ -3,14 +3,16 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Net;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Serialization;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Common.Adapters;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Dependencies;
+using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Sample;
 using Newtonsoft.Json;
@@ -18,7 +20,7 @@ using FluentValidation.Results;
 
 // Aggregate: ArtMediumDescriptor
 
-namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
 {
     /// <summary>
     /// A class which represents the sample.ArtMediumDescriptor table of the ArtMediumDescriptor aggregate in the ODS Database.
@@ -87,17 +89,17 @@ namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IArtMediumDescriptor;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Derived Property
             if ((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId == null
-                || !(this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.Equals(compareTo.ArtMediumDescriptorId)) 
+                || !(this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.Equals(compareTo.ArtMediumDescriptorId))
                 return false;
             #pragma warning disable 472
 
@@ -116,9 +118,9 @@ namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 //Derived Property
-                if ((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId != null) 
+                if ((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.GetHashCode();
                 return hash;
             }
@@ -189,7 +191,7 @@ namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -206,7 +208,7 @@ namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -306,7 +308,7 @@ namespace EdFi.Ods.Api.Models.Resources.ArtMediumDescriptor.Sample
 }
 // Aggregate: Bus
 
-namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
 {
     /// <summary>
     /// Represents a reference to the Bus resource.
@@ -374,7 +376,7 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -451,17 +453,17 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBus;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBus).BusId == null
-                || !(this as Entities.Common.Sample.IBus).BusId.Equals(compareTo.BusId)) 
+                || !(this as Entities.Common.Sample.IBus).BusId.Equals(compareTo.BusId))
                 return false;
             #pragma warning disable 472
 
@@ -480,9 +482,9 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBus).BusId != null) 
+                if ((this as Entities.Common.Sample.IBus).BusId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBus).BusId.GetHashCode();
                 return hash;
             }
@@ -504,7 +506,7 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -521,7 +523,7 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -614,7 +616,7 @@ namespace EdFi.Ods.Api.Models.Resources.Bus.Sample
 }
 // Aggregate: BusRoute
 
-namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 {
     /// <summary>
     /// Represents a reference to the BusRoute resource.
@@ -685,7 +687,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -810,22 +812,22 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRoute;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRoute).BusId == null
-                || !(this as Entities.Common.Sample.IBusRoute).BusId.Equals(compareTo.BusId)) 
+                || !(this as Entities.Common.Sample.IBusRoute).BusId.Equals(compareTo.BusId))
                 return false;
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber == null
-                || !(this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber)) 
+                || !(this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber))
                 return false;
             #pragma warning disable 472
 
@@ -844,13 +846,13 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRoute).BusId != null) 
+                if ((this as Entities.Common.Sample.IBusRoute).BusId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusId.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber != null) 
+                if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusRouteNumber.GetHashCode();
                 return hash;
             }
@@ -986,7 +988,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             get
             {
-                if (ImplicitStaffEducationOrganizationAssignmentAssociationReference != null 
+                if (ImplicitStaffEducationOrganizationAssignmentAssociationReference != null
                     && (_SuspendReferenceAssignmentCheck || ImplicitStaffEducationOrganizationAssignmentAssociationReference.IsReferenceFullyDefined()))
                     {
                         return ImplicitStaffEducationOrganizationAssignmentAssociationReference.StaffClassificationDescriptor;
@@ -1046,7 +1048,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1063,7 +1065,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1301,27 +1303,27 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IBusRouteBusYear, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteBusYearIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IBusRouteProgram, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteProgramIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IBusRouteServiceAreaPostalCode, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteServiceAreaPostalCodeIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IBusRouteStartTime, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteStartTimeIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IBusRouteTelephone, bool> Entities.Common.Sample.IBusRouteSynchronizationSourceSupport.IsBusRouteTelephoneIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -1331,8 +1333,8 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId 
-        { 
+        Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStaffEducationOrganizationAssignmentAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -1511,21 +1513,21 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteBusYear;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_busRoute == null || !_busRoute.Equals(compareTo.BusRoute))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear == null
-                || !(this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear)) 
+                || !(this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear))
                 return false;
             #pragma warning disable 472
 
@@ -1547,9 +1549,9 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 //Parent Property
                 if (_busRoute != null)
                     hash = hash * 23 + _busRoute.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear != null) 
+                if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteBusYear).BusYear.GetHashCode();
                 return hash;
             }
@@ -1571,7 +1573,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1588,7 +1590,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1843,31 +1845,31 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteProgram;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_busRoute == null || !_busRoute.Equals(compareTo.BusRoute))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramName == null
-                || !(this as Entities.Common.Sample.IBusRouteProgram).ProgramName.Equals(compareTo.ProgramName)) 
+                || !(this as Entities.Common.Sample.IBusRouteProgram).ProgramName.Equals(compareTo.ProgramName))
                 return false;
- 
+
             // Unified Type Property
             if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor)) 
+                ||!(this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -1889,17 +1891,17 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 //Parent Property
                 if (_busRoute != null)
                     hash = hash * 23 + _busRoute.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramName != null) 
+                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramName.GetHashCode();
- 
+
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor != null) 
+                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.GetHashCode();
                 return hash;
             }
@@ -1921,7 +1923,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1938,7 +1940,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1980,8 +1982,8 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IBusRouteProgram.ProgramResourceId 
-        { 
+        Guid? Entities.Common.Sample.IBusRouteProgram.ProgramResourceId
+        {
             get { return null; }
             set { ImplicitProgramReference.ResourceId = value ?? default(Guid); }
         }
@@ -2110,21 +2112,21 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteServiceAreaPostalCode;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_busRoute == null || !_busRoute.Equals(compareTo.BusRoute))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode == null
-                || !(this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.Equals(compareTo.ServiceAreaPostalCode)) 
+                || !(this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.Equals(compareTo.ServiceAreaPostalCode))
                 return false;
             #pragma warning disable 472
 
@@ -2146,9 +2148,9 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 //Parent Property
                 if (_busRoute != null)
                     hash = hash * 23 + _busRoute.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode != null) 
+                if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.GetHashCode();
                 return hash;
             }
@@ -2170,7 +2172,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2187,7 +2189,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2345,21 +2347,21 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteStartTime;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_busRoute == null || !_busRoute.Equals(compareTo.BusRoute))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime == null
-                || !(this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime)) 
+                || !(this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime))
                 return false;
             #pragma warning disable 472
 
@@ -2381,9 +2383,9 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 //Parent Property
                 if (_busRoute != null)
                     hash = hash * 23 + _busRoute.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime != null) 
+                if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteStartTime).StartTime.GetHashCode();
                 return hash;
             }
@@ -2405,7 +2407,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2422,7 +2424,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2587,26 +2589,26 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteTelephone;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_busRoute == null || !_busRoute.Equals(compareTo.BusRoute))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber == null
-                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber)) 
+                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
                 return false;
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor == null
-                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor)) 
+                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -2628,13 +2630,13 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
                 //Parent Property
                 if (_busRoute != null)
                     hash = hash * 23 + _busRoute.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber != null) 
+                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor != null) 
+                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
                 return hash;
             }
@@ -2677,7 +2679,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2694,7 +2696,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2786,7 +2788,7 @@ namespace EdFi.Ods.Api.Models.Resources.BusRoute.Sample
 }
 // Aggregate: FavoriteBookCategoryDescriptor
 
-namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample
 {
     /// <summary>
     /// A class which represents the sample.FavoriteBookCategoryDescriptor table of the FavoriteBookCategoryDescriptor aggregate in the ODS Database.
@@ -2855,17 +2857,17 @@ namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IFavoriteBookCategoryDescriptor;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Derived Property
             if ((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId == null
-                || !(this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.Equals(compareTo.FavoriteBookCategoryDescriptorId)) 
+                || !(this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.Equals(compareTo.FavoriteBookCategoryDescriptorId))
                 return false;
             #pragma warning disable 472
 
@@ -2884,9 +2886,9 @@ namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 //Derived Property
-                if ((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId != null) 
+                if ((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.GetHashCode();
                 return hash;
             }
@@ -2957,7 +2959,7 @@ namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2974,7 +2976,7 @@ namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3074,7 +3076,7 @@ namespace EdFi.Ods.Api.Models.Resources.FavoriteBookCategoryDescriptor.Sample
 }
 // Aggregate: MembershipTypeDescriptor
 
-namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
 {
     /// <summary>
     /// A class which represents the sample.MembershipTypeDescriptor table of the MembershipTypeDescriptor aggregate in the ODS Database.
@@ -3143,17 +3145,17 @@ namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IMembershipTypeDescriptor;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Derived Property
             if ((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId == null
-                || !(this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.Equals(compareTo.MembershipTypeDescriptorId)) 
+                || !(this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.Equals(compareTo.MembershipTypeDescriptorId))
                 return false;
             #pragma warning disable 472
 
@@ -3172,9 +3174,9 @@ namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 //Derived Property
-                if ((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId != null) 
+                if ((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.GetHashCode();
                 return hash;
             }
@@ -3245,7 +3247,7 @@ namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3262,7 +3264,7 @@ namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3362,7 +3364,7 @@ namespace EdFi.Ods.Api.Models.Resources.MembershipTypeDescriptor.Sample
 }
 // Aggregate: Parent
 
-namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.ParentAddressExtension table of the Parent aggregate in the ODS Database.
@@ -3434,13 +3436,13 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentAddress == null || !_parentAddress.Equals(compareTo.ParentAddress))
                 return false;
@@ -3499,7 +3501,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3516,7 +3518,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3633,12 +3635,12 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IParentAddressSchoolDistrict, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressSchoolDistrictIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IParentAddressTerm, bool> Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport.IsParentAddressTermIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -3784,21 +3786,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressSchoolDistrict;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentAddressExtension == null || !_parentAddressExtension.Equals(compareTo.ParentAddressExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict == null
-                || !(this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict)) 
+                || !(this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
                 return false;
             #pragma warning disable 472
 
@@ -3820,9 +3822,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentAddressExtension != null)
                     hash = hash * 23 + _parentAddressExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict != null) 
+                if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.GetHashCode();
                 return hash;
             }
@@ -3844,7 +3846,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3861,7 +3863,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4019,21 +4021,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressTerm;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentAddressExtension == null || !_parentAddressExtension.Equals(compareTo.ParentAddressExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor == null
-                || !(this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor)) 
+                || !(this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -4055,9 +4057,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentAddressExtension != null)
                     hash = hash * 23 + _parentAddressExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor != null) 
+                if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.GetHashCode();
                 return hash;
             }
@@ -4079,7 +4081,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4096,7 +4098,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4254,21 +4256,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAuthor;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IParentAuthor).Author == null
-                || !(this as Entities.Common.Sample.IParentAuthor).Author.Equals(compareTo.Author)) 
+                || !(this as Entities.Common.Sample.IParentAuthor).Author.Equals(compareTo.Author))
                 return false;
             #pragma warning disable 472
 
@@ -4290,9 +4292,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentExtension != null)
                     hash = hash * 23 + _parentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAuthor).Author != null) 
+                if ((this as Entities.Common.Sample.IParentAuthor).Author != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentAuthor).Author.GetHashCode();
                 return hash;
             }
@@ -4314,7 +4316,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4331,7 +4333,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4489,21 +4491,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentCeilingHeight;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight == null
-                || !(this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight)) 
+                || !(this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight))
                 return false;
             #pragma warning disable 472
 
@@ -4525,9 +4527,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentExtension != null)
                     hash = hash * 23 + _parentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight != null) 
+                if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.GetHashCode();
                 return hash;
             }
@@ -4549,7 +4551,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4566,7 +4568,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4717,13 +4719,13 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentCTEProgram;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
@@ -4796,7 +4798,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4813,7 +4815,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -5026,21 +5028,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentEducationContent;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier == null
-                || !(this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.Equals(compareTo.ContentIdentifier)) 
+                || !(this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.Equals(compareTo.ContentIdentifier))
                 return false;
             #pragma warning disable 472
 
@@ -5062,9 +5064,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentExtension != null)
                     hash = hash * 23 + _parentExtension.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier != null) 
+                if ((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.GetHashCode();
                 return hash;
             }
@@ -5086,7 +5088,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -5103,7 +5105,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -5145,8 +5147,8 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IParentEducationContent.EducationContentResourceId 
-        { 
+        Guid? Entities.Common.Sample.IParentEducationContent.EducationContentResourceId
+        {
             get { return null; }
             set { ImplicitEducationContentReference.ResourceId = value ?? default(Guid); }
         }
@@ -5276,13 +5278,13 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parent == null || !_parent.Equals(compareTo.Parent))
                 return false;
@@ -5428,7 +5430,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -5445,7 +5447,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -5678,27 +5680,27 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IParentAuthor, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentAuthorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IParentCeilingHeight, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentCeilingHeightIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IParentEducationContent, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentEducationContentIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IParentFavoriteBookTitle, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentFavoriteBookTitleIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IParentStudentProgramAssociation, bool> Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport.IsParentStudentProgramAssociationIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -5874,21 +5876,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentFavoriteBookTitle;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle == null
-                || !(this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle)) 
+                || !(this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
                 return false;
             #pragma warning disable 472
 
@@ -5910,9 +5912,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentExtension != null)
                     hash = hash * 23 + _parentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle != null) 
+                if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
                 return hash;
             }
@@ -5934,7 +5936,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -5951,7 +5953,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -6281,46 +6283,46 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentStudentProgramAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.Equals(compareTo.ProgramName)) 
+                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
                 return false;
- 
+
             // Unified Type Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor)) 
+                ||!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId)) 
+                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
             #pragma warning disable 472
 
@@ -6342,29 +6344,29 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
                 //Parent Property
                 if (_parentExtension != null)
                     hash = hash * 23 + _parentExtension.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.GetHashCode();
- 
+
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId != null) 
+                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
@@ -6386,7 +6388,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -6403,7 +6405,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -6445,8 +6447,8 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IParentStudentProgramAssociation.StudentProgramAssociationResourceId 
-        { 
+        Guid? Entities.Common.Sample.IParentStudentProgramAssociation.StudentProgramAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStudentProgramAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -6561,13 +6563,13 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentTeacherConference;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
@@ -6633,7 +6635,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -6650,7 +6652,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -6742,7 +6744,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.EdFi.Extensions.Sample
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.SchoolCTEProgram table of the School aggregate in the ODS Database.
@@ -6809,13 +6811,13 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolCTEProgram;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_schoolExtension == null || !_schoolExtension.Equals(compareTo.SchoolExtension))
                 return false;
@@ -6888,7 +6890,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -6905,7 +6907,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -7118,21 +7120,21 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolDirectlyOwnedBus;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_schoolExtension == null || !_schoolExtension.Equals(compareTo.SchoolExtension))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId == null
-                || !(this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.Equals(compareTo.DirectlyOwnedBusId)) 
+                || !(this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.Equals(compareTo.DirectlyOwnedBusId))
                 return false;
             #pragma warning disable 472
 
@@ -7154,9 +7156,9 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
                 //Parent Property
                 if (_schoolExtension != null)
                     hash = hash * 23 + _schoolExtension.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId != null) 
+                if ((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
                 return hash;
             }
@@ -7178,7 +7180,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -7195,7 +7197,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -7237,8 +7239,8 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusResourceId 
-        { 
+        Guid? Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusResourceId
+        {
             get { return null; }
             set { ImplicitDirectlyOwnedBusReference.ResourceId = value ?? default(Guid); }
         }
@@ -7364,13 +7366,13 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_school == null || !_school.Equals(compareTo.School))
                 return false;
@@ -7434,7 +7436,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -7451,7 +7453,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -7533,7 +7535,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.ISchoolDirectlyOwnedBus, bool> Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport.IsSchoolDirectlyOwnedBusIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -7600,7 +7602,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.EdFi.Extensions.Sample
 }
 // Aggregate: Staff
 
-namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StaffExtension table of the Staff aggregate in the ODS Database.
@@ -7671,13 +7673,13 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_staff == null || !_staff.Equals(compareTo.Staff))
                 return false;
@@ -7741,7 +7743,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -7758,7 +7760,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -7840,7 +7842,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStaffPet, bool> Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport.IsStaffPetIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -7976,21 +7978,21 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffPet;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_staffExtension == null || !_staffExtension.Equals(compareTo.StaffExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStaffPet).PetName == null
-                || !(this as Entities.Common.Sample.IStaffPet).PetName.Equals(compareTo.PetName)) 
+                || !(this as Entities.Common.Sample.IStaffPet).PetName.Equals(compareTo.PetName))
                 return false;
             #pragma warning disable 472
 
@@ -8012,9 +8014,9 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
                 //Parent Property
                 if (_staffExtension != null)
                     hash = hash * 23 + _staffExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStaffPet).PetName != null) 
+                if ((this as Entities.Common.Sample.IStaffPet).PetName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStaffPet).PetName.GetHashCode();
                 return hash;
             }
@@ -8043,7 +8045,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -8060,7 +8062,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -8212,13 +8214,13 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffPetPreference;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_staffExtension == null || !_staffExtension.Equals(compareTo.StaffExtension))
                 return false;
@@ -8277,7 +8279,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -8294,7 +8296,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -8385,7 +8387,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Sample
 }
 // Aggregate: Student
 
-namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StudentAquaticPet table of the Student aggregate in the ODS Database.
@@ -8466,26 +8468,26 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentAquaticPet;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentExtension == null || !_studentExtension.Equals(compareTo.StudentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume == null
-                || !(this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume)) 
+                || !(this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
                 return false;
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName == null
-                || !(this as Entities.Common.Sample.IStudentAquaticPet).PetName.Equals(compareTo.PetName)) 
+                || !(this as Entities.Common.Sample.IStudentAquaticPet).PetName.Equals(compareTo.PetName))
                 return false;
             #pragma warning disable 472
 
@@ -8507,13 +8509,13 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
                 //Parent Property
                 if (_studentExtension != null)
                     hash = hash * 23 + _studentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume != null) 
+                if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName != null) 
+                if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).PetName.GetHashCode();
                 return hash;
             }
@@ -8542,7 +8544,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -8559,7 +8561,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -8717,13 +8719,13 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_student == null || !_student.Equals(compareTo.Student))
                 return false;
@@ -8780,7 +8782,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -8797,7 +8799,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -8948,17 +8950,17 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentAquaticPet, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentAquaticPetIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentFavoriteBook, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentFavoriteBookIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentPet, bool> Entities.Common.Sample.IStudentExtensionSynchronizationSourceSupport.IsStudentPetIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -9118,21 +9120,21 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentFavoriteBook;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentExtension == null || !_studentExtension.Equals(compareTo.StudentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.Equals(compareTo.FavoriteBookCategoryDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.Equals(compareTo.FavoriteBookCategoryDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -9154,9 +9156,9 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
                 //Parent Property
                 if (_studentExtension != null)
                     hash = hash * 23 + _studentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.GetHashCode();
                 return hash;
             }
@@ -9185,7 +9187,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -9202,7 +9204,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -9283,7 +9285,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentFavoriteBookArtMedium, bool> Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport.IsStudentFavoriteBookArtMediumIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -9419,21 +9421,21 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentFavoriteBookArtMedium;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentFavoriteBook == null || !_studentFavoriteBook.Equals(compareTo.StudentFavoriteBook))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -9455,9 +9457,9 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
                 //Parent Property
                 if (_studentFavoriteBook != null)
                     hash = hash * 23 + _studentFavoriteBook.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.GetHashCode();
                 return hash;
             }
@@ -9486,7 +9488,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -9503,7 +9505,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -9662,21 +9664,21 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentPet;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentExtension == null || !_studentExtension.Equals(compareTo.StudentExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentPet).PetName == null
-                || !(this as Entities.Common.Sample.IStudentPet).PetName.Equals(compareTo.PetName)) 
+                || !(this as Entities.Common.Sample.IStudentPet).PetName.Equals(compareTo.PetName))
                 return false;
             #pragma warning disable 472
 
@@ -9698,9 +9700,9 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
                 //Parent Property
                 if (_studentExtension != null)
                     hash = hash * 23 + _studentExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentPet).PetName != null) 
+                if ((this as Entities.Common.Sample.IStudentPet).PetName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentPet).PetName.GetHashCode();
                 return hash;
             }
@@ -9729,7 +9731,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -9746,7 +9748,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -9898,13 +9900,13 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentPetPreference;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentExtension == null || !_studentExtension.Equals(compareTo.StudentExtension))
                 return false;
@@ -9963,7 +9965,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -9980,7 +9982,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -10071,7 +10073,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.EdFi.Extensions.Sample
 }
 // Aggregate: StudentArtProgramAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Sample
 {
     /// <summary>
     /// Represents a reference to the StudentArtProgramAssociation resource.
@@ -10429,42 +10431,42 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.Equals(compareTo.ProgramName)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
                 return false;
- 
+
             // Unified Type Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor)) 
+                ||!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
             #pragma warning disable 472
 
@@ -10483,29 +10485,29 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.GetHashCode();
- 
+
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
@@ -10625,7 +10627,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -10633,12 +10635,12 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         /// participationStatus
         /// </summary>
         [DataMember(Name = "participationStatus")]
-        public Api.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus GeneralStudentProgramAssociationParticipationStatus { get; set; }
+        public Api.Common.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus GeneralStudentProgramAssociationParticipationStatus { get; set; }
 
         Entities.Common.EdFi.IGeneralStudentProgramAssociationParticipationStatus Entities.Common.EdFi.IGeneralStudentProgramAssociation.GeneralStudentProgramAssociationParticipationStatus
         {
             get { return GeneralStudentProgramAssociationParticipationStatus; }
-            set { GeneralStudentProgramAssociationParticipationStatus = (Api.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus) value; }
+            set { GeneralStudentProgramAssociationParticipationStatus = (Api.Common.Models.Resources.GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationParticipationStatus) value; }
         }
 
         // -------------------------------------------------------------
@@ -10654,7 +10656,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -10858,22 +10860,22 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediumIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentArtProgramAssociationService, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServiceIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentArtProgramAssociationStyle, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStyleIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -10883,8 +10885,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.EducationOrganizationResourceId 
-        { 
+        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.EducationOrganizationResourceId
+        {
             get { return null; }
             set { ImplicitEducationOrganizationReference.ResourceId = value ?? default(Guid); }
         }
@@ -10897,8 +10899,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         }
 
 
-        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.ProgramResourceId 
-        { 
+        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.ProgramResourceId
+        {
             get { return null; }
             set { ImplicitProgramReference.ResourceId = value ?? default(Guid); }
         }
@@ -10911,8 +10913,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         }
 
 
-        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.StudentResourceId 
-        { 
+        Guid? Entities.Common.EdFi.IGeneralStudentProgramAssociation.StudentResourceId
+        {
             get { return null; }
             set { ImplicitStudentReference.ResourceId = value ?? default(Guid); }
         }
@@ -11081,21 +11083,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentArtProgramAssociation == null || !_studentArtProgramAssociation.Equals(compareTo.StudentArtProgramAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -11117,9 +11119,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
                 //Parent Property
                 if (_studentArtProgramAssociation != null)
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.GetHashCode();
                 return hash;
             }
@@ -11141,7 +11143,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -11158,7 +11160,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -11316,21 +11318,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentArtProgramAssociation == null || !_studentArtProgramAssociation.Equals(compareTo.StudentArtProgramAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears))
                 return false;
             #pragma warning disable 472
 
@@ -11352,9 +11354,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
                 //Parent Property
                 if (_studentArtProgramAssociation != null)
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.GetHashCode();
                 return hash;
             }
@@ -11376,7 +11378,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -11393,7 +11395,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -11551,21 +11553,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationService;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentArtProgramAssociation == null || !_studentArtProgramAssociation.Equals(compareTo.StudentArtProgramAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.Equals(compareTo.ServiceDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.Equals(compareTo.ServiceDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -11587,9 +11589,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
                 //Parent Property
                 if (_studentArtProgramAssociation != null)
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.GetHashCode();
                 return hash;
             }
@@ -11632,7 +11634,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -11649,7 +11651,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -11810,21 +11812,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationStyle;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentArtProgramAssociation == null || !_studentArtProgramAssociation.Equals(compareTo.StudentArtProgramAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.Equals(compareTo.Style)) 
+                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.Equals(compareTo.Style))
                 return false;
             #pragma warning disable 472
 
@@ -11846,9 +11848,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
                 //Parent Property
                 if (_studentArtProgramAssociation != null)
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style != null) 
+                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.GetHashCode();
                 return hash;
             }
@@ -11870,7 +11872,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -11887,7 +11889,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -11976,7 +11978,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentArtProgramAssociation.Sample
 }
 // Aggregate: StudentCTEProgramAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentCTEProgramAssociation.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StudentCTEProgramAssociationExtension table of the StudentCTEProgramAssociation aggregate in the ODS Database.
@@ -12043,13 +12045,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentCTEProgramAssociation.EdFi.Extens
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentCTEProgramAssociationExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentCTEProgramAssociation == null || !_studentCTEProgramAssociation.Equals(compareTo.StudentCTEProgramAssociation))
                 return false;
@@ -12108,7 +12110,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentCTEProgramAssociation.EdFi.Extens
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -12125,7 +12127,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentCTEProgramAssociation.EdFi.Extens
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -12216,7 +12218,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentCTEProgramAssociation.EdFi.Extens
 }
 // Aggregate: StudentEducationOrganizationAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StudentEducationOrganizationAssociationAddressExtension table of the StudentEducationOrganizationAssociation aggregate in the ODS Database.
@@ -12288,13 +12290,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentEducationOrganizationAssociationAddress == null || !_studentEducationOrganizationAssociationAddress.Equals(compareTo.StudentEducationOrganizationAssociationAddress))
                 return false;
@@ -12353,7 +12355,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -12370,7 +12372,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -12487,12 +12489,12 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressSchoolDistrictIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationAddressTermIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -12638,21 +12640,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentEducationOrganizationAssociationAddressExtension == null || !_studentEducationOrganizationAssociationAddressExtension.Equals(compareTo.StudentEducationOrganizationAssociationAddressExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict)) 
+                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
                 return false;
             #pragma warning disable 472
 
@@ -12674,9 +12676,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
                 //Parent Property
                 if (_studentEducationOrganizationAssociationAddressExtension != null)
                     hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict != null) 
+                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.GetHashCode();
                 return hash;
             }
@@ -12698,7 +12700,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -12715,7 +12717,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -12873,21 +12875,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentEducationOrganizationAssociationAddressExtension == null || !_studentEducationOrganizationAssociationAddressExtension.Equals(compareTo.StudentEducationOrganizationAssociationAddressExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -12909,9 +12911,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
                 //Parent Property
                 if (_studentEducationOrganizationAssociationAddressExtension != null)
                     hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.GetHashCode();
                 return hash;
             }
@@ -12933,7 +12935,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -12950,7 +12952,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -13105,13 +13107,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentEducationOrganizationAssociationStudentCharacteristic == null || !_studentEducationOrganizationAssociationStudentCharacteristic.Equals(compareTo.StudentEducationOrganizationAssociationStudentCharacteristic))
                 return false;
@@ -13156,7 +13158,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -13173,7 +13175,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -13253,7 +13255,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, bool> Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtensionSynchronizationSourceSupport.IsStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -13389,21 +13391,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentEducationOrganizationAssociationStudentCharacteristicExtension == null || !_studentEducationOrganizationAssociationStudentCharacteristicExtension.Equals(compareTo.StudentEducationOrganizationAssociationStudentCharacteristicExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
                 return false;
             #pragma warning disable 472
 
@@ -13425,9 +13427,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
                 //Parent Property
                 if (_studentEducationOrganizationAssociationStudentCharacteristicExtension != null)
                     hash = hash * 23 + _studentEducationOrganizationAssociationStudentCharacteristicExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate != null) 
+                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.GetHashCode();
                 return hash;
             }
@@ -13463,7 +13465,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -13480,7 +13482,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -13571,7 +13573,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentEducationOrganizationAssociation.
 }
 // Aggregate: StudentGraduationPlanAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample
 {
     /// <summary>
     /// Represents a reference to the StudentGraduationPlanAssociation resource.
@@ -13648,7 +13650,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -13921,32 +13923,32 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
- 
+
             // Unified Type Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.Equals(compareTo.GraduationPlanTypeDescriptor)) 
+                ||!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.Equals(compareTo.GraduationPlanTypeDescriptor))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.Equals(compareTo.GraduationSchoolYear)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.Equals(compareTo.GraduationSchoolYear))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
             #pragma warning disable 472
 
@@ -13965,21 +13967,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
             unchecked
             {
                 int hash = 17;
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.GetHashCode();
- 
+
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
@@ -14096,7 +14098,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -14113,7 +14115,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -14417,37 +14419,37 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationAcademicSubjectIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationCareerPathwayCodeIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDescriptionIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationDesignatedByIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationIndustryCredentialIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationStudentParentAssociationIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, bool> Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport.IsStudentGraduationPlanAssociationYearsAttendedIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -14457,8 +14459,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanResourceId
+        {
             get { return null; }
             set { ImplicitGraduationPlanReference.ResourceId = value ?? default(Guid); }
         }
@@ -14471,8 +14473,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         }
 
 
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffResourceId
+        {
             get { return null; }
             set { ImplicitStaffReference.ResourceId = value ?? default(Guid); }
         }
@@ -14485,8 +14487,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         }
 
 
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentResourceId
+        {
             get { return null; }
             set { ImplicitStudentReference.ResourceId = value ?? default(Guid); }
         }
@@ -14685,21 +14687,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.Equals(compareTo.AcademicSubjectDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.Equals(compareTo.AcademicSubjectDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -14721,9 +14723,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.GetHashCode();
                 return hash;
             }
@@ -14745,7 +14747,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -14762,7 +14764,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -14920,21 +14922,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode))
                 return false;
             #pragma warning disable 472
 
@@ -14956,9 +14958,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.GetHashCode();
                 return hash;
             }
@@ -14980,7 +14982,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -14997,7 +14999,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -15148,13 +15150,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
@@ -15227,7 +15229,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -15244,7 +15246,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -15406,21 +15408,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.Equals(compareTo.Description)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.Equals(compareTo.Description))
                 return false;
             #pragma warning disable 472
 
@@ -15442,9 +15444,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.GetHashCode();
                 return hash;
             }
@@ -15466,7 +15468,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -15483,7 +15485,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -15641,21 +15643,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.Equals(compareTo.DesignatedBy)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.Equals(compareTo.DesignatedBy))
                 return false;
             #pragma warning disable 472
 
@@ -15677,9 +15679,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.GetHashCode();
                 return hash;
             }
@@ -15701,7 +15703,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -15718,7 +15720,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -15876,21 +15878,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.Equals(compareTo.IndustryCredential)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.Equals(compareTo.IndustryCredential))
                 return false;
             #pragma warning disable 472
 
@@ -15912,9 +15914,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.GetHashCode();
                 return hash;
             }
@@ -15936,7 +15938,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -15953,7 +15955,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -16138,7 +16140,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -16284,21 +16286,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.Equals(compareTo.ParentUniqueId)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.Equals(compareTo.ParentUniqueId))
                 return false;
             #pragma warning disable 472
 
@@ -16320,9 +16322,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.GetHashCode();
                 return hash;
             }
@@ -16344,7 +16346,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -16361,7 +16363,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -16411,8 +16413,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStudentParentAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -16563,21 +16565,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended)) 
+                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended))
                 return false;
             #pragma warning disable 472
 
@@ -16599,9 +16601,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
                 //Parent Property
                 if (_studentGraduationPlanAssociation != null)
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended != null) 
+                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.GetHashCode();
                 return hash;
             }
@@ -16623,7 +16625,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -16640,7 +16642,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -16729,7 +16731,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentGraduationPlanAssociation.Sample
 }
 // Aggregate: StudentParentAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StudentParentAssociationDiscipline table of the StudentParentAssociation aggregate in the ODS Database.
@@ -16803,21 +16805,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationDiscipline;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.Equals(compareTo.DisciplineDescriptor)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.Equals(compareTo.DisciplineDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -16839,9 +16841,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
                 //Parent Property
                 if (_studentParentAssociationExtension != null)
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.GetHashCode();
                 return hash;
             }
@@ -16863,7 +16865,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -16880,7 +16882,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -17072,13 +17074,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociation == null || !_studentParentAssociation.Equals(compareTo.StudentParentAssociation))
                 return false;
@@ -17266,7 +17268,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -17283,7 +17285,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -17517,27 +17519,27 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
 
         // Child collection item filter delegates
         Func<Entities.Common.Sample.IStudentParentAssociationDiscipline, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationDisciplineIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationFavoriteBookTitleIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationHoursPerWeekIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentParentAssociationPagesRead, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationPagesReadIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, bool> Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport.IsStudentParentAssociationStaffEducationOrganizationEmploymentAssociationIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -17547,8 +17549,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyResourceId
+        {
             get { return null; }
             set { ImplicitInterventionStudyReference.ResourceId = value ?? default(Guid); }
         }
@@ -17727,21 +17729,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
                 return false;
             #pragma warning disable 472
 
@@ -17763,9 +17765,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
                 //Parent Property
                 if (_studentParentAssociationExtension != null)
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
                 return hash;
             }
@@ -17787,7 +17789,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -17804,7 +17806,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -17962,21 +17964,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek))
                 return false;
             #pragma warning disable 472
 
@@ -17998,9 +18000,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
                 //Parent Property
                 if (_studentParentAssociationExtension != null)
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.GetHashCode();
                 return hash;
             }
@@ -18022,7 +18024,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -18039,7 +18041,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -18197,21 +18199,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationPagesRead;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead))
                 return false;
             #pragma warning disable 472
 
@@ -18233,9 +18235,9 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
                 //Parent Property
                 if (_studentParentAssociationExtension != null)
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.GetHashCode();
                 return hash;
             }
@@ -18257,7 +18259,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -18274,7 +18276,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -18554,36 +18556,36 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
- 
+
             // Unified Type Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.Equals(compareTo.EmploymentStatusDescriptor)) 
+                ||!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.Equals(compareTo.EmploymentStatusDescriptor))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.Equals(compareTo.HireDate)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.Equals(compareTo.HireDate))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.Equals(compareTo.StaffUniqueId)) 
+                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.Equals(compareTo.StaffUniqueId))
                 return false;
             #pragma warning disable 472
 
@@ -18605,21 +18607,21 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
                 //Parent Property
                 if (_studentParentAssociationExtension != null)
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.GetHashCode();
- 
+
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId != null) 
+                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId != null)
                     hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.GetHashCode();
                 return hash;
             }
@@ -18641,7 +18643,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -18658,7 +18660,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -18700,8 +18702,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationResourceId 
-        { 
+        Guid? Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStaffEducationOrganizationEmploymentAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -18823,13 +18825,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationTelephone;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
@@ -18909,7 +18911,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -18926,7 +18928,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -19020,7 +19022,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentParentAssociation.EdFi.Extensions
 }
 // Aggregate: StudentSchoolAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.EdFi.Extensions.Sample
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Extensions.Sample
 {
     /// <summary>
     /// A class which represents the sample.StudentSchoolAssociationExtension table of the StudentSchoolAssociation aggregate in the ODS Database.
@@ -19087,13 +19089,13 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.EdFi.Extensions
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentSchoolAssociationExtension;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_studentSchoolAssociation == null || !_studentSchoolAssociation.Equals(compareTo.StudentSchoolAssociation))
                 return false;
@@ -19145,7 +19147,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.EdFi.Extensions
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -19162,7 +19164,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.EdFi.Extensions
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 

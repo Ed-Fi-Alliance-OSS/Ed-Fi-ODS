@@ -199,7 +199,7 @@
     <property name="SchoolYear" column="SchoolYear" type="string" length="20" />
 
     <!-- One-to-one child mappings -->
-    <set name="SchoolAddress" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="SchoolAddress" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="SchoolName" />
       </key>

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 using EdFi.Ods.Api.Architecture;
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -54,15 +55,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Includ
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-Entity-Extension-IncludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -71,9 +72,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Includ
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -121,15 +122,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Exclud
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-Entity-Extension-ExcludeOnly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -138,9 +139,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_Exclud
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Include_All
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -188,15 +189,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Include_All
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-Include-All.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_Include_All_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -205,9 +206,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_Include_All
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -255,15 +256,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclu
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-and-Prospect-MixedInclude.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -272,9 +273,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclu
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -319,15 +320,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     [ProfileContentType("application/vnd.ed-fi.busRoute.Staff-and-Prospect-MixedInclude.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -336,9 +337,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -383,15 +384,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude
     [ProfileContentType("application/vnd.ed-fi.busRoute.BusRoute-MixedInclude.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -400,9 +401,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -450,15 +451,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-and-Prospect-MixedExclude.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -467,9 +468,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -514,15 +515,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     [ProfileContentType("application/vnd.ed-fi.busRoute.Staff-and-Prospect-MixedExclude.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -531,9 +532,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -581,15 +582,15 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
     [ProfileContentType("application/vnd.ed-fi.staff.Staff-and-Prospect-MixedExclude2.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Writable.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -598,9 +599,9 @@ namespace EdFi.Ods.Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclu
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -645,15 +646,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     [ProfileContentType("application/vnd.ed-fi.busRoute.Staff-and-Prospect-MixedExclude2.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -662,9 +663,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -709,15 +710,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2
     [ProfileContentType("application/vnd.ed-fi.busRoute.BusRoute-MixedInclude2.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -726,9 +727,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -773,15 +774,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1
     [ProfileContentType("application/vnd.ed-fi.busRoute.BusRoute-MixedInclude1.writable+json")]
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -790,9 +791,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Include_All
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Students.EdFi.Student_Include_All
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -839,15 +840,15 @@ namespace EdFi.Ods.Api.Models.Requests.Students.EdFi.Student_Include_All
     [ProfileContentType("application/vnd.ed-fi.student.Student-Include-All.writable+json")]
     [ExcludeFromCodeCoverage]
     public class StudentPut : Resources.Student.EdFi.Student_Include_All_Writable.Student
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }

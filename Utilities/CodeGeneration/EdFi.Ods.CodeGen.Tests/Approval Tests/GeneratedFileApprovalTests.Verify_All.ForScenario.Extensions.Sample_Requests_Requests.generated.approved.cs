@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.ArtMediumDescriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.ArtMediumDescriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptorGetByExample
     {
@@ -32,15 +33,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.ArtMediumDescriptors
 
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptorPut : Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class ArtMediumDescriptorDelete : IHasIdentifier 
+    public class ArtMediumDescriptorDelete : IHasIdentifier
     {
         public ArtMediumDescriptorDelete() { }
 
-        public ArtMediumDescriptorDelete(Guid id) 
+        public ArtMediumDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -49,9 +50,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.ArtMediumDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.Buses
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.Buses
+{
+
     [ExcludeFromCodeCoverage]
     public class BusGetByExample
     {
@@ -79,15 +80,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.Buses
 
     [ExcludeFromCodeCoverage]
     public class BusPut : Resources.Bus.Sample.Bus
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusDelete : IHasIdentifier 
+    public class BusDelete : IHasIdentifier
     {
         public BusDelete() { }
 
-        public BusDelete(Guid id) 
+        public BusDelete(Guid id)
         {
             Id = id;
         }
@@ -96,9 +97,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.Buses
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.BusRoutes
+{
+
     [ExcludeFromCodeCoverage]
     public class BusRouteGetByExample
     {
@@ -141,15 +142,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes
 
     [ExcludeFromCodeCoverage]
     public class BusRoutePut : Resources.BusRoute.Sample.BusRoute
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class BusRouteDelete : IHasIdentifier 
+    public class BusRouteDelete : IHasIdentifier
     {
         public BusRouteDelete() { }
 
-        public BusRouteDelete(Guid id) 
+        public BusRouteDelete(Guid id)
         {
             Id = id;
         }
@@ -158,9 +159,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.BusRoutes
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptorGetByExample
     {
@@ -187,15 +188,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors
 
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptorPut : Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class FavoriteBookCategoryDescriptorDelete : IHasIdentifier 
+    public class FavoriteBookCategoryDescriptorDelete : IHasIdentifier
     {
         public FavoriteBookCategoryDescriptorDelete() { }
 
-        public FavoriteBookCategoryDescriptorDelete(Guid id) 
+        public FavoriteBookCategoryDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -204,9 +205,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.MembershipTypeDescriptors
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.MembershipTypeDescriptors
+{
+
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptorGetByExample
     {
@@ -233,15 +234,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.MembershipTypeDescriptors
 
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptorPut : Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class MembershipTypeDescriptorDelete : IHasIdentifier 
+    public class MembershipTypeDescriptorDelete : IHasIdentifier
     {
         public MembershipTypeDescriptorDelete() { }
 
-        public MembershipTypeDescriptorDelete(Guid id) 
+        public MembershipTypeDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -250,9 +251,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.MembershipTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.StudentArtProgramAssociations
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentArtProgramAssociations
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationGetByExample
     {
@@ -295,15 +296,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.StudentArtProgramAssociations
 
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationPut : Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociationDelete : IHasIdentifier 
+    public class StudentArtProgramAssociationDelete : IHasIdentifier
     {
         public StudentArtProgramAssociationDelete() { }
 
-        public StudentArtProgramAssociationDelete(Guid id) 
+        public StudentArtProgramAssociationDelete(Guid id)
         {
             Id = id;
         }
@@ -312,9 +313,9 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.StudentArtProgramAssociations
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Sample.StudentGraduationPlanAssociations
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationGetByExample
     {
@@ -354,15 +355,15 @@ namespace EdFi.Ods.Api.Models.Requests.Sample.StudentGraduationPlanAssociations
 
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationPut : Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociationDelete : IHasIdentifier 
+    public class StudentGraduationPlanAssociationDelete : IHasIdentifier
     {
         public StudentGraduationPlanAssociationDelete() { }
 
-        public StudentGraduationPlanAssociationDelete(Guid id) 
+        public StudentGraduationPlanAssociationDelete(Guid id)
         {
             Id = id;
         }

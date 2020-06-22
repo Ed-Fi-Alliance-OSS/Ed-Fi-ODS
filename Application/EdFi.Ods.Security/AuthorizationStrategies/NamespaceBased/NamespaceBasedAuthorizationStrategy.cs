@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -48,7 +47,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased
             if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
             {
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
-                
+
                 throw new EdFiSecurityException(
                     $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'.");
             }

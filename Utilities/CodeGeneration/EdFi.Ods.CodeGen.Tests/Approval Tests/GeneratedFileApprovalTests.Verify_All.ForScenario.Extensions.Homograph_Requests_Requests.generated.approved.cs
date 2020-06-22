@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.Names
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.Names
+{
+
     [ExcludeFromCodeCoverage]
     public class NameGetByExample
     {
@@ -34,15 +35,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Names
 
     [ExcludeFromCodeCoverage]
     public class NamePut : Resources.Name.Homograph.Name
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class NameDelete : IHasIdentifier 
+    public class NameDelete : IHasIdentifier
     {
         public NameDelete() { }
 
-        public NameDelete(Guid id) 
+        public NameDelete(Guid id)
         {
             Id = id;
         }
@@ -51,9 +52,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Names
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.Parents
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.Parents
+{
+
     [ExcludeFromCodeCoverage]
     public class ParentGetByExample
     {
@@ -82,15 +83,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Parents
 
     [ExcludeFromCodeCoverage]
     public class ParentPut : Resources.Parent.Homograph.Parent
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class ParentDelete : IHasIdentifier 
+    public class ParentDelete : IHasIdentifier
     {
         public ParentDelete() { }
 
-        public ParentDelete(Guid id) 
+        public ParentDelete(Guid id)
         {
             Id = id;
         }
@@ -99,9 +100,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Parents
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.Schools
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.Schools
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolGetByExample
     {
@@ -130,15 +131,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Schools
 
     [ExcludeFromCodeCoverage]
     public class SchoolPut : Resources.School.Homograph.School
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolDelete : IHasIdentifier 
+    public class SchoolDelete : IHasIdentifier
     {
         public SchoolDelete() { }
 
-        public SchoolDelete(Guid id) 
+        public SchoolDelete(Guid id)
         {
             Id = id;
         }
@@ -147,9 +148,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Schools
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.SchoolYearTypes
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.SchoolYearTypes
+{
+
     [ExcludeFromCodeCoverage]
     public class SchoolYearTypeGetByExample
     {
@@ -177,15 +178,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.SchoolYearTypes
 
     [ExcludeFromCodeCoverage]
     public class SchoolYearTypePut : Resources.SchoolYearType.Homograph.SchoolYearType
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolYearTypeDelete : IHasIdentifier 
+    public class SchoolYearTypeDelete : IHasIdentifier
     {
         public SchoolYearTypeDelete() { }
 
-        public SchoolYearTypeDelete(Guid id) 
+        public SchoolYearTypeDelete(Guid id)
         {
             Id = id;
         }
@@ -194,9 +195,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.SchoolYearTypes
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.Staffs
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.Staffs
+{
+
     [ExcludeFromCodeCoverage]
     public class StaffGetByExample
     {
@@ -225,15 +226,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Staffs
 
     [ExcludeFromCodeCoverage]
     public class StaffPut : Resources.Staff.Homograph.Staff
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffDelete : IHasIdentifier 
+    public class StaffDelete : IHasIdentifier
     {
         public StaffDelete() { }
 
-        public StaffDelete(Guid id) 
+        public StaffDelete(Guid id)
         {
             Id = id;
         }
@@ -242,9 +243,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Staffs
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.Students
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.Students
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentGetByExample
     {
@@ -274,15 +275,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Students
 
     [ExcludeFromCodeCoverage]
     public class StudentPut : Resources.Student.Homograph.Student
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentDelete : IHasIdentifier 
+    public class StudentDelete : IHasIdentifier
     {
         public StudentDelete() { }
 
-        public StudentDelete(Guid id) 
+        public StudentDelete(Guid id)
         {
             Id = id;
         }
@@ -291,9 +292,9 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.Students
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.Homograph.StudentSchoolAssociations
-{ 
-   
+namespace EdFi.Ods.Api.Common.Models.Requests.Homograph.StudentSchoolAssociations
+{
+
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationGetByExample
     {
@@ -323,15 +324,15 @@ namespace EdFi.Ods.Api.Models.Requests.Homograph.StudentSchoolAssociations
 
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationPut : Resources.StudentSchoolAssociation.Homograph.StudentSchoolAssociation
-    { 
+    {
     }
 
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociationDelete : IHasIdentifier 
+    public class StudentSchoolAssociationDelete : IHasIdentifier
     {
         public StudentSchoolAssociationDelete() { }
 
-        public StudentSchoolAssociationDelete(Guid id) 
+        public StudentSchoolAssociationDelete(Guid id)
         {
             Id = id;
         }

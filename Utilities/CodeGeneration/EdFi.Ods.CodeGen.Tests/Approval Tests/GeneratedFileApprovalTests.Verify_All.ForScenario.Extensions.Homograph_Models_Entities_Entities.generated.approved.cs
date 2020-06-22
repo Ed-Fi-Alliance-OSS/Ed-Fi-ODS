@@ -2,17 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api;
-using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Common.Adapters;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.Homograph;
@@ -141,7 +139,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -381,7 +379,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -693,7 +691,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -866,7 +864,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1126,7 +1124,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1378,7 +1376,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1623,7 +1621,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1862,7 +1860,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2172,7 +2170,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2345,7 +2343,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2609,7 +2607,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2886,7 +2884,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3131,7 +3129,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3294,5 +3292,3 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // -----------------------------------------
     }
 }
-
-

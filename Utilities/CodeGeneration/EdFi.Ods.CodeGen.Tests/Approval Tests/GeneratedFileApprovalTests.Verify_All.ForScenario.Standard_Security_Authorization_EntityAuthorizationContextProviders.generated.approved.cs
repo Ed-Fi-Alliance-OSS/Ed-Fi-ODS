@@ -109,7 +109,7 @@ using EdFi.Ods.Entities.NHibernate.SurveySectionResponseStaffTargetAssociationAg
 #endregion
 
 namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
-{ 
+{
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AcademicWeek table of the AcademicWeek aggregate in the Ods Database.
@@ -117,7 +117,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class AcademicWeekRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAcademicWeek, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -152,8 +152,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((AcademicWeek) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Account table of the Account aggregate in the Ods Database.
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class AccountRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAccount, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -196,8 +196,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Account) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AccountabilityRating table of the AccountabilityRating aggregate in the Ods Database.
@@ -205,7 +205,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class AccountabilityRatingRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAccountabilityRating, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -240,8 +240,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((AccountabilityRating) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.AccountCode table of the AccountCode aggregate in the Ods Database.
@@ -249,7 +249,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class AccountCodeRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAccountCode, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -284,8 +284,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((AccountCode) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Actual table of the Actual aggregate in the Ods Database.
@@ -293,7 +293,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ActualRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IActual, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -328,8 +328,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Actual) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Assessment table of the Assessment aggregate in the Ods Database.
@@ -337,7 +337,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class AssessmentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IAssessment, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -372,8 +372,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Assessment) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.BellSchedule table of the BellSchedule aggregate in the Ods Database.
@@ -381,7 +381,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class BellScheduleRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IBellSchedule, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -416,8 +416,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((BellSchedule) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Budget table of the Budget aggregate in the Ods Database.
@@ -425,7 +425,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class BudgetRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IBudget, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -460,8 +460,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Budget) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Calendar table of the Calendar aggregate in the Ods Database.
@@ -469,7 +469,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CalendarRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICalendar, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -504,8 +504,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Calendar) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CalendarDate table of the CalendarDate aggregate in the Ods Database.
@@ -513,7 +513,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CalendarDateRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICalendarDate, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -548,8 +548,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CalendarDate) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ClassPeriod table of the ClassPeriod aggregate in the Ods Database.
@@ -557,7 +557,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ClassPeriodRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IClassPeriod, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -592,8 +592,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((ClassPeriod) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Cohort table of the Cohort aggregate in the Ods Database.
@@ -601,7 +601,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CohortRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICohort, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -636,8 +636,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Cohort) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CommunityOrganization table of the CommunityOrganization aggregate in the Ods Database.
@@ -645,7 +645,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CommunityOrganizationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICommunityOrganization, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -680,8 +680,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CommunityOrganization) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CommunityProvider table of the CommunityProvider aggregate in the Ods Database.
@@ -689,7 +689,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CommunityProviderRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICommunityProvider, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -726,8 +726,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CommunityProvider) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CommunityProviderLicense table of the CommunityProviderLicense aggregate in the Ods Database.
@@ -735,7 +735,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CommunityProviderLicenseRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICommunityProviderLicense, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -770,8 +770,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CommunityProviderLicense) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CompetencyObjective table of the CompetencyObjective aggregate in the Ods Database.
@@ -779,7 +779,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CompetencyObjectiveRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICompetencyObjective, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -814,8 +814,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CompetencyObjective) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ContractedStaff table of the ContractedStaff aggregate in the Ods Database.
@@ -823,7 +823,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ContractedStaffRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IContractedStaff, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -860,8 +860,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((ContractedStaff) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Course table of the Course aggregate in the Ods Database.
@@ -869,7 +869,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CourseRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICourse, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -904,8 +904,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Course) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CourseOffering table of the CourseOffering aggregate in the Ods Database.
@@ -913,7 +913,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CourseOfferingRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICourseOffering, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -950,8 +950,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CourseOffering) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.CourseTranscript table of the CourseTranscript aggregate in the Ods Database.
@@ -959,7 +959,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class CourseTranscriptRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ICourseTranscript, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1000,8 +1000,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((CourseTranscript) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.DisciplineAction table of the DisciplineAction aggregate in the Ods Database.
@@ -1009,7 +1009,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class DisciplineActionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IDisciplineAction, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1048,8 +1048,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((DisciplineAction) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.DisciplineIncident table of the DisciplineIncident aggregate in the Ods Database.
@@ -1057,7 +1057,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class DisciplineIncidentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IDisciplineIncident, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1094,8 +1094,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((DisciplineIncident) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationOrganization table of the EducationOrganization aggregate in the Ods Database.
@@ -1103,7 +1103,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationOrganizationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganization, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1138,8 +1138,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationOrganization) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationOrganizationInterventionPrescriptionAssociation table of the EducationOrganizationInterventionPrescriptionAssociation aggregate in the Ods Database.
@@ -1147,7 +1147,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationOrganizationInterventionPrescriptionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationInterventionPrescriptionAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1184,8 +1184,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationOrganizationInterventionPrescriptionAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationOrganizationNetwork table of the EducationOrganizationNetwork aggregate in the Ods Database.
@@ -1193,7 +1193,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationOrganizationNetworkRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationNetwork, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1228,8 +1228,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationOrganizationNetwork) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationOrganizationNetworkAssociation table of the EducationOrganizationNetworkAssociation aggregate in the Ods Database.
@@ -1237,7 +1237,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationOrganizationNetworkAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationNetworkAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1274,8 +1274,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationOrganizationNetworkAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationOrganizationPeerAssociation table of the EducationOrganizationPeerAssociation aggregate in the Ods Database.
@@ -1283,7 +1283,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationOrganizationPeerAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationPeerAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1320,8 +1320,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationOrganizationPeerAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.EducationServiceCenter table of the EducationServiceCenter aggregate in the Ods Database.
@@ -1329,7 +1329,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class EducationServiceCenterRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationServiceCenter, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1366,8 +1366,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EducationServiceCenter) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.FeederSchoolAssociation table of the FeederSchoolAssociation aggregate in the Ods Database.
@@ -1375,7 +1375,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class FeederSchoolAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IFeederSchoolAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1412,8 +1412,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((FeederSchoolAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.GeneralStudentProgramAssociation table of the GeneralStudentProgramAssociation aggregate in the Ods Database.
@@ -1421,7 +1421,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class GeneralStudentProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IGeneralStudentProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1460,8 +1460,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((GeneralStudentProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Grade table of the Grade aggregate in the Ods Database.
@@ -1469,7 +1469,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class GradeRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IGrade, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1506,8 +1506,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Grade) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.GradebookEntry table of the GradebookEntry aggregate in the Ods Database.
@@ -1515,7 +1515,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class GradebookEntryRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IGradebookEntry, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1550,8 +1550,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((GradebookEntry) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.GradingPeriod table of the GradingPeriod aggregate in the Ods Database.
@@ -1559,7 +1559,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class GradingPeriodRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IGradingPeriod, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1594,8 +1594,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((GradingPeriod) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.GraduationPlan table of the GraduationPlan aggregate in the Ods Database.
@@ -1603,7 +1603,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class GraduationPlanRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IGraduationPlan, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1638,8 +1638,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((GraduationPlan) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Intervention table of the Intervention aggregate in the Ods Database.
@@ -1647,7 +1647,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class InterventionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IIntervention, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1682,8 +1682,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Intervention) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.InterventionPrescription table of the InterventionPrescription aggregate in the Ods Database.
@@ -1691,7 +1691,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class InterventionPrescriptionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IInterventionPrescription, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1726,8 +1726,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((InterventionPrescription) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.InterventionStudy table of the InterventionStudy aggregate in the Ods Database.
@@ -1735,7 +1735,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class InterventionStudyRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IInterventionStudy, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1772,8 +1772,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((InterventionStudy) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.LocalEducationAgency table of the LocalEducationAgency aggregate in the Ods Database.
@@ -1781,7 +1781,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class LocalEducationAgencyRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocalEducationAgency, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1822,8 +1822,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((LocalEducationAgency) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Location table of the Location aggregate in the Ods Database.
@@ -1831,7 +1831,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class LocationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ILocation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1866,8 +1866,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Location) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.OpenStaffPosition table of the OpenStaffPosition aggregate in the Ods Database.
@@ -1875,7 +1875,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class OpenStaffPositionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IOpenStaffPosition, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1910,8 +1910,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((OpenStaffPosition) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Parent table of the Parent aggregate in the Ods Database.
@@ -1919,7 +1919,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ParentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IParent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -1954,8 +1954,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Parent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Payroll table of the Payroll aggregate in the Ods Database.
@@ -1963,7 +1963,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class PayrollRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IPayroll, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2000,8 +2000,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Payroll) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.PostSecondaryEvent table of the PostSecondaryEvent aggregate in the Ods Database.
@@ -2009,7 +2009,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class PostSecondaryEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IPostSecondaryEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2046,8 +2046,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((PostSecondaryEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.PostSecondaryInstitution table of the PostSecondaryInstitution aggregate in the Ods Database.
@@ -2055,7 +2055,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class PostSecondaryInstitutionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IPostSecondaryInstitution, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2090,8 +2090,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((PostSecondaryInstitution) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Program table of the Program aggregate in the Ods Database.
@@ -2099,7 +2099,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ProgramRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IProgram, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2134,8 +2134,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Program) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.ReportCard table of the ReportCard aggregate in the Ods Database.
@@ -2143,7 +2143,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class ReportCardRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IReportCard, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2182,8 +2182,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((ReportCard) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.RestraintEvent table of the RestraintEvent aggregate in the Ods Database.
@@ -2191,7 +2191,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class RestraintEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IRestraintEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2228,8 +2228,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((RestraintEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.School table of the School aggregate in the Ods Database.
@@ -2237,7 +2237,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SchoolRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISchool, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2274,8 +2274,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((School) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Section table of the Section aggregate in the Ods Database.
@@ -2283,7 +2283,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SectionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISection, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2320,8 +2320,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Section) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SectionAttendanceTakenEvent table of the SectionAttendanceTakenEvent aggregate in the Ods Database.
@@ -2329,7 +2329,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SectionAttendanceTakenEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISectionAttendanceTakenEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2366,8 +2366,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SectionAttendanceTakenEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Session table of the Session aggregate in the Ods Database.
@@ -2375,7 +2375,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SessionRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISession, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2410,8 +2410,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Session) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Staff table of the Staff aggregate in the Ods Database.
@@ -2419,7 +2419,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaff, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2454,8 +2454,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Staff) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffAbsenceEvent table of the StaffAbsenceEvent aggregate in the Ods Database.
@@ -2463,7 +2463,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffAbsenceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffAbsenceEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2498,8 +2498,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffAbsenceEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffCohortAssociation table of the StaffCohortAssociation aggregate in the Ods Database.
@@ -2507,7 +2507,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffCohortAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffCohortAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2544,8 +2544,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffCohortAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffDisciplineIncidentAssociation table of the StaffDisciplineIncidentAssociation aggregate in the Ods Database.
@@ -2553,7 +2553,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffDisciplineIncidentAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffDisciplineIncidentAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2590,8 +2590,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffDisciplineIncidentAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffEducationOrganizationAssignmentAssociation table of the StaffEducationOrganizationAssignmentAssociation aggregate in the Ods Database.
@@ -2599,7 +2599,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffEducationOrganizationAssignmentAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffEducationOrganizationAssignmentAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2638,8 +2638,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffEducationOrganizationAssignmentAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffEducationOrganizationContactAssociation table of the StaffEducationOrganizationContactAssociation aggregate in the Ods Database.
@@ -2647,7 +2647,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffEducationOrganizationContactAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffEducationOrganizationContactAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2684,8 +2684,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffEducationOrganizationContactAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffEducationOrganizationEmploymentAssociation table of the StaffEducationOrganizationEmploymentAssociation aggregate in the Ods Database.
@@ -2693,7 +2693,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffEducationOrganizationEmploymentAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffEducationOrganizationEmploymentAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2730,8 +2730,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffEducationOrganizationEmploymentAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffLeave table of the StaffLeave aggregate in the Ods Database.
@@ -2739,7 +2739,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffLeaveRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffLeave, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2774,8 +2774,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffLeave) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffProgramAssociation table of the StaffProgramAssociation aggregate in the Ods Database.
@@ -2783,7 +2783,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2820,8 +2820,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffSchoolAssociation table of the StaffSchoolAssociation aggregate in the Ods Database.
@@ -2829,7 +2829,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffSchoolAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffSchoolAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2866,8 +2866,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffSchoolAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StaffSectionAssociation table of the StaffSectionAssociation aggregate in the Ods Database.
@@ -2875,7 +2875,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StaffSectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffSectionAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2912,8 +2912,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffSectionAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StateEducationAgency table of the StateEducationAgency aggregate in the Ods Database.
@@ -2921,7 +2921,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StateEducationAgencyRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStateEducationAgency, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -2956,8 +2956,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StateEducationAgency) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Student table of the Student aggregate in the Ods Database.
@@ -2965,7 +2965,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3000,8 +3000,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Student) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentAcademicRecord table of the StudentAcademicRecord aggregate in the Ods Database.
@@ -3009,7 +3009,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentAcademicRecordRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentAcademicRecord, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3046,8 +3046,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentAcademicRecord) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentAssessment table of the StudentAssessment aggregate in the Ods Database.
@@ -3055,7 +3055,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentAssessmentRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentAssessment, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3090,8 +3090,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentAssessment) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentCohortAssociation table of the StudentCohortAssociation aggregate in the Ods Database.
@@ -3099,7 +3099,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentCohortAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentCohortAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3136,8 +3136,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentCohortAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentCompetencyObjective table of the StudentCompetencyObjective aggregate in the Ods Database.
@@ -3145,7 +3145,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentCompetencyObjectiveRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentCompetencyObjective, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3184,8 +3184,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentCompetencyObjective) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentCTEProgramAssociation table of the StudentCTEProgramAssociation aggregate in the Ods Database.
@@ -3193,7 +3193,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentCTEProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentCTEProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3232,8 +3232,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentCTEProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentDisciplineIncidentAssociation table of the StudentDisciplineIncidentAssociation aggregate in the Ods Database.
@@ -3241,7 +3241,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentDisciplineIncidentAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentDisciplineIncidentAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3278,8 +3278,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentDisciplineIncidentAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentEducationOrganizationAssociation table of the StudentEducationOrganizationAssociation aggregate in the Ods Database.
@@ -3287,7 +3287,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentEducationOrganizationAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3324,8 +3324,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentEducationOrganizationAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentEducationOrganizationResponsibilityAssociation table of the StudentEducationOrganizationResponsibilityAssociation aggregate in the Ods Database.
@@ -3333,7 +3333,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationResponsibilityAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentEducationOrganizationResponsibilityAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3370,8 +3370,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentEducationOrganizationResponsibilityAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentGradebookEntry table of the StudentGradebookEntry aggregate in the Ods Database.
@@ -3379,7 +3379,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentGradebookEntryRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentGradebookEntry, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3416,8 +3416,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentGradebookEntry) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentHomelessProgramAssociation table of the StudentHomelessProgramAssociation aggregate in the Ods Database.
@@ -3425,7 +3425,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentHomelessProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentHomelessProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3464,8 +3464,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentHomelessProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentInterventionAssociation table of the StudentInterventionAssociation aggregate in the Ods Database.
@@ -3473,7 +3473,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentInterventionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentInterventionAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3512,8 +3512,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentInterventionAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentInterventionAttendanceEvent table of the StudentInterventionAttendanceEvent aggregate in the Ods Database.
@@ -3521,7 +3521,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentInterventionAttendanceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentInterventionAttendanceEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3558,8 +3558,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentInterventionAttendanceEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentLanguageInstructionProgramAssociation table of the StudentLanguageInstructionProgramAssociation aggregate in the Ods Database.
@@ -3567,7 +3567,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentLanguageInstructionProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentLanguageInstructionProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3606,8 +3606,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentLanguageInstructionProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentLearningObjective table of the StudentLearningObjective aggregate in the Ods Database.
@@ -3615,7 +3615,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentLearningObjectiveRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentLearningObjective, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3652,8 +3652,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentLearningObjective) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentMigrantEducationProgramAssociation table of the StudentMigrantEducationProgramAssociation aggregate in the Ods Database.
@@ -3661,7 +3661,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentMigrantEducationProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentMigrantEducationProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3700,8 +3700,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentMigrantEducationProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentNeglectedOrDelinquentProgramAssociation table of the StudentNeglectedOrDelinquentProgramAssociation aggregate in the Ods Database.
@@ -3709,7 +3709,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentNeglectedOrDelinquentProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentNeglectedOrDelinquentProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3748,8 +3748,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentNeglectedOrDelinquentProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentParentAssociation table of the StudentParentAssociation aggregate in the Ods Database.
@@ -3757,7 +3757,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentParentAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3794,8 +3794,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentParentAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentProgramAssociation table of the StudentProgramAssociation aggregate in the Ods Database.
@@ -3803,7 +3803,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3842,8 +3842,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentProgramAttendanceEvent table of the StudentProgramAttendanceEvent aggregate in the Ods Database.
@@ -3851,7 +3851,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentProgramAttendanceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentProgramAttendanceEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3890,8 +3890,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentProgramAttendanceEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSchoolAssociation table of the StudentSchoolAssociation aggregate in the Ods Database.
@@ -3899,7 +3899,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSchoolAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3938,8 +3938,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSchoolAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSchoolAttendanceEvent table of the StudentSchoolAttendanceEvent aggregate in the Ods Database.
@@ -3947,7 +3947,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAttendanceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSchoolAttendanceEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -3984,8 +3984,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSchoolAttendanceEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSchoolFoodServiceProgramAssociation table of the StudentSchoolFoodServiceProgramAssociation aggregate in the Ods Database.
@@ -3993,7 +3993,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSchoolFoodServiceProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSchoolFoodServiceProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4032,8 +4032,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSchoolFoodServiceProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSectionAssociation table of the StudentSectionAssociation aggregate in the Ods Database.
@@ -4041,7 +4041,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSectionAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4078,8 +4078,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSectionAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSectionAttendanceEvent table of the StudentSectionAttendanceEvent aggregate in the Ods Database.
@@ -4087,7 +4087,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSectionAttendanceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSectionAttendanceEvent, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4124,8 +4124,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSectionAttendanceEvent) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentSpecialEducationProgramAssociation table of the StudentSpecialEducationProgramAssociation aggregate in the Ods Database.
@@ -4133,7 +4133,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentSpecialEducationProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentSpecialEducationProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4172,8 +4172,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentSpecialEducationProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentTitleIPartAProgramAssociation table of the StudentTitleIPartAProgramAssociation aggregate in the Ods Database.
@@ -4181,7 +4181,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class StudentTitleIPartAProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentTitleIPartAProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4220,8 +4220,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentTitleIPartAProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.Survey table of the Survey aggregate in the Ods Database.
@@ -4229,7 +4229,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurvey, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4266,8 +4266,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((Survey) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveyCourseAssociation table of the SurveyCourseAssociation aggregate in the Ods Database.
@@ -4275,7 +4275,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyCourseAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveyCourseAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4310,8 +4310,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveyCourseAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveyProgramAssociation table of the SurveyProgramAssociation aggregate in the Ods Database.
@@ -4319,7 +4319,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveyProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4354,8 +4354,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveyProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveyResponse table of the SurveyResponse aggregate in the Ods Database.
@@ -4363,7 +4363,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyResponseRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveyResponse, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4402,8 +4402,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveyResponse) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveyResponseEducationOrganizationTargetAssociation table of the SurveyResponseEducationOrganizationTargetAssociation aggregate in the Ods Database.
@@ -4411,7 +4411,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyResponseEducationOrganizationTargetAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveyResponseEducationOrganizationTargetAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4446,8 +4446,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveyResponseEducationOrganizationTargetAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveyResponseStaffTargetAssociation table of the SurveyResponseStaffTargetAssociation aggregate in the Ods Database.
@@ -4455,7 +4455,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveyResponseStaffTargetAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveyResponseStaffTargetAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4490,8 +4490,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveyResponseStaffTargetAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveySectionAssociation table of the SurveySectionAssociation aggregate in the Ods Database.
@@ -4499,7 +4499,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveySectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveySectionAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4534,8 +4534,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveySectionAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveySectionResponseEducationOrganizationTargetAssociation table of the SurveySectionResponseEducationOrganizationTargetAssociation aggregate in the Ods Database.
@@ -4543,7 +4543,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponseEducationOrganizationTargetAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveySectionResponseEducationOrganizationTargetAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4578,8 +4578,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveySectionResponseEducationOrganizationTargetAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.SurveySectionResponseStaffTargetAssociation table of the SurveySectionResponseStaffTargetAssociation aggregate in the Ods Database.
@@ -4587,7 +4587,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
     [ExcludeFromCodeCoverage]
     public class SurveySectionResponseStaffTargetAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ISurveySectionResponseStaffTargetAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -4622,7 +4622,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((SurveySectionResponseStaffTargetAssociation) resource);
-        } 
-    } 
+        }
+    }
 
 }

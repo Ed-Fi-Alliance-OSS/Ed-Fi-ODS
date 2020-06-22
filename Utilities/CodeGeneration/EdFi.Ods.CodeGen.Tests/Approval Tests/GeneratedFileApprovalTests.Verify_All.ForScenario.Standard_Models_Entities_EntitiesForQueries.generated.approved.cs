@@ -1,16 +1,15 @@
- 
-
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Common.Dtos;
 using Newtonsoft.Json;
 
 // Aggregate: AbsenceEventCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AbsenceEventCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AbsenceEventCategoryDescriptor table of the AbsenceEventCategoryDescriptor aggregate in the ODS database.
@@ -47,12 +46,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AbsenceEventCategoryDescripto
         protected virtual ICollection<NHibernate.QueryModels.StaffAbsenceEventAggregate.EdFi.StaffAbsenceEventQ> StaffAbsenceEvents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AcademicHonorCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicHonorCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AcademicHonorCategoryDescriptor table of the AcademicHonorCategoryDescriptor aggregate in the ODS database.
@@ -89,12 +88,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicHonorCategoryDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordAcademicHonorQ> StudentAcademicRecordAcademicHonors  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AcademicSubjectDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AcademicSubjectDescriptor table of the AcademicSubjectDescriptor aggregate in the ODS database.
@@ -164,12 +163,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicSubjectDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationAcademicSubjectQ> StaffSchoolAssociationAcademicSubjects  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AcademicWeek
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicWeekAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AcademicWeek table of the AcademicWeek aggregate in the ODS database.
@@ -220,12 +219,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AcademicWeekAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AccommodationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AccommodationDescriptor table of the AccommodationDescriptor aggregate in the ODS database.
@@ -262,12 +261,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccommodationDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentAccommodationQ> StudentAssessmentAccommodations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Account
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Account table of the Account aggregate in the ODS database.
@@ -328,7 +327,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AccountAccountCode table of the Account aggregate in the ODS database.
@@ -373,12 +372,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AccountCodeAggregate.EdFi.AccountCodeQ AccountCode { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AccountabilityRating
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AccountabilityRating table of the AccountabilityRating aggregate in the ODS database.
@@ -428,12 +427,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountabilityRatingAggregate
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AccountClassificationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountClassificationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AccountClassificationDescriptor table of the AccountClassificationDescriptor aggregate in the ODS database.
@@ -470,12 +469,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountClassificationDescript
         protected virtual ICollection<NHibernate.QueryModels.AccountCodeAggregate.EdFi.AccountCodeQ> AccountCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AccountCode
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountCodeAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AccountCode table of the AccountCode aggregate in the ODS database.
@@ -529,12 +528,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AccountCodeAggregate.EdFi
         protected virtual NHibernate.QueryModels.AccountClassificationDescriptorAggregate.EdFi.AccountClassificationDescriptorQ AccountClassificationDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AchievementCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AchievementCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AchievementCategoryDescriptor table of the AchievementCategoryDescriptor aggregate in the ODS database.
@@ -580,12 +579,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AchievementCategoryDescriptor
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordRecognitionQ> StudentAcademicRecordRecognitions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Actual
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ActualAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Actual table of the Actual aggregate in the ODS database.
@@ -633,12 +632,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ActualAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AdditionalCreditTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdditionalCreditTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AdditionalCreditTypeDescriptor table of the AdditionalCreditTypeDescriptor aggregate in the ODS database.
@@ -675,12 +674,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdditionalCreditTypeDescripto
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptEarnedAdditionalCreditsQ> CourseTranscriptEarnedAdditionalCredits  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AddressTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AddressTypeDescriptor table of the AddressTypeDescriptor aggregate in the ODS database.
@@ -741,12 +740,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AddressTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationInternationalAddressQ> StudentEducationOrganizationAssociationInternationalAddresses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AdministrationEnvironmentDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdministrationEnvironmentDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AdministrationEnvironmentDescriptor table of the AdministrationEnvironmentDescriptor aggregate in the ODS database.
@@ -783,12 +782,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdministrationEnvironmentDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AdministrativeFundingControlDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdministrativeFundingControlDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AdministrativeFundingControlDescriptor table of the AdministrativeFundingControlDescriptor aggregate in the ODS database.
@@ -828,12 +827,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AdministrativeFundingControlD
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Assessment
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Assessment table of the Assessment aggregate in the ODS database.
@@ -920,7 +919,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         protected virtual NHibernate.QueryModels.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptorQ AssessmentCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentAcademicSubject table of the Assessment aggregate in the ODS database.
@@ -963,7 +962,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentAssessedGradeLevel table of the Assessment aggregate in the ODS database.
@@ -1006,7 +1005,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentContentStandard table of the Assessment aggregate in the ODS database.
@@ -1058,7 +1057,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ MandatingEducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptorQ PublicationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentContentStandardAuthor table of the Assessment aggregate in the ODS database.
@@ -1098,7 +1097,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentIdentificationCode table of the Assessment aggregate in the ODS database.
@@ -1143,7 +1142,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AssessmentIdentificationSystemDescriptorAggregate.EdFi.AssessmentIdentificationSystemDescriptorQ AssessmentIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentLanguage table of the Assessment aggregate in the ODS database.
@@ -1186,7 +1185,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentPerformanceLevel table of the Assessment aggregate in the ODS database.
@@ -1236,7 +1235,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentPeriod table of the Assessment aggregate in the ODS database.
@@ -1280,7 +1279,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptorQ AssessmentPeriodDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentPlatformType table of the Assessment aggregate in the ODS database.
@@ -1323,7 +1322,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.PlatformTypeDescriptorAggregate.EdFi.PlatformTypeDescriptorQ PlatformTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentProgram table of the Assessment aggregate in the ODS database.
@@ -1370,7 +1369,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentScore table of the Assessment aggregate in the ODS database.
@@ -1417,7 +1416,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentSection table of the Assessment aggregate in the ODS database.
@@ -1468,12 +1467,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentCategoryDescriptor table of the AssessmentCategoryDescriptor aggregate in the ODS database.
@@ -1510,12 +1509,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentCategoryDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ> Assessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentIdentificationSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentIdentificationSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentIdentificationSystemDescriptor table of the AssessmentIdentificationSystemDescriptor aggregate in the ODS database.
@@ -1552,12 +1551,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentIdentificationSyste
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentIdentificationCodeQ> AssessmentIdentificationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentItem
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentItem table of the AssessmentItem aggregate in the ODS database.
@@ -1620,7 +1619,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi
         protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
         protected virtual NHibernate.QueryModels.AssessmentItemCategoryDescriptorAggregate.EdFi.AssessmentItemCategoryDescriptorQ AssessmentItemCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentItemLearningStandard table of the AssessmentItem aggregate in the ODS database.
@@ -1663,7 +1662,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.AssessmentItemPossibleResponse table of the AssessmentItem aggregate in the ODS database.
@@ -1705,12 +1704,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentItemCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentItemCategoryDescriptor table of the AssessmentItemCategoryDescriptor aggregate in the ODS database.
@@ -1747,12 +1746,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemCategoryDescrip
         protected virtual ICollection<NHibernate.QueryModels.AssessmentItemAggregate.EdFi.AssessmentItemQ> AssessmentItems  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentItemResultDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemResultDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentItemResultDescriptor table of the AssessmentItemResultDescriptor aggregate in the ODS database.
@@ -1789,12 +1788,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentItemResultDescripto
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentItemQ> StudentAssessmentItems  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentPeriodDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentPeriodDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentPeriodDescriptor table of the AssessmentPeriodDescriptor aggregate in the ODS database.
@@ -1831,12 +1830,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentPeriodDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentPeriodQ> AssessmentPeriods  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AssessmentReportingMethodDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AssessmentReportingMethodDescriptor table of the AssessmentReportingMethodDescriptor aggregate in the ODS database.
@@ -1900,12 +1899,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AssessmentReportingMethodDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentScoreResultQ> StudentAssessmentStudentObjectiveAssessmentScoreResults  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AttemptStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttemptStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AttemptStatusDescriptor table of the AttemptStatusDescriptor aggregate in the ODS database.
@@ -1942,12 +1941,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttemptStatusDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ> StudentSectionAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: AttendanceEventCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttendanceEventCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.AttendanceEventCategoryDescriptor table of the AttendanceEventCategoryDescriptor aggregate in the ODS database.
@@ -1993,12 +1992,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttendanceEventCategoryDescri
         protected virtual ICollection<NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ> StudentSectionAttendanceEvents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: BehaviorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.BehaviorDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.BehaviorDescriptor table of the BehaviorDescriptor aggregate in the ODS database.
@@ -2038,12 +2037,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BehaviorDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationBehaviorQ> StudentDisciplineIncidentAssociationBehaviors  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: BellSchedule
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.BellSchedule table of the BellSchedule aggregate in the ODS database.
@@ -2093,7 +2092,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.BellScheduleClassPeriod table of the BellSchedule aggregate in the ODS database.
@@ -2136,7 +2135,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ ClassPeriod { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.BellScheduleDate table of the BellSchedule aggregate in the ODS database.
@@ -2176,7 +2175,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.BellScheduleGradeLevel table of the BellSchedule aggregate in the ODS database.
@@ -2219,12 +2218,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BellScheduleAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Budget
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.BudgetAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Budget table of the Budget aggregate in the ODS database.
@@ -2272,12 +2271,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.BudgetAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Calendar
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Calendar table of the Calendar aggregate in the ODS database.
@@ -2337,7 +2336,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CalendarGradeLevel table of the Calendar aggregate in the ODS database.
@@ -2380,12 +2379,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CalendarDate
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CalendarDate table of the CalendarDate aggregate in the ODS database.
@@ -2438,7 +2437,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CalendarAggregate.EdFi.CalendarQ Calendar { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CalendarDateCalendarEvent table of the CalendarDate aggregate in the ODS database.
@@ -2481,12 +2480,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarDateAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CalendarEventDescriptorAggregate.EdFi.CalendarEventDescriptorQ CalendarEventDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CalendarEventDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarEventDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CalendarEventDescriptor table of the CalendarEventDescriptor aggregate in the ODS database.
@@ -2523,12 +2522,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarEventDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.CalendarDateAggregate.EdFi.CalendarDateCalendarEventQ> CalendarDateCalendarEvents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CalendarTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CalendarTypeDescriptor table of the CalendarTypeDescriptor aggregate in the ODS database.
@@ -2565,12 +2564,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CalendarTypeDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.CalendarAggregate.EdFi.CalendarQ> Calendars  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CareerPathwayDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CareerPathwayDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CareerPathwayDescriptor table of the CareerPathwayDescriptor aggregate in the ODS database.
@@ -2610,12 +2609,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CareerPathwayDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociationCTEProgramQ> StudentCTEProgramAssociationCTEPrograms  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CharterApprovalAgencyTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CharterApprovalAgencyTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CharterApprovalAgencyTypeDescriptor table of the CharterApprovalAgencyTypeDescriptor aggregate in the ODS database.
@@ -2652,12 +2651,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CharterApprovalAgencyTypeDesc
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CharterStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CharterStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CharterStatusDescriptor table of the CharterStatusDescriptor aggregate in the ODS database.
@@ -2700,12 +2699,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CharterStatusDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CitizenshipStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CitizenshipStatusDescriptor table of the CitizenshipStatusDescriptor aggregate in the ODS database.
@@ -2745,12 +2744,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CitizenshipStatusDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ClassPeriod
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ClassPeriod table of the ClassPeriod aggregate in the ODS database.
@@ -2803,7 +2802,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ClassPeriodMeetingTime table of the ClassPeriod aggregate in the ODS database.
@@ -2845,12 +2844,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ClassroomPositionDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassroomPositionDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ClassroomPositionDescriptor table of the ClassroomPositionDescriptor aggregate in the ODS database.
@@ -2887,12 +2886,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassroomPositionDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi.StaffSectionAssociationQ> StaffSectionAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Cohort
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Cohort table of the Cohort aggregate in the ODS database.
@@ -2954,7 +2953,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi
         protected virtual NHibernate.QueryModels.CohortTypeDescriptorAggregate.EdFi.CohortTypeDescriptorQ CohortTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CohortProgram table of the Cohort aggregate in the ODS database.
@@ -3001,12 +3000,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CohortScopeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortScopeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CohortScopeDescriptor table of the CohortScopeDescriptor aggregate in the ODS database.
@@ -3043,12 +3042,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortScopeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ> Cohorts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CohortTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CohortTypeDescriptor table of the CohortTypeDescriptor aggregate in the ODS database.
@@ -3085,12 +3084,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortTypeDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ> Cohorts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CohortYearTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortYearTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CohortYearTypeDescriptor table of the CohortYearTypeDescriptor aggregate in the ODS database.
@@ -3127,12 +3126,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CohortYearTypeDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationCohortYearQ> StudentEducationOrganizationAssociationCohortYears  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CommunityOrganization
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityOrganizationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CommunityOrganization table of the CommunityOrganization aggregate in the ODS database.
@@ -3169,12 +3168,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityOrganizationAggregat
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ> CommunityProviders  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CommunityProvider
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CommunityProvider table of the CommunityProvider aggregate in the ODS database.
@@ -3223,12 +3222,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderAggregate.Ed
         protected virtual NHibernate.QueryModels.ProviderProfitabilityDescriptorAggregate.EdFi.ProviderProfitabilityDescriptorQ ProviderProfitabilityDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ProviderStatusDescriptorAggregate.EdFi.ProviderStatusDescriptorQ ProviderStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CommunityProviderLicense
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderLicenseAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CommunityProviderLicense table of the CommunityProviderLicense aggregate in the ODS database.
@@ -3283,12 +3282,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CommunityProviderLicenseAggre
         protected virtual NHibernate.QueryModels.LicenseStatusDescriptorAggregate.EdFi.LicenseStatusDescriptorQ LicenseStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LicenseTypeDescriptorAggregate.EdFi.LicenseTypeDescriptorQ LicenseTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CompetencyLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CompetencyLevelDescriptor table of the CompetencyLevelDescriptor aggregate in the ODS database.
@@ -3334,12 +3333,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyLevelDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StudentLearningObjectiveAggregate.EdFi.StudentLearningObjectiveQ> StudentLearningObjectives  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CompetencyObjective
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CompetencyObjective table of the CompetencyObjective aggregate in the ODS database.
@@ -3393,12 +3392,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CompetencyObjectiveAggregate.
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ ObjectiveGradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ContactTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ContactTypeDescriptor table of the ContactTypeDescriptor aggregate in the ODS database.
@@ -3435,12 +3434,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContactTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationContactAssociationAggregate.EdFi.StaffEducationOrganizationContactAssociationQ> StaffEducationOrganizationContactAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ContentClassDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContentClassDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ContentClassDescriptor table of the ContentClassDescriptor aggregate in the ODS database.
@@ -3477,12 +3476,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContentClassDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ> EducationContents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ContinuationOfServicesReasonDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContinuationOfServicesReasonDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ContinuationOfServicesReasonDescriptor table of the ContinuationOfServicesReasonDescriptor aggregate in the ODS database.
@@ -3519,12 +3518,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContinuationOfServicesReasonD
         protected virtual ICollection<NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociationQ> StudentMigrantEducationProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ContractedStaff
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContractedStaffAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ContractedStaff table of the ContractedStaff aggregate in the ODS database.
@@ -3575,12 +3574,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ContractedStaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CostRateDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CostRateDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CostRateDescriptor table of the CostRateDescriptor aggregate in the ODS database.
@@ -3617,12 +3616,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CostRateDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ> EducationContents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CountryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CountryDescriptor table of the CountryDescriptor aggregate in the ODS database.
@@ -3686,12 +3685,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CountryDescriptorAggregate.Ed
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Course
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Course table of the Course aggregate in the ODS database.
@@ -3777,7 +3776,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ MaximumAvailableCreditTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ MinimumAvailableCreditTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseCompetencyLevel table of the Course aggregate in the ODS database.
@@ -3820,7 +3819,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptorQ CompetencyLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseIdentificationCode table of the Course aggregate in the ODS database.
@@ -3866,7 +3865,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptorQ CourseIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseLearningObjective table of the Course aggregate in the ODS database.
@@ -3911,7 +3910,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ LearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseLearningStandard table of the Course aggregate in the ODS database.
@@ -3954,7 +3953,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseLevelCharacteristic table of the Course aggregate in the ODS database.
@@ -3997,7 +3996,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptorQ CourseLevelCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseOfferedGradeLevel table of the Course aggregate in the ODS database.
@@ -4040,12 +4039,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseAttemptResultDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAttemptResultDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseAttemptResultDescriptor table of the CourseAttemptResultDescriptor aggregate in the ODS database.
@@ -4082,12 +4081,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseAttemptResultDescriptor
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ> CourseTranscripts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseDefinedByDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseDefinedByDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseDefinedByDescriptor table of the CourseDefinedByDescriptor aggregate in the ODS database.
@@ -4124,12 +4123,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseDefinedByDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ> Courses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseGPAApplicabilityDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseGPAApplicabilityDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseGPAApplicabilityDescriptor table of the CourseGPAApplicabilityDescriptor aggregate in the ODS database.
@@ -4166,12 +4165,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseGPAApplicabilityDescrip
         protected virtual ICollection<NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ> Courses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseIdentificationSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseIdentificationSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseIdentificationSystemDescriptor table of the CourseIdentificationSystemDescriptor aggregate in the ODS database.
@@ -4211,12 +4210,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseIdentificationSystemDes
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptAlternativeCourseIdentificationCodeQ> CourseTranscriptAlternativeCourseIdentificationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseLevelCharacteristicDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseLevelCharacteristicDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseLevelCharacteristicDescriptor table of the CourseLevelCharacteristicDescriptor aggregate in the ODS database.
@@ -4259,12 +4258,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseLevelCharacteristicDesc
         protected virtual ICollection<NHibernate.QueryModels.SectionAggregate.EdFi.SectionCourseLevelCharacteristicQ> SectionCourseLevelCharacteristics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseOffering
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseOffering table of the CourseOffering aggregate in the ODS database.
@@ -4325,7 +4324,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.SessionAggregate.EdFi.SessionQ Session { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseOfferingCourseLevelCharacteristic table of the CourseOffering aggregate in the ODS database.
@@ -4368,7 +4367,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptorQ CourseLevelCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseOfferingCurriculumUsed table of the CourseOffering aggregate in the ODS database.
@@ -4411,7 +4410,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CurriculumUsedDescriptorAggregate.EdFi.CurriculumUsedDescriptorQ CurriculumUsedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseOfferingOfferedGradeLevel table of the CourseOffering aggregate in the ODS database.
@@ -4454,12 +4453,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseOfferingAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseRepeatCodeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseRepeatCodeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseRepeatCodeDescriptor table of the CourseRepeatCodeDescriptor aggregate in the ODS database.
@@ -4496,12 +4495,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseRepeatCodeDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ> CourseTranscripts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CourseTranscript
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CourseTranscript table of the CourseTranscript aggregate in the ODS database.
@@ -4583,7 +4582,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         protected virtual NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ StudentAcademicRecord { get; set; }
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ WhenTakenGradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseTranscriptAcademicSubject table of the CourseTranscript aggregate in the ODS database.
@@ -4626,7 +4625,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseTranscriptAlternativeCourseIdentificationCode table of the CourseTranscript aggregate in the ODS database.
@@ -4672,7 +4671,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseIdentificationSystemDescriptorAggregate.EdFi.CourseIdentificationSystemDescriptorQ CourseIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseTranscriptCreditCategory table of the CourseTranscript aggregate in the ODS database.
@@ -4715,7 +4714,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CreditCategoryDescriptorAggregate.EdFi.CreditCategoryDescriptorQ CreditCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CourseTranscriptEarnedAdditionalCredits table of the CourseTranscript aggregate in the ODS database.
@@ -4759,12 +4758,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptorQ AdditionalCreditTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Credential
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Credential table of the Credential aggregate in the ODS database.
@@ -4833,7 +4832,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         protected virtual NHibernate.QueryModels.TeachingCredentialBasisDescriptorAggregate.EdFi.TeachingCredentialBasisDescriptorQ TeachingCredentialBasisDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.TeachingCredentialDescriptorAggregate.EdFi.TeachingCredentialDescriptorQ TeachingCredentialDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CredentialAcademicSubject table of the Credential aggregate in the ODS database.
@@ -4876,7 +4875,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CredentialEndorsement table of the Credential aggregate in the ODS database.
@@ -4916,7 +4915,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.CredentialGradeLevel table of the Credential aggregate in the ODS database.
@@ -4959,12 +4958,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CredentialFieldDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialFieldDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CredentialFieldDescriptor table of the CredentialFieldDescriptor aggregate in the ODS database.
@@ -5001,12 +5000,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialFieldDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ> Credentials  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CredentialTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CredentialTypeDescriptor table of the CredentialTypeDescriptor aggregate in the ODS database.
@@ -5043,12 +5042,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialTypeDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ> Credentials  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CreditCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CreditCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CreditCategoryDescriptor table of the CreditCategoryDescriptor aggregate in the ODS database.
@@ -5088,12 +5087,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CreditCategoryDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.GraduationPlanAggregate.EdFi.GraduationPlanCreditsByCreditCategoryQ> GraduationPlanCreditsByCreditCategories  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CreditTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CreditTypeDescriptor table of the CreditTypeDescriptor aggregate in the ODS database.
@@ -5166,12 +5165,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CreditTypeDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ> SessionEarnedStudentAcademicRecords  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CTEProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CTEProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CTEProgramServiceDescriptor table of the CTEProgramServiceDescriptor aggregate in the ODS database.
@@ -5208,12 +5207,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CTEProgramServiceDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociationCTEProgramServiceQ> StudentCTEProgramAssociationCTEProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: CurriculumUsedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.CurriculumUsedDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.CurriculumUsedDescriptor table of the CurriculumUsedDescriptor aggregate in the ODS database.
@@ -5250,12 +5249,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CurriculumUsedDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.CourseOfferingAggregate.EdFi.CourseOfferingCurriculumUsedQ> CourseOfferingCurriculumUseds  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DeliveryMethodDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DeliveryMethodDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DeliveryMethodDescriptor table of the DeliveryMethodDescriptor aggregate in the ODS database.
@@ -5298,12 +5297,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DeliveryMethodDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyQ> InterventionStudies  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Descriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Descriptor table of the Descriptor aggregate in the ODS database.
@@ -5341,12 +5340,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DescriptorAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DiagnosisDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiagnosisDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DiagnosisDescriptor table of the DiagnosisDescriptor aggregate in the ODS database.
@@ -5392,12 +5391,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiagnosisDescriptorAggregate.
         protected virtual ICollection<NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationInterventionEffectivenessQ> StudentInterventionAssociationInterventionEffectivenesses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DiplomaLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiplomaLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DiplomaLevelDescriptor table of the DiplomaLevelDescriptor aggregate in the ODS database.
@@ -5434,12 +5433,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiplomaLevelDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordDiplomaQ> StudentAcademicRecordDiplomas  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DiplomaTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiplomaTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DiplomaTypeDescriptor table of the DiplomaTypeDescriptor aggregate in the ODS database.
@@ -5476,12 +5475,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DiplomaTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordDiplomaQ> StudentAcademicRecordDiplomas  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisabilityDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisabilityDescriptor table of the DisabilityDescriptor aggregate in the ODS database.
@@ -5521,12 +5520,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityQ> StudentSpecialEducationProgramAssociationDisabilities  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisabilityDesignationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisabilityDesignationDescriptor table of the DisabilityDesignationDescriptor aggregate in the ODS database.
@@ -5566,12 +5565,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDesignationDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityDesignationQ> StudentSpecialEducationProgramAssociationDisabilityDesignations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisabilityDeterminationSourceTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisabilityDeterminationSourceTypeDescriptor table of the DisabilityDeterminationSourceTypeDescriptor aggregate in the ODS database.
@@ -5611,12 +5610,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisabilityDeterminationSource
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationDisabilityQ> StudentSpecialEducationProgramAssociationDisabilities  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisciplineAction
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisciplineAction table of the DisciplineAction aggregate in the ODS database.
@@ -5675,7 +5674,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ ResponsibilitySchool { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineActionDiscipline table of the DisciplineAction aggregate in the ODS database.
@@ -5718,7 +5717,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisciplineDescriptorAggregate.EdFi.DisciplineDescriptorQ DisciplineDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineActionStaff table of the DisciplineAction aggregate in the ODS database.
@@ -5761,7 +5760,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineActionStudentDisciplineIncidentAssociation table of the DisciplineAction aggregate in the ODS database.
@@ -5806,12 +5805,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationQ StudentDisciplineIncidentAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisciplineActionLengthDifferenceReasonDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionLengthDifferenceReasonDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisciplineActionLengthDifferenceReasonDescriptor table of the DisciplineActionLengthDifferenceReasonDescriptor aggregate in the ODS database.
@@ -5848,12 +5847,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineActionLengthDiffere
         protected virtual ICollection<NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionQ> DisciplineActions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisciplineDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisciplineDescriptor table of the DisciplineDescriptor aggregate in the ODS database.
@@ -5890,12 +5889,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.DisciplineActionAggregate.EdFi.DisciplineActionDisciplineQ> DisciplineActionDisciplines  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisciplineIncident
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisciplineIncident table of the DisciplineIncident aggregate in the ODS database.
@@ -5962,7 +5961,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineIncidentBehavior table of the DisciplineIncident aggregate in the ODS database.
@@ -6006,7 +6005,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptorQ BehaviorDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineIncidentExternalParticipant table of the DisciplineIncident aggregate in the ODS database.
@@ -6053,7 +6052,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptorQ DisciplineIncidentParticipationCodeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.DisciplineIncidentWeapon table of the DisciplineIncident aggregate in the ODS database.
@@ -6096,12 +6095,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentAggregate.E
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.WeaponDescriptorAggregate.EdFi.WeaponDescriptorQ WeaponDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: DisciplineIncidentParticipationCodeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.DisciplineIncidentParticipationCodeDescriptor table of the DisciplineIncidentParticipationCodeDescriptor aggregate in the ODS database.
@@ -6141,12 +6140,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.DisciplineIncidentParticipati
         protected virtual ICollection<NHibernate.QueryModels.StaffDisciplineIncidentAssociationAggregate.EdFi.StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCodeQ> StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationalEnvironmentDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationalEnvironmentDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationalEnvironmentDescriptor table of the EducationalEnvironmentDescriptor aggregate in the ODS database.
@@ -6198,12 +6197,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationalEnvironmentDescrip
         protected virtual ICollection<NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ> StudentSectionAttendanceEvents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationContent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationContent table of the EducationContent aggregate in the ODS database.
@@ -6282,7 +6281,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         protected virtual NHibernate.QueryModels.InteractivityStyleDescriptorAggregate.EdFi.InteractivityStyleDescriptorQ InteractivityStyleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentAppropriateGradeLevel table of the EducationContent aggregate in the ODS database.
@@ -6325,7 +6324,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentAppropriateSex table of the EducationContent aggregate in the ODS database.
@@ -6368,7 +6367,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentAuthor table of the EducationContent aggregate in the ODS database.
@@ -6408,7 +6407,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentDerivativeSourceEducationContent table of the EducationContent aggregate in the ODS database.
@@ -6451,7 +6450,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ DerivativeSourceEducationContent { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentDerivativeSourceLearningResourceMetadataURI table of the EducationContent aggregate in the ODS database.
@@ -6491,7 +6490,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentDerivativeSourceURI table of the EducationContent aggregate in the ODS database.
@@ -6531,7 +6530,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationContentLanguage table of the EducationContent aggregate in the ODS database.
@@ -6574,12 +6573,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationContentAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganization
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganization table of the EducationOrganization aggregate in the ODS database.
@@ -6729,7 +6728,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.OperationalStatusDescriptorAggregate.EdFi.OperationalStatusDescriptorQ OperationalStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationAddress table of the EducationOrganization aggregate in the ODS database.
@@ -6792,7 +6791,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationAddressPeriod table of the EducationOrganization aggregate in the ODS database.
@@ -6833,7 +6832,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationCategory table of the EducationOrganization aggregate in the ODS database.
@@ -6876,7 +6875,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationOrganizationCategoryDescriptorAggregate.EdFi.EducationOrganizationCategoryDescriptorQ EducationOrganizationCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationIdentificationCode table of the EducationOrganization aggregate in the ODS database.
@@ -6920,7 +6919,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ EducationOrganizationIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS database.
@@ -6964,7 +6963,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptorQ InstitutionTelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationInternationalAddress table of the EducationOrganization aggregate in the ODS database.
@@ -7017,12 +7016,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationCategoryDescriptor table of the EducationOrganizationCategoryDescriptor aggregate in the ODS database.
@@ -7059,12 +7058,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationCategory
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationCategoryQ> EducationOrganizationCategories  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationIdentificationSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationIdentificationSystemDescriptor table of the EducationOrganizationIdentificationSystemDescriptor aggregate in the ODS database.
@@ -7101,12 +7100,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentifi
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationInterventionPrescriptionAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationInterventionPrescriptionAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationInterventionPrescriptionAssociation table of the EducationOrganizationInterventionPrescriptionAssociation aggregate in the ODS database.
@@ -7154,12 +7153,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationInterven
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionQ InterventionPrescription { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationNetwork
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationNetwork table of the EducationOrganizationNetwork aggregate in the ODS database.
@@ -7200,12 +7199,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.NetworkPurposeDescriptorAggregate.EdFi.NetworkPurposeDescriptorQ NetworkPurposeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationNetworkAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationNetworkAssociation table of the EducationOrganizationNetworkAssociation aggregate in the ODS database.
@@ -7251,12 +7250,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationNetworkA
         protected virtual NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ EducationOrganizationNetwork { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ MemberEducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationOrganizationPeerAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationPeerAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationPeerAssociation table of the EducationOrganizationPeerAssociation aggregate in the ODS database.
@@ -7300,12 +7299,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationPeerAsso
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ PeerEducationOrganization { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationPlanDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationPlanDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationPlanDescriptor table of the EducationPlanDescriptor aggregate in the ODS database.
@@ -7342,12 +7341,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationPlanDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationEducationPlanQ> StudentSchoolAssociationEducationPlans  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EducationServiceCenter
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationServiceCenterAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EducationServiceCenter table of the EducationServiceCenter aggregate in the ODS database.
@@ -7391,12 +7390,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationServiceCenterAggrega
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi.StateEducationAgencyQ StateEducationAgency { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ElectronicMailTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ElectronicMailTypeDescriptor table of the ElectronicMailTypeDescriptor aggregate in the ODS database.
@@ -7439,12 +7438,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ElectronicMailTypeDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationElectronicMailQ> StudentEducationOrganizationAssociationElectronicMails  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EmploymentStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EmploymentStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EmploymentStatusDescriptor table of the EmploymentStatusDescriptor aggregate in the ODS database.
@@ -7484,12 +7483,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EmploymentStatusDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ> StaffEducationOrganizationEmploymentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EntryGradeLevelReasonDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EntryGradeLevelReasonDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EntryGradeLevelReasonDescriptor table of the EntryGradeLevelReasonDescriptor aggregate in the ODS database.
@@ -7526,12 +7525,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EntryGradeLevelReasonDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EntryTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EntryTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EntryTypeDescriptor table of the EntryTypeDescriptor aggregate in the ODS database.
@@ -7568,12 +7567,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EntryTypeDescriptorAggregate.
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: EventCircumstanceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.EventCircumstanceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.EventCircumstanceDescriptor table of the EventCircumstanceDescriptor aggregate in the ODS database.
@@ -7610,12 +7609,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EventCircumstanceDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ExitWithdrawTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ExitWithdrawTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ExitWithdrawTypeDescriptor table of the ExitWithdrawTypeDescriptor aggregate in the ODS database.
@@ -7652,12 +7651,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ExitWithdrawTypeDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: FeederSchoolAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.FeederSchoolAssociation table of the FeederSchoolAssociation aggregate in the ODS database.
@@ -7705,12 +7704,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.FeederSchoolAssociationAggreg
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ FeederSchool { get; set; }
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GeneralStudentProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GeneralStudentProgramAssociation table of the GeneralStudentProgramAssociation aggregate in the ODS database.
@@ -7775,7 +7774,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociat
         protected virtual NHibernate.QueryModels.ReasonExitedDescriptorAggregate.EdFi.ReasonExitedDescriptorQ ReasonExitedDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GeneralStudentProgramAssociationParticipationStatus table of the GeneralStudentProgramAssociation aggregate in the ODS database.
@@ -7820,12 +7819,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GeneralStudentProgramAssociat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ParticipationStatusDescriptorAggregate.EdFi.ParticipationStatusDescriptorQ ParticipationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Grade
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Grade table of the Grade aggregate in the ODS database.
@@ -7899,7 +7898,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
         protected virtual NHibernate.QueryModels.PerformanceBaseConversionDescriptorAggregate.EdFi.PerformanceBaseConversionDescriptorQ PerformanceBaseConversionDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ StudentSectionAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GradeLearningStandardGrade table of the Grade aggregate in the ODS database.
@@ -7947,12 +7946,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeAggregate.EdFi
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         protected virtual NHibernate.QueryModels.PerformanceBaseConversionDescriptorAggregate.EdFi.PerformanceBaseConversionDescriptorQ PerformanceBaseConversionDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradebookEntry
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradebookEntry table of the GradebookEntry aggregate in the ODS database.
@@ -8019,7 +8018,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         protected virtual NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ GradingPeriod { get; set; }
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GradebookEntryLearningObjective table of the GradebookEntry aggregate in the ODS database.
@@ -8064,7 +8063,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ LearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GradebookEntryLearningStandard table of the GradebookEntry aggregate in the ODS database.
@@ -8107,12 +8106,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradebookEntryTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradebookEntryTypeDescriptor table of the GradebookEntryTypeDescriptor aggregate in the ODS database.
@@ -8149,12 +8148,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradebookEntryTypeDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.GradebookEntryAggregate.EdFi.GradebookEntryQ> GradebookEntries  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradeLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradeLevelDescriptor table of the GradeLevelDescriptor aggregate in the ODS database.
@@ -8257,12 +8256,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeLevelDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradePointAverageTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradePointAverageTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradePointAverageTypeDescriptor table of the GradePointAverageTypeDescriptor aggregate in the ODS database.
@@ -8302,12 +8301,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradePointAverageTypeDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordGradePointAverageQ> StudentAcademicRecordGradePointAverages  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradeTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradeTypeDescriptor table of the GradeTypeDescriptor aggregate in the ODS database.
@@ -8344,12 +8343,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradeTypeDescriptorAggregate.
         protected virtual ICollection<NHibernate.QueryModels.GradeAggregate.EdFi.GradeQ> Grades  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradingPeriod
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradingPeriod table of the GradingPeriod aggregate in the ODS database.
@@ -8421,12 +8420,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GradingPeriodDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GradingPeriodDescriptor table of the GradingPeriodDescriptor aggregate in the ODS database.
@@ -8463,12 +8462,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GradingPeriodDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ> GradingPeriods  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GraduationPlan
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlan table of the GraduationPlan aggregate in the ODS database.
@@ -8532,7 +8531,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ GraduationSchoolYearType { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ TotalRequiredCreditTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanCreditsByCourse table of the GraduationPlan aggregate in the ODS database.
@@ -8581,7 +8580,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ CreditTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ WhenTakenGradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanCreditsByCourseCourse table of the GraduationPlan aggregate in the ODS database.
@@ -8626,7 +8625,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ Course { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanCreditsByCreditCategory table of the GraduationPlan aggregate in the ODS database.
@@ -8673,7 +8672,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.CreditCategoryDescriptorAggregate.EdFi.CreditCategoryDescriptorQ CreditCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ CreditTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanCreditsBySubject table of the GraduationPlan aggregate in the ODS database.
@@ -8720,7 +8719,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CreditTypeDescriptorAggregate.EdFi.CreditTypeDescriptorQ CreditTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanRequiredAssessment table of the GraduationPlan aggregate in the ODS database.
@@ -8772,7 +8771,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanRequiredAssessmentPerformanceLevel table of the GraduationPlan aggregate in the ODS database.
@@ -8820,7 +8819,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanRequiredAssessmentScore table of the GraduationPlan aggregate in the ODS database.
@@ -8867,12 +8866,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanAggregate.EdFi
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GraduationPlanTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GraduationPlanTypeDescriptor table of the GraduationPlanTypeDescriptor aggregate in the ODS database.
@@ -8909,12 +8908,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GraduationPlanTypeDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.GraduationPlanAggregate.EdFi.GraduationPlanQ> GraduationPlans  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: GunFreeSchoolsActReportingStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.GunFreeSchoolsActReportingStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.GunFreeSchoolsActReportingStatusDescriptor table of the GunFreeSchoolsActReportingStatusDescriptor aggregate in the ODS database.
@@ -8951,12 +8950,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.GunFreeSchoolsActReportingSta
         protected virtual ICollection<NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyAccountabilityQ> LocalEducationAgencyAccountabilities  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: HomelessPrimaryNighttimeResidenceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.HomelessPrimaryNighttimeResidenceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.HomelessPrimaryNighttimeResidenceDescriptor table of the HomelessPrimaryNighttimeResidenceDescriptor aggregate in the ODS database.
@@ -8993,12 +8992,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.HomelessPrimaryNighttimeResid
         protected virtual ICollection<NHibernate.QueryModels.StudentHomelessProgramAssociationAggregate.EdFi.StudentHomelessProgramAssociationQ> StudentHomelessProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: HomelessProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.HomelessProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.HomelessProgramServiceDescriptor table of the HomelessProgramServiceDescriptor aggregate in the ODS database.
@@ -9035,12 +9034,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.HomelessProgramServiceDescrip
         protected virtual ICollection<NHibernate.QueryModels.StudentHomelessProgramAssociationAggregate.EdFi.StudentHomelessProgramAssociationHomelessProgramServiceQ> StudentHomelessProgramAssociationHomelessProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: IdentificationDocumentUseDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.IdentificationDocumentUseDescriptor table of the IdentificationDocumentUseDescriptor aggregate in the ODS database.
@@ -9089,12 +9088,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IdentificationDocumentUseDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: IncidentLocationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.IncidentLocationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.IncidentLocationDescriptor table of the IncidentLocationDescriptor aggregate in the ODS database.
@@ -9131,12 +9130,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IncidentLocationDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ> DisciplineIncidents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InstitutionTelephoneNumberTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InstitutionTelephoneNumberTypeDescriptor table of the InstitutionTelephoneNumberTypeDescriptor aggregate in the ODS database.
@@ -9173,12 +9172,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InstitutionTelephoneNumberTyp
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationInstitutionTelephoneQ> EducationOrganizationInstitutionTelephones  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InteractivityStyleDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InteractivityStyleDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InteractivityStyleDescriptor table of the InteractivityStyleDescriptor aggregate in the ODS database.
@@ -9215,12 +9214,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InteractivityStyleDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ> EducationContents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InternetAccessDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InternetAccessDescriptor table of the InternetAccessDescriptor aggregate in the ODS database.
@@ -9257,12 +9256,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Intervention
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Intervention table of the Intervention aggregate in the ODS database.
@@ -9331,7 +9330,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptorQ InterventionClassDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionAppropriateGradeLevel table of the Intervention aggregate in the ODS database.
@@ -9374,7 +9373,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionAppropriateSex table of the Intervention aggregate in the ODS database.
@@ -9417,7 +9416,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionDiagnosis table of the Intervention aggregate in the ODS database.
@@ -9460,7 +9459,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptorQ DiagnosisDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionEducationContent table of the Intervention aggregate in the ODS database.
@@ -9503,7 +9502,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ EducationContent { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionInterventionPrescription table of the Intervention aggregate in the ODS database.
@@ -9548,7 +9547,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionQ InterventionPrescription { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionLearningResourceMetadataURI table of the Intervention aggregate in the ODS database.
@@ -9588,7 +9587,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionMeetingTime table of the Intervention aggregate in the ODS database.
@@ -9630,7 +9629,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPopulationServed table of the Intervention aggregate in the ODS database.
@@ -9673,7 +9672,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStaff table of the Intervention aggregate in the ODS database.
@@ -9716,7 +9715,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionURI table of the Intervention aggregate in the ODS database.
@@ -9756,12 +9755,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InterventionClassDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionClassDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InterventionClassDescriptor table of the InterventionClassDescriptor aggregate in the ODS database.
@@ -9804,12 +9803,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionClassDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.InterventionStudyAggregate.EdFi.InterventionStudyQ> InterventionStudies  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InterventionEffectivenessRatingDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionEffectivenessRatingDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InterventionEffectivenessRatingDescriptor table of the InterventionEffectivenessRatingDescriptor aggregate in the ODS database.
@@ -9849,12 +9848,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionEffectivenessRati
         protected virtual ICollection<NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationInterventionEffectivenessQ> StudentInterventionAssociationInterventionEffectivenesses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InterventionPrescription
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescription table of the InterventionPrescription aggregate in the ODS database.
@@ -9921,7 +9920,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptorQ InterventionClassDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionAppropriateGradeLevel table of the InterventionPrescription aggregate in the ODS database.
@@ -9964,7 +9963,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionAppropriateSex table of the InterventionPrescription aggregate in the ODS database.
@@ -10007,7 +10006,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionDiagnosis table of the InterventionPrescription aggregate in the ODS database.
@@ -10050,7 +10049,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptorQ DiagnosisDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionEducationContent table of the InterventionPrescription aggregate in the ODS database.
@@ -10093,7 +10092,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ EducationContent { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionLearningResourceMetadataURI table of the InterventionPrescription aggregate in the ODS database.
@@ -10133,7 +10132,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionPopulationServed table of the InterventionPrescription aggregate in the ODS database.
@@ -10176,7 +10175,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionPrescriptionURI table of the InterventionPrescription aggregate in the ODS database.
@@ -10216,12 +10215,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionPrescriptionAggre
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InterventionStudy
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudy table of the InterventionStudy aggregate in the ODS database.
@@ -10280,7 +10279,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         protected virtual NHibernate.QueryModels.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptorQ InterventionClassDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.InterventionPrescriptionAggregate.EdFi.InterventionPrescriptionQ InterventionPrescription { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyAppropriateGradeLevel table of the InterventionStudy aggregate in the ODS database.
@@ -10323,7 +10322,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyAppropriateSex table of the InterventionStudy aggregate in the ODS database.
@@ -10366,7 +10365,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyEducationContent table of the InterventionStudy aggregate in the ODS database.
@@ -10409,7 +10408,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationContentAggregate.EdFi.EducationContentQ EducationContent { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyInterventionEffectiveness table of the InterventionStudy aggregate in the ODS database.
@@ -10461,7 +10460,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         protected virtual NHibernate.QueryModels.InterventionEffectivenessRatingDescriptorAggregate.EdFi.InterventionEffectivenessRatingDescriptorQ InterventionEffectivenessRatingDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyLearningResourceMetadataURI table of the InterventionStudy aggregate in the ODS database.
@@ -10501,7 +10500,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyPopulationServed table of the InterventionStudy aggregate in the ODS database.
@@ -10544,7 +10543,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyStateAbbreviation table of the InterventionStudy aggregate in the ODS database.
@@ -10587,7 +10586,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.InterventionStudyURI table of the InterventionStudy aggregate in the ODS database.
@@ -10627,12 +10626,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionStudyAggregate.Ed
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LanguageDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LanguageDescriptor table of the LanguageDescriptor aggregate in the ODS database.
@@ -10687,12 +10686,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageQ> StudentEducationOrganizationAssociationLanguages  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LanguageInstructionProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageInstructionProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LanguageInstructionProgramServiceDescriptor table of the LanguageInstructionProgramServiceDescriptor aggregate in the ODS database.
@@ -10729,12 +10728,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageInstructionProgramSer
         protected virtual ICollection<NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationLanguageInstructionProgramServiceQ> StudentLanguageInstructionProgramAssociationLanguageInstructionProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LanguageUseDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LanguageUseDescriptor table of the LanguageUseDescriptor aggregate in the ODS database.
@@ -10777,12 +10776,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LanguageUseDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationLanguageUseQ> StudentEducationOrganizationAssociationLanguageUses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningObjective
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningObjective table of the LearningObjective aggregate in the ODS database.
@@ -10857,7 +10856,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ ParentLearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjective table of the LearningObjective aggregate in the ODS database.
@@ -10932,7 +10931,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ ParentLearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjectiveAcademicSubject table of the LearningObjective aggregate in the ODS database.
@@ -10975,7 +10974,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjectiveContentStandard table of the LearningObjective aggregate in the ODS database.
@@ -11027,7 +11026,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ MandatingEducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptorQ PublicationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjectiveContentStandardAuthor table of the LearningObjective aggregate in the ODS database.
@@ -11067,7 +11066,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjectiveGradeLevel table of the LearningObjective aggregate in the ODS database.
@@ -11110,7 +11109,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningObjectiveLearningStandard table of the LearningObjective aggregate in the ODS database.
@@ -11153,12 +11152,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningObjectiveAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningStandard
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningStandard table of the LearningStandard aggregate in the ODS database.
@@ -11253,7 +11252,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         protected virtual NHibernate.QueryModels.LearningStandardScopeDescriptorAggregate.EdFi.LearningStandardScopeDescriptorQ LearningStandardScopeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ ParentLearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandard table of the LearningStandard aggregate in the ODS database.
@@ -11348,7 +11347,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         protected virtual NHibernate.QueryModels.LearningStandardScopeDescriptorAggregate.EdFi.LearningStandardScopeDescriptorQ LearningStandardScopeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ ParentLearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardAcademicSubject table of the LearningStandard aggregate in the ODS database.
@@ -11391,7 +11390,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardContentStandard table of the LearningStandard aggregate in the ODS database.
@@ -11443,7 +11442,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ MandatingEducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.PublicationStatusDescriptorAggregate.EdFi.PublicationStatusDescriptorQ PublicationStatusDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardContentStandardAuthor table of the LearningStandard aggregate in the ODS database.
@@ -11483,7 +11482,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardGradeLevel table of the LearningStandard aggregate in the ODS database.
@@ -11526,7 +11525,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardIdentificationCode table of the LearningStandard aggregate in the ODS database.
@@ -11568,7 +11567,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardPrerequisiteLearningStandard table of the LearningStandard aggregate in the ODS database.
@@ -11611,12 +11610,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardAggregate.EdF
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ PrerequisiteLearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningStandardCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardCategoryDescriptor table of the LearningStandardCategoryDescriptor aggregate in the ODS database.
@@ -11656,12 +11655,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardCategoryDescr
         protected virtual ICollection<NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQH> LearningStandardsHierarchy  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningStandardEquivalenceAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardEquivalenceAssociation table of the LearningStandardEquivalenceAssociation aggregate in the ODS database.
@@ -11711,12 +11710,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceAs
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ SourceLearningStandard { get; set; }
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ TargetLearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningStandardEquivalenceStrengthDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceStrengthDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardEquivalenceStrengthDescriptor table of the LearningStandardEquivalenceStrengthDescriptor aggregate in the ODS database.
@@ -11753,12 +11752,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardEquivalenceSt
         protected virtual ICollection<NHibernate.QueryModels.LearningStandardEquivalenceAssociationAggregate.EdFi.LearningStandardEquivalenceAssociationQ> LearningStandardEquivalenceAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LearningStandardScopeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardScopeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LearningStandardScopeDescriptor table of the LearningStandardScopeDescriptor aggregate in the ODS database.
@@ -11798,12 +11797,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LearningStandardScopeDescript
         protected virtual ICollection<NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQH> LearningStandardsHierarchy  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LevelOfEducationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LevelOfEducationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LevelOfEducationDescriptor table of the LevelOfEducationDescriptor aggregate in the ODS database.
@@ -11840,12 +11839,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LevelOfEducationDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ> Staffs  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LicenseStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LicenseStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LicenseStatusDescriptor table of the LicenseStatusDescriptor aggregate in the ODS database.
@@ -11882,12 +11881,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LicenseStatusDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicenseQ> CommunityProviderLicenses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LicenseTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LicenseTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LicenseTypeDescriptor table of the LicenseTypeDescriptor aggregate in the ODS database.
@@ -11924,12 +11923,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LicenseTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderLicenseAggregate.EdFi.CommunityProviderLicenseQ> CommunityProviderLicenses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LimitedEnglishProficiencyDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LimitedEnglishProficiencyDescriptor table of the LimitedEnglishProficiencyDescriptor aggregate in the ODS database.
@@ -11966,12 +11965,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LocaleDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LocaleDescriptor table of the LocaleDescriptor aggregate in the ODS database.
@@ -12020,12 +12019,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocaleDescriptorAggregate.EdF
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddressQ> StudentEducationOrganizationAssociationAddresses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LocalEducationAgency
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LocalEducationAgency table of the LocalEducationAgency aggregate in the ODS database.
@@ -12076,7 +12075,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate
         protected virtual NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQ ParentLocalEducationAgency { get; set; }
         protected virtual NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi.StateEducationAgencyQ StateEducationAgency { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LocalEducationAgency table of the LocalEducationAgency aggregate in the ODS database.
@@ -12127,7 +12126,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate
         protected virtual NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQ ParentLocalEducationAgency { get; set; }
         protected virtual NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi.StateEducationAgencyQ StateEducationAgency { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LocalEducationAgencyAccountability table of the LocalEducationAgency aggregate in the ODS database.
@@ -12168,7 +12167,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate
         protected virtual NHibernate.QueryModels.SchoolChoiceImplementStatusDescriptorAggregate.EdFi.SchoolChoiceImplementStatusDescriptorQ SchoolChoiceImplementStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.LocalEducationAgencyFederalFunds table of the LocalEducationAgency aggregate in the ODS database.
@@ -12210,12 +12209,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyAggregate
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: LocalEducationAgencyCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.LocalEducationAgencyCategoryDescriptor table of the LocalEducationAgencyCategoryDescriptor aggregate in the ODS database.
@@ -12255,12 +12254,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocalEducationAgencyCategoryD
         protected virtual ICollection<NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQH> LocalEducationAgenciesHierarchy  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Location
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Location table of the Location aggregate in the ODS database.
@@ -12310,12 +12309,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.LocationAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: MagnetSpecialProgramEmphasisSchoolDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MagnetSpecialProgramEmphasisSchoolDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.MagnetSpecialProgramEmphasisSchoolDescriptor table of the MagnetSpecialProgramEmphasisSchoolDescriptor aggregate in the ODS database.
@@ -12352,12 +12351,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MagnetSpecialProgramEmphasisS
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: MediumOfInstructionDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MediumOfInstructionDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.MediumOfInstructionDescriptor table of the MediumOfInstructionDescriptor aggregate in the ODS database.
@@ -12397,12 +12396,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MediumOfInstructionDescriptor
         protected virtual ICollection<NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ> Sections  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: MethodCreditEarnedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MethodCreditEarnedDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.MethodCreditEarnedDescriptor table of the MethodCreditEarnedDescriptor aggregate in the ODS database.
@@ -12439,12 +12438,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MethodCreditEarnedDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ> CourseTranscripts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: MigrantEducationProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MigrantEducationProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.MigrantEducationProgramServiceDescriptor table of the MigrantEducationProgramServiceDescriptor aggregate in the ODS database.
@@ -12481,12 +12480,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MigrantEducationProgramServic
         protected virtual ICollection<NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi.StudentMigrantEducationProgramAssociationMigrantEducationProgramServiceQ> StudentMigrantEducationProgramAssociationMigrantEducationProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: MonitoredDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.MonitoredDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.MonitoredDescriptor table of the MonitoredDescriptor aggregate in the ODS database.
@@ -12523,12 +12522,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MonitoredDescriptorAggregate.
         protected virtual ICollection<NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentQ> StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: NeglectedOrDelinquentProgramDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.NeglectedOrDelinquentProgramDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.NeglectedOrDelinquentProgramDescriptor table of the NeglectedOrDelinquentProgramDescriptor aggregate in the ODS database.
@@ -12565,12 +12564,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.NeglectedOrDelinquentProgramD
         protected virtual ICollection<NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationQ> StudentNeglectedOrDelinquentProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: NeglectedOrDelinquentProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.NeglectedOrDelinquentProgramServiceDescriptor table of the NeglectedOrDelinquentProgramServiceDescriptor aggregate in the ODS database.
@@ -12607,12 +12606,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.NeglectedOrDelinquentProgramS
         protected virtual ICollection<NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServiceQ> StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: NetworkPurposeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.NetworkPurposeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.NetworkPurposeDescriptor table of the NetworkPurposeDescriptor aggregate in the ODS database.
@@ -12649,12 +12648,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.NetworkPurposeDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetworkQ> EducationOrganizationNetworks  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ObjectiveAssessment
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessment table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12720,7 +12719,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
         protected virtual NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ ParentObjectiveAssessment { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessment table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12786,7 +12785,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         protected virtual NHibernate.QueryModels.AssessmentAggregate.EdFi.AssessmentQ Assessment { get; set; }
         protected virtual NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ ParentObjectiveAssessment { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessmentAssessmentItem table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12829,7 +12828,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AssessmentItemAggregate.EdFi.AssessmentItemQ AssessmentItem { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessmentLearningObjective table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12874,7 +12873,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ LearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessmentLearningStandard table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12917,7 +12916,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessmentPerformanceLevel table of the ObjectiveAssessment aggregate in the ODS database.
@@ -12967,7 +12966,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ObjectiveAssessmentScore table of the ObjectiveAssessment aggregate in the ODS database.
@@ -13014,12 +13013,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ObjectiveAssessmentAggregate.
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: OldEthnicityDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.OldEthnicityDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.OldEthnicityDescriptor table of the OldEthnicityDescriptor aggregate in the ODS database.
@@ -13059,12 +13058,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OldEthnicityDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: OpenStaffPosition
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.OpenStaffPosition table of the OpenStaffPosition aggregate in the ODS database.
@@ -13120,7 +13119,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.Ed
         protected virtual NHibernate.QueryModels.ProgramAssignmentDescriptorAggregate.EdFi.ProgramAssignmentDescriptorQ ProgramAssignmentDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StaffClassificationDescriptorAggregate.EdFi.StaffClassificationDescriptorQ StaffClassificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.OpenStaffPositionAcademicSubject table of the OpenStaffPosition aggregate in the ODS database.
@@ -13163,7 +13162,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.OpenStaffPositionInstructionalGradeLevel table of the OpenStaffPosition aggregate in the ODS database.
@@ -13206,12 +13205,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OpenStaffPositionAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: OperationalStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.OperationalStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.OperationalStatusDescriptor table of the OperationalStatusDescriptor aggregate in the ODS database.
@@ -13248,12 +13247,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OperationalStatusDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ> EducationOrganizations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: OtherNameTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.OtherNameTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.OtherNameTypeDescriptor table of the OtherNameTypeDescriptor aggregate in the ODS database.
@@ -13296,12 +13295,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.OtherNameTypeDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentOtherNameQ> StudentOtherNames  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Parent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Parent table of the Parent aggregate in the ODS database.
@@ -13369,7 +13368,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentAddress table of the Parent aggregate in the ODS database.
@@ -13432,7 +13431,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentAddressPeriod table of the Parent aggregate in the ODS database.
@@ -13473,7 +13472,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentElectronicMail table of the Parent aggregate in the ODS database.
@@ -13520,7 +13519,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ ElectronicMailTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentInternationalAddress table of the Parent aggregate in the ODS database.
@@ -13573,7 +13572,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentLanguage table of the Parent aggregate in the ODS database.
@@ -13617,7 +13616,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentLanguageUse table of the Parent aggregate in the ODS database.
@@ -13660,7 +13659,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ LanguageUseDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentOtherName table of the Parent aggregate in the ODS database.
@@ -13708,7 +13707,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptorQ OtherNameTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentPersonalIdentificationDocument table of the Parent aggregate in the ODS database.
@@ -13760,7 +13759,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ParentTelephone table of the Parent aggregate in the ODS database.
@@ -13808,12 +13807,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ParticipationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParticipationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ParticipationDescriptor table of the ParticipationDescriptor aggregate in the ODS database.
@@ -13850,12 +13849,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParticipationDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentQ> StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ParticipationStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParticipationStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ParticipationStatusDescriptor table of the ParticipationStatusDescriptor aggregate in the ODS database.
@@ -13892,12 +13891,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ParticipationStatusDescriptor
         protected virtual ICollection<NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationParticipationStatusQ> GeneralStudentProgramAssociationParticipationStatuses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Payroll
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PayrollAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Payroll table of the Payroll aggregate in the ODS database.
@@ -13948,12 +13947,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PayrollAggregate.EdFi
         protected virtual NHibernate.QueryModels.AccountAggregate.EdFi.AccountQ Account { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PerformanceBaseConversionDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PerformanceBaseConversionDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PerformanceBaseConversionDescriptor table of the PerformanceBaseConversionDescriptor aggregate in the ODS database.
@@ -13993,12 +13992,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PerformanceBaseConversionDesc
         protected virtual ICollection<NHibernate.QueryModels.GradeAggregate.EdFi.GradeQ> Grades  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PerformanceLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PerformanceLevelDescriptor table of the PerformanceLevelDescriptor aggregate in the ODS database.
@@ -14047,12 +14046,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PerformanceLevelDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevelQ> StudentAssessmentStudentObjectiveAssessmentPerformanceLevels  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Person
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Person table of the Person aggregate in the ODS database.
@@ -14106,12 +14105,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SourceSystemDescriptorAggregate.EdFi.SourceSystemDescriptorQ SourceSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PersonalInformationVerificationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PersonalInformationVerificationDescriptor table of the PersonalInformationVerificationDescriptor aggregate in the ODS database.
@@ -14160,12 +14159,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PersonalInformationVerificati
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentPersonalIdentificationDocumentQ> StudentPersonalIdentificationDocuments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PlatformTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PlatformTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PlatformTypeDescriptor table of the PlatformTypeDescriptor aggregate in the ODS database.
@@ -14205,12 +14204,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PlatformTypeDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PopulationServedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PopulationServedDescriptor table of the PopulationServedDescriptor aggregate in the ODS database.
@@ -14262,12 +14261,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PopulationServedDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi.StudentInterventionAssociationInterventionEffectivenessQ> StudentInterventionAssociationInterventionEffectivenesses  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PostingResultDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostingResultDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PostingResultDescriptor table of the PostingResultDescriptor aggregate in the ODS database.
@@ -14304,12 +14303,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostingResultDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.OpenStaffPositionAggregate.EdFi.OpenStaffPositionQ> OpenStaffPositions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PostSecondaryEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PostSecondaryEvent table of the PostSecondaryEvent aggregate in the ODS database.
@@ -14357,12 +14356,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventAggregate.E
         protected virtual NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ PostSecondaryInstitution { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PostSecondaryEventCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PostSecondaryEventCategoryDescriptor table of the PostSecondaryEventCategoryDescriptor aggregate in the ODS database.
@@ -14399,12 +14398,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryEventCategoryDes
         protected virtual ICollection<NHibernate.QueryModels.PostSecondaryEventAggregate.EdFi.PostSecondaryEventQ> PostSecondaryEvents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PostSecondaryInstitution
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PostSecondaryInstitution table of the PostSecondaryInstitution aggregate in the ODS database.
@@ -14448,7 +14447,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggre
         protected virtual NHibernate.QueryModels.AdministrativeFundingControlDescriptorAggregate.EdFi.AdministrativeFundingControlDescriptorQ AdministrativeFundingControlDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi.PostSecondaryInstitutionLevelDescriptorQ PostSecondaryInstitutionLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.PostSecondaryInstitutionMediumOfInstruction table of the PostSecondaryInstitution aggregate in the ODS database.
@@ -14485,12 +14484,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.MediumOfInstructionDescriptorAggregate.EdFi.MediumOfInstructionDescriptorQ MediumOfInstructionDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PostSecondaryInstitutionLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PostSecondaryInstitutionLevelDescriptor table of the PostSecondaryInstitutionLevelDescriptor aggregate in the ODS database.
@@ -14527,12 +14526,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionLevel
         protected virtual ICollection<NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ> PostSecondaryInstitutions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProficiencyDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProficiencyDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProficiencyDescriptor table of the ProficiencyDescriptor aggregate in the ODS database.
@@ -14569,12 +14568,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProficiencyDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentQ> StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Program
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Program table of the Program aggregate in the ODS database.
@@ -14652,7 +14651,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.ProgramTypeDescriptorAggregate.EdFi.ProgramTypeDescriptorQ ProgramTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ProgramCharacteristic table of the Program aggregate in the ODS database.
@@ -14695,7 +14694,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramCharacteristicDescriptorAggregate.EdFi.ProgramCharacteristicDescriptorQ ProgramCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ProgramLearningObjective table of the Program aggregate in the ODS database.
@@ -14740,7 +14739,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ LearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ProgramLearningStandard table of the Program aggregate in the ODS database.
@@ -14783,7 +14782,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardQ LearningStandard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ProgramService table of the Program aggregate in the ODS database.
@@ -14826,7 +14825,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ServiceDescriptorAggregate.EdFi.ServiceDescriptorQ ServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ProgramSponsor table of the Program aggregate in the ODS database.
@@ -14869,12 +14868,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramSponsorDescriptorAggregate.EdFi.ProgramSponsorDescriptorQ ProgramSponsorDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgramAssignmentDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAssignmentDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgramAssignmentDescriptor table of the ProgramAssignmentDescriptor aggregate in the ODS database.
@@ -14914,12 +14913,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramAssignmentDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi.StaffSchoolAssociationQ> StaffSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgramCharacteristicDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramCharacteristicDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgramCharacteristicDescriptor table of the ProgramCharacteristicDescriptor aggregate in the ODS database.
@@ -14959,12 +14958,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramCharacteristicDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristicQ> StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgramSponsorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramSponsorDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgramSponsorDescriptor table of the ProgramSponsorDescriptor aggregate in the ODS database.
@@ -15001,12 +15000,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramSponsorDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramSponsorQ> ProgramSponsors  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgramTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgramTypeDescriptor table of the ProgramTypeDescriptor aggregate in the ODS database.
@@ -15046,12 +15045,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgramTypeDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationProgramParticipationQ> StudentEducationOrganizationAssociationProgramParticipations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgressDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgressDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgressDescriptor table of the ProgressDescriptor aggregate in the ODS database.
@@ -15088,12 +15087,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgressDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi.StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentQ> StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProgressLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgressLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProgressLevelDescriptor table of the ProgressLevelDescriptor aggregate in the ODS database.
@@ -15133,12 +15132,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProgressLevelDescriptorAggreg
         protected virtual ICollection<NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi.StudentNeglectedOrDelinquentProgramAssociationQ> MathematicsStudentNeglectedOrDelinquentProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProviderCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProviderCategoryDescriptor table of the ProviderCategoryDescriptor aggregate in the ODS database.
@@ -15175,12 +15174,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderCategoryDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ> CommunityProviders  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProviderProfitabilityDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderProfitabilityDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProviderProfitabilityDescriptor table of the ProviderProfitabilityDescriptor aggregate in the ODS database.
@@ -15217,12 +15216,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderProfitabilityDescript
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ> CommunityProviders  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ProviderStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ProviderStatusDescriptor table of the ProviderStatusDescriptor aggregate in the ODS database.
@@ -15259,12 +15258,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ProviderStatusDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.CommunityProviderAggregate.EdFi.CommunityProviderQ> CommunityProviders  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: PublicationStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.PublicationStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.PublicationStatusDescriptor table of the PublicationStatusDescriptor aggregate in the ODS database.
@@ -15307,12 +15306,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PublicationStatusDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.LearningStandardAggregate.EdFi.LearningStandardContentStandardQ> LearningStandardContentStandards  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: QuestionFormDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.QuestionFormDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.QuestionFormDescriptor table of the QuestionFormDescriptor aggregate in the ODS database.
@@ -15349,12 +15348,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.QuestionFormDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.SurveyQuestionAggregate.EdFi.SurveyQuestionQ> SurveyQuestions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RaceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RaceDescriptor table of the RaceDescriptor aggregate in the ODS database.
@@ -15394,12 +15393,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RaceDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationRaceQ> StudentEducationOrganizationAssociationRaces  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ReasonExitedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReasonExitedDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ReasonExitedDescriptor table of the ReasonExitedDescriptor aggregate in the ODS database.
@@ -15436,12 +15435,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReasonExitedDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ> GeneralStudentProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ReasonNotTestedDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReasonNotTestedDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ReasonNotTestedDescriptor table of the ReasonNotTestedDescriptor aggregate in the ODS database.
@@ -15478,12 +15477,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReasonNotTestedDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RecognitionTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RecognitionTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RecognitionTypeDescriptor table of the RecognitionTypeDescriptor aggregate in the ODS database.
@@ -15523,12 +15522,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RecognitionTypeDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordRecognitionQ> StudentAcademicRecordRecognitions  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RelationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RelationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RelationDescriptor table of the RelationDescriptor aggregate in the ODS database.
@@ -15565,12 +15564,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RelationDescriptorAggregate.E
         protected virtual ICollection<NHibernate.QueryModels.StudentParentAssociationAggregate.EdFi.StudentParentAssociationQ> StudentParentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RepeatIdentifierDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RepeatIdentifierDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RepeatIdentifierDescriptor table of the RepeatIdentifierDescriptor aggregate in the ODS database.
@@ -15607,12 +15606,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RepeatIdentifierDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ> StudentSectionAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ReportCard
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ReportCard table of the ReportCard aggregate in the ODS database.
@@ -15679,7 +15678,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         protected virtual NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ GradingPeriod { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ReportCardGrade table of the ReportCard aggregate in the ODS database.
@@ -15734,7 +15733,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeAggregate.EdFi.GradeQ Grade { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ReportCardGradePointAverage table of the ReportCard aggregate in the ODS database.
@@ -15780,7 +15779,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradePointAverageTypeDescriptorAggregate.EdFi.GradePointAverageTypeDescriptorQ GradePointAverageTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ReportCardStudentCompetencyObjective table of the ReportCard aggregate in the ODS database.
@@ -15827,7 +15826,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentCompetencyObjectiveAggregate.EdFi.StudentCompetencyObjectiveQ StudentCompetencyObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.ReportCardStudentLearningObjective table of the ReportCard aggregate in the ODS database.
@@ -15872,12 +15871,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReportCardAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentLearningObjectiveAggregate.EdFi.StudentLearningObjectiveQ StudentLearningObjective { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ReporterDescriptionDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReporterDescriptionDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ReporterDescriptionDescriptor table of the ReporterDescriptionDescriptor aggregate in the ODS database.
@@ -15914,12 +15913,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ReporterDescriptionDescriptor
         protected virtual ICollection<NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ> DisciplineIncidents  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ResidencyStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResidencyStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ResidencyStatusDescriptor table of the ResidencyStatusDescriptor aggregate in the ODS database.
@@ -15956,12 +15955,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResidencyStatusDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ> StudentSchoolAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ResponseIndicatorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResponseIndicatorDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ResponseIndicatorDescriptor table of the ResponseIndicatorDescriptor aggregate in the ODS database.
@@ -15998,12 +15997,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResponseIndicatorDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentItemQ> StudentAssessmentItems  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ResponsibilityDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResponsibilityDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ResponsibilityDescriptor table of the ResponsibilityDescriptor aggregate in the ODS database.
@@ -16040,12 +16039,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResponsibilityDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi.StudentEducationOrganizationResponsibilityAssociationQ> StudentEducationOrganizationResponsibilityAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RestraintEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RestraintEvent table of the RestraintEvent aggregate in the ODS database.
@@ -16096,7 +16095,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.RestraintEventProgram table of the RestraintEvent aggregate in the ODS database.
@@ -16143,7 +16142,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.RestraintEventReason table of the RestraintEvent aggregate in the ODS database.
@@ -16186,12 +16185,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RestraintEventReasonDescriptorAggregate.EdFi.RestraintEventReasonDescriptorQ RestraintEventReasonDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RestraintEventReasonDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventReasonDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RestraintEventReasonDescriptor table of the RestraintEventReasonDescriptor aggregate in the ODS database.
@@ -16228,12 +16227,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RestraintEventReasonDescripto
         protected virtual ICollection<NHibernate.QueryModels.RestraintEventAggregate.EdFi.RestraintEventReasonQ> RestraintEventReasons  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ResultDatatypeTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ResultDatatypeTypeDescriptor table of the ResultDatatypeTypeDescriptor aggregate in the ODS database.
@@ -16291,12 +16290,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ResultDatatypeTypeDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentStudentObjectiveAssessmentScoreResultQ> StudentAssessmentStudentObjectiveAssessmentScoreResults  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: RetestIndicatorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.RetestIndicatorDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.RetestIndicatorDescriptor table of the RetestIndicatorDescriptor aggregate in the ODS database.
@@ -16333,12 +16332,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.RetestIndicatorDescriptorAggr
         protected virtual ICollection<NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ> StudentAssessments  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: School
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.School table of the School aggregate in the ODS database.
@@ -16448,7 +16447,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolTypeDescriptorAggregate.EdFi.SchoolTypeDescriptorQ SchoolTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.TitleIPartASchoolDesignationDescriptorAggregate.EdFi.TitleIPartASchoolDesignationDescriptorQ TitleIPartASchoolDesignationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SchoolCategory table of the School aggregate in the ODS database.
@@ -16485,7 +16484,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolCategoryDescriptorAggregate.EdFi.SchoolCategoryDescriptorQ SchoolCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SchoolGradeLevel table of the School aggregate in the ODS database.
@@ -16522,12 +16521,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SchoolCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SchoolCategoryDescriptor table of the SchoolCategoryDescriptor aggregate in the ODS database.
@@ -16564,12 +16563,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolCategoryDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolCategoryQ> SchoolCategories  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SchoolChoiceImplementStatusDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolChoiceImplementStatusDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SchoolChoiceImplementStatusDescriptor table of the SchoolChoiceImplementStatusDescriptor aggregate in the ODS database.
@@ -16606,12 +16605,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolChoiceImplementStatusDe
         protected virtual ICollection<NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyAccountabilityQ> LocalEducationAgencyAccountabilities  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SchoolFoodServiceProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SchoolFoodServiceProgramServiceDescriptor table of the SchoolFoodServiceProgramServiceDescriptor aggregate in the ODS database.
@@ -16648,12 +16647,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolFoodServiceProgramServi
         protected virtual ICollection<NHibernate.QueryModels.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServiceQ> StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SchoolTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SchoolTypeDescriptor table of the SchoolTypeDescriptor aggregate in the ODS database.
@@ -16690,12 +16689,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolTypeDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SchoolYearType
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SchoolYearType table of the SchoolYearType aggregate in the ODS database.
@@ -16779,12 +16778,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ> Surveys  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Section
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Section table of the Section aggregate in the ODS database.
@@ -16883,7 +16882,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         protected virtual NHibernate.QueryModels.MediumOfInstructionDescriptorAggregate.EdFi.MediumOfInstructionDescriptorQ MediumOfInstructionDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SectionCharacteristic table of the Section aggregate in the ODS database.
@@ -16926,7 +16925,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SectionCharacteristicDescriptorAggregate.EdFi.SectionCharacteristicDescriptorQ SectionCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SectionClassPeriod table of the Section aggregate in the ODS database.
@@ -16969,7 +16968,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ ClassPeriod { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SectionCourseLevelCharacteristic table of the Section aggregate in the ODS database.
@@ -17012,7 +17011,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CourseLevelCharacteristicDescriptorAggregate.EdFi.CourseLevelCharacteristicDescriptorQ CourseLevelCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SectionOfferedGradeLevel table of the Section aggregate in the ODS database.
@@ -17055,7 +17054,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SectionProgram table of the Section aggregate in the ODS database.
@@ -17102,12 +17101,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SectionAttendanceTakenEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SectionAttendanceTakenEvent table of the SectionAttendanceTakenEvent aggregate in the ODS database.
@@ -17164,12 +17163,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionAttendanceTakenEventAg
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SectionCharacteristicDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionCharacteristicDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SectionCharacteristicDescriptor table of the SectionCharacteristicDescriptor aggregate in the ODS database.
@@ -17206,12 +17205,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SectionCharacteristicDescript
         protected virtual ICollection<NHibernate.QueryModels.SectionAggregate.EdFi.SectionCharacteristicQ> SectionCharacteristics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SeparationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SeparationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SeparationDescriptor table of the SeparationDescriptor aggregate in the ODS database.
@@ -17248,12 +17247,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SeparationDescriptorAggregate
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ> StaffEducationOrganizationEmploymentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SeparationReasonDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SeparationReasonDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SeparationReasonDescriptor table of the SeparationReasonDescriptor aggregate in the ODS database.
@@ -17290,12 +17289,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SeparationReasonDescriptorAgg
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.StaffEducationOrganizationEmploymentAssociationQ> StaffEducationOrganizationEmploymentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: ServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.ServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.ServiceDescriptor table of the ServiceDescriptor aggregate in the ODS database.
@@ -17341,12 +17340,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ServiceDescriptorAggregate.Ed
         protected virtual ICollection<NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociationServiceQ> StudentTitleIPartAProgramAssociationServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Session
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Session table of the Session aggregate in the ODS database.
@@ -17410,7 +17409,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         protected virtual NHibernate.QueryModels.TermDescriptorAggregate.EdFi.TermDescriptorQ TermDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SessionAcademicWeek table of the Session aggregate in the ODS database.
@@ -17453,7 +17452,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicWeekAggregate.EdFi.AcademicWeekQ AcademicWeek { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SessionGradingPeriod table of the Session aggregate in the ODS database.
@@ -17498,12 +17497,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SessionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradingPeriodAggregate.EdFi.GradingPeriodQ GradingPeriod { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SexDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SexDescriptor table of the SexDescriptor aggregate in the ODS database.
@@ -17561,12 +17560,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SourceSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SourceSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SourceSystemDescriptor table of the SourceSystemDescriptor aggregate in the ODS database.
@@ -17603,12 +17602,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SourceSystemDescriptorAggrega
         protected virtual ICollection<NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ> People  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SpecialEducationProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SpecialEducationProgramServiceDescriptor table of the SpecialEducationProgramServiceDescriptor aggregate in the ODS database.
@@ -17645,12 +17644,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationProgramServic
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceQ> StudentSpecialEducationProgramAssociationSpecialEducationProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SpecialEducationSettingDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationSettingDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SpecialEducationSettingDescriptor table of the SpecialEducationSettingDescriptor aggregate in the ODS database.
@@ -17687,12 +17686,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SpecialEducationSettingDescri
         protected virtual ICollection<NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi.StudentSpecialEducationProgramAssociationQ> StudentSpecialEducationProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Staff
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Staff table of the Staff aggregate in the ODS database.
@@ -17835,7 +17834,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffAddress table of the Staff aggregate in the ODS database.
@@ -17898,7 +17897,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffAddressPeriod table of the Staff aggregate in the ODS database.
@@ -17939,7 +17938,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffCredential table of the Staff aggregate in the ODS database.
@@ -17984,7 +17983,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ Credential { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffElectronicMail table of the Staff aggregate in the ODS database.
@@ -18031,7 +18030,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ ElectronicMailTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffIdentificationCode table of the Staff aggregate in the ODS database.
@@ -18076,7 +18075,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi.StaffIdentificationSystemDescriptorQ StaffIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffIdentificationDocument table of the Staff aggregate in the ODS database.
@@ -18128,7 +18127,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffInternationalAddress table of the Staff aggregate in the ODS database.
@@ -18181,7 +18180,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffLanguage table of the Staff aggregate in the ODS database.
@@ -18225,7 +18224,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffLanguageUse table of the Staff aggregate in the ODS database.
@@ -18268,7 +18267,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ LanguageUseDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffOtherName table of the Staff aggregate in the ODS database.
@@ -18316,7 +18315,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptorQ OtherNameTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffPersonalIdentificationDocument table of the Staff aggregate in the ODS database.
@@ -18368,7 +18367,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffRace table of the Staff aggregate in the ODS database.
@@ -18411,7 +18410,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ RaceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffRecognition table of the Staff aggregate in the ODS database.
@@ -18467,7 +18466,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         protected virtual NHibernate.QueryModels.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptorQ AchievementCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptorQ RecognitionTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffTelephone table of the Staff aggregate in the ODS database.
@@ -18515,7 +18514,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffTribalAffiliation table of the Staff aggregate in the ODS database.
@@ -18558,7 +18557,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ TribalAffiliationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffVisa table of the Staff aggregate in the ODS database.
@@ -18601,12 +18600,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ VisaDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffAbsenceEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAbsenceEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffAbsenceEvent table of the StaffAbsenceEvent aggregate in the ODS database.
@@ -18654,12 +18653,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffAbsenceEventAggregate.Ed
         protected virtual NHibernate.QueryModels.AbsenceEventCategoryDescriptorAggregate.EdFi.AbsenceEventCategoryDescriptorQ AbsenceEventCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffClassificationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffClassificationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffClassificationDescriptor table of the StaffClassificationDescriptor aggregate in the ODS database.
@@ -18699,12 +18698,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffClassificationDescriptor
         protected virtual ICollection<NHibernate.QueryModels.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.StaffEducationOrganizationAssignmentAssociationQ> StaffEducationOrganizationAssignmentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffCohortAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffCohortAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffCohortAssociation table of the StaffCohortAssociation aggregate in the ODS database.
@@ -18754,12 +18753,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffCohortAssociationAggrega
         protected virtual NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ Cohort { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffDisciplineIncidentAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffDisciplineIncidentAssociation table of the StaffDisciplineIncidentAssociation aggregate in the ODS database.
@@ -18806,7 +18805,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssoci
         protected virtual NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentQ DisciplineIncident { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffDisciplineIncidentAssociationDisciplineIncidentParticipationCode table of the StaffDisciplineIncidentAssociation aggregate in the ODS database.
@@ -18849,12 +18848,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffDisciplineIncidentAssoci
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisciplineIncidentParticipationCodeDescriptorAggregate.EdFi.DisciplineIncidentParticipationCodeDescriptorQ DisciplineIncidentParticipationCodeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffEducationOrganizationAssignmentAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationAssignmentAssociation table of the StaffEducationOrganizationAssignmentAssociation aggregate in the ODS database.
@@ -18913,12 +18912,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAss
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         protected virtual NHibernate.QueryModels.StaffClassificationDescriptorAggregate.EdFi.StaffClassificationDescriptorQ StaffClassificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffEducationOrganizationContactAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationContactAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationContactAssociation table of the StaffEducationOrganizationContactAssociation aggregate in the ODS database.
@@ -18974,7 +18973,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationCon
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationContactAssociationAddress table of the StaffEducationOrganizationContactAssociation aggregate in the ODS database.
@@ -19032,7 +19031,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationCon
         protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationContactAssociationAddressPeriod table of the StaffEducationOrganizationContactAssociation aggregate in the ODS database.
@@ -19073,7 +19072,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationCon
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationContactAssociationTelephone table of the StaffEducationOrganizationContactAssociation aggregate in the ODS database.
@@ -19121,12 +19120,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationCon
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffEducationOrganizationEmploymentAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffEducationOrganizationEmploymentAssociation table of the StaffEducationOrganizationEmploymentAssociation aggregate in the ODS database.
@@ -19192,12 +19191,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationEmp
         protected virtual NHibernate.QueryModels.SeparationReasonDescriptorAggregate.EdFi.SeparationReasonDescriptorQ SeparationReasonDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffIdentificationSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffIdentificationSystemDescriptor table of the StaffIdentificationSystemDescriptor aggregate in the ODS database.
@@ -19234,12 +19233,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffIdentificationSystemDesc
         protected virtual ICollection<NHibernate.QueryModels.StaffAggregate.EdFi.StaffIdentificationCodeQ> StaffIdentificationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffLeave
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffLeave table of the StaffLeave aggregate in the ODS database.
@@ -19288,12 +19287,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveAggregate.EdFi
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         protected virtual NHibernate.QueryModels.StaffLeaveEventCategoryDescriptorAggregate.EdFi.StaffLeaveEventCategoryDescriptorQ StaffLeaveEventCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffLeaveEventCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveEventCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffLeaveEventCategoryDescriptor table of the StaffLeaveEventCategoryDescriptor aggregate in the ODS database.
@@ -19330,12 +19329,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffLeaveEventCategoryDescri
         protected virtual ICollection<NHibernate.QueryModels.StaffLeaveAggregate.EdFi.StaffLeaveQ> StaffLeaves  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffProgramAssociation table of the StaffProgramAssociation aggregate in the ODS database.
@@ -19387,12 +19386,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffProgramAssociationAggreg
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffSchoolAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffSchoolAssociation table of the StaffSchoolAssociation aggregate in the ODS database.
@@ -19445,7 +19444,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggrega
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffSchoolAssociationAcademicSubject table of the StaffSchoolAssociation aggregate in the ODS database.
@@ -19488,7 +19487,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggrega
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AcademicSubjectDescriptorAggregate.EdFi.AcademicSubjectDescriptorQ AcademicSubjectDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StaffSchoolAssociationGradeLevel table of the StaffSchoolAssociation aggregate in the ODS database.
@@ -19531,12 +19530,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSchoolAssociationAggrega
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ GradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StaffSectionAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StaffSectionAssociation table of the StaffSectionAssociation aggregate in the ODS database.
@@ -19595,12 +19594,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffSectionAssociationAggreg
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StateAbbreviationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StateAbbreviationDescriptor table of the StateAbbreviationDescriptor aggregate in the ODS database.
@@ -19658,12 +19657,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateAbbreviationDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ> Students  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StateEducationAgency
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StateEducationAgency table of the StateEducationAgency aggregate in the ODS database.
@@ -19708,7 +19707,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate
         protected virtual ICollection<NHibernate.QueryModels.LocalEducationAgencyAggregate.EdFi.LocalEducationAgencyQH> LocalEducationAgenciesHierarchy  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StateEducationAgencyAccountability table of the StateEducationAgency aggregate in the ODS database.
@@ -19746,7 +19745,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StateEducationAgencyFederalFunds table of the StateEducationAgency aggregate in the ODS database.
@@ -19781,12 +19780,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StateEducationAgencyAggregate
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Student
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Student table of the Student aggregate in the ODS database.
@@ -19921,7 +19920,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.CitizenshipStatusDescriptorAggregate.EdFi.CitizenshipStatusDescriptorQ CitizenshipStatusDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonAggregate.EdFi.PersonQ Person { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentIdentificationDocument table of the Student aggregate in the ODS database.
@@ -19973,7 +19972,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentOtherName table of the Student aggregate in the ODS database.
@@ -20021,7 +20020,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.OtherNameTypeDescriptorAggregate.EdFi.OtherNameTypeDescriptorQ OtherNameTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentPersonalIdentificationDocument table of the Student aggregate in the ODS database.
@@ -20073,7 +20072,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ IssuerCountryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PersonalInformationVerificationDescriptorAggregate.EdFi.PersonalInformationVerificationDescriptorQ PersonalInformationVerificationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentVisa table of the Student aggregate in the ODS database.
@@ -20116,12 +20115,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.VisaDescriptorAggregate.EdFi.VisaDescriptorQ VisaDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentAcademicRecord
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecord table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20209,7 +20208,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.TermDescriptorAggregate.EdFi.TermDescriptorQ TermDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordAcademicHonor table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20266,7 +20265,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         protected virtual NHibernate.QueryModels.AcademicHonorCategoryDescriptorAggregate.EdFi.AcademicHonorCategoryDescriptorQ AcademicHonorCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptorQ AchievementCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordClassRanking table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20308,7 +20307,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordDiploma table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20368,7 +20367,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         protected virtual NHibernate.QueryModels.DiplomaLevelDescriptorAggregate.EdFi.DiplomaLevelDescriptorQ DiplomaLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.DiplomaTypeDescriptorAggregate.EdFi.DiplomaTypeDescriptorQ DiplomaTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordGradePointAverage table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20414,7 +20413,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GradePointAverageTypeDescriptorAggregate.EdFi.GradePointAverageTypeDescriptorQ GradePointAverageTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordRecognition table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20470,7 +20469,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         protected virtual NHibernate.QueryModels.AchievementCategoryDescriptorAggregate.EdFi.AchievementCategoryDescriptorQ AchievementCategoryDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.RecognitionTypeDescriptorAggregate.EdFi.RecognitionTypeDescriptorQ RecognitionTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAcademicRecordReportCard table of the StudentAcademicRecord aggregate in the ODS database.
@@ -20519,12 +20518,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregat
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ReportCardAggregate.EdFi.ReportCardQ ReportCard { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentAssessment
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessment table of the StudentAssessment aggregate in the ODS database.
@@ -20598,7 +20597,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.GradeLevelDescriptorAggregate.EdFi.GradeLevelDescriptorQ WhenAssessedGradeLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentAccommodation table of the StudentAssessment aggregate in the ODS database.
@@ -20641,7 +20640,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptorQ AccommodationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentItem table of the StudentAssessment aggregate in the ODS database.
@@ -20692,7 +20691,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.AssessmentItemResultDescriptorAggregate.EdFi.AssessmentItemResultDescriptorQ AssessmentItemResultDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResponseIndicatorDescriptorAggregate.EdFi.ResponseIndicatorDescriptorQ ResponseIndicatorDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentPerformanceLevel table of the StudentAssessment aggregate in the ODS database.
@@ -20739,7 +20738,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentScoreResult table of the StudentAssessment aggregate in the ODS database.
@@ -20785,7 +20784,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentStudentObjectiveAssessment table of the StudentAssessment aggregate in the ODS database.
@@ -20830,7 +20829,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ ObjectiveAssessment { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentStudentObjectiveAssessment table of the StudentAssessment aggregate in the ODS database.
@@ -20880,7 +20879,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ObjectiveAssessmentAggregate.EdFi.ObjectiveAssessmentQ ObjectiveAssessment { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel table of the StudentAssessment aggregate in the ODS database.
@@ -20927,7 +20926,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptorQ PerformanceLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult table of the StudentAssessment aggregate in the ODS database.
@@ -20973,12 +20972,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.Ed
         protected virtual NHibernate.QueryModels.AssessmentReportingMethodDescriptorAggregate.EdFi.AssessmentReportingMethodDescriptorQ AssessmentReportingMethodDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.ResultDatatypeTypeDescriptorAggregate.EdFi.ResultDatatypeTypeDescriptorQ ResultDatatypeTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentCharacteristicDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentCharacteristicDescriptor table of the StudentCharacteristicDescriptor aggregate in the ODS database.
@@ -21015,12 +21014,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCharacteristicDescript
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentCharacteristicQ> StudentEducationOrganizationAssociationStudentCharacteristics  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentCohortAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentCohortAssociation table of the StudentCohortAssociation aggregate in the ODS database.
@@ -21070,7 +21069,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggre
         protected virtual NHibernate.QueryModels.CohortAggregate.EdFi.CohortQ Cohort { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCohortAssociationSection table of the StudentCohortAssociation aggregate in the ODS database.
@@ -21121,12 +21120,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCohortAssociationAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentCompetencyObjective
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentCompetencyObjective table of the StudentCompetencyObjective aggregate in the ODS database.
@@ -21193,7 +21192,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         protected virtual NHibernate.QueryModels.CompetencyObjectiveAggregate.EdFi.CompetencyObjectiveQ ObjectiveCompetencyObjective { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCompetencyObjectiveGeneralStudentProgramAssociation table of the StudentCompetencyObjective aggregate in the ODS database.
@@ -21244,7 +21243,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ GeneralStudentProgramAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCompetencyObjectiveStudentSectionAssociation table of the StudentCompetencyObjective aggregate in the ODS database.
@@ -21297,12 +21296,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCompetencyObjectiveAgg
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ StudentSectionAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentCTEProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentCTEProgramAssociation table of the StudentCTEProgramAssociation aggregate in the ODS database.
@@ -21353,7 +21352,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TechnicalSkillsAssessmentDescriptorAggregate.EdFi.TechnicalSkillsAssessmentDescriptorQ TechnicalSkillsAssessmentDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCTEProgramAssociationCTEProgram table of the StudentCTEProgramAssociation aggregate in the ODS database.
@@ -21393,7 +21392,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CareerPathwayDescriptorAggregate.EdFi.CareerPathwayDescriptorQ CareerPathwayDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCTEProgramAssociationCTEProgramService table of the StudentCTEProgramAssociation aggregate in the ODS database.
@@ -21434,7 +21433,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CTEProgramServiceDescriptorAggregate.EdFi.CTEProgramServiceDescriptorQ CTEProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentCTEProgramAssociationService table of the StudentCTEProgramAssociation aggregate in the ODS database.
@@ -21474,12 +21473,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentCTEProgramAssociationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ServiceDescriptorAggregate.EdFi.ServiceDescriptorQ ServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentDisciplineIncidentAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentDisciplineIncidentAssociation table of the StudentDisciplineIncidentAssociation aggregate in the ODS database.
@@ -21533,7 +21532,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentAsso
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.StudentParticipationCodeDescriptorAggregate.EdFi.StudentParticipationCodeDescriptorQ StudentParticipationCodeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentDisciplineIncidentAssociationBehavior table of the StudentDisciplineIncidentAssociation aggregate in the ODS database.
@@ -21577,12 +21576,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentDisciplineIncidentAsso
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptorQ BehaviorDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentEducationOrganizationAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21648,7 +21647,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationAddress table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21711,7 +21710,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.LocaleDescriptorAggregate.EdFi.LocaleDescriptorQ LocaleDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StateAbbreviationDescriptorAggregate.EdFi.StateAbbreviationDescriptorQ StateAbbreviationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationAddressPeriod table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21752,7 +21751,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationCohortYear table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21798,7 +21797,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.CohortYearTypeDescriptorAggregate.EdFi.CohortYearTypeDescriptorQ CohortYearTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationDisability table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21846,7 +21845,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptorQ DisabilityDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptorQ DisabilityDeterminationSourceTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationDisabilityDesignation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21889,7 +21888,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ DisabilityDesignationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationElectronicMail table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21936,7 +21935,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ElectronicMailTypeDescriptorAggregate.EdFi.ElectronicMailTypeDescriptorQ ElectronicMailTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationInternationalAddress table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -21989,7 +21988,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         protected virtual NHibernate.QueryModels.AddressTypeDescriptorAggregate.EdFi.AddressTypeDescriptorQ AddressTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.CountryDescriptorAggregate.EdFi.CountryDescriptorQ CountryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationLanguage table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22033,7 +22032,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageDescriptorAggregate.EdFi.LanguageDescriptorQ LanguageDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationLanguageUse table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22076,7 +22075,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageUseDescriptorAggregate.EdFi.LanguageUseDescriptorQ LanguageUseDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationProgramParticipation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22123,7 +22122,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramTypeDescriptorAggregate.EdFi.ProgramTypeDescriptorQ ProgramTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationProgramParticipationProgramCharacteristic table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22166,7 +22165,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ProgramCharacteristicDescriptorAggregate.EdFi.ProgramCharacteristicDescriptorQ ProgramCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationRace table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22209,7 +22208,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.RaceDescriptorAggregate.EdFi.RaceDescriptorQ RaceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentCharacteristic table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22254,7 +22253,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentCharacteristicDescriptorAggregate.EdFi.StudentCharacteristicDescriptorQ StudentCharacteristicDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentCharacteristicPeriod table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22295,7 +22294,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentIdentificationCode table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22341,7 +22340,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi.StudentIdentificationSystemDescriptorQ StudentIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentIndicator table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22385,7 +22384,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationStudentIndicatorPeriod table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22426,7 +22425,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationTelephone table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22474,7 +22473,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi.TelephoneNumberTypeDescriptorQ TelephoneNumberTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationAssociationTribalAffiliation table of the StudentEducationOrganizationAssociation aggregate in the ODS database.
@@ -22517,12 +22516,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi.TribalAffiliationDescriptorQ TribalAffiliationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentEducationOrganizationResponsibilityAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentEducationOrganizationResponsibilityAssociation table of the StudentEducationOrganizationResponsibilityAssociation aggregate in the ODS database.
@@ -22572,12 +22571,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationR
         protected virtual NHibernate.QueryModels.ResponsibilityDescriptorAggregate.EdFi.ResponsibilityDescriptorQ ResponsibilityDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentGradebookEntry
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentGradebookEntry table of the StudentGradebookEntry aggregate in the ODS database.
@@ -22641,12 +22640,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentGradebookEntryAggregat
         protected virtual NHibernate.QueryModels.GradebookEntryAggregate.EdFi.GradebookEntryQ GradebookEntry { get; set; }
         protected virtual NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ StudentSectionAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentHomelessProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentHomelessProgramAssociation table of the StudentHomelessProgramAssociation aggregate in the ODS database.
@@ -22695,7 +22694,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssocia
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.HomelessPrimaryNighttimeResidenceDescriptorAggregate.EdFi.HomelessPrimaryNighttimeResidenceDescriptorQ HomelessPrimaryNighttimeResidenceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentHomelessProgramAssociationHomelessProgramService table of the StudentHomelessProgramAssociation aggregate in the ODS database.
@@ -22735,12 +22734,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentHomelessProgramAssocia
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.HomelessProgramServiceDescriptorAggregate.EdFi.HomelessProgramServiceDescriptorQ HomelessProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentIdentificationSystemDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentIdentificationSystemDescriptor table of the StudentIdentificationSystemDescriptor aggregate in the ODS database.
@@ -22777,12 +22776,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentIdentificationSystemDe
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationStudentIdentificationCodeQ> StudentEducationOrganizationAssociationStudentIdentificationCodes  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentInterventionAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentInterventionAssociation table of the StudentInterventionAssociation aggregate in the ODS database.
@@ -22834,7 +22833,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociatio
         protected virtual NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionQ Intervention { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentInterventionAssociationInterventionEffectiveness table of the StudentInterventionAssociation aggregate in the ODS database.
@@ -22886,12 +22885,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAssociatio
         protected virtual NHibernate.QueryModels.InterventionEffectivenessRatingDescriptorAggregate.EdFi.InterventionEffectivenessRatingDescriptorQ InterventionEffectivenessRatingDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.PopulationServedDescriptorAggregate.EdFi.PopulationServedDescriptorQ PopulationServedDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentInterventionAttendanceEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAttendanceEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentInterventionAttendanceEvent table of the StudentInterventionAttendanceEvent aggregate in the ODS database.
@@ -22947,12 +22946,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentInterventionAttendance
         protected virtual NHibernate.QueryModels.InterventionAggregate.EdFi.InterventionQ Intervention { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentLanguageInstructionProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentLanguageInstructionProgramAssociation table of the StudentLanguageInstructionProgramAssociation aggregate in the ODS database.
@@ -22998,7 +22997,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionPro
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessment table of the StudentLanguageInstructionProgramAssociation aggregate in the ODS database.
@@ -23043,7 +23042,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionPro
         protected virtual NHibernate.QueryModels.ProgressDescriptorAggregate.EdFi.ProgressDescriptorQ ProgressDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentLanguageInstructionProgramAssociationLanguageInstructionProgramService table of the StudentLanguageInstructionProgramAssociation aggregate in the ODS database.
@@ -23083,12 +23082,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLanguageInstructionPro
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.LanguageInstructionProgramServiceDescriptorAggregate.EdFi.LanguageInstructionProgramServiceDescriptorQ LanguageInstructionProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentLearningObjective
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentLearningObjective table of the StudentLearningObjective aggregate in the ODS database.
@@ -23153,7 +23152,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggre
         protected virtual NHibernate.QueryModels.LearningObjectiveAggregate.EdFi.LearningObjectiveQ LearningObjective { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentLearningObjectiveGeneralStudentProgramAssociation table of the StudentLearningObjective aggregate in the ODS database.
@@ -23204,7 +23203,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationQ GeneralStudentProgramAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentLearningObjectiveStudentSectionAssociation table of the StudentLearningObjective aggregate in the ODS database.
@@ -23257,12 +23256,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentLearningObjectiveAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi.StudentSectionAssociationQ StudentSectionAssociation { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentMigrantEducationProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentMigrantEducationProgramAssociation table of the StudentMigrantEducationProgramAssociation aggregate in the ODS database.
@@ -23317,7 +23316,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ContinuationOfServicesReasonDescriptorAggregate.EdFi.ContinuationOfServicesReasonDescriptorQ ContinuationOfServicesReasonDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentMigrantEducationProgramAssociationMigrantEducationProgramService table of the StudentMigrantEducationProgramAssociation aggregate in the ODS database.
@@ -23357,12 +23356,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentMigrantEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.MigrantEducationProgramServiceDescriptorAggregate.EdFi.MigrantEducationProgramServiceDescriptorQ MigrantEducationProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentNeglectedOrDelinquentProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentNeglectedOrDelinquentProgramAssociation table of the StudentNeglectedOrDelinquentProgramAssociation aggregate in the ODS database.
@@ -23413,7 +23412,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentP
         protected virtual NHibernate.QueryModels.ProgressLevelDescriptorAggregate.EdFi.ProgressLevelDescriptorQ MathematicsProgressLevelDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.NeglectedOrDelinquentProgramDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramDescriptorQ NeglectedOrDelinquentProgramDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService table of the StudentNeglectedOrDelinquentProgramAssociation aggregate in the ODS database.
@@ -23453,12 +23452,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentNeglectedOrDelinquentP
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.NeglectedOrDelinquentProgramServiceDescriptorAggregate.EdFi.NeglectedOrDelinquentProgramServiceDescriptorQ NeglectedOrDelinquentProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentParentAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParentAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentParentAssociation table of the StudentParentAssociation aggregate in the ODS database.
@@ -23509,12 +23508,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParentAssociationAggre
         protected virtual NHibernate.QueryModels.RelationDescriptorAggregate.EdFi.RelationDescriptorQ RelationDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentParticipationCodeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParticipationCodeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentParticipationCodeDescriptor table of the StudentParticipationCodeDescriptor aggregate in the ODS database.
@@ -23551,12 +23550,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentParticipationCodeDescr
         protected virtual ICollection<NHibernate.QueryModels.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationQ> StudentDisciplineIncidentAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentProgramAssociation table of the StudentProgramAssociation aggregate in the ODS database.
@@ -23599,7 +23598,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggr
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentProgramAssociationService table of the StudentProgramAssociation aggregate in the ODS database.
@@ -23639,12 +23638,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAssociationAggr
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ServiceDescriptorAggregate.EdFi.ServiceDescriptorQ ServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentProgramAttendanceEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentProgramAttendanceEvent table of the StudentProgramAttendanceEvent aggregate in the ODS database.
@@ -23705,12 +23704,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentProgramAttendanceEvent
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSchoolAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolAssociation table of the StudentSchoolAssociation aggregate in the ODS database.
@@ -23785,7 +23784,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolAssociationAlternativeGraduationPlan table of the StudentSchoolAssociation aggregate in the ODS database.
@@ -23832,7 +23831,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.GraduationPlanAggregate.EdFi.GraduationPlanQ AlternativeGraduationPlan { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolAssociationEducationPlan table of the StudentSchoolAssociation aggregate in the ODS database.
@@ -23875,12 +23874,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.EducationPlanDescriptorAggregate.EdFi.EducationPlanDescriptorQ EducationPlanDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSchoolAttendanceEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAttendanceEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolAttendanceEvent table of the StudentSchoolAttendanceEvent aggregate in the ODS database.
@@ -23941,12 +23940,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAttendanceEventA
         protected virtual NHibernate.QueryModels.SessionAggregate.EdFi.SessionQ Session { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSchoolFoodServiceProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolFoodServiceProgramAssociation table of the StudentSchoolFoodServiceProgramAssociation aggregate in the ODS database.
@@ -23990,7 +23989,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgr
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramService table of the StudentSchoolFoodServiceProgramAssociation aggregate in the ODS database.
@@ -24030,12 +24029,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolFoodServiceProgr
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolFoodServiceProgramServiceDescriptorAggregate.EdFi.SchoolFoodServiceProgramServiceDescriptorQ SchoolFoodServiceProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSectionAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSectionAssociation table of the StudentSectionAssociation aggregate in the ODS database.
@@ -24110,12 +24109,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAssociationAggr
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSectionAttendanceEvent
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSectionAttendanceEvent table of the StudentSectionAttendanceEvent aggregate in the ODS database.
@@ -24179,12 +24178,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEvent
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentSpecialEducationProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociation table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24242,7 +24241,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SpecialEducationSettingDescriptorAggregate.EdFi.SpecialEducationSettingDescriptorQ SpecialEducationSettingDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociationDisability table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24284,7 +24283,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         protected virtual NHibernate.QueryModels.DisabilityDescriptorAggregate.EdFi.DisabilityDescriptorQ DisabilityDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.DisabilityDeterminationSourceTypeDescriptorAggregate.EdFi.DisabilityDeterminationSourceTypeDescriptorQ DisabilityDeterminationSourceTypeDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociationDisabilityDesignation table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24321,7 +24320,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.DisabilityDesignationDescriptorAggregate.EdFi.DisabilityDesignationDescriptorQ DisabilityDesignationDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociationServiceProvider table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24359,7 +24358,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociationSpecialEducationProgramService table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24400,7 +24399,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SpecialEducationProgramServiceDescriptorAggregate.EdFi.SpecialEducationProgramServiceDescriptorQ SpecialEducationProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceProvider table of the StudentSpecialEducationProgramAssociation aggregate in the ODS database.
@@ -24438,12 +24437,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSpecialEducationProgra
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: StudentTitleIPartAProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.StudentTitleIPartAProgramAssociation table of the StudentTitleIPartAProgramAssociation aggregate in the ODS database.
@@ -24491,7 +24490,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAsso
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TitleIPartAParticipantDescriptorAggregate.EdFi.TitleIPartAParticipantDescriptorQ TitleIPartAParticipantDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentTitleIPartAProgramAssociationService table of the StudentTitleIPartAProgramAssociation aggregate in the ODS database.
@@ -24531,7 +24530,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAsso
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.ServiceDescriptorAggregate.EdFi.ServiceDescriptorQ ServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramService table of the StudentTitleIPartAProgramAssociation aggregate in the ODS database.
@@ -24571,12 +24570,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentTitleIPartAProgramAsso
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.TitleIPartAProgramServiceDescriptorAggregate.EdFi.TitleIPartAProgramServiceDescriptorQ TitleIPartAProgramServiceDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: Survey
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.Survey table of the Survey aggregate in the ODS database.
@@ -24649,12 +24648,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyAggregate.EdFi
         protected virtual NHibernate.QueryModels.SessionAggregate.EdFi.SessionQ Session { get; set; }
         protected virtual NHibernate.QueryModels.SurveyCategoryDescriptorAggregate.EdFi.SurveyCategoryDescriptorQ SurveyCategoryDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyCategoryDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCategoryDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyCategoryDescriptor table of the SurveyCategoryDescriptor aggregate in the ODS database.
@@ -24691,12 +24690,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCategoryDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ> Surveys  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyCourseAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCourseAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyCourseAssociation table of the SurveyCourseAssociation aggregate in the ODS database.
@@ -24744,12 +24743,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyCourseAssociationAggreg
         protected virtual NHibernate.QueryModels.CourseAggregate.EdFi.CourseQ Course { get; set; }
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyLevelDescriptor table of the SurveyLevelDescriptor aggregate in the ODS database.
@@ -24786,12 +24785,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyLevelDescriptorAggregat
         protected virtual ICollection<NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseSurveyLevelQ> SurveyResponseSurveyLevels  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyProgramAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyProgramAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyProgramAssociation table of the SurveyProgramAssociation aggregate in the ODS database.
@@ -24841,12 +24840,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyProgramAssociationAggre
         protected virtual NHibernate.QueryModels.ProgramAggregate.EdFi.ProgramQ Program { get; set; }
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyQuestion
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestion table of the SurveyQuestion aggregate in the ODS database.
@@ -24903,7 +24902,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         protected virtual NHibernate.QueryModels.SurveySectionAggregate.EdFi.SurveySectionQ SurveySection { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestionMatrix table of the SurveyQuestion aggregate in the ODS database.
@@ -24945,7 +24944,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestionResponseChoice table of the SurveyQuestion aggregate in the ODS database.
@@ -24987,12 +24986,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionAggregate.EdFi
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyQuestionResponse
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestionResponse table of the SurveyQuestionResponse aggregate in the ODS database.
@@ -25044,7 +25043,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggrega
         protected virtual NHibernate.QueryModels.SurveyQuestionAggregate.EdFi.SurveyQuestionQ SurveyQuestion { get; set; }
         protected virtual NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ SurveyResponse { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestionResponseSurveyQuestionMatrixElementResponse table of the SurveyQuestionResponse aggregate in the ODS database.
@@ -25089,7 +25088,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggrega
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SurveyQuestionResponseValue table of the SurveyQuestionResponse aggregate in the ODS database.
@@ -25131,12 +25130,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyQuestionResponseAggrega
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyResponse
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyResponse table of the SurveyResponse aggregate in the ODS database.
@@ -25207,7 +25206,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.SurveyResponseSurveyLevel table of the SurveyResponse aggregate in the ODS database.
@@ -25250,12 +25249,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SurveyLevelDescriptorAggregate.EdFi.SurveyLevelDescriptorQ SurveyLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyResponseEducationOrganizationTargetAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseEducationOrganizationTargetAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyResponseEducationOrganizationTargetAssociation table of the SurveyResponseEducationOrganizationTargetAssociation aggregate in the ODS database.
@@ -25303,12 +25302,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseEducationOrgani
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ SurveyResponse { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveyResponseStaffTargetAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseStaffTargetAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveyResponseStaffTargetAssociation table of the SurveyResponseStaffTargetAssociation aggregate in the ODS database.
@@ -25356,12 +25355,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveyResponseStaffTargetAsso
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         protected virtual NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ SurveyResponse { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveySection
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveySection table of the SurveySection aggregate in the ODS database.
@@ -25414,12 +25413,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAggregate.EdFi
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveySectionAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveySectionAssociation table of the SurveySectionAssociation aggregate in the ODS database.
@@ -25473,12 +25472,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionAssociationAggre
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.SurveyAggregate.EdFi.SurveyQ Survey { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveySectionResponse
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveySectionResponse table of the SurveySectionResponse aggregate in the ODS database.
@@ -25535,12 +25534,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseAggregat
         protected virtual NHibernate.QueryModels.SurveyResponseAggregate.EdFi.SurveyResponseQ SurveyResponse { get; set; }
         protected virtual NHibernate.QueryModels.SurveySectionAggregate.EdFi.SurveySectionQ SurveySection { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveySectionResponseEducationOrganizationTargetAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseEducationOrganizationTargetAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveySectionResponseEducationOrganizationTargetAssociation table of the SurveySectionResponseEducationOrganizationTargetAssociation aggregate in the ODS database.
@@ -25590,12 +25589,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseEducatio
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
         protected virtual NHibernate.QueryModels.SurveySectionResponseAggregate.EdFi.SurveySectionResponseQ SurveySectionResponse { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: SurveySectionResponseStaffTargetAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseStaffTargetAssociationAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.SurveySectionResponseStaffTargetAssociation table of the SurveySectionResponseStaffTargetAssociation aggregate in the ODS database.
@@ -25645,12 +25644,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.SurveySectionResponseStaffTar
         protected virtual NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ Staff { get; set; }
         protected virtual NHibernate.QueryModels.SurveySectionResponseAggregate.EdFi.SurveySectionResponseQ SurveySectionResponse { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TeachingCredentialBasisDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TeachingCredentialBasisDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TeachingCredentialBasisDescriptor table of the TeachingCredentialBasisDescriptor aggregate in the ODS database.
@@ -25687,12 +25686,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TeachingCredentialBasisDescri
         protected virtual ICollection<NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ> Credentials  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TeachingCredentialDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TeachingCredentialDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TeachingCredentialDescriptor table of the TeachingCredentialDescriptor aggregate in the ODS database.
@@ -25729,12 +25728,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TeachingCredentialDescriptorA
         protected virtual ICollection<NHibernate.QueryModels.CredentialAggregate.EdFi.CredentialQ> Credentials  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TechnicalSkillsAssessmentDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TechnicalSkillsAssessmentDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TechnicalSkillsAssessmentDescriptor table of the TechnicalSkillsAssessmentDescriptor aggregate in the ODS database.
@@ -25771,12 +25770,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TechnicalSkillsAssessmentDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentCTEProgramAssociationAggregate.EdFi.StudentCTEProgramAssociationQ> StudentCTEProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TelephoneNumberTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TelephoneNumberTypeDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TelephoneNumberTypeDescriptor table of the TelephoneNumberTypeDescriptor aggregate in the ODS database.
@@ -25822,12 +25821,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TelephoneNumberTypeDescriptor
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTelephoneQ> StudentEducationOrganizationAssociationTelephones  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TermDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TermDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TermDescriptor table of the TermDescriptor aggregate in the ODS database.
@@ -25867,12 +25866,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TermDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ> StudentAcademicRecords  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TitleIPartAParticipantDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartAParticipantDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TitleIPartAParticipantDescriptor table of the TitleIPartAParticipantDescriptor aggregate in the ODS database.
@@ -25909,12 +25908,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartAParticipantDescrip
         protected virtual ICollection<NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociationQ> StudentTitleIPartAProgramAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TitleIPartAProgramServiceDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartAProgramServiceDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TitleIPartAProgramServiceDescriptor table of the TitleIPartAProgramServiceDescriptor aggregate in the ODS database.
@@ -25951,12 +25950,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartAProgramServiceDesc
         protected virtual ICollection<NHibernate.QueryModels.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociationTitleIPartAProgramServiceQ> StudentTitleIPartAProgramAssociationTitleIPartAProgramServices  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TitleIPartASchoolDesignationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartASchoolDesignationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TitleIPartASchoolDesignationDescriptor table of the TitleIPartASchoolDesignationDescriptor aggregate in the ODS database.
@@ -25993,12 +25992,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartASchoolDesignationD
         protected virtual ICollection<NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ> Schools  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: TribalAffiliationDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.TribalAffiliationDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.TribalAffiliationDescriptor table of the TribalAffiliationDescriptor aggregate in the ODS database.
@@ -26038,12 +26037,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TribalAffiliationDescriptorAg
         protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationTribalAffiliationQ> StudentEducationOrganizationAssociationTribalAffiliations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: VisaDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.VisaDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.VisaDescriptor table of the VisaDescriptor aggregate in the ODS database.
@@ -26083,12 +26082,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.VisaDescriptorAggregate.EdFi
         protected virtual ICollection<NHibernate.QueryModels.StudentAggregate.EdFi.StudentVisaQ> StudentVisas  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: WeaponDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.WeaponDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.WeaponDescriptor table of the WeaponDescriptor aggregate in the ODS database.
@@ -26125,7 +26124,5 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.WeaponDescriptorAggregate.EdF
         protected virtual ICollection<NHibernate.QueryModels.DisciplineIncidentAggregate.EdFi.DisciplineIncidentWeaponQ> DisciplineIncidentWeapons  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
-
-

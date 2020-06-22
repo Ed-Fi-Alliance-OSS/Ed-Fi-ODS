@@ -1,39 +1,38 @@
-using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Models.Requests;
+using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.Sample;
-using EdFi.Ods.Pipelines.Factories;
-using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.Services.Queries;
-using EdFi.Ods.Api.Services.Requests;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.ArtMediumDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class ArtMediumDescriptorsController : EdFiControllerBase<
-        Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
-        Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/artMediumDescriptors")]
+    public partial class ArtMediumDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
+        Api.Common.Models.Resources.ArtMediumDescriptor.Sample.ArtMediumDescriptor,
         Entities.Common.Sample.IArtMediumDescriptor,
         Entities.NHibernate.ArtMediumDescriptorAggregate.Sample.ArtMediumDescriptor,
-        Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorPut,
-        Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorPost,
-        Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorDelete,
-        Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample>
+        Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorPut,
+        Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorPost,
+        Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorDelete,
+        Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample>
     {
         public ArtMediumDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample request, Entities.Common.Sample.IArtMediumDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample request, Entities.Common.Sample.IArtMediumDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -47,26 +46,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.Buses
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusesController : EdFiControllerBase<
-        Models.Resources.Bus.Sample.Bus,
-        Models.Resources.Bus.Sample.Bus,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/buses")]
+    public partial class BusesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Bus.Sample.Bus,
+        Api.Common.Models.Resources.Bus.Sample.Bus,
         Entities.Common.Sample.IBus,
         Entities.NHibernate.BusAggregate.Sample.Bus,
-        Api.Models.Requests.Sample.Buses.BusPut,
-        Api.Models.Requests.Sample.Buses.BusPost,
-        Api.Models.Requests.Sample.Buses.BusDelete,
-        Api.Models.Requests.Sample.Buses.BusGetByExample>
+        Api.Common.Models.Requests.Sample.Buses.BusPut,
+        Api.Common.Models.Requests.Sample.Buses.BusPost,
+        Api.Common.Models.Requests.Sample.Buses.BusDelete,
+        Api.Common.Models.Requests.Sample.Buses.BusGetByExample>
     {
         public BusesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.Buses.BusGetByExample request, Entities.Common.Sample.IBus specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.Buses.BusGetByExample request, Entities.Common.Sample.IBus specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -81,26 +84,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.BusRoute,
-        Models.Resources.BusRoute.Sample.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -130,26 +137,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.FavoriteBookCategoryDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class FavoriteBookCategoryDescriptorsController : EdFiControllerBase<
-        Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
-        Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/favoriteBookCategoryDescriptors")]
+    public partial class FavoriteBookCategoryDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
+        Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sample.FavoriteBookCategoryDescriptor,
         Entities.Common.Sample.IFavoriteBookCategoryDescriptor,
         Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.Sample.FavoriteBookCategoryDescriptor,
-        Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorPut,
-        Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorPost,
-        Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorDelete,
-        Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample>
+        Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorPut,
+        Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorPost,
+        Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorDelete,
+        Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample>
     {
         public FavoriteBookCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample request, Entities.Common.Sample.IFavoriteBookCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample request, Entities.Common.Sample.IFavoriteBookCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -163,26 +174,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.MembershipTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class MembershipTypeDescriptorsController : EdFiControllerBase<
-        Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
-        Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/membershipTypeDescriptors")]
+    public partial class MembershipTypeDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
+        Api.Common.Models.Resources.MembershipTypeDescriptor.Sample.MembershipTypeDescriptor,
         Entities.Common.Sample.IMembershipTypeDescriptor,
         Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample.MembershipTypeDescriptor,
-        Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorPut,
-        Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorPost,
-        Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorDelete,
-        Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample>
+        Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorPut,
+        Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorPost,
+        Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorDelete,
+        Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample>
     {
         public MembershipTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample request, Entities.Common.Sample.IMembershipTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample request, Entities.Common.Sample.IMembershipTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -196,26 +211,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.StudentArtProgramAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentArtProgramAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
-        Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/studentArtProgramAssociations")]
+    public partial class StudentArtProgramAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
+        Api.Common.Models.Resources.StudentArtProgramAssociation.Sample.StudentArtProgramAssociation,
         Entities.Common.Sample.IStudentArtProgramAssociation,
         Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample.StudentArtProgramAssociation,
-        Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationPut,
-        Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationPost,
-        Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationDelete,
-        Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample>
+        Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationPut,
+        Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationPost,
+        Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationDelete,
+        Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample>
     {
         public StudentArtProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample request, Entities.Common.Sample.IStudentArtProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample request, Entities.Common.Sample.IStudentArtProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -245,26 +264,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociations
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.StudentGraduationPlanAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentGraduationPlanAssociationsController : EdFiControllerBase<
-        Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
-        Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/studentGraduationPlanAssociations")]
+    public partial class StudentGraduationPlanAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
+        Api.Common.Models.Resources.StudentGraduationPlanAssociation.Sample.StudentGraduationPlanAssociation,
         Entities.Common.Sample.IStudentGraduationPlanAssociation,
         Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample.StudentGraduationPlanAssociation,
-        Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationPut,
-        Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationPost,
-        Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationDelete,
-        Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample>
+        Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationPut,
+        Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationPost,
+        Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationDelete,
+        Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample>
     {
         public StudentGraduationPlanAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample request, Entities.Common.Sample.IStudentGraduationPlanAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample request, Entities.Common.Sample.IStudentGraduationPlanAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -290,3 +313,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
         }
     }
 }
+#endif

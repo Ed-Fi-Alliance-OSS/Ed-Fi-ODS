@@ -1,39 +1,38 @@
-using System;
-using System.Net;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
-using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Common.Models.Requests;
+using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Pipelines.Factories;
-using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.Services.Queries;
-using EdFi.Ods.Api.Services.Requests;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -68,26 +67,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -122,26 +125,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -176,26 +183,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -230,26 +241,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -287,26 +302,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -341,26 +360,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -398,26 +421,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
+namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class BusRoutesController : EdFiControllerBase<
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Readable.BusRoute,
-        Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("sample/busRoutes")]
+    public partial class BusRoutesController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Readable.BusRoute,
+        Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute,
         Entities.Common.Sample.IBusRoute,
         Entities.NHibernate.BusRouteAggregate.Sample.BusRoute,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePut,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePost,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteDelete,
-        Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample>
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePut,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRoutePost,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteDelete,
+        Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample>
     {
         public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -452,26 +479,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedInclude
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -509,26 +540,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -566,26 +601,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -623,26 +662,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
+namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StaffsController : EdFiControllerBase<
-        Models.Resources.Staff.EdFi.Staff_Include_All_Readable.Staff,
-        Models.Resources.Staff.EdFi.Staff_Include_All_Writable.Staff,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/staffs")]
+    public partial class StaffsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Include_All_Readable.Staff,
+        Api.Common.Models.Resources.Staff.EdFi.Staff_Include_All_Writable.Staff,
         Entities.Common.EdFi.IStaff,
         Entities.NHibernate.StaffAggregate.EdFi.Staff,
-        Api.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffPut,
-        Api.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffPost,
-        Api.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffDelete,
-        Api.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample>
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffPut,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffPost,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffDelete,
+        Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample>
     {
         public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -680,26 +723,30 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
+namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class StudentsController : EdFiControllerBase<
-        Models.Resources.Student.EdFi.Student_Include_All_Readable.Student,
-        Models.Resources.Student.EdFi.Student_Include_All_Writable.Student,
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("ed-fi/students")]
+    public partial class StudentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.Student.EdFi.Student_Include_All_Readable.Student,
+        Api.Common.Models.Resources.Student.EdFi.Student_Include_All_Writable.Student,
         Entities.Common.EdFi.IStudent,
         Entities.NHibernate.StudentAggregate.EdFi.Student,
-        Api.Models.Requests.Students.EdFi.Student_Include_All.StudentPut,
-        Api.Models.Requests.Students.EdFi.Student_Include_All.StudentPost,
-        Api.Models.Requests.Students.EdFi.Student_Include_All.StudentDelete,
-        Api.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample>
+        Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentPut,
+        Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentPost,
+        Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentDelete,
+        Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample>
     {
         public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
         {
         }
 
-        protected override void MapAll(Api.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -735,3 +782,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
         }
     }
 }
+#endif
