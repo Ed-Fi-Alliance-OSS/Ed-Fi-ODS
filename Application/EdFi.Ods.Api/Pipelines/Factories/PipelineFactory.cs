@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using EdFi.Ods.Api.ChangeQueries.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Pipelines.Factories;
@@ -77,21 +80,32 @@ namespace EdFi.Ods.Pipelines.Factories
             return new GetDeletedResourcePipeline<TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
+        private readonly ConcurrentDictionary<Type, bool> _registeredPutPipelines = new ConcurrentDictionary<Type, bool>();
+        
         public IPutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag
         {
-            var stepTypes = putPipelineStepsProvider.GetSteps();
-            var steps = ResolvePipelineSteps<PutContext<TResourceModel, TEntityModel>, PutResult, TResourceModel, TEntityModel>(stepTypes);
+            // Augment container's step registrations once
+            _registeredPutPipelines.GetOrAdd(typeof(TResourceModel), t =>
+            {
+                var stepTypes = putPipelineStepsProvider.GetSteps();
+                var steps = ResolvePipelineSteps<PutContext<TResourceModel, TEntityModel>, PutResult, TResourceModel, TEntityModel>(stepTypes);
 
-            var pipeline = _locator.Resolve<IPutPipeline<TResourceModel, TEntityModel>>(
-                new[]
+                foreach (var step in steps)
                 {
-                    new KeyValuePair<string, object>("steps", steps),
-                });
+                    (_locator as WindsorContainer).Register(
+                        Component
+                            .For<IStep<PutContext<TResourceModel, TEntityModel>, PutResult>>()
+                            .Instance(step));
+                }
+
+                return true;
+            });
+
+            var pipeline = _locator.Resolve<IPutPipeline<TResourceModel, TEntityModel>>();
 
             return pipeline;
-            // return new PutPipeline<TResourceModel, TEntityModel>(steps, _exceptionTranslationProvider);
         }
 
         public DeletePipeline CreateDeletePipeline<TResourceModel, TEntityModel>()
