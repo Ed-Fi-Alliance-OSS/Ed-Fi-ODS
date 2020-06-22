@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +23,17 @@ namespace EdFi.Ods.ChangeQueries.NHibernate
     {
         private readonly ISessionFactory _sessionFactory;
         private readonly IDomainModelProvider _domainModelProvider;
-        private readonly Lazy<string> _databaseEngine;
+        private readonly DatabaseEngine _databaseEngine;
 
         public GetDeletedResourceIds(
-            ISessionFactory sessionFactory, 
-            IDomainModelProvider domainModelProvider, 
-            IApiConfigurationProvider apiConfigurationProvider)
+            ISessionFactory sessionFactory,
+            IDomainModelProvider domainModelProvider,
+            DatabaseEngine databaseEngine)
             : base(sessionFactory)
         {
             _sessionFactory = sessionFactory;
             _domainModelProvider = domainModelProvider;
-
-            _databaseEngine = new Lazy<string>(() => 
-                apiConfigurationProvider.DatabaseEngine.ToString());
+            _databaseEngine = databaseEngine;
         }
 
         public IReadOnlyList<DeletedResource> Execute(string schemaUriSegment, string urlResourcePluralName, IQueryParameters queryParameters)
@@ -51,7 +49,7 @@ namespace EdFi.Ods.ChangeQueries.NHibernate
             }
 
             var cmdSql = $"SELECT Id, {ChangeQueriesDatabaseConstants.ChangeVersionColumnName}" +
-                         $" FROM {ChangeQueriesDatabaseConstants.TrackedDeletesSchemaPrefix}{entity.Schema}.{entity.TableName(_databaseEngine.Value)}";
+                         $" FROM {ChangeQueriesDatabaseConstants.TrackedDeletesSchemaPrefix}{entity.Schema}.{entity.TableName(_databaseEngine)}";
 
             if (queryParameters.MinChangeVersion.HasValue)
             {

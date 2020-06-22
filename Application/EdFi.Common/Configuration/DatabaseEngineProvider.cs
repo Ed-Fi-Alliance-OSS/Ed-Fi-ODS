@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,21 +22,10 @@ namespace EdFi.Ods.Common.Configuration
 
         public DatabaseEngine DatabaseEngine { get; }
 
-        private DatabaseEngine GetDatabaseEngine(string providerName)
-        {
-            if (DatabaseEngine.TryParse(x => x.Value.EqualsIgnoreCase(providerName), out DatabaseEngine databaseEngine))
-            {
-                return databaseEngine;
-            }
-
-            throw new NotSupportedException(
-                $"Not supported database provider name \"{providerName}\". Supported database providers: {ApiConfigurationConstants.PostgresProviderName}, and {ApiConfigurationConstants.SqlServerProviderName}.");
-        }
-
-        private DatabaseEngine ParseDatabaseEngine()
+       private DatabaseEngine ParseDatabaseEngine()
         {
             var databaseEngines = _connectionStringsProvider.ConnectionStringProviderByName
-                .Select(pair => new KeyValuePair<string, DatabaseEngine>(pair.Key, GetDatabaseEngine(pair.Value)))
+                .Select(pair => new KeyValuePair<string, DatabaseEngine>(pair.Key, DatabaseEngine.CreateFromProviderName(pair.Value)))
                 .ToList();
 
             var grouping = databaseEngines

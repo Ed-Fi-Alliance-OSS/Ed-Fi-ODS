@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Data.SqlClient;
 using System.Linq;
 using Castle.MicroKernel;
@@ -91,6 +91,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
             RegisterOdsDatabase(container);
 
             InstallTestSpecificInstaller(container);
+
+            container.Register(Component.For<DatabaseEngine>().UsingFactoryMethod(() => DatabaseEngine.SqlServer));
         }
 
         protected virtual void RegisterOdsDatabase(IWindsorContainer container)

@@ -2,9 +2,13 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace EdFi.Ods.Common.Models.Definitions
 {
@@ -36,11 +40,11 @@ namespace EdFi.Ods.Common.Models.Definitions
             string description = "",
             bool isDeprecated = false,
             string[] deprecationReasons = null,
-            IDictionary<string, string> tableNameByDatabaseEngine = null)
+            IDictionary<DatabaseEngine, string> tableNameByDatabaseEngine = null)
         {
             Schema = schema;
             Name = name;
-            TableNames = tableNameByDatabaseEngine ?? new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            TableNames = tableNameByDatabaseEngine ?? new Dictionary<DatabaseEngine, string>();
             LocallyDefinedProperties = locallyDefinedProperties;
             Identifiers = identifiers;
             IsAbstract = isAbstract;
@@ -53,7 +57,8 @@ namespace EdFi.Ods.Common.Models.Definitions
 
         public string Name { get; set; }
 
-        public IDictionary<string, string> TableNames { get; set; }
+        [JsonConverter(typeof(DictionaryStringByDatabaseEngine))]
+        public IDictionary<DatabaseEngine, string> TableNames { get; set; }
 
         public EntityPropertyDefinition[] LocallyDefinedProperties { get; set; }
 

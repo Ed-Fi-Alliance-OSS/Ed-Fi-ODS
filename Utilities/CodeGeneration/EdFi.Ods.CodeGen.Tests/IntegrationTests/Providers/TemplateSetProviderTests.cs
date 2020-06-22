@@ -31,7 +31,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                         .GetTemplatesByName(templateSetName);
 
             [Test]
-            public void Should_has_content() => (_result.Count > 0).ShouldBeTrue();
+            public void Should_have_content() => (_result.Count > 0).ShouldBeTrue();
 
             [Test]
             public void Should_not_have_empty_result() => _result.ShouldNotBeNull();

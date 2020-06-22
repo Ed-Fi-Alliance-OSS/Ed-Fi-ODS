@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2047
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 16.0.0.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.CodeGen", "EdFi.Ods.CodeGen\EdFi.Ods.CodeGen.csproj", "{CA26E530-3F39-4314-AA73-60C99DB7661B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.CodeGen.Tests", "EdFi.Ods.CodeGen.Tests\EdFi.Ods.CodeGen.Tests.csproj", "{9ABFDC41-AC22-49FE-93BA-8E4EEC44B97C}"
