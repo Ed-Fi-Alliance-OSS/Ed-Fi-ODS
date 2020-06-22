@@ -21,19 +21,16 @@ using EdFi.Ods.Entities.NHibernate.ApplicationEventAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.EmploymentEventAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.EmploymentSeparationEventAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM;
+using EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM;
+using EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.ProspectProfessionalDevelopmentEventAttendanceAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.StaffFieldworkAbsenceEventAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceSectionAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.StaffProfessionalDevelopmentEventAttendanceAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM;
@@ -45,7 +42,6 @@ using EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderProgramAssocia
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate.TPDM;
-using EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceSectionAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureCourseAssociationAggregate.TPDM;
 using EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationAggregate.TPDM;
@@ -676,94 +672,6 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.TPDM
     } 
 
     /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.EducationOrganizationFacts table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationFacts, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IEducationOrganizationFacts resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'educationOrganizationFacts' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as EducationOrganizationFacts;
-
-            dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((EducationOrganizationFacts) resource);
-        } 
-    } 
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.EducationOrganizationStudentFacts table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IEducationOrganizationStudentFacts, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IEducationOrganizationStudentFacts resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'educationOrganizationStudentFacts' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as EducationOrganizationStudentFacts;
-
-            dynamic contextData = new TContextData();
-            contextData.EducationOrganizationId = entity.EducationOrganizationId == default(int) ? null as int? : entity.EducationOrganizationId; // Primary key property, Only Education Organization Id present
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "EducationOrganizationId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((EducationOrganizationStudentFacts) resource);
-        } 
-    } 
-
-    /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.EmploymentEvent table of the EmploymentEvent aggregate in the Ods Database.
     /// </summary>
     [ExcludeFromCodeCoverage]
@@ -892,6 +800,96 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.TPDM
         public TContextData GetContextData(object resource)
         {
             return GetContextData((EvaluationRating) resource);
+        } 
+    } 
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.FieldworkExperience table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IFieldworkExperience, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {     
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IFieldworkExperience resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'fieldworkExperience' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as FieldworkExperience;
+
+            dynamic contextData = new TContextData();
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return (TContextData) contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((FieldworkExperience) resource);
+        } 
+    } 
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.FieldworkExperienceSectionAssociation table of the FieldworkExperienceSectionAssociation aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IFieldworkExperienceSectionAssociation, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {     
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IFieldworkExperienceSectionAssociation resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'fieldworkExperienceSectionAssociation' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as FieldworkExperienceSectionAssociation;
+
+            dynamic contextData = new TContextData();
+            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return (TContextData) contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "SchoolId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((FieldworkExperienceSectionAssociation) resource);
         } 
     } 
 
@@ -1114,140 +1112,6 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.TPDM
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StaffApplicantAssociation) resource);
-        } 
-    } 
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.StaffFieldworkAbsenceEvent table of the StaffFieldworkAbsenceEvent aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffFieldworkAbsenceEvent, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IStaffFieldworkAbsenceEvent resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'staffFieldworkAbsenceEvent' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as StaffFieldworkAbsenceEvent;
-
-            dynamic contextData = new TContextData();
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((StaffFieldworkAbsenceEvent) resource);
-        } 
-    } 
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.StaffFieldworkExperience table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffFieldworkExperience, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IStaffFieldworkExperience resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'staffFieldworkExperience' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as StaffFieldworkExperience;
-
-            dynamic contextData = new TContextData();
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((StaffFieldworkExperience) resource);
-        } 
-    } 
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.StaffFieldworkExperienceSectionAssociation table of the StaffFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStaffFieldworkExperienceSectionAssociation, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(IStaffFieldworkExperienceSectionAssociation resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'staffFieldworkExperienceSectionAssociation' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as StaffFieldworkExperienceSectionAssociation;
-
-            dynamic contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
-            contextData.StaffUSI = entity.StaffUSI == default(int) ? null as int? : entity.StaffUSI; // Primary key property, USI
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "SchoolId",
-                    "StaffUSI",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((StaffFieldworkExperienceSectionAssociation) resource);
         } 
     } 
 
@@ -1746,50 +1610,6 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.TPDM
         public TContextData GetContextData(object resource)
         {
             return GetContextData((TeacherCandidateCourseTranscript) resource);
-        } 
-    } 
-
-    /// <summary>
-    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the tpdm.TeacherCandidateFieldworkExperienceSectionAssociation table of the TeacherCandidateFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<ITeacherCandidateFieldworkExperienceSectionAssociation, TContextData>
-        where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
-        /// <summary>
-        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(ITeacherCandidateFieldworkExperienceSectionAssociation resource)
-        {
-            if (resource == null)
-                throw new ArgumentNullException("resource", "The 'teacherCandidateFieldworkExperienceSectionAssociation' resource for obtaining authorization context data cannot be null.");
-
-            var entity = resource as TeacherCandidateFieldworkExperienceSectionAssociation;
-
-            dynamic contextData = new TContextData();
-            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
-            return (TContextData) contextData;
-        }
-
-        /// <summary>
-        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
-        /// </summary>
-        public string[] GetAuthorizationContextPropertyNames()
-        {
-           var properties = new string[]
-                {
-                    "SchoolId",
-                };
-
-           return properties;
-        }
-
-        /// <summary>
-        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
-        /// </summary>
-        public TContextData GetContextData(object resource)
-        {
-            return GetContextData((TeacherCandidateFieldworkExperienceSectionAssociation) resource);
         } 
     } 
 

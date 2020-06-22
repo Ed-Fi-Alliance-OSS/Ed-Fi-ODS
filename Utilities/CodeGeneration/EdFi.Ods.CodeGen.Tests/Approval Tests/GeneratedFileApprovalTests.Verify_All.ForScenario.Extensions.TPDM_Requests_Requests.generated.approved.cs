@@ -1788,113 +1788,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.DegreeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsGetByExample
-    {
-        public decimal AverageYearsInDistrictEmployed { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public decimal HiringRate { get; set; }
-        public Guid Id { get; set; }
-        public int NumberAdministratorsEmployed { get; set; }
-        public int NumberStudentsEnrolled { get; set; }
-        public int NumberTeachersEmployed { get; set; }
-        public decimal PercentStudentsFreeReducedLunch { get; set; }
-        public decimal PercentStudentsLimitedEnglishProficiency { get; set; }
-        public decimal PercentStudentsSpecialEducation { get; set; }
-        public decimal RetentionRate { get; set; }
-        public decimal RetirementRate { get; set; }
-        public short SchoolYear { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationFactsGetByIds() { }
-
-        public EducationOrganizationFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsPost : Resources.EducationOrganizationFacts.TPDM.EducationOrganizationFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsPut : Resources.EducationOrganizationFacts.TPDM.EducationOrganizationFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsDelete : IHasIdentifier 
-    {
-        public EducationOrganizationFactsDelete() { }
-
-        public EducationOrganizationFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.EducationOrganizationStudentFacts
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationStudentFactsGetByIds() { }
-
-        public EducationOrganizationStudentFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsPost : Resources.EducationOrganizationStudentFacts.TPDM.EducationOrganizationStudentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsPut : Resources.EducationOrganizationStudentFacts.TPDM.EducationOrganizationStudentFacts
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsDelete : IHasIdentifier 
-    {
-        public EducationOrganizationStudentFactsDelete() { }
-
-        public EducationOrganizationStudentFactsDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Models.Requests.TPDM.EducatorRoleDescriptors
 { 
    
@@ -2794,6 +2687,113 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.FederalLocaleCodeDescriptors
         public FederalLocaleCodeDescriptorDelete() { }
 
         public FederalLocaleCodeDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.FieldworkExperiences
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string FieldworkIdentifier { get; set; }
+        public string FieldworkTypeDescriptor { get; set; }
+        public decimal HoursCompleted { get; set; }
+        public Guid Id { get; set; }
+        public string ProgramGatewayDescriptor { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceGetByIds : IHasIdentifiers<Guid>
+    {
+        public FieldworkExperienceGetByIds() { }
+
+        public FieldworkExperienceGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperiencePost : Resources.FieldworkExperience.TPDM.FieldworkExperience
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperiencePut : Resources.FieldworkExperience.TPDM.FieldworkExperience
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceDelete : IHasIdentifier 
+    {
+        public FieldworkExperienceDelete() { }
+
+        public FieldworkExperienceDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.TPDM.FieldworkExperienceSectionAssociations
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public string FieldworkIdentifier { get; set; }
+        public Guid Id { get; set; }
+        public string LocalCourseCode { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string SectionIdentifier { get; set; }
+        public string SessionName { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public FieldworkExperienceSectionAssociationGetByIds() { }
+
+        public FieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationPost : Resources.FieldworkExperienceSectionAssociation.TPDM.FieldworkExperienceSectionAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationPut : Resources.FieldworkExperienceSectionAssociation.TPDM.FieldworkExperienceSectionAssociation
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationDelete : IHasIdentifier 
+    {
+        public FieldworkExperienceSectionAssociationDelete() { }
+
+        public FieldworkExperienceSectionAssociationDelete(Guid id) 
         {
             Id = id;
         }
@@ -4622,164 +4622,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffApplicantAssociations
     }
 }
 
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffFieldworkAbsenceEvents
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventGetByExample
-    {
-        public string AbsenceEventCategoryDescriptor { get; set; }
-        public string AbsenceEventReason { get; set; }
-        public DateTime EventDate { get; set; }
-        public decimal HoursAbsent { get; set; }
-        public Guid Id { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkAbsenceEventGetByIds() { }
-
-        public StaffFieldworkAbsenceEventGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventPost : Resources.StaffFieldworkAbsenceEvent.TPDM.StaffFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventPut : Resources.StaffFieldworkAbsenceEvent.TPDM.StaffFieldworkAbsenceEvent
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventDelete : IHasIdentifier 
-    {
-        public StaffFieldworkAbsenceEventDelete() { }
-
-        public StaffFieldworkAbsenceEventDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffFieldworkExperiences
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public string FieldworkTypeDescriptor { get; set; }
-        public decimal HoursCompleted { get; set; }
-        public Guid Id { get; set; }
-        public string ProgramGatewayDescriptor { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkExperienceGetByIds() { }
-
-        public StaffFieldworkExperienceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperiencePost : Resources.StaffFieldworkExperience.TPDM.StaffFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperiencePut : Resources.StaffFieldworkExperience.TPDM.StaffFieldworkExperience
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceDelete : IHasIdentifier 
-    {
-        public StaffFieldworkExperienceDelete() { }
-
-        public StaffFieldworkExperienceDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffFieldworkExperienceSectionAssociations
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkExperienceSectionAssociationGetByIds() { }
-
-        public StaffFieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationPost : Resources.StaffFieldworkExperienceSectionAssociation.TPDM.StaffFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationPut : Resources.StaffFieldworkExperienceSectionAssociation.TPDM.StaffFieldworkExperienceSectionAssociation
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationDelete : IHasIdentifier 
-    {
-        public StaffFieldworkExperienceSectionAssociationDelete() { }
-
-        public StaffFieldworkExperienceSectionAssociationDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances
 { 
    
@@ -5667,164 +5509,6 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherCandidateCourseTranscripts
         public TeacherCandidateCourseTranscriptDelete() { }
 
         public TeacherCandidateCourseTranscriptDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherCandidateFieldworkAbsenceEvents
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventGetByExample
-    {
-        public string AbsenceEventCategoryDescriptor { get; set; }
-        public string AbsenceEventReason { get; set; }
-        public DateTime EventDate { get; set; }
-        public decimal HoursAbsent { get; set; }
-        public Guid Id { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkAbsenceEventGetByIds() { }
-
-        public TeacherCandidateFieldworkAbsenceEventGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventPost : Resources.TeacherCandidateFieldworkAbsenceEvent.TPDM.TeacherCandidateFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventPut : Resources.TeacherCandidateFieldworkAbsenceEvent.TPDM.TeacherCandidateFieldworkAbsenceEvent
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventDelete : IHasIdentifier 
-    {
-        public TeacherCandidateFieldworkAbsenceEventDelete() { }
-
-        public TeacherCandidateFieldworkAbsenceEventDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherCandidateFieldworkExperiences
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public string FieldworkTypeDescriptor { get; set; }
-        public decimal HoursCompleted { get; set; }
-        public Guid Id { get; set; }
-        public string ProgramGatewayDescriptor { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkExperienceGetByIds() { }
-
-        public TeacherCandidateFieldworkExperienceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperiencePost : Resources.TeacherCandidateFieldworkExperience.TPDM.TeacherCandidateFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperiencePut : Resources.TeacherCandidateFieldworkExperience.TPDM.TeacherCandidateFieldworkExperience
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceDelete : IHasIdentifier 
-    {
-        public TeacherCandidateFieldworkExperienceDelete() { }
-
-        public TeacherCandidateFieldworkExperienceDelete(Guid id) 
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Models.Requests.TPDM.TeacherCandidateFieldworkExperienceSectionAssociations
-{ 
-   
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkExperienceSectionAssociationGetByIds() { }
-
-        public TeacherCandidateFieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationPost : Resources.TeacherCandidateFieldworkExperienceSectionAssociation.TPDM.TeacherCandidateFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationPut : Resources.TeacherCandidateFieldworkExperienceSectionAssociation.TPDM.TeacherCandidateFieldworkExperienceSectionAssociation
-    { 
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationDelete : IHasIdentifier 
-    {
-        public TeacherCandidateFieldworkExperienceSectionAssociationDelete() { }
-
-        public TeacherCandidateFieldworkExperienceSectionAssociationDelete(Guid id) 
         {
             Id = id;
         }
