@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.ChangeQueries.Pipelines.Steps;
 using EdFi.Ods.Api.Pipelines.Steps;
 
 namespace EdFi.Ods.Api.Pipelines.Factories
@@ -12,7 +11,7 @@ namespace EdFi.Ods.Api.Pipelines.Factories
     /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "GetById" access.
     /// </summary>
-    public class GetPipelineStepsProvider : IGetPipelineStepsProvider
+    public class GetPipelineStepTypesProvider : IGetPipelineStepTypesProvider
     {
         /// <summary>
         /// Provides the core Ed-Fi ODS API steps for "GetById" access.
@@ -31,7 +30,7 @@ namespace EdFi.Ods.Api.Pipelines.Factories
     /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "GetBySpecification" access.
     /// </summary>
-    public class GetBySpecificationPipelineStepsProvider : IGetBySpecificationPipelineStepsProvider
+    public class GetBySpecificationPipelineStepTypesProvider : IGetBySpecificationPipelineStepTypesProvider
     {
         public Type[] GetSteps()
         {
@@ -45,23 +44,9 @@ namespace EdFi.Ods.Api.Pipelines.Factories
     }
 
     /// <summary>
-    /// Provides the core Ed-Fi ODS API steps for "GetTrackedDelete" access.
-    /// </summary>
-    public class GetDeletedResourceIdsPipelineStepsProvider : IGetDeletedResourceIdsPipelineStepsProvider
-    {
-        public Type[] GetSteps()
-        {
-            return new[]
-            {
-                typeof(GetDeletedResourceModelByIds<,,>),
-            };
-        }
-    }
-
-    /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "Upsert" persistence.
     /// </summary>
-    public class PutPipelineStepsProvider : IPutPipelineStepsProvider
+    public class PutPipelineStepTypesProvider : IPutPipelineStepTypesProvider
     {
         public virtual Type[] GetSteps()
         {
@@ -77,7 +62,7 @@ namespace EdFi.Ods.Api.Pipelines.Factories
     /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "Delete" persistence.
     /// </summary>
-    public class DeletePipelineStepsProvider : IDeletePipelineStepsProvider
+    public class DeletePipelineStepTypesProvider : IDeletePipelineStepTypesProvider
     {
         public Type[] GetSteps()
         {

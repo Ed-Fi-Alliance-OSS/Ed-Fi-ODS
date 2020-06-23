@@ -3,19 +3,29 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Pipelines.Get;
 using EdFi.Ods.Common;
-using EdFi.Ods.Pipelines.Common;
 
 namespace EdFi.Ods.Pipelines.Get
 {
-    public class GetPipeline<TResourceModel, TEntityModel> : PipelineBase<GetContext<TEntityModel>, GetResult<TResourceModel>>
-        where TResourceModel : IHasETag
+    public interface IGetPipeline<TResourceModel, TEntityModel>
+        where TResourceModel : class, IHasETag
+        where TEntityModel : class
+    {
+        Task<GetResult<TResourceModel>> ProcessAsync(GetContext<TEntityModel> context, CancellationToken cancellationToken);
+    }
+
+    public class GetPipeline<TResourceModel, TEntityModel> : PipelineBase<GetContext<TEntityModel>, GetResult<TResourceModel>>, IGetPipeline<TResourceModel, TEntityModel>
+        where TResourceModel : class, IHasETag
         where TEntityModel : class
     {
         public GetPipeline(
-            IStep<GetContext<TEntityModel>, GetResult<TResourceModel>>[] steps,
+            IGetPipelineStepsProvider pipelineStepsProvider,
             IExceptionTranslationProvider exceptionTranslationProvider)
-            : base(steps, exceptionTranslationProvider) { }
+            : base(pipelineStepsProvider.GetSteps<TResourceModel, TEntityModel>().ToArray(), exceptionTranslationProvider) { }
     }
 }

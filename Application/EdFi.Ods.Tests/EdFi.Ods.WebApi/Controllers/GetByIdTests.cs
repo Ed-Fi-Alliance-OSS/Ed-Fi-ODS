@@ -8,9 +8,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
+using Castle.MicroKernel.Registration;
 using EdFi.Ods.Api.Models.Resources.Student.EdFi;
+using EdFi.Ods.Api.Pipelines.Factories;
 using EdFi.Ods.Api.Services.Controllers.Students.EdFi;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Pipelines.Factories;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -19,6 +22,7 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 {
+    [TestFixture]
     public class StudentGetByIdTests
     {
         [TestFixture]
@@ -31,9 +35,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(SimpleResourceCreationStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(SimpleResourceCreationStep<,,,>)), null, null, null, null, null);
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -67,9 +71,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(NotFoundExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof (NotFoundExceptionStep<,,,>)), null, null, null, null, null);
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -107,9 +111,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(NotModifiedExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(NotModifiedExceptionStep<,,,>)), null, null, null, null, null);
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -137,9 +141,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(EdFiSecurityExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)), null, null, null, null, null);
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -167,9 +171,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
-
-                var pipelineFactory =
-                    new PipelineFactory(container, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)), null, null, null, null, null);
+                RegisterSinglePipelineStepType(container, typeof(UnhandledExceptionStep<,,,>));
+                
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -185,6 +189,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
             }
+        }
+        
+        private static void RegisterSinglePipelineStepType(WindsorContainerEx container, Type stepType)
+        {
+            container.Register(
+                Component.For<IGetPipelineStepTypesProvider>()
+                    .Instance(new SingleStepTypePipelineProviderForTest(stepType)));
         }
     }
 }

@@ -3,15 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Threading;
-using System.Threading.Tasks;
+using EdFi.Ods.Pipelines.Common;
 
-namespace EdFi.Ods.Pipelines.Common
+namespace EdFi.Ods.Pipelines.Delete
 {
-    public interface IStep {}
-    
-    public interface IStep<in TContext, in TResult> : IStep
+    public interface IDeletePipelineStepsProvider
     {
-        Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken);
+        IStep<DeleteContext, DeleteResult>[] GetSteps<TResourceModel, TEntityModel>();
     }
 }

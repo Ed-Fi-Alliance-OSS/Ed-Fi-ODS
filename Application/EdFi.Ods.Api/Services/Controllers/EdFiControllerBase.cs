@@ -13,13 +13,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using Castle.MicroKernel.Internal;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.ChangeQueries.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Services.Queries;
@@ -27,7 +25,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Factories;
 using EdFi.Ods.Pipelines.Get;
@@ -49,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers
     public abstract class EdFiControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot, TPutRequest, TPostRequest,
                                              TDeleteRequest, TGetByExampleRequest>
         : ApiController
-        where TResourceReadModel : IHasIdentifier, IHasETag, new()
+        where TResourceReadModel : class, IHasIdentifier, IHasETag, new()
         where TResourceWriteModel : IHasIdentifier, IHasETag, new()
         where TEntityInterface : class
         where TAggregateRoot : class, IHasIdentifier, new()
@@ -61,14 +58,12 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IRESTErrorProvider restErrorProvider;
 
         private ILog _logger;
-        protected Lazy<DeletePipeline> deletePipeline;
-        protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> getByIdPipeline;
-        protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> getManyPipeline;
-        protected Lazy<GetDeletedResourcePipeline<TAggregateRoot>> getDeletedResourcePipeline;
+        protected Lazy<IDeletePipeline<TResourceReadModel, TAggregateRoot>> deletePipeline;
+        protected Lazy<IGetPipeline<TResourceReadModel, TAggregateRoot>> getByIdPipeline;
+        protected Lazy<IGetManyPipeline<TResourceReadModel, TAggregateRoot>> getManyPipeline;
 
         protected Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>> putPipeline;
 
-        //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider schoolYearContextProvider;
         protected IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider;
 
@@ -78,24 +73,20 @@ namespace EdFi.Ods.Api.Services.Controllers
             IRESTErrorProvider restErrorProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository, 
         {
-            //this.repository = repository;
             this.schoolYearContextProvider = schoolYearContextProvider;
             this.restErrorProvider = restErrorProvider;
             this.defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
 
-            getByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
+            getByIdPipeline = new Lazy<IGetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
 
-            getManyPipeline = new Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>>
+            getManyPipeline = new Lazy<IGetManyPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetManyPipeline<TResourceReadModel, TAggregateRoot>);
-
-            getDeletedResourcePipeline = new Lazy<GetDeletedResourcePipeline<TAggregateRoot>>
-                (pipelineFactory.CreateGetDeletedResourcePipeline<TResourceReadModel, TAggregateRoot>);
 
             putPipeline = new Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>>
                 (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);
 
-            deletePipeline = new Lazy<DeletePipeline>
+            deletePipeline = new Lazy<IDeletePipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateDeletePipeline<TResourceReadModel, TAggregateRoot>);
         }
 
@@ -273,9 +264,15 @@ namespace EdFi.Ods.Api.Services.Controllers
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
+                var exception = new BadRequestException("Resource identifiers cannot be assigned by the client.");
+                
                 result = new PutResult
                          {
-                             Exception = new BadRequestException("Resource identifiers cannot be assigned by the client.")
+                             Exception = exception,
+                             // TODO: Logic never hits the pipeline, so exception thrown here never gets translated
+                             ExceptionTranslation = new ExceptionTranslationResult(
+                                 new RESTError { Code = 400, Message = exception.Message}, 
+                                 exception)
                          };
             }
             else
@@ -351,29 +348,6 @@ namespace EdFi.Ods.Api.Services.Controllers
             value = values.FirstOrDefault();
 
             return !string.IsNullOrEmpty(value);
-        }
-
-        protected bool TryProcessEtagHeader<TRequest>(TRequest request, string headerName, Action<TRequest, DateTime> setLastModifiedDate)
-        {
-            // Check for optimistic locking "opt-in" header value
-            IEnumerable<string> values;
-
-            if (!Request.Headers.TryGetValues(headerName, out values))
-            {
-                return false;
-            }
-
-            string etag = values.FirstOrDefault();
-
-            long etagValue = 0;
-
-            if (etag != null && long.TryParse(etag, out etagValue))
-            {
-                setLastModifiedDate(request, DateTime.FromBinary(etagValue));
-                return true;
-            }
-
-            return false;
         }
 
         protected IHttpActionResult AddOutboundEtagForSingleResult(IHttpActionResult response, IHasETag dto)

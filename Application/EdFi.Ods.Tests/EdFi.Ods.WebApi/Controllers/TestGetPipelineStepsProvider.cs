@@ -276,15 +276,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class SingleStepPipelineProviderForTest
-        : IGetPipelineStepsProvider,
-          IPutPipelineStepsProvider,
-          IDeletePipelineStepsProvider,
-          IGetBySpecificationPipelineStepsProvider
+    public class SingleStepTypePipelineProviderForTest
+        : IGetPipelineStepTypesProvider,
+          IPutPipelineStepTypesProvider,
+          IDeletePipelineStepTypesProvider,
+          IGetBySpecificationPipelineStepTypesProvider
     {
         private readonly Type _type;
 
-        public SingleStepPipelineProviderForTest(Type type)
+        public SingleStepTypePipelineProviderForTest(Type type)
         {
             _type = type;
         }

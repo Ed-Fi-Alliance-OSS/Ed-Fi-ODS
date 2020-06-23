@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.EdFi;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
@@ -30,6 +31,11 @@ namespace Test.Common
         protected IRESTErrorProvider GetErrorProvider()
         {
             return new RESTErrorProvider(BuildExceptionTranslators());
+        }
+        
+        protected IExceptionTranslationProvider GetExceptionTranslationProvider()
+        {
+            return new ExceptionTranslationProvider(BuildExceptionTranslators().ToArray());
         }
 
         private static IEnumerable<IExceptionTranslator> BuildExceptionTranslators()

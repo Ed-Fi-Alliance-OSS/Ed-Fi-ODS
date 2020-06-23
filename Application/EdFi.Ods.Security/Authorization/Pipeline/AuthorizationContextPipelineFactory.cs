@@ -10,11 +10,11 @@ using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Security.Authorization.Pipeline
 {
-    public class AuthorizationContextGetPipelineStepsProviderDecorator : IGetPipelineStepsProvider
+    public class AuthorizationContextGetPipelineStepTypesProviderDecorator : IGetPipelineStepTypesProvider
     {
-        private readonly IGetPipelineStepsProvider _next;
+        private readonly IGetPipelineStepTypesProvider _next;
 
-        public AuthorizationContextGetPipelineStepsProviderDecorator(IGetPipelineStepsProvider next)
+        public AuthorizationContextGetPipelineStepTypesProviderDecorator(IGetPipelineStepTypesProvider next)
         {
             _next = next;
         }
@@ -27,11 +27,11 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         }
     }
 
-    public class AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator : IGetBySpecificationPipelineStepsProvider
+    public class AuthorizationContextGetBySpecificationPipelineStepTypesProviderDecorator : IGetBySpecificationPipelineStepTypesProvider
     {
-        private readonly IGetBySpecificationPipelineStepsProvider _next;
+        private readonly IGetBySpecificationPipelineStepTypesProvider _next;
 
-        public AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator(IGetBySpecificationPipelineStepsProvider next)
+        public AuthorizationContextGetBySpecificationPipelineStepTypesProviderDecorator(IGetBySpecificationPipelineStepTypesProvider next)
         {
             _next = next;
         }
@@ -44,11 +44,11 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         }
     }
 
-    public class AuthorizationContextPutPipelineStepsProviderDecorator : IPutPipelineStepsProvider
+    public class AuthorizationContextPutPipelineStepTypesProviderDecorator : IPutPipelineStepTypesProvider
     {
-        private readonly IPutPipelineStepsProvider _next;
+        private readonly IPutPipelineStepTypesProvider _next;
 
-        public AuthorizationContextPutPipelineStepsProviderDecorator(IPutPipelineStepsProvider next)
+        public AuthorizationContextPutPipelineStepTypesProviderDecorator(IPutPipelineStepTypesProvider next)
         {
             _next = next;
         }
@@ -61,11 +61,11 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         }
     }
 
-    public class AuthorizationContextDeletePipelineStepsProviderDecorator : IDeletePipelineStepsProvider
+    public class AuthorizationContextDeletePipelineStepTypesProviderDecorator : IDeletePipelineStepTypesProvider
     {
-        private readonly IDeletePipelineStepsProvider _next;
+        private readonly IDeletePipelineStepTypesProvider _next;
 
-        public AuthorizationContextDeletePipelineStepsProviderDecorator(IDeletePipelineStepsProvider next)
+        public AuthorizationContextDeletePipelineStepTypesProviderDecorator(IDeletePipelineStepTypesProvider next)
         {
             _next = next;
         }
@@ -78,20 +78,20 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         }
     }
 
-    public class AuthorizationContextGetDeletedResourceIdsPipelineStepsProviderDecorator : IGetDeletedResourceIdsPipelineStepsProvider
-    {
-        private readonly IGetDeletedResourceIdsPipelineStepsProvider _next;
-
-        public AuthorizationContextGetDeletedResourceIdsPipelineStepsProviderDecorator(IGetDeletedResourceIdsPipelineStepsProvider next)
-        {
-            _next = next;
-        }
-
-        public Type[] GetSteps()
-        {
-            return _next.GetSteps()
-                .InsertAtHead(typeof(SetAuthorizationContextForGetDeletedResourceIds<,,,>))
-                .ToArray();
-        }
-    }
+    // public class AuthorizationContextGetDeletedResourceIdsPipelineStepTypesProviderDecorator : IGetDeletedResourceIdsPipelineStepTypesProvider
+    // {
+    //     private readonly IGetDeletedResourceIdsPipelineStepTypesProvider _next;
+    //
+    //     public AuthorizationContextGetDeletedResourceIdsPipelineStepTypesProviderDecorator(IGetDeletedResourceIdsPipelineStepTypesProvider next)
+    //     {
+    //         _next = next;
+    //     }
+    //
+    //     public Type[] GetSteps()
+    //     {
+    //         return _next.GetSteps()
+    //             .InsertAtHead(typeof(SetAuthorizationContextForGetDeletedResourceIds<,,,>))
+    //             .ToArray();
+    //     }
+    // }
 }

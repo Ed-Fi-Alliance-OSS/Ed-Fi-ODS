@@ -11,12 +11,19 @@ using Castle.MicroKernel.Registration;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Pipelines.Get;
+using EdFi.Ods.Api.Pipelines.GetMany;
+using EdFi.Ods.Api.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Pipelines.Common;
+using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Factories;
+using EdFi.Ods.Pipelines.Get;
+using EdFi.Ods.Pipelines.GetMany;
+using EdFi.Ods.Pipelines.Put;
 using Rhino.Mocks;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
@@ -63,21 +70,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 
     public static class TestControllerBuilder
     {
+        private static readonly IExceptionTranslator[] _translators;
+
+        static TestControllerBuilder()
+        {
+            _translators = new IExceptionTranslator[]
+            {
+                new TypeBasedBadRequestExceptionTranslator(),
+                new SqlServerConstraintExceptionTranslator(),
+                new SqlServerUniqueIndexExceptionTranslator(new StubDatabaseMetadataProvider()),
+                new EdFiSecurityExceptionTranslator(),
+                new NotFoundExceptionTranslator(),
+                new NotModifiedExceptionTranslator(),
+                new ConcurencyExceptionTranslator(),
+                new DuplicateNaturalKeyCreateExceptionTranslator(new StubDatabaseMetadataProvider())
+            };
+        }
+
         public static T GetController<T>(IPipelineFactory factory, string id = null)
             where T : ApiController
         {
-            var translators = new IExceptionTranslator[]
-                              {
-                                  new TypeBasedBadRequestExceptionTranslator(),
-                                  new SqlServerConstraintExceptionTranslator(),
-                                  new SqlServerUniqueIndexExceptionTranslator(new StubDatabaseMetadataProvider()),
-                                  new EdFiSecurityExceptionTranslator(),
-                                  new NotFoundExceptionTranslator(),
-                                  new NotModifiedExceptionTranslator(),
-                                  new ConcurencyExceptionTranslator(),
-                                  new DuplicateNaturalKeyCreateExceptionTranslator(new StubDatabaseMetadataProvider())
-                              };
-
             var schoolYearContextProvider = MockRepository.GenerateStub<ISchoolYearContextProvider>();
 
             schoolYearContextProvider.Stub(x => x.GetSchoolYear())
@@ -89,7 +101,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     typeof(T),
                     factory,
                     new StubCurrentSchoolYearContextProvider(),
-                    new RESTErrorProvider(translators),
+                    new RESTErrorProvider(_translators),
                     new DefaultPageSizeLimitProvider());
 
             controller.Configuration = new HttpConfiguration();
@@ -121,6 +133,47 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             container.Register(
                 Classes.FromThisAssembly()
                        .BasedOn(typeof(IStep<,>)));
+
+            container.Register(
+                Component.For<IExceptionTranslationProvider>()
+                    .Instance(new ExceptionTranslationProvider(_translators)),
+
+                // Get pipeline
+                Component
+                    .For<IGetPipelineStepsProvider>()
+                    .ImplementedBy<GetPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IGetPipeline<,>))
+                    .ImplementedBy(typeof(GetPipeline<,>)),
+
+                // GetMany pipeline
+                Component
+                    .For<IGetManyPipelineStepsProvider>()
+                    .ImplementedBy<GetManyPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IGetManyPipeline<,>))
+                    .ImplementedBy(typeof(GetManyPipeline<,>)),
+
+                // Put pipeline
+                Component
+                    .For<IPutPipelineStepsProvider>()
+                    .ImplementedBy<PutPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(PutPipeline<,>)),
+
+                // Delete pipeline
+                Component
+                    .For<IDeletePipelineStepsProvider>()
+                    .ImplementedBy<DeletePipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IDeletePipeline<,>))
+                    .ImplementedBy(typeof(DeletePipeline<,>))
+            );
 
             return container;
         }

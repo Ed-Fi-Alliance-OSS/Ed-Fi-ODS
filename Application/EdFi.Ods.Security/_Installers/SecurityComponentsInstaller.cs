@@ -109,26 +109,26 @@ namespace EdFi.Ods.Security._Installers
             // Register pipeline step provider decorators
             container.Register(
                 Component
-                    .For<IGetPipelineStepsProvider>()
-                    .ImplementedBy<AuthorizationContextGetPipelineStepsProviderDecorator>()
+                    .For<IGetPipelineStepTypesProvider>()
+                    .ImplementedBy<AuthorizationContextGetPipelineStepTypesProviderDecorator>()
                     .IsDefault());
 
             container.Register(
                 Component
-                    .For<IGetBySpecificationPipelineStepsProvider>()
-                    .ImplementedBy<AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator>()
+                    .For<IGetBySpecificationPipelineStepTypesProvider>()
+                    .ImplementedBy<AuthorizationContextGetBySpecificationPipelineStepTypesProviderDecorator>()
                     .IsDefault());
 
             container.Register(
                 Component
-                    .For<IPutPipelineStepsProvider>()
-                    .ImplementedBy<AuthorizationContextPutPipelineStepsProviderDecorator>()
+                    .For<IPutPipelineStepTypesProvider>()
+                    .ImplementedBy<AuthorizationContextPutPipelineStepTypesProviderDecorator>()
                     .IsDefault());
 
             container.Register(
                 Component
-                    .For<IDeletePipelineStepsProvider>()
-                    .ImplementedBy<AuthorizationContextDeletePipelineStepsProviderDecorator>()
+                    .For<IDeletePipelineStepTypesProvider>()
+                    .ImplementedBy<AuthorizationContextDeletePipelineStepTypesProviderDecorator>()
                     .IsDefault());
 
             container.Register(

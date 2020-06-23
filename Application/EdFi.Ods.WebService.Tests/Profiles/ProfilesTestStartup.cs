@@ -156,7 +156,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             Container.Register(
                 Classes
                     .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
-                    .BasedOn<IPipelineStepsProvider>()
+                    .BasedOn<IPipelineStepTypesProvider>()
                     .WithServiceFirstInterface());
         }
 

@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.ChangeQueries.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common;
 using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Get;
@@ -14,21 +13,18 @@ namespace EdFi.Ods.Pipelines.Factories
 {
     public interface IPipelineFactory
     {
-        GetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
-            where TResourceModel : IHasETag
+        IGetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
+            where TResourceModel : class, IHasETag
             where TEntityModel : class;
 
-        GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
+        IGetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
-            where TEntityModel : class;
-
-        GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class;
 
         IPutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag;
 
-        DeletePipeline CreateDeletePipeline<TResourceModel, TEntityModel>();
+        IDeletePipeline<TResourceModel, TEntityModel> CreateDeletePipeline<TResourceModel, TEntityModel>();
     }
 }

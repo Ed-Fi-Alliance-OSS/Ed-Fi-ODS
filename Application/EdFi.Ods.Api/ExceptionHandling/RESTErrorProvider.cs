@@ -9,13 +9,14 @@ using System.Net;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {
-    // TODO: DELETE THIS! Convert to IExceptionTranslationProvider
+    // TODO: Modify code generation and remove all usages of this interface.
+    // Replaced by IExceptionTranslationProvider. Interface can be removed once code generated artifacts no longer take a dependency.
     public interface IRESTErrorProvider
     {
         RESTError GetRestErrorFromException(Exception exception);
     }
     
-    // TODO: DELETE THIS!
+    // Replaced by IExceptionTranslationProvider. Interface can be removed once code generated artifacts no longer take a dependency.
     public class RESTErrorProvider : IRESTErrorProvider
     {
         private readonly IEnumerable<IExceptionTranslator> _translators;
