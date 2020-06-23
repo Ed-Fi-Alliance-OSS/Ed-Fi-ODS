@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.InversionOfControl
         /// <typeparam name="T">The <see cref="Type"/> of the service.</typeparam>
         /// <returns>The service implementation.</returns>
         T Resolve<T>();
-        
+
         /// <summary>
         /// Locates and returns the named service implementing the type specified by the generic parameter.
         /// </summary>
