@@ -259,26 +259,17 @@ namespace EdFi.Ods.Api.Services.Controllers
             }
 
             var validationState = new ValidationState();
-            PutResult result;
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                var exception = new BadRequestException("Resource identifiers cannot be assigned by the client.");
-                
-                result = new PutResult
-                         {
-                             Exception = exception,
-                             // TODO: Logic never hits the pipeline, so exception thrown here never gets translated
-                             ExceptionTranslation = new ExceptionTranslationResult(
-                                 new RESTError { Code = 400, Message = exception.Message}, 
-                                 exception)
-                         };
+                string errorMessage = "Resource identifiers cannot be assigned by the client.";
+
+                Logger.Error("Post: ${errorMessage}");
+                return new StatusCodeResult(HttpStatusCode.BadRequest, this).WithError(errorMessage);
             }
-            else
-            {
-                result = await putPipeline.Value.ProcessAsync(new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
-            }
+
+            var result = await putPipeline.Value.ProcessAsync(new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
 
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)

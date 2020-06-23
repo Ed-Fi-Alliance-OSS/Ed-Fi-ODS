@@ -25,6 +25,9 @@ using EdFi.Ods.Api.Extensibility;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Pipelines.Get;
+using EdFi.Ods.Api.Pipelines.GetMany;
+using EdFi.Ods.Api.Pipelines.Put;
 using EdFi.Ods.Api.Services;
 using EdFi.Ods.Api.Services.ActionFilters;
 using EdFi.Ods.Api.Services.Authentication;
@@ -45,7 +48,11 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Pipelines;
 using EdFi.Ods.Pipelines.Common;
+using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Factories;
+using EdFi.Ods.Pipelines.Get;
+using EdFi.Ods.Pipelines.GetMany;
+using EdFi.Ods.Pipelines.Put;
 using EdFi.Ods.Security._Installers;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Security.DataAccess.Repositories;
@@ -275,6 +282,44 @@ namespace EdFi.Ods.WebService.Tests.Owin
                     .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
                     .BasedOn<IPipelineStepTypesProvider>()
                     .WithServiceFirstInterface());
+            
+            Container.Register(
+                // Get pipeline
+                Component
+                    .For<IGetPipelineStepsProvider>()
+                    .ImplementedBy<GetPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = Container}),
+                Component
+                    .For(typeof(IGetPipeline<,>))
+                    .ImplementedBy(typeof(GetPipeline<,>)),
+
+                // GetMany pipeline
+                Component
+                    .For<IGetManyPipelineStepsProvider>()
+                    .ImplementedBy<GetManyPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = Container}),
+                Component
+                    .For(typeof(IGetManyPipeline<,>))
+                    .ImplementedBy(typeof(GetManyPipeline<,>)),
+
+                // Put pipeline
+                Component
+                    .For<IPutPipelineStepsProvider>()
+                    .ImplementedBy<PutPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = Container}),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(PutPipeline<,>)),
+
+                // Delete pipeline
+                Component
+                    .For<IDeletePipelineStepsProvider>()
+                    .ImplementedBy<DeletePipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = Container}),
+                Component
+                    .For(typeof(IDeletePipeline<,>))
+                    .ImplementedBy(typeof(DeletePipeline<,>))
+            );
         }
 
         protected virtual void ConfigureDelegatingHandlers(
