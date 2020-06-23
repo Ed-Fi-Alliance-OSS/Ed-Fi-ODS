@@ -30,124 +30,122 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
     public class StudentPostTests
     {
         private const string ExpectedUri = "http://localhost/api/ods/v3/ed-fi/students";
-    
+
         [TestFixture]
         public class When_posting_a_non_existing_student : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
             private WindsorContainerEx _locator;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 _locator = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(_locator, typeof(PersistNewModel<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(_locator);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
                 _responseMessage = controller
                     .Post( new StudentPost {ETag = _id.ToString("n")})
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_contain_location_header_in_response()
             {
                 _responseMessage.Headers.Location.AbsoluteUri
                     .ShouldBe(string.Format("{0}/{1}", ExpectedUri, _id.ToString("n")));
             }
-    
+
             [Test]
             public void Should_contain_updated_etag_in_response()
             {
                 var etagprovider = _locator.Resolve<IETagProvider>();
-    
+
                 _responseMessage.Headers.ETag.ShouldBe(
                     new EntityTagHeaderValue(
                         etagprovider.GetETag(_id.ToString("n"))
                             .Quoted()));
             }
-    
+
             [Test]
             public void Should_return_created_result()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.Created);
             }
         }
-    
+
         [TestFixture]
         public class When_posting_an_existing_student : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
             private WindsorContainerEx _container;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 _container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(_container, typeof(PersistExistingModel<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(_container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
                 _responseMessage = controller.Post(
                         new StudentPost {ETag = _id.ToString("n")})
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_contain_location_header_in_response()
             {
                 _responseMessage.Headers.Location.AbsoluteUri
                     .ShouldBe(string.Format("{0}/{1}", ExpectedUri, _id.ToString("n")));
             }
-    
+
             [Test]
             public void Should_contain_updated_etag_in_response()
             {
                 var etagprovider = _container.Resolve<IETagProvider>();
-    
+
                 _responseMessage.Headers.ETag.ShouldBe(
                     new EntityTagHeaderValue(
                         etagprovider.GetETag(_id.ToString("n"))
                             .Quoted()));
             }
-    
+
             [Test]
             public void Should_return_ok()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.OK);
             }
         }
-    
+
         [TestFixture]
         public class When_posting_a_student_with_id_set : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(container, typeof(PersistNewModel<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
+
                 _responseMessage = controller.Post(
                         new StudentPost
                         {
@@ -158,13 +156,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_bad_request()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
             }
-    
+
             [Test]
             public void Should_return_message()
             {
@@ -172,41 +170,40 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .Result;
     
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
-    
                 resource["Message"]
                     .ShouldBe("Resource identifiers cannot be assigned by the client.");
             }
         }
-    
+
         [TestFixture]
         public class When_posting_a_student_causes_unique_id_exception : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(container, typeof(InsertUniqueIdExceptionStep<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
+
                 _responseMessage = controller.Post(new StudentPost())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_conflict()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.Conflict);
             }
-    
+
             [Test]
             public void Should_return_message()
             {
@@ -214,44 +211,43 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .Result;
     
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
-    
+
                 var expression = new Regex(
                     @"^The value unknown supplied for property '(?<ForeignKeyName>\w+)' of entity '(?<TableName>\w+)' is not unique.");
-    
                 expression.Match(resource.Message)
                     .Success.ShouldBeTrue();
             }
         }
-    
+
         [TestFixture]
         public class When_posting_a_student_causes_referencial_exception : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(container, typeof(InsertReferentialExceptionStep<,,,>));
-                
-                var pipelineFactory = new PipelineFactory( container);
-    
+
+                var pipelineFactory = new PipelineFactory(container);
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
+
                 _responseMessage = controller.Post(new StudentPost())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_conflict()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.Conflict);
             }
-    
+
             [Test]
             public void Should_return_message()
             {
@@ -259,45 +255,44 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .Result;
     
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
-    
+
                 var expression = new Regex(
                     @"^The value supplied for the related '(?<ConstraintName>\w+)' resource does not exist.");
-    
                 expression.Match(resource.Message)
                     .Success.ShouldBeTrue();
             }
         }
-    
+
         [TestFixture]
         public class When_posting_a_student_causes_validation_exception : TestBase
         {
             private Guid _id;
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
-    
+
                 RegisterSinglePipelineStepType(container, typeof(ValidationExceptionStep<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-    
+
                 _responseMessage = controller.Post(new StudentPost())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_bad_request()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
             }
-    
+
             [Test]
             public void Should_return_message()
             {
@@ -305,12 +300,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .GetResultSafely();
     
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
-    
                 resource["Message"]
                     .ShouldBe("Exception for testing");
             }
         }
-    
+
         [TestFixture]
         public class When_posting_student_unauthorized : TestBase
         {
@@ -318,53 +312,53 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Should_return_forbidden()
             {
                 var id = Guid.NewGuid();
-                
+
                 var container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(container, typeof(EdFiSecurityExceptionStep<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, id.ToString("N"));
-    
+
                 var responseMessage = controller.Post(new StudentPost())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
-    
+
                 responseMessage.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
             }
         }
-    
+
         [TestFixture]
         public class When_posting_student_throws_unhandled_exception : TestBase
         {
             //private Guid _id;
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
                 var id = Guid.NewGuid();
-                
+
                 var container = TestControllerBuilder.GetWindsorContainer();
                 RegisterSinglePipelineStepType(container, typeof(UnhandledExceptionStep<,,,>));
-                
+
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, id.ToString("N"));
-    
+
                 _responseMessage = controller.Post(new StudentPost())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_internal_server_error()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
             }
-    
+
             [Test]
             public void Should_return_message()
             {
@@ -375,7 +369,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 resource.Message.ShouldBe("An unexpected error occurred on the server.");
             }
         }
-        
+
         private static void RegisterSinglePipelineStepType(WindsorContainerEx container, Type stepType)
         {
             container.Register(
