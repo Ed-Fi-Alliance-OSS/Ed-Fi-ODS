@@ -49,26 +49,5 @@ namespace EdFi.Ods.Common.InversionOfControl
                 }
             }
         }
-
-        private static int _depth = 0;
-        
-        public T Resolve<T>(IEnumerable<KeyValuePair<string, object>> arguments)
-        {
-            try
-            {
-                _depth++;
-
-                if (_depth > 10)
-                {
-                    throw new Exception("This ain't going well.");
-                }
-                
-                return WindsorContainerExtensions.Resolve<T>(this, arguments);
-            }
-            finally
-            {
-                _depth--;
-            }
-        }
     }
 }

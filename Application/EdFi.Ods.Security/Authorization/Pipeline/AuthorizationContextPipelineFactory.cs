@@ -77,21 +77,4 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
                         .ToArray();
         }
     }
-
-    // public class AuthorizationContextGetDeletedResourceIdsPipelineStepTypesProviderDecorator : IGetDeletedResourceIdsPipelineStepTypesProvider
-    // {
-    //     private readonly IGetDeletedResourceIdsPipelineStepTypesProvider _next;
-    //
-    //     public AuthorizationContextGetDeletedResourceIdsPipelineStepTypesProviderDecorator(IGetDeletedResourceIdsPipelineStepTypesProvider next)
-    //     {
-    //         _next = next;
-    //     }
-    //
-    //     public Type[] GetSteps()
-    //     {
-    //         return _next.GetSteps()
-    //             .InsertAtHead(typeof(SetAuthorizationContextForGetDeletedResourceIds<,,,>))
-    //             .ToArray();
-    //     }
-    // }
 }

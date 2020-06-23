@@ -20,10 +20,6 @@ namespace EdFi.Ods.Api.ExceptionHandling
         /// <param name="translationResult">The details of the translation, including the API's error response model.</param>
         /// <returns><b>true</b> if the exception was handled; otherwise <b>false</b>.</returns>
         bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult);
-
-        // TODO: Remove
-        // bool TryTranslateMessage(Exception ex, out RESTError webServiceError);
-
     }
     
     public class ExceptionTranslationResult

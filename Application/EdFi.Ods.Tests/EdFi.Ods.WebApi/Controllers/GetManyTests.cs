@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         public class When_getting_students : TestBase
         {
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
@@ -37,33 +37,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 RegisterSinglePipelineStepType(container, typeof(SimpleGetManyResourceCreationStep<,,,>));
                 
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
-    
+
                 _responseMessage = controller.GetAll(new UrlQueryParametersRequest())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_student()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.OK);
-    
+
                 var result = _responseMessage.Content.ReadAsStringAsync()
                     .Result;
-    
+
                 var students = DefaultTestJsonSerializer.DeserializeObject<Student[]>(result);
                 students.Length.ShouldBe(25);
             }
         }
-    
+
         [TestFixture]
         public class When_getting_students_with_upper_limit : TestBase
         {
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
@@ -71,34 +71,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 RegisterSinglePipelineStepType(container, typeof(SimpleGetManyResourceCreationStep<,,,>));
                 
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
-    
+
                 _responseMessage = controller
                     .GetAll(new UrlQueryParametersRequest {Limit = 10})
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_student()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.OK);
-    
+
                 var result = _responseMessage.Content.ReadAsStringAsync()
                     .Result;
-    
+
                 var students = DefaultTestJsonSerializer.DeserializeObject<Student[]>(result);
                 students.Length.ShouldBe(10);
             }
         }
-    
+
         [TestFixture]
         public class When_getting_students_with_upper_limit_past_max : TestBase
         {
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
@@ -106,28 +106,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 RegisterSinglePipelineStepType(container, typeof(SimpleGetManyResourceCreationStep<,,,>));
                 
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
-    
+
                 _responseMessage = controller
                     .GetAll(new UrlQueryParametersRequest {Limit = 1000})
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_student()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
             }
         }
-    
+
         [TestFixture]
         public class When_getting_students_unauthorized : TestBase
         {
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
@@ -135,28 +135,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 RegisterSinglePipelineStepType(container, typeof(EdFiSecurityExceptionStep<,,,>));
 
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
-    
+
                 _responseMessage = controller
                     .GetAll(new UrlQueryParametersRequest())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_forbidden()
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
             }
         }
-    
+
         [TestFixture]
         public class When_unhandled_exception_getting_students : TestBase
         {
             private HttpResponseMessage _responseMessage;
-    
+
             [OneTimeSetUp]
             public void Setup()
             {
@@ -164,16 +164,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 RegisterSinglePipelineStepType(container, typeof(UnhandledExceptionStep<,,,>));
                 
                 var pipelineFactory = new PipelineFactory(container);
-    
+
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
-    
+
                 _responseMessage = controller
                     .GetAll(new UrlQueryParametersRequest())
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
             }
-    
+
             [Test]
             public void Should_return_internal_server_error()
             {

@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 
 namespace EdFi.Ods.Common.InversionOfControl
 {
@@ -27,8 +26,6 @@ namespace EdFi.Ods.Common.InversionOfControl
         /// <returns>The service implementation.</returns>
         T Resolve<T>();
         
-        T Resolve<T>(IEnumerable<KeyValuePair<string, object>> arguments);
-
         /// <summary>
         /// Locates and returns the named service implementing the type specified by the generic parameter.
         /// </summary>

@@ -32,30 +32,4 @@ namespace EdFi.Ods.Api.ExceptionHandling
     
         public string ColumnName { get; }
     }
-    
-    // public class DescriptorViolationExceptionTranslationResult : ExceptionTranslationResult
-    // {
-    //     public DescriptorViolationExceptionTranslationResult(
-    //         string constraintName,
-    //         string databaseName,
-    //         string tableName,
-    //         string columnName,
-    //         RESTError error,
-    //         Exception originalException)
-    //         : base(error, originalException)
-    //     {
-    //         ConstraintName = constraintName;
-    //         DatabaseName = databaseName;
-    //         TableName = tableName;
-    //         ColumnName = columnName;
-    //     }
-    //
-    //     public string ConstraintName { get; }
-    //
-    //     public string DatabaseName { get; }
-    //
-    //     public string TableName { get; }
-    //
-    //     public string ColumnName { get; }
-    // }
 }
