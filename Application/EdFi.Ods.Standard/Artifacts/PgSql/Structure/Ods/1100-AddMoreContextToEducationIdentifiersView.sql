@@ -3,7 +3,11 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER VIEW auth.EducationOrganizationIdentifiers
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToEducationServiceCenterId ;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStateAgencyId;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdentifiers;
+
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdentifiers
 AS
 -- NOTE: Multiple results for a single Education Organization are possible if they are a part of multiple Education Organization Networks
 SELECT
@@ -56,3 +60,49 @@ WHERE   --Use same CASE as above to eliminate non-institutions (e.g. Networks)
         WHEN cp.CommunityProviderId IS NOT NULL THEN N'CommunityProvider'
         WHEN psi.PostSecondaryInstitutionId IS NOT NULL THEN N'PostSecondaryInstitution'
     END IS NOT NULL;
+
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToEducationServiceCenterId
+AS
+-- Only LEAs and Schools are accessible to ESC-level claims
+    SELECT EducationServiceCenterId
+         ,LocalEducationAgencyId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE LocalEducationAgencyId IS NOT NULL
+
+    UNION
+    SELECT EducationServiceCenterId
+         ,SchoolId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE SchoolId IS NOT NULL
+
+    UNION
+-- ESC-level claims also can access the ESC
+    SELECT EducationServiceCenterId
+         ,EducationServiceCenterId AS EducationOrganizationId
+    FROM edfi.EducationServiceCenter;
+
+CREATE VIEW auth.EducationOrganizationIdToStateAgencyId
+AS
+-- Only ESCs, LEAs and Schools are accessible to State-level claims
+    SELECT StateEducationAgencyId
+         ,EducationServiceCenterId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE EducationServiceCenterId IS NOT NULL
+
+    UNION
+    SELECT StateEducationAgencyId
+         ,LocalEducationAgencyId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE LocalEducationAgencyId IS NOT NULL
+
+    UNION
+    SELECT StateEducationAgencyId
+         ,SchoolId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE SchoolId IS NOT NULL
+
+    UNION
+-- State-level claims also can access the State
+    SELECT StateEducationAgencyId
+         ,StateEducationAgencyId AS EducationOrganizationId
+    FROM edfi.StateEducationAgency;
