@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -50,7 +50,7 @@ namespace EdFi.LoadTools.BulkLoadClient
                         ConfigureCompositionRoot(container, configuration);
 
                         // retrieve application
-                        var application = container.GetInstance<ApiLoaderApplication>();
+                        var application = container.GetInstance<IApiLoaderApplication>();
 
                         // run application
                         exitCode = application.Run().Result;
@@ -167,6 +167,9 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<IMetadataFactory<XmlModelMetadata>, XsdApiTypesMetadataFactory>();
             container.RegisterSingleton<IMetadataMappingFactory, ResourceToResourceMetadataMappingFactory>();
             container.RegisterSingleton<ITokenRetriever, TokenRetriever>();
+            container.Register<IOdsRestClient, OdsRestClient>();
+            container.Register<ISubmitResource, SubmitResource>();
+            container.Register<IApiLoaderApplication, ApiLoaderApplication>();
 
             container.RegisterCollection<IFileImportPipelineStep>(
                 new[]
