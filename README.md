@@ -5,7 +5,7 @@ This repository hosts the core code for the Ed-Fi Operational Data Store (ODS) a
 For more information, see:
 
 * For more information, go to [Ed-Fi Tech Docs](https://techdocs.ed-fi.org/) for instructions on getting started, a summary of our code repositories and additional technical information.
-* Also see repositories [Ed-Fi-Common](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Common) and [Ed-Fi-ODS-Implementation](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation).
+* Also see repository [Ed-Fi-ODS-Implementation](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation).
 * [How to Submit an Issue](https://techdocs.ed-fi.org/display/ETKB/How+To%3A+Submit+an+Issue).
 * [How Submit a Feature Request](https://techdocs.ed-fi.org/display/ETKB/How+To%3A+Submit+a+Feature+Request).
 * Review on-going development work in the [ODS Project in Tracker](https://tracker.ed-fi.org/browse/ODS).
