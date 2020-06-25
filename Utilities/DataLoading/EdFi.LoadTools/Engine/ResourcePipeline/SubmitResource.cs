@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,13 +11,13 @@ using log4net;
 
 namespace EdFi.LoadTools.Engine.ResourcePipeline
 {
-    public class SubmitResource
+    public class SubmitResource : ISubmitResource
     {
         private readonly ILog _log = LogManager.GetLogger(nameof(SubmitResource));
-        private readonly OdsRestClient _poster;
+        private readonly IOdsRestClient _poster;
         private int _count;
 
-        public SubmitResource(OdsRestClient poster)
+        public SubmitResource(IOdsRestClient poster)
         {
             _poster = poster;
         }
