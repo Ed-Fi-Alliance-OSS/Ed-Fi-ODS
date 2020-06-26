@@ -54,6 +54,8 @@ namespace EdFi.Ods.WebService.Tests._Installers
                 Component
                    .For<IPersonUniqueIdToUsiCache>()
                    .ImplementedBy<PersonUniqueIdToUsiCache>()
+                   .DependsOn(Dependency.OnValue("slidingExpiration", TimeSpan.FromHours(4)))
+                   .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", TimeSpan.Zero))
                    .DependsOn(Dependency.OnValue("synchronousInitialization", false)));
 
             PersonUniqueIdToUsiCache.GetCache = container.Resolve<IPersonUniqueIdToUsiCache>;
