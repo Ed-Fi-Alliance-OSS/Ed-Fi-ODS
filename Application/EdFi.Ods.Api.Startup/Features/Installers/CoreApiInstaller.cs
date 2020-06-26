@@ -48,6 +48,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
 {
     public class CoreApiInstaller : IWindsorInstaller
     {
+        private const string DescriptorCacheAbsoluteExpirationSecondsKey = "caching:descriptors:absoluteExpirationSeconds";
         private const string PersonCacheAbsoluteExpirationSecondsKey = "caching:personUniqueIdToUsi:absoluteExpirationSeconds";
         private const string PersonCacheSlidingExpirationSecondsKey = "caching:personUniqueIdToUsi:slidingExpirationSeconds";
         
@@ -253,11 +254,15 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         private void RegisterDescriptorCache(IWindsorContainer container)
         {
             container.Register(Component.For<ConcurrentDictionaryCacheProvider>());
-            
+
+            var absoluteExpirationPeriod = TimeSpan.FromSeconds( 
+                Convert.ToInt32(_configValueProvider.GetValue(DescriptorCacheAbsoluteExpirationSecondsKey) ?? "60"));
+
             container.Register(
                 Component.For<IDescriptorsCache>()
                 .ImplementedBy<DescriptorsCache>()
                 .DependsOn(Dependency.OnComponent<ICacheProvider, ConcurrentDictionaryCacheProvider>())
+                .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", absoluteExpirationPeriod))
                 .LifestyleSingleton());
         }
 

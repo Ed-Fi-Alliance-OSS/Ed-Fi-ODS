@@ -17,7 +17,6 @@ namespace EdFi.Ods.Api.Caching
 {
     public class DescriptorsCache : IDescriptorsCache
     {
-        private const int DatabaseSynchronizationExpirationSeconds = 60;
         private const string DescriptorCacheKeyPrefix = "Descriptors";
         private const string InitializedKeyPrefix = "DescriptorsCache.Initialized";
         private const string LastSyncedKey = "DescriptorsCache.LastSynced";
@@ -31,15 +30,18 @@ namespace EdFi.Ods.Api.Caching
         private readonly ICacheProvider _cacheProvider;
         private readonly IDescriptorLookupProvider _descriptorLookupProvider;
         private readonly IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
+        private readonly TimeSpan _absoluteExpirationPeriod;
 
         public DescriptorsCache(
             IDescriptorLookupProvider descriptorLookupProvider,
             ICacheProvider cacheProvider,
-            IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider)
+            IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
+            TimeSpan absoluteExpirationPeriod)
         {
             _descriptorLookupProvider = descriptorLookupProvider;
             _cacheProvider = cacheProvider;
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
+            _absoluteExpirationPeriod = absoluteExpirationPeriod;
         }
 
         private bool HasLastDatabaseSynchronizationExpired
@@ -55,7 +57,7 @@ namespace EdFi.Ods.Api.Caching
                 }
 
                 var totalSeconds = (currentTime - lastSynced).TotalSeconds;
-                return totalSeconds > DatabaseSynchronizationExpirationSeconds;
+                return totalSeconds > _absoluteExpirationPeriod.TotalSeconds;
             }
         }
 
