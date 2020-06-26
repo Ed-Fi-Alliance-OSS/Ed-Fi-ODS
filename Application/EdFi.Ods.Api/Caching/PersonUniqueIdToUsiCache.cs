@@ -316,11 +316,7 @@ namespace EdFi.Ods.Api.Caching
                 string cacheKey = GetPersonTypeIdentifiersCacheKey(personType, context);
 
                 //Now that it's loaded extend the cache expiration.
-                _cacheProvider.Insert(cacheKey, entry, 
-                    _absoluteExpirationPeriod == TimeSpan.Zero
-                    ? DateTime.MaxValue 
-                    : DateTime.Now.Add(_absoluteExpirationPeriod), 
-                    _slidingExpiration);
+                _cacheProvider.Insert(cacheKey, entry, GetAbsoluteExpiration(), _slidingExpiration);
             }
             catch (Exception ex)
             {
@@ -329,6 +325,10 @@ namespace EdFi.Ods.Api.Caching
                     ex);
             }
         }
+
+        private DateTime GetAbsoluteExpiration() => _absoluteExpirationPeriod == TimeSpan.Zero
+            ? DateTime.MaxValue 
+            : DateTime.Now.Add(_absoluteExpirationPeriod);
 
         private static string GetPersonTypeIdentifiersCacheKey(string personType, string context)
         {
