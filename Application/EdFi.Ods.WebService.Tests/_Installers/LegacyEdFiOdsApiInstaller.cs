@@ -66,7 +66,7 @@ namespace EdFi.Ods.WebService.Tests._Installers
             container.Register(
                 Component.For<IDescriptorsCache>()
                          .ImplementedBy<DescriptorsCache>()
-                         .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", 60))
+                         .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", TimeSpan.FromSeconds(60)))
                          .LifestyleSingleton());
 
             IDescriptorsCache cache = null;
