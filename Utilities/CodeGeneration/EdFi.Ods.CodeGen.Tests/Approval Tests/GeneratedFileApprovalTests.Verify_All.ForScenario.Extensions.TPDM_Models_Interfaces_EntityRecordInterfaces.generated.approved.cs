@@ -911,26 +911,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.CommunityOrganizationExtension table of the CommunityOrganization aggregate in the Ods Database.
-    /// </summary>
-    public interface ICommunityOrganizationExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int CommunityOrganizationId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.CommunityProviderExtension table of the CommunityProvider aggregate in the Ods Database.
-    /// </summary>
-    public interface ICommunityProviderExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int CommunityProviderId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.CompleterAsStaffAssociation table of the CompleterAsStaffAssociation aggregate in the Ods Database.
     /// </summary>
     public interface ICompleterAsStaffAssociationRecord
@@ -1022,292 +1002,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         int DegreeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFacts table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsRecord
-    {     
-        // Properties for all columns in physical table
-        decimal? AverageYearsInDistrictEmployed { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        decimal? HiringRate { get; set; }
-        Guid Id { get; set; }
-        int? NumberAdministratorsEmployed { get; set; }
-        int? NumberStudentsEnrolled { get; set; }
-        int? NumberTeachersEmployed { get; set; }
-        decimal? PercentStudentsFreeReducedLunch { get; set; }
-        decimal? PercentStudentsLimitedEnglishProficiency { get; set; }
-        decimal? PercentStudentsSpecialEducation { get; set; }
-        decimal? RetentionRate { get; set; }
-        decimal? RetirementRate { get; set; }
-        short SchoolYear { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsAggregatedSalary table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsAggregatedSalaryRecord
-    {     
-        // Properties for all columns in physical table
-        decimal AverageSalary { get; set; }
-        int? CountOfSalariesAveraged { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int? SalaryMaxRange { get; set; }
-        int? SalaryMinRange { get; set; }
-        short SchoolYear { get; set; }
-        int? StandardDeviation { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsVacancies table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsVacanciesRecord
-    {     
-        // Properties for all columns in physical table
-        int AcademicSubjectDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int NumberOfVacancies { get; set; }
-        short SchoolYear { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsVacanciesGradeLevel table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsVacanciesGradeLevelRecord
-    {     
-        // Properties for all columns in physical table
-        int AcademicSubjectDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int GradeLevelDescriptorId { get; set; }
-        short SchoolYear { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationNetworkExtension table of the EducationOrganizationNetwork aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationNetworkExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationNetworkId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFacts table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        Guid Id { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedByDisability table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedByDisabilityRecord
-    {     
-        // Properties for all columns in physical table
-        int DisabilityDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        decimal? Percentage { get; set; }
-        int? TypeNumber { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? StudentsDisabledNumber { get; set; }
-        decimal? StudentsDisabledPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedELLEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        int? ELLEnrollmentNumber { get; set; }
-        decimal? ELLEnrollmentPercentage { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedESLEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        int? ESLEnrollmentNumber { get; set; }
-        decimal? ESLEnrollmentPercentage { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedGender table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedGenderRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int GenderDescriptorId { get; set; }
-        int? GenderTypeNumber { get; set; }
-        decimal? GenderTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        bool HispanicLatinoEthnicity { get; set; }
-        int? HispanicLatinoEthnicityNumber { get; set; }
-        decimal? HispanicLatinoEthnicityPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedLanguage table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedLanguageRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int LanguageDescriptorId { get; set; }
-        int? LanguageTypeNumber { get; set; }
-        decimal? LanguageTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedRace table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedRaceRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int RaceDescriptorId { get; set; }
-        int? RaceTypeNumber { get; set; }
-        decimal? RaceTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int SchoolFoodServiceProgramServiceDescriptorId { get; set; }
-        int? TypeNumber { get; set; }
-        int? TypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSection504EnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? Number504Enrolled { get; set; }
-        decimal? Percentage504Enrolled { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSex table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSexRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int SexDescriptorId { get; set; }
-        int? SexTypeNumber { get; set; }
-        decimal? SexTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSPED table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSPEDRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? SPEDEnrollmentNumber { get; set; }
-        decimal? SPEDEnrollmentPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? TitleIEnrollmentNumber { get; set; }
-        decimal? TitleIEnrollmentPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsStudentsEnrolled table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsStudentsEnrolledRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? NumberStudentsEnrolled { get; set; }
-        decimal? PercentAtRisk { get; set; }
-        decimal? PercentMobility { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationServiceCenterExtension table of the EducationServiceCenter aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationServiceCenterExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationServiceCenterId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -1693,6 +1387,64 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
+    /// Interface for the tpdm.FieldworkExperience table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int FieldworkTypeDescriptorId { get; set; }
+        decimal? HoursCompleted { get; set; }
+        Guid Id { get; set; }
+        int? ProgramGatewayDescriptorId { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceCoteaching table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceCoteachingRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        DateTime CoteachingBeginDate { get; set; }
+        DateTime? CoteachingEndDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceSchool table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceSchoolRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int SchoolId { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceSectionAssociation table of the FieldworkExperienceSectionAssociation aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceSectionAssociationRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        Guid Id { get; set; }
+        string LocalCourseCode { get; set; }
+        int SchoolId { get; set; }
+        short SchoolYear { get; set; }
+        string SectionIdentifier { get; set; }
+        string SessionName { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the tpdm.FieldworkTypeDescriptor table of the FieldworkTypeDescriptor aggregate in the Ods Database.
     /// </summary>
     public interface IFieldworkTypeDescriptorRecord
@@ -1751,22 +1503,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         int GoalTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.GradebookEntryExtension table of the GradebookEntry aggregate in the Ods Database.
-    /// </summary>
-    public interface IGradebookEntryExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime DateAssigned { get; set; }
-        string GradebookEntryTitle { get; set; }
-        string LocalCourseCode { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
     }
 
     /// <summary>
@@ -2514,78 +2250,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.StaffFieldworkAbsenceEvent table of the StaffFieldworkAbsenceEvent aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkAbsenceEventRecord
-    {     
-        // Properties for all columns in physical table
-        int AbsenceEventCategoryDescriptorId { get; set; }
-        string AbsenceEventReason { get; set; }
-        DateTime EventDate { get; set; }
-        decimal? HoursAbsent { get; set; }
-        Guid Id { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperience table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int FieldworkTypeDescriptorId { get; set; }
-        decimal? HoursCompleted { get; set; }
-        Guid Id { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceCoteaching table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceCoteachingRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime CoteachingBeginDate { get; set; }
-        DateTime? CoteachingEndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceSchool table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceSchoolRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int SchoolId { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceSectionAssociation table of the StaffFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceSectionAssociationRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        Guid Id { get; set; }
-        string LocalCourseCode { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.StaffHighlyQualifiedAcademicSubject table of the Staff aggregate in the Ods Database.
     /// </summary>
     public interface IStaffHighlyQualifiedAcademicSubjectRecord
@@ -3321,78 +2985,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ElectronicMailAddress { get; set; }
         int ElectronicMailTypeDescriptorId { get; set; }
         bool? PrimaryEmailAddressIndicator { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkAbsenceEvent table of the TeacherCandidateFieldworkAbsenceEvent aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkAbsenceEventRecord
-    {     
-        // Properties for all columns in physical table
-        int AbsenceEventCategoryDescriptorId { get; set; }
-        string AbsenceEventReason { get; set; }
-        DateTime EventDate { get; set; }
-        decimal? HoursAbsent { get; set; }
-        Guid Id { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperience table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int FieldworkTypeDescriptorId { get; set; }
-        decimal? HoursCompleted { get; set; }
-        Guid Id { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceCoteaching table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceCoteachingRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime CoteachingBeginDate { get; set; }
-        DateTime? CoteachingEndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceSchool table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceSchoolRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int SchoolId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceSectionAssociation table of the TeacherCandidateFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceSectionAssociationRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        Guid Id { get; set; }
-        string LocalCourseCode { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
         string TeacherCandidateIdentifier { get; set; }
     }
 

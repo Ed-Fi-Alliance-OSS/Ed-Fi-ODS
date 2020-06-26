@@ -20432,420 +20432,6 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationStandardDescriptorAggregate.
         // -----------------------------------------
     }
 }
-// Aggregate: CommunityOrganization
-
-namespace EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.TPDM
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.CommunityOrganizationExtension table of the CommunityOrganization aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class CommunityOrganizationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICommunityOrganizationExtension, Entities.Common.Records.TPDM.ICommunityOrganizationExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICommunityOrganizationExtensionSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public CommunityOrganizationExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EdFi.CommunityOrganization CommunityOrganization { get; set; }
-
-        Entities.Common.EdFi.ICommunityOrganization ICommunityOrganizationExtension.CommunityOrganization
-        {
-            get { return CommunityOrganization; }
-            set { CommunityOrganization = (EdFi.CommunityOrganization) value; }
-        }
-
-        int Entities.Common.Records.TPDM.ICommunityOrganizationExtensionRecord.CommunityOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.ICommunityOrganizationRecord) CommunityOrganization).CommunityOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.ICommunityOrganizationRecord) CommunityOrganization).CommunityOrganizationId = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? FederalLocaleCodeDescriptorId 
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptorId == default(int?))
-                    _federalLocaleCodeDescriptorId = string.IsNullOrWhiteSpace(_federalLocaleCodeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptor);
-
-                return _federalLocaleCodeDescriptorId;
-            } 
-            set
-            {
-                _federalLocaleCodeDescriptorId = value;
-                _federalLocaleCodeDescriptor = null;
-            }
-        }
-
-        private int? _federalLocaleCodeDescriptorId;
-        private string _federalLocaleCodeDescriptor;
-
-        public virtual string FederalLocaleCodeDescriptor
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptor == null)
-                    _federalLocaleCodeDescriptor = _federalLocaleCodeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptorId.Value);
-                    
-                return _federalLocaleCodeDescriptor;
-            }
-            set
-            {
-                _federalLocaleCodeDescriptor = value;
-                _federalLocaleCodeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FederalLocaleCodeDescriptor", new LookupColumnDetails { PropertyName = "FederalLocaleCodeDescriptorId", LookupTypeName = "FederalLocaleCodeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (CommunityOrganization as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICommunityOrganizationExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ICommunityOrganizationExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            CommunityOrganization = (EdFi.CommunityOrganization) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isFederalLocaleCodeDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICommunityOrganizationExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported
-        {
-            get { return _isFederalLocaleCodeDescriptorSupported; }
-            set { _isFederalLocaleCodeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: CommunityProvider
-
-namespace EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.TPDM
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.CommunityProviderExtension table of the CommunityProvider aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class CommunityProviderExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ICommunityProviderExtension, Entities.Common.Records.TPDM.ICommunityProviderExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ICommunityProviderExtensionSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public CommunityProviderExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EdFi.CommunityProvider CommunityProvider { get; set; }
-
-        Entities.Common.EdFi.ICommunityProvider ICommunityProviderExtension.CommunityProvider
-        {
-            get { return CommunityProvider; }
-            set { CommunityProvider = (EdFi.CommunityProvider) value; }
-        }
-
-        int Entities.Common.Records.TPDM.ICommunityProviderExtensionRecord.CommunityProviderId
-        {
-            get { return ((Entities.Common.Records.EdFi.ICommunityProviderRecord) CommunityProvider).CommunityProviderId; }
-            set { ((Entities.Common.Records.EdFi.ICommunityProviderRecord) CommunityProvider).CommunityProviderId = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? FederalLocaleCodeDescriptorId 
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptorId == default(int?))
-                    _federalLocaleCodeDescriptorId = string.IsNullOrWhiteSpace(_federalLocaleCodeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptor);
-
-                return _federalLocaleCodeDescriptorId;
-            } 
-            set
-            {
-                _federalLocaleCodeDescriptorId = value;
-                _federalLocaleCodeDescriptor = null;
-            }
-        }
-
-        private int? _federalLocaleCodeDescriptorId;
-        private string _federalLocaleCodeDescriptor;
-
-        public virtual string FederalLocaleCodeDescriptor
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptor == null)
-                    _federalLocaleCodeDescriptor = _federalLocaleCodeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptorId.Value);
-                    
-                return _federalLocaleCodeDescriptor;
-            }
-            set
-            {
-                _federalLocaleCodeDescriptor = value;
-                _federalLocaleCodeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FederalLocaleCodeDescriptor", new LookupColumnDetails { PropertyName = "FederalLocaleCodeDescriptorId", LookupTypeName = "FederalLocaleCodeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (CommunityProvider as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ICommunityProviderExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ICommunityProviderExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            CommunityProvider = (EdFi.CommunityProvider) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isFederalLocaleCodeDescriptorSupported = true;
-        bool Entities.Common.TPDM.ICommunityProviderExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported
-        {
-            get { return _isFederalLocaleCodeDescriptorSupported; }
-            set { _isFederalLocaleCodeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
 // Aggregate: CompleterAsStaffAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM
@@ -23144,6229 +22730,6 @@ namespace EdFi.Ods.Entities.NHibernate.DegreeDescriptorAggregate.TPDM
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: EducationOrganizationFacts
-
-namespace EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="EducationOrganizationFacts"/> entity.
-    /// </summary>
-    public class EducationOrganizationFactsReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
-        public virtual DateTime FactsAsOfDate { get; set; }
-        public virtual short SchoolYear { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("FactsAsOfDate", FactsAsOfDate);
-            keyValues.Add("SchoolYear", SchoolYear);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationFacts table of the EducationOrganizationFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFacts : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEducationOrganizationFacts, Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationFacts()
-        {
-           EducationOrganizationFactsAggregatedSalaryPersistentList = new HashSet<EducationOrganizationFactsAggregatedSalary>();
-            EducationOrganizationFactsVacancies = new HashSet<EducationOrganizationFactsVacancies>();
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime FactsAsOfDate 
-        {
-            get { return _factsAsOfDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _factsAsOfDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _factsAsOfDate;
-        
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual short SchoolYear  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [Range(typeof(decimal), "-999.99", "999.99")]
-        public virtual decimal? AverageYearsInDistrictEmployed  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? HiringRate  { get; set; }
-        public virtual int? NumberAdministratorsEmployed  { get; set; }
-        public virtual int? NumberStudentsEnrolled  { get; set; }
-        public virtual int? NumberTeachersEmployed  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? PercentStudentsFreeReducedLunch  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? PercentStudentsLimitedEnglishProficiency  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? PercentStudentsSpecialEducation  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? RetentionRate  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? RetirementRate  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary EducationOrganizationFactsAggregatedSalary
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationFactsAggregatedSalaryPersistentList.Any())
-                    return EducationOrganizationFactsAggregatedSalaryPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationFactsAggregatedSalaryPersistentList.Any())
-                    EducationOrganizationFactsAggregatedSalaryPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationFacts = this;
-
-                    EducationOrganizationFactsAggregatedSalaryPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalary Entities.Common.TPDM.IEducationOrganizationFacts.EducationOrganizationFactsAggregatedSalary
-        {
-            get { return EducationOrganizationFactsAggregatedSalary; }
-            set { EducationOrganizationFactsAggregatedSalary = (Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary> _educationOrganizationFactsAggregatedSalaryPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary> EducationOrganizationFactsAggregatedSalaryPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationFactsAggregatedSalaryPersistentList)
-                    if (item.EducationOrganizationFacts == null)
-                        item.EducationOrganizationFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationFactsAggregatedSalaryPersistentList;
-            }
-            set
-            {
-                _educationOrganizationFactsAggregatedSalaryPersistentList = value;
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData EducationOrganizationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IEducationOrganizationFacts.EducationOrganizationDiscriminator
-        {
-            get { return EducationOrganizationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IEducationOrganizationFacts.EducationOrganizationResourceId
-        {
-            get { return EducationOrganizationReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData SchoolYearTypeReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the SchoolYearType resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IEducationOrganizationFacts.SchoolYearTypeResourceId
-        {
-            get { return SchoolYearTypeReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies> _educationOrganizationFactsVacancies;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationFactsVacancies> _educationOrganizationFactsVacanciesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies> EducationOrganizationFactsVacancies
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationFactsVacancies)
-                    if (item.EducationOrganizationFacts == null)
-                        item.EducationOrganizationFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationFactsVacancies;
-            }
-            set
-            {
-                _educationOrganizationFactsVacancies = value;
-                _educationOrganizationFactsVacanciesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationFactsVacancies, Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationFactsVacancies> Entities.Common.TPDM.IEducationOrganizationFacts.EducationOrganizationFactsVacancies
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationFactsVacancies)
-                    if (item.EducationOrganizationFacts == null)
-                        item.EducationOrganizationFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationFactsVacanciesCovariant;
-            }
-            set
-            {
-                EducationOrganizationFactsVacancies = new HashSet<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies>(value.Cast<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies>());
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("FactsAsOfDate", FactsAsOfDate);
-            keyValues.Add("SchoolYear", SchoolYear);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationFacts)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationFacts) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAverageYearsInDistrictEmployedSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsAverageYearsInDistrictEmployedSupported
-        {
-            get { return _isAverageYearsInDistrictEmployedSupported; }
-            set { _isAverageYearsInDistrictEmployedSupported = value; }
-        }
-
-        private bool _isEducationOrganizationFactsAggregatedSalarySupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsEducationOrganizationFactsAggregatedSalarySupported
-        {
-            get { return _isEducationOrganizationFactsAggregatedSalarySupported; }
-            set { _isEducationOrganizationFactsAggregatedSalarySupported = value; }
-        }
-
-        private bool _isEducationOrganizationFactsVacanciesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsEducationOrganizationFactsVacanciesSupported
-        {
-            get { return _isEducationOrganizationFactsVacanciesSupported; }
-            set { _isEducationOrganizationFactsVacanciesSupported = value; }
-        }
-
-        private bool _isHiringRateSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsHiringRateSupported
-        {
-            get { return _isHiringRateSupported; }
-            set { _isHiringRateSupported = value; }
-        }
-
-        private bool _isNumberAdministratorsEmployedSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsNumberAdministratorsEmployedSupported
-        {
-            get { return _isNumberAdministratorsEmployedSupported; }
-            set { _isNumberAdministratorsEmployedSupported = value; }
-        }
-
-        private bool _isNumberStudentsEnrolledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsNumberStudentsEnrolledSupported
-        {
-            get { return _isNumberStudentsEnrolledSupported; }
-            set { _isNumberStudentsEnrolledSupported = value; }
-        }
-
-        private bool _isNumberTeachersEmployedSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsNumberTeachersEmployedSupported
-        {
-            get { return _isNumberTeachersEmployedSupported; }
-            set { _isNumberTeachersEmployedSupported = value; }
-        }
-
-        private bool _isPercentStudentsFreeReducedLunchSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsPercentStudentsFreeReducedLunchSupported
-        {
-            get { return _isPercentStudentsFreeReducedLunchSupported; }
-            set { _isPercentStudentsFreeReducedLunchSupported = value; }
-        }
-
-        private bool _isPercentStudentsLimitedEnglishProficiencySupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsPercentStudentsLimitedEnglishProficiencySupported
-        {
-            get { return _isPercentStudentsLimitedEnglishProficiencySupported; }
-            set { _isPercentStudentsLimitedEnglishProficiencySupported = value; }
-        }
-
-        private bool _isPercentStudentsSpecialEducationSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsPercentStudentsSpecialEducationSupported
-        {
-            get { return _isPercentStudentsSpecialEducationSupported; }
-            set { _isPercentStudentsSpecialEducationSupported = value; }
-        }
-
-        private bool _isRetentionRateSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsRetentionRateSupported
-        {
-            get { return _isRetentionRateSupported; }
-            set { _isRetentionRateSupported = value; }
-        }
-
-        private bool _isRetirementRateSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsRetirementRateSupported
-        {
-            get { return _isRetirementRateSupported; }
-            set { _isRetirementRateSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationFactsVacancies, bool> _isEducationOrganizationFactsVacanciesIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationFactsVacancies, bool> Entities.Common.TPDM.IEducationOrganizationFactsSynchronizationSourceSupport.IsEducationOrganizationFactsVacanciesIncluded
-        {
-            get { return _isEducationOrganizationFactsVacanciesIncluded; }
-            set { _isEducationOrganizationFactsVacanciesIncluded = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationFactsAggregatedSalary table of the EducationOrganizationFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsAggregatedSalary : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalary, Entities.Common.Records.TPDM.IEducationOrganizationFactsAggregatedSalaryRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationFactsAggregatedSalary()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationFacts EducationOrganizationFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationFacts IEducationOrganizationFactsAggregatedSalary.EducationOrganizationFacts
-        {
-            get { return EducationOrganizationFacts; }
-            set { EducationOrganizationFacts = (EducationOrganizationFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationFactsAggregatedSalaryRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationFactsAggregatedSalaryRecord.FactsAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).FactsAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).FactsAsOfDate = value; }
-        }
-
-        short Entities.Common.Records.TPDM.IEducationOrganizationFactsAggregatedSalaryRecord.SchoolYear
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).SchoolYear; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).SchoolYear = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [Range(typeof(decimal), "-999999999999999.9999", "999999999999999.9999")]
-        public virtual decimal AverageSalary  { get; set; }
-        public virtual int? CountOfSalariesAveraged  { get; set; }
-        public virtual int? SalaryMaxRange  { get; set; }
-        public virtual int? SalaryMinRange  { get; set; }
-        public virtual int? StandardDeviation  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalary)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalary) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationFacts = (EducationOrganizationFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAverageSalarySupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport.IsAverageSalarySupported
-        {
-            get { return _isAverageSalarySupported; }
-            set { _isAverageSalarySupported = value; }
-        }
-
-        private bool _isCountOfSalariesAveragedSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport.IsCountOfSalariesAveragedSupported
-        {
-            get { return _isCountOfSalariesAveragedSupported; }
-            set { _isCountOfSalariesAveragedSupported = value; }
-        }
-
-        private bool _isSalaryMaxRangeSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport.IsSalaryMaxRangeSupported
-        {
-            get { return _isSalaryMaxRangeSupported; }
-            set { _isSalaryMaxRangeSupported = value; }
-        }
-
-        private bool _isSalaryMinRangeSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport.IsSalaryMinRangeSupported
-        {
-            get { return _isSalaryMinRangeSupported; }
-            set { _isSalaryMinRangeSupported = value; }
-        }
-
-        private bool _isStandardDeviationSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsAggregatedSalarySynchronizationSourceSupport.IsStandardDeviationSupported
-        {
-            get { return _isStandardDeviationSupported; }
-            set { _isStandardDeviationSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationFactsVacancies table of the EducationOrganizationFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsVacancies : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationFactsVacancies, Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationFactsVacanciesSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationFactsVacancies()
-        {
-            EducationOrganizationFactsVacanciesGradeLevels = new HashSet<EducationOrganizationFactsVacanciesGradeLevel>();
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationFacts EducationOrganizationFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationFacts IEducationOrganizationFactsVacancies.EducationOrganizationFacts
-        {
-            get { return EducationOrganizationFacts; }
-            set { EducationOrganizationFacts = (EducationOrganizationFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord.FactsAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).FactsAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).FactsAsOfDate = value; }
-        }
-
-        short Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord.SchoolYear
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).SchoolYear; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsRecord) EducationOrganizationFacts).SchoolYear = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int AcademicSubjectDescriptorId 
-        {
-            get
-            {
-                if (_academicSubjectDescriptorId == default(int))
-                    _academicSubjectDescriptorId = DescriptorsCache.GetCache().GetId("AcademicSubjectDescriptor", _academicSubjectDescriptor);
-
-                return _academicSubjectDescriptorId;
-            } 
-            set
-            {
-                _academicSubjectDescriptorId = value;
-                _academicSubjectDescriptor = null;
-            }
-        }
-
-        private int _academicSubjectDescriptorId;
-        private string _academicSubjectDescriptor;
-
-        public virtual string AcademicSubjectDescriptor
-        {
-            get
-            {
-                if (_academicSubjectDescriptor == null)
-                    _academicSubjectDescriptor = DescriptorsCache.GetCache().GetValue("AcademicSubjectDescriptor", _academicSubjectDescriptorId);
-                    
-                return _academicSubjectDescriptor;
-            }
-            set
-            {
-                _academicSubjectDescriptor = value;
-                _academicSubjectDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int NumberOfVacancies  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel> _educationOrganizationFactsVacanciesGradeLevels;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel> _educationOrganizationFactsVacanciesGradeLevelsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel> EducationOrganizationFactsVacanciesGradeLevels
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationFactsVacanciesGradeLevels)
-                    if (item.EducationOrganizationFactsVacancies == null)
-                        item.EducationOrganizationFactsVacancies = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationFactsVacanciesGradeLevels;
-            }
-            set
-            {
-                _educationOrganizationFactsVacanciesGradeLevels = value;
-                _educationOrganizationFactsVacanciesGradeLevelsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel, Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel> Entities.Common.TPDM.IEducationOrganizationFactsVacancies.EducationOrganizationFactsVacanciesGradeLevels
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationFactsVacanciesGradeLevels)
-                    if (item.EducationOrganizationFactsVacancies == null)
-                        item.EducationOrganizationFactsVacancies = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationFactsVacanciesGradeLevelsCovariant;
-            }
-            set
-            {
-                EducationOrganizationFactsVacanciesGradeLevels = new HashSet<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel>(value.Cast<Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel>());
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "AcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("AcademicSubjectDescriptorId", AcademicSubjectDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationFactsVacancies)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationFactsVacancies) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationFacts = (EducationOrganizationFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEducationOrganizationFactsVacanciesGradeLevelsSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsVacanciesSynchronizationSourceSupport.IsEducationOrganizationFactsVacanciesGradeLevelsSupported
-        {
-            get { return _isEducationOrganizationFactsVacanciesGradeLevelsSupported; }
-            set { _isEducationOrganizationFactsVacanciesGradeLevelsSupported = value; }
-        }
-
-        private bool _isNumberOfVacanciesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsVacanciesSynchronizationSourceSupport.IsNumberOfVacanciesSupported
-        {
-            get { return _isNumberOfVacanciesSupported; }
-            set { _isNumberOfVacanciesSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationFactsVacanciesSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel, bool> _isEducationOrganizationFactsVacanciesGradeLevelIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel, bool> Entities.Common.TPDM.IEducationOrganizationFactsVacanciesSynchronizationSourceSupport.IsEducationOrganizationFactsVacanciesGradeLevelIncluded
-        {
-            get { return _isEducationOrganizationFactsVacanciesGradeLevelIncluded; }
-            set { _isEducationOrganizationFactsVacanciesGradeLevelIncluded = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationFactsVacanciesGradeLevel table of the EducationOrganizationFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsVacanciesGradeLevel : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel, Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesGradeLevelRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevelSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationFactsVacanciesGradeLevel()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationFactsVacancies EducationOrganizationFactsVacancies { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationFactsVacancies IEducationOrganizationFactsVacanciesGradeLevel.EducationOrganizationFactsVacancies
-        {
-            get { return EducationOrganizationFactsVacancies; }
-            set { EducationOrganizationFactsVacancies = (EducationOrganizationFactsVacancies) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesGradeLevelRecord.AcademicSubjectDescriptorId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).AcademicSubjectDescriptorId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).AcademicSubjectDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesGradeLevelRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesGradeLevelRecord.FactsAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).FactsAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).FactsAsOfDate = value; }
-        }
-
-        short Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesGradeLevelRecord.SchoolYear
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).SchoolYear; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationFactsVacanciesRecord) EducationOrganizationFactsVacancies).SchoolYear = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int GradeLevelDescriptorId 
-        {
-            get
-            {
-                if (_gradeLevelDescriptorId == default(int))
-                    _gradeLevelDescriptorId = DescriptorsCache.GetCache().GetId("GradeLevelDescriptor", _gradeLevelDescriptor);
-
-                return _gradeLevelDescriptorId;
-            } 
-            set
-            {
-                _gradeLevelDescriptorId = value;
-                _gradeLevelDescriptor = null;
-            }
-        }
-
-        private int _gradeLevelDescriptorId;
-        private string _gradeLevelDescriptor;
-
-        public virtual string GradeLevelDescriptor
-        {
-            get
-            {
-                if (_gradeLevelDescriptor == null)
-                    _gradeLevelDescriptor = DescriptorsCache.GetCache().GetValue("GradeLevelDescriptor", _gradeLevelDescriptorId);
-                    
-                return _gradeLevelDescriptor;
-            }
-            set
-            {
-                _gradeLevelDescriptor = value;
-                _gradeLevelDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "AcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
-                { "GradeLevelDescriptor", new LookupColumnDetails { PropertyName = "GradeLevelDescriptorId", LookupTypeName = "GradeLevelDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationFactsVacancies as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("GradeLevelDescriptorId", GradeLevelDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationFactsVacanciesGradeLevel) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationFactsVacancies = (EducationOrganizationFactsVacancies) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: EducationOrganizationNetwork
-
-namespace EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAggregate.TPDM
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationNetworkExtension table of the EducationOrganizationNetwork aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationNetworkExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationNetworkExtension, Entities.Common.Records.TPDM.IEducationOrganizationNetworkExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationNetworkExtensionSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationNetworkExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EdFi.EducationOrganizationNetwork EducationOrganizationNetwork { get; set; }
-
-        Entities.Common.EdFi.IEducationOrganizationNetwork IEducationOrganizationNetworkExtension.EducationOrganizationNetwork
-        {
-            get { return EducationOrganizationNetwork; }
-            set { EducationOrganizationNetwork = (EdFi.EducationOrganizationNetwork) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationNetworkExtensionRecord.EducationOrganizationNetworkId
-        {
-            get { return ((Entities.Common.Records.EdFi.IEducationOrganizationNetworkRecord) EducationOrganizationNetwork).EducationOrganizationNetworkId; }
-            set { ((Entities.Common.Records.EdFi.IEducationOrganizationNetworkRecord) EducationOrganizationNetwork).EducationOrganizationNetworkId = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? FederalLocaleCodeDescriptorId 
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptorId == default(int?))
-                    _federalLocaleCodeDescriptorId = string.IsNullOrWhiteSpace(_federalLocaleCodeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptor);
-
-                return _federalLocaleCodeDescriptorId;
-            } 
-            set
-            {
-                _federalLocaleCodeDescriptorId = value;
-                _federalLocaleCodeDescriptor = null;
-            }
-        }
-
-        private int? _federalLocaleCodeDescriptorId;
-        private string _federalLocaleCodeDescriptor;
-
-        public virtual string FederalLocaleCodeDescriptor
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptor == null)
-                    _federalLocaleCodeDescriptor = _federalLocaleCodeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptorId.Value);
-                    
-                return _federalLocaleCodeDescriptor;
-            }
-            set
-            {
-                _federalLocaleCodeDescriptor = value;
-                _federalLocaleCodeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FederalLocaleCodeDescriptor", new LookupColumnDetails { PropertyName = "FederalLocaleCodeDescriptorId", LookupTypeName = "FederalLocaleCodeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationNetwork as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationNetworkExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationNetworkExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationNetwork = (EdFi.EducationOrganizationNetwork) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isFederalLocaleCodeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationNetworkExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported
-        {
-            get { return _isFederalLocaleCodeDescriptorSupported; }
-            set { _isFederalLocaleCodeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: EducationOrganizationStudentFacts
-
-namespace EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="EducationOrganizationStudentFacts"/> entity.
-    /// </summary>
-    public class EducationOrganizationStudentFactsReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual int EducationOrganizationId { get; set; }
-        public virtual DateTime FactAsOfDate { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("FactAsOfDate", FactAsOfDate);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFacts table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFacts : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFacts()
-        {
-           EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled>();
-           EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedELLEnrollment>();
-           EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedESLEnrollment>();
-           EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedSection504Enrollment>();
-           EducationOrganizationStudentFactsAggregatedSPEDPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedSPED>();
-           EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList = new HashSet<EducationOrganizationStudentFactsAggregatedTitleIEnrollment>();
-           EducationOrganizationStudentFactsStudentsEnrolledPersistentList = new HashSet<EducationOrganizationStudentFactsStudentsEnrolled>();
-            EducationOrganizationStudentFactsAggregatedByDisabilities = new HashSet<EducationOrganizationStudentFactsAggregatedByDisability>();
-            EducationOrganizationStudentFactsAggregatedGenders = new HashSet<EducationOrganizationStudentFactsAggregatedGender>();
-            EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities = new HashSet<EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity>();
-            EducationOrganizationStudentFactsAggregatedLanguages = new HashSet<EducationOrganizationStudentFactsAggregatedLanguage>();
-            EducationOrganizationStudentFactsAggregatedRaces = new HashSet<EducationOrganizationStudentFactsAggregatedRace>();
-            EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices = new HashSet<EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService>();
-            EducationOrganizationStudentFactsAggregatedSexes = new HashSet<EducationOrganizationStudentFactsAggregatedSex>();
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime FactAsOfDate 
-        {
-            get { return _factAsOfDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _factAsOfDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _factAsOfDate;
-        
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled
-        {
-            get { return EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled; }
-            set { EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled> _educationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled> EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment EducationOrganizationStudentFactsAggregatedELLEnrollment
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollment Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedELLEnrollment
-        {
-            get { return EducationOrganizationStudentFactsAggregatedELLEnrollment; }
-            set { EducationOrganizationStudentFactsAggregatedELLEnrollment = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment> _educationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment> EducationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedELLEnrollmentPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment EducationOrganizationStudentFactsAggregatedESLEnrollment
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollment Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedESLEnrollment
-        {
-            get { return EducationOrganizationStudentFactsAggregatedESLEnrollment; }
-            set { EducationOrganizationStudentFactsAggregatedESLEnrollment = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment> _educationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment> EducationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedESLEnrollmentPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment EducationOrganizationStudentFactsAggregatedSection504Enrollment
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504Enrollment Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedSection504Enrollment
-        {
-            get { return EducationOrganizationStudentFactsAggregatedSection504Enrollment; }
-            set { EducationOrganizationStudentFactsAggregatedSection504Enrollment = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment> _educationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment> EducationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedSection504EnrollmentPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED EducationOrganizationStudentFactsAggregatedSPED
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedSPEDPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedSPEDPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedSPEDPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedSPEDPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedSPEDPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPED Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedSPED
-        {
-            get { return EducationOrganizationStudentFactsAggregatedSPED; }
-            set { EducationOrganizationStudentFactsAggregatedSPED = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED> _educationOrganizationStudentFactsAggregatedSPEDPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED> EducationOrganizationStudentFactsAggregatedSPEDPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSPEDPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSPEDPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedSPEDPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment EducationOrganizationStudentFactsAggregatedTitleIEnrollment
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList.Any())
-                    return EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList.Any())
-                    EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollment Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedTitleIEnrollment
-        {
-            get { return EducationOrganizationStudentFactsAggregatedTitleIEnrollment; }
-            set { EducationOrganizationStudentFactsAggregatedTitleIEnrollment = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment> _educationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment> EducationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedTitleIEnrollmentPersistentList = value;
-            }
-        }
-
-        [ValidateObject]
-        public virtual Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled EducationOrganizationStudentFactsStudentsEnrolled
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (EducationOrganizationStudentFactsStudentsEnrolledPersistentList.Any())
-                    return EducationOrganizationStudentFactsStudentsEnrolledPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (EducationOrganizationStudentFactsStudentsEnrolledPersistentList.Any())
-                    EducationOrganizationStudentFactsStudentsEnrolledPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.EducationOrganizationStudentFacts = this;
-
-                    EducationOrganizationStudentFactsStudentsEnrolledPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolled Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsStudentsEnrolled
-        {
-            get { return EducationOrganizationStudentFactsStudentsEnrolled; }
-            set { EducationOrganizationStudentFactsStudentsEnrolled = (Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled) value; }
-        }
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled> _educationOrganizationStudentFactsStudentsEnrolledPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled> EducationOrganizationStudentFactsStudentsEnrolledPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsStudentsEnrolledPersistentList)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsStudentsEnrolledPersistentList;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsStudentsEnrolledPersistentList = value;
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData EducationOrganizationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationDiscriminator
-        {
-            get { return EducationOrganizationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationResourceId
-        {
-            get { return EducationOrganizationReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability> _educationOrganizationStudentFactsAggregatedByDisabilities;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability> _educationOrganizationStudentFactsAggregatedByDisabilitiesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability> EducationOrganizationStudentFactsAggregatedByDisabilities
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedByDisabilities)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedByDisabilities;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedByDisabilities = value;
-                _educationOrganizationStudentFactsAggregatedByDisabilitiesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedByDisabilities
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedByDisabilities)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedByDisabilitiesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedByDisabilities = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender> _educationOrganizationStudentFactsAggregatedGenders;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender> _educationOrganizationStudentFactsAggregatedGendersCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender> EducationOrganizationStudentFactsAggregatedGenders
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedGenders)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedGenders;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedGenders = value;
-                _educationOrganizationStudentFactsAggregatedGendersCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedGenders
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedGenders)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedGendersCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedGenders = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity> _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity> _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity> EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities = value;
-                _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage> _educationOrganizationStudentFactsAggregatedLanguages;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage> _educationOrganizationStudentFactsAggregatedLanguagesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage> EducationOrganizationStudentFactsAggregatedLanguages
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedLanguages)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedLanguages;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedLanguages = value;
-                _educationOrganizationStudentFactsAggregatedLanguagesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedLanguages
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedLanguages)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedLanguagesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedLanguages = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace> _educationOrganizationStudentFactsAggregatedRaces;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace> _educationOrganizationStudentFactsAggregatedRacesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace> EducationOrganizationStudentFactsAggregatedRaces
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedRaces)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedRaces;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedRaces = value;
-                _educationOrganizationStudentFactsAggregatedRacesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedRaces
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedRaces)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedRacesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedRaces = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService> _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService> _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService> EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices = value;
-                _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex> _educationOrganizationStudentFactsAggregatedSexes;
-        private ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex> _educationOrganizationStudentFactsAggregatedSexesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex> EducationOrganizationStudentFactsAggregatedSexes
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSexes)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSexes;
-            }
-            set
-            {
-                _educationOrganizationStudentFactsAggregatedSexes = value;
-                _educationOrganizationStudentFactsAggregatedSexesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex, Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex> Entities.Common.TPDM.IEducationOrganizationStudentFacts.EducationOrganizationStudentFactsAggregatedSexes
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _educationOrganizationStudentFactsAggregatedSexes)
-                    if (item.EducationOrganizationStudentFacts == null)
-                        item.EducationOrganizationStudentFacts = this;
-                // -------------------------------------------------------------
-
-                return _educationOrganizationStudentFactsAggregatedSexesCovariant;
-            }
-            set
-            {
-                EducationOrganizationStudentFactsAggregatedSexes = new HashSet<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex>(value.Cast<Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex>());
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("FactAsOfDate", FactAsOfDate);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFacts)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFacts) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEducationOrganizationStudentFactsAggregatedByDisabilitiesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedByDisabilitiesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedByDisabilitiesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedByDisabilitiesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedELLEnrollmentSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedELLEnrollmentSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedELLEnrollmentSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedELLEnrollmentSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedESLEnrollmentSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedESLEnrollmentSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedESLEnrollmentSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedESLEnrollmentSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedGendersSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedGendersSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedGendersSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedGendersSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitiesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedLanguagesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedLanguagesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedLanguagesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedLanguagesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedRacesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedRacesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedRacesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedRacesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServicesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedSection504EnrollmentSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSection504EnrollmentSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSection504EnrollmentSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedSection504EnrollmentSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedSexesSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSexesSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSexesSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedSexesSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedSPEDSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSPEDSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSPEDSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedSPEDSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSupported
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSupported; }
-            set { _isEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSupported = value; }
-        }
-
-        private bool _isEducationOrganizationStudentFactsStudentsEnrolledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsStudentsEnrolledSupported
-        {
-            get { return _isEducationOrganizationStudentFactsStudentsEnrolledSupported; }
-            set { _isEducationOrganizationStudentFactsStudentsEnrolledSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability, bool> _isEducationOrganizationStudentFactsAggregatedByDisabilityIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedByDisabilityIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedByDisabilityIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedByDisabilityIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender, bool> _isEducationOrganizationStudentFactsAggregatedGenderIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedGenderIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedGenderIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedGenderIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity, bool> _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage, bool> _isEducationOrganizationStudentFactsAggregatedLanguageIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedLanguageIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedLanguageIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedLanguageIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace, bool> _isEducationOrganizationStudentFactsAggregatedRaceIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedRaceIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedRaceIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedRaceIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService, bool> _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex, bool> _isEducationOrganizationStudentFactsAggregatedSexIncluded;
-        Func<Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex, bool> Entities.Common.TPDM.IEducationOrganizationStudentFactsSynchronizationSourceSupport.IsEducationOrganizationStudentFactsAggregatedSexIncluded
-        {
-            get { return _isEducationOrganizationStudentFactsAggregatedSexIncluded; }
-            set { _isEducationOrganizationStudentFactsAggregatedSexIncluded = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedByDisability table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedByDisability : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilityRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilitySynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedByDisability()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedByDisability.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilityRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilityRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int DisabilityDescriptorId 
-        {
-            get
-            {
-                if (_disabilityDescriptorId == default(int))
-                    _disabilityDescriptorId = DescriptorsCache.GetCache().GetId("DisabilityDescriptor", _disabilityDescriptor);
-
-                return _disabilityDescriptorId;
-            } 
-            set
-            {
-                _disabilityDescriptorId = value;
-                _disabilityDescriptor = null;
-            }
-        }
-
-        private int _disabilityDescriptorId;
-        private string _disabilityDescriptor;
-
-        public virtual string DisabilityDescriptor
-        {
-            get
-            {
-                if (_disabilityDescriptor == null)
-                    _disabilityDescriptor = DescriptorsCache.GetCache().GetValue("DisabilityDescriptor", _disabilityDescriptorId);
-                    
-                return _disabilityDescriptor;
-            }
-            set
-            {
-                _disabilityDescriptor = value;
-                _disabilityDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? Percentage  { get; set; }
-        public virtual int? TypeNumber  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "DisabilityDescriptor", new LookupColumnDetails { PropertyName = "DisabilityDescriptorId", LookupTypeName = "DisabilityDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("DisabilityDescriptorId", DisabilityDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisability) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilitySynchronizationSourceSupport.IsPercentageSupported
-        {
-            get { return _isPercentageSupported; }
-            set { _isPercentageSupported = value; }
-        }
-
-        private bool _isTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilitySynchronizationSourceSupport.IsTypeNumberSupported
-        {
-            get { return _isTypeNumberSupported; }
-            set { _isTypeNumberSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedByDisabilitySynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? StudentsDisabledNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? StudentsDisabledPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isStudentsDisabledNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSynchronizationSourceSupport.IsStudentsDisabledNumberSupported
-        {
-            get { return _isStudentsDisabledNumberSupported; }
-            set { _isStudentsDisabledNumberSupported = value; }
-        }
-
-        private bool _isStudentsDisabledPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSynchronizationSourceSupport.IsStudentsDisabledPercentageSupported
-        {
-            get { return _isStudentsDisabledPercentageSupported; }
-            set { _isStudentsDisabledPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedELLEnrollment : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollment, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedELLEnrollment()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedELLEnrollment.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? ELLEnrollmentNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? ELLEnrollmentPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollment)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollment) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isELLEnrollmentNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentSynchronizationSourceSupport.IsELLEnrollmentNumberSupported
-        {
-            get { return _isELLEnrollmentNumberSupported; }
-            set { _isELLEnrollmentNumberSupported = value; }
-        }
-
-        private bool _isELLEnrollmentPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentSynchronizationSourceSupport.IsELLEnrollmentPercentageSupported
-        {
-            get { return _isELLEnrollmentPercentageSupported; }
-            set { _isELLEnrollmentPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedELLEnrollmentSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedESLEnrollment : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollment, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedESLEnrollment()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedESLEnrollment.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? ESLEnrollmentNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? ESLEnrollmentPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollment)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollment) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isESLEnrollmentNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentSynchronizationSourceSupport.IsESLEnrollmentNumberSupported
-        {
-            get { return _isESLEnrollmentNumberSupported; }
-            set { _isESLEnrollmentNumberSupported = value; }
-        }
-
-        private bool _isESLEnrollmentPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentSynchronizationSourceSupport.IsESLEnrollmentPercentageSupported
-        {
-            get { return _isESLEnrollmentPercentageSupported; }
-            set { _isESLEnrollmentPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedESLEnrollmentSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedGender table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedGender : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedGenderRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGenderSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedGender()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedGender.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedGenderRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedGenderRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int GenderDescriptorId 
-        {
-            get
-            {
-                if (_genderDescriptorId == default(int))
-                    _genderDescriptorId = DescriptorsCache.GetCache().GetId("GenderDescriptor", _genderDescriptor);
-
-                return _genderDescriptorId;
-            } 
-            set
-            {
-                _genderDescriptorId = value;
-                _genderDescriptor = null;
-            }
-        }
-
-        private int _genderDescriptorId;
-        private string _genderDescriptor;
-
-        public virtual string GenderDescriptor
-        {
-            get
-            {
-                if (_genderDescriptor == null)
-                    _genderDescriptor = DescriptorsCache.GetCache().GetValue("GenderDescriptor", _genderDescriptorId);
-                    
-                return _genderDescriptor;
-            }
-            set
-            {
-                _genderDescriptor = value;
-                _genderDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? GenderTypeNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? GenderTypePercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "GenderDescriptor", new LookupColumnDetails { PropertyName = "GenderDescriptorId", LookupTypeName = "GenderDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("GenderDescriptorId", GenderDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGender) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isGenderTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGenderSynchronizationSourceSupport.IsGenderTypeNumberSupported
-        {
-            get { return _isGenderTypeNumberSupported; }
-            set { _isGenderTypeNumberSupported = value; }
-        }
-
-        private bool _isGenderTypePercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGenderSynchronizationSourceSupport.IsGenderTypePercentageSupported
-        {
-            get { return _isGenderTypePercentageSupported; }
-            set { _isGenderTypePercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedGenderSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitySynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature]
-        public virtual bool HispanicLatinoEthnicity  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? HispanicLatinoEthnicityNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? HispanicLatinoEthnicityPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("HispanicLatinoEthnicity", HispanicLatinoEthnicity);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isHispanicLatinoEthnicityNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitySynchronizationSourceSupport.IsHispanicLatinoEthnicityNumberSupported
-        {
-            get { return _isHispanicLatinoEthnicityNumberSupported; }
-            set { _isHispanicLatinoEthnicityNumberSupported = value; }
-        }
-
-        private bool _isHispanicLatinoEthnicityPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitySynchronizationSourceSupport.IsHispanicLatinoEthnicityPercentageSupported
-        {
-            get { return _isHispanicLatinoEthnicityPercentageSupported; }
-            set { _isHispanicLatinoEthnicityPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicitySynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedLanguage table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedLanguage : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedLanguage()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedLanguage.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int LanguageDescriptorId 
-        {
-            get
-            {
-                if (_languageDescriptorId == default(int))
-                    _languageDescriptorId = DescriptorsCache.GetCache().GetId("LanguageDescriptor", _languageDescriptor);
-
-                return _languageDescriptorId;
-            } 
-            set
-            {
-                _languageDescriptorId = value;
-                _languageDescriptor = null;
-            }
-        }
-
-        private int _languageDescriptorId;
-        private string _languageDescriptor;
-
-        public virtual string LanguageDescriptor
-        {
-            get
-            {
-                if (_languageDescriptor == null)
-                    _languageDescriptor = DescriptorsCache.GetCache().GetValue("LanguageDescriptor", _languageDescriptorId);
-                    
-                return _languageDescriptor;
-            }
-            set
-            {
-                _languageDescriptor = value;
-                _languageDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? LanguageTypeNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? LanguageTypePercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "LanguageDescriptor", new LookupColumnDetails { PropertyName = "LanguageDescriptorId", LookupTypeName = "LanguageDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("LanguageDescriptorId", LanguageDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguage) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isLanguageTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageSynchronizationSourceSupport.IsLanguageTypeNumberSupported
-        {
-            get { return _isLanguageTypeNumberSupported; }
-            set { _isLanguageTypeNumberSupported = value; }
-        }
-
-        private bool _isLanguageTypePercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageSynchronizationSourceSupport.IsLanguageTypePercentageSupported
-        {
-            get { return _isLanguageTypePercentageSupported; }
-            set { _isLanguageTypePercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedLanguageSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedRace table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedRace : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedRaceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRaceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedRace()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedRace.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedRaceRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedRaceRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int RaceDescriptorId 
-        {
-            get
-            {
-                if (_raceDescriptorId == default(int))
-                    _raceDescriptorId = DescriptorsCache.GetCache().GetId("RaceDescriptor", _raceDescriptor);
-
-                return _raceDescriptorId;
-            } 
-            set
-            {
-                _raceDescriptorId = value;
-                _raceDescriptor = null;
-            }
-        }
-
-        private int _raceDescriptorId;
-        private string _raceDescriptor;
-
-        public virtual string RaceDescriptor
-        {
-            get
-            {
-                if (_raceDescriptor == null)
-                    _raceDescriptor = DescriptorsCache.GetCache().GetValue("RaceDescriptor", _raceDescriptorId);
-                    
-                return _raceDescriptor;
-            }
-            set
-            {
-                _raceDescriptor = value;
-                _raceDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? RaceTypeNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? RaceTypePercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "RaceDescriptor", new LookupColumnDetails { PropertyName = "RaceDescriptorId", LookupTypeName = "RaceDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("RaceDescriptorId", RaceDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRace) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isRaceTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRaceSynchronizationSourceSupport.IsRaceTypeNumberSupported
-        {
-            get { return _isRaceTypeNumberSupported; }
-            set { _isRaceTypeNumberSupported = value; }
-        }
-
-        private bool _isRaceTypePercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRaceSynchronizationSourceSupport.IsRaceTypePercentageSupported
-        {
-            get { return _isRaceTypePercentageSupported; }
-            set { _isRaceTypePercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedRaceSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolFoodServiceProgramServiceDescriptorId 
-        {
-            get
-            {
-                if (_schoolFoodServiceProgramServiceDescriptorId == default(int))
-                    _schoolFoodServiceProgramServiceDescriptorId = DescriptorsCache.GetCache().GetId("SchoolFoodServiceProgramServiceDescriptor", _schoolFoodServiceProgramServiceDescriptor);
-
-                return _schoolFoodServiceProgramServiceDescriptorId;
-            } 
-            set
-            {
-                _schoolFoodServiceProgramServiceDescriptorId = value;
-                _schoolFoodServiceProgramServiceDescriptor = null;
-            }
-        }
-
-        private int _schoolFoodServiceProgramServiceDescriptorId;
-        private string _schoolFoodServiceProgramServiceDescriptor;
-
-        public virtual string SchoolFoodServiceProgramServiceDescriptor
-        {
-            get
-            {
-                if (_schoolFoodServiceProgramServiceDescriptor == null)
-                    _schoolFoodServiceProgramServiceDescriptor = DescriptorsCache.GetCache().GetValue("SchoolFoodServiceProgramServiceDescriptor", _schoolFoodServiceProgramServiceDescriptorId);
-                    
-                return _schoolFoodServiceProgramServiceDescriptor;
-            }
-            set
-            {
-                _schoolFoodServiceProgramServiceDescriptor = value;
-                _schoolFoodServiceProgramServiceDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? TypeNumber  { get; set; }
-        public virtual int? TypePercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "SchoolFoodServiceProgramServiceDescriptor", new LookupColumnDetails { PropertyName = "SchoolFoodServiceProgramServiceDescriptorId", LookupTypeName = "SchoolFoodServiceProgramServiceDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("SchoolFoodServiceProgramServiceDescriptorId", SchoolFoodServiceProgramServiceDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceSynchronizationSourceSupport.IsTypeNumberSupported
-        {
-            get { return _isTypeNumberSupported; }
-            set { _isTypeNumberSupported = value; }
-        }
-
-        private bool _isTypePercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceSynchronizationSourceSupport.IsTypePercentageSupported
-        {
-            get { return _isTypePercentageSupported; }
-            set { _isTypePercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedSection504Enrollment : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504Enrollment, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedSection504Enrollment()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedSection504Enrollment.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? Number504Enrolled  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? Percentage504Enrolled  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504Enrollment)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504Enrollment) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isNumber504EnrolledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentSynchronizationSourceSupport.IsNumber504EnrolledSupported
-        {
-            get { return _isNumber504EnrolledSupported; }
-            set { _isNumber504EnrolledSupported = value; }
-        }
-
-        private bool _isPercentage504EnrolledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentSynchronizationSourceSupport.IsPercentage504EnrolledSupported
-        {
-            get { return _isPercentage504EnrolledSupported; }
-            set { _isPercentage504EnrolledSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSection504EnrollmentSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedSex table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedSex : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSexRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSexSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedSex()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedSex.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSexRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSexRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SexDescriptorId 
-        {
-            get
-            {
-                if (_sexDescriptorId == default(int))
-                    _sexDescriptorId = DescriptorsCache.GetCache().GetId("SexDescriptor", _sexDescriptor);
-
-                return _sexDescriptorId;
-            } 
-            set
-            {
-                _sexDescriptorId = value;
-                _sexDescriptor = null;
-            }
-        }
-
-        private int _sexDescriptorId;
-        private string _sexDescriptor;
-
-        public virtual string SexDescriptor
-        {
-            get
-            {
-                if (_sexDescriptor == null)
-                    _sexDescriptor = DescriptorsCache.GetCache().GetValue("SexDescriptor", _sexDescriptorId);
-                    
-                return _sexDescriptor;
-            }
-            set
-            {
-                _sexDescriptor = value;
-                _sexDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? SexTypeNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? SexTypePercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "SexDescriptor", new LookupColumnDetails { PropertyName = "SexDescriptorId", LookupTypeName = "SexDescriptor"} },
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("SexDescriptorId", SexDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSex) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isSexTypeNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSexSynchronizationSourceSupport.IsSexTypeNumberSupported
-        {
-            get { return _isSexTypeNumberSupported; }
-            set { _isSexTypeNumberSupported = value; }
-        }
-
-        private bool _isSexTypePercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSexSynchronizationSourceSupport.IsSexTypePercentageSupported
-        {
-            get { return _isSexTypePercentageSupported; }
-            set { _isSexTypePercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSexSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedSPED table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedSPED : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPED, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedSPED()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedSPED.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? SPEDEnrollmentNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? SPEDEnrollmentPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPED)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPED) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isSPEDEnrollmentNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDSynchronizationSourceSupport.IsSPEDEnrollmentNumberSupported
-        {
-            get { return _isSPEDEnrollmentNumberSupported; }
-            set { _isSPEDEnrollmentNumberSupported = value; }
-        }
-
-        private bool _isSPEDEnrollmentPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDSynchronizationSourceSupport.IsSPEDEnrollmentPercentageSupported
-        {
-            get { return _isSPEDEnrollmentPercentageSupported; }
-            set { _isSPEDEnrollmentPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedSPEDSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsAggregatedTitleIEnrollment : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollment, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsAggregatedTitleIEnrollment()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsAggregatedTitleIEnrollment.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? TitleIEnrollmentNumber  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? TitleIEnrollmentPercentage  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollment)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollment) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isTitleIEnrollmentNumberSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSynchronizationSourceSupport.IsTitleIEnrollmentNumberSupported
-        {
-            get { return _isTitleIEnrollmentNumberSupported; }
-            set { _isTitleIEnrollmentNumberSupported = value; }
-        }
-
-        private bool _isTitleIEnrollmentPercentageSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSynchronizationSourceSupport.IsTitleIEnrollmentPercentageSupported
-        {
-            get { return _isTitleIEnrollmentPercentageSupported; }
-            set { _isTitleIEnrollmentPercentageSupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationOrganizationStudentFactsStudentsEnrolled table of the EducationOrganizationStudentFacts aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsStudentsEnrolled : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolled, Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationOrganizationStudentFactsStudentsEnrolled()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EducationOrganizationStudentFacts EducationOrganizationStudentFacts { get; set; }
-
-        Entities.Common.TPDM.IEducationOrganizationStudentFacts IEducationOrganizationStudentFactsStudentsEnrolled.EducationOrganizationStudentFacts
-        {
-            get { return EducationOrganizationStudentFacts; }
-            set { EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).EducationOrganizationId = value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledRecord.FactAsOfDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate; }
-            set { ((Entities.Common.Records.TPDM.IEducationOrganizationStudentFactsRecord) EducationOrganizationStudentFacts).FactAsOfDate = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? NumberStudentsEnrolled  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? PercentAtRisk  { get; set; }
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
-        public virtual decimal? PercentMobility  { get; set; }
-        public virtual int? ValueTypeDescriptorId 
-        {
-            get
-            {
-                if (_valueTypeDescriptorId == default(int?))
-                    _valueTypeDescriptorId = string.IsNullOrWhiteSpace(_valueTypeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ValueTypeDescriptor", _valueTypeDescriptor);
-
-                return _valueTypeDescriptorId;
-            } 
-            set
-            {
-                _valueTypeDescriptorId = value;
-                _valueTypeDescriptor = null;
-            }
-        }
-
-        private int? _valueTypeDescriptorId;
-        private string _valueTypeDescriptor;
-
-        public virtual string ValueTypeDescriptor
-        {
-            get
-            {
-                if (_valueTypeDescriptor == null)
-                    _valueTypeDescriptor = _valueTypeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ValueTypeDescriptor", _valueTypeDescriptorId.Value);
-                    
-                return _valueTypeDescriptor;
-            }
-            set
-            {
-                _valueTypeDescriptor = value;
-                _valueTypeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ValueTypeDescriptor", new LookupColumnDetails { PropertyName = "ValueTypeDescriptorId", LookupTypeName = "ValueTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationOrganizationStudentFacts as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolled)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolled) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationOrganizationStudentFacts = (EducationOrganizationStudentFacts) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isNumberStudentsEnrolledSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledSynchronizationSourceSupport.IsNumberStudentsEnrolledSupported
-        {
-            get { return _isNumberStudentsEnrolledSupported; }
-            set { _isNumberStudentsEnrolledSupported = value; }
-        }
-
-        private bool _isPercentAtRiskSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledSynchronizationSourceSupport.IsPercentAtRiskSupported
-        {
-            get { return _isPercentAtRiskSupported; }
-            set { _isPercentAtRiskSupported = value; }
-        }
-
-        private bool _isPercentMobilitySupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledSynchronizationSourceSupport.IsPercentMobilitySupported
-        {
-            get { return _isPercentMobilitySupported; }
-            set { _isPercentMobilitySupported = value; }
-        }
-
-        private bool _isValueTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationOrganizationStudentFactsStudentsEnrolledSynchronizationSourceSupport.IsValueTypeDescriptorSupported
-        {
-            get { return _isValueTypeDescriptorSupported; }
-            set { _isValueTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: EducationServiceCenter
-
-namespace EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.TPDM
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.EducationServiceCenterExtension table of the EducationServiceCenter aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class EducationServiceCenterExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IEducationServiceCenterExtension, Entities.Common.Records.TPDM.IEducationServiceCenterExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEducationServiceCenterExtensionSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public EducationServiceCenterExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EdFi.EducationServiceCenter EducationServiceCenter { get; set; }
-
-        Entities.Common.EdFi.IEducationServiceCenter IEducationServiceCenterExtension.EducationServiceCenter
-        {
-            get { return EducationServiceCenter; }
-            set { EducationServiceCenter = (EdFi.EducationServiceCenter) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IEducationServiceCenterExtensionRecord.EducationServiceCenterId
-        {
-            get { return ((Entities.Common.Records.EdFi.IEducationServiceCenterRecord) EducationServiceCenter).EducationServiceCenterId; }
-            set { ((Entities.Common.Records.EdFi.IEducationServiceCenterRecord) EducationServiceCenter).EducationServiceCenterId = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? FederalLocaleCodeDescriptorId 
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptorId == default(int?))
-                    _federalLocaleCodeDescriptorId = string.IsNullOrWhiteSpace(_federalLocaleCodeDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptor);
-
-                return _federalLocaleCodeDescriptorId;
-            } 
-            set
-            {
-                _federalLocaleCodeDescriptorId = value;
-                _federalLocaleCodeDescriptor = null;
-            }
-        }
-
-        private int? _federalLocaleCodeDescriptorId;
-        private string _federalLocaleCodeDescriptor;
-
-        public virtual string FederalLocaleCodeDescriptor
-        {
-            get
-            {
-                if (_federalLocaleCodeDescriptor == null)
-                    _federalLocaleCodeDescriptor = _federalLocaleCodeDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("FederalLocaleCodeDescriptor", _federalLocaleCodeDescriptorId.Value);
-                    
-                return _federalLocaleCodeDescriptor;
-            }
-            set
-            {
-                _federalLocaleCodeDescriptor = value;
-                _federalLocaleCodeDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FederalLocaleCodeDescriptor", new LookupColumnDetails { PropertyName = "FederalLocaleCodeDescriptorId", LookupTypeName = "FederalLocaleCodeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (EducationServiceCenter as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IEducationServiceCenterExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IEducationServiceCenterExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            EducationServiceCenter = (EdFi.EducationServiceCenter) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isFederalLocaleCodeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IEducationServiceCenterExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported
-        {
-            get { return _isFederalLocaleCodeDescriptorSupported; }
-            set { _isFederalLocaleCodeDescriptorSupported = value; }
         }
 
         // -----------------------------------------
@@ -37642,6 +31005,1313 @@ namespace EdFi.Ods.Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.TPDM
         // -----------------------------------------
     }
 }
+// Aggregate: FieldworkExperience
+
+namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
+{
+    /// <summary>
+    /// Represents a read-only reference to the <see cref="FieldworkExperience"/> entity.
+    /// </summary>
+    public class FieldworkExperienceReferenceData : IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        public virtual DateTime BeginDate { get; set; }
+        public virtual string FieldworkIdentifier { get; set; }
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The id of the referenced entity (used as the resource identifier in the API).
+        /// </summary>
+        public virtual Guid? Id { get; set; }
+
+        /// <summary>
+        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
+        /// when that entity has been derived; otherwise <b>null</b>.
+        /// </summary>
+        public virtual string Discriminator { get; set; }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("BeginDate", BeginDate);
+            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
+            keyValues.Add("StudentUSI", StudentUSI);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+    }
+
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.FieldworkExperience table of the FieldworkExperience aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperience : AggregateRootWithCompositeKey,
+        Entities.Common.TPDM.IFieldworkExperience, Entities.Common.Records.TPDM.IFieldworkExperienceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public FieldworkExperience()
+        {
+           FieldworkExperienceCoteachingPersistentList = new HashSet<FieldworkExperienceCoteaching>();
+            FieldworkExperienceSchools = new HashSet<FieldworkExperienceSchool>();
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual DateTime BeginDate 
+        {
+            get { return _beginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _beginDate;
+        
+        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
+        public virtual string FieldworkIdentifier  { get; set; }
+        [Display(Name="StudentUniqueId")]
+        [DomainSignature, RequiredWithNonDefault("Student")]
+        public virtual int StudentUSI 
+        {
+            get
+            {
+                if (_studentUSI == default(int))
+                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+
+                return _studentUSI;
+            } 
+            set
+            {
+                _studentUSI = value;
+            }
+        }
+
+        private int _studentUSI;
+        private string _studentUniqueId;
+
+        [RequiredWithNonDefault]
+        public virtual string StudentUniqueId
+        {
+            get
+            {
+                if (_studentUniqueId == null)
+                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
+                    
+                return _studentUniqueId;
+            }
+            set
+            {
+                _studentUniqueId = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [SqlServerDateTimeRange]
+        public virtual DateTime? EndDate 
+        {
+            get { return _endDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _endDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _endDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _endDate;
+        
+        [RequiredWithNonDefault]
+        public virtual int FieldworkTypeDescriptorId 
+        {
+            get
+            {
+                if (_fieldworkTypeDescriptorId == default(int))
+                    _fieldworkTypeDescriptorId = DescriptorsCache.GetCache().GetId("FieldworkTypeDescriptor", _fieldworkTypeDescriptor);
+
+                return _fieldworkTypeDescriptorId;
+            } 
+            set
+            {
+                _fieldworkTypeDescriptorId = value;
+                _fieldworkTypeDescriptor = null;
+            }
+        }
+
+        private int _fieldworkTypeDescriptorId;
+        private string _fieldworkTypeDescriptor;
+
+        public virtual string FieldworkTypeDescriptor
+        {
+            get
+            {
+                if (_fieldworkTypeDescriptor == null)
+                    _fieldworkTypeDescriptor = DescriptorsCache.GetCache().GetValue("FieldworkTypeDescriptor", _fieldworkTypeDescriptorId);
+                    
+                return _fieldworkTypeDescriptor;
+            }
+            set
+            {
+                _fieldworkTypeDescriptor = value;
+                _fieldworkTypeDescriptorId = default(int);
+            }
+        }
+        [Range(typeof(decimal), "-999.99", "999.99")]
+        public virtual decimal? HoursCompleted  { get; set; }
+        public virtual int? ProgramGatewayDescriptorId 
+        {
+            get
+            {
+                if (_programGatewayDescriptorId == default(int?))
+                    _programGatewayDescriptorId = string.IsNullOrWhiteSpace(_programGatewayDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ProgramGatewayDescriptor", _programGatewayDescriptor);
+
+                return _programGatewayDescriptorId;
+            } 
+            set
+            {
+                _programGatewayDescriptorId = value;
+                _programGatewayDescriptor = null;
+            }
+        }
+
+        private int? _programGatewayDescriptorId;
+        private string _programGatewayDescriptor;
+
+        public virtual string ProgramGatewayDescriptor
+        {
+            get
+            {
+                if (_programGatewayDescriptor == null)
+                    _programGatewayDescriptor = _programGatewayDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ProgramGatewayDescriptor", _programGatewayDescriptorId.Value);
+                    
+                return _programGatewayDescriptor;
+            }
+            set
+            {
+                _programGatewayDescriptor = value;
+                _programGatewayDescriptorId = default(int?);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        [ValidateObject]
+        public virtual Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching FieldworkExperienceCoteaching
+        {
+            get
+            {
+                // Return the item in the list, if one exists
+                if (FieldworkExperienceCoteachingPersistentList.Any())
+                    return FieldworkExperienceCoteachingPersistentList.First();
+
+                // No reference is present
+                return null;
+            }
+            set
+            {
+                // Delete the existing object
+                if (FieldworkExperienceCoteachingPersistentList.Any())
+                    FieldworkExperienceCoteachingPersistentList.Clear();
+
+                // If we're setting a value, add it to the list now
+                if (value != null)
+                {
+                    // Set the back-reference to the parent
+                    value.FieldworkExperience = this;
+
+                    FieldworkExperienceCoteachingPersistentList.Add(value);
+                }
+            }
+        }
+
+        Entities.Common.TPDM.IFieldworkExperienceCoteaching Entities.Common.TPDM.IFieldworkExperience.FieldworkExperienceCoteaching
+        {
+            get { return FieldworkExperienceCoteaching; }
+            set { FieldworkExperienceCoteaching = (Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching) value; }
+        }
+
+        private ICollection<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching> _fieldworkExperienceCoteachingPersistentList;
+
+        public virtual ICollection<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching> FieldworkExperienceCoteachingPersistentList
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _fieldworkExperienceCoteachingPersistentList)
+                    if (item.FieldworkExperience == null)
+                        item.FieldworkExperience = this;
+                // -------------------------------------------------------------
+
+                return _fieldworkExperienceCoteachingPersistentList;
+            }
+            set
+            {
+                _fieldworkExperienceCoteachingPersistentList = value;
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.StudentAggregate.EdFi.StudentReferenceData StudentReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the Student discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.IFieldworkExperience.StudentDiscriminator
+        {
+            get { return StudentReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the Student resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IFieldworkExperience.StudentResourceId
+        {
+            get { return StudentReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        private ICollection<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool> _fieldworkExperienceSchools;
+        private ICollection<Entities.Common.TPDM.IFieldworkExperienceSchool> _fieldworkExperienceSchoolsCovariant;
+        [RequiredCollection]
+        [ValidateEnumerable, NoDuplicateMembers]
+        public virtual ICollection<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool> FieldworkExperienceSchools
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _fieldworkExperienceSchools)
+                    if (item.FieldworkExperience == null)
+                        item.FieldworkExperience = this;
+                // -------------------------------------------------------------
+
+                return _fieldworkExperienceSchools;
+            }
+            set
+            {
+                _fieldworkExperienceSchools = value;
+                _fieldworkExperienceSchoolsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IFieldworkExperienceSchool, Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.TPDM.IFieldworkExperienceSchool> Entities.Common.TPDM.IFieldworkExperience.FieldworkExperienceSchools
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _fieldworkExperienceSchools)
+                    if (item.FieldworkExperience == null)
+                        item.FieldworkExperience = this;
+                // -------------------------------------------------------------
+
+                return _fieldworkExperienceSchoolsCovariant;
+            }
+            set
+            {
+                FieldworkExperienceSchools = new HashSet<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool>(value.Cast<Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool>());
+            }
+        }
+
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "FieldworkTypeDescriptor", new LookupColumnDetails { PropertyName = "FieldworkTypeDescriptorId", LookupTypeName = "FieldworkTypeDescriptor"} },
+                { "ProgramGatewayDescriptor", new LookupColumnDetails { PropertyName = "ProgramGatewayDescriptorId", LookupTypeName = "ProgramGatewayDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("BeginDate", BeginDate);
+            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
+            keyValues.Add("StudentUSI", StudentUSI);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IFieldworkExperience)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IFieldworkExperience) target, null);
+        }
+
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isEndDateSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsEndDateSupported
+        {
+            get { return _isEndDateSupported; }
+            set { _isEndDateSupported = value; }
+        }
+
+        private bool _isFieldworkExperienceCoteachingSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsFieldworkExperienceCoteachingSupported
+        {
+            get { return _isFieldworkExperienceCoteachingSupported; }
+            set { _isFieldworkExperienceCoteachingSupported = value; }
+        }
+
+        private bool _isFieldworkExperienceSchoolsSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsFieldworkExperienceSchoolsSupported
+        {
+            get { return _isFieldworkExperienceSchoolsSupported; }
+            set { _isFieldworkExperienceSchoolsSupported = value; }
+        }
+
+        private bool _isFieldworkTypeDescriptorSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsFieldworkTypeDescriptorSupported
+        {
+            get { return _isFieldworkTypeDescriptorSupported; }
+            set { _isFieldworkTypeDescriptorSupported = value; }
+        }
+
+        private bool _isHoursCompletedSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsHoursCompletedSupported
+        {
+            get { return _isHoursCompletedSupported; }
+            set { _isHoursCompletedSupported = value; }
+        }
+
+        private bool _isProgramGatewayDescriptorSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsProgramGatewayDescriptorSupported
+        {
+            get { return _isProgramGatewayDescriptorSupported; }
+            set { _isProgramGatewayDescriptorSupported = value; }
+        }
+
+        private Func<Entities.Common.TPDM.IFieldworkExperienceSchool, bool> _isFieldworkExperienceSchoolIncluded;
+        Func<Entities.Common.TPDM.IFieldworkExperienceSchool, bool> Entities.Common.TPDM.IFieldworkExperienceSynchronizationSourceSupport.IsFieldworkExperienceSchoolIncluded
+        {
+            get { return _isFieldworkExperienceSchoolIncluded; }
+            set { _isFieldworkExperienceSchoolIncluded = value; }
+        }
+
+        // -----------------------------------------
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.FieldworkExperienceCoteaching table of the FieldworkExperience aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceCoteaching : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.IFieldworkExperienceCoteaching, Entities.Common.Records.TPDM.IFieldworkExperienceCoteachingRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFieldworkExperienceCoteachingSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public FieldworkExperienceCoteaching()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual FieldworkExperience FieldworkExperience { get; set; }
+
+        Entities.Common.TPDM.IFieldworkExperience IFieldworkExperienceCoteaching.FieldworkExperience
+        {
+            get { return FieldworkExperience; }
+            set { FieldworkExperience = (FieldworkExperience) value; }
+        }
+
+        DateTime Entities.Common.Records.TPDM.IFieldworkExperienceCoteachingRecord.BeginDate
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).BeginDate; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).BeginDate = value; }
+        }
+
+        string Entities.Common.Records.TPDM.IFieldworkExperienceCoteachingRecord.FieldworkIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).FieldworkIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).FieldworkIdentifier = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IFieldworkExperienceCoteachingRecord.StudentUSI
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).StudentUSI; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).StudentUSI = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [RequiredWithNonDefault, SqlServerDateTimeRange]
+        public virtual DateTime CoteachingBeginDate 
+        {
+            get { return _coteachingBeginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _coteachingBeginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _coteachingBeginDate;
+        
+        [SqlServerDateTimeRange]
+        public virtual DateTime? CoteachingEndDate 
+        {
+            get { return _coteachingEndDate; }
+            set 
+            { 
+                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+                if(value == null)
+                {
+                    _coteachingEndDate = null;
+                } else
+                {
+                    var given = (DateTime) value;
+                    _coteachingEndDate = new DateTime(given.Year, given.Month, given.Day);
+                }
+            }
+        }
+
+        private DateTime? _coteachingEndDate;
+        
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (FieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IFieldworkExperienceCoteaching)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IFieldworkExperienceCoteaching) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            FieldworkExperience = (FieldworkExperience) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isCoteachingBeginDateSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingBeginDateSupported
+        {
+            get { return _isCoteachingBeginDateSupported; }
+            set { _isCoteachingBeginDateSupported = value; }
+        }
+
+        private bool _isCoteachingEndDateSupported = true;
+        bool Entities.Common.TPDM.IFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingEndDateSupported
+        {
+            get { return _isCoteachingEndDateSupported; }
+            set { _isCoteachingEndDateSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.FieldworkExperienceSchool table of the FieldworkExperience aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSchool : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.IFieldworkExperienceSchool, Entities.Common.Records.TPDM.IFieldworkExperienceSchoolRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFieldworkExperienceSchoolSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public FieldworkExperienceSchool()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual FieldworkExperience FieldworkExperience { get; set; }
+
+        Entities.Common.TPDM.IFieldworkExperience IFieldworkExperienceSchool.FieldworkExperience
+        {
+            get { return FieldworkExperience; }
+            set { FieldworkExperience = (FieldworkExperience) value; }
+        }
+
+        DateTime Entities.Common.Records.TPDM.IFieldworkExperienceSchoolRecord.BeginDate
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).BeginDate; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).BeginDate = value; }
+        }
+
+        string Entities.Common.Records.TPDM.IFieldworkExperienceSchoolRecord.FieldworkIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).FieldworkIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).FieldworkIdentifier = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IFieldworkExperienceSchoolRecord.StudentUSI
+        {
+            get { return ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).StudentUSI; }
+            set { ((Entities.Common.Records.TPDM.IFieldworkExperienceRecord) FieldworkExperience).StudentUSI = value; }
+        }
+
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int SchoolId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData SchoolReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the School resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IFieldworkExperienceSchool.SchoolResourceId
+        {
+            get { return SchoolReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (FieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("SchoolId", SchoolId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IFieldworkExperienceSchool)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IFieldworkExperienceSchool) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            FieldworkExperience = (FieldworkExperience) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        // -----------------------------------------
+    }
+}
+// Aggregate: FieldworkExperienceSectionAssociation
+
+namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggregate.TPDM
+{
+    /// <summary>
+    /// Represents a read-only reference to the <see cref="FieldworkExperienceSectionAssociation"/> entity.
+    /// </summary>
+    public class FieldworkExperienceSectionAssociationReferenceData : IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        public virtual DateTime BeginDate { get; set; }
+        public virtual string FieldworkIdentifier { get; set; }
+        public virtual string LocalCourseCode { get; set; }
+        public virtual int SchoolId { get; set; }
+        public virtual short SchoolYear { get; set; }
+        public virtual string SectionIdentifier { get; set; }
+        public virtual string SessionName { get; set; }
+        public virtual int StudentUSI { get; set; }
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The id of the referenced entity (used as the resource identifier in the API).
+        /// </summary>
+        public virtual Guid? Id { get; set; }
+
+        /// <summary>
+        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
+        /// when that entity has been derived; otherwise <b>null</b>.
+        /// </summary>
+        public virtual string Discriminator { get; set; }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("BeginDate", BeginDate);
+            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
+            keyValues.Add("LocalCourseCode", LocalCourseCode);
+            keyValues.Add("SchoolId", SchoolId);
+            keyValues.Add("SchoolYear", SchoolYear);
+            keyValues.Add("SectionIdentifier", SectionIdentifier);
+            keyValues.Add("SessionName", SessionName);
+            keyValues.Add("StudentUSI", StudentUSI);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+    }
+
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.FieldworkExperienceSectionAssociation table of the FieldworkExperienceSectionAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociation : AggregateRootWithCompositeKey,
+        Entities.Common.TPDM.IFieldworkExperienceSectionAssociation, Entities.Common.Records.TPDM.IFieldworkExperienceSectionAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IFieldworkExperienceSectionAssociationSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public FieldworkExperienceSectionAssociation()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual DateTime BeginDate 
+        {
+            get { return _beginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _beginDate;
+        
+        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
+        public virtual string FieldworkIdentifier  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        public virtual string LocalCourseCode  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int SchoolId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
+        public virtual string SectionIdentifier  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        public virtual string SessionName  { get; set; }
+        [Display(Name="StudentUniqueId")]
+        [DomainSignature, RequiredWithNonDefault("Student")]
+        public virtual int StudentUSI 
+        {
+            get
+            {
+                if (_studentUSI == default(int))
+                    _studentUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Student", _studentUniqueId);
+
+                return _studentUSI;
+            } 
+            set
+            {
+                _studentUSI = value;
+            }
+        }
+
+        private int _studentUSI;
+        private string _studentUniqueId;
+
+        [RequiredWithNonDefault]
+        public virtual string StudentUniqueId
+        {
+            get
+            {
+                if (_studentUniqueId == null)
+                    _studentUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Student", _studentUSI);
+                    
+                return _studentUniqueId;
+            }
+            set
+            {
+                _studentUniqueId = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceReferenceData FieldworkExperienceReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the FieldworkExperience discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.IFieldworkExperienceSectionAssociation.FieldworkExperienceDiscriminator
+        {
+            get { return FieldworkExperienceReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the FieldworkExperience resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IFieldworkExperienceSectionAssociation.FieldworkExperienceResourceId
+        {
+            get { return FieldworkExperienceReferenceData?.Id; }
+            set { }
+        }
+
+        public virtual NHibernate.SectionAggregate.EdFi.SectionReferenceData SectionReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the Section discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.IFieldworkExperienceSectionAssociation.SectionDiscriminator
+        {
+            get { return SectionReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the Section resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IFieldworkExperienceSectionAssociation.SectionResourceId
+        {
+            get { return SectionReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("BeginDate", BeginDate);
+            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
+            keyValues.Add("LocalCourseCode", LocalCourseCode);
+            keyValues.Add("SchoolId", SchoolId);
+            keyValues.Add("SchoolYear", SchoolYear);
+            keyValues.Add("SectionIdentifier", SectionIdentifier);
+            keyValues.Add("SessionName", SessionName);
+            keyValues.Add("StudentUSI", StudentUSI);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IFieldworkExperienceSectionAssociation)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IFieldworkExperienceSectionAssociation) target, null);
+        }
+
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        // -----------------------------------------
+    }
+}
 // Aggregate: FieldworkTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.FieldworkTypeDescriptorAggregate.TPDM
@@ -39133,249 +33803,6 @@ namespace EdFi.Ods.Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: GradebookEntry
-
-namespace EdFi.Ods.Entities.NHibernate.GradebookEntryAggregate.TPDM
-{
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.GradebookEntryExtension table of the GradebookEntry aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class GradebookEntryExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IGradebookEntryExtension, Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IGradebookEntryExtensionSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public GradebookEntryExtension()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual EdFi.GradebookEntry GradebookEntry { get; set; }
-
-        Entities.Common.EdFi.IGradebookEntry IGradebookEntryExtension.GradebookEntry
-        {
-            get { return GradebookEntry; }
-            set { GradebookEntry = (EdFi.GradebookEntry) value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.DateAssigned
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).DateAssigned; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).DateAssigned = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.GradebookEntryTitle
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).GradebookEntryTitle; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).GradebookEntryTitle = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.LocalCourseCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).LocalCourseCode; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).LocalCourseCode = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.SchoolId
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SchoolId; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SchoolId = value; }
-        }
-
-        short Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.SchoolYear
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SchoolYear; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SchoolYear = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.SectionIdentifier
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SectionIdentifier; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SectionIdentifier = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IGradebookEntryExtensionRecord.SessionName
-        {
-            get { return ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SessionName; }
-            set { ((Entities.Common.Records.EdFi.IGradebookEntryRecord) GradebookEntry).SessionName = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        public virtual int? ProgramGatewayDescriptorId 
-        {
-            get
-            {
-                if (_programGatewayDescriptorId == default(int?))
-                    _programGatewayDescriptorId = string.IsNullOrWhiteSpace(_programGatewayDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ProgramGatewayDescriptor", _programGatewayDescriptor);
-
-                return _programGatewayDescriptorId;
-            } 
-            set
-            {
-                _programGatewayDescriptorId = value;
-                _programGatewayDescriptor = null;
-            }
-        }
-
-        private int? _programGatewayDescriptorId;
-        private string _programGatewayDescriptor;
-
-        public virtual string ProgramGatewayDescriptor
-        {
-            get
-            {
-                if (_programGatewayDescriptor == null)
-                    _programGatewayDescriptor = _programGatewayDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ProgramGatewayDescriptor", _programGatewayDescriptorId.Value);
-                    
-                return _programGatewayDescriptor;
-            }
-            set
-            {
-                _programGatewayDescriptor = value;
-                _programGatewayDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "ProgramGatewayDescriptor", new LookupColumnDetails { PropertyName = "ProgramGatewayDescriptorId", LookupTypeName = "ProgramGatewayDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (GradebookEntry as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IGradebookEntryExtension)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IGradebookEntryExtension) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            GradebookEntry = (EdFi.GradebookEntry) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isProgramGatewayDescriptorSupported = true;
-        bool Entities.Common.TPDM.IGradebookEntryExtensionSynchronizationSourceSupport.IsProgramGatewayDescriptorSupported
-        {
-            get { return _isProgramGatewayDescriptorSupported; }
-            set { _isProgramGatewayDescriptorSupported = value; }
         }
 
         // -----------------------------------------
@@ -57529,1669 +51956,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
             get { return _isYearsOfExperienceAtCurrentEducationOrganizationSupported; }
             set { _isYearsOfExperienceAtCurrentEducationOrganizationSupported = value; }
         }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: StaffFieldworkAbsenceEvent
-
-namespace EdFi.Ods.Entities.NHibernate.StaffFieldworkAbsenceEventAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="StaffFieldworkAbsenceEvent"/> entity.
-    /// </summary>
-    public class StaffFieldworkAbsenceEventReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual int AbsenceEventCategoryDescriptorId { get; set; }
-        public virtual DateTime EventDate { get; set; }
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AbsenceEventCategoryDescriptorId", AbsenceEventCategoryDescriptorId);
-            keyValues.Add("EventDate", EventDate);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffFieldworkAbsenceEvent table of the StaffFieldworkAbsenceEvent aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEvent : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IStaffFieldworkAbsenceEvent, Entities.Common.Records.TPDM.IStaffFieldworkAbsenceEventRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffFieldworkAbsenceEventSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffFieldworkAbsenceEvent()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int AbsenceEventCategoryDescriptorId 
-        {
-            get
-            {
-                if (_absenceEventCategoryDescriptorId == default(int))
-                    _absenceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AbsenceEventCategoryDescriptor", _absenceEventCategoryDescriptor);
-
-                return _absenceEventCategoryDescriptorId;
-            } 
-            set
-            {
-                _absenceEventCategoryDescriptorId = value;
-                _absenceEventCategoryDescriptor = null;
-            }
-        }
-
-        private int _absenceEventCategoryDescriptorId;
-        private string _absenceEventCategoryDescriptor;
-
-        public virtual string AbsenceEventCategoryDescriptor
-        {
-            get
-            {
-                if (_absenceEventCategoryDescriptor == null)
-                    _absenceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AbsenceEventCategoryDescriptor", _absenceEventCategoryDescriptorId);
-                    
-                return _absenceEventCategoryDescriptor;
-            }
-            set
-            {
-                _absenceEventCategoryDescriptor = value;
-                _absenceEventCategoryDescriptorId = default(int);
-            }
-        }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime EventDate 
-        {
-            get { return _eventDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _eventDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _eventDate;
-        
-        [Display(Name="StaffUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Staff")]
-        public virtual int StaffUSI 
-        {
-            get
-            {
-                if (_staffUSI == default(int))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Staff", _staffUniqueId);
-
-                return _staffUSI;
-            } 
-            set
-            {
-                _staffUSI = value;
-            }
-        }
-
-        private int _staffUSI;
-        private string _staffUniqueId;
-
-        [RequiredWithNonDefault]
-        public virtual string StaffUniqueId
-        {
-            get
-            {
-                if (_staffUniqueId == null)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI);
-                    
-                return _staffUniqueId;
-            }
-            set
-            {
-                _staffUniqueId = value;
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
-        public virtual string AbsenceEventReason  { get; set; }
-        [Range(typeof(decimal), "-9.99", "9.99")]
-        public virtual decimal? HoursAbsent  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Staff discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffFieldworkAbsenceEvent.StaffDiscriminator
-        {
-            get { return StaffReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Staff resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffFieldworkAbsenceEvent.StaffResourceId
-        {
-            get { return StaffReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AbsenceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AbsenceEventCategoryDescriptorId", LookupTypeName = "AbsenceEventCategoryDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AbsenceEventCategoryDescriptorId", AbsenceEventCategoryDescriptorId);
-            keyValues.Add("EventDate", EventDate);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffFieldworkAbsenceEvent)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffFieldworkAbsenceEvent) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAbsenceEventReasonSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkAbsenceEventSynchronizationSourceSupport.IsAbsenceEventReasonSupported
-        {
-            get { return _isAbsenceEventReasonSupported; }
-            set { _isAbsenceEventReasonSupported = value; }
-        }
-
-        private bool _isHoursAbsentSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkAbsenceEventSynchronizationSourceSupport.IsHoursAbsentSupported
-        {
-            get { return _isHoursAbsentSupported; }
-            set { _isHoursAbsentSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: StaffFieldworkExperience
-
-namespace EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="StaffFieldworkExperience"/> entity.
-    /// </summary>
-    public class StaffFieldworkExperienceReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime BeginDate { get; set; }
-        public virtual string FieldworkIdentifier { get; set; }
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffFieldworkExperience table of the StaffFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperience : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IStaffFieldworkExperience, Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffFieldworkExperience()
-        {
-           StaffFieldworkExperienceCoteachingPersistentList = new HashSet<StaffFieldworkExperienceCoteaching>();
-            StaffFieldworkExperienceSchools = new HashSet<StaffFieldworkExperienceSchool>();
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime BeginDate 
-        {
-            get { return _beginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _beginDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
-        public virtual string FieldworkIdentifier  { get; set; }
-        [Display(Name="StaffUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Staff")]
-        public virtual int StaffUSI 
-        {
-            get
-            {
-                if (_staffUSI == default(int))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Staff", _staffUniqueId);
-
-                return _staffUSI;
-            } 
-            set
-            {
-                _staffUSI = value;
-            }
-        }
-
-        private int _staffUSI;
-        private string _staffUniqueId;
-
-        [RequiredWithNonDefault]
-        public virtual string StaffUniqueId
-        {
-            get
-            {
-                if (_staffUniqueId == null)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI);
-                    
-                return _staffUniqueId;
-            }
-            set
-            {
-                _staffUniqueId = value;
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
-        public virtual DateTime? EndDate 
-        {
-            get { return _endDate; }
-            set 
-            { 
-                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-                if(value == null)
-                {
-                    _endDate = null;
-                } else
-                {
-                    var given = (DateTime) value;
-                    _endDate = new DateTime(given.Year, given.Month, given.Day);
-                }
-            }
-        }
-
-        private DateTime? _endDate;
-        
-        [RequiredWithNonDefault]
-        public virtual int FieldworkTypeDescriptorId 
-        {
-            get
-            {
-                if (_fieldworkTypeDescriptorId == default(int))
-                    _fieldworkTypeDescriptorId = DescriptorsCache.GetCache().GetId("FieldworkTypeDescriptor", _fieldworkTypeDescriptor);
-
-                return _fieldworkTypeDescriptorId;
-            } 
-            set
-            {
-                _fieldworkTypeDescriptorId = value;
-                _fieldworkTypeDescriptor = null;
-            }
-        }
-
-        private int _fieldworkTypeDescriptorId;
-        private string _fieldworkTypeDescriptor;
-
-        public virtual string FieldworkTypeDescriptor
-        {
-            get
-            {
-                if (_fieldworkTypeDescriptor == null)
-                    _fieldworkTypeDescriptor = DescriptorsCache.GetCache().GetValue("FieldworkTypeDescriptor", _fieldworkTypeDescriptorId);
-                    
-                return _fieldworkTypeDescriptor;
-            }
-            set
-            {
-                _fieldworkTypeDescriptor = value;
-                _fieldworkTypeDescriptorId = default(int);
-            }
-        }
-        [Range(typeof(decimal), "-999.99", "999.99")]
-        public virtual decimal? HoursCompleted  { get; set; }
-        public virtual int? ProgramGatewayDescriptorId 
-        {
-            get
-            {
-                if (_programGatewayDescriptorId == default(int?))
-                    _programGatewayDescriptorId = string.IsNullOrWhiteSpace(_programGatewayDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ProgramGatewayDescriptor", _programGatewayDescriptor);
-
-                return _programGatewayDescriptorId;
-            } 
-            set
-            {
-                _programGatewayDescriptorId = value;
-                _programGatewayDescriptor = null;
-            }
-        }
-
-        private int? _programGatewayDescriptorId;
-        private string _programGatewayDescriptor;
-
-        public virtual string ProgramGatewayDescriptor
-        {
-            get
-            {
-                if (_programGatewayDescriptor == null)
-                    _programGatewayDescriptor = _programGatewayDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ProgramGatewayDescriptor", _programGatewayDescriptorId.Value);
-                    
-                return _programGatewayDescriptor;
-            }
-            set
-            {
-                _programGatewayDescriptor = value;
-                _programGatewayDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        [ValidateObject]
-        public virtual Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching StaffFieldworkExperienceCoteaching
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (StaffFieldworkExperienceCoteachingPersistentList.Any())
-                    return StaffFieldworkExperienceCoteachingPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (StaffFieldworkExperienceCoteachingPersistentList.Any())
-                    StaffFieldworkExperienceCoteachingPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.StaffFieldworkExperience = this;
-
-                    StaffFieldworkExperienceCoteachingPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.IStaffFieldworkExperienceCoteaching Entities.Common.TPDM.IStaffFieldworkExperience.StaffFieldworkExperienceCoteaching
-        {
-            get { return StaffFieldworkExperienceCoteaching; }
-            set { StaffFieldworkExperienceCoteaching = (Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching) value; }
-        }
-
-        private ICollection<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching> _staffFieldworkExperienceCoteachingPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching> StaffFieldworkExperienceCoteachingPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _staffFieldworkExperienceCoteachingPersistentList)
-                    if (item.StaffFieldworkExperience == null)
-                        item.StaffFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _staffFieldworkExperienceCoteachingPersistentList;
-            }
-            set
-            {
-                _staffFieldworkExperienceCoteachingPersistentList = value;
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Staff discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffFieldworkExperience.StaffDiscriminator
-        {
-            get { return StaffReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Staff resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffFieldworkExperience.StaffResourceId
-        {
-            get { return StaffReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool> _staffFieldworkExperienceSchools;
-        private ICollection<Entities.Common.TPDM.IStaffFieldworkExperienceSchool> _staffFieldworkExperienceSchoolsCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool> StaffFieldworkExperienceSchools
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _staffFieldworkExperienceSchools)
-                    if (item.StaffFieldworkExperience == null)
-                        item.StaffFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _staffFieldworkExperienceSchools;
-            }
-            set
-            {
-                _staffFieldworkExperienceSchools = value;
-                _staffFieldworkExperienceSchoolsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IStaffFieldworkExperienceSchool, Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IStaffFieldworkExperienceSchool> Entities.Common.TPDM.IStaffFieldworkExperience.StaffFieldworkExperienceSchools
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _staffFieldworkExperienceSchools)
-                    if (item.StaffFieldworkExperience == null)
-                        item.StaffFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _staffFieldworkExperienceSchoolsCovariant;
-            }
-            set
-            {
-                StaffFieldworkExperienceSchools = new HashSet<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool>(value.Cast<Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool>());
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FieldworkTypeDescriptor", new LookupColumnDetails { PropertyName = "FieldworkTypeDescriptorId", LookupTypeName = "FieldworkTypeDescriptor"} },
-                { "ProgramGatewayDescriptor", new LookupColumnDetails { PropertyName = "ProgramGatewayDescriptorId", LookupTypeName = "ProgramGatewayDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffFieldworkExperience)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffFieldworkExperience) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsEndDateSupported
-        {
-            get { return _isEndDateSupported; }
-            set { _isEndDateSupported = value; }
-        }
-
-        private bool _isFieldworkTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsFieldworkTypeDescriptorSupported
-        {
-            get { return _isFieldworkTypeDescriptorSupported; }
-            set { _isFieldworkTypeDescriptorSupported = value; }
-        }
-
-        private bool _isHoursCompletedSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsHoursCompletedSupported
-        {
-            get { return _isHoursCompletedSupported; }
-            set { _isHoursCompletedSupported = value; }
-        }
-
-        private bool _isProgramGatewayDescriptorSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsProgramGatewayDescriptorSupported
-        {
-            get { return _isProgramGatewayDescriptorSupported; }
-            set { _isProgramGatewayDescriptorSupported = value; }
-        }
-
-        private bool _isStaffFieldworkExperienceCoteachingSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsStaffFieldworkExperienceCoteachingSupported
-        {
-            get { return _isStaffFieldworkExperienceCoteachingSupported; }
-            set { _isStaffFieldworkExperienceCoteachingSupported = value; }
-        }
-
-        private bool _isStaffFieldworkExperienceSchoolsSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsStaffFieldworkExperienceSchoolsSupported
-        {
-            get { return _isStaffFieldworkExperienceSchoolsSupported; }
-            set { _isStaffFieldworkExperienceSchoolsSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IStaffFieldworkExperienceSchool, bool> _isStaffFieldworkExperienceSchoolIncluded;
-        Func<Entities.Common.TPDM.IStaffFieldworkExperienceSchool, bool> Entities.Common.TPDM.IStaffFieldworkExperienceSynchronizationSourceSupport.IsStaffFieldworkExperienceSchoolIncluded
-        {
-            get { return _isStaffFieldworkExperienceSchoolIncluded; }
-            set { _isStaffFieldworkExperienceSchoolIncluded = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffFieldworkExperienceCoteaching table of the StaffFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceCoteaching : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IStaffFieldworkExperienceCoteaching, Entities.Common.Records.TPDM.IStaffFieldworkExperienceCoteachingRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffFieldworkExperienceCoteachingSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffFieldworkExperienceCoteaching()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual StaffFieldworkExperience StaffFieldworkExperience { get; set; }
-
-        Entities.Common.TPDM.IStaffFieldworkExperience IStaffFieldworkExperienceCoteaching.StaffFieldworkExperience
-        {
-            get { return StaffFieldworkExperience; }
-            set { StaffFieldworkExperience = (StaffFieldworkExperience) value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IStaffFieldworkExperienceCoteachingRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).BeginDate; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).BeginDate = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IStaffFieldworkExperienceCoteachingRecord.FieldworkIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).FieldworkIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).FieldworkIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IStaffFieldworkExperienceCoteachingRecord.StaffUSI
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).StaffUSI; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).StaffUSI = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
-        public virtual DateTime CoteachingBeginDate 
-        {
-            get { return _coteachingBeginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _coteachingBeginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _coteachingBeginDate;
-        
-        [SqlServerDateTimeRange]
-        public virtual DateTime? CoteachingEndDate 
-        {
-            get { return _coteachingEndDate; }
-            set 
-            { 
-                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-                if(value == null)
-                {
-                    _coteachingEndDate = null;
-                } else
-                {
-                    var given = (DateTime) value;
-                    _coteachingEndDate = new DateTime(given.Year, given.Month, given.Day);
-                }
-            }
-        }
-
-        private DateTime? _coteachingEndDate;
-        
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (StaffFieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffFieldworkExperienceCoteaching)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffFieldworkExperienceCoteaching) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            StaffFieldworkExperience = (StaffFieldworkExperience) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCoteachingBeginDateSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingBeginDateSupported
-        {
-            get { return _isCoteachingBeginDateSupported; }
-            set { _isCoteachingBeginDateSupported = value; }
-        }
-
-        private bool _isCoteachingEndDateSupported = true;
-        bool Entities.Common.TPDM.IStaffFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingEndDateSupported
-        {
-            get { return _isCoteachingEndDateSupported; }
-            set { _isCoteachingEndDateSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffFieldworkExperienceSchool table of the StaffFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSchool : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IStaffFieldworkExperienceSchool, Entities.Common.Records.TPDM.IStaffFieldworkExperienceSchoolRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffFieldworkExperienceSchoolSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffFieldworkExperienceSchool()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual StaffFieldworkExperience StaffFieldworkExperience { get; set; }
-
-        Entities.Common.TPDM.IStaffFieldworkExperience IStaffFieldworkExperienceSchool.StaffFieldworkExperience
-        {
-            get { return StaffFieldworkExperience; }
-            set { StaffFieldworkExperience = (StaffFieldworkExperience) value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.IStaffFieldworkExperienceSchoolRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).BeginDate; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).BeginDate = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IStaffFieldworkExperienceSchoolRecord.FieldworkIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).FieldworkIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).FieldworkIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IStaffFieldworkExperienceSchoolRecord.StaffUSI
-        {
-            get { return ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).StaffUSI; }
-            set { ((Entities.Common.Records.TPDM.IStaffFieldworkExperienceRecord) StaffFieldworkExperience).StaffUSI = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolId  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData SchoolReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the School resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffFieldworkExperienceSchool.SchoolResourceId
-        {
-            get { return SchoolReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (StaffFieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("SchoolId", SchoolId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffFieldworkExperienceSchool)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffFieldworkExperienceSchool) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            StaffFieldworkExperience = (StaffFieldworkExperience) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: StaffFieldworkExperienceSectionAssociation
-
-namespace EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceSectionAssociationAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="StaffFieldworkExperienceSectionAssociation"/> entity.
-    /// </summary>
-    public class StaffFieldworkExperienceSectionAssociationReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime BeginDate { get; set; }
-        public virtual string FieldworkIdentifier { get; set; }
-        public virtual string LocalCourseCode { get; set; }
-        public virtual int SchoolId { get; set; }
-        public virtual short SchoolYear { get; set; }
-        public virtual string SectionIdentifier { get; set; }
-        public virtual string SessionName { get; set; }
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("LocalCourseCode", LocalCourseCode);
-            keyValues.Add("SchoolId", SchoolId);
-            keyValues.Add("SchoolYear", SchoolYear);
-            keyValues.Add("SectionIdentifier", SectionIdentifier);
-            keyValues.Add("SessionName", SessionName);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffFieldworkExperienceSectionAssociation table of the StaffFieldworkExperienceSectionAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation, Entities.Common.Records.TPDM.IStaffFieldworkExperienceSectionAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociationSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffFieldworkExperienceSectionAssociation()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime BeginDate 
-        {
-            get { return _beginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _beginDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
-        public virtual string FieldworkIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string LocalCourseCode  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual short SchoolYear  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string SectionIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string SessionName  { get; set; }
-        [Display(Name="StaffUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Staff")]
-        public virtual int StaffUSI 
-        {
-            get
-            {
-                if (_staffUSI == default(int))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Staff", _staffUniqueId);
-
-                return _staffUSI;
-            } 
-            set
-            {
-                _staffUSI = value;
-            }
-        }
-
-        private int _staffUSI;
-        private string _staffUniqueId;
-
-        [RequiredWithNonDefault]
-        public virtual string StaffUniqueId
-        {
-            get
-            {
-                if (_staffUniqueId == null)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI);
-                    
-                return _staffUniqueId;
-            }
-            set
-            {
-                _staffUniqueId = value;
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.SectionAggregate.EdFi.SectionReferenceData SectionReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Section discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation.SectionDiscriminator
-        {
-            get { return SectionReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Section resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation.SectionResourceId
-        {
-            get { return SectionReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceReferenceData StaffFieldworkExperienceReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the StaffFieldworkExperience discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation.StaffFieldworkExperienceDiscriminator
-        {
-            get { return StaffFieldworkExperienceReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the StaffFieldworkExperience resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation.StaffFieldworkExperienceResourceId
-        {
-            get { return StaffFieldworkExperienceReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("LocalCourseCode", LocalCourseCode);
-            keyValues.Add("SchoolId", SchoolId);
-            keyValues.Add("SchoolYear", SchoolYear);
-            keyValues.Add("SectionIdentifier", SectionIdentifier);
-            keyValues.Add("SessionName", SessionName);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffFieldworkExperienceSectionAssociation) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
 
         // -----------------------------------------
     }
@@ -77543,1574 +70307,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
             get { return _isCreditsSupported; }
             set { _isCreditsSupported = value; }
         }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: TeacherCandidateFieldworkAbsenceEvent
-
-namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkAbsenceEventAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="TeacherCandidateFieldworkAbsenceEvent"/> entity.
-    /// </summary>
-    public class TeacherCandidateFieldworkAbsenceEventReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual int AbsenceEventCategoryDescriptorId { get; set; }
-        public virtual string TeacherCandidateIdentifier { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AbsenceEventCategoryDescriptorId", AbsenceEventCategoryDescriptorId);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateFieldworkAbsenceEvent table of the TeacherCandidateFieldworkAbsenceEvent aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEvent : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEvent, Entities.Common.Records.TPDM.ITeacherCandidateFieldworkAbsenceEventRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEventSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateFieldworkAbsenceEvent()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int AbsenceEventCategoryDescriptorId 
-        {
-            get
-            {
-                if (_absenceEventCategoryDescriptorId == default(int))
-                    _absenceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AbsenceEventCategoryDescriptor", _absenceEventCategoryDescriptor);
-
-                return _absenceEventCategoryDescriptorId;
-            } 
-            set
-            {
-                _absenceEventCategoryDescriptorId = value;
-                _absenceEventCategoryDescriptor = null;
-            }
-        }
-
-        private int _absenceEventCategoryDescriptorId;
-        private string _absenceEventCategoryDescriptor;
-
-        public virtual string AbsenceEventCategoryDescriptor
-        {
-            get
-            {
-                if (_absenceEventCategoryDescriptor == null)
-                    _absenceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AbsenceEventCategoryDescriptor", _absenceEventCategoryDescriptorId);
-                    
-                return _absenceEventCategoryDescriptor;
-            }
-            set
-            {
-                _absenceEventCategoryDescriptor = value;
-                _absenceEventCategoryDescriptorId = default(int);
-            }
-        }
-        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
-        public virtual string TeacherCandidateIdentifier  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [StringLength(255), NoDangerousText]
-        public virtual string AbsenceEventReason  { get; set; }
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
-        public virtual DateTime EventDate 
-        {
-            get { return _eventDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _eventDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _eventDate;
-        
-        [Range(typeof(decimal), "-9.99", "9.99")]
-        public virtual decimal? HoursAbsent  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData TeacherCandidateReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEvent.TeacherCandidateDiscriminator
-        {
-            get { return TeacherCandidateReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEvent.TeacherCandidateResourceId
-        {
-            get { return TeacherCandidateReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AbsenceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AbsenceEventCategoryDescriptorId", LookupTypeName = "AbsenceEventCategoryDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AbsenceEventCategoryDescriptorId", AbsenceEventCategoryDescriptorId);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEvent)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEvent) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAbsenceEventReasonSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEventSynchronizationSourceSupport.IsAbsenceEventReasonSupported
-        {
-            get { return _isAbsenceEventReasonSupported; }
-            set { _isAbsenceEventReasonSupported = value; }
-        }
-
-        private bool _isEventDateSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEventSynchronizationSourceSupport.IsEventDateSupported
-        {
-            get { return _isEventDateSupported; }
-            set { _isEventDateSupported = value; }
-        }
-
-        private bool _isHoursAbsentSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkAbsenceEventSynchronizationSourceSupport.IsHoursAbsentSupported
-        {
-            get { return _isHoursAbsentSupported; }
-            set { _isHoursAbsentSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: TeacherCandidateFieldworkExperience
-
-namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="TeacherCandidateFieldworkExperience"/> entity.
-    /// </summary>
-    public class TeacherCandidateFieldworkExperienceReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime BeginDate { get; set; }
-        public virtual string FieldworkIdentifier { get; set; }
-        public virtual string TeacherCandidateIdentifier { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateFieldworkExperience table of the TeacherCandidateFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperience : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperience, Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateFieldworkExperience()
-        {
-           TeacherCandidateFieldworkExperienceCoteachingPersistentList = new HashSet<TeacherCandidateFieldworkExperienceCoteaching>();
-            TeacherCandidateFieldworkExperienceSchools = new HashSet<TeacherCandidateFieldworkExperienceSchool>();
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime BeginDate 
-        {
-            get { return _beginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _beginDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
-        public virtual string FieldworkIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
-        public virtual string TeacherCandidateIdentifier  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [SqlServerDateTimeRange]
-        public virtual DateTime? EndDate 
-        {
-            get { return _endDate; }
-            set 
-            { 
-                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-                if(value == null)
-                {
-                    _endDate = null;
-                } else
-                {
-                    var given = (DateTime) value;
-                    _endDate = new DateTime(given.Year, given.Month, given.Day);
-                }
-            }
-        }
-
-        private DateTime? _endDate;
-        
-        [RequiredWithNonDefault]
-        public virtual int FieldworkTypeDescriptorId 
-        {
-            get
-            {
-                if (_fieldworkTypeDescriptorId == default(int))
-                    _fieldworkTypeDescriptorId = DescriptorsCache.GetCache().GetId("FieldworkTypeDescriptor", _fieldworkTypeDescriptor);
-
-                return _fieldworkTypeDescriptorId;
-            } 
-            set
-            {
-                _fieldworkTypeDescriptorId = value;
-                _fieldworkTypeDescriptor = null;
-            }
-        }
-
-        private int _fieldworkTypeDescriptorId;
-        private string _fieldworkTypeDescriptor;
-
-        public virtual string FieldworkTypeDescriptor
-        {
-            get
-            {
-                if (_fieldworkTypeDescriptor == null)
-                    _fieldworkTypeDescriptor = DescriptorsCache.GetCache().GetValue("FieldworkTypeDescriptor", _fieldworkTypeDescriptorId);
-                    
-                return _fieldworkTypeDescriptor;
-            }
-            set
-            {
-                _fieldworkTypeDescriptor = value;
-                _fieldworkTypeDescriptorId = default(int);
-            }
-        }
-        [Range(typeof(decimal), "-999.99", "999.99")]
-        public virtual decimal? HoursCompleted  { get; set; }
-        public virtual int? ProgramGatewayDescriptorId 
-        {
-            get
-            {
-                if (_programGatewayDescriptorId == default(int?))
-                    _programGatewayDescriptorId = string.IsNullOrWhiteSpace(_programGatewayDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("ProgramGatewayDescriptor", _programGatewayDescriptor);
-
-                return _programGatewayDescriptorId;
-            } 
-            set
-            {
-                _programGatewayDescriptorId = value;
-                _programGatewayDescriptor = null;
-            }
-        }
-
-        private int? _programGatewayDescriptorId;
-        private string _programGatewayDescriptor;
-
-        public virtual string ProgramGatewayDescriptor
-        {
-            get
-            {
-                if (_programGatewayDescriptor == null)
-                    _programGatewayDescriptor = _programGatewayDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("ProgramGatewayDescriptor", _programGatewayDescriptorId.Value);
-                    
-                return _programGatewayDescriptor;
-            }
-            set
-            {
-                _programGatewayDescriptor = value;
-                _programGatewayDescriptorId = default(int?);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        [ValidateObject]
-        public virtual Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching TeacherCandidateFieldworkExperienceCoteaching
-        {
-            get
-            {
-                // Return the item in the list, if one exists
-                if (TeacherCandidateFieldworkExperienceCoteachingPersistentList.Any())
-                    return TeacherCandidateFieldworkExperienceCoteachingPersistentList.First();
-
-                // No reference is present
-                return null;
-            }
-            set
-            {
-                // Delete the existing object
-                if (TeacherCandidateFieldworkExperienceCoteachingPersistentList.Any())
-                    TeacherCandidateFieldworkExperienceCoteachingPersistentList.Clear();
-
-                // If we're setting a value, add it to the list now
-                if (value != null)
-                {
-                    // Set the back-reference to the parent
-                    value.TeacherCandidateFieldworkExperience = this;
-
-                    TeacherCandidateFieldworkExperienceCoteachingPersistentList.Add(value);
-                }
-            }
-        }
-
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteaching Entities.Common.TPDM.ITeacherCandidateFieldworkExperience.TeacherCandidateFieldworkExperienceCoteaching
-        {
-            get { return TeacherCandidateFieldworkExperienceCoteaching; }
-            set { TeacherCandidateFieldworkExperienceCoteaching = (Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching) value; }
-        }
-
-        private ICollection<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching> _teacherCandidateFieldworkExperienceCoteachingPersistentList;
-
-        public virtual ICollection<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching> TeacherCandidateFieldworkExperienceCoteachingPersistentList
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _teacherCandidateFieldworkExperienceCoteachingPersistentList)
-                    if (item.TeacherCandidateFieldworkExperience == null)
-                        item.TeacherCandidateFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _teacherCandidateFieldworkExperienceCoteachingPersistentList;
-            }
-            set
-            {
-                _teacherCandidateFieldworkExperienceCoteachingPersistentList = value;
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData TeacherCandidateReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateFieldworkExperience.TeacherCandidateDiscriminator
-        {
-            get { return TeacherCandidateReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateFieldworkExperience.TeacherCandidateResourceId
-        {
-            get { return TeacherCandidateReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool> _teacherCandidateFieldworkExperienceSchools;
-        private ICollection<Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool> _teacherCandidateFieldworkExperienceSchoolsCovariant;
-        [RequiredCollection]
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool> TeacherCandidateFieldworkExperienceSchools
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _teacherCandidateFieldworkExperienceSchools)
-                    if (item.TeacherCandidateFieldworkExperience == null)
-                        item.TeacherCandidateFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _teacherCandidateFieldworkExperienceSchools;
-            }
-            set
-            {
-                _teacherCandidateFieldworkExperienceSchools = value;
-                _teacherCandidateFieldworkExperienceSchoolsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool, Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool> Entities.Common.TPDM.ITeacherCandidateFieldworkExperience.TeacherCandidateFieldworkExperienceSchools
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _teacherCandidateFieldworkExperienceSchools)
-                    if (item.TeacherCandidateFieldworkExperience == null)
-                        item.TeacherCandidateFieldworkExperience = this;
-                // -------------------------------------------------------------
-
-                return _teacherCandidateFieldworkExperienceSchoolsCovariant;
-            }
-            set
-            {
-                TeacherCandidateFieldworkExperienceSchools = new HashSet<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool>(value.Cast<Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool>());
-            }
-        }
-
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "FieldworkTypeDescriptor", new LookupColumnDetails { PropertyName = "FieldworkTypeDescriptorId", LookupTypeName = "FieldworkTypeDescriptor"} },
-                { "ProgramGatewayDescriptor", new LookupColumnDetails { PropertyName = "ProgramGatewayDescriptorId", LookupTypeName = "ProgramGatewayDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperience)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperience) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isEndDateSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsEndDateSupported
-        {
-            get { return _isEndDateSupported; }
-            set { _isEndDateSupported = value; }
-        }
-
-        private bool _isFieldworkTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsFieldworkTypeDescriptorSupported
-        {
-            get { return _isFieldworkTypeDescriptorSupported; }
-            set { _isFieldworkTypeDescriptorSupported = value; }
-        }
-
-        private bool _isHoursCompletedSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsHoursCompletedSupported
-        {
-            get { return _isHoursCompletedSupported; }
-            set { _isHoursCompletedSupported = value; }
-        }
-
-        private bool _isProgramGatewayDescriptorSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsProgramGatewayDescriptorSupported
-        {
-            get { return _isProgramGatewayDescriptorSupported; }
-            set { _isProgramGatewayDescriptorSupported = value; }
-        }
-
-        private bool _isTeacherCandidateFieldworkExperienceCoteachingSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsTeacherCandidateFieldworkExperienceCoteachingSupported
-        {
-            get { return _isTeacherCandidateFieldworkExperienceCoteachingSupported; }
-            set { _isTeacherCandidateFieldworkExperienceCoteachingSupported = value; }
-        }
-
-        private bool _isTeacherCandidateFieldworkExperienceSchoolsSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsTeacherCandidateFieldworkExperienceSchoolsSupported
-        {
-            get { return _isTeacherCandidateFieldworkExperienceSchoolsSupported; }
-            set { _isTeacherCandidateFieldworkExperienceSchoolsSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool, bool> _isTeacherCandidateFieldworkExperienceSchoolIncluded;
-        Func<Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool, bool> Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSynchronizationSourceSupport.IsTeacherCandidateFieldworkExperienceSchoolIncluded
-        {
-            get { return _isTeacherCandidateFieldworkExperienceSchoolIncluded; }
-            set { _isTeacherCandidateFieldworkExperienceSchoolIncluded = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateFieldworkExperienceCoteaching table of the TeacherCandidateFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceCoteaching : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteaching, Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceCoteachingRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteachingSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateFieldworkExperienceCoteaching()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual TeacherCandidateFieldworkExperience TeacherCandidateFieldworkExperience { get; set; }
-
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperience ITeacherCandidateFieldworkExperienceCoteaching.TeacherCandidateFieldworkExperience
-        {
-            get { return TeacherCandidateFieldworkExperience; }
-            set { TeacherCandidateFieldworkExperience = (TeacherCandidateFieldworkExperience) value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceCoteachingRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).BeginDate; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).BeginDate = value; }
-        }
-
-        string Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceCoteachingRecord.FieldworkIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).FieldworkIdentifier; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).FieldworkIdentifier = value; }
-        }
-
-        string Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceCoteachingRecord.TeacherCandidateIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).TeacherCandidateIdentifier; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).TeacherCandidateIdentifier = value; }
-        }
-
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault, SqlServerDateTimeRange]
-        public virtual DateTime CoteachingBeginDate 
-        {
-            get { return _coteachingBeginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _coteachingBeginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _coteachingBeginDate;
-        
-        [SqlServerDateTimeRange]
-        public virtual DateTime? CoteachingEndDate 
-        {
-            get { return _coteachingEndDate; }
-            set 
-            { 
-                //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-                if(value == null)
-                {
-                    _coteachingEndDate = null;
-                } else
-                {
-                    var given = (DateTime) value;
-                    _coteachingEndDate = new DateTime(given.Year, given.Month, given.Day);
-                }
-            }
-        }
-
-        private DateTime? _coteachingEndDate;
-        
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (TeacherCandidateFieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteaching)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteaching) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            TeacherCandidateFieldworkExperience = (TeacherCandidateFieldworkExperience) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isCoteachingBeginDateSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingBeginDateSupported
-        {
-            get { return _isCoteachingBeginDateSupported; }
-            set { _isCoteachingBeginDateSupported = value; }
-        }
-
-        private bool _isCoteachingEndDateSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceCoteachingSynchronizationSourceSupport.IsCoteachingEndDateSupported
-        {
-            get { return _isCoteachingEndDateSupported; }
-            set { _isCoteachingEndDateSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateFieldworkExperienceSchool table of the TeacherCandidateFieldworkExperience aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSchool : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool, Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceSchoolRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchoolSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateFieldworkExperienceSchool()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual TeacherCandidateFieldworkExperience TeacherCandidateFieldworkExperience { get; set; }
-
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperience ITeacherCandidateFieldworkExperienceSchool.TeacherCandidateFieldworkExperience
-        {
-            get { return TeacherCandidateFieldworkExperience; }
-            set { TeacherCandidateFieldworkExperience = (TeacherCandidateFieldworkExperience) value; }
-        }
-
-        DateTime Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceSchoolRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).BeginDate; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).BeginDate = value; }
-        }
-
-        string Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceSchoolRecord.FieldworkIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).FieldworkIdentifier; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).FieldworkIdentifier = value; }
-        }
-
-        string Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceSchoolRecord.TeacherCandidateIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).TeacherCandidateIdentifier; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceRecord) TeacherCandidateFieldworkExperience).TeacherCandidateIdentifier = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolId  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData SchoolReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the School resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool.SchoolResourceId
-        {
-            get { return SchoolReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (TeacherCandidateFieldworkExperience as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("SchoolId", SchoolId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSchool) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            TeacherCandidateFieldworkExperience = (TeacherCandidateFieldworkExperience) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-}
-// Aggregate: TeacherCandidateFieldworkExperienceSectionAssociation
-
-namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceSectionAssociationAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="TeacherCandidateFieldworkExperienceSectionAssociation"/> entity.
-    /// </summary>
-    public class TeacherCandidateFieldworkExperienceSectionAssociationReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime BeginDate { get; set; }
-        public virtual string FieldworkIdentifier { get; set; }
-        public virtual string LocalCourseCode { get; set; }
-        public virtual int SchoolId { get; set; }
-        public virtual short SchoolYear { get; set; }
-        public virtual string SectionIdentifier { get; set; }
-        public virtual string SessionName { get; set; }
-        public virtual string TeacherCandidateIdentifier { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("LocalCourseCode", LocalCourseCode);
-            keyValues.Add("SchoolId", SchoolId);
-            keyValues.Add("SchoolYear", SchoolYear);
-            keyValues.Add("SectionIdentifier", SectionIdentifier);
-            keyValues.Add("SessionName", SessionName);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateFieldworkExperienceSectionAssociation table of the TeacherCandidateFieldworkExperienceSectionAssociation aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation, Entities.Common.Records.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociationSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateFieldworkExperienceSectionAssociation()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime BeginDate 
-        {
-            get { return _beginDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _beginDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _beginDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
-        public virtual string FieldworkIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string LocalCourseCode  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int SchoolId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual short SchoolYear  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string SectionIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string SessionName  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
-        public virtual string TeacherCandidateIdentifier  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.SectionAggregate.EdFi.SectionReferenceData SectionReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Section discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation.SectionDiscriminator
-        {
-            get { return SectionReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Section resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation.SectionResourceId
-        {
-            get { return SectionReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceReferenceData TeacherCandidateFieldworkExperienceReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidateFieldworkExperience discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation.TeacherCandidateFieldworkExperienceDiscriminator
-        {
-            get { return TeacherCandidateFieldworkExperienceReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidateFieldworkExperience resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation.TeacherCandidateFieldworkExperienceResourceId
-        {
-            get { return TeacherCandidateFieldworkExperienceReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("BeginDate", BeginDate);
-            keyValues.Add("FieldworkIdentifier", FieldworkIdentifier);
-            keyValues.Add("LocalCourseCode", LocalCourseCode);
-            keyValues.Add("SchoolId", SchoolId);
-            keyValues.Add("SchoolYear", SchoolYear);
-            keyValues.Add("SectionIdentifier", SectionIdentifier);
-            keyValues.Add("SessionName", SessionName);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateFieldworkExperienceSectionAssociation) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
 
         // -----------------------------------------
     }

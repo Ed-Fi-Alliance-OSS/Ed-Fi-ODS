@@ -2282,54 +2282,6 @@
 </class>
 
 
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.TPDM.CommunityOrganizationExtension" table="CommunityOrganizationExtension" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="CommunityOrganization">
-        <column name="CommunityOrganizationId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="FederalLocaleCodeDescriptorId" column="FederalLocaleCodeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.TPDM.CommunityProviderExtension" table="CommunityProviderExtension" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="CommunityProvider">
-        <column name="CommunityProviderId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="FederalLocaleCodeDescriptorId" column="FederalLocaleCodeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
     <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM.CompleterAsStaffAssociationReferenceData" table="CompleterAsStaffAssociation" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
@@ -2501,782 +2453,6 @@
       <column name="CredentialIdentifier" />
       <column name="StateOfIssueStateAbbreviationDescriptorId" />
     </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsReferenceData" table="EducationOrganizationFacts" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FactsAsOfDate" column="FactsAsOfDate" type="date"  />
-            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFacts" table="EducationOrganizationFacts" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FactsAsOfDate" column="FactsAsOfDate" type="date" />
-      <key-property name="SchoolYear" column="SchoolYear" type="short" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AverageYearsInDistrictEmployed" column="AverageYearsInDistrictEmployed" type="decimal" />
-    <property name="HiringRate" column="HiringRate" type="decimal" />
-    <property name="NumberAdministratorsEmployed" column="NumberAdministratorsEmployed" type="int" />
-    <property name="NumberStudentsEnrolled" column="NumberStudentsEnrolled" type="int" />
-    <property name="NumberTeachersEmployed" column="NumberTeachersEmployed" type="int" />
-    <property name="PercentStudentsFreeReducedLunch" column="PercentStudentsFreeReducedLunch" type="decimal" />
-    <property name="PercentStudentsLimitedEnglishProficiency" column="PercentStudentsLimitedEnglishProficiency" type="decimal" />
-    <property name="PercentStudentsSpecialEducation" column="PercentStudentsSpecialEducation" type="decimal" />
-    <property name="RetentionRate" column="RetentionRate" type="decimal" />
-    <property name="RetirementRate" column="RetirementRate" type="decimal" />
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationFactsAggregatedSalary" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary" />
-    </set>
-
-    <!-- Aggregate references -->
-    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-    </many-to-one>
-    <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="SchoolYear" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="EducationOrganizationFactsVacancies" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsAggregatedSalary" table="EducationOrganizationFactsAggregatedSalary" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="AverageSalary" column="AverageSalary" type="decimal" not-null="true" />
-    <property name="CountOfSalariesAveraged" column="CountOfSalariesAveraged" type="int" />
-    <property name="SalaryMaxRange" column="SalaryMaxRange" type="int" />
-    <property name="SalaryMinRange" column="SalaryMinRange" type="int" />
-    <property name="StandardDeviation" column="StandardDeviation" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacancies" table="EducationOrganizationFactsVacancies" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="NumberOfVacancies" column="NumberOfVacancies" type="int" not-null="true" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="EducationOrganizationFactsVacanciesGradeLevels" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="AcademicSubjectDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationFactsAggregate.TPDM.EducationOrganizationFactsVacanciesGradeLevel" table="EducationOrganizationFactsVacanciesGradeLevel" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="GradeLevelDescriptorId" column="GradeLevelDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationFactsVacancies">
-        <column name="AcademicSubjectDescriptorId" />
-        <column name="EducationOrganizationId" />
-        <column name="FactsAsOfDate" />
-        <column name="SchoolYear" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAggregate.TPDM.EducationOrganizationNetworkExtension" table="EducationOrganizationNetworkExtension" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationNetwork">
-        <column name="EducationOrganizationNetworkId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="FederalLocaleCodeDescriptorId" column="FederalLocaleCodeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsReferenceData" table="EducationOrganizationStudentFacts" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="FactAsOfDate" column="FactAsOfDate" type="date"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFacts" table="EducationOrganizationStudentFacts" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="FactAsOfDate" column="FactAsOfDate" type="date" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedELLEnrollment" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedESLEnrollment" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedSection504Enrollment" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedSPED" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsAggregatedTitleIEnrollment" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment" />
-    </set>
-
-    <!-- One-to-one child mappings -->
-    <set name="EducationOrganizationStudentFactsStudentsEnrolled" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled" />
-    </set>
-
-    <!-- Aggregate references -->
-    <many-to-one name="EducationOrganizationReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="EducationOrganizationId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="EducationOrganizationStudentFactsAggregatedByDisabilities" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedGenders" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicities" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedLanguages" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedRaces" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServices" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService" />
-    </set>
-
-    <set name="EducationOrganizationStudentFactsAggregatedSexes" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedByDisability" table="EducationOrganizationStudentFactsAggregatedByDisability" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="DisabilityDescriptorId" column="DisabilityDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="Percentage" column="Percentage" type="decimal" />
-    <property name="TypeNumber" column="TypeNumber" type="int" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled" table="EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="StudentsDisabledNumber" column="StudentsDisabledNumber" type="int" />
-    <property name="StudentsDisabledPercentage" column="StudentsDisabledPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedELLEnrollment" table="EducationOrganizationStudentFactsAggregatedELLEnrollment" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="ELLEnrollmentNumber" column="ELLEnrollmentNumber" type="int" />
-    <property name="ELLEnrollmentPercentage" column="ELLEnrollmentPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedESLEnrollment" table="EducationOrganizationStudentFactsAggregatedESLEnrollment" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="ESLEnrollmentNumber" column="ESLEnrollmentNumber" type="int" />
-    <property name="ESLEnrollmentPercentage" column="ESLEnrollmentPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedGender" table="EducationOrganizationStudentFactsAggregatedGender" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="GenderDescriptorId" column="GenderDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="GenderTypeNumber" column="GenderTypeNumber" type="int" />
-    <property name="GenderTypePercentage" column="GenderTypePercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity" table="EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="HispanicLatinoEthnicityNumber" column="HispanicLatinoEthnicityNumber" type="int" />
-    <property name="HispanicLatinoEthnicityPercentage" column="HispanicLatinoEthnicityPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedLanguage" table="EducationOrganizationStudentFactsAggregatedLanguage" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="LanguageDescriptorId" column="LanguageDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="LanguageTypeNumber" column="LanguageTypeNumber" type="int" />
-    <property name="LanguageTypePercentage" column="LanguageTypePercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedRace" table="EducationOrganizationStudentFactsAggregatedRace" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="RaceDescriptorId" column="RaceDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="RaceTypeNumber" column="RaceTypeNumber" type="int" />
-    <property name="RaceTypePercentage" column="RaceTypePercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService" table="EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="SchoolFoodServiceProgramServiceDescriptorId" column="SchoolFoodServiceProgramServiceDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="TypeNumber" column="TypeNumber" type="int" />
-    <property name="TypePercentage" column="TypePercentage" type="int" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSection504Enrollment" table="EducationOrganizationStudentFactsAggregatedSection504Enrollment" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="Number504Enrolled" column="Number504Enrolled" type="int" />
-    <property name="Percentage504Enrolled" column="Percentage504Enrolled" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSex" table="EducationOrganizationStudentFactsAggregatedSex" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="SexDescriptorId" column="SexDescriptorId" type="int" />
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="SexTypeNumber" column="SexTypeNumber" type="int" />
-    <property name="SexTypePercentage" column="SexTypePercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedSPED" table="EducationOrganizationStudentFactsAggregatedSPED" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="SPEDEnrollmentNumber" column="SPEDEnrollmentNumber" type="int" />
-    <property name="SPEDEnrollmentPercentage" column="SPEDEnrollmentPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsAggregatedTitleIEnrollment" table="EducationOrganizationStudentFactsAggregatedTitleIEnrollment" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="TitleIEnrollmentNumber" column="TitleIEnrollmentNumber" type="int" />
-    <property name="TitleIEnrollmentPercentage" column="TitleIEnrollmentPercentage" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationOrganizationStudentFactsAggregate.TPDM.EducationOrganizationStudentFactsStudentsEnrolled" table="EducationOrganizationStudentFactsStudentsEnrolled" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationOrganizationStudentFacts">
-        <column name="EducationOrganizationId" />
-        <column name="FactAsOfDate" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="NumberStudentsEnrolled" column="NumberStudentsEnrolled" type="int" />
-    <property name="PercentAtRisk" column="PercentAtRisk" type="decimal" />
-    <property name="PercentMobility" column="PercentMobility" type="decimal" />
-    <property name="ValueTypeDescriptorId" column="ValueTypeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.TPDM.EducationServiceCenterExtension" table="EducationServiceCenterExtension" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="EducationServiceCenter">
-        <column name="EducationServiceCenterId" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="FederalLocaleCodeDescriptorId" column="FederalLocaleCodeDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
 
     <!-- Back references -->
 
@@ -4170,6 +3346,202 @@
 
 
     <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceReferenceData" table="FieldworkExperience" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="BeginDate" column="BeginDate" type="date"  />
+            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperience" table="FieldworkExperience" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+    <property name="FieldworkTypeDescriptorId" column="FieldworkTypeDescriptorId" type="int" not-null="true" />
+    <property name="HoursCompleted" column="HoursCompleted" type="decimal" />
+    <property name="ProgramGatewayDescriptorId" column="ProgramGatewayDescriptorId" type="int" />
+
+    <!-- One-to-one child mappings -->
+    <set name="FieldworkExperienceCoteaching" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="BeginDate" />
+        <column name="FieldworkIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching" />
+    </set>
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="FieldworkExperienceSchools" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="BeginDate" />
+        <column name="FieldworkIdentifier" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceCoteaching" table="FieldworkExperienceCoteaching" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="FieldworkExperience">
+        <column name="BeginDate" />
+        <column name="FieldworkIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="CoteachingBeginDate" column="CoteachingBeginDate" type="date" not-null="true" />
+    <property name="CoteachingEndDate" column="CoteachingEndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceSchool" table="FieldworkExperienceSchool" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-many-to-one name="FieldworkExperience">
+        <column name="BeginDate" />
+        <column name="FieldworkIdentifier" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggregate.TPDM.FieldworkExperienceSectionAssociationReferenceData" table="FieldworkExperienceSectionAssociation" lazy="true"  schema="tpdm" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="BeginDate" column="BeginDate" type="date"  />
+            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
+            <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
+            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
+            <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
+            <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggregate.TPDM.FieldworkExperienceSectionAssociation" table="FieldworkExperienceSectionAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
+      <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="SchoolYear" column="SchoolYear" type="short" />
+      <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
+      <key-property name="SessionName" column="SessionName" type="string" length="60" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="FieldworkExperienceReferenceData" class="EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM.FieldworkExperienceReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="BeginDate" />
+      <column name="FieldworkIdentifier" />
+      <column name="StudentUSI" />
+    </many-to-one>
+    <many-to-one name="SectionReferenceData" class="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="LocalCourseCode" />
+      <column name="SchoolId" />
+      <column name="SchoolYear" />
+      <column name="SectionIdentifier" />
+      <column name="SessionName" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM.GoalReferenceData" table="Goal" lazy="true"  schema="tpdm" >
         <!-- Composite primary key -->
         <composite-id>
@@ -4234,36 +3606,6 @@
       <column name="PersonId" />
       <column name="SourceSystemDescriptorId" />
     </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.GradebookEntryAggregate.TPDM.GradebookEntryExtension" table="GradebookEntryExtension" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="GradebookEntry">
-        <column name="DateAssigned" />
-        <column name="GradebookEntryTitle" />
-        <column name="LocalCourseCode" />
-        <column name="SchoolId" />
-        <column name="SchoolYear" />
-        <column name="SectionIdentifier" />
-        <column name="SessionName" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="ProgramGatewayDescriptorId" column="ProgramGatewayDescriptorId" type="int" />
-
-    <!-- Aggregate references -->
 
     <!-- Back references -->
 
@@ -5964,253 +5306,6 @@
     <property name="YearsOfExperienceAtCurrentEducationOrganization" column="YearsOfExperienceAtCurrentEducationOrganization" type="decimal" />
 
     <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkAbsenceEventAggregate.TPDM.StaffFieldworkAbsenceEventReferenceData" table="StaffFieldworkAbsenceEvent" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AbsenceEventCategoryDescriptorId" column="AbsenceEventCategoryDescriptorId" type="int"  />
-            <key-property name="EventDate" column="EventDate" type="date"  />
-            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkAbsenceEventAggregate.TPDM.StaffFieldworkAbsenceEvent" table="StaffFieldworkAbsenceEvent" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AbsenceEventCategoryDescriptorId" column="AbsenceEventCategoryDescriptorId" type="int" />
-      <key-property name="EventDate" column="EventDate" type="date" />
-      <key-property name="StaffUSI" column="StaffUSI" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AbsenceEventReason" column="AbsenceEventReason" type="string" length="255" />
-    <property name="HoursAbsent" column="HoursAbsent" type="decimal" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="StaffUSI" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceReferenceData" table="StaffFieldworkExperience" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
-            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperience" table="StaffFieldworkExperience" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
-      <key-property name="StaffUSI" column="StaffUSI" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-    <property name="FieldworkTypeDescriptorId" column="FieldworkTypeDescriptorId" type="int" not-null="true" />
-    <property name="HoursCompleted" column="HoursCompleted" type="decimal" />
-    <property name="ProgramGatewayDescriptorId" column="ProgramGatewayDescriptorId" type="int" />
-
-    <!-- One-to-one child mappings -->
-    <set name="StaffFieldworkExperienceCoteaching" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching" />
-    </set>
-
-    <!-- Aggregate references -->
-    <many-to-one name="StaffReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi.StaffReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="StaffUSI" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="StaffFieldworkExperienceSchools" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="StaffUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceCoteaching" table="StaffFieldworkExperienceCoteaching" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="StaffFieldworkExperience">
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="CoteachingBeginDate" column="CoteachingBeginDate" type="date" not-null="true" />
-    <property name="CoteachingEndDate" column="CoteachingEndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceSchool" table="StaffFieldworkExperienceSchool" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="SchoolId" column="SchoolId" type="int" />
-      <key-many-to-one name="StaffFieldworkExperience">
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="StaffUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="SchoolId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceSectionAssociationAggregate.TPDM.StaffFieldworkExperienceSectionAssociationReferenceData" table="StaffFieldworkExperienceSectionAssociation" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
-            <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
-            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
-            <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
-            <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
-            <key-property name="StaffUSI" column="StaffUSI" type="int"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceSectionAssociationAggregate.TPDM.StaffFieldworkExperienceSectionAssociation" table="StaffFieldworkExperienceSectionAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
-      <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
-      <key-property name="SchoolYear" column="SchoolYear" type="short" />
-      <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
-      <key-property name="SessionName" column="SessionName" type="string" length="60" />
-      <key-property name="StaffUSI" column="StaffUSI" type="int" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="SectionReferenceData" class="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="LocalCourseCode" />
-      <column name="SchoolId" />
-      <column name="SchoolYear" />
-      <column name="SectionIdentifier" />
-      <column name="SessionName" />
-    </many-to-one>
-    <many-to-one name="StaffFieldworkExperienceReferenceData" class="EdFi.Ods.Entities.NHibernate.StaffFieldworkExperienceAggregate.TPDM.StaffFieldworkExperienceReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="BeginDate" />
-      <column name="FieldworkIdentifier" />
-      <column name="StaffUSI" />
-    </many-to-one>
 
     <!-- Back references -->
 
@@ -8447,252 +7542,6 @@
     <property name="Credits" column="Credits" type="decimal" not-null="true" />
 
     <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkAbsenceEventAggregate.TPDM.TeacherCandidateFieldworkAbsenceEventReferenceData" table="TeacherCandidateFieldworkAbsenceEvent" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="AbsenceEventCategoryDescriptorId" column="AbsenceEventCategoryDescriptorId" type="int"  />
-            <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string"  length="32"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkAbsenceEventAggregate.TPDM.TeacherCandidateFieldworkAbsenceEvent" table="TeacherCandidateFieldworkAbsenceEvent" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="AbsenceEventCategoryDescriptorId" column="AbsenceEventCategoryDescriptorId" type="int" />
-      <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string" length="32" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="AbsenceEventReason" column="AbsenceEventReason" type="string" length="255" />
-    <property name="EventDate" column="EventDate" type="date" not-null="true" />
-    <property name="HoursAbsent" column="HoursAbsent" type="decimal" />
-
-    <!-- Aggregate references -->
-    <many-to-one name="TeacherCandidateReferenceData" class="EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="TeacherCandidateIdentifier" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceReferenceData" table="TeacherCandidateFieldworkExperience" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
-            <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string"  length="32"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperience" table="TeacherCandidateFieldworkExperience" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
-      <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string" length="32" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-    <property name="EndDate" column="EndDate" type="date" />
-    <property name="FieldworkTypeDescriptorId" column="FieldworkTypeDescriptorId" type="int" not-null="true" />
-    <property name="HoursCompleted" column="HoursCompleted" type="decimal" />
-    <property name="ProgramGatewayDescriptorId" column="ProgramGatewayDescriptorId" type="int" />
-
-    <!-- One-to-one child mappings -->
-    <set name="TeacherCandidateFieldworkExperienceCoteaching" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="TeacherCandidateIdentifier" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching" />
-    </set>
-
-    <!-- Aggregate references -->
-    <many-to-one name="TeacherCandidateReferenceData" class="EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="TeacherCandidateIdentifier" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="TeacherCandidateFieldworkExperienceSchools" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="TeacherCandidateIdentifier" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceCoteaching" table="TeacherCandidateFieldworkExperienceCoteaching" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-many-to-one name="TeacherCandidateFieldworkExperience">
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="TeacherCandidateIdentifier" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="CoteachingBeginDate" column="CoteachingBeginDate" type="date" not-null="true" />
-    <property name="CoteachingEndDate" column="CoteachingEndDate" type="date" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceSchool" table="TeacherCandidateFieldworkExperienceSchool" lazy="false" schema="tpdm">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="SchoolId" column="SchoolId" type="int" />
-      <key-many-to-one name="TeacherCandidateFieldworkExperience">
-        <column name="BeginDate" />
-        <column name="FieldworkIdentifier" />
-        <column name="TeacherCandidateIdentifier" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="SchoolId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-    <!-- Aggregate reference data class mapping -->
-    <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceSectionAssociationAggregate.TPDM.TeacherCandidateFieldworkExperienceSectionAssociationReferenceData" table="TeacherCandidateFieldworkExperienceSectionAssociation" lazy="true"  schema="tpdm" >
-        <!-- Composite primary key -->
-        <composite-id>
-            <key-property name="BeginDate" column="BeginDate" type="date"  />
-            <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string"  length="64"  />
-            <key-property name="LocalCourseCode" column="LocalCourseCode" type="string"  length="60"  />
-            <key-property name="SchoolId" column="SchoolId" type="int"  />
-            <key-property name="SchoolYear" column="SchoolYear" type="short"  />
-            <key-property name="SectionIdentifier" column="SectionIdentifier" type="string"  length="255"  />
-            <key-property name="SessionName" column="SessionName" type="string"  length="60"  />
-            <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string"  length="32"  />
-        </composite-id>
-
-        <property name="Id" column="Id" type="guid" insert="false" update="false" />
-
-        <!-- Readonly property to surface the discriminator value -->
-        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    </class>
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceSectionAssociationAggregate.TPDM.TeacherCandidateFieldworkExperienceSectionAssociation" table="TeacherCandidateFieldworkExperienceSectionAssociation" lazy="false" schema="tpdm" discriminator-value="NULL">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="BeginDate" column="BeginDate" type="date" />
-      <key-property name="FieldworkIdentifier" column="FieldworkIdentifier" type="string" length="64" />
-      <key-property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
-      <key-property name="SchoolYear" column="SchoolYear" type="short" />
-      <key-property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
-      <key-property name="SessionName" column="SessionName" type="string" length="60" />
-      <key-property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string" length="32" />
-    </composite-id>
-
-    <!-- Discriminator -->
-    <discriminator column="Discriminator" type="string" />
-
-    <!-- Optimistic locking for aggregate root -->
-    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
-
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-    <!-- Unique Guid-based identifier for aggregate root -->
-    <property name="Id" column="Id" type="guid" not-null="true" />
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="SectionReferenceData" class="EdFi.Ods.Entities.NHibernate.SectionAggregate.EdFi.SectionReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="LocalCourseCode" />
-      <column name="SchoolId" />
-      <column name="SchoolYear" />
-      <column name="SectionIdentifier" />
-      <column name="SessionName" />
-    </many-to-one>
-    <many-to-one name="TeacherCandidateFieldworkExperienceReferenceData" class="EdFi.Ods.Entities.NHibernate.TeacherCandidateFieldworkExperienceAggregate.TPDM.TeacherCandidateFieldworkExperienceReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="BeginDate" />
-      <column name="FieldworkIdentifier" />
-      <column name="TeacherCandidateIdentifier" />
-    </many-to-one>
 
     <!-- Back references -->
 
