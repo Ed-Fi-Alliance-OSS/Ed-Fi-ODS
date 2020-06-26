@@ -65,6 +65,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             container.Register(
                 Component.For<IDescriptorsCache>()
                          .ImplementedBy<DescriptorsCache>()
+                         .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", 60))
                          .LifestyleSingleton());
 
             IDescriptorsCache cache = null;
