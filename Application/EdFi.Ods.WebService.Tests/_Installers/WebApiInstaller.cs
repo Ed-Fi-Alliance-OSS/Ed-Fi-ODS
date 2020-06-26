@@ -96,8 +96,6 @@ namespace EdFi.Ods.WebService.Tests._Installers
                        .BasedOn<ApiController>()
                        .LifestyleScoped());
 
-           //container.Install(new SqlServerQueueSendOnlyInstaller());
-
             // TODO: GKM - IMPORTANT: Review these registrations from Muhammad's pull request
             container.Register(
                 Component.For<ISandboxProvisioner>()
