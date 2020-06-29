@@ -68,6 +68,11 @@
             }
             set
             {
+                {{#UsiProperty}}
+                if ({{UniqueIdFieldName}} != value)
+                        {{UsiFieldName}} = default({{CSharpDeclaredType}});
+                {{/UsiProperty}}
+
                 {{UniqueIdFieldName}} = value;
             }
         }
