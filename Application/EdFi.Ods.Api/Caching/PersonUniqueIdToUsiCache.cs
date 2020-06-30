@@ -328,7 +328,7 @@ namespace EdFi.Ods.Api.Caching
 
         private DateTime GetAbsoluteExpiration() => _absoluteExpirationPeriod == TimeSpan.Zero
             ? DateTime.MaxValue 
-            : DateTime.Now.Add(_absoluteExpirationPeriod);
+            : DateTime.UtcNow.Add(_absoluteExpirationPeriod);
 
         private static string GetPersonTypeIdentifiersCacheKey(string personType, string context)
         {
