@@ -83,7 +83,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
                 .Returns(1);
 
             return new DescriptorsCache(
-                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider, TimeSpan.FromSeconds(60));
+                MockDescriptorCacheDataProvider, CacheProvider, MockEdFiOdsInstanceIdentificationProvider);
         }
 
         [Test]
