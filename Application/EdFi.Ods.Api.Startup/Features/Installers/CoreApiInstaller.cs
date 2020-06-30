@@ -253,17 +253,15 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
 
         private void RegisterDescriptorCache(IWindsorContainer container)
         {
-            container.Register(Component.For<ConcurrentDictionaryCacheProvider>());
-
             var absoluteExpirationPeriod = TimeSpan.FromSeconds( 
                 Convert.ToInt32(_configValueProvider.GetValue(DescriptorCacheAbsoluteExpirationSecondsKey) ?? "60"));
+
+            var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider(absoluteExpirationPeriod);
 
             container.Register(
                 Component.For<IDescriptorsCache>()
                 .ImplementedBy<DescriptorsCache>()
-                .DependsOn(Dependency.OnComponent<ICacheProvider, ConcurrentDictionaryCacheProvider>())
-                .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", absoluteExpirationPeriod))
-                .LifestyleSingleton());
+                .DependsOn(Dependency.OnValue<ICacheProvider>(cacheProvider)));
         }
 
         private void RegisterAuthenticationProvider(IWindsorContainer container)

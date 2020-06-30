@@ -15,23 +15,18 @@ namespace EdFi.Ods.Api.Caching
     {
         private readonly IDictionary<string, object> _cacheDictionary = new ConcurrentDictionary<string, object>();
 
-        private Timer _timer;
-
         private readonly ILog _logger = LogManager.GetLogger(typeof(ExpiringConcurrentDictionaryCacheProvider));
 
+        private Timer _timer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExpiringConcurrentDictionaryCacheProvider" /> class using the
+        /// specified recurring expiration period.
+        /// </summary>
+        /// <param name="expirationPeriod">The recurring expiration period for all of the entries in the cache.</param>
         public ExpiringConcurrentDictionaryCacheProvider(TimeSpan expirationPeriod)
         {
-            _timer = new Timer(CacheExpired, null as object, expirationPeriod, expirationPeriod);
-        }
-
-        private void CacheExpired(object state)
-        {
-            if (_logger.IsDebugEnabled)
-            {
-                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider)} cache expired (all entries cleared).");
-            }
-            
-            _cacheDictionary.Clear();
+            _timer = new Timer(CacheExpired, null, expirationPeriod, expirationPeriod);
         }
 
         public bool TryGetCachedObject(string key, out object value)
@@ -47,6 +42,16 @@ namespace EdFi.Ods.Api.Caching
         public void Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             _cacheDictionary[key] = value;
+        }
+
+        private void CacheExpired(object state)
+        {
+            if (_logger.IsDebugEnabled)
+            {
+                _logger.Debug($"{nameof(ExpiringConcurrentDictionaryCacheProvider)} cache expired (all entries cleared).");
+            }
+
+            _cacheDictionary.Clear();
         }
     }
 }

@@ -64,11 +64,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
         protected virtual void RegisterIDescriptorCache(IWindsorContainer container)
         {
+            var absoluteExpirationPeriod = TimeSpan.FromMinutes(30);
+
+            var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider(absoluteExpirationPeriod);
+
             container.Register(
                 Component.For<IDescriptorsCache>()
-                         .ImplementedBy<DescriptorsCache>()
-                         .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", TimeSpan.FromSeconds(60)))
-                         .LifestyleSingleton());
+                    .ImplementedBy<DescriptorsCache>()
+                    .DependsOn(Dependency.OnValue<ICacheProvider>(cacheProvider)));
 
             IDescriptorsCache cache = null;
 
