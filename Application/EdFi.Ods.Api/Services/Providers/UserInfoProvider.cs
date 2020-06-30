@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Caching;
@@ -30,13 +31,14 @@ namespace EdFi.Ods.Api.Services.Providers
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<UserInfo> GetAuthenticatedUserContext()
+        public async Task<UserInfo> GetUserInfoAsync()
         {
             ApiKeyContext apiContext = _apiKeyContextProvider.GetApiKeyContext();
 
             using (var session = _sessionFactory.OpenStatelessSession())
             {
-                var columns = await session.CreateSQLQuery(ColumnsSql).ListAsync<string>();
+                var columns = await session.CreateSQLQuery(ColumnsSql)
+                    .ListAsync<string>(CancellationToken.None);
 
                 string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
@@ -46,7 +48,7 @@ namespace EdFi.Ods.Api.Services.Providers
                     await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, whereClause))
                         .SetParameter($"{EdOrIdsParameterName}", edOrgIds)
                         .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
-                        .ListAsync<EducationOrganizationIdentifiers>();
+                        .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
 
                 return UserInfo.Create(apiContext, educationOrganizationIdentifiers);
             }

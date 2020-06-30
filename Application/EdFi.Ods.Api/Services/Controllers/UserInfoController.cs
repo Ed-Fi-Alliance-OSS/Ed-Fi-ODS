@@ -6,6 +6,7 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Providers;
 
@@ -22,19 +23,21 @@ namespace EdFi.Ods.Api.Services.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> GetAsync()
         {
+            UserInfo userInfo = await _userInfoProvider.GetUserInfoAsync();
+
             HttpContext.Current.Response.Headers.Add("Cache-Control", "no-cache");
-            return Ok(await _userInfoProvider.GetAuthenticatedUserContext());
+            return Ok(userInfo);
         }
 
         [HttpPost]
-        public async Task<IHttpActionResult> Post()
+        public async Task<IHttpActionResult> PostAsync()
         {
             // post is required for OpenIdConnect, but we do not have any requirements at this point for OpenIdConnect
             // this is could in the future be a surrogate id of the api client id which is not available in the function.
             // for now we return a get based off the bearer token.
-            return await Get();
+            return await GetAsync();
         }
     }
 }

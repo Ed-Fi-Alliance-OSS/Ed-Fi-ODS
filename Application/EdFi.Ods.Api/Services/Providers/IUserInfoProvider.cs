@@ -10,6 +10,6 @@ namespace EdFi.Ods.Api.Services.Providers
 {
     public interface IUserInfoProvider
     {
-        Task<UserInfo> GetAuthenticatedUserContext();
+        Task<UserInfo> GetUserInfoAsync();
     }
 }

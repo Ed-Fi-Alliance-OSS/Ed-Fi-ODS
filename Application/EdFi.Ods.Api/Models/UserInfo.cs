@@ -14,25 +14,20 @@ namespace EdFi.Ods.Api.Models
     {
         public IEnumerable<object> EducationOrganizations { get; set; }
 
-        public IEnumerable<int> EducationOrganizationIds { get; set; }
-
         public string StudentIdentificationSystem { get; set; }
 
         public IEnumerable<string> AssignedProfiles { get; set; }
 
-        public IEnumerable<string> Namespaces { get; set; }
-
-        public string ClaimSet { get; set; }
+        public IEnumerable<string> NamespacePrefixes { get; set; }
 
         public static UserInfo Create(ApiKeyContext apiKeyContext,
             IList<EducationOrganizationIdentifiers> educationOrganizationIdentifiers)
         {
             return new UserInfo
             {
-                Namespaces = apiKeyContext.NamespacePrefixes,
+                NamespacePrefixes = apiKeyContext.NamespacePrefixes,
                 AssignedProfiles = apiKeyContext.Profiles,
                 StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
-                EducationOrganizationIds = apiKeyContext.EducationOrganizationIds,
                 EducationOrganizations = educationOrganizationIdentifiers
                     .Select(
                         x => new
@@ -49,6 +44,7 @@ namespace EdFi.Ods.Api.Models
                             x.NameOfInstitution,
                             type = x.FullEducationOrganizationType
                         })
+                    .ToArray()
             };
         }
     }
