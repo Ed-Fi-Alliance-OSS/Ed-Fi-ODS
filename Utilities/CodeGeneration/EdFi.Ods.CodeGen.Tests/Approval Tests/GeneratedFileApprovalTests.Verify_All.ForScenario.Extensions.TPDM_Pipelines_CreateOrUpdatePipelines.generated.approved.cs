@@ -5,6 +5,12 @@ using EdFi.Ods.Pipelines.Factories;
 namespace EdFi.Ods.Api.Pipelines.TPDM
 {
     [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor, Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM.AccreditationStatusDescriptor>
+    {
+        public AccreditationStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AidTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor, Entities.NHibernate.AidTypeDescriptorAggregate.TPDM.AidTypeDescriptor>
     {
         public AidTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -461,6 +467,12 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance, Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAggregate.TPDM.ProfessionalDevelopmentEventAttendance>
+    {
+        public ProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class ProfessionalDevelopmentOfferedByDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.ProfessionalDevelopmentOfferedByDescriptor.TPDM.ProfessionalDevelopmentOfferedByDescriptor, Entities.NHibernate.ProfessionalDevelopmentOfferedByDescriptorAggregate.TPDM.ProfessionalDevelopmentOfferedByDescriptor>
     {
         public ProfessionalDevelopmentOfferedByDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -476,12 +488,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class ProspectCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.Prospect.TPDM.Prospect, Entities.NHibernate.ProspectAggregate.TPDM.Prospect>
     {
         public ProspectCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.ProspectProfessionalDevelopmentEventAttendance.TPDM.ProspectProfessionalDevelopmentEventAttendance, Entities.NHibernate.ProspectProfessionalDevelopmentEventAttendanceAggregate.TPDM.ProspectProfessionalDevelopmentEventAttendance>
-    {
-        public ProspectProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -554,12 +560,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class StaffApplicantAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffApplicantAssociation.TPDM.StaffApplicantAssociation, Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM.StaffApplicantAssociation>
     {
         public StaffApplicantAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.StaffProfessionalDevelopmentEventAttendance.TPDM.StaffProfessionalDevelopmentEventAttendance, Entities.NHibernate.StaffProfessionalDevelopmentEventAttendanceAggregate.TPDM.StaffProfessionalDevelopmentEventAttendance>
-    {
-        public StaffProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -650,12 +650,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class TeacherCandidateCourseTranscriptCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.TeacherCandidateCourseTranscript.TPDM.TeacherCandidateCourseTranscript, Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate.TPDM.TeacherCandidateCourseTranscript>
     {
         public TeacherCandidateCourseTranscriptCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline : CreateOrUpdatePipeline<Models.Resources.TeacherCandidateProfessionalDevelopmentEventAttendance.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance, Entities.NHibernate.TeacherCandidateProfessionalDevelopmentEventAttendanceAggregate.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance>
-    {
-        public TeacherCandidateProfessionalDevelopmentEventAttendanceCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

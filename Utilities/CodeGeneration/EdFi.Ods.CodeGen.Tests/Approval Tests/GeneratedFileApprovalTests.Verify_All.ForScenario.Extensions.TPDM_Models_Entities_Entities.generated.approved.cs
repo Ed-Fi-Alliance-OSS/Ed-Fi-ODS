@@ -20,6 +20,237 @@ using EdFi.Ods.Entities.Common.TPDM;
 using EdFi.Ods.Entities.Common.Records.TPDM;
 using Newtonsoft.Json;
 
+// Aggregate: AccreditationStatusDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.AccreditationStatusDescriptor table of the AccreditationStatusDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
+        Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.Records.TPDM.IAccreditationStatusDescriptorRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int AccreditationStatusDescriptorId 
+        {
+            get { return base.DescriptorId; }
+            set { base.DescriptorId = value; }
+        }
+        
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        string IDescriptor.CodeValue
+        {
+            get { return CodeValue; }
+            set { CodeValue = value; }
+        }
+        string IDescriptor.Description
+        {
+            get { return Description; }
+            set { Description = value; }
+        }
+        DateTime? IDescriptor.EffectiveBeginDate
+        {
+            get { return EffectiveBeginDate; }
+            set { EffectiveBeginDate = value; }
+        }
+        DateTime? IDescriptor.EffectiveEndDate
+        {
+            get { return EffectiveEndDate; }
+            set { EffectiveEndDate = value; }
+        }
+        string IDescriptor.Namespace
+        {
+            get { return Namespace; }
+            set { Namespace = value; }
+        }
+        int? IDescriptor.PriorDescriptorId
+        {
+            get { return PriorDescriptorId; }
+            set { PriorDescriptorId = value; }
+        }
+        string IDescriptor.ShortDescription
+        {
+            get { return ShortDescription; }
+            set { ShortDescription = value; }
+        }
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("AccreditationStatusDescriptorId", AccreditationStatusDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IAccreditationStatusDescriptor)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IAccreditationStatusDescriptor) target, null);
+        }
+
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isCodeValueSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        {
+            get { return _isCodeValueSupported; }
+            set { _isCodeValueSupported = value; }
+        }
+
+        private bool _isDescriptionSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        {
+            get { return _isDescriptionSupported; }
+            set { _isDescriptionSupported = value; }
+        }
+
+        private bool _isEffectiveBeginDateSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        {
+            get { return _isEffectiveBeginDateSupported; }
+            set { _isEffectiveBeginDateSupported = value; }
+        }
+
+        private bool _isEffectiveEndDateSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        {
+            get { return _isEffectiveEndDateSupported; }
+            set { _isEffectiveEndDateSupported = value; }
+        }
+
+        private bool _isNamespaceSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        {
+            get { return _isNamespaceSupported; }
+            set { _isNamespaceSupported = value; }
+        }
+
+        private bool _isPriorDescriptorIdSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        {
+            get { return _isPriorDescriptorIdSupported; }
+            set { _isPriorDescriptorIdSupported = value; }
+        }
+
+        private bool _isShortDescriptionSupported = true;
+        bool Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        {
+            get { return _isShortDescriptionSupported; }
+            set { _isShortDescriptionSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+}
 // Aggregate: AidTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
@@ -6142,7 +6373,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string ApplicantIdentifier { get; set; }
-        public virtual int EducationOrganizationId { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
@@ -6164,7 +6394,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 
             // Add current key values
             keyValues.Add("ApplicantIdentifier", ApplicantIdentifier);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
 
             return keyValues;
         }
@@ -6238,16 +6467,13 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             ApplicantAids = new HashSet<ApplicantAid>();
             ApplicantBackgroundChecks = new HashSet<ApplicantBackgroundCheck>();
             ApplicantCharacteristics = new HashSet<ApplicantCharacteristic>();
-            ApplicantCredentials = new HashSet<ApplicantCredential>();
             ApplicantDisabilities = new HashSet<ApplicantDisability>();
             ApplicantElectronicMails = new HashSet<ApplicantElectronicMail>();
-            ApplicantGradePointAverages = new HashSet<ApplicantGradePointAverage>();
             ApplicantIdentificationDocuments = new HashSet<ApplicantIdentificationDocument>();
             ApplicantInternationalAddresses = new HashSet<ApplicantInternationalAddress>();
             ApplicantLanguages = new HashSet<ApplicantLanguage>();
             ApplicantPersonalIdentificationDocuments = new HashSet<ApplicantPersonalIdentificationDocument>();
             ApplicantRaces = new HashSet<ApplicantRace>();
-            ApplicantScoreResults = new HashSet<ApplicantScoreResult>();
             ApplicantStaffIdentificationCodes = new HashSet<ApplicantStaffIdentificationCode>();
             ApplicantTeacherPreparationPrograms = new HashSet<ApplicantTeacherPreparationProgram>();
             ApplicantTelephones = new HashSet<ApplicantTelephone>();
@@ -6261,8 +6487,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string ApplicantIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6367,75 +6591,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         }
         [StringLength(10), NoDangerousText]
         public virtual string GenerationCodeSuffix  { get; set; }
-        public virtual int? HighestCompletedLevelOfEducationDescriptorId 
-        {
-            get
-            {
-                if (_highestCompletedLevelOfEducationDescriptorId == default(int?))
-                    _highestCompletedLevelOfEducationDescriptorId = string.IsNullOrWhiteSpace(_highestCompletedLevelOfEducationDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("LevelOfEducationDescriptor", _highestCompletedLevelOfEducationDescriptor);
-
-                return _highestCompletedLevelOfEducationDescriptorId;
-            } 
-            set
-            {
-                _highestCompletedLevelOfEducationDescriptorId = value;
-                _highestCompletedLevelOfEducationDescriptor = null;
-            }
-        }
-
-        private int? _highestCompletedLevelOfEducationDescriptorId;
-        private string _highestCompletedLevelOfEducationDescriptor;
-
-        public virtual string HighestCompletedLevelOfEducationDescriptor
-        {
-            get
-            {
-                if (_highestCompletedLevelOfEducationDescriptor == null)
-                    _highestCompletedLevelOfEducationDescriptor = _highestCompletedLevelOfEducationDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("LevelOfEducationDescriptor", _highestCompletedLevelOfEducationDescriptorId.Value);
-                    
-                return _highestCompletedLevelOfEducationDescriptor;
-            }
-            set
-            {
-                _highestCompletedLevelOfEducationDescriptor = value;
-                _highestCompletedLevelOfEducationDescriptorId = default(int?);
-            }
-        }
-        public virtual int? HighlyQualifiedAcademicSubjectDescriptorId 
-        {
-            get
-            {
-                if (_highlyQualifiedAcademicSubjectDescriptorId == default(int?))
-                    _highlyQualifiedAcademicSubjectDescriptorId = string.IsNullOrWhiteSpace(_highlyQualifiedAcademicSubjectDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("AcademicSubjectDescriptor", _highlyQualifiedAcademicSubjectDescriptor);
-
-                return _highlyQualifiedAcademicSubjectDescriptorId;
-            } 
-            set
-            {
-                _highlyQualifiedAcademicSubjectDescriptorId = value;
-                _highlyQualifiedAcademicSubjectDescriptor = null;
-            }
-        }
-
-        private int? _highlyQualifiedAcademicSubjectDescriptorId;
-        private string _highlyQualifiedAcademicSubjectDescriptor;
-
-        public virtual string HighlyQualifiedAcademicSubjectDescriptor
-        {
-            get
-            {
-                if (_highlyQualifiedAcademicSubjectDescriptor == null)
-                    _highlyQualifiedAcademicSubjectDescriptor = _highlyQualifiedAcademicSubjectDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("AcademicSubjectDescriptor", _highlyQualifiedAcademicSubjectDescriptorId.Value);
-                    
-                return _highlyQualifiedAcademicSubjectDescriptor;
-            }
-            set
-            {
-                _highlyQualifiedAcademicSubjectDescriptor = value;
-                _highlyQualifiedAcademicSubjectDescriptorId = default(int?);
-            }
-        }
-        public virtual bool? HighlyQualifiedTeacher  { get; set; }
         public virtual bool? HispanicLatinoEthnicity  { get; set; }
         [RequiredWithNonDefault, StringLength(75), NoDangerousText]
         public virtual string LastSurname  { get; set; }
@@ -6519,10 +6674,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         }
         [StringLength(32), NoDangerousText]
         public virtual string TeacherCandidateIdentifier  { get; set; }
-        [Range(typeof(decimal), "-999.99", "999.99")]
-        public virtual decimal? YearsOfPriorProfessionalExperience  { get; set; }
-        [Range(typeof(decimal), "-999.99", "999.99")]
-        public virtual decimal? YearsOfPriorTeachingExperience  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -6538,26 +6689,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData EducationOrganizationReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IApplicant.EducationOrganizationDiscriminator
-        {
-            get { return EducationOrganizationReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the EducationOrganization resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IApplicant.EducationOrganizationResourceId
-        {
-            get { return EducationOrganizationReferenceData?.Id; }
-            set { }
-        }
-
         public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
 
         /// <summary>
@@ -6796,54 +6927,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         }
 
 
-        private ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantCredential> _applicantCredentials;
-        private ICollection<Entities.Common.TPDM.IApplicantCredential> _applicantCredentialsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantCredential> ApplicantCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantCredentials)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantCredentials;
-            }
-            set
-            {
-                _applicantCredentials = value;
-                _applicantCredentialsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IApplicantCredential, Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantCredential>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IApplicantCredential> Entities.Common.TPDM.IApplicant.ApplicantCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantCredentials)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantCredentialsCovariant;
-            }
-            set
-            {
-                ApplicantCredentials = new HashSet<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantCredential>(value.Cast<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantCredential>());
-            }
-        }
-
-
         private ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantDisability> _applicantDisabilities;
         private ICollection<Entities.Common.TPDM.IApplicantDisability> _applicantDisabilitiesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
@@ -6936,54 +7019,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set
             {
                 ApplicantElectronicMails = new HashSet<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantElectronicMail>(value.Cast<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantElectronicMail>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantGradePointAverage> _applicantGradePointAverages;
-        private ICollection<Entities.Common.TPDM.IApplicantGradePointAverage> _applicantGradePointAveragesCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantGradePointAverage> ApplicantGradePointAverages
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantGradePointAverages)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantGradePointAverages;
-            }
-            set
-            {
-                _applicantGradePointAverages = value;
-                _applicantGradePointAveragesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IApplicantGradePointAverage, Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantGradePointAverage>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IApplicantGradePointAverage> Entities.Common.TPDM.IApplicant.ApplicantGradePointAverages
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantGradePointAverages)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantGradePointAveragesCovariant;
-            }
-            set
-            {
-                ApplicantGradePointAverages = new HashSet<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantGradePointAverage>(value.Cast<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantGradePointAverage>());
             }
         }
 
@@ -7228,54 +7263,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         }
 
 
-        private ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantScoreResult> _applicantScoreResults;
-        private ICollection<Entities.Common.TPDM.IApplicantScoreResult> _applicantScoreResultsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantScoreResult> ApplicantScoreResults
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantScoreResults)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantScoreResults;
-            }
-            set
-            {
-                _applicantScoreResults = value;
-                _applicantScoreResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IApplicantScoreResult, Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantScoreResult>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IApplicantScoreResult> Entities.Common.TPDM.IApplicant.ApplicantScoreResults
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _applicantScoreResults)
-                    if (item.Applicant == null)
-                        item.Applicant = this;
-                // -------------------------------------------------------------
-
-                return _applicantScoreResultsCovariant;
-            }
-            set
-            {
-                ApplicantScoreResults = new HashSet<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantScoreResult>(value.Cast<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantScoreResult>());
-            }
-        }
-
-
         private ICollection<Entities.NHibernate.ApplicantAggregate.TPDM.ApplicantStaffIdentificationCode> _applicantStaffIdentificationCodes;
         private ICollection<Entities.Common.TPDM.IApplicantStaffIdentificationCode> _applicantStaffIdentificationCodesCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
@@ -7474,8 +7461,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             {
                 { "CitizenshipStatusDescriptor", new LookupColumnDetails { PropertyName = "CitizenshipStatusDescriptorId", LookupTypeName = "CitizenshipStatusDescriptor"} },
                 { "GenderDescriptor", new LookupColumnDetails { PropertyName = "GenderDescriptorId", LookupTypeName = "GenderDescriptor"} },
-                { "HighestCompletedLevelOfEducationDescriptor", new LookupColumnDetails { PropertyName = "HighestCompletedLevelOfEducationDescriptorId", LookupTypeName = "LevelOfEducationDescriptor"} },
-                { "HighlyQualifiedAcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "HighlyQualifiedAcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
                 { "SexDescriptor", new LookupColumnDetails { PropertyName = "SexDescriptorId", LookupTypeName = "SexDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
             };
@@ -7493,7 +7478,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 
             // Add current key values
             keyValues.Add("ApplicantIdentifier", ApplicantIdentifier);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
 
             return keyValues;
         }
@@ -7606,13 +7590,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { _isApplicantCharacteristicsSupported = value; }
         }
 
-        private bool _isApplicantCredentialsSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantCredentialsSupported
-        {
-            get { return _isApplicantCredentialsSupported; }
-            set { _isApplicantCredentialsSupported = value; }
-        }
-
         private bool _isApplicantDisabilitiesSupported = true;
         bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantDisabilitiesSupported
         {
@@ -7625,13 +7602,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return _isApplicantElectronicMailsSupported; }
             set { _isApplicantElectronicMailsSupported = value; }
-        }
-
-        private bool _isApplicantGradePointAveragesSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantGradePointAveragesSupported
-        {
-            get { return _isApplicantGradePointAveragesSupported; }
-            set { _isApplicantGradePointAveragesSupported = value; }
         }
 
         private bool _isApplicantIdentificationDocumentsSupported = true;
@@ -7667,13 +7637,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return _isApplicantRacesSupported; }
             set { _isApplicantRacesSupported = value; }
-        }
-
-        private bool _isApplicantScoreResultsSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantScoreResultsSupported
-        {
-            get { return _isApplicantScoreResultsSupported; }
-            set { _isApplicantScoreResultsSupported = value; }
         }
 
         private bool _isApplicantStaffIdentificationCodesSupported = true;
@@ -7753,27 +7716,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { _isGenerationCodeSuffixSupported = value; }
         }
 
-        private bool _isHighestCompletedLevelOfEducationDescriptorSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsHighestCompletedLevelOfEducationDescriptorSupported
-        {
-            get { return _isHighestCompletedLevelOfEducationDescriptorSupported; }
-            set { _isHighestCompletedLevelOfEducationDescriptorSupported = value; }
-        }
-
-        private bool _isHighlyQualifiedAcademicSubjectDescriptorSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsHighlyQualifiedAcademicSubjectDescriptorSupported
-        {
-            get { return _isHighlyQualifiedAcademicSubjectDescriptorSupported; }
-            set { _isHighlyQualifiedAcademicSubjectDescriptorSupported = value; }
-        }
-
-        private bool _isHighlyQualifiedTeacherSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsHighlyQualifiedTeacherSupported
-        {
-            get { return _isHighlyQualifiedTeacherSupported; }
-            set { _isHighlyQualifiedTeacherSupported = value; }
-        }
-
         private bool _isHispanicLatinoEthnicitySupported = true;
         bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsHispanicLatinoEthnicitySupported
         {
@@ -7844,20 +7786,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { _isTeacherCandidateIdentifierSupported = value; }
         }
 
-        private bool _isYearsOfPriorProfessionalExperienceSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsYearsOfPriorProfessionalExperienceSupported
-        {
-            get { return _isYearsOfPriorProfessionalExperienceSupported; }
-            set { _isYearsOfPriorProfessionalExperienceSupported = value; }
-        }
-
-        private bool _isYearsOfPriorTeachingExperienceSupported = true;
-        bool Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsYearsOfPriorTeachingExperienceSupported
-        {
-            get { return _isYearsOfPriorTeachingExperienceSupported; }
-            set { _isYearsOfPriorTeachingExperienceSupported = value; }
-        }
-
         private Func<Entities.Common.TPDM.IApplicantAddress, bool> _isApplicantAddressIncluded;
         Func<Entities.Common.TPDM.IApplicantAddress, bool> Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantAddressIncluded
         {
@@ -7886,13 +7814,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { _isApplicantCharacteristicIncluded = value; }
         }
 
-        private Func<Entities.Common.TPDM.IApplicantCredential, bool> _isApplicantCredentialIncluded;
-        Func<Entities.Common.TPDM.IApplicantCredential, bool> Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantCredentialIncluded
-        {
-            get { return _isApplicantCredentialIncluded; }
-            set { _isApplicantCredentialIncluded = value; }
-        }
-
         private Func<Entities.Common.TPDM.IApplicantDisability, bool> _isApplicantDisabilityIncluded;
         Func<Entities.Common.TPDM.IApplicantDisability, bool> Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantDisabilityIncluded
         {
@@ -7905,13 +7826,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return _isApplicantElectronicMailIncluded; }
             set { _isApplicantElectronicMailIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IApplicantGradePointAverage, bool> _isApplicantGradePointAverageIncluded;
-        Func<Entities.Common.TPDM.IApplicantGradePointAverage, bool> Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantGradePointAverageIncluded
-        {
-            get { return _isApplicantGradePointAverageIncluded; }
-            set { _isApplicantGradePointAverageIncluded = value; }
         }
 
         private Func<Entities.Common.TPDM.IApplicantIdentificationDocument, bool> _isApplicantIdentificationDocumentIncluded;
@@ -7947,13 +7861,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return _isApplicantRaceIncluded; }
             set { _isApplicantRaceIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IApplicantScoreResult, bool> _isApplicantScoreResultIncluded;
-        Func<Entities.Common.TPDM.IApplicantScoreResult, bool> Entities.Common.TPDM.IApplicantSynchronizationSourceSupport.IsApplicantScoreResultIncluded
-        {
-            get { return _isApplicantScoreResultIncluded; }
-            set { _isApplicantScoreResultIncluded = value; }
         }
 
         private Func<Entities.Common.TPDM.IApplicantStaffIdentificationCode, bool> _isApplicantStaffIdentificationCodeIncluded;
@@ -8022,12 +7929,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantAddressRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -8476,12 +8377,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantAddressRecord) ApplicantAddress).City = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantAddressPeriodRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantAddressRecord) ApplicantAddress).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantAddressRecord) ApplicantAddress).EducationOrganizationId = value; }
-        }
-
         string Entities.Common.Records.TPDM.IApplicantAddressPeriodRecord.PostalCode
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantAddressRecord) ApplicantAddress).PostalCode; }
@@ -8714,12 +8609,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantAidRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -8997,12 +8886,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantBackgroundCheckRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -9312,12 +9195,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantCharacteristicRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault]
         public virtual int StudentCharacteristicDescriptorId 
         {
@@ -9561,174 +9438,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the tpdm.ApplicantCredential table of the Applicant aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class ApplicantCredential : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IApplicantCredential, Entities.Common.Records.TPDM.IApplicantCredentialRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IApplicantCredentialSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public ApplicantCredential()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual Applicant Applicant { get; set; }
-
-        Entities.Common.TPDM.IApplicant IApplicantCredential.Applicant
-        {
-            get { return Applicant; }
-            set { Applicant = (Applicant) value; }
-        }
-
-        string Entities.Common.Records.TPDM.IApplicantCredentialRecord.ApplicantIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantCredentialRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string CredentialIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int StateOfIssueStateAbbreviationDescriptorId 
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptorId == default(int))
-                    _stateOfIssueStateAbbreviationDescriptorId = DescriptorsCache.GetCache().GetId("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptor);
-
-                return _stateOfIssueStateAbbreviationDescriptorId;
-            } 
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptorId = value;
-                _stateOfIssueStateAbbreviationDescriptor = null;
-            }
-        }
-
-        private int _stateOfIssueStateAbbreviationDescriptorId;
-        private string _stateOfIssueStateAbbreviationDescriptor;
-
-        public virtual string StateOfIssueStateAbbreviationDescriptor
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptor == null)
-                    _stateOfIssueStateAbbreviationDescriptor = DescriptorsCache.GetCache().GetValue("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptorId);
-                    
-                return _stateOfIssueStateAbbreviationDescriptor;
-            }
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptor = value;
-                _stateOfIssueStateAbbreviationDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.CredentialAggregate.EdFi.CredentialReferenceData CredentialReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Credential discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IApplicantCredential.CredentialDiscriminator
-        {
-            get { return CredentialReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Credential resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IApplicantCredential.CredentialResourceId
-        {
-            get { return CredentialReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "StateOfIssueStateAbbreviationDescriptor", new LookupColumnDetails { PropertyName = "StateOfIssueStateAbbreviationDescriptorId", LookupTypeName = "StateAbbreviationDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (Applicant as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("CredentialIdentifier", CredentialIdentifier);
-            keyValues.Add("StateOfIssueStateAbbreviationDescriptorId", StateOfIssueStateAbbreviationDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -9742,28 +9451,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -9773,36 +9460,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IApplicantCredential)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IApplicantCredential) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            Applicant = (Applicant) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
     /// A class which represents the tpdm.ApplicantDisability table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -10183,12 +9840,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantDisabilityRecord) ApplicantDisability).DisabilityDescriptorId = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantDisabilityDesignationRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantDisabilityRecord) ApplicantDisability).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantDisabilityRecord) ApplicantDisability).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault]
         public virtual int DisabilityDesignationDescriptorId 
         {
@@ -10403,12 +10054,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantElectronicMailRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault, StringLength(128), NoDangerousText, NoWhitespace]
         public virtual string ElectronicMailAddress  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -10608,156 +10253,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the tpdm.ApplicantGradePointAverage table of the Applicant aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class ApplicantGradePointAverage : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IApplicantGradePointAverage, Entities.Common.Records.TPDM.IApplicantGradePointAverageRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IApplicantGradePointAverageSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public ApplicantGradePointAverage()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual Applicant Applicant { get; set; }
-
-        Entities.Common.TPDM.IApplicant IApplicantGradePointAverage.Applicant
-        {
-            get { return Applicant; }
-            set { Applicant = (Applicant) value; }
-        }
-
-        string Entities.Common.Records.TPDM.IApplicantGradePointAverageRecord.ApplicantIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantGradePointAverageRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int GradePointAverageTypeDescriptorId 
-        {
-            get
-            {
-                if (_gradePointAverageTypeDescriptorId == default(int))
-                    _gradePointAverageTypeDescriptorId = DescriptorsCache.GetCache().GetId("GradePointAverageTypeDescriptor", _gradePointAverageTypeDescriptor);
-
-                return _gradePointAverageTypeDescriptorId;
-            } 
-            set
-            {
-                _gradePointAverageTypeDescriptorId = value;
-                _gradePointAverageTypeDescriptor = null;
-            }
-        }
-
-        private int _gradePointAverageTypeDescriptorId;
-        private string _gradePointAverageTypeDescriptor;
-
-        public virtual string GradePointAverageTypeDescriptor
-        {
-            get
-            {
-                if (_gradePointAverageTypeDescriptor == null)
-                    _gradePointAverageTypeDescriptor = DescriptorsCache.GetCache().GetValue("GradePointAverageTypeDescriptor", _gradePointAverageTypeDescriptorId);
-                    
-                return _gradePointAverageTypeDescriptor;
-            }
-            set
-            {
-                _gradePointAverageTypeDescriptor = value;
-                _gradePointAverageTypeDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
-        public virtual decimal GradePointAverageValue  { get; set; }
-        public virtual bool? IsCumulative  { get; set; }
-        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
-        public virtual decimal? MaxGradePointAverageValue  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "GradePointAverageTypeDescriptor", new LookupColumnDetails { PropertyName = "GradePointAverageTypeDescriptorId", LookupTypeName = "GradePointAverageTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (Applicant as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("GradePointAverageTypeDescriptorId", GradePointAverageTypeDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -10771,28 +10266,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -10802,57 +10275,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IApplicantGradePointAverage)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IApplicantGradePointAverage) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            Applicant = (Applicant) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isGradePointAverageValueSupported = true;
-        bool Entities.Common.TPDM.IApplicantGradePointAverageSynchronizationSourceSupport.IsGradePointAverageValueSupported
-        {
-            get { return _isGradePointAverageValueSupported; }
-            set { _isGradePointAverageValueSupported = value; }
-        }
-
-        private bool _isIsCumulativeSupported = true;
-        bool Entities.Common.TPDM.IApplicantGradePointAverageSynchronizationSourceSupport.IsIsCumulativeSupported
-        {
-            get { return _isIsCumulativeSupported; }
-            set { _isIsCumulativeSupported = value; }
-        }
-
-        private bool _isMaxGradePointAverageValueSupported = true;
-        bool Entities.Common.TPDM.IApplicantGradePointAverageSynchronizationSourceSupport.IsMaxGradePointAverageValueSupported
-        {
-            get { return _isMaxGradePointAverageValueSupported; }
-            set { _isMaxGradePointAverageValueSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
     /// A class which represents the tpdm.ApplicantIdentificationDocument table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -10884,12 +10306,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantIdentificationDocumentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -11236,12 +10652,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantInternationalAddressRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -11609,12 +11019,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantLanguageRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault]
         public virtual int LanguageDescriptorId 
         {
@@ -11890,12 +11294,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantLanguageRecord) ApplicantLanguage).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantLanguageUseRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantLanguageRecord) ApplicantLanguage).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantLanguageRecord) ApplicantLanguage).EducationOrganizationId = value; }
-        }
-
         int Entities.Common.Records.TPDM.IApplicantLanguageUseRecord.LanguageDescriptorId
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantLanguageRecord) ApplicantLanguage).LanguageDescriptorId; }
@@ -12114,12 +11512,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantPersonalIdentificationDocumentRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -12468,12 +11860,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantRaceRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault]
         public virtual int RaceDescriptorId 
         {
@@ -12654,189 +12040,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the tpdm.ApplicantScoreResult table of the Applicant aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class ApplicantScoreResult : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IApplicantScoreResult, Entities.Common.Records.TPDM.IApplicantScoreResultRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IApplicantScoreResultSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public ApplicantScoreResult()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual Applicant Applicant { get; set; }
-
-        Entities.Common.TPDM.IApplicant IApplicantScoreResult.Applicant
-        {
-            get { return Applicant; }
-            set { Applicant = (Applicant) value; }
-        }
-
-        string Entities.Common.Records.TPDM.IApplicantScoreResultRecord.ApplicantIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantScoreResultRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int AssessmentReportingMethodDescriptorId 
-        {
-            get
-            {
-                if (_assessmentReportingMethodDescriptorId == default(int))
-                    _assessmentReportingMethodDescriptorId = DescriptorsCache.GetCache().GetId("AssessmentReportingMethodDescriptor", _assessmentReportingMethodDescriptor);
-
-                return _assessmentReportingMethodDescriptorId;
-            } 
-            set
-            {
-                _assessmentReportingMethodDescriptorId = value;
-                _assessmentReportingMethodDescriptor = null;
-            }
-        }
-
-        private int _assessmentReportingMethodDescriptorId;
-        private string _assessmentReportingMethodDescriptor;
-
-        public virtual string AssessmentReportingMethodDescriptor
-        {
-            get
-            {
-                if (_assessmentReportingMethodDescriptor == null)
-                    _assessmentReportingMethodDescriptor = DescriptorsCache.GetCache().GetValue("AssessmentReportingMethodDescriptor", _assessmentReportingMethodDescriptorId);
-                    
-                return _assessmentReportingMethodDescriptor;
-            }
-            set
-            {
-                _assessmentReportingMethodDescriptor = value;
-                _assessmentReportingMethodDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault, StringLength(35), NoDangerousText]
-        public virtual string Result  { get; set; }
-        [RequiredWithNonDefault]
-        public virtual int ResultDatatypeTypeDescriptorId 
-        {
-            get
-            {
-                if (_resultDatatypeTypeDescriptorId == default(int))
-                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
-
-                return _resultDatatypeTypeDescriptorId;
-            } 
-            set
-            {
-                _resultDatatypeTypeDescriptorId = value;
-                _resultDatatypeTypeDescriptor = null;
-            }
-        }
-
-        private int _resultDatatypeTypeDescriptorId;
-        private string _resultDatatypeTypeDescriptor;
-
-        public virtual string ResultDatatypeTypeDescriptor
-        {
-            get
-            {
-                if (_resultDatatypeTypeDescriptor == null)
-                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
-                    
-                return _resultDatatypeTypeDescriptor;
-            }
-            set
-            {
-                _resultDatatypeTypeDescriptor = value;
-                _resultDatatypeTypeDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AssessmentReportingMethodDescriptor", new LookupColumnDetails { PropertyName = "AssessmentReportingMethodDescriptorId", LookupTypeName = "AssessmentReportingMethodDescriptor"} },
-                { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (Applicant as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("AssessmentReportingMethodDescriptorId", AssessmentReportingMethodDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -12850,28 +12053,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -12881,50 +12062,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IApplicantScoreResult)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IApplicantScoreResult) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            Applicant = (Applicant) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isResultSupported = true;
-        bool Entities.Common.TPDM.IApplicantScoreResultSynchronizationSourceSupport.IsResultSupported
-        {
-            get { return _isResultSupported; }
-            set { _isResultSupported = value; }
-        }
-
-        private bool _isResultDatatypeTypeDescriptorSupported = true;
-        bool Entities.Common.TPDM.IApplicantScoreResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
-        {
-            get { return _isResultDatatypeTypeDescriptorSupported; }
-            set { _isResultDatatypeTypeDescriptorSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
     /// A class which represents the tpdm.ApplicantStaffIdentificationCode table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -12956,12 +12093,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantStaffIdentificationCodeRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -13193,12 +12324,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantTeacherPreparationProgramRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
@@ -13502,12 +12627,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
         }
 
-        int Entities.Common.Records.TPDM.IApplicantTelephoneRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
-        }
-
         [DomainSignature, RequiredWithNonDefault, StringLength(24), NoDangerousText, NoWhitespace]
         public virtual string TelephoneNumber  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -13746,12 +12865,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantVisaRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -14337,7 +13450,9 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
 
         public Application()
         {
+            ApplicationGradePointAverages = new HashSet<ApplicationGradePointAverage>();
             ApplicationOpenStaffPositions = new HashSet<ApplicationOpenStaffPosition>();
+            ApplicationScoreResults = new HashSet<ApplicationScoreResult>();
             ApplicationTerms = new HashSet<ApplicationTerm>();
         }
 // restore warnings for inheritance from classes marked Obsolete
@@ -14516,6 +13631,75 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
 
         private DateTime? _firstContactDate;
         
+        public virtual int? HighestCompletedLevelOfEducationDescriptorId 
+        {
+            get
+            {
+                if (_highestCompletedLevelOfEducationDescriptorId == default(int?))
+                    _highestCompletedLevelOfEducationDescriptorId = string.IsNullOrWhiteSpace(_highestCompletedLevelOfEducationDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("LevelOfEducationDescriptor", _highestCompletedLevelOfEducationDescriptor);
+
+                return _highestCompletedLevelOfEducationDescriptorId;
+            } 
+            set
+            {
+                _highestCompletedLevelOfEducationDescriptorId = value;
+                _highestCompletedLevelOfEducationDescriptor = null;
+            }
+        }
+
+        private int? _highestCompletedLevelOfEducationDescriptorId;
+        private string _highestCompletedLevelOfEducationDescriptor;
+
+        public virtual string HighestCompletedLevelOfEducationDescriptor
+        {
+            get
+            {
+                if (_highestCompletedLevelOfEducationDescriptor == null)
+                    _highestCompletedLevelOfEducationDescriptor = _highestCompletedLevelOfEducationDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("LevelOfEducationDescriptor", _highestCompletedLevelOfEducationDescriptorId.Value);
+                    
+                return _highestCompletedLevelOfEducationDescriptor;
+            }
+            set
+            {
+                _highestCompletedLevelOfEducationDescriptor = value;
+                _highestCompletedLevelOfEducationDescriptorId = default(int?);
+            }
+        }
+        public virtual int? HighlyQualifiedAcademicSubjectDescriptorId 
+        {
+            get
+            {
+                if (_highlyQualifiedAcademicSubjectDescriptorId == default(int?))
+                    _highlyQualifiedAcademicSubjectDescriptorId = string.IsNullOrWhiteSpace(_highlyQualifiedAcademicSubjectDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("AcademicSubjectDescriptor", _highlyQualifiedAcademicSubjectDescriptor);
+
+                return _highlyQualifiedAcademicSubjectDescriptorId;
+            } 
+            set
+            {
+                _highlyQualifiedAcademicSubjectDescriptorId = value;
+                _highlyQualifiedAcademicSubjectDescriptor = null;
+            }
+        }
+
+        private int? _highlyQualifiedAcademicSubjectDescriptorId;
+        private string _highlyQualifiedAcademicSubjectDescriptor;
+
+        public virtual string HighlyQualifiedAcademicSubjectDescriptor
+        {
+            get
+            {
+                if (_highlyQualifiedAcademicSubjectDescriptor == null)
+                    _highlyQualifiedAcademicSubjectDescriptor = _highlyQualifiedAcademicSubjectDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("AcademicSubjectDescriptor", _highlyQualifiedAcademicSubjectDescriptorId.Value);
+                    
+                return _highlyQualifiedAcademicSubjectDescriptor;
+            }
+            set
+            {
+                _highlyQualifiedAcademicSubjectDescriptor = value;
+                _highlyQualifiedAcademicSubjectDescriptorId = default(int?);
+            }
+        }
+        public virtual bool? HighlyQualifiedTeacher  { get; set; }
         public virtual int? HighNeedsAcademicSubjectDescriptorId 
         {
             get
@@ -14672,6 +13856,10 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                 _withdrawReasonDescriptorId = default(int?);
             }
         }
+        [Range(typeof(decimal), "-999.99", "999.99")]
+        public virtual decimal? YearsOfPriorProfessionalExperience  { get; set; }
+        [Range(typeof(decimal), "-999.99", "999.99")]
+        public virtual decimal? YearsOfPriorTeachingExperience  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -14733,6 +13921,54 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                          Collections
         // -------------------------------------------------------------
 
+        private ICollection<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationGradePointAverage> _applicationGradePointAverages;
+        private ICollection<Entities.Common.TPDM.IApplicationGradePointAverage> _applicationGradePointAveragesCovariant;
+        [ValidateEnumerable, NoDuplicateMembers]
+        public virtual ICollection<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationGradePointAverage> ApplicationGradePointAverages
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _applicationGradePointAverages)
+                    if (item.Application == null)
+                        item.Application = this;
+                // -------------------------------------------------------------
+
+                return _applicationGradePointAverages;
+            }
+            set
+            {
+                _applicationGradePointAverages = value;
+                _applicationGradePointAveragesCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IApplicationGradePointAverage, Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationGradePointAverage>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.TPDM.IApplicationGradePointAverage> Entities.Common.TPDM.IApplication.ApplicationGradePointAverages
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _applicationGradePointAverages)
+                    if (item.Application == null)
+                        item.Application = this;
+                // -------------------------------------------------------------
+
+                return _applicationGradePointAveragesCovariant;
+            }
+            set
+            {
+                ApplicationGradePointAverages = new HashSet<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationGradePointAverage>(value.Cast<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationGradePointAverage>());
+            }
+        }
+
+
         private ICollection<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationOpenStaffPosition> _applicationOpenStaffPositions;
         private ICollection<Entities.Common.TPDM.IApplicationOpenStaffPosition> _applicationOpenStaffPositionsCovariant;
         [ValidateEnumerable, NoDuplicateMembers]
@@ -14777,6 +14013,54 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
             set
             {
                 ApplicationOpenStaffPositions = new HashSet<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationOpenStaffPosition>(value.Cast<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationOpenStaffPosition>());
+            }
+        }
+
+
+        private ICollection<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationScoreResult> _applicationScoreResults;
+        private ICollection<Entities.Common.TPDM.IApplicationScoreResult> _applicationScoreResultsCovariant;
+        [ValidateEnumerable, NoDuplicateMembers]
+        public virtual ICollection<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationScoreResult> ApplicationScoreResults
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // On-demand deserialization logic to attach reverse reference of children
+                // due to ServiceStack's lack of [OnDeserialized] attribute support.
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _applicationScoreResults)
+                    if (item.Application == null)
+                        item.Application = this;
+                // -------------------------------------------------------------
+
+                return _applicationScoreResults;
+            }
+            set
+            {
+                _applicationScoreResults = value;
+                _applicationScoreResultsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IApplicationScoreResult, Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationScoreResult>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.TPDM.IApplicationScoreResult> Entities.Common.TPDM.IApplication.ApplicationScoreResults
+        {
+            get
+            {
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (var item in _applicationScoreResults)
+                    if (item.Application == null)
+                        item.Application = this;
+                // -------------------------------------------------------------
+
+                return _applicationScoreResultsCovariant;
+            }
+            set
+            {
+                ApplicationScoreResults = new HashSet<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationScoreResult>(value.Cast<Entities.NHibernate.ApplicationAggregate.TPDM.ApplicationScoreResult>());
             }
         }
 
@@ -14836,6 +14120,8 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                 { "AcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "AcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
                 { "ApplicationSourceDescriptor", new LookupColumnDetails { PropertyName = "ApplicationSourceDescriptorId", LookupTypeName = "ApplicationSourceDescriptor"} },
                 { "ApplicationStatusDescriptor", new LookupColumnDetails { PropertyName = "ApplicationStatusDescriptorId", LookupTypeName = "ApplicationStatusDescriptor"} },
+                { "HighestCompletedLevelOfEducationDescriptor", new LookupColumnDetails { PropertyName = "HighestCompletedLevelOfEducationDescriptorId", LookupTypeName = "LevelOfEducationDescriptor"} },
+                { "HighlyQualifiedAcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "HighlyQualifiedAcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
                 { "HighNeedsAcademicSubjectDescriptor", new LookupColumnDetails { PropertyName = "HighNeedsAcademicSubjectDescriptorId", LookupTypeName = "AcademicSubjectDescriptor"} },
                 { "HireStatusDescriptor", new LookupColumnDetails { PropertyName = "HireStatusDescriptorId", LookupTypeName = "HireStatusDescriptor"} },
                 { "HiringSourceDescriptor", new LookupColumnDetails { PropertyName = "HiringSourceDescriptorId", LookupTypeName = "HiringSourceDescriptor"} },
@@ -14962,11 +14248,25 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
             set { _isApplicationDateSupported = value; }
         }
 
+        private bool _isApplicationGradePointAveragesSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationGradePointAveragesSupported
+        {
+            get { return _isApplicationGradePointAveragesSupported; }
+            set { _isApplicationGradePointAveragesSupported = value; }
+        }
+
         private bool _isApplicationOpenStaffPositionsSupported = true;
         bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationOpenStaffPositionsSupported
         {
             get { return _isApplicationOpenStaffPositionsSupported; }
             set { _isApplicationOpenStaffPositionsSupported = value; }
+        }
+
+        private bool _isApplicationScoreResultsSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationScoreResultsSupported
+        {
+            get { return _isApplicationScoreResultsSupported; }
+            set { _isApplicationScoreResultsSupported = value; }
         }
 
         private bool _isApplicationSourceDescriptorSupported = true;
@@ -15004,6 +14304,27 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
             set { _isFirstContactDateSupported = value; }
         }
 
+        private bool _isHighestCompletedLevelOfEducationDescriptorSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsHighestCompletedLevelOfEducationDescriptorSupported
+        {
+            get { return _isHighestCompletedLevelOfEducationDescriptorSupported; }
+            set { _isHighestCompletedLevelOfEducationDescriptorSupported = value; }
+        }
+
+        private bool _isHighlyQualifiedAcademicSubjectDescriptorSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsHighlyQualifiedAcademicSubjectDescriptorSupported
+        {
+            get { return _isHighlyQualifiedAcademicSubjectDescriptorSupported; }
+            set { _isHighlyQualifiedAcademicSubjectDescriptorSupported = value; }
+        }
+
+        private bool _isHighlyQualifiedTeacherSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsHighlyQualifiedTeacherSupported
+        {
+            get { return _isHighlyQualifiedTeacherSupported; }
+            set { _isHighlyQualifiedTeacherSupported = value; }
+        }
+
         private bool _isHighNeedsAcademicSubjectDescriptorSupported = true;
         bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsHighNeedsAcademicSubjectDescriptorSupported
         {
@@ -15039,6 +14360,27 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
             set { _isWithdrawReasonDescriptorSupported = value; }
         }
 
+        private bool _isYearsOfPriorProfessionalExperienceSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsYearsOfPriorProfessionalExperienceSupported
+        {
+            get { return _isYearsOfPriorProfessionalExperienceSupported; }
+            set { _isYearsOfPriorProfessionalExperienceSupported = value; }
+        }
+
+        private bool _isYearsOfPriorTeachingExperienceSupported = true;
+        bool Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsYearsOfPriorTeachingExperienceSupported
+        {
+            get { return _isYearsOfPriorTeachingExperienceSupported; }
+            set { _isYearsOfPriorTeachingExperienceSupported = value; }
+        }
+
+        private Func<Entities.Common.TPDM.IApplicationGradePointAverage, bool> _isApplicationGradePointAverageIncluded;
+        Func<Entities.Common.TPDM.IApplicationGradePointAverage, bool> Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationGradePointAverageIncluded
+        {
+            get { return _isApplicationGradePointAverageIncluded; }
+            set { _isApplicationGradePointAverageIncluded = value; }
+        }
+
         private Func<Entities.Common.TPDM.IApplicationOpenStaffPosition, bool> _isApplicationOpenStaffPositionIncluded;
         Func<Entities.Common.TPDM.IApplicationOpenStaffPosition, bool> Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationOpenStaffPositionIncluded
         {
@@ -15046,11 +14388,253 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
             set { _isApplicationOpenStaffPositionIncluded = value; }
         }
 
+        private Func<Entities.Common.TPDM.IApplicationScoreResult, bool> _isApplicationScoreResultIncluded;
+        Func<Entities.Common.TPDM.IApplicationScoreResult, bool> Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationScoreResultIncluded
+        {
+            get { return _isApplicationScoreResultIncluded; }
+            set { _isApplicationScoreResultIncluded = value; }
+        }
+
         private Func<Entities.Common.TPDM.IApplicationTerm, bool> _isApplicationTermIncluded;
         Func<Entities.Common.TPDM.IApplicationTerm, bool> Entities.Common.TPDM.IApplicationSynchronizationSourceSupport.IsApplicationTermIncluded
         {
             get { return _isApplicationTermIncluded; }
             set { _isApplicationTermIncluded = value; }
+        }
+
+        // -----------------------------------------
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.ApplicationGradePointAverage table of the Application aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class ApplicationGradePointAverage : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.IApplicationGradePointAverage, Entities.Common.Records.TPDM.IApplicationGradePointAverageRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IApplicationGradePointAverageSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public ApplicationGradePointAverage()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual Application Application { get; set; }
+
+        Entities.Common.TPDM.IApplication IApplicationGradePointAverage.Application
+        {
+            get { return Application; }
+            set { Application = (Application) value; }
+        }
+
+        string Entities.Common.Records.TPDM.IApplicationGradePointAverageRecord.ApplicantIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicantIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicantIdentifier = value; }
+        }
+
+        string Entities.Common.Records.TPDM.IApplicationGradePointAverageRecord.ApplicationIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicationIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicationIdentifier = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IApplicationGradePointAverageRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).EducationOrganizationId = value; }
+        }
+
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int GradePointAverageTypeDescriptorId 
+        {
+            get
+            {
+                if (_gradePointAverageTypeDescriptorId == default(int))
+                    _gradePointAverageTypeDescriptorId = DescriptorsCache.GetCache().GetId("GradePointAverageTypeDescriptor", _gradePointAverageTypeDescriptor);
+
+                return _gradePointAverageTypeDescriptorId;
+            } 
+            set
+            {
+                _gradePointAverageTypeDescriptorId = value;
+                _gradePointAverageTypeDescriptor = null;
+            }
+        }
+
+        private int _gradePointAverageTypeDescriptorId;
+        private string _gradePointAverageTypeDescriptor;
+
+        public virtual string GradePointAverageTypeDescriptor
+        {
+            get
+            {
+                if (_gradePointAverageTypeDescriptor == null)
+                    _gradePointAverageTypeDescriptor = DescriptorsCache.GetCache().GetValue("GradePointAverageTypeDescriptor", _gradePointAverageTypeDescriptorId);
+                    
+                return _gradePointAverageTypeDescriptor;
+            }
+            set
+            {
+                _gradePointAverageTypeDescriptor = value;
+                _gradePointAverageTypeDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
+        public virtual decimal GradePointAverageValue  { get; set; }
+        public virtual bool? IsCumulative  { get; set; }
+        [Range(typeof(decimal), "-99999999999999.9999", "99999999999999.9999")]
+        public virtual decimal? MaxGradePointAverageValue  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "GradePointAverageTypeDescriptor", new LookupColumnDetails { PropertyName = "GradePointAverageTypeDescriptorId", LookupTypeName = "GradePointAverageTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (Application as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("GradePointAverageTypeDescriptorId", GradePointAverageTypeDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IApplicationGradePointAverage)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IApplicationGradePointAverage) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            Application = (Application) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isGradePointAverageValueSupported = true;
+        bool Entities.Common.TPDM.IApplicationGradePointAverageSynchronizationSourceSupport.IsGradePointAverageValueSupported
+        {
+            get { return _isGradePointAverageValueSupported; }
+            set { _isGradePointAverageValueSupported = value; }
+        }
+
+        private bool _isIsCumulativeSupported = true;
+        bool Entities.Common.TPDM.IApplicationGradePointAverageSynchronizationSourceSupport.IsIsCumulativeSupported
+        {
+            get { return _isIsCumulativeSupported; }
+            set { _isIsCumulativeSupported = value; }
+        }
+
+        private bool _isMaxGradePointAverageValueSupported = true;
+        bool Entities.Common.TPDM.IApplicationGradePointAverageSynchronizationSourceSupport.IsMaxGradePointAverageValueSupported
+        {
+            get { return _isMaxGradePointAverageValueSupported; }
+            set { _isMaxGradePointAverageValueSupported = value; }
         }
 
         // -----------------------------------------
@@ -15263,6 +14847,267 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         // =========================================
         //        Synchronization Support
         // -----------------------------------------
+
+        // -----------------------------------------
+    }
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.ApplicationScoreResult table of the Application aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class ApplicationScoreResult : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.IApplicationScoreResult, Entities.Common.Records.TPDM.IApplicationScoreResultRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IApplicationScoreResultSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public ApplicationScoreResult()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual Application Application { get; set; }
+
+        Entities.Common.TPDM.IApplication IApplicationScoreResult.Application
+        {
+            get { return Application; }
+            set { Application = (Application) value; }
+        }
+
+        string Entities.Common.Records.TPDM.IApplicationScoreResultRecord.ApplicantIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicantIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicantIdentifier = value; }
+        }
+
+        string Entities.Common.Records.TPDM.IApplicationScoreResultRecord.ApplicationIdentifier
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicationIdentifier; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).ApplicationIdentifier = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IApplicationScoreResultRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IApplicationRecord) Application).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IApplicationRecord) Application).EducationOrganizationId = value; }
+        }
+
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int AssessmentReportingMethodDescriptorId 
+        {
+            get
+            {
+                if (_assessmentReportingMethodDescriptorId == default(int))
+                    _assessmentReportingMethodDescriptorId = DescriptorsCache.GetCache().GetId("AssessmentReportingMethodDescriptor", _assessmentReportingMethodDescriptor);
+
+                return _assessmentReportingMethodDescriptorId;
+            } 
+            set
+            {
+                _assessmentReportingMethodDescriptorId = value;
+                _assessmentReportingMethodDescriptor = null;
+            }
+        }
+
+        private int _assessmentReportingMethodDescriptorId;
+        private string _assessmentReportingMethodDescriptor;
+
+        public virtual string AssessmentReportingMethodDescriptor
+        {
+            get
+            {
+                if (_assessmentReportingMethodDescriptor == null)
+                    _assessmentReportingMethodDescriptor = DescriptorsCache.GetCache().GetValue("AssessmentReportingMethodDescriptor", _assessmentReportingMethodDescriptorId);
+                    
+                return _assessmentReportingMethodDescriptor;
+            }
+            set
+            {
+                _assessmentReportingMethodDescriptor = value;
+                _assessmentReportingMethodDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [RequiredWithNonDefault, StringLength(35), NoDangerousText]
+        public virtual string Result  { get; set; }
+        [RequiredWithNonDefault]
+        public virtual int ResultDatatypeTypeDescriptorId 
+        {
+            get
+            {
+                if (_resultDatatypeTypeDescriptorId == default(int))
+                    _resultDatatypeTypeDescriptorId = DescriptorsCache.GetCache().GetId("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptor);
+
+                return _resultDatatypeTypeDescriptorId;
+            } 
+            set
+            {
+                _resultDatatypeTypeDescriptorId = value;
+                _resultDatatypeTypeDescriptor = null;
+            }
+        }
+
+        private int _resultDatatypeTypeDescriptorId;
+        private string _resultDatatypeTypeDescriptor;
+
+        public virtual string ResultDatatypeTypeDescriptor
+        {
+            get
+            {
+                if (_resultDatatypeTypeDescriptor == null)
+                    _resultDatatypeTypeDescriptor = DescriptorsCache.GetCache().GetValue("ResultDatatypeTypeDescriptor", _resultDatatypeTypeDescriptorId);
+                    
+                return _resultDatatypeTypeDescriptor;
+            }
+            set
+            {
+                _resultDatatypeTypeDescriptor = value;
+                _resultDatatypeTypeDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "AssessmentReportingMethodDescriptor", new LookupColumnDetails { PropertyName = "AssessmentReportingMethodDescriptorId", LookupTypeName = "AssessmentReportingMethodDescriptor"} },
+                { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (Application as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("AssessmentReportingMethodDescriptorId", AssessmentReportingMethodDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IApplicationScoreResult)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IApplicationScoreResult) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            Application = (Application) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isResultSupported = true;
+        bool Entities.Common.TPDM.IApplicationScoreResultSynchronizationSourceSupport.IsResultSupported
+        {
+            get { return _isResultSupported; }
+            set { _isResultSupported = value; }
+        }
+
+        private bool _isResultDatatypeTypeDescriptorSupported = true;
+        bool Entities.Common.TPDM.IApplicationScoreResultSynchronizationSourceSupport.IsResultDatatypeTypeDescriptorSupported
+        {
+            get { return _isResultDatatypeTypeDescriptorSupported; }
+            set { _isResultDatatypeTypeDescriptorSupported = value; }
+        }
 
         // -----------------------------------------
     }
@@ -17692,7 +17537,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string CertificationIdentifier { get; set; }
-        public virtual string IssuerNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
@@ -17714,7 +17559,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationIdentifier", CertificationIdentifier);
-            keyValues.Add("IssuerNamespace", IssuerNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -17797,7 +17642,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string IssuerNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18300,7 +18145,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationIdentifier", CertificationIdentifier);
-            keyValues.Add("IssuerNamespace", IssuerNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -18543,16 +18388,16 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).CertificationIdentifier = value; }
         }
 
-        string Entities.Common.Records.TPDM.ICertificationCertificationExamRecord.IssuerNamespace
+        string Entities.Common.Records.TPDM.ICertificationCertificationExamRecord.Namespace
         {
-            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace; }
-            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace = value; }
+            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace; }
+            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string Namespace  { get; set; }
+        public virtual string ExamNamespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18623,7 +18468,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("ExamNamespace", ExamNamespace);
 
             return keyValues;
         }
@@ -18751,10 +18596,10 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).CertificationIdentifier = value; }
         }
 
-        string Entities.Common.Records.TPDM.ICertificationGradeLevelRecord.IssuerNamespace
+        string Entities.Common.Records.TPDM.ICertificationGradeLevelRecord.Namespace
         {
-            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace; }
-            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace = value; }
+            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace; }
+            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -18970,10 +18815,10 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
             set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).CertificationIdentifier = value; }
         }
 
-        string Entities.Common.Records.TPDM.ICertificationRouteRecord.IssuerNamespace
+        string Entities.Common.Records.TPDM.ICertificationRouteRecord.Namespace
         {
-            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace; }
-            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).IssuerNamespace = value; }
+            get { return ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace; }
+            set { ((Entities.Common.Records.TPDM.ICertificationRecord) Certification).Namespace = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -19166,7 +19011,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string Namespace { get; set; }
+        public virtual string ExamNamespace { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
@@ -19188,7 +19033,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("ExamNamespace", ExamNamespace);
 
             return keyValues;
         }
@@ -19268,7 +19113,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string Namespace  { get; set; }
+        public virtual string ExamNamespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -19417,7 +19262,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("ExamNamespace", ExamNamespace);
 
             return keyValues;
         }
@@ -19554,7 +19399,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         // -------------------------------------------------------------
         public virtual DateTime CertificationExamDate { get; set; }
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string Namespace { get; set; }
+        public virtual string ExamNamespace { get; set; }
         public virtual string PersonId { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -19579,7 +19424,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("ExamNamespace", ExamNamespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
@@ -19671,7 +19516,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string Namespace  { get; set; }
+        public virtual string ExamNamespace  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -19840,7 +19685,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("ExamNamespace", ExamNamespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
@@ -22453,7 +22298,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             }
         }
         [StringLength(255), NoDangerousText]
-        public virtual string IssuerNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         [RequiredWithNonDefault, StringLength(32), NoDangerousText]
         public virtual string PersonId  { get; set; }
         [RequiredWithNonDefault]
@@ -22736,11 +22581,11 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             set { _isCredentialStudentAcademicRecordsSupported = value; }
         }
 
-        private bool _isIssuerNamespaceSupported = true;
-        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsIssuerNamespaceSupported
+        private bool _isNamespaceSupported = true;
+        bool Entities.Common.TPDM.ICredentialExtensionSynchronizationSourceSupport.IsNamespaceSupported
         {
-            get { return _isIssuerNamespaceSupported; }
-            set { _isIssuerNamespaceSupported = value; }
+            get { return _isNamespaceSupported; }
+            set { _isNamespaceSupported = value; }
         }
 
         private bool _isPersonIdSupported = true;
@@ -25937,9 +25782,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -25961,9 +25809,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -26042,6 +25893,43 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -26081,6 +25969,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -26258,6 +26148,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "EvaluationTypeDescriptorId", LookupTypeName = "EvaluationTypeDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -26275,9 +26166,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -26438,6 +26332,18 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
             set { Evaluation = (Evaluation) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationRatingLevelRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationRatingLevelRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IEvaluationRatingLevelRecord.EvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).EvaluationTitle; }
@@ -26454,6 +26360,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationRatingLevelRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRecord) Evaluation).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationRatingLevelRecord.TermDescriptorId
@@ -26536,6 +26448,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -26671,11 +26584,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -26697,11 +26613,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -26780,10 +26699,47 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -26823,6 +26779,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -27000,6 +26958,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "EvaluationTypeDescriptorId", LookupTypeName = "EvaluationTypeDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -27017,11 +26976,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -27182,6 +27144,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
             set { EvaluationElement = (EvaluationElement) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EducationOrganizationId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.EvaluationElementTitle
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EvaluationElementTitle; }
@@ -27192,6 +27160,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EvaluationObjectiveTitle; }
             set { ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EvaluationObjectiveTitle = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.EvaluationTitle
@@ -27210,6 +27184,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRecord) EvaluationElement).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationElementRatingLevelRecord.TermDescriptorId
@@ -27292,6 +27272,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -27427,13 +27408,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -27456,13 +27440,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -27543,6 +27530,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -27556,6 +27545,41 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -27597,6 +27621,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -27833,6 +27859,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "EvaluationElementRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationElementRatingLevelDescriptorId", LookupTypeName = "EvaluationElementRatingLevelDescriptor"} },
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -27850,13 +27877,16 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -28025,6 +28055,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
             set { EvaluationElementRating = (EvaluationElementRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EducationOrganizationId = value; }
+        }
+
         DateTime Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.EvaluationDate
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EvaluationDate; }
@@ -28041,6 +28077,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EvaluationObjectiveTitle; }
             set { ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EvaluationObjectiveTitle = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.EvaluationTitle
@@ -28065,6 +28107,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationElementRatingRecord) EvaluationElementRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationElementRatingResultRecord.SourceSystemDescriptorId
@@ -28153,6 +28201,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -28530,10 +28579,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -28555,10 +28607,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -28637,8 +28692,45 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -28678,6 +28770,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -28855,6 +28949,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "EvaluationTypeDescriptorId", LookupTypeName = "EvaluationTypeDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -28872,10 +28967,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -29036,10 +29134,22 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
             set { EvaluationObjective = (EvaluationObjective) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EducationOrganizationId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.EvaluationObjectiveTitle
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EvaluationObjectiveTitle; }
             set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EvaluationObjectiveTitle = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.EvaluationTitle
@@ -29058,6 +29168,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRecord) EvaluationObjective).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingLevelRecord.TermDescriptorId
@@ -29140,6 +29256,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -29275,12 +29392,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -29303,12 +29423,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -29389,6 +29512,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -29400,6 +29525,41 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -29441,6 +29601,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -29670,6 +29832,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "ObjectiveRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "ObjectiveRatingLevelDescriptorId", LookupTypeName = "ObjectiveRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -29688,12 +29851,15 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -29841,6 +30007,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
             set { EvaluationObjectiveRating = (EvaluationObjectiveRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EducationOrganizationId = value; }
+        }
+
         DateTime Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.EvaluationDate
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EvaluationDate; }
@@ -29851,6 +30023,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EvaluationObjectiveTitle; }
             set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EvaluationObjectiveTitle = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.EvaluationTitle
@@ -29875,6 +30053,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationObjectiveRatingRecord) EvaluationObjectiveRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationObjectiveRatingResultRecord.SourceSystemDescriptorId
@@ -29963,6 +30147,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -30340,11 +30525,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -30367,11 +30555,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -30453,6 +30644,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -30462,6 +30655,41 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
 
         private DateTime _evaluationDate;
         
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -30503,6 +30731,8 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -30620,7 +30850,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         [StringLength(60), NoDangerousText]
         public virtual string LocalCourseCode  { get; set; }
         public virtual int? SchoolId  { get; set; }
-        public virtual short? SchoolYear  { get; set; }
         [StringLength(255), NoDangerousText]
         public virtual string SectionIdentifier  { get; set; }
         [StringLength(60), NoDangerousText]
@@ -30806,6 +31035,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -30824,11 +31054,14 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -30950,13 +31183,6 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { _isSchoolIdSupported = value; }
         }
 
-        private bool _isSchoolYearSupported = true;
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolYearSupported
-        {
-            get { return _isSchoolYearSupported; }
-            set { _isSchoolYearSupported = value; }
-        }
-
         private bool _isSectionIdentifierSupported = true;
         bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported
         {
@@ -31018,10 +31244,22 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { EvaluationRating = (EvaluationRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EducationOrganizationId = value; }
+        }
+
         DateTime Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.EvaluationDate
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationDate; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationDate = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.EvaluationTitle
@@ -31046,6 +31284,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationRatingResultRecord.SourceSystemDescriptorId
@@ -31134,6 +31378,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -31283,10 +31528,22 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { EvaluationRating = (EvaluationRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EducationOrganizationId = value; }
+        }
+
         DateTime Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.EvaluationDate
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationDate; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationDate = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.EvaluationTitle
@@ -31311,6 +31568,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingRecord) EvaluationRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord.SourceSystemDescriptorId
@@ -31443,6 +31706,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -31590,10 +31854,22 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             set { EvaluationRatingReviewer = (EvaluationRatingReviewer) value; }
         }
 
+        int Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EducationOrganizationId = value; }
+        }
+
         DateTime Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.EvaluationDate
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EvaluationDate; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EvaluationDate = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).EvaluationPeriodDescriptorId = value; }
         }
 
         string Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.EvaluationTitle
@@ -31630,6 +31906,12 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).PersonId; }
             set { ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IEvaluationRatingReviewerRecord) EvaluationRatingReviewer).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IEvaluationRatingReviewerReceivedTrainingRecord.SourceSystemDescriptorId
@@ -31700,6 +31982,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -34899,10 +35182,45 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
 
         private DateTime? _dueDate;
         
+        public virtual int? EducationOrganizationId  { get; set; }
         [StringLength(255), NoDangerousText]
         public virtual string EvaluationElementTitle  { get; set; }
         [StringLength(50), NoDangerousText]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        public virtual int? EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int?))
+                    _evaluationPeriodDescriptorId = string.IsNullOrWhiteSpace(_evaluationPeriodDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int? _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = _evaluationPeriodDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId.Value);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int?);
+            }
+        }
         [StringLength(50), NoDangerousText]
         public virtual string EvaluationTitle  { get; set; }
         [StringLength(1024), NoDangerousText]
@@ -34977,6 +35295,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int?);
             }
         }
+        public virtual short? SchoolYear  { get; set; }
         public virtual int? TermDescriptorId 
         {
             get
@@ -35076,6 +35395,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "GoalTypeDescriptor", new LookupColumnDetails { PropertyName = "GoalTypeDescriptorId", LookupTypeName = "GoalTypeDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -35210,6 +35530,13 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
             set { _isDueDateSupported = value; }
         }
 
+        private bool _isEducationOrganizationIdSupported = true;
+        bool Entities.Common.TPDM.IGoalSynchronizationSourceSupport.IsEducationOrganizationIdSupported
+        {
+            get { return _isEducationOrganizationIdSupported; }
+            set { _isEducationOrganizationIdSupported = value; }
+        }
+
         private bool _isEvaluationElementTitleSupported = true;
         bool Entities.Common.TPDM.IGoalSynchronizationSourceSupport.IsEvaluationElementTitleSupported
         {
@@ -35222,6 +35549,13 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
         {
             get { return _isEvaluationObjectiveTitleSupported; }
             set { _isEvaluationObjectiveTitleSupported = value; }
+        }
+
+        private bool _isEvaluationPeriodDescriptorSupported = true;
+        bool Entities.Common.TPDM.IGoalSynchronizationSourceSupport.IsEvaluationPeriodDescriptorSupported
+        {
+            get { return _isEvaluationPeriodDescriptorSupported; }
+            set { _isEvaluationPeriodDescriptorSupported = value; }
         }
 
         private bool _isEvaluationTitleSupported = true;
@@ -35257,6 +35591,13 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
         {
             get { return _isPerformanceEvaluationTypeDescriptorSupported; }
             set { _isPerformanceEvaluationTypeDescriptorSupported = value; }
+        }
+
+        private bool _isSchoolYearSupported = true;
+        bool Entities.Common.TPDM.IGoalSynchronizationSourceSupport.IsSchoolYearSupported
+        {
+            get { return _isSchoolYearSupported; }
+            set { _isSchoolYearSupported = value; }
         }
 
         private bool _isTermDescriptorSupported = true;
@@ -35618,7 +35959,7 @@ namespace EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.TPDM
             }
         }
         [StringLength(255), NoDangerousText]
-        public virtual string IssuerNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -35783,11 +36124,11 @@ namespace EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.TPDM
             set { _isCertificationRouteDescriptorSupported = value; }
         }
 
-        private bool _isIssuerNamespaceSupported = true;
-        bool Entities.Common.TPDM.IGraduationPlanRequiredCertificationSynchronizationSourceSupport.IsIssuerNamespaceSupported
+        private bool _isNamespaceSupported = true;
+        bool Entities.Common.TPDM.IGraduationPlanRequiredCertificationSynchronizationSourceSupport.IsNamespaceSupported
         {
-            get { return _isIssuerNamespaceSupported; }
-            set { _isIssuerNamespaceSupported = value; }
+            get { return _isNamespaceSupported; }
+            set { _isNamespaceSupported = value; }
         }
 
         // -----------------------------------------
@@ -39103,8 +39444,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -39126,8 +39470,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -39208,6 +39555,43 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -39245,6 +39629,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int);
             }
         }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -39324,45 +39710,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                 _academicSubjectDescriptorId = default(int?);
             }
         }
-        [RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
-        [RequiredWithNonDefault]
-        public virtual int EvaluationPeriodDescriptorId 
-        {
-            get
-            {
-                if (_evaluationPeriodDescriptorId == default(int))
-                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
-
-                return _evaluationPeriodDescriptorId;
-            } 
-            set
-            {
-                _evaluationPeriodDescriptorId = value;
-                _evaluationPeriodDescriptor = null;
-            }
-        }
-
-        private int _evaluationPeriodDescriptorId;
-        private string _evaluationPeriodDescriptor;
-
-        public virtual string EvaluationPeriodDescriptor
-        {
-            get
-            {
-                if (_evaluationPeriodDescriptor == null)
-                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
-                    
-                return _evaluationPeriodDescriptor;
-            }
-            set
-            {
-                _evaluationPeriodDescriptor = value;
-                _evaluationPeriodDescriptorId = default(int);
-            }
-        }
-        [RequiredWithNonDefault]
-        public virtual short SchoolYear  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -39581,8 +39928,11 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -39675,20 +40025,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set { _isAcademicSubjectDescriptorSupported = value; }
         }
 
-        private bool _isEducationOrganizationIdSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsEducationOrganizationIdSupported
-        {
-            get { return _isEducationOrganizationIdSupported; }
-            set { _isEducationOrganizationIdSupported = value; }
-        }
-
-        private bool _isEvaluationPeriodDescriptorSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsEvaluationPeriodDescriptorSupported
-        {
-            get { return _isEvaluationPeriodDescriptorSupported; }
-            set { _isEvaluationPeriodDescriptorSupported = value; }
-        }
-
         private bool _isPerformanceEvaluationGradeLevelsSupported = true;
         bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsPerformanceEvaluationGradeLevelsSupported
         {
@@ -39708,13 +40044,6 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         {
             get { return _isPerformanceEvaluationRatingLevelsSupported; }
             set { _isPerformanceEvaluationRatingLevelsSupported = value; }
-        }
-
-        private bool _isSchoolYearSupported = true;
-        bool Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport.IsSchoolYearSupported
-        {
-            get { return _isSchoolYearSupported; }
-            set { _isSchoolYearSupported = value; }
         }
 
         private Func<Entities.Common.TPDM.IPerformanceEvaluationGradeLevel, bool> _isPerformanceEvaluationGradeLevelIncluded;
@@ -39771,6 +40100,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set { PerformanceEvaluation = (PerformanceEvaluation) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationGradeLevelRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationGradeLevelRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationGradeLevelRecord.PerformanceEvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTitle; }
@@ -39781,6 +40122,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationGradeLevelRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationGradeLevelRecord.TermDescriptorId
@@ -39859,6 +40206,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "GradeLevelDescriptor", new LookupColumnDetails { PropertyName = "GradeLevelDescriptorId", LookupTypeName = "GradeLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -39998,6 +40346,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set { PerformanceEvaluation = (PerformanceEvaluation) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationProgramGatewayRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationProgramGatewayRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationProgramGatewayRecord.PerformanceEvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTitle; }
@@ -40008,6 +40368,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationProgramGatewayRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationProgramGatewayRecord.TermDescriptorId
@@ -40086,6 +40452,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "ProgramGatewayDescriptor", new LookupColumnDetails { PropertyName = "ProgramGatewayDescriptorId", LookupTypeName = "ProgramGatewayDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -40225,6 +40592,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
             set { PerformanceEvaluation = (PerformanceEvaluation) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingLevelRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingLevelRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationRatingLevelRecord.PerformanceEvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTitle; }
@@ -40235,6 +40614,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).PerformanceEvaluationTypeDescriptorId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationRatingLevelRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRecord) PerformanceEvaluation).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingLevelRecord.TermDescriptorId
@@ -40317,6 +40702,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -40452,9 +40838,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -40477,9 +40866,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -40560,6 +40952,43 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string PerformanceEvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -40599,6 +41028,8 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -40944,6 +41375,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "CoteachingStyleObservedDescriptor", new LookupColumnDetails { PropertyName = "CoteachingStyleObservedDescriptorId", LookupTypeName = "CoteachingStyleObservedDescriptor"} },
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationRatingLevelDescriptorId", LookupTypeName = "PerformanceEvaluationRatingLevelDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -40962,9 +41394,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -41168,6 +41603,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set { PerformanceEvaluationRating = (PerformanceEvaluationRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingResultRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingResultRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationRatingResultRecord.PerformanceEvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PerformanceEvaluationTitle; }
@@ -41184,6 +41631,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationRatingResultRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingResultRecord.SourceSystemDescriptorId
@@ -41272,6 +41725,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "ResultDatatypeTypeDescriptor", new LookupColumnDetails { PropertyName = "ResultDatatypeTypeDescriptorId", LookupTypeName = "ResultDatatypeTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
@@ -41421,6 +41875,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set { PerformanceEvaluationRating = (PerformanceEvaluationRating) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord.PerformanceEvaluationTitle
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PerformanceEvaluationTitle; }
@@ -41437,6 +41903,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PersonId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingRecord) PerformanceEvaluationRating).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord.SourceSystemDescriptorId
@@ -41569,6 +42041,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -41716,6 +42189,18 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             set { PerformanceEvaluationRatingReviewer = (PerformanceEvaluationRatingReviewer) value; }
         }
 
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingRecord.EducationOrganizationId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).EducationOrganizationId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).EducationOrganizationId = value; }
+        }
+
+        int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingRecord.EvaluationPeriodDescriptorId
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).EvaluationPeriodDescriptorId; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).EvaluationPeriodDescriptorId = value; }
+        }
+
         string Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingRecord.FirstName
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).FirstName; }
@@ -41744,6 +42229,12 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).PersonId; }
             set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).PersonId = value; }
+        }
+
+        short Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingRecord.SchoolYear
+        {
+            get { return ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).SchoolYear; }
+            set { ((Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerRecord) PerformanceEvaluationRatingReviewer).SchoolYear = value; }
         }
 
         int Entities.Common.Records.TPDM.IPerformanceEvaluationRatingReviewerReceivedTrainingRecord.SourceSystemDescriptorId
@@ -41814,6 +42305,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -42912,6 +43404,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual string Namespace { get; set; }
         public virtual string ProfessionalDevelopmentTitle { get; set; }
         // -------------------------------------------------------------
 
@@ -42933,6 +43426,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
 
             return keyValues;
@@ -43010,6 +43504,8 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
+        public virtual string Namespace  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string ProfessionalDevelopmentTitle  { get; set; }
         // -------------------------------------------------------------
@@ -43102,6 +43598,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
 
             return keyValues;
@@ -43220,6 +43717,393 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
         {
             get { return _isTotalHoursSupported; }
             set { _isTotalHoursSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+}
+// Aggregate: ProfessionalDevelopmentEventAttendance
+
+namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAggregate.TPDM
+{
+    /// <summary>
+    /// Represents a read-only reference to the <see cref="ProfessionalDevelopmentEventAttendance"/> entity.
+    /// </summary>
+    public class ProfessionalDevelopmentEventAttendanceReferenceData : IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        public virtual DateTime AttendanceDate { get; set; }
+        public virtual string Namespace { get; set; }
+        public virtual string PersonId { get; set; }
+        public virtual string ProfessionalDevelopmentTitle { get; set; }
+        public virtual int SourceSystemDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The id of the referenced entity (used as the resource identifier in the API).
+        /// </summary>
+        public virtual Guid? Id { get; set; }
+
+        /// <summary>
+        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
+        /// when that entity has been derived; otherwise <b>null</b>.
+        /// </summary>
+        public virtual string Discriminator { get; set; }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("AttendanceDate", AttendanceDate);
+            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("PersonId", PersonId);
+            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
+            keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+    }
+
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.ProfessionalDevelopmentEventAttendance table of the ProfessionalDevelopmentEventAttendance aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendance : AggregateRootWithCompositeKey,
+        Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance, Entities.Common.Records.TPDM.IProfessionalDevelopmentEventAttendanceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public ProfessionalDevelopmentEventAttendance()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual DateTime AttendanceDate 
+        {
+            get { return _attendanceDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _attendanceDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _attendanceDate;
+        
+        [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
+        public virtual string Namespace  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
+        public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        public virtual string ProfessionalDevelopmentTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int SourceSystemDescriptorId 
+        {
+            get
+            {
+                if (_sourceSystemDescriptorId == default(int))
+                    _sourceSystemDescriptorId = DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _sourceSystemDescriptor);
+
+                return _sourceSystemDescriptorId;
+            } 
+            set
+            {
+                _sourceSystemDescriptorId = value;
+                _sourceSystemDescriptor = null;
+            }
+        }
+
+        private int _sourceSystemDescriptorId;
+        private string _sourceSystemDescriptor;
+
+        public virtual string SourceSystemDescriptor
+        {
+            get
+            {
+                if (_sourceSystemDescriptor == null)
+                    _sourceSystemDescriptor = DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _sourceSystemDescriptorId);
+                    
+                return _sourceSystemDescriptor;
+            }
+            set
+            {
+                _sourceSystemDescriptor = value;
+                _sourceSystemDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [RequiredWithNonDefault]
+        public virtual int AttendanceEventCategoryDescriptorId 
+        {
+            get
+            {
+                if (_attendanceEventCategoryDescriptorId == default(int))
+                    _attendanceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptor);
+
+                return _attendanceEventCategoryDescriptorId;
+            } 
+            set
+            {
+                _attendanceEventCategoryDescriptorId = value;
+                _attendanceEventCategoryDescriptor = null;
+            }
+        }
+
+        private int _attendanceEventCategoryDescriptorId;
+        private string _attendanceEventCategoryDescriptor;
+
+        public virtual string AttendanceEventCategoryDescriptor
+        {
+            get
+            {
+                if (_attendanceEventCategoryDescriptor == null)
+                    _attendanceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptorId);
+                    
+                return _attendanceEventCategoryDescriptor;
+            }
+            set
+            {
+                _attendanceEventCategoryDescriptor = value;
+                _attendanceEventCategoryDescriptorId = default(int);
+            }
+        }
+        [StringLength(255), NoDangerousText]
+        public virtual string AttendanceEventReason  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance.PersonDiscriminator
+        {
+            get { return PersonReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance.PersonResourceId
+        {
+            get { return PersonReferenceData?.Id; }
+            set { }
+        }
+
+        public virtual NHibernate.ProfessionalDevelopmentEventAggregate.TPDM.ProfessionalDevelopmentEventReferenceData ProfessionalDevelopmentEventReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the ProfessionalDevelopmentEvent discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventDiscriminator
+        {
+            get { return ProfessionalDevelopmentEventReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the ProfessionalDevelopmentEvent resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventResourceId
+        {
+            get { return ProfessionalDevelopmentEventReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "AttendanceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AttendanceEventCategoryDescriptorId", LookupTypeName = "AttendanceEventCategoryDescriptor"} },
+                { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("AttendanceDate", AttendanceDate);
+            keyValues.Add("Namespace", Namespace);
+            keyValues.Add("PersonId", PersonId);
+            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
+            keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance) target, null);
+        }
+
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isAttendanceEventCategoryDescriptorSupported = true;
+        bool Entities.Common.TPDM.IProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventCategoryDescriptorSupported
+        {
+            get { return _isAttendanceEventCategoryDescriptorSupported; }
+            set { _isAttendanceEventCategoryDescriptorSupported = value; }
+        }
+
+        private bool _isAttendanceEventReasonSupported = true;
+        bool Entities.Common.TPDM.IProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventReasonSupported
+        {
+            get { return _isAttendanceEventReasonSupported; }
+            set { _isAttendanceEventReasonSupported = value; }
         }
 
         // -----------------------------------------
@@ -43827,7 +44711,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
            ProspectAidPersistentList = new HashSet<ProspectAid>();
            ProspectCurrentPositionPersistentList = new HashSet<ProspectCurrentPosition>();
            ProspectQualificationsPersistentList = new HashSet<ProspectQualifications>();
-            ProspectCredentials = new HashSet<ProspectCredential>();
             ProspectDisabilities = new HashSet<ProspectDisability>();
             ProspectPersonalIdentificationDocuments = new HashSet<ProspectPersonalIdentificationDocument>();
             ProspectRaces = new HashSet<ProspectRace>();
@@ -44281,54 +45164,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //=============================================================
         //                          Collections
         // -------------------------------------------------------------
-
-        private ICollection<Entities.NHibernate.ProspectAggregate.TPDM.ProspectCredential> _prospectCredentials;
-        private ICollection<Entities.Common.TPDM.IProspectCredential> _prospectCredentialsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.ProspectAggregate.TPDM.ProspectCredential> ProspectCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _prospectCredentials)
-                    if (item.Prospect == null)
-                        item.Prospect = this;
-                // -------------------------------------------------------------
-
-                return _prospectCredentials;
-            }
-            set
-            {
-                _prospectCredentials = value;
-                _prospectCredentialsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.IProspectCredential, Entities.NHibernate.ProspectAggregate.TPDM.ProspectCredential>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.IProspectCredential> Entities.Common.TPDM.IProspect.ProspectCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _prospectCredentials)
-                    if (item.Prospect == null)
-                        item.Prospect = this;
-                // -------------------------------------------------------------
-
-                return _prospectCredentialsCovariant;
-            }
-            set
-            {
-                ProspectCredentials = new HashSet<Entities.NHibernate.ProspectAggregate.TPDM.ProspectCredential>(value.Cast<Entities.NHibernate.ProspectAggregate.TPDM.ProspectCredential>());
-            }
-        }
-
 
         private ICollection<Entities.NHibernate.ProspectAggregate.TPDM.ProspectDisability> _prospectDisabilities;
         private ICollection<Entities.Common.TPDM.IProspectDisability> _prospectDisabilitiesCovariant;
@@ -44845,13 +45680,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
             set { _isProspectAidSupported = value; }
         }
 
-        private bool _isProspectCredentialsSupported = true;
-        bool Entities.Common.TPDM.IProspectSynchronizationSourceSupport.IsProspectCredentialsSupported
-        {
-            get { return _isProspectCredentialsSupported; }
-            set { _isProspectCredentialsSupported = value; }
-        }
-
         private bool _isProspectCurrentPositionSupported = true;
         bool Entities.Common.TPDM.IProspectSynchronizationSourceSupport.IsProspectCurrentPositionSupported
         {
@@ -44962,13 +45790,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         {
             get { return _isTeacherCandidateIdentifierSupported; }
             set { _isTeacherCandidateIdentifierSupported = value; }
-        }
-
-        private Func<Entities.Common.TPDM.IProspectCredential, bool> _isProspectCredentialIncluded;
-        Func<Entities.Common.TPDM.IProspectCredential, bool> Entities.Common.TPDM.IProspectSynchronizationSourceSupport.IsProspectCredentialIncluded
-        {
-            get { return _isProspectCredentialIncluded; }
-            set { _isProspectCredentialIncluded = value; }
         }
 
         private Func<Entities.Common.TPDM.IProspectDisability, bool> _isProspectDisabilityIncluded;
@@ -45314,174 +46135,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the tpdm.ProspectCredential table of the Prospect aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class ProspectCredential : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.IProspectCredential, Entities.Common.Records.TPDM.IProspectCredentialRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IProspectCredentialSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public ProspectCredential()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual Prospect Prospect { get; set; }
-
-        Entities.Common.TPDM.IProspect IProspectCredential.Prospect
-        {
-            get { return Prospect; }
-            set { Prospect = (Prospect) value; }
-        }
-
-        int Entities.Common.Records.TPDM.IProspectCredentialRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IProspectRecord) Prospect).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IProspectRecord) Prospect).EducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.TPDM.IProspectCredentialRecord.ProspectIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.IProspectRecord) Prospect).ProspectIdentifier; }
-            set { ((Entities.Common.Records.TPDM.IProspectRecord) Prospect).ProspectIdentifier = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string CredentialIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int StateOfIssueStateAbbreviationDescriptorId 
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptorId == default(int))
-                    _stateOfIssueStateAbbreviationDescriptorId = DescriptorsCache.GetCache().GetId("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptor);
-
-                return _stateOfIssueStateAbbreviationDescriptorId;
-            } 
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptorId = value;
-                _stateOfIssueStateAbbreviationDescriptor = null;
-            }
-        }
-
-        private int _stateOfIssueStateAbbreviationDescriptorId;
-        private string _stateOfIssueStateAbbreviationDescriptor;
-
-        public virtual string StateOfIssueStateAbbreviationDescriptor
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptor == null)
-                    _stateOfIssueStateAbbreviationDescriptor = DescriptorsCache.GetCache().GetValue("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptorId);
-                    
-                return _stateOfIssueStateAbbreviationDescriptor;
-            }
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptor = value;
-                _stateOfIssueStateAbbreviationDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.CredentialAggregate.EdFi.CredentialReferenceData CredentialReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Credential discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IProspectCredential.CredentialDiscriminator
-        {
-            get { return CredentialReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Credential resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IProspectCredential.CredentialResourceId
-        {
-            get { return CredentialReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "StateOfIssueStateAbbreviationDescriptor", new LookupColumnDetails { PropertyName = "StateOfIssueStateAbbreviationDescriptorId", LookupTypeName = "StateAbbreviationDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (Prospect as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("CredentialIdentifier", CredentialIdentifier);
-            keyValues.Add("StateOfIssueStateAbbreviationDescriptorId", StateOfIssueStateAbbreviationDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -45495,28 +46148,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -45526,36 +46157,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IProspectCredential)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IProspectCredential) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            Prospect = (Prospect) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
     /// A class which represents the tpdm.ProspectCurrentPosition table of the Prospect aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -48098,289 +48699,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         // -----------------------------------------
     }
 }
-// Aggregate: ProspectProfessionalDevelopmentEventAttendance
-
-namespace EdFi.Ods.Entities.NHibernate.ProspectProfessionalDevelopmentEventAttendanceAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="ProspectProfessionalDevelopmentEventAttendance"/> entity.
-    /// </summary>
-    public class ProspectProfessionalDevelopmentEventAttendanceReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime AttendanceDate { get; set; }
-        public virtual int EducationOrganizationId { get; set; }
-        public virtual string ProfessionalDevelopmentTitle { get; set; }
-        public virtual string ProspectIdentifier { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("ProspectIdentifier", ProspectIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.ProspectProfessionalDevelopmentEventAttendance table of the ProspectProfessionalDevelopmentEventAttendance aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendance : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance, Entities.Common.Records.TPDM.IProspectProfessionalDevelopmentEventAttendanceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public ProspectProfessionalDevelopmentEventAttendance()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime AttendanceDate 
-        {
-            get { return _attendanceDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _attendanceDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _attendanceDate;
-        
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string ProfessionalDevelopmentTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
-        public virtual string ProspectIdentifier  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault]
-        public virtual int AttendanceEventCategoryDescriptorId 
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptorId == default(int))
-                    _attendanceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptor);
-
-                return _attendanceEventCategoryDescriptorId;
-            } 
-            set
-            {
-                _attendanceEventCategoryDescriptorId = value;
-                _attendanceEventCategoryDescriptor = null;
-            }
-        }
-
-        private int _attendanceEventCategoryDescriptorId;
-        private string _attendanceEventCategoryDescriptor;
-
-        public virtual string AttendanceEventCategoryDescriptor
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptor == null)
-                    _attendanceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptorId);
-                    
-                return _attendanceEventCategoryDescriptor;
-            }
-            set
-            {
-                _attendanceEventCategoryDescriptor = value;
-                _attendanceEventCategoryDescriptorId = default(int);
-            }
-        }
-        [StringLength(255), NoDangerousText]
-        public virtual string AttendanceEventReason  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.ProfessionalDevelopmentEventAggregate.TPDM.ProfessionalDevelopmentEventReferenceData ProfessionalDevelopmentEventReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventDiscriminator
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventResourceId
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.ProspectAggregate.TPDM.ProspectReferenceData ProspectReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Prospect discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance.ProspectDiscriminator
-        {
-            get { return ProspectReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Prospect resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance.ProspectResourceId
-        {
-            get { return ProspectReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AttendanceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AttendanceEventCategoryDescriptorId", LookupTypeName = "AttendanceEventCategoryDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("ProspectIdentifier", ProspectIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -48394,28 +48712,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectProfessionalDevelopmentEventAtten
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -48425,43 +48721,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectProfessionalDevelopmentEventAtten
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAttendanceEventCategoryDescriptorSupported = true;
-        bool Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventCategoryDescriptorSupported
-        {
-            get { return _isAttendanceEventCategoryDescriptorSupported; }
-            set { _isAttendanceEventCategoryDescriptorSupported = value; }
-        }
-
-        private bool _isAttendanceEventReasonSupported = true;
-        bool Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventReasonSupported
-        {
-            get { return _isAttendanceEventReasonSupported; }
-            set { _isAttendanceEventReasonSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
 // Aggregate: ProspectTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM
@@ -48721,12 +48980,15 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string QuantitativeMeasureIdentifier { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -48748,12 +49010,15 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("QuantitativeMeasureIdentifier", QuantitativeMeasureIdentifier);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -48831,10 +49096,47 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -48876,6 +49178,8 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
         public virtual string QuantitativeMeasureIdentifier  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -49034,6 +49338,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "QuantitativeMeasureDatatypeDescriptor", new LookupColumnDetails { PropertyName = "QuantitativeMeasureDatatypeDescriptorId", LookupTypeName = "QuantitativeMeasureDatatypeDescriptor"} },
                 { "QuantitativeMeasureTypeDescriptor", new LookupColumnDetails { PropertyName = "QuantitativeMeasureTypeDescriptorId", LookupTypeName = "QuantitativeMeasureTypeDescriptor"} },
@@ -49052,12 +49357,15 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("QuantitativeMeasureIdentifier", QuantitativeMeasureIdentifier);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -49419,14 +49727,17 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
         public virtual string QuantitativeMeasureIdentifier { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -49449,14 +49760,17 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("QuantitativeMeasureIdentifier", QuantitativeMeasureIdentifier);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -49536,6 +49850,8 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -49549,6 +49865,41 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -49592,6 +49943,8 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(64), NoDangerousText, NoWhitespace]
         public virtual string QuantitativeMeasureIdentifier  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -49741,6 +50094,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -49758,14 +50112,17 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("QuantitativeMeasureIdentifier", QuantitativeMeasureIdentifier);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
@@ -50698,12 +51055,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual int RubricRating { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int TermDescriptorId { get; set; }
         // -------------------------------------------------------------
 
@@ -50725,12 +51085,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("RubricRating", RubricRating);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -50808,10 +51171,47 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -50853,6 +51253,8 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         }
         [DomainSignature]
         public virtual int RubricRating  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int TermDescriptorId 
         {
@@ -50980,6 +51382,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "RubricRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "RubricRatingLevelDescriptorId", LookupTypeName = "RubricRatingLevelDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -50997,12 +51400,15 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("RubricRating", RubricRating);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("TermDescriptorId", TermDescriptorId);
 
             return keyValues;
@@ -54149,7 +54555,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string ApplicantIdentifier { get; set; }
-        public virtual int EducationOrganizationId { get; set; }
         public virtual int StaffUSI { get; set; }
         // -------------------------------------------------------------
 
@@ -54172,7 +54577,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("ApplicantIdentifier", ApplicantIdentifier);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("StaffUSI", StaffUSI);
 
             return keyValues;
@@ -54252,8 +54656,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string ApplicantIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int EducationOrganizationId  { get; set; }
         [Display(Name="StaffUniqueId")]
         [DomainSignature, RequiredWithNonDefault("Staff")]
         public virtual int StaffUSI 
@@ -54382,7 +54784,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("ApplicantIdentifier", ApplicantIdentifier);
-            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("StaffUSI", StaffUSI);
 
             return keyValues;
@@ -54679,320 +55080,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
         // -----------------------------------------
     }
 }
-// Aggregate: StaffProfessionalDevelopmentEventAttendance
-
-namespace EdFi.Ods.Entities.NHibernate.StaffProfessionalDevelopmentEventAttendanceAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="StaffProfessionalDevelopmentEventAttendance"/> entity.
-    /// </summary>
-    public class StaffProfessionalDevelopmentEventAttendanceReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime AttendanceDate { get; set; }
-        public virtual string ProfessionalDevelopmentTitle { get; set; }
-        public virtual int StaffUSI { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.StaffProfessionalDevelopmentEventAttendance table of the StaffProfessionalDevelopmentEventAttendance aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendance : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance, Entities.Common.Records.TPDM.IStaffProfessionalDevelopmentEventAttendanceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public StaffProfessionalDevelopmentEventAttendance()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime AttendanceDate 
-        {
-            get { return _attendanceDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _attendanceDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _attendanceDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string ProfessionalDevelopmentTitle  { get; set; }
-        [Display(Name="StaffUniqueId")]
-        [DomainSignature, RequiredWithNonDefault("Staff")]
-        public virtual int StaffUSI 
-        {
-            get
-            {
-                if (_staffUSI == default(int))
-                    _staffUSI = PersonUniqueIdToUsiCache.GetCache().GetUsi("Staff", _staffUniqueId);
-
-                return _staffUSI;
-            } 
-            set
-            {
-                _staffUSI = value;
-            }
-        }
-
-        private int _staffUSI;
-        private string _staffUniqueId;
-
-        [RequiredWithNonDefault]
-        public virtual string StaffUniqueId
-        {
-            get
-            {
-                if (_staffUniqueId == null)
-                    _staffUniqueId = PersonUniqueIdToUsiCache.GetCache().GetUniqueId("Staff", _staffUSI);
-                    
-                return _staffUniqueId;
-            }
-            set
-            {
                 if (_staffUniqueId != value)
                         _staffUSI = default(int);
 
-                _staffUniqueId = value;
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault]
-        public virtual int AttendanceEventCategoryDescriptorId 
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptorId == default(int))
-                    _attendanceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptor);
-
-                return _attendanceEventCategoryDescriptorId;
-            } 
-            set
-            {
-                _attendanceEventCategoryDescriptorId = value;
-                _attendanceEventCategoryDescriptor = null;
-            }
-        }
-
-        private int _attendanceEventCategoryDescriptorId;
-        private string _attendanceEventCategoryDescriptor;
-
-        public virtual string AttendanceEventCategoryDescriptor
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptor == null)
-                    _attendanceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptorId);
-                    
-                return _attendanceEventCategoryDescriptor;
-            }
-            set
-            {
-                _attendanceEventCategoryDescriptor = value;
-                _attendanceEventCategoryDescriptorId = default(int);
-            }
-        }
-        [StringLength(255), NoDangerousText]
-        public virtual string AttendanceEventReason  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.ProfessionalDevelopmentEventAggregate.TPDM.ProfessionalDevelopmentEventReferenceData ProfessionalDevelopmentEventReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventDiscriminator
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventResourceId
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.StaffAggregate.EdFi.StaffReferenceData StaffReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Staff discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance.StaffDiscriminator
-        {
-            get { return StaffReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Staff resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance.StaffResourceId
-        {
-            get { return StaffReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AttendanceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AttendanceEventCategoryDescriptorId", LookupTypeName = "AttendanceEventCategoryDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("StaffUSI", StaffUSI);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -55006,28 +55096,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProfessionalDevelopmentEventAttendan
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -55037,43 +55105,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProfessionalDevelopmentEventAttendan
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAttendanceEventCategoryDescriptorSupported = true;
-        bool Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventCategoryDescriptorSupported
-        {
-            get { return _isAttendanceEventCategoryDescriptorSupported; }
-            set { _isAttendanceEventCategoryDescriptorSupported = value; }
-        }
-
-        private bool _isAttendanceEventReasonSupported = true;
-        bool Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventReasonSupported
-        {
-            get { return _isAttendanceEventReasonSupported; }
-            set { _isAttendanceEventReasonSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
 // Aggregate: StaffProspectAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
@@ -59837,6 +59868,241 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGrowthTypeDescriptorAggregate.TPDM
         // -----------------------------------------
     }
 }
+// Aggregate: SurveyResponse
+
+namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.SurveyResponseExtension table of the SurveyResponse aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class SurveyResponseExtension : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.ISurveyResponseExtension, Entities.Common.Records.TPDM.ISurveyResponseExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public SurveyResponseExtension()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual EdFi.SurveyResponse SurveyResponse { get; set; }
+
+        Entities.Common.EdFi.ISurveyResponse ISurveyResponseExtension.SurveyResponse
+        {
+            get { return SurveyResponse; }
+            set { SurveyResponse = (EdFi.SurveyResponse) value; }
+        }
+
+        string Entities.Common.Records.TPDM.ISurveyResponseExtensionRecord.Namespace
+        {
+            get { return ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).Namespace; }
+            set { ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).Namespace = value; }
+        }
+
+        string Entities.Common.Records.TPDM.ISurveyResponseExtensionRecord.SurveyIdentifier
+        {
+            get { return ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).SurveyIdentifier; }
+            set { ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).SurveyIdentifier = value; }
+        }
+
+        string Entities.Common.Records.TPDM.ISurveyResponseExtensionRecord.SurveyResponseIdentifier
+        {
+            get { return ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).SurveyResponseIdentifier; }
+            set { ((Entities.Common.Records.EdFi.ISurveyResponseRecord) SurveyResponse).SurveyResponseIdentifier = value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+        
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        [StringLength(32), NoDangerousText]
+        public virtual string ApplicantIdentifier  { get; set; }
+        [StringLength(32), NoDangerousText]
+        public virtual string TeacherCandidateIdentifier  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.ApplicantAggregate.TPDM.ApplicantReferenceData ApplicantReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the Applicant discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.ISurveyResponseExtension.ApplicantDiscriminator
+        {
+            get { return ApplicantReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the Applicant resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.ISurveyResponseExtension.ApplicantResourceId
+        {
+            get { return ApplicantReferenceData?.Id; }
+            set { }
+        }
+
+        public virtual NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData TeacherCandidateReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the TeacherCandidate discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.TPDM.ISurveyResponseExtension.TeacherCandidateDiscriminator
+        {
+            get { return TeacherCandidateReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the TeacherCandidate resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.ISurveyResponseExtension.TeacherCandidateResourceId
+        {
+            get { return TeacherCandidateReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (SurveyResponse as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.ISurveyResponseExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.ISurveyResponseExtension) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            SurveyResponse = (EdFi.SurveyResponse) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isApplicantIdentifierSupported = true;
+        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsApplicantIdentifierSupported
+        {
+            get { return _isApplicantIdentifierSupported; }
+            set { _isApplicantIdentifierSupported = value; }
+        }
+
+        private bool _isTeacherCandidateIdentifierSupported = true;
+        bool Entities.Common.TPDM.ISurveyResponseExtensionSynchronizationSourceSupport.IsTeacherCandidateIdentifierSupported
+        {
+            get { return _isTeacherCandidateIdentifierSupported; }
+            set { _isTeacherCandidateIdentifierSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+}
 // Aggregate: SurveyResponseTeacherCandidateTargetAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssociationAggregate.TPDM
@@ -60204,10 +60470,45 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual int? EducationOrganizationId  { get; set; }
         [StringLength(255), NoDangerousText]
         public virtual string EvaluationElementTitle  { get; set; }
         [StringLength(50), NoDangerousText]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        public virtual int? EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int?))
+                    _evaluationPeriodDescriptorId = string.IsNullOrWhiteSpace(_evaluationPeriodDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int? _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = _evaluationPeriodDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId.Value);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int?);
+            }
+        }
         [StringLength(50), NoDangerousText]
         public virtual string EvaluationTitle  { get; set; }
         [StringLength(50), NoDangerousText]
@@ -60246,6 +60547,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
                 _performanceEvaluationTypeDescriptorId = default(int?);
             }
         }
+        public virtual short? SchoolYear  { get; set; }
         public virtual int? TermDescriptorId 
         {
             get
@@ -60325,6 +60627,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
             };
@@ -60429,6 +60732,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         //        Synchronization Support
         // -----------------------------------------
 
+        private bool _isEducationOrganizationIdSupported = true;
+        bool Entities.Common.TPDM.ISurveySectionExtensionSynchronizationSourceSupport.IsEducationOrganizationIdSupported
+        {
+            get { return _isEducationOrganizationIdSupported; }
+            set { _isEducationOrganizationIdSupported = value; }
+        }
+
         private bool _isEvaluationElementTitleSupported = true;
         bool Entities.Common.TPDM.ISurveySectionExtensionSynchronizationSourceSupport.IsEvaluationElementTitleSupported
         {
@@ -60441,6 +60751,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         {
             get { return _isEvaluationObjectiveTitleSupported; }
             set { _isEvaluationObjectiveTitleSupported = value; }
+        }
+
+        private bool _isEvaluationPeriodDescriptorSupported = true;
+        bool Entities.Common.TPDM.ISurveySectionExtensionSynchronizationSourceSupport.IsEvaluationPeriodDescriptorSupported
+        {
+            get { return _isEvaluationPeriodDescriptorSupported; }
+            set { _isEvaluationPeriodDescriptorSupported = value; }
         }
 
         private bool _isEvaluationTitleSupported = true;
@@ -60462,6 +60779,13 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         {
             get { return _isPerformanceEvaluationTypeDescriptorSupported; }
             set { _isPerformanceEvaluationTypeDescriptorSupported = value; }
+        }
+
+        private bool _isSchoolYearSupported = true;
+        bool Entities.Common.TPDM.ISurveySectionExtensionSynchronizationSourceSupport.IsSchoolYearSupported
+        {
+            get { return _isSchoolYearSupported; }
+            set { _isSchoolYearSupported = value; }
         }
 
         private bool _isTermDescriptorSupported = true;
@@ -60486,14 +60810,17 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         // =============================================================
         //                         Primary Key
         // -------------------------------------------------------------
+        public virtual int EducationOrganizationId { get; set; }
         public virtual DateTime EvaluationDate { get; set; }
         public virtual string EvaluationElementTitle { get; set; }
         public virtual string EvaluationObjectiveTitle { get; set; }
+        public virtual int EvaluationPeriodDescriptorId { get; set; }
         public virtual string EvaluationTitle { get; set; }
         public virtual string Namespace { get; set; }
         public virtual string PerformanceEvaluationTitle { get; set; }
         public virtual int PerformanceEvaluationTypeDescriptorId { get; set; }
         public virtual string PersonId { get; set; }
+        public virtual short SchoolYear { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         public virtual string SurveyIdentifier { get; set; }
         public virtual string SurveySectionTitle { get; set; }
@@ -60518,14 +60845,17 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("Namespace", Namespace);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("SurveyIdentifier", SurveyIdentifier);
             keyValues.Add("SurveySectionTitle", SurveySectionTitle);
@@ -60607,6 +60937,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         //                         Primary Key
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
+        public virtual int EducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
@@ -60620,6 +60952,41 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int EvaluationPeriodDescriptorId 
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptorId == default(int))
+                    _evaluationPeriodDescriptorId = DescriptorsCache.GetCache().GetId("EvaluationPeriodDescriptor", _evaluationPeriodDescriptor);
+
+                return _evaluationPeriodDescriptorId;
+            } 
+            set
+            {
+                _evaluationPeriodDescriptorId = value;
+                _evaluationPeriodDescriptor = null;
+            }
+        }
+
+        private int _evaluationPeriodDescriptorId;
+        private string _evaluationPeriodDescriptor;
+
+        public virtual string EvaluationPeriodDescriptor
+        {
+            get
+            {
+                if (_evaluationPeriodDescriptor == null)
+                    _evaluationPeriodDescriptor = DescriptorsCache.GetCache().GetValue("EvaluationPeriodDescriptor", _evaluationPeriodDescriptorId);
+                    
+                return _evaluationPeriodDescriptor;
+            }
+            set
+            {
+                _evaluationPeriodDescriptor = value;
+                _evaluationPeriodDescriptorId = default(int);
+            }
+        }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
@@ -60663,6 +61030,8 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual short SchoolYear  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
         public virtual int SourceSystemDescriptorId 
         {
@@ -60814,6 +61183,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -60831,14 +61201,17 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
             var keyValues = new OrderedDictionary();
 
             // Add current key values
+            keyValues.Add("EducationOrganizationId", EducationOrganizationId);
             keyValues.Add("EvaluationDate", EvaluationDate);
             keyValues.Add("EvaluationElementTitle", EvaluationElementTitle);
             keyValues.Add("EvaluationObjectiveTitle", EvaluationObjectiveTitle);
+            keyValues.Add("EvaluationPeriodDescriptorId", EvaluationPeriodDescriptorId);
             keyValues.Add("EvaluationTitle", EvaluationTitle);
             keyValues.Add("Namespace", Namespace);
             keyValues.Add("PerformanceEvaluationTitle", PerformanceEvaluationTitle);
             keyValues.Add("PerformanceEvaluationTypeDescriptorId", PerformanceEvaluationTypeDescriptorId);
             keyValues.Add("PersonId", PersonId);
+            keyValues.Add("SchoolYear", SchoolYear);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
             keyValues.Add("SurveyIdentifier", SurveyIdentifier);
             keyValues.Add("SurveySectionTitle", SurveySectionTitle);
@@ -61354,7 +61727,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
             TeacherCandidateAids = new HashSet<TeacherCandidateAid>();
             TeacherCandidateCharacteristics = new HashSet<TeacherCandidateCharacteristic>();
             TeacherCandidateCohortYears = new HashSet<TeacherCandidateCohortYear>();
-            TeacherCandidateCredentials = new HashSet<TeacherCandidateCredential>();
             TeacherCandidateDegreeSpecializations = new HashSet<TeacherCandidateDegreeSpecialization>();
             TeacherCandidateDisabilities = new HashSet<TeacherCandidateDisability>();
             TeacherCandidateElectronicMails = new HashSet<TeacherCandidateElectronicMail>();
@@ -62169,54 +62541,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
             set
             {
                 TeacherCandidateCohortYears = new HashSet<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCohortYear>(value.Cast<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCohortYear>());
-            }
-        }
-
-
-        private ICollection<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCredential> _teacherCandidateCredentials;
-        private ICollection<Entities.Common.TPDM.ITeacherCandidateCredential> _teacherCandidateCredentialsCovariant;
-        [ValidateEnumerable, NoDuplicateMembers]
-        public virtual ICollection<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCredential> TeacherCandidateCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // On-demand deserialization logic to attach reverse reference of children
-                // due to ServiceStack's lack of [OnDeserialized] attribute support.
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _teacherCandidateCredentials)
-                    if (item.TeacherCandidate == null)
-                        item.TeacherCandidate = this;
-                // -------------------------------------------------------------
-
-                return _teacherCandidateCredentials;
-            }
-            set
-            {
-                _teacherCandidateCredentials = value;
-                _teacherCandidateCredentialsCovariant = new CovariantCollectionAdapter<Entities.Common.TPDM.ITeacherCandidateCredential, Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCredential>(value);
-            }
-        }
-
-        // Covariant version, visible only on the interface
-        ICollection<Entities.Common.TPDM.ITeacherCandidateCredential> Entities.Common.TPDM.ITeacherCandidate.TeacherCandidateCredentials
-        {
-            get
-            {
-                // -------------------------------------------------------------
-                // Back-reference is required by NHibernate for persistence.
-                // -------------------------------------------------------------
-                foreach (var item in _teacherCandidateCredentials)
-                    if (item.TeacherCandidate == null)
-                        item.TeacherCandidate = this;
-                // -------------------------------------------------------------
-
-                return _teacherCandidateCredentialsCovariant;
-            }
-            set
-            {
-                TeacherCandidateCredentials = new HashSet<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCredential>(value.Cast<Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateCredential>());
             }
         }
 
@@ -63260,13 +63584,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
             set { _isTeacherCandidateCohortYearsSupported = value; }
         }
 
-        private bool _isTeacherCandidateCredentialsSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateSynchronizationSourceSupport.IsTeacherCandidateCredentialsSupported
-        {
-            get { return _isTeacherCandidateCredentialsSupported; }
-            set { _isTeacherCandidateCredentialsSupported = value; }
-        }
-
         private bool _isTeacherCandidateDegreeSpecializationsSupported = true;
         bool Entities.Common.TPDM.ITeacherCandidateSynchronizationSourceSupport.IsTeacherCandidateDegreeSpecializationsSupported
         {
@@ -63398,13 +63715,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         {
             get { return _isTeacherCandidateCohortYearIncluded; }
             set { _isTeacherCandidateCohortYearIncluded = value; }
-        }
-
-        private Func<Entities.Common.TPDM.ITeacherCandidateCredential, bool> _isTeacherCandidateCredentialIncluded;
-        Func<Entities.Common.TPDM.ITeacherCandidateCredential, bool> Entities.Common.TPDM.ITeacherCandidateSynchronizationSourceSupport.IsTeacherCandidateCredentialIncluded
-        {
-            get { return _isTeacherCandidateCredentialIncluded; }
-            set { _isTeacherCandidateCredentialIncluded = value; }
         }
 
         private Func<Entities.Common.TPDM.ITeacherCandidateDegreeSpecialization, bool> _isTeacherCandidateDegreeSpecializationIncluded;
@@ -65285,168 +65595,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateCredential table of the TeacherCandidate aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateCredential : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.TPDM.ITeacherCandidateCredential, Entities.Common.Records.TPDM.ITeacherCandidateCredentialRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateCredentialSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateCredential()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, JsonIgnore, IgnoreDataMember]
-        public virtual TeacherCandidate TeacherCandidate { get; set; }
-
-        Entities.Common.TPDM.ITeacherCandidate ITeacherCandidateCredential.TeacherCandidate
-        {
-            get { return TeacherCandidate; }
-            set { TeacherCandidate = (TeacherCandidate) value; }
-        }
-
-        string Entities.Common.Records.TPDM.ITeacherCandidateCredentialRecord.TeacherCandidateIdentifier
-        {
-            get { return ((Entities.Common.Records.TPDM.ITeacherCandidateRecord) TeacherCandidate).TeacherCandidateIdentifier; }
-            set { ((Entities.Common.Records.TPDM.ITeacherCandidateRecord) TeacherCandidate).TeacherCandidateIdentifier = value; }
-        }
-
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string CredentialIdentifier  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual int StateOfIssueStateAbbreviationDescriptorId 
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptorId == default(int))
-                    _stateOfIssueStateAbbreviationDescriptorId = DescriptorsCache.GetCache().GetId("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptor);
-
-                return _stateOfIssueStateAbbreviationDescriptorId;
-            } 
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptorId = value;
-                _stateOfIssueStateAbbreviationDescriptor = null;
-            }
-        }
-
-        private int _stateOfIssueStateAbbreviationDescriptorId;
-        private string _stateOfIssueStateAbbreviationDescriptor;
-
-        public virtual string StateOfIssueStateAbbreviationDescriptor
-        {
-            get
-            {
-                if (_stateOfIssueStateAbbreviationDescriptor == null)
-                    _stateOfIssueStateAbbreviationDescriptor = DescriptorsCache.GetCache().GetValue("StateAbbreviationDescriptor", _stateOfIssueStateAbbreviationDescriptorId);
-                    
-                return _stateOfIssueStateAbbreviationDescriptor;
-            }
-            set
-            {
-                _stateOfIssueStateAbbreviationDescriptor = value;
-                _stateOfIssueStateAbbreviationDescriptorId = default(int);
-            }
-        }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.CredentialAggregate.EdFi.CredentialReferenceData CredentialReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the Credential discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateCredential.CredentialDiscriminator
-        {
-            get { return CredentialReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the Credential resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateCredential.CredentialResourceId
-        {
-            get { return CredentialReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "StateOfIssueStateAbbreviationDescriptor", new LookupColumnDetails { PropertyName = "StateOfIssueStateAbbreviationDescriptorId", LookupTypeName = "StateAbbreviationDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Get parent key values
-            var keyValues = (TeacherCandidate as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-            // Add current key values
-            keyValues.Add("CredentialIdentifier", CredentialIdentifier);
-            keyValues.Add("StateOfIssueStateAbbreviationDescriptorId", StateOfIssueStateAbbreviationDescriptorId);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -65460,28 +65608,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -65491,36 +65617,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateCredential)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateCredential) target, null);
-        }
-
-        void IChildEntity.SetParent(object value)
-        {
-            TeacherCandidate = (TeacherCandidate) value;
-        }
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        // -----------------------------------------
-    }
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
     /// A class which represents the tpdm.TeacherCandidateDegreeSpecialization table of the TeacherCandidate aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -73889,284 +73985,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
         // -----------------------------------------
     }
 }
-// Aggregate: TeacherCandidateProfessionalDevelopmentEventAttendance
-
-namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateProfessionalDevelopmentEventAttendanceAggregate.TPDM
-{
-    /// <summary>
-    /// Represents a read-only reference to the <see cref="TeacherCandidateProfessionalDevelopmentEventAttendance"/> entity.
-    /// </summary>
-    public class TeacherCandidateProfessionalDevelopmentEventAttendanceReferenceData : IHasPrimaryKeyValues
-    {
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        public virtual DateTime AttendanceDate { get; set; }
-        public virtual string ProfessionalDevelopmentTitle { get; set; }
-        public virtual string TeacherCandidateIdentifier { get; set; }
-        // -------------------------------------------------------------
-
-        /// <summary>
-        /// The id of the referenced entity (used as the resource identifier in the API).
-        /// </summary>
-        public virtual Guid? Id { get; set; }
-
-        /// <summary>
-        /// Gets and sets the discriminator value which identifies the concrete sub-type of the referenced entity
-        /// when that entity has been derived; otherwise <b>null</b>.
-        /// </summary>
-        public virtual string Discriminator { get; set; }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
-            }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
-            }
-        }
-        #endregion
-    }
-
-// disable warnings for inheritance from classes marked Obsolete within this generated code only
-#pragma warning disable 612, 618
-
-    /// <summary>
-    /// A class which represents the tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance table of the TeacherCandidateProfessionalDevelopmentEventAttendance aggregate in the ODS database.
-    /// </summary>
-    [Serializable, Schema("tpdm")]
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendance : AggregateRootWithCompositeKey,
-        Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance, Entities.Common.Records.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendanceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport
-    {
-        public virtual void SuspendReferenceAssignmentCheck() { }
-
-        public TeacherCandidateProfessionalDevelopmentEventAttendance()
-        {
-        }
-// restore warnings for inheritance from classes marked Obsolete
-#pragma warning restore 612, 618
-
-        // =============================================================
-        //                         Primary Key
-        // -------------------------------------------------------------
-        [DomainSignature, RequiredWithNonDefault]
-        public virtual DateTime AttendanceDate 
-        {
-            get { return _attendanceDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _attendanceDate = new DateTime(value.Year, value.Month, value.Day); }
-        }
-
-        private DateTime _attendanceDate;
-        
-        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
-        public virtual string ProfessionalDevelopmentTitle  { get; set; }
-        [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
-        public virtual string TeacherCandidateIdentifier  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                      Inherited Properties
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-        
-        // =============================================================
-        //                          Properties
-        // -------------------------------------------------------------
-        [RequiredWithNonDefault]
-        public virtual int AttendanceEventCategoryDescriptorId 
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptorId == default(int))
-                    _attendanceEventCategoryDescriptorId = DescriptorsCache.GetCache().GetId("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptor);
-
-                return _attendanceEventCategoryDescriptorId;
-            } 
-            set
-            {
-                _attendanceEventCategoryDescriptorId = value;
-                _attendanceEventCategoryDescriptor = null;
-            }
-        }
-
-        private int _attendanceEventCategoryDescriptorId;
-        private string _attendanceEventCategoryDescriptor;
-
-        public virtual string AttendanceEventCategoryDescriptor
-        {
-            get
-            {
-                if (_attendanceEventCategoryDescriptor == null)
-                    _attendanceEventCategoryDescriptor = DescriptorsCache.GetCache().GetValue("AttendanceEventCategoryDescriptor", _attendanceEventCategoryDescriptorId);
-                    
-                return _attendanceEventCategoryDescriptor;
-            }
-            set
-            {
-                _attendanceEventCategoryDescriptor = value;
-                _attendanceEventCategoryDescriptorId = default(int);
-            }
-        }
-        [StringLength(255), NoDangerousText]
-        public virtual string AttendanceEventReason  { get; set; }
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     One-to-one relationships
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                          Extensions
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // =============================================================
-        //                     Reference Data
-        // -------------------------------------------------------------
-        public virtual NHibernate.ProfessionalDevelopmentEventAggregate.TPDM.ProfessionalDevelopmentEventReferenceData ProfessionalDevelopmentEventReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventDiscriminator
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the ProfessionalDevelopmentEvent resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance.ProfessionalDevelopmentEventResourceId
-        {
-            get { return ProfessionalDevelopmentEventReferenceData?.Id; }
-            set { }
-        }
-
-        public virtual NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidateReferenceData TeacherCandidateReferenceData { get; set; }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate discriminator value to be mapped to the resource reference.
-        /// </summary>
-        string Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance.TeacherCandidateDiscriminator
-        {
-            get { return TeacherCandidateReferenceData?.Discriminator; }
-            set { }
-        }
-
-        /// <summary>
-        /// Read-only property that allows the TeacherCandidate resource identifier value to be mapped to the resource reference.
-        /// </summary>
-        Guid? Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance.TeacherCandidateResourceId
-        {
-            get { return TeacherCandidateReferenceData?.Id; }
-            set { }
-        }
-
-        // -------------------------------------------------------------
-
-        //=============================================================
-        //                          Collections
-        // -------------------------------------------------------------
-        // -------------------------------------------------------------
-
-        // Provide lookup property map
-        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AttendanceEventCategoryDescriptor", new LookupColumnDetails { PropertyName = "AttendanceEventCategoryDescriptorId", LookupTypeName = "AttendanceEventCategoryDescriptor"} },
-            };
-
-        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
-        {
-            get { return _idPropertyByLookupProperty; }
-        }
-
-        // Provide primary key information
-        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
-        {
-            // Initialize a new dictionary to hold the key values
-            var keyValues = new OrderedDictionary();
-
-            // Add current key values
-            keyValues.Add("AttendanceDate", AttendanceDate);
-            keyValues.Add("ProfessionalDevelopmentTitle", ProfessionalDevelopmentTitle);
-            keyValues.Add("TeacherCandidateIdentifier", TeacherCandidateIdentifier);
-
-            return keyValues;
-        }
-
-        #region Overrides for Equals() and GetHashCode()
-        public override bool Equals(object obj)
-        {
-            var compareTo = obj as IHasPrimaryKeyValues;
-
-            if (ReferenceEquals(this, compareTo))
-                return true;
-
-            if (compareTo == null)
-                return false;
-
-            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-            var thoseKeys = compareTo.GetPrimaryKeyValues();
-
-            foreach (DictionaryEntry entry in theseKeys)
-            {
                 if (entry.Value is string)
                 {
                     if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
@@ -74180,28 +73998,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateProfessionalDevelopmentEv
                         return false;
                 }
             }
-
-            return true;
-        }
-
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
                     if (entry.Value is string)
                     {
                         hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
@@ -74211,43 +74007,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateProfessionalDevelopmentEv
                         hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
                     }
                 }
-
-                return hashCode;
-            }
-        }
-        #endregion
-        bool ISynchronizable.Synchronize(object target)
-        {
-            return this.SynchronizeTo((Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance)target);
-        }
-
-        void IMappable.Map(object target)
-        {
-            this.MapTo((Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance) target, null);
-        }
-
-
-        // =========================================
-        //        Synchronization Support
-        // -----------------------------------------
-
-        private bool _isAttendanceEventCategoryDescriptorSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventCategoryDescriptorSupported
-        {
-            get { return _isAttendanceEventCategoryDescriptorSupported; }
-            set { _isAttendanceEventCategoryDescriptorSupported = value; }
-        }
-
-        private bool _isAttendanceEventReasonSupported = true;
-        bool Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendanceSynchronizationSourceSupport.IsAttendanceEventReasonSupported
-        {
-            get { return _isAttendanceEventReasonSupported; }
-            set { _isAttendanceEventReasonSupported = value; }
-        }
-
-        // -----------------------------------------
-    }
-}
 // Aggregate: TeacherCandidateStaffAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate.TPDM
@@ -77993,6 +77752,40 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual int? AccreditationStatusDescriptorId 
+        {
+            get
+            {
+                if (_accreditationStatusDescriptorId == default(int?))
+                    _accreditationStatusDescriptorId = string.IsNullOrWhiteSpace(_accreditationStatusDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("AccreditationStatusDescriptor", _accreditationStatusDescriptor);
+
+                return _accreditationStatusDescriptorId;
+            } 
+            set
+            {
+                _accreditationStatusDescriptorId = value;
+                _accreditationStatusDescriptor = null;
+            }
+        }
+
+        private int? _accreditationStatusDescriptorId;
+        private string _accreditationStatusDescriptor;
+
+        public virtual string AccreditationStatusDescriptor
+        {
+            get
+            {
+                if (_accreditationStatusDescriptor == null)
+                    _accreditationStatusDescriptor = _accreditationStatusDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("AccreditationStatusDescriptor", _accreditationStatusDescriptorId.Value);
+                    
+                return _accreditationStatusDescriptor;
+            }
+            set
+            {
+                _accreditationStatusDescriptor = value;
+                _accreditationStatusDescriptorId = default(int?);
+            }
+        }
         public virtual int? FederalLocaleCodeDescriptorId 
         {
             get
@@ -78076,6 +77869,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
         // Provide lookup property map
         private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
             {
+                { "AccreditationStatusDescriptor", new LookupColumnDetails { PropertyName = "AccreditationStatusDescriptorId", LookupTypeName = "AccreditationStatusDescriptor"} },
                 { "FederalLocaleCodeDescriptor", new LookupColumnDetails { PropertyName = "FederalLocaleCodeDescriptorId", LookupTypeName = "FederalLocaleCodeDescriptor"} },
             };
 
@@ -78175,6 +77969,13 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
         // =========================================
         //        Synchronization Support
         // -----------------------------------------
+
+        private bool _isAccreditationStatusDescriptorSupported = true;
+        bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported
+        {
+            get { return _isAccreditationStatusDescriptorSupported; }
+            set { _isAccreditationStatusDescriptorSupported = value; }
+        }
 
         private bool _isEducationOrganizationAddressesSupported = true;
         bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported

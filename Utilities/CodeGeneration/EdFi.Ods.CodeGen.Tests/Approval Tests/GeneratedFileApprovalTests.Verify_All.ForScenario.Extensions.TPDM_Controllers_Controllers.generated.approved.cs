@@ -14,6 +14,39 @@ using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Api.Services.Requests;
 
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class AccreditationStatusDescriptorsController : EdFiControllerBase<
+        Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
+        Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
+        Entities.Common.TPDM.IAccreditationStatusDescriptor,
+        Entities.NHibernate.AccreditationStatusDescriptorAggregate.TPDM.AccreditationStatusDescriptor,
+        Api.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorPut,
+        Api.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorPost,
+        Api.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorDelete,
+        Api.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample>
+    {
+        public AccreditationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample request, Entities.Common.TPDM.IAccreditationStatusDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AccreditationStatusDescriptorId = request.AccreditationStatusDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "accreditationStatusDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -457,14 +490,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
             specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FirstGenerationStudent = request.FirstGenerationStudent;
             specification.FirstName = request.FirstName;
             specification.GenderDescriptor = request.GenderDescriptor;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
-            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
-            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
-            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
             specification.LastSurname = request.LastSurname;
@@ -476,8 +505,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
             specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
-            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
                     }
 
         protected override string GetResourceCollectionName()
@@ -556,12 +583,17 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applications
             specification.CurrentEmployee = request.CurrentEmployee;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FirstContactDate = request.FirstContactDate;
+            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
+            specification.HighlyQualifiedAcademicSubjectDescriptor = request.HighlyQualifiedAcademicSubjectDescriptor;
+            specification.HighlyQualifiedTeacher = request.HighlyQualifiedTeacher;
             specification.HighNeedsAcademicSubjectDescriptor = request.HighNeedsAcademicSubjectDescriptor;
             specification.HireStatusDescriptor = request.HireStatusDescriptor;
             specification.HiringSourceDescriptor = request.HiringSourceDescriptor;
             specification.Id = request.Id;
             specification.WithdrawDate = request.WithdrawDate;
             specification.WithdrawReasonDescriptor = request.WithdrawReasonDescriptor;
+            specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
+            specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
                     }
 
         protected override string GetResourceCollectionName()
@@ -847,8 +879,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.InstructionalSettingDescriptor = request.InstructionalSettingDescriptor;
-            specification.IssuerNamespace = request.IssuerNamespace;
             specification.MinimumDegreeDescriptor = request.MinimumDegreeDescriptor;
+            specification.Namespace = request.Namespace;
             specification.PopulationServedDescriptor = request.PopulationServedDescriptor;
                     }
 
@@ -888,8 +920,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EffectiveDate = request.EffectiveDate;
             specification.EndDate = request.EndDate;
+            specification.ExamNamespace = request.ExamNamespace;
             specification.Id = request.Id;
-            specification.Namespace = request.Namespace;
                     }
 
         protected override string GetResourceCollectionName()
@@ -928,8 +960,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
             specification.CertificationExamPassIndicator = request.CertificationExamPassIndicator;
             specification.CertificationExamScore = request.CertificationExamScore;
             specification.CertificationExamStatusDescriptor = request.CertificationExamStatusDescriptor;
+            specification.ExamNamespace = request.ExamNamespace;
             specification.Id = request.Id;
-            specification.Namespace = request.Namespace;
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
                     }
@@ -1613,6 +1645,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
             specification.Id = request.Id;
@@ -1621,6 +1655,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
             specification.MinRating = request.MinRating;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
                     }
 
@@ -1654,8 +1689,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
             specification.Id = request.Id;
@@ -1663,6 +1700,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
             specification.MinRating = request.MinRating;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.SortOrder = request.SortOrder;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -1700,16 +1738,19 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
             specification.AreaOfRefinement = request.AreaOfRefinement;
             specification.AreaOfReinforcement = request.AreaOfReinforcement;
             specification.Comments = request.Comments;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationElementRatingLevelDescriptor = request.EvaluationElementRatingLevelDescriptor;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Feedback = request.Feedback;
             specification.Id = request.Id;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -1777,7 +1818,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.EvaluationTypeDescriptor = request.EvaluationTypeDescriptor;
             specification.Id = request.Id;
@@ -1785,6 +1828,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
             specification.MinRating = request.MinRating;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.SortOrder = request.SortOrder;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -1820,14 +1864,17 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Comments = request.Comments;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.ObjectiveRatingLevelDescriptor = request.ObjectiveRatingLevelDescriptor;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -1895,7 +1942,9 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationRatingLevelDescriptor = request.EvaluationRatingLevelDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
@@ -2225,8 +2274,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
             specification.CompletedDate = request.CompletedDate;
             specification.CompletedIndicator = request.CompletedIndicator;
             specification.DueDate = request.DueDate;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.GoalDescription = request.GoalDescription;
             specification.GoalTitle = request.GoalTitle;
@@ -2235,6 +2286,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -2683,12 +2735,15 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
             specification.Announced = request.Announced;
             specification.Comments = request.Comments;
             specification.CoteachingStyleObservedDescriptor = request.CoteachingStyleObservedDescriptor;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.Id = request.Id;
             specification.PerformanceEvaluationRatingLevelDescriptor = request.PerformanceEvaluationRatingLevelDescriptor;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
             specification.ScheduleDate = request.ScheduleDate;
+            specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
                     }
@@ -2824,6 +2879,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.MultipleSession = request.MultipleSession;
+            specification.Namespace = request.Namespace;
             specification.ProfessionalDevelopmentOfferedByDescriptor = request.ProfessionalDevelopmentOfferedByDescriptor;
             specification.ProfessionalDevelopmentReason = request.ProfessionalDevelopmentReason;
             specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
@@ -2834,6 +2890,46 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
         protected override string GetResourceCollectionName()
         {
             return "professionalDevelopmentEvents";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEventAttendances
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class ProfessionalDevelopmentEventAttendancesController : EdFiControllerBase<
+        Models.Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance,
+        Models.Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance,
+        Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance,
+        Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAggregate.TPDM.ProfessionalDevelopmentEventAttendance,
+        Api.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendancePut,
+        Api.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendancePost,
+        Api.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendanceDelete,
+        Api.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendanceGetByExample>
+    {
+        public ProfessionalDevelopmentEventAttendancesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AttendanceDate = request.AttendanceDate;
+            specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
+            specification.AttendanceEventReason = request.AttendanceEventReason;
+            specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
+            specification.PersonId = request.PersonId;
+            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
+            specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "professionalDevelopmentEventAttendances";
         }
     }
 }
@@ -2963,45 +3059,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
     }
 }
 
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectProfessionalDevelopmentEventAttendances
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class ProspectProfessionalDevelopmentEventAttendancesController : EdFiControllerBase<
-        Models.Resources.ProspectProfessionalDevelopmentEventAttendance.TPDM.ProspectProfessionalDevelopmentEventAttendance,
-        Models.Resources.ProspectProfessionalDevelopmentEventAttendance.TPDM.ProspectProfessionalDevelopmentEventAttendance,
-        Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance,
-        Entities.NHibernate.ProspectProfessionalDevelopmentEventAttendanceAggregate.TPDM.ProspectProfessionalDevelopmentEventAttendance,
-        Api.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances.ProspectProfessionalDevelopmentEventAttendancePut,
-        Api.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances.ProspectProfessionalDevelopmentEventAttendancePost,
-        Api.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances.ProspectProfessionalDevelopmentEventAttendanceDelete,
-        Api.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances.ProspectProfessionalDevelopmentEventAttendanceGetByExample>
-    {
-        public ProspectProfessionalDevelopmentEventAttendancesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances.ProspectProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.TPDM.IProspectProfessionalDevelopmentEventAttendance specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AttendanceDate = request.AttendanceDate;
-            specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
-            specification.AttendanceEventReason = request.AttendanceEventReason;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
-            specification.Id = request.Id;
-            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
-            specification.ProspectIdentifier = request.ProspectIdentifier;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "prospectProfessionalDevelopmentEventAttendances";
-        }
-    }
-}
-
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -3058,8 +3115,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
@@ -3067,6 +3126,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
             specification.QuantitativeMeasureDatatypeDescriptor = request.QuantitativeMeasureDatatypeDescriptor;
             specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
             specification.QuantitativeMeasureTypeDescriptor = request.QuantitativeMeasureTypeDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
                     }
 
@@ -3133,15 +3193,18 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
             specification.QuantitativeMeasureIdentifier = request.QuantitativeMeasureIdentifier;
+            specification.SchoolYear = request.SchoolYear;
             specification.ScoreValue = request.ScoreValue;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StandardError = request.StandardError;
@@ -3284,14 +3347,17 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
             specification.SuspendReferenceAssignmentCheck();
             specification.CriterionDescription = request.CriterionDescription;
             specification.DimensionOrder = request.DimensionOrder;
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.RubricRating = request.RubricRating;
             specification.RubricRatingLevelDescriptor = request.RubricRatingLevelDescriptor;
+            specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
                     }
 
@@ -3425,7 +3491,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicantIdentifier = request.ApplicantIdentifier;
-            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
                     }
@@ -3433,44 +3498,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
         protected override string GetResourceCollectionName()
         {
             return "staffApplicantAssociations";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffProfessionalDevelopmentEventAttendances
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class StaffProfessionalDevelopmentEventAttendancesController : EdFiControllerBase<
-        Models.Resources.StaffProfessionalDevelopmentEventAttendance.TPDM.StaffProfessionalDevelopmentEventAttendance,
-        Models.Resources.StaffProfessionalDevelopmentEventAttendance.TPDM.StaffProfessionalDevelopmentEventAttendance,
-        Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance,
-        Entities.NHibernate.StaffProfessionalDevelopmentEventAttendanceAggregate.TPDM.StaffProfessionalDevelopmentEventAttendance,
-        Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances.StaffProfessionalDevelopmentEventAttendancePut,
-        Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances.StaffProfessionalDevelopmentEventAttendancePost,
-        Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances.StaffProfessionalDevelopmentEventAttendanceDelete,
-        Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances.StaffProfessionalDevelopmentEventAttendanceGetByExample>
-    {
-        public StaffProfessionalDevelopmentEventAttendancesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances.StaffProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.TPDM.IStaffProfessionalDevelopmentEventAttendance specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AttendanceDate = request.AttendanceDate;
-            specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
-            specification.AttendanceEventReason = request.AttendanceEventReason;
-            specification.Id = request.Id;
-            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
-            specification.StaffUniqueId = request.StaffUniqueId;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffProfessionalDevelopmentEventAttendances";
         }
     }
 }
@@ -3850,15 +3877,18 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
+            specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.PerformanceEvaluationTitle = request.PerformanceEvaluationTitle;
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.PersonId = request.PersonId;
+            specification.SchoolYear = request.SchoolYear;
             specification.ScoreValue = request.ScoreValue;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
@@ -4120,44 +4150,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCourseTranscrip
         protected override string GetResourceCollectionName()
         {
             return "teacherCandidateCourseTranscripts";
-        }
-    }
-}
-
-namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances
-{
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    public partial class TeacherCandidateProfessionalDevelopmentEventAttendancesController : EdFiControllerBase<
-        Models.Resources.TeacherCandidateProfessionalDevelopmentEventAttendance.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance,
-        Models.Resources.TeacherCandidateProfessionalDevelopmentEventAttendance.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance,
-        Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance,
-        Entities.NHibernate.TeacherCandidateProfessionalDevelopmentEventAttendanceAggregate.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance,
-        Api.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances.TeacherCandidateProfessionalDevelopmentEventAttendancePut,
-        Api.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances.TeacherCandidateProfessionalDevelopmentEventAttendancePost,
-        Api.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances.TeacherCandidateProfessionalDevelopmentEventAttendanceDelete,
-        Api.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances.TeacherCandidateProfessionalDevelopmentEventAttendanceGetByExample>
-    {
-        public TeacherCandidateProfessionalDevelopmentEventAttendancesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
-        {
-        }
-
-        protected override void MapAll(Api.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances.TeacherCandidateProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.TPDM.ITeacherCandidateProfessionalDevelopmentEventAttendance specification)
-        {
-                        // Copy all existing values
-            specification.SuspendReferenceAssignmentCheck();
-            specification.AttendanceDate = request.AttendanceDate;
-            specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
-            specification.AttendanceEventReason = request.AttendanceEventReason;
-            specification.Id = request.Id;
-            specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
-            specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "teacherCandidateProfessionalDevelopmentEventAttendances";
         }
     }
 }
@@ -4505,6 +4497,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviders
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.AccreditationStatusDescriptor = request.AccreditationStatusDescriptor;
             specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.SchoolId = request.SchoolId;
             specification.TeacherPreparationProviderId = request.TeacherPreparationProviderId;
