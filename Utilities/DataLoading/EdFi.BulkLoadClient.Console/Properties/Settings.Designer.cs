@@ -157,7 +157,7 @@ namespace EdFi.ApiLoader.Console.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\v3.2\\Samples\\Sample XML")]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\Samples\\Sample XML")]
         public string DataFolder {
             get {
                 return ((string)(this["DataFolder"]));
