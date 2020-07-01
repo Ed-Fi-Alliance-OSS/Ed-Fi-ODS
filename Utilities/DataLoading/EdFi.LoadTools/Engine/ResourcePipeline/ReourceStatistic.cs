@@ -52,8 +52,8 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
                 sb.Append("\"statistics\": [");
                 sb.Append($"{{\"total\": \"{stats.NumberOfResources}\"}}, ");
                 sb.Append($"{{\"seconds\": \"{Math.Round(stats.TotalSeconds(), 3)}\"}}, ");
-                sb.Append($"{{\"resourcespersecond\": \"{stats.AvgResourcesPerSec()}\"}}, ");
-                sb.Append($"{{\"millisecondsperresource\": \"{stats.AvgMillisecondsPerResource()}\"}}");
+                sb.Append($"{{\"resourcesPerSecond\": \"{stats.AvgResourcesPerSec()}\"}}, ");
+                sb.Append($"{{\"millisecondsPerResource\": \"{stats.AvgMillisecondsPerResource()}\"}}");
                 sb.Append("]}");
 
                 yield return sb.ToString();
