@@ -1,3 +1,10 @@
+<!--
+   SPDX-License-Identifier: Apache-2.0
+   Licensed to the Ed-Fi Alliance under one or more agreements.
+   The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+   See the LICENSE and NOTICES files in the project root for more information.
+-->
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/annotation" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1.00">
