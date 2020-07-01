@@ -30,7 +30,7 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
             var sw = Stopwatch.StartNew();
             var count = Interlocked.Increment(ref _count);
 
-            var results = await _next.ProcessAsync(resourceWorkItem);
+            var results = await _next.ProcessAsync(resourceWorkItem).ConfigureAwait(false);
             sw.Stop();
 
             _log.Debug(
