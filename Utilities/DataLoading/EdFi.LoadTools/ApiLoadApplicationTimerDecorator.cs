@@ -27,7 +27,7 @@ namespace EdFi.LoadTools
         {
             var sw = Stopwatch.StartNew();
 
-            var result = await _next.Run();
+            var result = await _next.Run().ConfigureAwait(false);
 
             sw.Stop();
 
