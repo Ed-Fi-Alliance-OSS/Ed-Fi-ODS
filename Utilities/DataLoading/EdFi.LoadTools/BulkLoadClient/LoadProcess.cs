@@ -174,9 +174,9 @@ namespace EdFi.LoadTools.BulkLoadClient
 
             if (configuration.IncludeStats)
             {
-                container.RegisterSingleton<ResourceStatistic>(() => new ResourceStatistic());
+                container.RegisterSingleton<IResourceStatistic, ResourceStatistic>();
                 container.RegisterDecorator<ISubmitResource, SubmitResourceTimingDecorator>();
-                container.RegisterDecorator<IApiLoaderApplication, ApiLoadApplicationTimerDecorator>();
+                container.RegisterDecorator<IApiLoaderApplication, ApiLoaderApplicationTimerDecorator>();
             }
 
             container.RegisterCollection<IFileImportPipelineStep>(

@@ -13,12 +13,12 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
 {
     public class SubmitResourceTimingDecorator : ISubmitResource
     {
-        private readonly ISubmitResource _next;
-        private readonly ResourceStatistic _resourceStatistic;
         private readonly ILog _log = LogManager.GetLogger(nameof(ApiLoaderApplication));
+        private readonly ISubmitResource _next;
+        private readonly IResourceStatistic _resourceStatistic;
         private int _count;
 
-        public SubmitResourceTimingDecorator(ISubmitResource next, ResourceStatistic resourceStatistic)
+        public SubmitResourceTimingDecorator(ISubmitResource next, IResourceStatistic resourceStatistic)
         {
             _next = next;
             _resourceStatistic = resourceStatistic;
@@ -36,8 +36,7 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
             _log.Debug(
                 $"{contextPrefix} #{count} completed in {Math.Round((decimal) sw.Elapsed.TotalMilliseconds, 3)} milliseconds");
 
-            _resourceStatistic.Resources++;
-            _resourceStatistic.Milliseconds += sw.ElapsedMilliseconds;
+            _resourceStatistic.AddOrUpdate(resourceWorkItem, sw.ElapsedMilliseconds);
 
             return results;
         }

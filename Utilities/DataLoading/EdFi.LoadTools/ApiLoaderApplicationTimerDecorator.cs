@@ -11,13 +11,13 @@ using log4net;
 
 namespace EdFi.LoadTools
 {
-    public class ApiLoadApplicationTimerDecorator : IApiLoaderApplication
+    public class ApiLoaderApplicationTimerDecorator : IApiLoaderApplication
     {
-        private readonly IApiLoaderApplication _next;
-        private readonly ResourceStatistic _resourceStatistic;
         private readonly ILog _log = LogManager.GetLogger(nameof(ApiLoaderApplication));
+        private readonly IApiLoaderApplication _next;
+        private readonly IResourceStatistic _resourceStatistic;
 
-        public ApiLoadApplicationTimerDecorator(IApiLoaderApplication next, ResourceStatistic resourceStatistic)
+        public ApiLoaderApplicationTimerDecorator(IApiLoaderApplication next, IResourceStatistic resourceStatistic)
         {
             _next = next;
             _resourceStatistic = resourceStatistic;
@@ -31,7 +31,13 @@ namespace EdFi.LoadTools
 
             sw.Stop();
 
-            _log.Info($"{_resourceStatistic.Resources} resources processed in {sw.Elapsed:hh\\:mm\\:ss} with an average of {_resourceStatistic.AvgResourcesPerSec()} resources per second.");
+            _log.Info(
+                $"{_resourceStatistic.TotalResources()} resources processed in {sw.Elapsed:hh\\:mm\\:ss} with an average of {Math.Round(_resourceStatistic.TotalResources() / _resourceStatistic.TotalSeconds(),3)} resources per second.");
+
+            foreach (string statisticByResource in _resourceStatistic.CreateStatistics())
+            {
+                _log.Debug(statisticByResource);
+            }
 
             return result;
         }
