@@ -44,7 +44,7 @@
     <ItemGroup>
         <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
         <PackageReference Include="EdFi.Common" Version="3.4.0" />
-        <PackageReference Include="EdFi.OdsApi.Sdk" Version="3.4.0" />
+        <PackageReference Include="EdFi.OdsApi.TestSdk.Suite3" Version="4.0.0-b00271ODS4135" />
         <PackageReference Include="JsonSubTypes" Version="1.3.0" />
         <PackageReference Include="log4net" Version="2.0.8" />
         <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.1.0" />
