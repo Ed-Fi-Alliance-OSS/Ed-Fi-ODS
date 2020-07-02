@@ -21,7 +21,6 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
                 var statistic = _statisticsByResource[resourceWorkItem.ElementName];
                 statistic.TotalMilliseconds += milliSeconds;
                 statistic.NumberOfResources++;
-                _statisticsByResource[resourceWorkItem.ElementName] = statistic;
             }
             else
             {
