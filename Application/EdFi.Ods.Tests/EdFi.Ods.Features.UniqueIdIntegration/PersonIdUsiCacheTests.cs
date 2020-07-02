@@ -106,6 +106,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero, 
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
@@ -227,6 +229,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _edfiOdsInstanceIdentificationProvider,
                     _usiValueMapper,
                     _personIdentifiersProvider,
+                    TimeSpan.Zero,
+                    TimeSpan.Zero,
                     synchronousInitialization: true);
             }
 
@@ -378,6 +382,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
+                        TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: false);
                 }
             }
@@ -485,6 +490,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                 _usiCache = new PersonUniqueIdToUsiCache(
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
+                    TimeSpan.Zero, TimeSpan.Zero, 
                     synchronousInitialization: true);
             }
 
@@ -546,6 +552,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
+                        TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: true);
                 }
             }
@@ -615,6 +622,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
@@ -702,6 +711,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
@@ -806,6 +817,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
                 }
             }
@@ -899,6 +912,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
                 }
             }
@@ -998,6 +1013,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        TimeSpan.Zero,
+                        TimeSpan.Zero,
                         synchronousInitialization: true);
                 }
             }

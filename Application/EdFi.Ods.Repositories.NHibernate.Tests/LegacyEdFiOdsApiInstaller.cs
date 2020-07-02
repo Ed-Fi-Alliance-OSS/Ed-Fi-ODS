@@ -55,6 +55,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 Component
                    .For<IPersonUniqueIdToUsiCache>()
                    .ImplementedBy<PersonUniqueIdToUsiCache>()
+                   .DependsOn(Dependency.OnValue("slidingExpiration", TimeSpan.FromHours(4)))
+                   .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", TimeSpan.Zero))
                    .DependsOn(Dependency.OnValue("synchronousInitialization", false)));
 
             PersonUniqueIdToUsiCache.GetCache = container.Resolve<IPersonUniqueIdToUsiCache>;
@@ -62,10 +64,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
         protected virtual void RegisterIDescriptorCache(IWindsorContainer container)
         {
+            var absoluteExpirationPeriod = TimeSpan.FromMinutes(30);
+
+            var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider(absoluteExpirationPeriod);
+
             container.Register(
                 Component.For<IDescriptorsCache>()
-                         .ImplementedBy<DescriptorsCache>()
-                         .LifestyleSingleton());
+                    .ImplementedBy<DescriptorsCache>()
+                    .DependsOn(Dependency.OnValue<ICacheProvider>(cacheProvider)));
 
             IDescriptorsCache cache = null;
 
