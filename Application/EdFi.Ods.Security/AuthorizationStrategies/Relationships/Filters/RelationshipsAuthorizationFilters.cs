@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using EdFi.Ods.Api.NHibernate.Filtering;
 using EdFi.Ods.Common;
@@ -47,7 +47,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "LocalEducationAgencyIdToStudentUSI",
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
-                            FROM [auth].[LocalEducationAgencyIdToStudentUSI] {newAlias1} 
+                            FROM auth.LocalEducationAgencyIdToStudentUSI {newAlias1} 
                             WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
@@ -63,7 +63,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation",
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
-                            FROM [auth].[LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation] {newAlias1} 
+                            FROM auth.LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation {newAlias1} 
                             WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "SchoolIdToStudentUSI",
                         @"StudentUSI IN (
                         SELECT {newAlias1}.StudentUSI 
-                        FROM [auth].[SchoolIdToStudentUSI] {newAlias1} 
+                        FROM auth.SchoolIdToStudentUSI {newAlias1} 
                         WHERE {newAlias1}.SchoolId IN (:SchoolId))",
                         @"{currentAlias}.StudentUSI IN (
                         SELECT {newAlias1}.StudentUSI 
@@ -95,7 +95,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "SchoolIdToStudentUSIThroughEdOrgAssociation",
                         @"StudentUSI IN (
                         SELECT {newAlias1}.StudentUSI 
-                        FROM [auth].[SchoolIdToStudentUSIThroughEdOrgAssociation] {newAlias1} 
+                        FROM auth.SchoolIdToStudentUSIThroughEdOrgAssociation {newAlias1} 
                         WHERE {newAlias1}.SchoolId IN (:SchoolId))",
                         @"{currentAlias}.StudentUSI IN (
                         SELECT {newAlias1}.StudentUSI 
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "LocalEducationAgencyIdToStaffUSI",
                         @"StaffUSI IN (
                         SELECT {newAlias1}.StaffUSI 
-                        FROM [auth].[LocalEducationAgencyIdToStaffUSI] {newAlias1} 
+                        FROM auth.LocalEducationAgencyIdToStaffUSI {newAlias1} 
                         WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.StaffUSI IN (
                         SELECT {newAlias1}.StaffUSI 
@@ -127,7 +127,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "SchoolIdToStaffUSI",
                         @"StaffUSI IN (
                     SELECT {newAlias1}.StaffUSI 
-                    FROM [auth].[SchoolIdToStaffUSI] {newAlias1} 
+                    FROM auth.SchoolIdToStaffUSI {newAlias1} 
                     WHERE {newAlias1}.SchoolId IN (:SchoolId))",
                         @"{currentAlias}.StaffUSI IN (
                     SELECT {newAlias1}.StaffUSI 
@@ -143,7 +143,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "LocalEducationAgencyIdToParentUSI",
                         @"ParentUSI IN (
                         SELECT {newAlias1}.ParentUSI 
-                        FROM [auth].[LocalEducationAgencyIdToParentUSI] {newAlias1} 
+                        FROM auth.LocalEducationAgencyIdToParentUSI {newAlias1} 
                         WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.ParentUSI IN (
                         SELECT {newAlias1}.ParentUSI 
@@ -159,7 +159,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "ParentUSIToSchoolId",
                         @"ParentUSI IN (
                         SELECT {newAlias1}.ParentUSI 
-                        FROM [auth].[ParentUSIToSchoolId] {newAlias1} 
+                        FROM auth.ParentUSIToSchoolId {newAlias1} 
                         WHERE {newAlias1}.SchoolId IN (:SchoolId))",
                         @"{currentAlias}.ParentUSI IN (
                         SELECT {newAlias1}.ParentUSI 
@@ -175,7 +175,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "EducationOrganizationIdToLocalEducationAgencyId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[EducationOrganizationIdToLocalEducationAgencyId] {newAlias1} 
+                        FROM auth.EducationOrganizationIdToLocalEducationAgencyId {newAlias1} 
                         WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -191,7 +191,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "EducationOrganizationIdToSchoolId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[EducationOrganizationIdToSchoolId] {newAlias1} 
+                        FROM auth.EducationOrganizationIdToSchoolId {newAlias1} 
                         WHERE {newAlias1}.SchoolId IN (:SchoolId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -207,7 +207,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "LocalEducationAgencyIdToSchoolId",
                         @"SchoolId IN (
                         SELECT {newAlias1}.SchoolId 
-                        FROM [auth].[LocalEducationAgencyIdToSchoolId] {newAlias1} 
+                        FROM auth.LocalEducationAgencyIdToSchoolId {newAlias1} 
                         WHERE {newAlias1}.LocalEducationAgencyId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.SchoolId IN (
                         SELECT {newAlias1}.SchoolId 
@@ -223,7 +223,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "CommunityOrganizationIdToEducationOrganizationId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[CommunityOrganizationIdToEducationOrganizationId] {newAlias1} 
+                        FROM auth.CommunityOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.CommunityOrganizationId IN (:CommunityOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -239,7 +239,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "CommunityProviderIdToEducationOrganizationId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[CommunityProviderIdToEducationOrganizationId] {newAlias1} 
+                        FROM auth.CommunityProviderIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.CommunityProviderId IN (:CommunityProviderId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -255,7 +255,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "CommunityOrganizationIdToCommunityProviderId",
                         @"CommunityProviderId IN (
                         SELECT {newAlias1}.CommunityProviderId 
-                        FROM [auth].[CommunityOrganizationIdToCommunityProviderId] {newAlias1} 
+                        FROM auth.CommunityOrganizationIdToCommunityProviderId {newAlias1} 
                         WHERE {newAlias1}.CommunityOrganizationId IN (:CommunityOrganizationId))",
                         @"{currentAlias}.CommunityProviderId IN (
                         SELECT {newAlias1}.CommunityProviderId 
@@ -271,7 +271,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "EducationOrganizationIdToPostSecondaryInstitutionId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[EducationOrganizationIdToPostSecondaryInstitutionId] {newAlias1} 
+                        FROM auth.EducationOrganizationIdToPostSecondaryInstitutionId {newAlias1} 
                         WHERE {newAlias1}.PostSecondaryInstitutionId IN (:PostSecondaryInstitutionId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -294,10 +294,10 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
 
         public static FilterApplicationDetails PostSecondaryInstitutionIdToPostSecondaryInstitutionId
             => _postSecondaryInstitutionIdToPostSecondaryInstitutionId.Value;
-        
+
         public static FilterApplicationDetails StateEducationAgencyIdToStateEducationAgencyId
             => _stateEducationAgencyIdToStateEducationAgencyId.Value;
-        
+
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSI => _localEducationAgencyIdToStudentUSI.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation
@@ -345,7 +345,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "EducationOrganizationIdToUniversityId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[EducationOrganizationIdToUniversityId] {newAlias1} 
+                        FROM auth.EducationOrganizationIdToUniversityId {newAlias1} 
                         WHERE {newAlias1}.UniversityId IN (:UniversityId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
@@ -361,7 +361,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters
                         "EducationOrganizationIdToTeacherPreparationProviderId",
                         @"EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
-                        FROM [auth].[EducationOrganizationIdToTeacherPreparationProviderId] {newAlias1} 
+                        FROM auth.EducationOrganizationIdToTeacherPreparationProviderId {newAlias1} 
                         WHERE {newAlias1}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.EducationOrganizationId 
