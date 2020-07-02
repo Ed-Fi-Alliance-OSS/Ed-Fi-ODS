@@ -35,7 +35,7 @@ namespace EdFi.Ods.Api.Services.Controllers
         public async Task<IHttpActionResult> PostAsync()
         {
             // post is required for OpenIdConnect, but we do not have any requirements at this point for OpenIdConnect
-            // this is could in the future be a surrogate id of the api client id which is not available in the function.
+            // in the future this could be a surrogate id of the api client id which is not available in the function.
             // for now we return a get based off the bearer token.
             return await GetAsync();
         }
