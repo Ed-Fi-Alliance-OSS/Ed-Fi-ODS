@@ -42,11 +42,10 @@ namespace EdFi.Ods.Api.Services.Providers
 
                 string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
-                var whereClause = string.Join(" or ", columns.Select(x => $"{x} in (:{EdOrIdsParameterName})"));
+                var whereClause = string.Join(" or ", columns.Select(x => $"{x} in ({edOrgIds})"));
 
                 var educationOrganizationIdentifiers =
                     await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, whereClause))
-                        .SetParameter($"{EdOrIdsParameterName}", edOrgIds)
                         .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
                         .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
 
