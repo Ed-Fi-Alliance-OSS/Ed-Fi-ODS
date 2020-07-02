@@ -151,8 +151,18 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -176,14 +186,20 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.TPDM.IAccreditationStatusDescriptor)target);
@@ -9438,28 +9454,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
     /// A class which represents the tpdm.ApplicantDisability table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -9492,12 +9486,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         {
             get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier; }
             set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).ApplicantIdentifier = value; }
-        }
-
-        int Entities.Common.Records.TPDM.IApplicantDisabilityRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId; }
-            set { ((Entities.Common.Records.TPDM.IApplicantRecord) Applicant).EducationOrganizationId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -10253,28 +10241,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
     /// A class which represents the tpdm.ApplicantIdentificationDocument table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -12040,28 +12006,6 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
     /// A class which represents the tpdm.ApplicantStaffIdentificationCode table of the Applicant aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -14564,8 +14508,18 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -14589,14 +14543,20 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.TPDM.IApplicationGradePointAverage)target);
@@ -15043,8 +15003,18 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -15068,14 +15038,20 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.TPDM.IApplicationScoreResult)target);
@@ -44044,8 +44020,18 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAgg
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -44069,14 +44055,20 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAgg
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance)target);
@@ -46135,28 +46127,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
     /// A class which represents the tpdm.ProspectCurrentPosition table of the Prospect aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -48699,28 +48669,6 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         // -----------------------------------------
     }
 }
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
 // Aggregate: ProspectTypeDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM
@@ -55083,28 +55031,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
                 if (_staffUniqueId != value)
                         _staffUSI = default(int);
 
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
 // Aggregate: StaffProspectAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
@@ -60034,8 +59960,18 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -60059,14 +59995,20 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.TPDM.ISurveyResponseExtension)target);
@@ -65595,28 +65537,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
 #pragma warning disable 612, 618
 
     /// <summary>
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
     /// A class which represents the tpdm.TeacherCandidateDegreeSpecialization table of the TeacherCandidate aggregate in the ODS database.
     /// </summary>
     [Serializable, Schema("tpdm")]
@@ -73985,28 +73905,6 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
         // -----------------------------------------
     }
 }
-                if (entry.Value is string)
-                {
-                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
-                    {
-                        return false;
-                    }
-                }
-                else 
-                {
-                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                        return false;
-                }
-            }
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
 // Aggregate: TeacherCandidateStaffAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate.TPDM
