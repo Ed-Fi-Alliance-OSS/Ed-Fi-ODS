@@ -778,6 +778,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int?);
+
                 _staffUniqueId = value;
             }
         }
@@ -4464,6 +4467,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -8489,6 +8495,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -11558,6 +11567,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -11621,6 +11633,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int?);
+
                 _staffUniqueId = value;
             }
         }
@@ -13756,6 +13771,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_parentUniqueId != value)
+                        _parentUSI = default(int);
+
                 _parentUniqueId = value;
             }
         }
@@ -15019,6 +15037,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }

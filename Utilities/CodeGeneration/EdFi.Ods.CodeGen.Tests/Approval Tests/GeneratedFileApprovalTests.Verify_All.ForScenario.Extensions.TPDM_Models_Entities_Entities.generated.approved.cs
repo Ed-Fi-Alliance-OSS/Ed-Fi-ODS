@@ -21584,6 +21584,9 @@ namespace EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -22097,6 +22100,9 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -32717,6 +32723,9 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -33741,6 +33750,9 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggr
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -54274,6 +54286,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -54822,6 +54837,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProfessionalDevelopmentEventAttendan
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -55206,6 +55224,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -55552,6 +55573,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -56634,6 +56658,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureCourseAssociatio
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -57039,6 +57066,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureEducationOrganiz
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -57455,6 +57485,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureSectionAssociati
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -57842,6 +57875,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -58828,6 +58864,9 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderProgramAss
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -61814,6 +61853,9 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -74350,6 +74392,9 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
