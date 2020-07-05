@@ -14,24 +14,24 @@ using NHibernate.Transform;
 
 namespace EdFi.Ods.Api.Services.Providers
 {
-    public class UserInfoProvider : IUserInfoProvider
+    public class TokenInfoProvider : ITokenInfoProvider
     {
         private const string ColumnsSql =
             "select distinct column_name from information_schema.columns where table_name = 'educationorganizationidentifiers' and table_schema = 'auth'and column_name like '%id';";
 
-        private const string EdOrgIdentifiersSql = "select distinct * from auth.educationorganizationidentifiers where {0};";
+        private const string EdOrgIdentifiersSql = @"select distinct * from auth.educationorganizationidentifiers where {0};";
 
         private const string EdOrIdsParameterName = "edorgs";
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly ISessionFactory _sessionFactory;
 
-        public UserInfoProvider(IApiKeyContextProvider apiKeyContextProvider, ISessionFactory sessionFactory)
+        public TokenInfoProvider(IApiKeyContextProvider apiKeyContextProvider, ISessionFactory sessionFactory)
         {
             _apiKeyContextProvider = apiKeyContextProvider;
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<UserInfo> GetUserInfoAsync()
+        public async Task<TokenInfo> GetTokenInfoAsync()
         {
             ApiKeyContext apiContext = _apiKeyContextProvider.GetApiKeyContext();
 
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Services.Providers
                         .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
                         .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
 
-                return UserInfo.Create(apiContext, educationOrganizationIdentifiers);
+                return TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
             }
         }
     }

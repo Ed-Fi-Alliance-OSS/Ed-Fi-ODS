@@ -10,7 +10,7 @@ using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Models
 {
-    public class UserInfo
+    public class TokenInfo
     {
         public IEnumerable<object> EducationOrganizations { get; set; }
 
@@ -20,10 +20,10 @@ namespace EdFi.Ods.Api.Models
 
         public IEnumerable<string> NamespacePrefixes { get; set; }
 
-        public static UserInfo Create(ApiKeyContext apiKeyContext,
+        public static TokenInfo Create(ApiKeyContext apiKeyContext,
             IList<EducationOrganizationIdentifiers> educationOrganizationIdentifiers)
         {
-            return new UserInfo
+            return new TokenInfo
             {
                 NamespacePrefixes = apiKeyContext.NamespacePrefixes,
                 AssignedProfiles = apiKeyContext.Profiles,

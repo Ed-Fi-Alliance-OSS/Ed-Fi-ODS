@@ -10,20 +10,20 @@ using EdFi.Ods.Common.Extensibility;
 
 namespace EdFi.Ods.Api.Startup.Features
 {
-    public class UserInfoFeature : ConfigurationBasedFeatureBase
+    public class TokenInfoFeature : ConfigurationBasedFeatureBase
     {
-        public UserInfoFeature(IConfigValueProvider configValueProvider,
+        public TokenInfoFeature(IConfigValueProvider configValueProvider,
             IApiConfigurationProvider apiConfigurationProvider)
             : base(configValueProvider, apiConfigurationProvider) { }
 
         public override string FeatureName
         {
-            get => UserInfoConstants.FeatureName;
+            get => TokenInfoConstants.FeatureName;
         }
 
         public override IWindsorInstaller Installer
         {
-            get => new UserInfoInstaller();
+            get => new TokenInfoInstaller();
         }
     }
 }

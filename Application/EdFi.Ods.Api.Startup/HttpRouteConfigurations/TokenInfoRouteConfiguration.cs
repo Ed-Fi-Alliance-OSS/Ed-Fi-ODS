@@ -9,17 +9,17 @@ using EdFi.Ods.Api.Services.Metadata;
 
 namespace EdFi.Ods.Api.Startup.HttpRouteConfigurations
 {
-    public class UserInfoRouteConfiguration : IRouteConfiguration, IOpenApiMetadataRouteConfiguration
+    public class TokenInfoRouteConfiguration : IRouteConfiguration, IOpenApiMetadataRouteConfiguration
     {
         public void ConfigureRoutes(HttpConfiguration config, bool useSchoolYear)
         {
             config.Routes.MapHttpRoute(
                 name: "UserInfo",
-                routeTemplate: "oauth/userinfo",
+                routeTemplate: "oauth/token_info",
                 defaults:
                 new
                 {
-                    controller = "userinfo",
+                    controller = "tokeninfo",
                 }
             );
         }

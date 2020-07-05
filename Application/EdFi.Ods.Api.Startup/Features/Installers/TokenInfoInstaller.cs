@@ -13,12 +13,12 @@ using EdFi.Ods.Api.Startup.HttpRouteConfigurations;
 
 namespace EdFi.Ods.Api.Startup.Features.Installers
 {
-    public class UserInfoInstaller : IWindsorInstaller
+    public class TokenInfoInstaller : IWindsorInstaller
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(
-                Component.For<IUserInfoProvider>().ImplementedBy<UserInfoProvider>(),
+                Component.For<ITokenInfoProvider>().ImplementedBy<TokenInfoProvider>(),
                 Component.For<IRouteConfiguration, IOpenApiMetadataRouteConfiguration>().ImplementedBy<UserInfoRouteConfiguration>());
 
             RegisterControllers(container);

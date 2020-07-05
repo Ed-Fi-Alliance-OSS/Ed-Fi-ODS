@@ -20,7 +20,7 @@ using Shouldly;
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 {
     [TestFixture]
-    public class UserInfoProviderTests
+    public class TokenInfoProviderTests
     {
         private ApiKeyContext CreateApiContext()
         {
@@ -86,9 +86,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 .Returns(CreateApiContext());
 
             // Act
-            var userInfoProvider = new UserInfoProvider(apiContextProvider, sessionFactory);
+            var userInfoProvider = new TokenInfoProvider(apiContextProvider, sessionFactory);
 
-            var results = await userInfoProvider.GetUserInfoAsync();
+            var results = await userInfoProvider.GetTokenInfoAsync();
 
             // Assert
             // validate we went down the path

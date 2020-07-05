@@ -3,11 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.Startup.Features
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Models;
+
+namespace EdFi.Ods.Api.Services.Providers
 {
-    public static class UserInfoConstants
+    public interface ITokenInfoProvider
     {
-        public const string FeatureName = "userInfo";
-        public const string FeatureVersion = "1";
+        Task<TokenInfo> GetTokenInfoAsync();
     }
 }
