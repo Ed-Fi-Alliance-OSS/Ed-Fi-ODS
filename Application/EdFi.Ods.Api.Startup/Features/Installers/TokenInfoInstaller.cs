@@ -19,7 +19,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         {
             container.Register(
                 Component.For<ITokenInfoProvider>().ImplementedBy<TokenInfoProvider>(),
-                Component.For<IRouteConfiguration, IOpenApiMetadataRouteConfiguration>().ImplementedBy<UserInfoRouteConfiguration>());
+                Component.For<IRouteConfiguration, IOpenApiMetadataRouteConfiguration>().ImplementedBy<TokenInfoRouteConfiguration>());
 
             RegisterControllers(container);
         }

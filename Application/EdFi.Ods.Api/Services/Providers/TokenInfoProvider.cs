@@ -21,20 +21,15 @@ namespace EdFi.Ods.Api.Services.Providers
 
         private const string EdOrgIdentifiersSql = @"select distinct * from auth.educationorganizationidentifiers where {0};";
 
-        private const string EdOrIdsParameterName = "edorgs";
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly ISessionFactory _sessionFactory;
 
-        public TokenInfoProvider(IApiKeyContextProvider apiKeyContextProvider, ISessionFactory sessionFactory)
+        public TokenInfoProvider(ISessionFactory sessionFactory)
         {
-            _apiKeyContextProvider = apiKeyContextProvider;
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<TokenInfo> GetTokenInfoAsync()
+        public async Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
         {
-            ApiKeyContext apiContext = _apiKeyContextProvider.GetApiKeyContext();
-
             using (var session = _sessionFactory.OpenStatelessSession())
             {
                 var columns = await session.CreateSQLQuery(ColumnsSql)

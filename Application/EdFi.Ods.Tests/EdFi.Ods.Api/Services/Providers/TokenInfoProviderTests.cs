@@ -79,16 +79,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
                 .Returns(CreateEducationOrganizationIdentifiers());
 
-            // api context provider
-            var apiContextProvider = A.Fake<IApiKeyContextProvider>();
-
-            A.CallTo(() => apiContextProvider.GetApiKeyContext())
-                .Returns(CreateApiContext());
 
             // Act
-            var userInfoProvider = new TokenInfoProvider(apiContextProvider, sessionFactory);
+            var userInfoProvider = new TokenInfoProvider(sessionFactory);
 
-            var results = await userInfoProvider.GetTokenInfoAsync();
+            var results = await userInfoProvider.GetTokenInfoAsync(CreateApiContext());
 
             // Assert
             // validate we went down the path

@@ -7,24 +7,36 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Models
 {
     public class TokenInfo
     {
-        public IEnumerable<object> EducationOrganizations { get; set; }
+        public bool Active { get; private set; }
 
-        public string StudentIdentificationSystem { get; set; }
+        [JsonProperty("client_id")]
+        public string ApiKey { get; private set; }
 
-        public IEnumerable<string> AssignedProfiles { get; set; }
+        [JsonProperty("namespace_prefixes")]
+        public IEnumerable<string> NamespacePrefixes { get; private set; }
 
-        public IEnumerable<string> NamespacePrefixes { get; set; }
+        [JsonProperty("education_organizations")]
+        public IEnumerable<object> EducationOrganizations { get; private set; }
+
+        [JsonProperty("student_identification_system")]
+        public string StudentIdentificationSystem { get; private set; }
+
+        [JsonProperty("assigned_profiles")]
+        public IEnumerable<string> AssignedProfiles { get; private set; }
 
         public static TokenInfo Create(ApiKeyContext apiKeyContext,
             IList<EducationOrganizationIdentifiers> educationOrganizationIdentifiers)
         {
             return new TokenInfo
             {
+                Active = true,
+                ApiKey = apiKeyContext.ApiKey,
                 NamespacePrefixes = apiKeyContext.NamespacePrefixes,
                 AssignedProfiles = apiKeyContext.Profiles,
                 StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
