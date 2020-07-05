@@ -58,6 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 
             // info schema validation to get all the columns
             var schemaSqlQuery = A.Fake<ISQLQuery>();
+
             A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("information_schema.columns")))
                 .Returns(schemaSqlQuery);
 
@@ -73,12 +74,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => edOrgIdentifierSqlQuery.SetParameter(A<string>._, A<string>._))
                 .Returns(edOrgIdentifierSqlQuery);
 
-            A.CallTo(() => edOrgIdentifierSqlQuery.SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>()))
+            A.CallTo(
+                    () => edOrgIdentifierSqlQuery.SetResultTransformer(
+                        Transformers.AliasToBean<EducationOrganizationIdentifiers>()))
                 .Returns(edOrgIdentifierSqlQuery);
 
             A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
                 .Returns(CreateEducationOrganizationIdentifiers());
-
 
             // Act
             var userInfoProvider = new TokenInfoProvider(sessionFactory);

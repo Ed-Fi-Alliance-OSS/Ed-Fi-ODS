@@ -5,7 +5,6 @@
 
 using System;
 using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -20,11 +19,12 @@ namespace EdFi.Ods.Api.Services.Controllers
     [Authenticate]
     public class TokenInfoController : ApiController
     {
-        private readonly ITokenInfoProvider _tokenInfoProvider;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IAccessTokenClientRepo _tokenClientRepo;
+        private readonly ITokenInfoProvider _tokenInfoProvider;
 
-        public TokenInfoController(ITokenInfoProvider tokenInfoProvider,IApiKeyContextProvider apiKeyContextProvider, IAccessTokenClientRepo tokenClientRepo)
+        public TokenInfoController(ITokenInfoProvider tokenInfoProvider, IApiKeyContextProvider apiKeyContextProvider,
+            IAccessTokenClientRepo tokenClientRepo)
         {
             _tokenInfoProvider = tokenInfoProvider;
             _apiKeyContextProvider = apiKeyContextProvider;

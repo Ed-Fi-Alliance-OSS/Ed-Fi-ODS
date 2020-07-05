@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Services.Providers
     public class TokenInfoProvider : ITokenInfoProvider
     {
         private const string ColumnsSql =
-            "select distinct column_name from information_schema.columns where table_name = 'educationorganizationidentifiers' and table_schema = 'auth'and column_name like '%id';";
+            @"select distinct column_name from information_schema.columns where table_name = 'educationorganizationidentifiers' and table_schema = 'auth'and column_name like '%id';";
 
         private const string EdOrgIdentifiersSql = @"select distinct * from auth.educationorganizationidentifiers where {0};";
 
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Services.Providers
 
                 string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
-                var whereClause = string.Join(" or ", columns.Select(x => $"{x} in ({edOrgIds})"));
+                string whereClause = string.Join(" or ", columns.Select(x => $"{x} in ({edOrgIds})"));
 
                 var educationOrganizationIdentifiers =
                     await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, whereClause))
