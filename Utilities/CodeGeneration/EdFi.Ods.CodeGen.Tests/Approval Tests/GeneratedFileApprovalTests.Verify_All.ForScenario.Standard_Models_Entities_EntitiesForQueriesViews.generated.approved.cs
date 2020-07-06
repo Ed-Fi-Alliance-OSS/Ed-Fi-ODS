@@ -39,6 +39,38 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
     } 
 
     /// <summary>
+    /// A class which represents the auth.CommunityProviderIdToStaffUSI table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_CommunityProviderIdToStaffUSI : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int CommunityProviderId  { get; set; }
+        public virtual int StaffUSI  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
     /// A class which represents the auth.EducationOrganizationIdentifiers table of the (unspecified) aggregate in the ODS database.
     /// </summary>
     [Serializable]
@@ -59,10 +91,14 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         public virtual int EducationOrganizationId  { get; set; }
         public virtual string EducationOrganizationType  { get; set; }
         public virtual int? EducationServiceCenterId  { get; set; }
+        public virtual string FullEducationOrganizationType  { get; set; }
         public virtual int? LocalEducationAgencyId  { get; set; }
+        public virtual string NameOfInstitution  { get; set; }
         public virtual int? PostSecondaryInstitutionId  { get; set; }
         public virtual int? SchoolId  { get; set; }
         public virtual int? StateEducationAgencyId  { get; set; }
+        public virtual int? TeacherPreparationProviderId  { get; set; }
+        public virtual int? UniversityId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -351,6 +387,70 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // -------------------------------------------------------------
         public virtual int? EducationOrganizationId  { get; set; }
         public virtual int StudentUSI  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
+    /// A class which represents the auth.EducationOrganizationIdToTeacherPreparationProviderId table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_EducationOrganizationIdToTeacherPreparationProviderId : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int EducationOrganizationId  { get; set; }
+        public virtual int TeacherPreparationProviderId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
+    /// A class which represents the auth.EducationOrganizationIdToUniversityId table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_EducationOrganizationIdToUniversityId : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int EducationOrganizationId  { get; set; }
+        public virtual int UniversityId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -692,6 +792,38 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
     } 
 
     /// <summary>
+    /// A class which represents the auth.PostSecondaryInstitutionIdToStaffUSI table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_PostSecondaryInstitutionIdToStaffUSI : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int PostSecondaryInstitutionId  { get; set; }
+        public virtual int StaffUSI  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
     /// A class which represents the auth.School table of the (unspecified) aggregate in the ODS database.
     /// </summary>
     [Serializable]
@@ -806,6 +938,70 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         // -------------------------------------------------------------
         public virtual int SchoolId  { get; set; }
         public virtual int StudentUSI  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
+    /// A class which represents the auth.StaffUSIToTeacherPreparationProviderId table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_StaffUSIToTeacherPreparationProviderId : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int StaffUSI  { get; set; }
+        public virtual int TeacherPreparationProviderId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
+    /// A class which represents the auth.StaffUSIToUniversityId table of the (unspecified) aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class auth_StaffUSIToUniversityId : AggregateRootWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int StaffUSI  { get; set; }
+        public virtual int UniversityId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
