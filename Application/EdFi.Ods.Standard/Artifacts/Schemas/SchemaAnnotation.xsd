@@ -32,6 +32,7 @@
       <xs:enumeration value="ApplicationEventTypeDescriptor" />
       <xs:enumeration value="ApplicationSourceDescriptor" />
       <xs:enumeration value="ApplicationStatusDescriptor" />
+      <xs:enumeration value="ArtMediumDescriptor" />
       <xs:enumeration value="AssessmentCategoryDescriptor" />
       <xs:enumeration value="AssessmentIdentificationSystemDescriptor" />
       <xs:enumeration value="AssessmentItemCategoryDescriptor" />
@@ -110,6 +111,7 @@
       <xs:enumeration value="EvaluationTypeDescriptor" />
       <xs:enumeration value="EventCircumstanceDescriptor" />
       <xs:enumeration value="ExitWithdrawTypeDescriptor" />
+      <xs:enumeration value="FavoriteBookCategoryDescriptor" />
       <xs:enumeration value="FederalLocaleCodeDescriptor" />
       <xs:enumeration value="FieldworkTypeDescriptor" />
       <xs:enumeration value="FundingSourceDescriptor" />
@@ -128,6 +130,9 @@
       <xs:enumeration value="HomelessProgramServiceDescriptor" />
       <xs:enumeration value="IdentificationDocumentUseDescriptor" />
       <xs:enumeration value="IncidentLocationDescriptor" />
+      <xs:enumeration value="IndicatorDescriptor" />
+      <xs:enumeration value="IndicatorGroupDescriptor" />
+      <xs:enumeration value="IndicatorLevelDescriptor" />
       <xs:enumeration value="InstitutionTelephoneNumberTypeDescriptor" />
       <xs:enumeration value="InstructionalSettingDescriptor" />
       <xs:enumeration value="InteractivityStyleDescriptor" />
@@ -150,6 +155,7 @@
       <xs:enumeration value="LocalEducationAgencyCategoryDescriptor" />
       <xs:enumeration value="MagnetSpecialProgramEmphasisSchoolDescriptor" />
       <xs:enumeration value="MediumOfInstructionDescriptor" />
+      <xs:enumeration value="MembershipTypeDescriptor" />
       <xs:enumeration value="MethodCreditEarnedDescriptor" />
       <xs:enumeration value="MigrantEducationProgramServiceDescriptor" />
       <xs:enumeration value="MonitoredDescriptor" />

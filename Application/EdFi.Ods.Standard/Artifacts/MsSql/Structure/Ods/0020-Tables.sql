@@ -2293,6 +2293,41 @@ CREATE TABLE [edfi].[EducationOrganizationIdentificationSystemDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [edfi].[EducationOrganizationIndicator] --
+CREATE TABLE [edfi].[EducationOrganizationIndicator] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [IndicatorDescriptorId] [INT] NOT NULL,
+    [DesignatedBy] [NVARCHAR](60) NULL,
+    [IndicatorValue] [NVARCHAR](35) NULL,
+    [IndicatorLevelDescriptorId] [INT] NULL,
+    [IndicatorGroupDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EducationOrganizationIndicator_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [IndicatorDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[EducationOrganizationIndicator] ADD CONSTRAINT [EducationOrganizationIndicator_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[EducationOrganizationIndicatorPeriod] --
+CREATE TABLE [edfi].[EducationOrganizationIndicatorPeriod] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [IndicatorDescriptorId] [INT] NOT NULL,
+    [EndDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EducationOrganizationIndicatorPeriod_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [IndicatorDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[EducationOrganizationIndicatorPeriod] ADD CONSTRAINT [EducationOrganizationIndicatorPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[EducationOrganizationInstitutionTelephone] --
 CREATE TABLE [edfi].[EducationOrganizationInstitutionTelephone] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -3043,6 +3078,33 @@ CREATE TABLE [edfi].[IncidentLocationDescriptor] (
     [IncidentLocationDescriptorId] [INT] NOT NULL,
     CONSTRAINT [IncidentLocationDescriptor_PK] PRIMARY KEY CLUSTERED (
         [IncidentLocationDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[IndicatorDescriptor] --
+CREATE TABLE [edfi].[IndicatorDescriptor] (
+    [IndicatorDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [IndicatorDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [IndicatorDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[IndicatorGroupDescriptor] --
+CREATE TABLE [edfi].[IndicatorGroupDescriptor] (
+    [IndicatorGroupDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [IndicatorGroupDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [IndicatorGroupDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[IndicatorLevelDescriptor] --
+CREATE TABLE [edfi].[IndicatorLevelDescriptor] (
+    [IndicatorLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [IndicatorLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [IndicatorLevelDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

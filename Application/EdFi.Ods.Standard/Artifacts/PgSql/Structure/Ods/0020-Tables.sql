@@ -1531,6 +1531,30 @@ CREATE TABLE edfi.EducationOrganizationIdentificationSystemDescriptor (
     CONSTRAINT EducationOrganizationIdentificationSystemDescriptor_PK PRIMARY KEY (EducationOrganizationIdentificationSystemDescriptorId)
 ); 
 
+-- Table edfi.EducationOrganizationIndicator --
+CREATE TABLE edfi.EducationOrganizationIndicator (
+    EducationOrganizationId INT NOT NULL,
+    IndicatorDescriptorId INT NOT NULL,
+    DesignatedBy VARCHAR(60) NULL,
+    IndicatorValue VARCHAR(35) NULL,
+    IndicatorLevelDescriptorId INT NULL,
+    IndicatorGroupDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EducationOrganizationIndicator_PK PRIMARY KEY (EducationOrganizationId, IndicatorDescriptorId)
+); 
+ALTER TABLE edfi.EducationOrganizationIndicator ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.EducationOrganizationIndicatorPeriod --
+CREATE TABLE edfi.EducationOrganizationIndicatorPeriod (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    IndicatorDescriptorId INT NOT NULL,
+    EndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EducationOrganizationIndicatorPeriod_PK PRIMARY KEY (BeginDate, EducationOrganizationId, IndicatorDescriptorId)
+); 
+ALTER TABLE edfi.EducationOrganizationIndicatorPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.EducationOrganizationInstitutionTelephone --
 CREATE TABLE edfi.EducationOrganizationInstitutionTelephone (
     EducationOrganizationId INT NOT NULL,
@@ -2025,6 +2049,24 @@ CREATE TABLE edfi.IdentificationDocumentUseDescriptor (
 CREATE TABLE edfi.IncidentLocationDescriptor (
     IncidentLocationDescriptorId INT NOT NULL,
     CONSTRAINT IncidentLocationDescriptor_PK PRIMARY KEY (IncidentLocationDescriptorId)
+); 
+
+-- Table edfi.IndicatorDescriptor --
+CREATE TABLE edfi.IndicatorDescriptor (
+    IndicatorDescriptorId INT NOT NULL,
+    CONSTRAINT IndicatorDescriptor_PK PRIMARY KEY (IndicatorDescriptorId)
+); 
+
+-- Table edfi.IndicatorGroupDescriptor --
+CREATE TABLE edfi.IndicatorGroupDescriptor (
+    IndicatorGroupDescriptorId INT NOT NULL,
+    CONSTRAINT IndicatorGroupDescriptor_PK PRIMARY KEY (IndicatorGroupDescriptorId)
+); 
+
+-- Table edfi.IndicatorLevelDescriptor --
+CREATE TABLE edfi.IndicatorLevelDescriptor (
+    IndicatorLevelDescriptorId INT NOT NULL,
+    CONSTRAINT IndicatorLevelDescriptor_PK PRIMARY KEY (IndicatorLevelDescriptorId)
 ); 
 
 -- Table edfi.InstitutionTelephoneNumberTypeDescriptor --
