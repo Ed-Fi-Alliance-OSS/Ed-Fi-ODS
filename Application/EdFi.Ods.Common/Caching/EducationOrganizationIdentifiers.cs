@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 namespace EdFi.Ods.Common.Caching
 {
     public class EducationOrganizationIdentifiers
@@ -26,7 +26,9 @@ namespace EdFi.Ods.Common.Caching
             int? postSecondaryInstitutionId = null,
             // For TPDM Extension Support
             int? universityId = null,
-            int? teacherPreparationProviderId = null)
+            int? teacherPreparationProviderId = null,
+            string fullEducationOrganizationType = null,
+            string nameOfInstitution = null)
         {
             EducationOrganizationId = educationOrganizationId;
             EducationOrganizationType = educationOrganizationType;
@@ -40,6 +42,10 @@ namespace EdFi.Ods.Common.Caching
             // For TPDM Extension Support
             UniversityId = universityId;
             TeacherPreparationProviderId = teacherPreparationProviderId;
+
+            // new for UserInfo endpoint
+            NameOfInstitution = nameOfInstitution;
+            FullEducationOrganizationType = fullEducationOrganizationType;
         }
 
         public int EducationOrganizationId { get; private set; }
@@ -65,6 +71,12 @@ namespace EdFi.Ods.Common.Caching
 
         // For TPDM Extension Support
         public int? TeacherPreparationProviderId { get; private set; }
+
+        // For TokenInfo Endpoint
+        public string NameOfInstitution { get; private set; }
+
+        // For TokenInfo Endpoint
+        public string FullEducationOrganizationType { get; private set; }
 
         public bool IsDefault => EducationOrganizationId == default(int)
                                  && EducationServiceCenterId == null
