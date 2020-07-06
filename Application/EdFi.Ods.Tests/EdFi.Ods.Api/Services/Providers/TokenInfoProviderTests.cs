@@ -71,9 +71,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.educationorganizationidentifiers")))
                 .Returns(edOrgIdentifierSqlQuery);
 
-            A.CallTo(() => edOrgIdentifierSqlQuery.SetParameter(A<string>._, A<string>._))
-                .Returns(edOrgIdentifierSqlQuery);
-
             A.CallTo(
                     () => edOrgIdentifierSqlQuery.SetResultTransformer(
                         Transformers.AliasToBean<EducationOrganizationIdentifiers>()))
@@ -83,9 +80,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 .Returns(CreateEducationOrganizationIdentifiers());
 
             // Act
-            var userInfoProvider = new TokenInfoProvider(sessionFactory);
+            var tokenInfoProvider = new TokenInfoProvider(sessionFactory);
 
-            var results = await userInfoProvider.GetTokenInfoAsync(CreateApiContext());
+            var results = await tokenInfoProvider.GetTokenInfoAsync(CreateApiContext());
 
             // Assert
             // validate we went down the path

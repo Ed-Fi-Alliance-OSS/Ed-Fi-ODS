@@ -14,7 +14,7 @@ namespace EdFi.Ods.Api.Startup.HttpRouteConfigurations
         public void ConfigureRoutes(HttpConfiguration config, bool useSchoolYear)
         {
             config.Routes.MapHttpRoute(
-                name: "UserInfo",
+                name: "TokenInfo",
                 routeTemplate: "oauth/token_info",
                 defaults:
                 new

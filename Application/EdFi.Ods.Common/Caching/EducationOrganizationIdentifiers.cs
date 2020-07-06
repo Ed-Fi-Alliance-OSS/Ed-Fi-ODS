@@ -72,10 +72,10 @@ namespace EdFi.Ods.Common.Caching
         // For TPDM Extension Support
         public int? TeacherPreparationProviderId { get; private set; }
 
-        // For UserInfo Endpoint
+        // For TokenInfo Endpoint
         public string NameOfInstitution { get; private set; }
 
-        // For UserInfo Endpoint
+        // For TokenInfo Endpoint
         public string FullEducationOrganizationType { get; private set; }
 
         public bool IsDefault => EducationOrganizationId == default(int)
