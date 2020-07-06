@@ -44,16 +44,16 @@ namespace EdFi.Ods.Api.Models
                     .Select(
                         x => new
                         {
-                            x.EducationOrganizationId,
-                            x.StateEducationAgencyId,
-                            x.LocalEducationAgencyId,
-                            x.SchoolId,
-                            x.CommunityOrganizationId,
-                            x.CommunityProviderId,
-                            x.PostSecondaryInstitutionId,
-                            x.UniversityId,
-                            x.TeacherPreparationProviderId,
-                            x.NameOfInstitution,
+                            education_orgainization_id = x.EducationOrganizationId,
+                            state_education_organization_id = x.StateEducationAgencyId,
+                            local_education_agency_id = x.LocalEducationAgencyId,
+                            school_id = x.SchoolId,
+                            community_organization_id = x.CommunityOrganizationId,
+                            community_provider_id = x.CommunityProviderId,
+                            post_secondary_institution_id = x.PostSecondaryInstitutionId,
+                            university_id = x.UniversityId,
+                            teacher_preparation_provider_id = x.TeacherPreparationProviderId,
+                            name_of_institution = x.NameOfInstitution,
                             type = x.FullEducationOrganizationType
                         })
                     .ToArray()

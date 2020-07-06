@@ -7,7 +7,7 @@ namespace EdFi.Ods.Api.Startup.Features
 {
     public static class TokenInfoConstants
     {
-        public const string FeatureName = "userInfo";
+        public const string FeatureName = "tokenInfo";
         public const string FeatureVersion = "1";
     }
 }
