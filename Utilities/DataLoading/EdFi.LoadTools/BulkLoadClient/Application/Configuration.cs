@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.IO;
 using System.Text;
@@ -101,6 +101,8 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         string IXsdConfiguration.Folder => XsdFolder;
 
         bool IXsdConfiguration.DoNotValidateXml => DoNotValidateXml;
+
+        public bool IncludeStats { get; set; }
 
         private string CreateErrorText()
         {
