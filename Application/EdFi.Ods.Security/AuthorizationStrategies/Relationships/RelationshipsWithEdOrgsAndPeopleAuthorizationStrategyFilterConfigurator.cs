@@ -32,8 +32,8 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToCommunityOrganizationId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToCommunityProviderId,
+                              RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,
+                              RelationshipsAuthorizationFilters.CommunityProviderIdToEducationOrganizationId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityProviderId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
 

@@ -25,6 +25,78 @@
   },
   {
     "SchemaOwner": "auth",
+    "Name": "CommunityOrganizationIdToEducationOrganizationId",
+    "Columns": [
+      {
+        "Name": "CommunityOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": true
+      },
+      {
+        "Name": "EducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "CommunityProviderIdToEducationOrganizationId",
+    "Columns": [
+      {
+        "Name": "CommunityProviderId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "EducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "CommunityProviderIdToStaffUSI",
+    "Columns": [
+      {
+        "Name": "CommunityProviderId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StaffUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
     "Name": "EducationOrganizationIdentifiers",
     "Columns": [
       {
@@ -40,7 +112,7 @@
         "Name": "EducationOrganizationType",
         "DbDataType": "nvarchar",
         "IsPrimaryKey": false,
-        "Length": 24,
+        "Length": 26,
         "Precision": null,
         "Scale": null,
         "Nullable": true
@@ -107,15 +179,27 @@
         "Precision": 10,
         "Scale": 0,
         "Nullable": true
-      }
-    ]
-  },
-  {
-    "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToCommunityOrganizationId",
-    "Columns": [
+      },
       {
-        "Name": "CommunityOrganizationId",
+        "Name": "FullEducationOrganizationType",
+        "DbDataType": "nvarchar",
+        "IsPrimaryKey": false,
+        "Length": 128,
+        "Precision": null,
+        "Scale": null,
+        "Nullable": true
+      },
+      {
+        "Name": "NameOfInstitution",
+        "DbDataType": "nvarchar",
+        "IsPrimaryKey": false,
+        "Length": 75,
+        "Precision": null,
+        "Scale": null,
+        "Nullable": false
+      },
+      {
+        "Name": "UniversityId",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,
@@ -124,37 +208,13 @@
         "Nullable": true
       },
       {
-        "Name": "EducationOrganizationId",
+        "Name": "TeacherPreparationProviderId",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,
         "Precision": 10,
         "Scale": 0,
-        "Nullable": false
-      }
-    ]
-  },
-  {
-    "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToCommunityProviderId",
-    "Columns": [
-      {
-        "Name": "CommunityProviderId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": false
-      },
-      {
-        "Name": "EducationOrganizationId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": false
+        "Nullable": true
       }
     ]
   },
@@ -317,6 +377,54 @@
       },
       {
         "Name": "StudentUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "EducationOrganizationIdToTeacherPreparationProviderId",
+    "Columns": [
+      {
+        "Name": "TeacherPreparationProviderId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "EducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "EducationOrganizationIdToUniversityId",
+    "Columns": [
+      {
+        "Name": "UniversityId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "EducationOrganizationId",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,
@@ -631,6 +739,30 @@
   },
   {
     "SchemaOwner": "auth",
+    "Name": "PostSecondaryInstitutionIdToStaffUSI",
+    "Columns": [
+      {
+        "Name": "PostSecondaryInstitutionId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StaffUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
     "Name": "School",
     "Columns": [
       {
@@ -734,6 +866,54 @@
       },
       {
         "Name": "StudentUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "StaffUSIToTeacherPreparationProviderId",
+    "Columns": [
+      {
+        "Name": "TeacherPreparationProviderId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StaffUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "StaffUSIToUniversityId",
+    "Columns": [
+      {
+        "Name": "UniversityId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StaffUSI",
         "DbDataType": "int",
         "IsPrimaryKey": false,
         "Length": null,

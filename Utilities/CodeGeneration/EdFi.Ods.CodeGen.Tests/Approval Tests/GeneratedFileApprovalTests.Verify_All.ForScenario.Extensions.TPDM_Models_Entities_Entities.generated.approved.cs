@@ -55028,9 +55028,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
         // -----------------------------------------
     }
 }
-                if (_staffUniqueId != value)
-                        _staffUSI = default(int);
-
 // Aggregate: StaffProspectAssociation
 
 namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
