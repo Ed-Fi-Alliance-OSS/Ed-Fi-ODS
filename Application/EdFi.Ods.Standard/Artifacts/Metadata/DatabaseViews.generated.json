@@ -25,6 +25,54 @@
   },
   {
     "SchemaOwner": "auth",
+    "Name": "CommunityOrganizationIdToEducationOrganizationId",
+    "Columns": [
+      {
+        "Name": "CommunityOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": true
+      },
+      {
+        "Name": "EducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
+    "Name": "CommunityProviderIdToEducationOrganizationId",
+    "Columns": [
+      {
+        "Name": "CommunityProviderId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "EducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
     "Name": "CommunityProviderIdToStaffUSI",
     "Columns": [
       {
@@ -167,54 +215,6 @@
         "Precision": 10,
         "Scale": 0,
         "Nullable": true
-      }
-    ]
-  },
-  {
-    "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToCommunityOrganizationId",
-    "Columns": [
-      {
-        "Name": "CommunityOrganizationId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": true
-      },
-      {
-        "Name": "EducationOrganizationId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": false
-      }
-    ]
-  },
-  {
-    "SchemaOwner": "auth",
-    "Name": "EducationOrganizationIdToCommunityProviderId",
-    "Columns": [
-      {
-        "Name": "CommunityProviderId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": false
-      },
-      {
-        "Name": "EducationOrganizationId",
-        "DbDataType": "int",
-        "IsPrimaryKey": false,
-        "Length": null,
-        "Precision": 10,
-        "Scale": 0,
-        "Nullable": false
       }
     ]
   },
