@@ -35,8 +35,8 @@ namespace EdFi.Ods.Api.Services.Controllers
         public async Task<IHttpActionResult> PostAsync([FromBody] TokenInfoRequest tokenInfoRequest)
         {
             // see https://tools.ietf.org/html/rfc7662#section-2.2 for oauth token_info spec
-            if (tokenInfoRequest == null || tokenInfoRequest.AccessToken == null ||
-                !Guid.TryParse(tokenInfoRequest.AccessToken, out Guid accessToken))
+            if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
+                !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
                 return BadRequest("Invalid token");
             }

@@ -9,7 +9,6 @@ namespace EdFi.Ods.Api.Models
 {
     public class TokenInfoRequest
     {
-        [JsonProperty("token")]
-        public string AccessToken { get; set; }
+        public string Token { get; set; }
     }
 }
