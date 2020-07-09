@@ -5,6 +5,15 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
 { 
 
     /// <summary>
+    /// Interface for the tpdm.AccreditationStatusDescriptor table of the AccreditationStatusDescriptor aggregate in the Ods Database.
+    /// </summary>
+    public interface IAccreditationStatusDescriptorRecord
+    {     
+        // Properties for all columns in physical table
+        int AccreditationStatusDescriptorId { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the tpdm.AidTypeDescriptor table of the AidTypeDescriptor aggregate in the Ods Database.
     /// </summary>
     public interface IAidTypeDescriptorRecord
@@ -289,14 +298,10 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         DateTime? BirthDate { get; set; }
         int? CitizenshipStatusDescriptorId { get; set; }
         bool? EconomicDisadvantaged { get; set; }
-        int EducationOrganizationId { get; set; }
         bool? FirstGenerationStudent { get; set; }
         string FirstName { get; set; }
         int? GenderDescriptorId { get; set; }
         string GenerationCodeSuffix { get; set; }
-        int? HighestCompletedLevelOfEducationDescriptorId { get; set; }
-        int? HighlyQualifiedAcademicSubjectDescriptorId { get; set; }
-        bool? HighlyQualifiedTeacher { get; set; }
         bool? HispanicLatinoEthnicity { get; set; }
         Guid Id { get; set; }
         string LastSurname { get; set; }
@@ -308,8 +313,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int? SexDescriptorId { get; set; }
         int? SourceSystemDescriptorId { get; set; }
         string TeacherCandidateIdentifier { get; set; }
-        decimal? YearsOfPriorProfessionalExperience { get; set; }
-        decimal? YearsOfPriorTeachingExperience { get; set; }
     }
 
     /// <summary>
@@ -326,7 +329,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string CongressionalDistrict { get; set; }
         string CountyFIPSCode { get; set; }
         bool? DoNotPublishIndicator { get; set; }
-        int EducationOrganizationId { get; set; }
         string Latitude { get; set; }
         int? LocaleDescriptorId { get; set; }
         string Longitude { get; set; }
@@ -346,7 +348,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         DateTime BeginDate { get; set; }
         string City { get; set; }
-        int EducationOrganizationId { get; set; }
         DateTime? EndDate { get; set; }
         string PostalCode { get; set; }
         int StateAbbreviationDescriptorId { get; set; }
@@ -364,7 +365,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int AidTypeDescriptorId { get; set; }
         string ApplicantIdentifier { get; set; }
         DateTime BeginDate { get; set; }
-        int EducationOrganizationId { get; set; }
         DateTime? EndDate { get; set; }
         bool? PellGrantRecipient { get; set; }
     }
@@ -380,7 +380,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         DateTime BackgroundCheckRequestedDate { get; set; }
         int? BackgroundCheckStatusDescriptorId { get; set; }
         int BackgroundCheckTypeDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
         bool? Fingerprint { get; set; }
     }
 
@@ -393,21 +392,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         DateTime? BeginDate { get; set; }
         string DesignatedBy { get; set; }
-        int EducationOrganizationId { get; set; }
         DateTime? EndDate { get; set; }
         int StudentCharacteristicDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.ApplicantCredential table of the Applicant aggregate in the Ods Database.
-    /// </summary>
-    public interface IApplicantCredentialRecord
-    {     
-        // Properties for all columns in physical table
-        string ApplicantIdentifier { get; set; }
-        string CredentialIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
-        int StateOfIssueStateAbbreviationDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -420,7 +406,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int DisabilityDescriptorId { get; set; }
         int? DisabilityDeterminationSourceTypeDescriptorId { get; set; }
         string DisabilityDiagnosis { get; set; }
-        int EducationOrganizationId { get; set; }
         int? OrderOfDisability { get; set; }
     }
 
@@ -433,7 +418,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         int DisabilityDescriptorId { get; set; }
         int DisabilityDesignationDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
     }
 
     /// <summary>
@@ -444,24 +428,9 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
         bool? DoNotPublishIndicator { get; set; }
-        int EducationOrganizationId { get; set; }
         string ElectronicMailAddress { get; set; }
         int ElectronicMailTypeDescriptorId { get; set; }
         bool? PrimaryEmailAddressIndicator { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.ApplicantGradePointAverage table of the Applicant aggregate in the Ods Database.
-    /// </summary>
-    public interface IApplicantGradePointAverageRecord
-    {     
-        // Properties for all columns in physical table
-        string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
-        int GradePointAverageTypeDescriptorId { get; set; }
-        decimal GradePointAverageValue { get; set; }
-        bool? IsCumulative { get; set; }
-        decimal? MaxGradePointAverageValue { get; set; }
     }
 
     /// <summary>
@@ -473,7 +442,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         DateTime? DocumentExpirationDate { get; set; }
         string DocumentTitle { get; set; }
-        int EducationOrganizationId { get; set; }
         int IdentificationDocumentUseDescriptorId { get; set; }
         int? IssuerCountryDescriptorId { get; set; }
         string IssuerDocumentIdentificationCode { get; set; }
@@ -495,7 +463,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         DateTime? BeginDate { get; set; }
         int CountryDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
         DateTime? EndDate { get; set; }
         string Latitude { get; set; }
         string Longitude { get; set; }
@@ -508,7 +475,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         int LanguageDescriptorId { get; set; }
     }
 
@@ -519,7 +485,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         int LanguageDescriptorId { get; set; }
         int LanguageUseDescriptorId { get; set; }
     }
@@ -533,7 +498,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicantIdentifier { get; set; }
         DateTime? DocumentExpirationDate { get; set; }
         string DocumentTitle { get; set; }
-        int EducationOrganizationId { get; set; }
         int IdentificationDocumentUseDescriptorId { get; set; }
         int? IssuerCountryDescriptorId { get; set; }
         string IssuerDocumentIdentificationCode { get; set; }
@@ -560,21 +524,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         int RaceDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.ApplicantScoreResult table of the Applicant aggregate in the Ods Database.
-    /// </summary>
-    public interface IApplicantScoreResultRecord
-    {     
-        // Properties for all columns in physical table
-        string ApplicantIdentifier { get; set; }
-        int AssessmentReportingMethodDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        string Result { get; set; }
-        int ResultDatatypeTypeDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -585,7 +535,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
         string AssigningOrganizationIdentificationCode { get; set; }
-        int EducationOrganizationId { get; set; }
         string IdentificationCode { get; set; }
         int StaffIdentificationSystemDescriptorId { get; set; }
     }
@@ -597,7 +546,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         decimal? GPA { get; set; }
         int LevelOfDegreeAwardedDescriptorId { get; set; }
         string MajorSpecialization { get; set; }
@@ -615,7 +563,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
         bool? DoNotPublishIndicator { get; set; }
-        int EducationOrganizationId { get; set; }
         int? OrderOfPriority { get; set; }
         string TelephoneNumber { get; set; }
         int TelephoneNumberTypeDescriptorId { get; set; }
@@ -629,7 +576,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         int VisaDescriptorId { get; set; }
     }
 
@@ -649,12 +595,17 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         bool? CurrentEmployee { get; set; }
         int EducationOrganizationId { get; set; }
         DateTime? FirstContactDate { get; set; }
+        int? HighestCompletedLevelOfEducationDescriptorId { get; set; }
+        int? HighlyQualifiedAcademicSubjectDescriptorId { get; set; }
+        bool? HighlyQualifiedTeacher { get; set; }
         int? HighNeedsAcademicSubjectDescriptorId { get; set; }
         int? HireStatusDescriptorId { get; set; }
         int? HiringSourceDescriptorId { get; set; }
         Guid Id { get; set; }
         DateTime? WithdrawDate { get; set; }
         int? WithdrawReasonDescriptorId { get; set; }
+        decimal? YearsOfPriorProfessionalExperience { get; set; }
+        decimal? YearsOfPriorTeachingExperience { get; set; }
     }
 
     /// <summary>
@@ -696,6 +647,21 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
+    /// Interface for the tpdm.ApplicationGradePointAverage table of the Application aggregate in the Ods Database.
+    /// </summary>
+    public interface IApplicationGradePointAverageRecord
+    {     
+        // Properties for all columns in physical table
+        string ApplicantIdentifier { get; set; }
+        string ApplicationIdentifier { get; set; }
+        int EducationOrganizationId { get; set; }
+        int GradePointAverageTypeDescriptorId { get; set; }
+        decimal GradePointAverageValue { get; set; }
+        bool? IsCumulative { get; set; }
+        decimal? MaxGradePointAverageValue { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the tpdm.ApplicationOpenStaffPosition table of the Application aggregate in the Ods Database.
     /// </summary>
     public interface IApplicationOpenStaffPositionRecord
@@ -705,6 +671,20 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ApplicationIdentifier { get; set; }
         int EducationOrganizationId { get; set; }
         string RequisitionNumber { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.ApplicationScoreResult table of the Application aggregate in the Ods Database.
+    /// </summary>
+    public interface IApplicationScoreResultRecord
+    {     
+        // Properties for all columns in physical table
+        string ApplicantIdentifier { get; set; }
+        string ApplicationIdentifier { get; set; }
+        int AssessmentReportingMethodDescriptorId { get; set; }
+        int EducationOrganizationId { get; set; }
+        string Result { get; set; }
+        int ResultDatatypeTypeDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -783,8 +763,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         DateTime? EndDate { get; set; }
         Guid Id { get; set; }
         int? InstructionalSettingDescriptorId { get; set; }
-        string IssuerNamespace { get; set; }
         int? MinimumDegreeDescriptorId { get; set; }
+        string Namespace { get; set; }
         int? PopulationServedDescriptorId { get; set; }
     }
 
@@ -796,7 +776,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string CertificationExamIdentifier { get; set; }
         string CertificationIdentifier { get; set; }
-        string IssuerNamespace { get; set; }
+        string ExamNamespace { get; set; }
         string Namespace { get; set; }
     }
 
@@ -812,8 +792,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int? EducationOrganizationId { get; set; }
         DateTime? EffectiveDate { get; set; }
         DateTime? EndDate { get; set; }
+        string ExamNamespace { get; set; }
         Guid Id { get; set; }
-        string Namespace { get; set; }
     }
 
     /// <summary>
@@ -828,8 +808,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         bool? CertificationExamPassIndicator { get; set; }
         decimal? CertificationExamScore { get; set; }
         int? CertificationExamStatusDescriptorId { get; set; }
+        string ExamNamespace { get; set; }
         Guid Id { get; set; }
-        string Namespace { get; set; }
         string PersonId { get; set; }
         int SourceSystemDescriptorId { get; set; }
     }
@@ -869,7 +849,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string CertificationIdentifier { get; set; }
         int GradeLevelDescriptorId { get; set; }
-        string IssuerNamespace { get; set; }
+        string Namespace { get; set; }
     }
 
     /// <summary>
@@ -889,7 +869,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string CertificationIdentifier { get; set; }
         int CertificationRouteDescriptorId { get; set; }
-        string IssuerNamespace { get; set; }
+        string Namespace { get; set; }
     }
 
     /// <summary>
@@ -908,26 +888,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         int CertificationStandardDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.CommunityOrganizationExtension table of the CommunityOrganization aggregate in the Ods Database.
-    /// </summary>
-    public interface ICommunityOrganizationExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int CommunityOrganizationId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.CommunityProviderExtension table of the CommunityProvider aggregate in the Ods Database.
-    /// </summary>
-    public interface ICommunityProviderExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int CommunityProviderId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -986,7 +946,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string CredentialIdentifier { get; set; }
         DateTime? CredentialStatusDate { get; set; }
         int? CredentialStatusDescriptorId { get; set; }
-        string IssuerNamespace { get; set; }
+        string Namespace { get; set; }
         string PersonId { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int StateOfIssueStateAbbreviationDescriptorId { get; set; }
@@ -1022,292 +982,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         int DegreeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFacts table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsRecord
-    {     
-        // Properties for all columns in physical table
-        decimal? AverageYearsInDistrictEmployed { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        decimal? HiringRate { get; set; }
-        Guid Id { get; set; }
-        int? NumberAdministratorsEmployed { get; set; }
-        int? NumberStudentsEnrolled { get; set; }
-        int? NumberTeachersEmployed { get; set; }
-        decimal? PercentStudentsFreeReducedLunch { get; set; }
-        decimal? PercentStudentsLimitedEnglishProficiency { get; set; }
-        decimal? PercentStudentsSpecialEducation { get; set; }
-        decimal? RetentionRate { get; set; }
-        decimal? RetirementRate { get; set; }
-        short SchoolYear { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsAggregatedSalary table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsAggregatedSalaryRecord
-    {     
-        // Properties for all columns in physical table
-        decimal AverageSalary { get; set; }
-        int? CountOfSalariesAveraged { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int? SalaryMaxRange { get; set; }
-        int? SalaryMinRange { get; set; }
-        short SchoolYear { get; set; }
-        int? StandardDeviation { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsVacancies table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsVacanciesRecord
-    {     
-        // Properties for all columns in physical table
-        int AcademicSubjectDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int NumberOfVacancies { get; set; }
-        short SchoolYear { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationFactsVacanciesGradeLevel table of the EducationOrganizationFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationFactsVacanciesGradeLevelRecord
-    {     
-        // Properties for all columns in physical table
-        int AcademicSubjectDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactsAsOfDate { get; set; }
-        int GradeLevelDescriptorId { get; set; }
-        short SchoolYear { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationNetworkExtension table of the EducationOrganizationNetwork aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationNetworkExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationNetworkId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFacts table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        Guid Id { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedByDisability table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedByDisabilityRecord
-    {     
-        // Properties for all columns in physical table
-        int DisabilityDescriptorId { get; set; }
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        decimal? Percentage { get; set; }
-        int? TypeNumber { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabledRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? StudentsDisabledNumber { get; set; }
-        decimal? StudentsDisabledPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedELLEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        int? ELLEnrollmentNumber { get; set; }
-        decimal? ELLEnrollmentPercentage { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedESLEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        int? ESLEnrollmentNumber { get; set; }
-        decimal? ESLEnrollmentPercentage { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedGender table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedGenderRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int GenderDescriptorId { get; set; }
-        int? GenderTypeNumber { get; set; }
-        decimal? GenderTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicityRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        bool HispanicLatinoEthnicity { get; set; }
-        int? HispanicLatinoEthnicityNumber { get; set; }
-        decimal? HispanicLatinoEthnicityPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedLanguage table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedLanguageRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int LanguageDescriptorId { get; set; }
-        int? LanguageTypeNumber { get; set; }
-        decimal? LanguageTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedRace table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedRaceRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int RaceDescriptorId { get; set; }
-        int? RaceTypeNumber { get; set; }
-        decimal? RaceTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramServiceRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int SchoolFoodServiceProgramServiceDescriptorId { get; set; }
-        int? TypeNumber { get; set; }
-        int? TypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSection504EnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? Number504Enrolled { get; set; }
-        decimal? Percentage504Enrolled { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSex table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSexRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int SexDescriptorId { get; set; }
-        int? SexTypeNumber { get; set; }
-        decimal? SexTypePercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedSPED table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedSPEDRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? SPEDEnrollmentNumber { get; set; }
-        decimal? SPEDEnrollmentPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsAggregatedTitleIEnrollmentRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? TitleIEnrollmentNumber { get; set; }
-        decimal? TitleIEnrollmentPercentage { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationOrganizationStudentFactsStudentsEnrolled table of the EducationOrganizationStudentFacts aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationOrganizationStudentFactsStudentsEnrolledRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationOrganizationId { get; set; }
-        DateTime FactAsOfDate { get; set; }
-        int? NumberStudentsEnrolled { get; set; }
-        decimal? PercentAtRisk { get; set; }
-        decimal? PercentMobility { get; set; }
-        int? ValueTypeDescriptorId { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.EducationServiceCenterExtension table of the EducationServiceCenter aggregate in the Ods Database.
-    /// </summary>
-    public interface IEducationServiceCenterExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        int EducationServiceCenterId { get; set; }
-        int? FederalLocaleCodeDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -1394,6 +1068,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         int? EvaluationTypeDescriptorId { get; set; }
         Guid Id { get; set; }
@@ -1402,6 +1078,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1411,8 +1088,10 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationElementRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         int? EvaluationTypeDescriptorId { get; set; }
         Guid Id { get; set; }
@@ -1420,6 +1099,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int? SortOrder { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1433,16 +1113,19 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string AreaOfRefinement { get; set; }
         string AreaOfReinforcement { get; set; }
         string Comments { get; set; }
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         int? EvaluationElementRatingLevelDescriptorId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string Feedback { get; set; }
         Guid Id { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1453,14 +1136,17 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationElementRatingLevelRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int EvaluationRatingLevelDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         decimal? MaxRating { get; set; }
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1479,9 +1165,11 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationElementRatingResultRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
@@ -1489,6 +1177,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal Rating { get; set; }
         string RatingResultTitle { get; set; }
         int ResultDatatypeTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1499,7 +1188,9 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationObjectiveRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         int? EvaluationTypeDescriptorId { get; set; }
         Guid Id { get; set; }
@@ -1507,6 +1198,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int? SortOrder { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1518,14 +1210,17 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string Comments { get; set; }
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
         int? ObjectiveRatingLevelDescriptorId { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1536,13 +1231,16 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationObjectiveRatingLevelRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int EvaluationRatingLevelDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         decimal? MaxRating { get; set; }
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1552,8 +1250,10 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationObjectiveRatingResultRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
@@ -1561,6 +1261,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal Rating { get; set; }
         string RatingResultTitle { get; set; }
         int ResultDatatypeTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1580,7 +1281,9 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRatingRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int? EvaluationRatingLevelDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
@@ -1589,7 +1292,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         int? SchoolId { get; set; }
-        short? SchoolYear { get; set; }
+        short SchoolYear { get; set; }
         string SectionIdentifier { get; set; }
         string SessionName { get; set; }
         int SourceSystemDescriptorId { get; set; }
@@ -1602,12 +1305,15 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRatingLevelRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int EvaluationRatingLevelDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         decimal? MaxRating { get; set; }
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1626,7 +1332,9 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRatingResultRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
@@ -1634,6 +1342,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         decimal Rating { get; set; }
         string RatingResultTitle { get; set; }
         int ResultDatatypeTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1644,13 +1353,16 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRatingReviewerRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string FirstName { get; set; }
         string LastSurname { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1661,7 +1373,9 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IEvaluationRatingReviewerReceivedTrainingRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string FirstName { get; set; }
         int? InterRaterReliabilityScore { get; set; }
@@ -1670,6 +1384,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         DateTime? ReceivedTrainingDate { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1690,6 +1405,64 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         int FederalLocaleCodeDescriptorId { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperience table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int FieldworkTypeDescriptorId { get; set; }
+        decimal? HoursCompleted { get; set; }
+        Guid Id { get; set; }
+        int? ProgramGatewayDescriptorId { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceCoteaching table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceCoteachingRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        DateTime CoteachingBeginDate { get; set; }
+        DateTime? CoteachingEndDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceSchool table of the FieldworkExperience aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceSchoolRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        int SchoolId { get; set; }
+        int StudentUSI { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.FieldworkExperienceSectionAssociation table of the FieldworkExperienceSectionAssociation aggregate in the Ods Database.
+    /// </summary>
+    public interface IFieldworkExperienceSectionAssociationRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        string FieldworkIdentifier { get; set; }
+        Guid Id { get; set; }
+        string LocalCourseCode { get; set; }
+        int SchoolId { get; set; }
+        short SchoolYear { get; set; }
+        string SectionIdentifier { get; set; }
+        string SessionName { get; set; }
+        int StudentUSI { get; set; }
     }
 
     /// <summary>
@@ -1730,8 +1503,10 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         DateTime? CompletedDate { get; set; }
         bool? CompletedIndicator { get; set; }
         DateTime? DueDate { get; set; }
+        int? EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int? EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string GoalDescription { get; set; }
         string GoalTitle { get; set; }
@@ -1740,6 +1515,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string PerformanceEvaluationTitle { get; set; }
         int? PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short? SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int? TermDescriptorId { get; set; }
     }
@@ -1754,22 +1530,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.GradebookEntryExtension table of the GradebookEntry aggregate in the Ods Database.
-    /// </summary>
-    public interface IGradebookEntryExtensionRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime DateAssigned { get; set; }
-        string GradebookEntryTitle { get; set; }
-        string LocalCourseCode { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.GraduationPlanRequiredCertification table of the GraduationPlan aggregate in the Ods Database.
     /// </summary>
     public interface IGraduationPlanRequiredCertificationRecord
@@ -1781,7 +1541,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int EducationOrganizationId { get; set; }
         int GraduationPlanTypeDescriptorId { get; set; }
         short GraduationSchoolYear { get; set; }
-        string IssuerNamespace { get; set; }
+        string Namespace { get; set; }
     }
 
     /// <summary>
@@ -1932,9 +1692,12 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationGradeLevelRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int GradeLevelDescriptorId { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1944,9 +1707,12 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationProgramGatewayRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         int ProgramGatewayDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -1962,12 +1728,15 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         bool? Announced { get; set; }
         string Comments { get; set; }
         int? CoteachingStyleObservedDescriptorId { get; set; }
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         Guid Id { get; set; }
         int? PerformanceEvaluationRatingLevelDescriptorId { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         DateTime? ScheduleDate { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -1978,11 +1747,14 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationRatingLevelRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         int EvaluationRatingLevelDescriptorId { get; set; }
         decimal? MaxRating { get; set; }
         decimal? MinRating { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -2001,12 +1773,15 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationRatingResultRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         decimal Rating { get; set; }
         string RatingResultTitle { get; set; }
         int ResultDatatypeTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -2017,11 +1792,14 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationRatingReviewerRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string FirstName { get; set; }
         string LastSurname { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -2032,6 +1810,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IPerformanceEvaluationRatingReviewerReceivedTrainingRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string FirstName { get; set; }
         int? InterRaterReliabilityScore { get; set; }
         string LastSurname { get; set; }
@@ -2039,6 +1819,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         DateTime? ReceivedTrainingDate { get; set; }
+        short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
     }
@@ -2079,11 +1860,28 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         Guid Id { get; set; }
         bool? MultipleSession { get; set; }
+        string Namespace { get; set; }
         int ProfessionalDevelopmentOfferedByDescriptorId { get; set; }
         string ProfessionalDevelopmentReason { get; set; }
         string ProfessionalDevelopmentTitle { get; set; }
         bool? Required { get; set; }
         int? TotalHours { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the tpdm.ProfessionalDevelopmentEventAttendance table of the ProfessionalDevelopmentEventAttendance aggregate in the Ods Database.
+    /// </summary>
+    public interface IProfessionalDevelopmentEventAttendanceRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime AttendanceDate { get; set; }
+        int AttendanceEventCategoryDescriptorId { get; set; }
+        string AttendanceEventReason { get; set; }
+        Guid Id { get; set; }
+        string Namespace { get; set; }
+        string PersonId { get; set; }
+        string ProfessionalDevelopmentTitle { get; set; }
+        int SourceSystemDescriptorId { get; set; }
     }
 
     /// <summary>
@@ -2156,18 +1954,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.ProspectCredential table of the Prospect aggregate in the Ods Database.
-    /// </summary>
-    public interface IProspectCredentialRecord
-    {     
-        // Properties for all columns in physical table
-        string CredentialIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
-        string ProspectIdentifier { get; set; }
-        int StateOfIssueStateAbbreviationDescriptorId { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.ProspectCurrentPosition table of the Prospect aggregate in the Ods Database.
     /// </summary>
     public interface IProspectCurrentPositionRecord
@@ -2232,21 +2018,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string IssuerDocumentIdentificationCode { get; set; }
         string IssuerName { get; set; }
         int PersonalInformationVerificationDescriptorId { get; set; }
-        string ProspectIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.ProspectProfessionalDevelopmentEventAttendance table of the ProspectProfessionalDevelopmentEventAttendance aggregate in the Ods Database.
-    /// </summary>
-    public interface IProspectProfessionalDevelopmentEventAttendanceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime AttendanceDate { get; set; }
-        int AttendanceEventCategoryDescriptorId { get; set; }
-        string AttendanceEventReason { get; set; }
-        int EducationOrganizationId { get; set; }
-        Guid Id { get; set; }
-        string ProfessionalDevelopmentTitle { get; set; }
         string ProspectIdentifier { get; set; }
     }
 
@@ -2329,8 +2100,10 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IQuantitativeMeasureRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
         string PerformanceEvaluationTitle { get; set; }
@@ -2338,6 +2111,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int? QuantitativeMeasureDatatypeDescriptorId { get; set; }
         string QuantitativeMeasureIdentifier { get; set; }
         int? QuantitativeMeasureTypeDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -2356,15 +2130,18 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface IQuantitativeMeasureScoreRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
         string QuantitativeMeasureIdentifier { get; set; }
+        short SchoolYear { get; set; }
         decimal ScoreValue { get; set; }
         int SourceSystemDescriptorId { get; set; }
         decimal? StandardError { get; set; }
@@ -2411,14 +2188,17 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         // Properties for all columns in physical table
         string CriterionDescription { get; set; }
         int? DimensionOrder { get; set; }
+        int EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         int RubricRating { get; set; }
         int? RubricRatingLevelDescriptorId { get; set; }
+        short SchoolYear { get; set; }
         int TermDescriptorId { get; set; }
     }
 
@@ -2468,7 +2248,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string ApplicantIdentifier { get; set; }
-        int EducationOrganizationId { get; set; }
         Guid Id { get; set; }
         int StaffUSI { get; set; }
     }
@@ -2514,98 +2293,12 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.StaffFieldworkAbsenceEvent table of the StaffFieldworkAbsenceEvent aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkAbsenceEventRecord
-    {     
-        // Properties for all columns in physical table
-        int AbsenceEventCategoryDescriptorId { get; set; }
-        string AbsenceEventReason { get; set; }
-        DateTime EventDate { get; set; }
-        decimal? HoursAbsent { get; set; }
-        Guid Id { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperience table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int FieldworkTypeDescriptorId { get; set; }
-        decimal? HoursCompleted { get; set; }
-        Guid Id { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceCoteaching table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceCoteachingRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime CoteachingBeginDate { get; set; }
-        DateTime? CoteachingEndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceSchool table of the StaffFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceSchoolRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int SchoolId { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffFieldworkExperienceSectionAssociation table of the StaffFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffFieldworkExperienceSectionAssociationRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        Guid Id { get; set; }
-        string LocalCourseCode { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.StaffHighlyQualifiedAcademicSubject table of the Staff aggregate in the Ods Database.
     /// </summary>
     public interface IStaffHighlyQualifiedAcademicSubjectRecord
     {     
         // Properties for all columns in physical table
         int AcademicSubjectDescriptorId { get; set; }
-        int StaffUSI { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.StaffProfessionalDevelopmentEventAttendance table of the StaffProfessionalDevelopmentEventAttendance aggregate in the Ods Database.
-    /// </summary>
-    public interface IStaffProfessionalDevelopmentEventAttendanceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime AttendanceDate { get; set; }
-        int AttendanceEventCategoryDescriptorId { get; set; }
-        string AttendanceEventReason { get; set; }
-        Guid Id { get; set; }
-        string ProfessionalDevelopmentTitle { get; set; }
         int StaffUSI { get; set; }
     }
 
@@ -2863,6 +2556,19 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
+    /// Interface for the tpdm.SurveyResponseExtension table of the SurveyResponse aggregate in the Ods Database.
+    /// </summary>
+    public interface ISurveyResponseExtensionRecord
+    {     
+        // Properties for all columns in physical table
+        string ApplicantIdentifier { get; set; }
+        string Namespace { get; set; }
+        string SurveyIdentifier { get; set; }
+        string SurveyResponseIdentifier { get; set; }
+        string TeacherCandidateIdentifier { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the tpdm.SurveyResponseTeacherCandidateTargetAssociation table of the SurveyResponseTeacherCandidateTargetAssociation aggregate in the Ods Database.
     /// </summary>
     public interface ISurveyResponseTeacherCandidateTargetAssociationRecord
@@ -2881,15 +2587,18 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface ISurveySectionAggregateResponseRecord
     {     
         // Properties for all columns in physical table
+        int EducationOrganizationId { get; set; }
         DateTime EvaluationDate { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         Guid Id { get; set; }
         string Namespace { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        short SchoolYear { get; set; }
         decimal ScoreValue { get; set; }
         int SourceSystemDescriptorId { get; set; }
         string SurveyIdentifier { get; set; }
@@ -2903,12 +2612,15 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface ISurveySectionExtensionRecord
     {     
         // Properties for all columns in physical table
+        int? EducationOrganizationId { get; set; }
         string EvaluationElementTitle { get; set; }
         string EvaluationObjectiveTitle { get; set; }
+        int? EvaluationPeriodDescriptorId { get; set; }
         string EvaluationTitle { get; set; }
         string Namespace { get; set; }
         string PerformanceEvaluationTitle { get; set; }
         int? PerformanceEvaluationTypeDescriptorId { get; set; }
+        short? SchoolYear { get; set; }
         string SurveyIdentifier { get; set; }
         string SurveySectionTitle { get; set; }
         int? TermDescriptorId { get; set; }
@@ -3264,17 +2976,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     }
 
     /// <summary>
-    /// Interface for the tpdm.TeacherCandidateCredential table of the TeacherCandidate aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateCredentialRecord
-    {     
-        // Properties for all columns in physical table
-        string CredentialIdentifier { get; set; }
-        int StateOfIssueStateAbbreviationDescriptorId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
     /// Interface for the tpdm.TeacherCandidateDegreeSpecialization table of the TeacherCandidate aggregate in the Ods Database.
     /// </summary>
     public interface ITeacherCandidateDegreeSpecializationRecord
@@ -3321,78 +3022,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string ElectronicMailAddress { get; set; }
         int ElectronicMailTypeDescriptorId { get; set; }
         bool? PrimaryEmailAddressIndicator { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkAbsenceEvent table of the TeacherCandidateFieldworkAbsenceEvent aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkAbsenceEventRecord
-    {     
-        // Properties for all columns in physical table
-        int AbsenceEventCategoryDescriptorId { get; set; }
-        string AbsenceEventReason { get; set; }
-        DateTime EventDate { get; set; }
-        decimal? HoursAbsent { get; set; }
-        Guid Id { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperience table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int FieldworkTypeDescriptorId { get; set; }
-        decimal? HoursCompleted { get; set; }
-        Guid Id { get; set; }
-        int? ProgramGatewayDescriptorId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceCoteaching table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceCoteachingRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        DateTime CoteachingBeginDate { get; set; }
-        DateTime? CoteachingEndDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceSchool table of the TeacherCandidateFieldworkExperience aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceSchoolRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        int SchoolId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateFieldworkExperienceSectionAssociation table of the TeacherCandidateFieldworkExperienceSectionAssociation aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateFieldworkExperienceSectionAssociationRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime BeginDate { get; set; }
-        string FieldworkIdentifier { get; set; }
-        Guid Id { get; set; }
-        string LocalCourseCode { get; set; }
-        int SchoolId { get; set; }
-        short SchoolYear { get; set; }
-        string SectionIdentifier { get; set; }
-        string SessionName { get; set; }
         string TeacherCandidateIdentifier { get; set; }
     }
 
@@ -3507,20 +3136,6 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string IssuerDocumentIdentificationCode { get; set; }
         string IssuerName { get; set; }
         int PersonalInformationVerificationDescriptorId { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-    }
-
-    /// <summary>
-    /// Interface for the tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance table of the TeacherCandidateProfessionalDevelopmentEventAttendance aggregate in the Ods Database.
-    /// </summary>
-    public interface ITeacherCandidateProfessionalDevelopmentEventAttendanceRecord
-    {     
-        // Properties for all columns in physical table
-        DateTime AttendanceDate { get; set; }
-        int AttendanceEventCategoryDescriptorId { get; set; }
-        string AttendanceEventReason { get; set; }
-        Guid Id { get; set; }
-        string ProfessionalDevelopmentTitle { get; set; }
         string TeacherCandidateIdentifier { get; set; }
     }
 
@@ -3730,6 +3345,7 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     public interface ITeacherPreparationProviderRecord
     {     
         // Properties for all columns in physical table
+        int? AccreditationStatusDescriptorId { get; set; }
         int? FederalLocaleCodeDescriptorId { get; set; }
         int? SchoolId { get; set; }
         int TeacherPreparationProviderId { get; set; }

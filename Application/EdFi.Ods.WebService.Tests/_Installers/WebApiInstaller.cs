@@ -111,8 +111,6 @@ namespace EdFi.Ods.WebService.Tests._Installers
 
             // Register additional dependencies required by Bulk operations controllers
 
-            //container.Install(new SqlServerQueueSendOnlyInstaller());
-
             // TODO: GKM - IMPORTANT: Review these registrations from Muhammad's pull request
             container.Register(
                 Component.For<ISandboxProvisioner>()

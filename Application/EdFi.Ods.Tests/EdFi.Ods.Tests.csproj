@@ -97,8 +97,6 @@
     <ProjectReference Include="..\Test.Common\Test.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>

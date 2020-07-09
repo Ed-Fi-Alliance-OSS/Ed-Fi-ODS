@@ -86,7 +86,7 @@ namespace EdFi.Ods.Api.ContainerBuilders
                 new HttpConfigurationInstaller(apiConfigurationProvider),
                 new SecurityInstaller(configValueProvider),
                 new NHibernateInstaller(),
-                new CoreApiInstaller(assembliesProvider, apiConfigurationProvider),
+                new CoreApiInstaller(assembliesProvider, apiConfigurationProvider, configValueProvider),
                 new NHibernateConfiguratorInstaller(apiConfigurationProvider)
             );
 
