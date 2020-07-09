@@ -489,6 +489,15 @@ begin
     values ('incidentLocationDescriptor', 'incidentLocationDescriptor', 'http://ed-fi.org/ods/identity/claims/incidentLocationDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('indicatorDescriptor', 'indicatorDescriptor', 'http://ed-fi.org/ods/identity/claims/indicatorDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('indicatorGroupDescriptor', 'indicatorGroupDescriptor', 'http://ed-fi.org/ods/identity/claims/indicatorGroupDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('indicatorLevelDescriptor', 'indicatorLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/indicatorLevelDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('institutionTelephoneNumberTypeDescriptor', 'institutionTelephoneNumberTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/institutionTelephoneNumberTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
