@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using Castle.MicroKernel.Registration;
-using EdFi.Ods.Api.Startup.Features.Installers;
+using EdFi.Ods.Api.Startup.Features;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
+using EdFi.Ods.Features.Container.Installers;
 
-namespace EdFi.Ods.Api.Startup.Features
+namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfoFeature : ConfigurationBasedFeatureBase
     {
@@ -27,3 +29,4 @@ namespace EdFi.Ods.Api.Startup.Features
         }
     }
 }
+#endif

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Common.Caching;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;

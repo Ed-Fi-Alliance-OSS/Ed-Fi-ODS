@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -17,13 +17,11 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Standard.Container.Installers;
+using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.WebService.Tests.Owin;
 using EdFi.Ods.WebService.Tests._Helpers;
 using Microsoft.Owin.Testing;

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Providers;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Features.TokenInfo;
 using EdFi.Ods.Sandbox.Repositories;
 
 namespace EdFi.Ods.Api.Services.Controllers
@@ -63,3 +65,4 @@ namespace EdFi.Ods.Api.Services.Controllers
         }
     }
 }
+#endif

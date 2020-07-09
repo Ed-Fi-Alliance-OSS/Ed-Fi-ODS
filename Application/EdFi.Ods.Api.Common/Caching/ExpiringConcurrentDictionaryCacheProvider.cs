@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading;
 using log4net;
 
-namespace EdFi.Ods.Api.Caching
+namespace EdFi.Ods.Api.Common.Caching
 {
     public class ExpiringConcurrentDictionaryCacheProvider : ICacheProvider
     {

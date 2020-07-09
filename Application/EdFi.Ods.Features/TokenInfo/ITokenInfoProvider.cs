@@ -4,13 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Security;
 
-namespace EdFi.Ods.Api.Services.Providers
+namespace EdFi.Ods.Features.TokenInfo
 {
     public interface ITokenInfoProvider
     {
-        Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext);
+        Task<Api.Models.TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext);
     }
 }

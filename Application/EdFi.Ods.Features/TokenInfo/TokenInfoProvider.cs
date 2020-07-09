@@ -6,13 +6,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Api.Services.Providers
+namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfoProvider : ITokenInfoProvider
     {
@@ -28,7 +27,7 @@ namespace EdFi.Ods.Api.Services.Providers
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
+        public async Task<Api.Models.TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
         {
             using (var session = _sessionFactory.OpenStatelessSession())
             {
@@ -44,7 +43,7 @@ namespace EdFi.Ods.Api.Services.Providers
                         .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
                         .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
 
-                return TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
+                return Api.Models.TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
             }
         }
     }

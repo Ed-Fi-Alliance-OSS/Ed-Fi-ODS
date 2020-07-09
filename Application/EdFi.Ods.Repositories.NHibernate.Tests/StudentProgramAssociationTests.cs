@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -31,7 +31,6 @@ using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.NHibernate.ProgramAggregate.EdFi;
