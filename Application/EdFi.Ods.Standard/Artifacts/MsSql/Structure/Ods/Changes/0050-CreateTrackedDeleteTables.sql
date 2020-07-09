@@ -1010,6 +1010,30 @@ CREATE TABLE [tracked_deletes_edfi].[IncidentLocationDescriptor]
        CONSTRAINT PK_IncidentLocationDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
+CREATE TABLE [tracked_deletes_edfi].[IndicatorDescriptor]
+(
+       IndicatorDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_IndicatorDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[IndicatorGroupDescriptor]
+(
+       IndicatorGroupDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_IndicatorGroupDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[IndicatorLevelDescriptor]
+(
+       IndicatorLevelDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_IndicatorLevelDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_edfi].[InstitutionTelephoneNumberTypeDescriptor]
 (
        InstitutionTelephoneNumberTypeDescriptorId [INT] NOT NULL,

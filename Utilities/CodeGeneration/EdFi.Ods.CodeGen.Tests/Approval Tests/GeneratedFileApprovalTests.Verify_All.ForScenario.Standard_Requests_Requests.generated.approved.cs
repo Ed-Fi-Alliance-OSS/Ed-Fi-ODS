@@ -5466,6 +5466,144 @@ namespace EdFi.Ods.Api.Models.Requests.IncidentLocationDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Models.Requests.IndicatorDescriptors.EdFi
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorGetByExample
+    {
+        public int IndicatorDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public IndicatorDescriptorGetByIds() { }
+
+        public IndicatorDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorPost : Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorPut : Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorDelete : IHasIdentifier 
+    {
+        public IndicatorDescriptorDelete() { }
+
+        public IndicatorDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.IndicatorGroupDescriptors.EdFi
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorGetByExample
+    {
+        public int IndicatorGroupDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public IndicatorGroupDescriptorGetByIds() { }
+
+        public IndicatorGroupDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorPost : Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorPut : Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorDelete : IHasIdentifier 
+    {
+        public IndicatorGroupDescriptorDelete() { }
+
+        public IndicatorGroupDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Models.Requests.IndicatorLevelDescriptors.EdFi
+{ 
+   
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorGetByExample
+    {
+        public int IndicatorLevelDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public IndicatorLevelDescriptorGetByIds() { }
+
+        public IndicatorLevelDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorPost : Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorPut : Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor
+    { 
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorDelete : IHasIdentifier 
+    {
+        public IndicatorLevelDescriptorDelete() { }
+
+        public IndicatorLevelDescriptorDelete(Guid id) 
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi
 { 
    

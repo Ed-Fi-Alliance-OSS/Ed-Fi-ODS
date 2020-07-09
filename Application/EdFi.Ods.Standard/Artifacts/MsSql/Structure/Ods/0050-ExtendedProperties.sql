@@ -1691,6 +1691,34 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIdentificationSystemDescriptor', @level2type=N'COLUMN', @level2name=N'EducationOrganizationIdentificationSystemDescriptorId'
 GO
 
+-- Extended Properties [edfi].[EducationOrganizationIndicator] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator or metric of an Education Organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or code for the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person, organization, or department that defined the metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'DesignatedBy'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the indicator or metric. The semantics of an empty value is "not submitted."', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorValue'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is "not submitted."', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorLevelDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name for a group of indicators.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicator', @level2type=N'COLUMN', @level2name=N'IndicatorGroupDescriptorId'
+GO
+
+-- Extended Properties [edfi].[EducationOrganizationIndicatorPeriod] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time period or as-of date for the indicator.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicatorPeriod'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the start of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicatorPeriod', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicatorPeriod', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or code for the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicatorPeriod', @level2type=N'COLUMN', @level2name=N'IndicatorDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year for the end of the period.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationIndicatorPeriod', @level2type=N'COLUMN', @level2name=N'EndDate'
+GO
+
 -- Extended Properties [edfi].[EducationOrganizationInstitutionTelephone] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The 10-digit telephone number, including the area code, for the education entity.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'EducationOrganizationInstitutionTelephone'
 GO
@@ -2251,6 +2279,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies where the incident occurred and whether or not it occurred on school property.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IncidentLocationDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IncidentLocationDescriptor', @level2type=N'COLUMN', @level2name=N'IncidentLocationDescriptorId'
+GO
+
+-- Extended Properties [edfi].[IndicatorDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or code for the indicator or metric.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorDescriptor', @level2type=N'COLUMN', @level2name=N'IndicatorDescriptorId'
+GO
+
+-- Extended Properties [edfi].[IndicatorGroupDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name for a group of indicators.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorGroupDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorGroupDescriptor', @level2type=N'COLUMN', @level2name=N'IndicatorGroupDescriptorId'
+GO
+
+-- Extended Properties [edfi].[IndicatorLevelDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is "not submitted."', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorLevelDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'IndicatorLevelDescriptor', @level2type=N'COLUMN', @level2name=N'IndicatorLevelDescriptorId'
 GO
 
 -- Extended Properties [edfi].[InstitutionTelephoneNumberTypeDescriptor] --

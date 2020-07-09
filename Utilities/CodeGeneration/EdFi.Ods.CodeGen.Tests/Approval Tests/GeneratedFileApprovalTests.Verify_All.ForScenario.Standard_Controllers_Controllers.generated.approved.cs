@@ -4008,6 +4008,105 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class IndicatorDescriptorsController : EdFiControllerBase<
+        Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
+        Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
+        Entities.Common.EdFi.IIndicatorDescriptor,
+        Entities.NHibernate.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptor,
+        Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorPut,
+        Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorPost,
+        Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorDelete,
+        Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample>
+    {
+        public IndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample request, IIndicatorDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.IndicatorDescriptorId = request.IndicatorDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "indicatorDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class IndicatorGroupDescriptorsController : EdFiControllerBase<
+        Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
+        Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
+        Entities.Common.EdFi.IIndicatorGroupDescriptor,
+        Entities.NHibernate.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptor,
+        Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorPut,
+        Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorPost,
+        Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorDelete,
+        Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample>
+    {
+        public IndicatorGroupDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample request, IIndicatorGroupDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.IndicatorGroupDescriptorId = request.IndicatorGroupDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "indicatorGroupDescriptors";
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    public partial class IndicatorLevelDescriptorsController : EdFiControllerBase<
+        Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
+        Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
+        Entities.Common.EdFi.IIndicatorLevelDescriptor,
+        Entities.NHibernate.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptor,
+        Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorPut,
+        Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorPost,
+        Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorDelete,
+        Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample>
+    {
+        public IndicatorLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample request, IIndicatorLevelDescriptor specification)
+        {
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.IndicatorLevelDescriptorId = request.IndicatorLevelDescriptorId;
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "indicatorLevelDescriptors";
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]

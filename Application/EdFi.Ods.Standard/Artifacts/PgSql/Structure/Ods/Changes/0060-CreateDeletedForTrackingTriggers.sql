@@ -1593,6 +1593,48 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.IncidentLocationDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.IncidentLocationDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_edfi.IndicatorDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.IndicatorDescriptor(IndicatorDescriptorId, Id, ChangeVersion)
+    SELECT OLD.IndicatorDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.IndicatorDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.IndicatorDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.IndicatorDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_edfi.IndicatorGroupDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.IndicatorGroupDescriptor(IndicatorGroupDescriptorId, Id, ChangeVersion)
+    SELECT OLD.IndicatorGroupDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.IndicatorGroupDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.IndicatorGroupDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.IndicatorGroupDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_edfi.IndicatorLevelDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.IndicatorLevelDescriptor(IndicatorLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.IndicatorLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.IndicatorLevelDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.IndicatorLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.IndicatorLevelDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_edfi.InstitutionTelephoneNumberTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

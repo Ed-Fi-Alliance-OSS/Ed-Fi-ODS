@@ -1010,6 +1010,30 @@ CREATE TABLE tracked_deletes_edfi.IncidentLocationDescriptor
        CONSTRAINT IncidentLocationDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_edfi.IndicatorDescriptor
+(
+       IndicatorDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT IndicatorDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.IndicatorGroupDescriptor
+(
+       IndicatorGroupDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT IndicatorGroupDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.IndicatorLevelDescriptor
+(
+       IndicatorLevelDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT IndicatorLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_edfi.InstitutionTelephoneNumberTypeDescriptor
 (
        InstitutionTelephoneNumberTypeDescriptorId INT NOT NULL,

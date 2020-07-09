@@ -1608,6 +1608,43 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.EducationOrganizationIndicator ADD CONSTRAINT FK_dde098_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_dde098_EducationOrganization
+ON edfi.EducationOrganizationIndicator (EducationOrganizationId ASC);
+
+ALTER TABLE edfi.EducationOrganizationIndicator ADD CONSTRAINT FK_dde098_IndicatorDescriptor FOREIGN KEY (IndicatorDescriptorId)
+REFERENCES edfi.IndicatorDescriptor (IndicatorDescriptorId)
+;
+
+CREATE INDEX FK_dde098_IndicatorDescriptor
+ON edfi.EducationOrganizationIndicator (IndicatorDescriptorId ASC);
+
+ALTER TABLE edfi.EducationOrganizationIndicator ADD CONSTRAINT FK_dde098_IndicatorGroupDescriptor FOREIGN KEY (IndicatorGroupDescriptorId)
+REFERENCES edfi.IndicatorGroupDescriptor (IndicatorGroupDescriptorId)
+;
+
+CREATE INDEX FK_dde098_IndicatorGroupDescriptor
+ON edfi.EducationOrganizationIndicator (IndicatorGroupDescriptorId ASC);
+
+ALTER TABLE edfi.EducationOrganizationIndicator ADD CONSTRAINT FK_dde098_IndicatorLevelDescriptor FOREIGN KEY (IndicatorLevelDescriptorId)
+REFERENCES edfi.IndicatorLevelDescriptor (IndicatorLevelDescriptorId)
+;
+
+CREATE INDEX FK_dde098_IndicatorLevelDescriptor
+ON edfi.EducationOrganizationIndicator (IndicatorLevelDescriptorId ASC);
+
+ALTER TABLE edfi.EducationOrganizationIndicatorPeriod ADD CONSTRAINT FK_8486ae_EducationOrganizationIndicator FOREIGN KEY (EducationOrganizationId, IndicatorDescriptorId)
+REFERENCES edfi.EducationOrganizationIndicator (EducationOrganizationId, IndicatorDescriptorId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_8486ae_EducationOrganizationIndicator
+ON edfi.EducationOrganizationIndicatorPeriod (EducationOrganizationId ASC, IndicatorDescriptorId ASC);
+
 ALTER TABLE edfi.EducationOrganizationInstitutionTelephone ADD CONSTRAINT FK_79895a_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ON DELETE CASCADE
@@ -2150,6 +2187,21 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.IncidentLocationDescriptor ADD CONSTRAINT FK_d24f76_Descriptor FOREIGN KEY (IncidentLocationDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IndicatorDescriptor ADD CONSTRAINT FK_ee0bbf_Descriptor FOREIGN KEY (IndicatorDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IndicatorGroupDescriptor ADD CONSTRAINT FK_e0f6fe_Descriptor FOREIGN KEY (IndicatorGroupDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.IndicatorLevelDescriptor ADD CONSTRAINT FK_05d3f9_Descriptor FOREIGN KEY (IndicatorLevelDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
