@@ -4,6 +4,52 @@ using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Common;
 
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors
+{
+
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorGetByExample
+    {
+        public int AccreditationStatusDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public AccreditationStatusDescriptorGetByIds() { }
+
+        public AccreditationStatusDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorPost : Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorPut : Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AccreditationStatusDescriptorDelete : IHasIdentifier
+    {
+        public AccreditationStatusDescriptorDelete() { }
+
+        public AccreditationStatusDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.AidTypeDescriptors
 {
 
@@ -560,14 +606,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Applicants
         public DateTime BirthDate { get; set; }
         public string CitizenshipStatusDescriptor { get; set; }
         public bool EconomicDisadvantaged { get; set; }
-        public int EducationOrganizationId { get; set; }
         public bool FirstGenerationStudent { get; set; }
         public string FirstName { get; set; }
         public string GenderDescriptor { get; set; }
         public string GenerationCodeSuffix { get; set; }
-        public string HighestCompletedLevelOfEducationDescriptor { get; set; }
-        public string HighlyQualifiedAcademicSubjectDescriptor { get; set; }
-        public bool HighlyQualifiedTeacher { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }
         public Guid Id { get; set; }
         public string LastSurname { get; set; }
@@ -579,8 +621,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Applicants
         public string SexDescriptor { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string TeacherCandidateIdentifier { get; set; }
-        public decimal YearsOfPriorProfessionalExperience { get; set; }
-        public decimal YearsOfPriorTeachingExperience { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -685,12 +725,17 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Applications
         public bool CurrentEmployee { get; set; }
         public int EducationOrganizationId { get; set; }
         public DateTime FirstContactDate { get; set; }
+        public string HighestCompletedLevelOfEducationDescriptor { get; set; }
+        public string HighlyQualifiedAcademicSubjectDescriptor { get; set; }
+        public bool HighlyQualifiedTeacher { get; set; }
         public string HighNeedsAcademicSubjectDescriptor { get; set; }
         public string HireStatusDescriptor { get; set; }
         public string HiringSourceDescriptor { get; set; }
         public Guid Id { get; set; }
         public DateTime WithdrawDate { get; set; }
         public string WithdrawReasonDescriptor { get; set; }
+        public decimal YearsOfPriorProfessionalExperience { get; set; }
+        public decimal YearsOfPriorTeachingExperience { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1080,8 +1125,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Certifications
         public DateTime EndDate { get; set; }
         public Guid Id { get; set; }
         public string InstructionalSettingDescriptor { get; set; }
-        public string IssuerNamespace { get; set; }
         public string MinimumDegreeDescriptor { get; set; }
+        public string Namespace { get; set; }
         public string PopulationServedDescriptor { get; set; }
     }
 
@@ -1134,8 +1179,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CertificationExams
         public int EducationOrganizationId { get; set; }
         public DateTime EffectiveDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string ExamNamespace { get; set; }
         public Guid Id { get; set; }
-        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1187,8 +1232,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.CertificationExamResults
         public bool CertificationExamPassIndicator { get; set; }
         public decimal CertificationExamScore { get; set; }
         public string CertificationExamStatusDescriptor { get; set; }
+        public string ExamNamespace { get; set; }
         public Guid Id { get; set; }
-        public string Namespace { get; set; }
         public string PersonId { get; set; }
         public string SourceSystemDescriptor { get; set; }
     }
@@ -1789,113 +1834,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.DegreeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducationOrganizationFacts
-{
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsGetByExample
-    {
-        public decimal AverageYearsInDistrictEmployed { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactsAsOfDate { get; set; }
-        public decimal HiringRate { get; set; }
-        public Guid Id { get; set; }
-        public int NumberAdministratorsEmployed { get; set; }
-        public int NumberStudentsEnrolled { get; set; }
-        public int NumberTeachersEmployed { get; set; }
-        public decimal PercentStudentsFreeReducedLunch { get; set; }
-        public decimal PercentStudentsLimitedEnglishProficiency { get; set; }
-        public decimal PercentStudentsSpecialEducation { get; set; }
-        public decimal RetentionRate { get; set; }
-        public decimal RetirementRate { get; set; }
-        public short SchoolYear { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationFactsGetByIds() { }
-
-        public EducationOrganizationFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsPost : Resources.EducationOrganizationFacts.TPDM.EducationOrganizationFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsPut : Resources.EducationOrganizationFacts.TPDM.EducationOrganizationFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationFactsDelete : IHasIdentifier
-    {
-        public EducationOrganizationFactsDelete() { }
-
-        public EducationOrganizationFactsDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducationOrganizationStudentFacts
-{
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsGetByExample
-    {
-        public int EducationOrganizationId { get; set; }
-        public DateTime FactAsOfDate { get; set; }
-        public Guid Id { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsGetByIds : IHasIdentifiers<Guid>
-    {
-        public EducationOrganizationStudentFactsGetByIds() { }
-
-        public EducationOrganizationStudentFactsGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsPost : Resources.EducationOrganizationStudentFacts.TPDM.EducationOrganizationStudentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsPut : Resources.EducationOrganizationStudentFacts.TPDM.EducationOrganizationStudentFacts
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EducationOrganizationStudentFactsDelete : IHasIdentifier
-    {
-        public EducationOrganizationStudentFactsDelete() { }
-
-        public EducationOrganizationStudentFactsDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors
 {
 
@@ -2239,6 +2177,8 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Evaluations
     [ExcludeFromCodeCoverage]
     public class EvaluationGetByExample
     {
+        public int EducationOrganizationId { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public string EvaluationTypeDescriptor { get; set; }
         public Guid Id { get; set; }
@@ -2247,6 +2187,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Evaluations
         public decimal MinRating { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public short SchoolYear { get; set; }
         public string TermDescriptor { get; set; }
     }
 
@@ -2293,8 +2234,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElements
     [ExcludeFromCodeCoverage]
     public class EvaluationElementGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public string EvaluationTypeDescriptor { get; set; }
         public Guid Id { get; set; }
@@ -2302,6 +2245,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElements
         public decimal MinRating { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public short SchoolYear { get; set; }
         public int SortOrder { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -2352,16 +2296,19 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationElementRatings
         public string AreaOfRefinement { get; set; }
         public string AreaOfReinforcement { get; set; }
         public string Comments { get; set; }
+        public int EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationElementRatingLevelDescriptor { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public string Feedback { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
+        public short SchoolYear { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -2455,7 +2402,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectives
     [ExcludeFromCodeCoverage]
     public class EvaluationObjectiveGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public string EvaluationTypeDescriptor { get; set; }
         public Guid Id { get; set; }
@@ -2463,6 +2412,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectives
         public decimal MinRating { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
+        public short SchoolYear { get; set; }
         public int SortOrder { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -2511,14 +2461,17 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings
     public class EvaluationObjectiveRatingGetByExample
     {
         public string Comments { get; set; }
+        public int EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string ObjectiveRatingLevelDescriptor { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
+        public short SchoolYear { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -2612,7 +2565,9 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
     [ExcludeFromCodeCoverage]
     public class EvaluationRatingGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationRatingLevelDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
@@ -2803,6 +2758,113 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.FederalLocaleCodeDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.FieldworkExperiences
+{
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string FieldworkIdentifier { get; set; }
+        public string FieldworkTypeDescriptor { get; set; }
+        public decimal HoursCompleted { get; set; }
+        public Guid Id { get; set; }
+        public string ProgramGatewayDescriptor { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceGetByIds : IHasIdentifiers<Guid>
+    {
+        public FieldworkExperienceGetByIds() { }
+
+        public FieldworkExperienceGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperiencePost : Resources.FieldworkExperience.TPDM.FieldworkExperience
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperiencePut : Resources.FieldworkExperience.TPDM.FieldworkExperience
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceDelete : IHasIdentifier
+    {
+        public FieldworkExperienceDelete() { }
+
+        public FieldworkExperienceDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.FieldworkExperienceSectionAssociations
+{
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationGetByExample
+    {
+        public DateTime BeginDate { get; set; }
+        public string FieldworkIdentifier { get; set; }
+        public Guid Id { get; set; }
+        public string LocalCourseCode { get; set; }
+        public int SchoolId { get; set; }
+        public short SchoolYear { get; set; }
+        public string SectionIdentifier { get; set; }
+        public string SessionName { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public FieldworkExperienceSectionAssociationGetByIds() { }
+
+        public FieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationPost : Resources.FieldworkExperienceSectionAssociation.TPDM.FieldworkExperienceSectionAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationPut : Resources.FieldworkExperienceSectionAssociation.TPDM.FieldworkExperienceSectionAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class FieldworkExperienceSectionAssociationDelete : IHasIdentifier
+    {
+        public FieldworkExperienceSectionAssociationDelete() { }
+
+        public FieldworkExperienceSectionAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.FieldworkTypeDescriptors
 {
 
@@ -2952,8 +3014,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Goals
         public DateTime CompletedDate { get; set; }
         public bool CompletedIndicator { get; set; }
         public DateTime DueDate { get; set; }
+        public int EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public string GoalDescription { get; set; }
         public string GoalTitle { get; set; }
@@ -2962,6 +3026,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Goals
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
+        public short SchoolYear { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -3579,12 +3644,15 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings
         public bool Announced { get; set; }
         public string Comments { get; set; }
         public string CoteachingStyleObservedDescriptor { get; set; }
+        public int EducationOrganizationId { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationRatingLevelDescriptor { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
         public DateTime ScheduleDate { get; set; }
+        public short SchoolYear { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string TermDescriptor { get; set; }
     }
@@ -3772,6 +3840,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentEvents
     {
         public Guid Id { get; set; }
         public bool MultipleSession { get; set; }
+        public string Namespace { get; set; }
         public string ProfessionalDevelopmentOfferedByDescriptor { get; set; }
         public string ProfessionalDevelopmentReason { get; set; }
         public string ProfessionalDevelopmentTitle { get; set; }
@@ -3808,6 +3877,59 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentEvents
         public ProfessionalDevelopmentEventDelete() { }
 
         public ProfessionalDevelopmentEventDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances
+{
+
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendanceGetByExample
+    {
+        public DateTime AttendanceDate { get; set; }
+        public string AttendanceEventCategoryDescriptor { get; set; }
+        public string AttendanceEventReason { get; set; }
+        public Guid Id { get; set; }
+        public string Namespace { get; set; }
+        public string PersonId { get; set; }
+        public string ProfessionalDevelopmentTitle { get; set; }
+        public string SourceSystemDescriptor { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendanceGetByIds : IHasIdentifiers<Guid>
+    {
+        public ProfessionalDevelopmentEventAttendanceGetByIds() { }
+
+        public ProfessionalDevelopmentEventAttendanceGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendancePost : Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendancePut : Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class ProfessionalDevelopmentEventAttendanceDelete : IHasIdentifier
+    {
+        public ProfessionalDevelopmentEventAttendanceDelete() { }
+
+        public ProfessionalDevelopmentEventAttendanceDelete(Guid id)
         {
             Id = id;
         }
@@ -3980,58 +4102,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.Prospects
     }
 }
 
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ProspectProfessionalDevelopmentEventAttendances
-{
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendanceGetByExample
-    {
-        public DateTime AttendanceDate { get; set; }
-        public string AttendanceEventCategoryDescriptor { get; set; }
-        public string AttendanceEventReason { get; set; }
-        public int EducationOrganizationId { get; set; }
-        public Guid Id { get; set; }
-        public string ProfessionalDevelopmentTitle { get; set; }
-        public string ProspectIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendanceGetByIds : IHasIdentifiers<Guid>
-    {
-        public ProspectProfessionalDevelopmentEventAttendanceGetByIds() { }
-
-        public ProspectProfessionalDevelopmentEventAttendanceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendancePost : Resources.ProspectProfessionalDevelopmentEventAttendance.TPDM.ProspectProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendancePut : Resources.ProspectProfessionalDevelopmentEventAttendance.TPDM.ProspectProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectProfessionalDevelopmentEventAttendanceDelete : IHasIdentifier
-    {
-        public ProspectProfessionalDevelopmentEventAttendanceDelete() { }
-
-        public ProspectProfessionalDevelopmentEventAttendanceDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
 namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.ProspectTypeDescriptors
 {
 
@@ -4084,8 +4154,10 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.QuantitativeMeasures
     [ExcludeFromCodeCoverage]
     public class QuantitativeMeasureGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
@@ -4093,6 +4165,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.QuantitativeMeasures
         public string QuantitativeMeasureDatatypeDescriptor { get; set; }
         public string QuantitativeMeasureIdentifier { get; set; }
         public string QuantitativeMeasureTypeDescriptor { get; set; }
+        public short SchoolYear { get; set; }
         public string TermDescriptor { get; set; }
     }
 
@@ -4185,15 +4258,18 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.QuantitativeMeasureScores
     [ExcludeFromCodeCoverage]
     public class QuantitativeMeasureScoreGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
         public string QuantitativeMeasureIdentifier { get; set; }
+        public short SchoolYear { get; set; }
         public decimal ScoreValue { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public decimal StandardError { get; set; }
@@ -4388,14 +4464,17 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.RubricDimensions
     {
         public string CriterionDescription { get; set; }
         public int DimensionOrder { get; set; }
+        public int EducationOrganizationId { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public int RubricRating { get; set; }
         public string RubricRatingLevelDescriptor { get; set; }
+        public short SchoolYear { get; set; }
         public string TermDescriptor { get; set; }
     }
 
@@ -4581,7 +4660,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffApplicantAssociations
     public class StaffApplicantAssociationGetByExample
     {
         public string ApplicantIdentifier { get; set; }
-        public int EducationOrganizationId { get; set; }
         public Guid Id { get; set; }
         public string StaffUniqueId { get; set; }
     }
@@ -4615,215 +4693,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffApplicantAssociations
         public StaffApplicantAssociationDelete() { }
 
         public StaffApplicantAssociationDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffFieldworkAbsenceEvents
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventGetByExample
-    {
-        public string AbsenceEventCategoryDescriptor { get; set; }
-        public string AbsenceEventReason { get; set; }
-        public DateTime EventDate { get; set; }
-        public decimal HoursAbsent { get; set; }
-        public Guid Id { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkAbsenceEventGetByIds() { }
-
-        public StaffFieldworkAbsenceEventGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventPost : Resources.StaffFieldworkAbsenceEvent.TPDM.StaffFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventPut : Resources.StaffFieldworkAbsenceEvent.TPDM.StaffFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkAbsenceEventDelete : IHasIdentifier
-    {
-        public StaffFieldworkAbsenceEventDelete() { }
-
-        public StaffFieldworkAbsenceEventDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffFieldworkExperiences
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public string FieldworkTypeDescriptor { get; set; }
-        public decimal HoursCompleted { get; set; }
-        public Guid Id { get; set; }
-        public string ProgramGatewayDescriptor { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkExperienceGetByIds() { }
-
-        public StaffFieldworkExperienceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperiencePost : Resources.StaffFieldworkExperience.TPDM.StaffFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperiencePut : Resources.StaffFieldworkExperience.TPDM.StaffFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceDelete : IHasIdentifier
-    {
-        public StaffFieldworkExperienceDelete() { }
-
-        public StaffFieldworkExperienceDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffFieldworkExperienceSectionAssociations
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffFieldworkExperienceSectionAssociationGetByIds() { }
-
-        public StaffFieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationPost : Resources.StaffFieldworkExperienceSectionAssociation.TPDM.StaffFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationPut : Resources.StaffFieldworkExperienceSectionAssociation.TPDM.StaffFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffFieldworkExperienceSectionAssociationDelete : IHasIdentifier
-    {
-        public StaffFieldworkExperienceSectionAssociationDelete() { }
-
-        public StaffFieldworkExperienceSectionAssociationDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.StaffProfessionalDevelopmentEventAttendances
-{
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendanceGetByExample
-    {
-        public DateTime AttendanceDate { get; set; }
-        public string AttendanceEventCategoryDescriptor { get; set; }
-        public string AttendanceEventReason { get; set; }
-        public Guid Id { get; set; }
-        public string ProfessionalDevelopmentTitle { get; set; }
-        public string StaffUniqueId { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendanceGetByIds : IHasIdentifiers<Guid>
-    {
-        public StaffProfessionalDevelopmentEventAttendanceGetByIds() { }
-
-        public StaffProfessionalDevelopmentEventAttendanceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendancePost : Resources.StaffProfessionalDevelopmentEventAttendance.TPDM.StaffProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendancePut : Resources.StaffProfessionalDevelopmentEventAttendance.TPDM.StaffProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffProfessionalDevelopmentEventAttendanceDelete : IHasIdentifier
-    {
-        public StaffProfessionalDevelopmentEventAttendanceDelete() { }
-
-        public StaffProfessionalDevelopmentEventAttendanceDelete(Guid id)
         {
             Id = id;
         }
@@ -5307,15 +5176,18 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.SurveySectionAggregateRespons
     [ExcludeFromCodeCoverage]
     public class SurveySectionAggregateResponseGetByExample
     {
+        public int EducationOrganizationId { get; set; }
         public DateTime EvaluationDate { get; set; }
         public string EvaluationElementTitle { get; set; }
         public string EvaluationObjectiveTitle { get; set; }
+        public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string Namespace { get; set; }
         public string PerformanceEvaluationTitle { get; set; }
         public string PerformanceEvaluationTypeDescriptor { get; set; }
         public string PersonId { get; set; }
+        public short SchoolYear { get; set; }
         public decimal ScoreValue { get; set; }
         public string SourceSystemDescriptor { get; set; }
         public string SurveyIdentifier { get; set; }
@@ -5668,215 +5540,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherCandidateCourseTranscr
         public TeacherCandidateCourseTranscriptDelete() { }
 
         public TeacherCandidateCourseTranscriptDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherCandidateFieldworkAbsenceEvents
-{
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventGetByExample
-    {
-        public string AbsenceEventCategoryDescriptor { get; set; }
-        public string AbsenceEventReason { get; set; }
-        public DateTime EventDate { get; set; }
-        public decimal HoursAbsent { get; set; }
-        public Guid Id { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkAbsenceEventGetByIds() { }
-
-        public TeacherCandidateFieldworkAbsenceEventGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventPost : Resources.TeacherCandidateFieldworkAbsenceEvent.TPDM.TeacherCandidateFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventPut : Resources.TeacherCandidateFieldworkAbsenceEvent.TPDM.TeacherCandidateFieldworkAbsenceEvent
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkAbsenceEventDelete : IHasIdentifier
-    {
-        public TeacherCandidateFieldworkAbsenceEventDelete() { }
-
-        public TeacherCandidateFieldworkAbsenceEventDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherCandidateFieldworkExperiences
-{
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public string FieldworkTypeDescriptor { get; set; }
-        public decimal HoursCompleted { get; set; }
-        public Guid Id { get; set; }
-        public string ProgramGatewayDescriptor { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkExperienceGetByIds() { }
-
-        public TeacherCandidateFieldworkExperienceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperiencePost : Resources.TeacherCandidateFieldworkExperience.TPDM.TeacherCandidateFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperiencePut : Resources.TeacherCandidateFieldworkExperience.TPDM.TeacherCandidateFieldworkExperience
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceDelete : IHasIdentifier
-    {
-        public TeacherCandidateFieldworkExperienceDelete() { }
-
-        public TeacherCandidateFieldworkExperienceDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherCandidateFieldworkExperienceSectionAssociations
-{
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationGetByExample
-    {
-        public DateTime BeginDate { get; set; }
-        public string FieldworkIdentifier { get; set; }
-        public Guid Id { get; set; }
-        public string LocalCourseCode { get; set; }
-        public int SchoolId { get; set; }
-        public short SchoolYear { get; set; }
-        public string SectionIdentifier { get; set; }
-        public string SessionName { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateFieldworkExperienceSectionAssociationGetByIds() { }
-
-        public TeacherCandidateFieldworkExperienceSectionAssociationGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationPost : Resources.TeacherCandidateFieldworkExperienceSectionAssociation.TPDM.TeacherCandidateFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationPut : Resources.TeacherCandidateFieldworkExperienceSectionAssociation.TPDM.TeacherCandidateFieldworkExperienceSectionAssociation
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateFieldworkExperienceSectionAssociationDelete : IHasIdentifier
-    {
-        public TeacherCandidateFieldworkExperienceSectionAssociationDelete() { }
-
-        public TeacherCandidateFieldworkExperienceSectionAssociationDelete(Guid id)
-        {
-            Id = id;
-        }
-
-        public Guid Id { get; set; }
-    }
-}
-
-namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendances
-{
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendanceGetByExample
-    {
-        public DateTime AttendanceDate { get; set; }
-        public string AttendanceEventCategoryDescriptor { get; set; }
-        public string AttendanceEventReason { get; set; }
-        public Guid Id { get; set; }
-        public string ProfessionalDevelopmentTitle { get; set; }
-        public string TeacherCandidateIdentifier { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendanceGetByIds : IHasIdentifiers<Guid>
-    {
-        public TeacherCandidateProfessionalDevelopmentEventAttendanceGetByIds() { }
-
-        public TeacherCandidateProfessionalDevelopmentEventAttendanceGetByIds(params Guid[] ids)
-        {
-            Ids = new List<Guid>(ids);
-        }
-
-        public List<Guid> Ids { get; set; }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendancePost : Resources.TeacherCandidateProfessionalDevelopmentEventAttendance.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendancePut : Resources.TeacherCandidateProfessionalDevelopmentEventAttendance.TPDM.TeacherCandidateProfessionalDevelopmentEventAttendance
-    {
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateProfessionalDevelopmentEventAttendanceDelete : IHasIdentifier
-    {
-        public TeacherCandidateProfessionalDevelopmentEventAttendanceDelete() { }
-
-        public TeacherCandidateProfessionalDevelopmentEventAttendanceDelete(Guid id)
         {
             Id = id;
         }
@@ -6315,6 +5978,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.TeacherPreparationProviders
     [ExcludeFromCodeCoverage]
     public class TeacherPreparationProviderGetByExample
     {
+        public string AccreditationStatusDescriptor { get; set; }
         public string FederalLocaleCodeDescriptor { get; set; }
         public int SchoolId { get; set; }
         public int TeacherPreparationProviderId { get; set; }

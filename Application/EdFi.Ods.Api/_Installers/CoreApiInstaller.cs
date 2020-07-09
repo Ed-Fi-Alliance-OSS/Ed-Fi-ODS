@@ -2,7 +2,8 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Http;
@@ -47,15 +48,21 @@ namespace EdFi.Ods.Api._Installers
 {
     public class CoreApiInstaller : IWindsorInstaller
     {
+        private const string DescriptorCacheAbsoluteExpirationSecondsKey = "caching:descriptors:absoluteExpirationSeconds";
+        private const string PersonCacheAbsoluteExpirationSecondsKey = "caching:personUniqueIdToUsi:absoluteExpirationSeconds";
+        private const string PersonCacheSlidingExpirationSecondsKey = "caching:personUniqueIdToUsi:slidingExpirationSeconds";
+        
+        private readonly IConfigValueProvider _configValueProvider;
         private readonly Assembly _apiAssembly;
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly Assembly _standardAssembly;
         private Assembly _apiCommonAssembly;
 
-        public CoreApiInstaller(IAssembliesProvider assembliesProvider, IApiConfigurationProvider apiConfigurationProvider)
+        public CoreApiInstaller(IAssembliesProvider assembliesProvider, IApiConfigurationProvider apiConfigurationProvider, IConfigValueProvider configValueProvider)
         {
             Preconditions.ThrowIfNull(assembliesProvider, nameof(assembliesProvider));
             _apiConfigurationProvider = Preconditions.ThrowIfNull(apiConfigurationProvider, nameof(apiConfigurationProvider));
+            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
 
             var installedAssemblies = assembliesProvider.GetAssemblies().ToList();
 
@@ -231,22 +238,26 @@ namespace EdFi.Ods.Api._Installers
 
         private void RegisterPersonUniqueIdToUsiCache(IWindsorContainer container)
         {
-            container.Register(
-                Component
-                    .For<IPersonUniqueIdToUsiCache>()
-                    .ImplementedBy<PersonUniqueIdToUsiCache>()
-                    .DependsOn(Dependency.OnValue("synchronousInitialization", false)));
+            container.Register(Component.For<IPersonUniqueIdToUsiCache>()
+                .ImplementedBy<PersonUniqueIdToUsiCache>()
+                .DependsOn(Dependency.OnValue("slidingExpiration",
+                    TimeSpan.FromSeconds(Convert.ToInt32(_configValueProvider.GetValue(PersonCacheSlidingExpirationSecondsKey) ?? "14400"))))
+                .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", 
+                    TimeSpan.FromSeconds(Convert.ToInt32(_configValueProvider.GetValue(PersonCacheAbsoluteExpirationSecondsKey) ?? "86400"))))
+                .DependsOn(Dependency.OnValue("synchronousInitialization", false))); 
         }
 
         private void RegisterDescriptorCache(IWindsorContainer container)
         {
-            container.Register(Component.For<ConcurrentDictionaryCacheProvider>());
+            var absoluteExpirationPeriod = TimeSpan.FromSeconds( 
+                Convert.ToInt32(_configValueProvider.GetValue(DescriptorCacheAbsoluteExpirationSecondsKey) ?? "60"));
+
+            var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider(absoluteExpirationPeriod);
 
             container.Register(
                 Component.For<IDescriptorsCache>()
                     .ImplementedBy<DescriptorsCache>()
-                    .DependsOn(Dependency.OnComponent<ICacheProvider, ConcurrentDictionaryCacheProvider>())
-                    .LifestyleSingleton());
+                .DependsOn(Dependency.OnValue<ICacheProvider>(cacheProvider)));
         }
 
         private void RegisterAuthenticationProvider(IWindsorContainer container)

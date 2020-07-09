@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
@@ -17,12 +17,12 @@ namespace EdFi.LoadTools.Engine.XmlLookupPipeline
     /// </summary>
     public class PerformGetByExampleStep : ILookupPipelineStep
     {
-        private readonly OdsRestClient _client;
+        private readonly IOdsRestClient _client;
 
         // ReSharper disable once InconsistentNaming
         private readonly ILog Log;
 
-        public PerformGetByExampleStep(OdsRestClient client)
+        public PerformGetByExampleStep(IOdsRestClient client)
         {
             Log = LogManager.GetLogger(GetType().Name);
             _client = client;

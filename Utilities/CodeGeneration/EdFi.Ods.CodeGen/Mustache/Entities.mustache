@@ -548,8 +548,18 @@ namespace {{AggregateNamespace}}
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -573,14 +583,20 @@ namespace {{AggregateNamespace}}
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         {{^IsAbstract}}
         bool ISynchronizable.Synchronize(object target)
         {

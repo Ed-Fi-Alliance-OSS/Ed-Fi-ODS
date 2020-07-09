@@ -38,19 +38,26 @@ namespace EdFi.Ods.Api.Common.Caching
         private readonly bool _synchronousInitialization;
         private readonly IUniqueIdToUsiValueMapper _uniqueIdToUsiValueMapper;
 
+        private readonly TimeSpan _slidingExpiration;
+        private readonly TimeSpan _absoluteExpirationPeriod;
+
         /// <summary>
-        /// 
+        /// Provides cached translations between UniqueIds and USI values.
         /// </summary>
         /// <param name="cacheProvider">The cache where the database-specific maps (dictionaries) are stored, expiring after 4 hours of inactivity.</param>
         /// <param name="edFiOdsInstanceIdentificationProvider">Identifies the ODS instance for the current call.</param>
         /// <param name="uniqueIdToUsiValueMapper">A component that maps between USI and UniqueId values.</param>
         /// <param name="personIdentifiersProvider">A component that retrieves all Person identifiers.</param>
+        /// <param name="slidingExpiration">Indicates how long the cache values will remain in memory after being used before all the cached values are removed.</param>
+        /// <param name="absoluteExpirationPeriod">Indicates the maximum time that the cache values will remain in memory before being refreshed.</param>
         /// <param name="synchronousInitialization">Indicates whether the cache should wait until all the Person identifiers are loaded before responding, or if using the value mappers initially to avoid an initial delay is preferable.</param>
         public PersonUniqueIdToUsiCache(
             ICacheProvider cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
             IUniqueIdToUsiValueMapper uniqueIdToUsiValueMapper,
             IPersonIdentifiersProvider personIdentifiersProvider,
+            TimeSpan slidingExpiration,
+            TimeSpan absoluteExpirationPeriod,
             bool synchronousInitialization)
         {
             _cacheProvider = cacheProvider;
@@ -58,6 +65,25 @@ namespace EdFi.Ods.Api.Common.Caching
             _uniqueIdToUsiValueMapper = uniqueIdToUsiValueMapper;
             _personIdentifiersProvider = personIdentifiersProvider;
             _synchronousInitialization = synchronousInitialization;
+            
+            if (slidingExpiration < TimeSpan.Zero)
+            {
+                throw new ArgumentOutOfRangeException(nameof(slidingExpiration), "TimeSpan cannot be a negative value.");
+            }
+
+            if (absoluteExpirationPeriod < TimeSpan.Zero)
+            {
+                throw new ArgumentOutOfRangeException(nameof(absoluteExpirationPeriod), "TimeSpan cannot be a negative value.");
+            }
+
+            // Use sliding expiration value, if both are set.
+            if (slidingExpiration > TimeSpan.Zero && absoluteExpirationPeriod > TimeSpan.Zero)
+            {
+                absoluteExpirationPeriod = TimeSpan.Zero;
+            }
+
+            _slidingExpiration = slidingExpiration;
+            _absoluteExpirationPeriod = absoluteExpirationPeriod;
         }
 
         /// <summary>
@@ -290,7 +316,7 @@ namespace EdFi.Ods.Api.Common.Caching
                 string cacheKey = GetPersonTypeIdentifiersCacheKey(personType, context);
 
                 //Now that it's loaded extend the cache expiration.
-                _cacheProvider.Insert(cacheKey, entry, DateTime.MaxValue, TimeSpan.FromHours(4));
+                _cacheProvider.Insert(cacheKey, entry, GetAbsoluteExpiration(), _slidingExpiration);
             }
             catch (Exception ex)
             {
@@ -299,6 +325,10 @@ namespace EdFi.Ods.Api.Common.Caching
                     ex);
             }
         }
+
+        private DateTime GetAbsoluteExpiration() => _absoluteExpirationPeriod == TimeSpan.Zero
+            ? DateTime.MaxValue 
+            : DateTime.UtcNow.Add(_absoluteExpirationPeriod);
 
         private static string GetPersonTypeIdentifiersCacheKey(string personType, string context)
         {

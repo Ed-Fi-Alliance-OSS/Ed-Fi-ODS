@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Common" Version="3.4.0" PrivateAssets="all" />
-    <PackageReference Include="EdFi.OdsApi.Sdk" Version="3.4.0" PrivateAssets="all" />
+    <PackageReference Include="EdFi.OdsApi.TestSdk.Suite3" Version="4.0.0-b00271ODS4135" PrivateAssets="all" />
     <PackageReference Include="FluentCommandLineParser" Version="1.4.3" PrivateAssets="all" />
     <PackageReference Include="log4net" Version="2.0.8" PrivateAssets="all" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" PrivateAssets="all" />

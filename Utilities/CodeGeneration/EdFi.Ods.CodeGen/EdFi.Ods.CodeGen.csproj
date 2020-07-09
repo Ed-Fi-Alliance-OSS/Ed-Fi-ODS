@@ -3,6 +3,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyVersion>0.0.0</AssemblyVersion>
+    <AssemblyName>EdFi.Ods.CodeGen</AssemblyName>
     <FileVersion>0.0.0</FileVersion>
     <Authors>Ed-Fi Alliance</Authors>
     <Company>Ed-Fi Alliance</Company>

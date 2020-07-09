@@ -149,8 +149,18 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -174,14 +184,20 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IArtMediumDescriptor)target);
@@ -431,8 +447,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -456,14 +482,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBus)target);
@@ -744,6 +776,9 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int?);
+
                 _staffUniqueId = value;
             }
         }
@@ -1095,8 +1130,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -1120,14 +1165,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRoute)target);
@@ -1428,8 +1479,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -1453,14 +1514,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRouteBusYear)target);
@@ -1657,8 +1724,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -1682,14 +1759,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRouteProgram)target);
@@ -1826,8 +1909,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -1851,14 +1944,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRouteServiceAreaPostalCode)target);
@@ -1995,8 +2094,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -2020,14 +2129,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRouteStartTime)target);
@@ -2204,8 +2319,18 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -2229,14 +2354,20 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IBusRouteTelephone)target);
@@ -2411,8 +2542,18 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -2436,14 +2577,20 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IFavoriteBookCategoryDescriptor)target);
@@ -2642,8 +2789,18 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -2667,14 +2824,20 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IMembershipTypeDescriptor)target);
@@ -2887,8 +3050,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -2912,14 +3085,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentAddressSchoolDistrict)target);
@@ -3116,8 +3295,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -3141,14 +3330,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentAddressTerm)target);
@@ -3279,8 +3474,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -3304,14 +3509,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentAuthor)target);
@@ -3442,8 +3653,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -3467,14 +3688,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentCeilingHeight)target);
@@ -3642,8 +3869,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -3667,14 +3904,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentCTEProgram)target);
@@ -3853,8 +4096,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -3878,14 +4131,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentEducationContent)target);
@@ -4016,8 +4275,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -4041,14 +4310,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentFavoriteBookTitle)target);
@@ -4190,6 +4465,9 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -4280,8 +4558,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -4305,14 +4593,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentStudentProgramAssociation)target);
@@ -4446,8 +4740,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -4471,14 +4775,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentTeacherConference)target);
@@ -4896,8 +5206,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -4921,14 +5241,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentExtension)target);
@@ -5302,8 +5628,18 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -5327,14 +5663,20 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IParentAddressExtension)target);
@@ -5549,8 +5891,18 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -5574,14 +5926,20 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.ISchoolCTEProgram)target);
@@ -5760,8 +6118,18 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -5785,14 +6153,20 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.ISchoolDirectlyOwnedBus)target);
@@ -5982,8 +6356,18 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -6007,14 +6391,20 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.ISchoolExtension)target);
@@ -6179,8 +6569,18 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -6204,14 +6604,20 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStaffPet)target);
@@ -6348,8 +6754,18 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -6373,14 +6789,20 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStaffPetPreference)target);
@@ -6603,8 +7025,18 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -6628,14 +7060,20 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStaffExtension)target);
@@ -6803,8 +7241,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -6828,14 +7276,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentAquaticPet)target);
@@ -7058,8 +7512,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -7083,14 +7547,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentFavoriteBook)target);
@@ -7284,8 +7754,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -7309,14 +7789,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentFavoriteBookArtMedium)target);
@@ -7455,8 +7941,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -7480,14 +7976,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentPet)target);
@@ -7624,8 +8126,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -7649,14 +8161,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentPetPreference)target);
@@ -7975,6 +8493,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -8298,8 +8819,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -8323,14 +8854,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociation)target);
@@ -8683,8 +9220,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -8708,14 +9255,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationArtMedium)target);
@@ -8877,8 +9430,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -8902,14 +9465,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears)target);
@@ -9146,8 +9715,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -9171,14 +9750,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationService)target);
@@ -9361,8 +9946,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -9386,14 +9981,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentArtProgramAssociationStyle)target);
@@ -9576,8 +10177,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -9601,14 +10212,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentCTEProgramAssociationExtension)target);
@@ -9796,8 +10413,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -9821,14 +10448,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict)target);
@@ -10031,8 +10664,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -10056,14 +10699,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm)target);
@@ -10236,8 +10885,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -10261,14 +10920,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed)target);
@@ -10501,8 +11166,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -10526,14 +11201,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension)target);
@@ -10884,6 +11565,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_studentUniqueId != value)
+                        _studentUSI = default(int);
+
                 _studentUniqueId = value;
             }
         }
@@ -10947,6 +11631,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int?);
+
                 _staffUniqueId = value;
             }
         }
@@ -11474,8 +12161,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -11499,14 +12196,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociation)target);
@@ -11854,8 +12557,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -11879,14 +12592,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject)target);
@@ -12036,8 +12755,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -12061,14 +12790,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode)target);
@@ -12255,8 +12990,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -12280,14 +13025,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram)target);
@@ -12465,8 +13216,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -12490,14 +13251,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationDescription)target);
@@ -12647,8 +13414,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -12672,14 +13449,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy)target);
@@ -12829,8 +13612,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -12854,14 +13647,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential)target);
@@ -12970,6 +13769,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
             }
             set
             {
+                if (_parentUniqueId != value)
+                        _parentUSI = default(int);
+
                 _parentUniqueId = value;
             }
         }
@@ -13064,8 +13866,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13089,14 +13901,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation)target);
@@ -13246,8 +14064,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13271,14 +14099,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended)target);
@@ -13454,8 +14288,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13479,14 +14323,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationDiscipline)target);
@@ -13623,8 +14473,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13648,14 +14508,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle)target);
@@ -13792,8 +14658,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13817,14 +14693,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationHoursPerWeek)target);
@@ -13961,8 +14843,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -13986,14 +14878,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationPagesRead)target);
@@ -14137,6 +15035,9 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
             }
             set
             {
+                if (_staffUniqueId != value)
+                        _staffUSI = default(int);
+
                 _staffUniqueId = value;
             }
         }
@@ -14234,8 +15135,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -14259,14 +15170,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation)target);
@@ -14441,8 +15358,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -14466,14 +15393,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationTelephone)target);
@@ -14865,8 +15798,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -14890,14 +15833,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentParentAssociationExtension)target);
@@ -15245,8 +16194,18 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
 
             foreach (DictionaryEntry entry in theseKeys)
             {
-                if (!entry.Value.Equals(thoseKeys[entry.Key]))
-                    return false;
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else 
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
             }
 
             return true;
@@ -15270,14 +16229,20 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
                     if (entry.Value == null)
                         continue;
 
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
                 }
 
                 return hashCode;
             }
         }
         #endregion
-
         bool ISynchronizable.Synchronize(object target)
         {
             return this.SynchronizeTo((Entities.Common.Sample.IStudentSchoolAssociationExtension)target);

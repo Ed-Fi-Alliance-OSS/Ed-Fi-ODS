@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
 using EdFi.LoadTools.Engine;
-using EdFi.Ods.Common.Extensions;
 using log4net;
 
 namespace EdFi.LoadTools.ApiClient
@@ -33,7 +32,7 @@ namespace EdFi.LoadTools.ApiClient
             _dataConfiguration = dataConfiguration;
             _xsdConfiguration = xsdConfiguration;
 
-            _fileContexts = new Lazy<List<FileContext>> (() => CreateFileContexts().Where(x => x.IsValid).ToList());
+            _fileContexts = new Lazy<List<FileContext>>(() => CreateFileContexts().Where(x => x.IsValid).ToList());
         }
 
         public IEnumerable<FileContext> GetFileContexts(List<string> resources)
@@ -58,9 +57,16 @@ namespace EdFi.LoadTools.ApiClient
 
                 _log.Debug($"{contextPrefix} Start processing");
 
-                var fileContext = CreateFileContext(file, contextPrefix);
+                try
+                {
+                    var fileContext = CreateFileContext(file, contextPrefix);
 
-                fileContexts.Add(fileContext);
+                    fileContexts.Add(fileContext);
+                }
+                catch (Exception e)
+                {
+                    _log.Error(e);
+                }
 
                 if (_log.IsDebugEnabled)
                 {
@@ -74,7 +80,11 @@ namespace EdFi.LoadTools.ApiClient
 
             FileContext CreateFileContext(string fileName, string contextPrefix)
             {
-                var fileContext = new FileContext {FileName = fileName, Resources = new HashSet<string>()};
+                var fileContext = new FileContext
+                {
+                    FileName = fileName,
+                    Resources = new HashSet<string>()
+                };
 
                 var xmlReaderSettings = new XmlReaderSettings {CloseInput = true};
 
@@ -95,48 +105,56 @@ namespace EdFi.LoadTools.ApiClient
                         return fileContext;
                     }
 
-                    using (var reader = XmlReader.Create(stream, xmlReaderSettings))
+                    try
                     {
-                        // get the interchange name
-                        if (reader.MoveToContent() == XmlNodeType.Element)
+                        using (var reader = XmlReader.Create(stream, xmlReaderSettings))
                         {
-                            var match = _interchangeNameRegex.Match(reader.Name);
+                            // get the interchange name
+                            if (reader.MoveToContent() == XmlNodeType.Element)
+                            {
+                                var match = _interchangeNameRegex.Match(reader.Name);
 
-                            if (match.Success)
-                            {
-                                fileContext.FileType = match.Groups["InterchangeType"].Value;
+                                if (match.Success)
+                                {
+                                    fileContext.FileType = match.Groups["InterchangeType"].Value;
+                                }
+                                else
+                                {
+                                    _log.Warn($"{contextPrefix} Unknown file type");
+                                    return fileContext;
+                                }
                             }
-                            else
+
+                            _log.Debug($"{contextPrefix} Checking for reference identities and resources");
+
+                            // loop through and count the ids refs
+                            while (reader.Read())
                             {
-                                _log.Warn($"{contextPrefix} Unknown file type");
-                                return fileContext;
+                                if (reader.NodeType != XmlNodeType.Element)
+                                {
+                                    continue;
+                                }
+
+                                if (reader.Depth == 1)
+                                {
+                                    fileContext.Resources.Add(reader.Name);
+                                }
+
+                                string refId = reader.GetAttribute("ref");
+
+                                if (!string.IsNullOrEmpty(refId))
+                                {
+                                    fileContext.NumberOfIdRefs++;
+                                }
                             }
+
+                            fileContext.IsValid = true;
                         }
-
-                        _log.Debug($"{contextPrefix} Checking for reference identities and resources");
-
-                        // loop through and count the ids refs
-                        while (reader.Read())
-                        {
-                            if (reader.NodeType != XmlNodeType.Element)
-                            {
-                                continue;
-                            }
-
-                            if (reader.Depth == 1)
-                            {
-                                fileContext.Resources.Add(reader.Name);
-                            }
-
-                            string refId = reader.GetAttribute("ref");
-
-                            if (!string.IsNullOrEmpty(refId))
-                            {
-                                fileContext.NumberOfIdRefs++;
-                            }
-                        }
-
-                        fileContext.IsValid = true;
+                    }
+                    catch (XmlException e)
+                    {
+                        _log.Error($"Unexpected error in {fileName}", e);
+                        fileContext.IsValid = false;
                     }
                 }
 
