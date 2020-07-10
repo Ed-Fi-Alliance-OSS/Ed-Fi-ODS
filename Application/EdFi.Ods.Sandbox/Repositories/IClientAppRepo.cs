@@ -52,6 +52,8 @@ namespace EdFi.Ods.Sandbox.Repositories
 
         Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
 
+        Task<Vendor> CreateOrGetVendorAsync(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
+
         Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName);
 
         ApiClient CreateApiClient(int userId, string name, string key, string secret);
@@ -59,5 +61,7 @@ namespace EdFi.Ods.Sandbox.Repositories
         void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId);
 
         void Reset();
+
+        Task SetDefaultVendorOnUserFromEmailAndNameAsync(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
     }
 }
