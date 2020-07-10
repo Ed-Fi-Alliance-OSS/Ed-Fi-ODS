@@ -9,66 +9,77 @@ namespace EdFi.Ods.Admin.Initialization
 {
     public sealed class UserElement : ConfigurationElement
     {
-        private static readonly ConfigurationProperty _propAdmin;
-        private static readonly ConfigurationProperty _propPassword;
-        private static readonly ConfigurationProperty _propName;
-        private static readonly ConfigurationProperty _propEmail;
-        private static readonly ConfigurationProperty _propSandboxes;
+        private static readonly ConfigurationProperty _admin;
+        private static readonly ConfigurationProperty _password;
+        private static readonly ConfigurationProperty _name;
+        private static readonly ConfigurationProperty _email;
+        private static readonly ConfigurationProperty _sandboxes;
+        private static readonly ConfigurationProperty _namespacePrefixes;
         private static readonly ConfigurationPropertyCollection _properties;
 
         static UserElement()
         {
-            _propAdmin = new ConfigurationProperty("admin", typeof(bool), false, ConfigurationPropertyOptions.None);
-            _propEmail = new ConfigurationProperty("email", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-            _propName = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-            _propPassword = new ConfigurationProperty("password", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _admin = new ConfigurationProperty("admin", typeof(bool), false, ConfigurationPropertyOptions.None);
+            _email = new ConfigurationProperty("email", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _password = new ConfigurationProperty("password", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
 
-            _propSandboxes = new ConfigurationProperty(
+            _sandboxes = new ConfigurationProperty(
                 "sandboxes", typeof(InitializationSandboxes), null, ConfigurationPropertyOptions.None);
+
+            _namespacePrefixes = new ConfigurationProperty(
+                "namespacePrefixes", typeof(InitializationNamespacePrefixes), null, ConfigurationPropertyOptions.None);
 
             _properties = new ConfigurationPropertyCollection
             {
-                _propAdmin,
-                _propEmail,
-                _propName,
-                _propPassword,
-                _propSandboxes
+                _admin,
+                _email,
+                _name,
+                _password,
+                _sandboxes,
+                _namespacePrefixes
             };
         }
 
         [ConfigurationProperty("admin")]
         public bool Admin
         {
-            get => (bool) base[_propAdmin];
+            get => (bool) base[_admin];
         }
 
         [ConfigurationProperty("name", IsRequired = true)]
         public string Name
         {
-            get => (string) base[_propName];
+            get => (string) base[_name];
         }
 
         [ConfigurationProperty("email", IsRequired = true)]
         public string Email
         {
-            get => (string) base[_propEmail];
+            get => (string) base[_email];
         }
 
         [ConfigurationProperty("password", IsRequired = true)]
         public string Password
         {
-            get => (string) base[_propPassword];
+            get => (string) base[_password];
         }
 
         [ConfigurationProperty("sandboxes")]
         public InitializationSandboxes Sandboxes
         {
-            get => (InitializationSandboxes) base[_propSandboxes];
+            get => (InitializationSandboxes) base[_sandboxes];
         }
 
         protected override ConfigurationPropertyCollection Properties
         {
             get => _properties;
+        }
+
+        [ConfigurationProperty("namespacePrefixes")]
+        public InitializationNamespacePrefixes NamespacePrefixes
+        {
+            get => (InitializationNamespacePrefixes) base[_namespacePrefixes];
         }
     }
 }

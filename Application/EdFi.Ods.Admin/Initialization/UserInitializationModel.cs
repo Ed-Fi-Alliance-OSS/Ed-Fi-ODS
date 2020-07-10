@@ -19,7 +19,7 @@ namespace EdFi.Ods.Admin.Initialization
 
         public string UserName
         {
-            get { return Email; }
+            get => Email;
         }
 
         public IEnumerable<string> Roles
@@ -32,6 +32,8 @@ namespace EdFi.Ods.Admin.Initialization
                 }
             }
         }
+
+        public IEnumerable<NamespacePrefixInitializationModel> NamespacePrefixes { get; set; }
 
         public IEnumerable<SandboxInitializationModel> Sandboxes { get; set; }
     }

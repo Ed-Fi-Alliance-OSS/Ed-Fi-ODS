@@ -10,21 +10,21 @@ namespace EdFi.Ods.Admin.Initialization
 {
     public sealed class SandboxElement : ConfigurationElement
     {
-        private static readonly ConfigurationProperty _propName;
-        private static readonly ConfigurationProperty _propKey;
-        private static readonly ConfigurationProperty _propSecret;
-        private static readonly ConfigurationProperty _propRefresh;
-        private static readonly ConfigurationProperty _propType;
+        private static readonly ConfigurationProperty _name;
+        private static readonly ConfigurationProperty _key;
+        private static readonly ConfigurationProperty _secret;
+        private static readonly ConfigurationProperty _refresh;
+        private static readonly ConfigurationProperty _type;
         private static readonly ConfigurationPropertyCollection _properties;
 
         static SandboxElement()
         {
-            _propName = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-            _propKey = new ConfigurationProperty("key", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-            _propSecret = new ConfigurationProperty("secret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
-            _propRefresh = new ConfigurationProperty("refresh", typeof(bool), false, ConfigurationPropertyOptions.None);
+            _name = new ConfigurationProperty("name", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _key = new ConfigurationProperty("key", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _secret = new ConfigurationProperty("secret", typeof(string), null, ConfigurationPropertyOptions.IsRequired);
+            _refresh = new ConfigurationProperty("refresh", typeof(bool), false, ConfigurationPropertyOptions.None);
 
-            _propType = new ConfigurationProperty(
+            _type = new ConfigurationProperty(
                 "type",
                 typeof(SandboxType),
                 SandboxType.Minimal,
@@ -35,42 +35,42 @@ namespace EdFi.Ods.Admin.Initialization
 
             _properties = new ConfigurationPropertyCollection
             {
-                _propName,
-                _propKey,
-                _propSecret,
-                _propRefresh,
-                _propType
+                _name,
+                _key,
+                _secret,
+                _refresh,
+                _type
             };
         }
 
         [ConfigurationProperty("name", IsRequired = true)]
         public string Name
         {
-            get => (string) base[_propName];
+            get => (string) base[_name];
         }
 
         [ConfigurationProperty("key", IsRequired = true)]
         public string Key
         {
-            get => (string) base[_propKey];
+            get => (string) base[_key];
         }
 
         [ConfigurationProperty("secret", IsRequired = true)]
         public string Secret
         {
-            get => (string) base[_propSecret];
+            get => (string) base[_secret];
         }
 
         [ConfigurationProperty("refresh", IsRequired = false)]
         public bool Refresh
         {
-            get => (bool) base[_propRefresh];
+            get => (bool) base[_refresh];
         }
 
         [ConfigurationProperty("type", IsRequired = true)]
         public SandboxType Type
         {
-            get => (SandboxType) base[_propType];
+            get => (SandboxType) base[_type];
         }
     }
 }

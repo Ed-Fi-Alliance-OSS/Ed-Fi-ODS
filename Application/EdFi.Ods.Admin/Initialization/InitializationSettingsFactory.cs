@@ -29,6 +29,12 @@ namespace EdFi.Ods.Admin.Initialization
                             Email = u.Email,
                             Password = u.Password,
                             Admin = u.Admin,
+                            NamespacePrefixes = u.NamespacePrefixes.OfType<NamespacePrefixElement>()
+                                .Select(n => new NamespacePrefixInitializationModel
+                                {
+                                    Name = n.Name
+                                })
+                                .ToArray(),
                             Sandboxes = u.Sandboxes.OfType<SandboxElement>()
                                 .Select(
                                     s => new SandboxInitializationModel
