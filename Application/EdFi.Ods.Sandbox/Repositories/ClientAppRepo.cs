@@ -16,6 +16,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Sandbox.Provisioners;
 
 namespace EdFi.Ods.Sandbox.Repositories
@@ -216,7 +217,7 @@ namespace EdFi.Ods.Sandbox.Repositories
 
                 // TODO SF: AA-518
                 // Assuming that this is used by Admin App, although that will not actually be clear
-                // until we are able to start testing Admin App thoroughly. 
+                // until we are able to start testing Admin App thoroughly.
                 // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
                 // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
                 context.ExecuteSqlCommandAsync(
@@ -238,7 +239,7 @@ delete ApiClients where ApiClientId = @clientId",
             {
                 var client = context.Clients
                     .FirstOrDefault(c => c.ApiClientId == apiClientId);
-                
+
                 if (client == null)
                 {
                     throw new InvalidOperationException("Cannot add client access token when the client does not exist.");
@@ -252,7 +253,7 @@ delete ApiClients where ApiClientId = @clientId",
 
                 var token = new ClientAccessToken(TimeSpan.FromMinutes(duration))
                 {
-                    Scope = string.IsNullOrEmpty(tokenRequestScope) 
+                    Scope = string.IsNullOrEmpty(tokenRequestScope)
                         ? null
                         : tokenRequestScope.Trim()
                 };
@@ -325,7 +326,7 @@ delete ApiClients where ApiClientId = @clientId",
             var attachedUser = context.Users.Find(userId);
 
             return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
-            
+
         }
 
         public void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId)
@@ -396,8 +397,8 @@ delete ApiClients where ApiClientId = @clientId",
 
                     try
                     {
-                        //Admin.Web Creates table webpages_UsersInRoles. 
-                        //If exists remove rows, if not swallow exception. 
+                        //Admin.Web Creates table webpages_UsersInRoles.
+                        //If exists remove rows, if not swallow exception.
                         dbContext.DeleteAll<WebPagesUsersInRoles>();
                         context.SaveChanges();
                     }
@@ -436,7 +437,19 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string > namespacePrefixes)
+        public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
+                var user = context.Users.Single(u => u.Email.Equals(userEmail));
+
+                user.Vendor = vendor;
+                context.SaveChanges();
+            }
+        }
+
+        public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
         {
             var vendorName = userName.Split(',')[0]
                 .Trim();
@@ -461,6 +474,7 @@ delete ApiClients where ApiClientId = @clientId",
                                     NamespacePrefix = namespacePrefix
                                 });
                         }
+                        context.SaveChanges();
                     }
 
                     return vendor;

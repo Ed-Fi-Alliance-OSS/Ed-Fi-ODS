@@ -59,5 +59,7 @@ namespace EdFi.Ods.Sandbox.Repositories
         void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId);
 
         void Reset();
+
+        void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
     }
 }
