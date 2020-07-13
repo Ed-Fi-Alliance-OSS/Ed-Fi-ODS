@@ -437,31 +437,26 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public async Task SetDefaultVendorOnUserFromEmailAndNameAsync(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = await CreateOrGetVendorAsync(userEmail, userName, namespacePrefixes);
-                var user = await context.Users.SingleAsync(u => u.Email.Equals(userEmail));
+                var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
+                var user = context.Users.Single(u => u.Email.Equals(userEmail));
 
                 user.Vendor = vendor;
-                await context.SaveChangesAsync();
+                context.SaveChanges();
             }
         }
 
         public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
-        {
-            return CreateOrGetVendorAsync(userEmail, userName, namespacePrefixes).GetResultSafely();
-        }
-
-        public async Task<Vendor> CreateOrGetVendorAsync(string userEmail, string userName, IEnumerable<string > namespacePrefixes)
         {
             var vendorName = userName.Split(',')[0]
                 .Trim();
 
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = await context.Vendors.SingleOrDefaultAsync(v => v.VendorName == vendorName);
+                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
 
                     if (vendor == null)
                     {
@@ -479,9 +474,9 @@ delete ApiClients where ApiClientId = @clientId",
                                     NamespacePrefix = namespacePrefix
                                 });
                         }
+                        context.SaveChanges();
                     }
 
-                    await context.SaveChangesAsync();
                     return vendor;
             }
         }

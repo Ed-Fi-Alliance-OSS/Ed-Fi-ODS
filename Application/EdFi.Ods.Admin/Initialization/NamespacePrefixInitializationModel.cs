@@ -7,6 +7,6 @@ namespace EdFi.Ods.Admin.Initialization
 {
     public class NamespacePrefixInitializationModel
     {
-        public string Name { get; set; }
+        public string NamespacePrefix { get; set; }
     }
 }

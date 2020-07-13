@@ -32,7 +32,7 @@ namespace EdFi.Ods.Admin.Initialization
                             NamespacePrefixes = u.NamespacePrefixes.OfType<NamespacePrefixElement>()
                                 .Select(n => new NamespacePrefixInitializationModel
                                 {
-                                    Name = n.Name
+                                    NamespacePrefix = n.Name
                                 })
                                 .ToArray(),
                             Sandboxes = u.Sandboxes.OfType<SandboxElement>()

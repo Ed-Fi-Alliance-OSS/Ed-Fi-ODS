@@ -80,7 +80,7 @@ namespace EdFi.Ods.Admin.Initialization
             }
         }
 
-        private async void CreateUser(UserInitializationModel user)
+        private void CreateUser(UserInitializationModel user)
         {
             WebSecurity.CreateUserAndAccount(
                 user.UserName,
@@ -94,9 +94,9 @@ namespace EdFi.Ods.Admin.Initialization
 
             WebSecurityService.UpdatePasswordAndActivate(user.UserName, user.Password);
 
-            var namespacePrefixes = user.NamespacePrefixes.Select(nsp => nsp.Name).ToList();
+            var namespacePrefixes = user.NamespacePrefixes.Select(nsp => nsp.NamespacePrefix).ToList();
 
-            await _clientAppRepo.SetDefaultVendorOnUserFromEmailAndNameAsync(user.Email, user.UserName, namespacePrefixes);
+            _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.UserName, namespacePrefixes);
         }
 
         public void EnsureMinimalTemplateEducationOrganizationsExist()
