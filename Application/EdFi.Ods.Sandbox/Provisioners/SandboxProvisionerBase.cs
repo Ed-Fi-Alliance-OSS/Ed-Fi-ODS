@@ -85,7 +85,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 foreach (string key in deletedClientKeys)
                 {
-                    await conn.ExecuteAsync($"DROP DATABASE IF EXISTS {key};", commandTimeout: CommandTimeout);
+                    await conn.ExecuteAsync($"DROP DATABASE IF EXISTS {DatabaseNameBuilder.SandboxNameForKey(key)};", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
                 }
             }
         }
