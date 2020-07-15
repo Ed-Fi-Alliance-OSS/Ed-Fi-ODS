@@ -920,8 +920,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EffectiveDate = request.EffectiveDate;
             specification.EndDate = request.EndDate;
-            specification.ExamNamespace = request.ExamNamespace;
             specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
                     }
 
         protected override string GetResourceCollectionName()
@@ -960,8 +960,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
             specification.CertificationExamPassIndicator = request.CertificationExamPassIndicator;
             specification.CertificationExamScore = request.CertificationExamScore;
             specification.CertificationExamStatusDescriptor = request.CertificationExamStatusDescriptor;
-            specification.ExamNamespace = request.ExamNamespace;
             specification.Id = request.Id;
+            specification.Namespace = request.Namespace;
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
                     }
