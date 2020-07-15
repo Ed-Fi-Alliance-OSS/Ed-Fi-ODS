@@ -16,7 +16,7 @@ namespace EdFi.Admin.DataAccess.Utils
         private const string TemplateEmptyDatabase = TemplatePrefix + "Empty_Template";
         private const string TemplateMinimalDatabase = TemplatePrefix + "Minimal_Template";
         private const string TemplateSampleDatabase = TemplatePrefix + "Populated_Template";
-        public const string CodeGenDatabase = "EdFi_Ods";
+        public const string DemoSandboxDatabase = "EdFi_Ods";
 
         private static string _databaseNameTemplate;
 
