@@ -133,10 +133,11 @@ namespace EdFi.Ods.Api.Services.Controllers
             [FromUri] TGetByExampleRequest request = default(TGetByExampleRequest))
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-            if (urlQueryParametersRequest.Limit != null &&
-                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > 100))
+            if (urlQueryParametersRequest.Limit == null || urlQueryParametersRequest.Limit <= 0 )
             {
-                return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                urlQueryParametersRequest.Limit = int.TryParse(System.Configuration.ConfigurationManager.AppSettings["defaultPageSize"], out int defaultPageSize)
+                    ? defaultPageSize
+                    : 500;
             }
 
             var internalRequestAsResource = new TResourceReadModel();
@@ -173,6 +174,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (queryParameters.TotalCount)
             {
                 response.Headers.Add("Total-Count", result.ResultMetadata.TotalCount.ToString());
+                response.Headers.Add("limit", "500");
             }
 
             return new ResponseMessageResult(response).WithContentType(GetReadContentType());
