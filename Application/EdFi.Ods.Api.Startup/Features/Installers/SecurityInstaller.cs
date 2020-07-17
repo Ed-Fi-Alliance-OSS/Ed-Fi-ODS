@@ -34,6 +34,7 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Security.Utilities;
+using log4net;
 
 namespace EdFi.Ods.Api.Startup.Features.Installers
 {
@@ -67,6 +68,8 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)}
         };
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SecurityInstaller));
+        
         public SecurityInstaller(IAssembliesProvider assembliesProvider, IConfigValueProvider configValueProvider)
         {
             _assembliesProvider = Preconditions.ThrowIfNull(assembliesProvider, nameof(assembliesProvider));
@@ -269,9 +272,28 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             // Register all context data providers
             var relationshipContextDataProviderTypes = _assembliesProvider.GetAssemblies()
                 .Where(a => a.IsExtensionAssembly() || a.IsStandardAssembly())
-                .SelectMany(a => a.GetTypes())
-                .Where(
-                    t => !t.IsAbstract && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
+                .SelectMany(a =>
+                {
+                    _logger.Info(
+                        $"Processing assembly '{a.GetName().Name}' for relationship-based authorization context data providers.");
+
+                    var contextDataProviderTypes = a.GetTypes()
+                        .Where(t => !t.IsAbstract
+                                && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
+                        .ToArray();
+
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($@"Found {contextDataProviderTypes.Count()} types:
+    {string.Join(Environment.NewLine + "    ", contextDataProviderTypes.Select(t => t.FullName))}");
+                    }
+                    else
+                    {
+                        _logger.Info($"Found {contextDataProviderTypes.Count()} types.");
+                    }
+
+                    return contextDataProviderTypes;
+                })
                 .ToList();
 
             // Register all context data providers including any defined in extension assemblies.
