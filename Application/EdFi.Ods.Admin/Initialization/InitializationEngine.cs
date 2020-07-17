@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
+using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Sandbox.Repositories;
@@ -17,7 +18,7 @@ namespace EdFi.Ods.Admin.Initialization
 {
     public class InitializationEngine
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(InitializationEngine));
+        private readonly ILog _log = LogManager.GetLogger(typeof(InitializationEngine));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IClientCreator _clientCreator;
         private readonly IEducationOrganizationsInitializer _educationOrganizationsInitializer;
@@ -45,23 +46,19 @@ namespace EdFi.Ods.Admin.Initialization
                 {
                     if (!Roles.RoleExists(role))
                     {
+                        _log.Debug($"Adding role: {role} to asp net security.");
                         Roles.CreateRole(role);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex);
+                _log.Error(ex);
             }
         }
 
         public void CreateUsers()
         {
-            if (!_settings.Enabled)
-            {
-                return;
-            }
-
             try
             {
                 foreach (var user in _settings.Users)
@@ -71,58 +68,45 @@ namespace EdFi.Ods.Admin.Initialization
                         continue;
                     }
 
-                    CreateUser(user);
+                    _log.Debug($"Adding user: {user} to asp net security.");
+                    WebSecurity.CreateUserAndAccount(user.UserName, user.Password, new {FullName = user.Name});
+
+                    foreach (var role in user.Roles)
+                    {
+                        _log.Debug($"Adding user: {user} to role: {role} in asp net security.");
+                        Roles.AddUserToRole(user.Email, role);
+                    }
+
+                    _log.Debug($"Applying password to  user: {user} in asp net security.");
+                    WebSecurityService.UpdatePasswordAndActivate(user.UserName, user.Password);
                 }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex);
+                _log.Error(ex);
             }
         }
 
-        private void CreateUser(UserInitializationModel user)
+        public void CreateVendors()
         {
-            WebSecurity.CreateUserAndAccount(
-                user.UserName,
-                user.Password,
-                new {FullName = user.Name});
-
-            foreach (var role in user.Roles)
-            {
-                Roles.AddUserToRole(user.Email, role);
-            }
-
-            WebSecurityService.UpdatePasswordAndActivate(user.UserName, user.Password);
-
-            var namespacePrefixes = user.NamespacePrefixes.Select(nsp => nsp.NamespacePrefix).ToList();
-
-            _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.UserName, namespacePrefixes);
-        }
-
-        public void EnsureMinimalTemplateEducationOrganizationsExist()
-        {
-            if (!_settings.Enabled)
-            {
-                return;
-            }
-
             try
             {
-                _educationOrganizationsInitializer.EnsureMinimalTemplateEducationOrganizationsInitialized();
+                foreach (var user in _settings.Users)
+                {
+                    var namespacePrefixes = user.NamespacePrefixes.Select(nsp => nsp.NamespacePrefix).ToList();
+
+                    _log.Info($"Creating vendor {user} with namespace prefixes {string.Join(",", namespacePrefixes)}");
+                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.UserName, namespacePrefixes);
+                }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex);
+                _log.Error(ex);
             }
         }
 
         public void CreateSandboxes()
         {
-            if (!_settings.Enabled)
-            {
-                return;
-            }
-
             try
             {
                 foreach (var user in _settings.Users)
@@ -136,23 +120,19 @@ namespace EdFi.Ods.Admin.Initialization
                             continue;
                         }
 
+                        _log.Info($"Creating sandbox {sandbox.Key} for user {user.UserName}");
                         _clientCreator.CreateNewSandboxClient(sandbox, clientProfile);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex);
+                _log.Error(ex);
             }
         }
 
         public void RebuildSandboxes()
         {
-            if (!_settings.Enabled)
-            {
-                return;
-            }
-
             try
             {
                 foreach (var user in _settings.Users)
@@ -161,13 +141,14 @@ namespace EdFi.Ods.Admin.Initialization
 
                     foreach (var sandbox in user.Sandboxes.Where(x => x.Refresh))
                     {
+                        _log.Debug($"Resetting sandbox {sandbox} for {clientProfile.Vendor.VendorName}");
                         _clientCreator.ResetSandboxClient(sandbox, clientProfile);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex);
+                _log.Error(ex);
             }
         }
     }
