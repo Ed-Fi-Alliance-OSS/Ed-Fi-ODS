@@ -47,7 +47,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(leaId);
                 DeleteVendor(vendorName);
 
-                var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
                 A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
                     .Returns(
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(leaId2);
                 DeleteVendor(vendorName);
 
-                var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
                 A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
                     .Returns(
