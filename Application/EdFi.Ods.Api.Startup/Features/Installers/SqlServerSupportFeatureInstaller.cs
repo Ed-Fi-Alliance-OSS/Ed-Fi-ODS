@@ -7,6 +7,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Api.Startup.Features.Installers
@@ -31,6 +32,11 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 Component
                     .For<IAuthorizationSegmentsSqlProvider>()
                     .ImplementedBy<SqlServerAuthorizationSegmentSqlProvider>());
+        }
+
+        private void RegisterSandboxProvisioner(IWindsorContainer container)
+        {
+            container.Register(Component.For<ISandboxProvisioner>().ImplementedBy<SqlServerSandboxProvisioner>());
         }
     }
 }

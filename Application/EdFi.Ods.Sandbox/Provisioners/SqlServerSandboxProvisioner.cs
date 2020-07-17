@@ -16,11 +16,11 @@ using log4net;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
-    public class SqlSandboxProvisioner : SandboxProvisionerBase
+    public class SqlServerSandboxProvisioner : SandboxProvisionerBase
     {
-        private readonly ILog _logger = LogManager.GetLogger(nameof(SqlSandboxProvisioner));
+        private readonly ILog _logger = LogManager.GetLogger(nameof(SqlServerSandboxProvisioner));
 
-        public SqlSandboxProvisioner(IConfigValueProvider configValueProvider,
+        public SqlServerSandboxProvisioner(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider)
             : base(configValueProvider, connectionStringsProvider) { }
 
@@ -50,23 +50,15 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
         public override async Task<SandboxStatus> GetSandboxStatusAsync(string clientKey)
         {
-            try
+            using (var conn = CreateConnection())
             {
-                using (var conn = CreateConnection())
-                {
-                    var results = await conn.QueryAsync<SandboxStatus>(
-                            $"SELECT name as Name, state as Code, state_desc as Description FROM sys.databases WHERE name = @DbName;",
-                            new {DbName = DatabaseNameBuilder.SandboxNameForKey(clientKey)},
-                            commandTimeout: CommandTimeout)
-                        .ConfigureAwait(false);
+                var results = await conn.QueryAsync<SandboxStatus>(
+                        $"SELECT name as Name, state as Code, state_desc as Description FROM sys.databases WHERE name = @DbName;",
+                        new {DbName = DatabaseNameBuilder.SandboxNameForKey(clientKey)},
+                        commandTimeout: CommandTimeout)
+                    .ConfigureAwait(false);
 
-                    return results.SingleOrDefault() ?? SandboxStatus.ErrorStatus();
-                }
-            }
-            catch (Exception e)
-            {
-                _logger.Debug(e);
-                throw;
+                return results.SingleOrDefault() ?? SandboxStatus.ErrorStatus();
             }
         }
 

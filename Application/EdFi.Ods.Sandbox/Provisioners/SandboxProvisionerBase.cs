@@ -45,7 +45,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
         public void RenameSandbox(string oldName, string newName) => RenameSandboxAsync(oldName, newName).WaitSafely();
 
-        public virtual SandboxStatus GetSandboxStatus(string clientKey) => GetSandboxStatusAsync(clientKey).GetResultSafely();
+        public SandboxStatus GetSandboxStatus(string clientKey) => GetSandboxStatusAsync(clientKey).GetResultSafely();
 
         public void ResetDemoSandbox() => ResetDemoSandboxAsync().WaitSafely();
 
