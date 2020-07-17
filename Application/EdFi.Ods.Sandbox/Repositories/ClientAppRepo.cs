@@ -18,6 +18,7 @@ using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Sandbox.Provisioners;
+using log4net;
 
 namespace EdFi.Ods.Sandbox.Repositories
 {
@@ -27,6 +28,8 @@ namespace EdFi.Ods.Sandbox.Repositories
         private readonly IConfigValueProvider _configValueProvider;
         private readonly IUsersContextFactory _contextFactory;
         private readonly ISandboxProvisioner _provisioner;
+
+        private readonly ILog _logger = LogManager.GetLogger(nameof(ClientAppRepo));
 
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
@@ -375,10 +378,13 @@ delete ApiClients where ApiClientId = @clientId",
         {
             using (var context = _contextFactory.CreateContext())
             {
+                _logger.Debug($"Creating API Client");
                 var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
 
+                _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
 
+                _logger.Debug($"Creating {sandboxType.ToString()} sandbox for {client.Key}");
                 _provisioner.AddSandbox(client.Key, sandboxType);
 
                 context.SaveChanges();
@@ -442,9 +448,18 @@ delete ApiClients where ApiClientId = @clientId",
             using (var context = _contextFactory.CreateContext())
             {
                 var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
-                var user = context.Users.Single(u => u.Email.Equals(userEmail));
+
+                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail)) ??
+                           new User
+                           {
+                               Email = userEmail,
+                               FullName = userName
+                           };
 
                 user.Vendor = vendor;
+
+                context.Users.AddOrUpdate(user);
+                context.Vendors.AddOrUpdate(vendor);
                 context.SaveChanges();
             }
         }
