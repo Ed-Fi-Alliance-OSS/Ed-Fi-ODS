@@ -82,6 +82,9 @@ namespace EdFi.Ods.Security.Claims
             // Add Assigned Profile names
             assignedProfileNames.ForEach(profileName => claims.Add(new Claim(EdFiOdsApiClaimTypes.Profile, profileName)));
 
+            // Add the claim set name
+            claims.Add(new Claim(EdFiOdsApiClaimTypes.ClaimSetName, claimSetName));
+            
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }
     }
