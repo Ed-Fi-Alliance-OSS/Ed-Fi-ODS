@@ -447,19 +447,21 @@ delete ApiClients where ApiClientId = @clientId",
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
+                var vendor =  Vendor.Create(userName, namespacePrefixes);
 
-                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail)) ??
-                           new User
-                           {
-                               Email = userEmail,
-                               FullName = userName
-                           };
+                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail));
 
-                user.Vendor = vendor;
+                if (user == null)
+                {
+                    user = User.Create(userEmail, userName, vendor);
+                }
+                else
+                {
+                    user.Vendor = vendor;
+                }
 
-                context.Users.AddOrUpdate(user);
                 context.Vendors.AddOrUpdate(vendor);
+                context.Users.AddOrUpdate(user);
                 context.SaveChanges();
             }
         }
@@ -475,20 +477,7 @@ delete ApiClients where ApiClientId = @clientId",
 
                     if (vendor == null)
                     {
-                        vendor = new Vendor
-                        {
-                            VendorName = vendorName
-                        };
-
-                        foreach (string namespacePrefix in namespacePrefixes)
-                        {
-                            vendor.VendorNamespacePrefixes.Add(
-                                new VendorNamespacePrefix
-                                {
-                                    Vendor = vendor,
-                                    NamespacePrefix = namespacePrefix
-                                });
-                        }
+                        vendor = Vendor.Create(vendorName, namespacePrefixes);
                         context.SaveChanges();
                     }
 
