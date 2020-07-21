@@ -546,6 +546,27 @@
     ]
   },
   {
+    "resource": "/ed-fi/indicatorDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/indicatorGroupDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/indicatorLevelDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
     "resource": "/ed-fi/institutionTelephoneNumberTypeDescriptors",
     "order": 1,
     "operations": [

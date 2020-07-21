@@ -18371,7 +18371,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string CertificationExamNamespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18442,7 +18442,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("CertificationExamNamespace", CertificationExamNamespace);
 
             return keyValues;
         }
@@ -18985,7 +18985,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string ExamNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
@@ -19007,7 +19007,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -19087,7 +19087,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -19236,7 +19236,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -19373,7 +19373,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         // -------------------------------------------------------------
         public virtual DateTime CertificationExamDate { get; set; }
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string ExamNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         public virtual string PersonId { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -19398,7 +19398,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
@@ -19490,7 +19490,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -19659,7 +19659,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
@@ -77891,6 +77891,13 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
             set { _isEducationOrganizationIdentificationCodesSupported = value; }
         }
 
+        private bool _isEducationOrganizationIndicatorsSupported = true;
+        bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported
+        {
+            get { return _isEducationOrganizationIndicatorsSupported; }
+            set { _isEducationOrganizationIndicatorsSupported = value; }
+        }
+
         private bool _isEducationOrganizationInstitutionTelephonesSupported = true;
         bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported
         {
@@ -77973,6 +77980,13 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
         {
             get { return _isEducationOrganizationIdentificationCodeIncluded; }
             set { _isEducationOrganizationIdentificationCodeIncluded = value; }
+        }
+
+        private Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> _isEducationOrganizationIndicatorIncluded;
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        {
+            get { return _isEducationOrganizationIndicatorIncluded; }
+            set { _isEducationOrganizationIndicatorIncluded = value; }
         }
 
         private Func<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, bool> _isEducationOrganizationInstitutionTelephoneIncluded;
@@ -79452,6 +79466,13 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
             set { _isEducationOrganizationIdentificationCodesSupported = value; }
         }
 
+        private bool _isEducationOrganizationIndicatorsSupported = true;
+        bool Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported
+        {
+            get { return _isEducationOrganizationIndicatorsSupported; }
+            set { _isEducationOrganizationIndicatorsSupported = value; }
+        }
+
         private bool _isEducationOrganizationInstitutionTelephonesSupported = true;
         bool Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported
         {
@@ -79527,6 +79548,13 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
         {
             get { return _isEducationOrganizationIdentificationCodeIncluded; }
             set { _isEducationOrganizationIdentificationCodeIncluded = value; }
+        }
+
+        private Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> _isEducationOrganizationIndicatorIncluded;
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        {
+            get { return _isEducationOrganizationIndicatorIncluded; }
+            set { _isEducationOrganizationIndicatorIncluded = value; }
         }
 
         private Func<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, bool> _isEducationOrganizationInstitutionTelephoneIncluded;

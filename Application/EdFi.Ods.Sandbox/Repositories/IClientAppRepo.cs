@@ -53,7 +53,7 @@ namespace EdFi.Ods.Sandbox.Repositories
 
         void SetupKeySecret(string name, SandboxType sandboxType, string key, string secret, int userId, int applicationId);
 
-        Vendor CreateOrGetVendor(string userEmail, string userName);
+        Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
 
         Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName);
 
@@ -62,5 +62,7 @@ namespace EdFi.Ods.Sandbox.Repositories
         void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId);
 
         void Reset();
+
+        void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
     }
 }

@@ -97,7 +97,7 @@ $@"SELECT 1 WHERE
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 );";
 
-                sql.ShouldBe(expectedSql);
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -173,7 +173,7 @@ AND
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
 );";
 
-                sql.ShouldBe(expectedSql);
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -206,7 +206,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds 
+                    }, // Multiple types of EdOrgIds
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -280,7 +280,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
 OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.PostSecondaryInstitutionId = @p6 and a.SchoolId = @p7)
 );";
 
-                sql.ShouldBe(expectedSql);
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -317,7 +317,7 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds 
+                    }, // Multiple types of EdOrgIds
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -370,7 +370,7 @@ AND
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
 );";
 
-                sql.ShouldBe(expectedSql);
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -394,7 +394,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                         // Not supported for this test:
                         // "auth.PostSecondaryInstitutionIdToSchoolId",
                         // "auth.LocalEducationAgencyIdToSchoolId",
-                        
+
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -407,7 +407,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds 
+                    }, // Multiple types of EdOrgIds
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -511,7 +511,7 @@ $@"SELECT 1 WHERE
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
 );";
 
-                sql.ShouldBe(expectedSql);
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 

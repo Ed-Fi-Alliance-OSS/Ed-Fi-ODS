@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Common.Models.Tokens;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Providers;
 using EdFi.Ods.Common.Security;
@@ -37,8 +37,8 @@ namespace EdFi.Ods.Api.Services.Controllers
         public async Task<IHttpActionResult> PostAsync([FromBody] TokenInfoRequest tokenInfoRequest)
         {
             // see https://tools.ietf.org/html/rfc7662#section-2.2 for oauth token_info spec
-            if (tokenInfoRequest == null || tokenInfoRequest.AccessToken == null ||
-                !Guid.TryParse(tokenInfoRequest.AccessToken, out Guid accessToken))
+            if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
+                !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
                 return BadRequest("Invalid token");
             }

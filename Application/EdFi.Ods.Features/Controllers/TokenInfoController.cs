@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Common.Models.Tokens;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
 using EdFi.Ods.Sandbox.Repositories;
@@ -55,8 +55,8 @@ namespace EdFi.Ods.Features.Controllers
             }
 
             // see https://tools.ietf.org/html/rfc7662#section-2.2 for oauth token_info spec
-            if (tokenInfoRequest == null || tokenInfoRequest.AccessToken == null ||
-                !Guid.TryParse(tokenInfoRequest.AccessToken, out Guid accessToken))
+            if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
+                !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
                 return BadRequest("Invalid token");
             }
@@ -76,11 +76,12 @@ namespace EdFi.Ods.Features.Controllers
                 return Unauthorized();
             }
 
-            Api.Models.TokenInfo tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
+            var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
             Response.Headers.Add("Cache-Control", "no-cache");
             return Ok(tokenInfo);
         }
     }
+
 }
 #endif

@@ -26,45 +26,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdentifiers" table="EducationOrganizationIdentifiers" lazy="false" schema="auth">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" />
-      <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
-      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="EducationOrganizationType" column="EducationOrganizationType" type="string" length="24" />
-      <key-property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" />
-      <key-property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" />
-      <key-property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
-      <key-property name="SchoolId" column="SchoolId" type="int" />
-      <key-property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" />
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-    <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" insert="false" update="false" />
-    <property name="CommunityProviderId" column="CommunityProviderId" type="int" insert="false" update="false" />
-    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
-    <property name="EducationOrganizationType" column="EducationOrganizationType" type="string" length="24" insert="false" update="false" />
-    <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" insert="false" update="false" />
-    <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" insert="false" update="false" />
-    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" insert="false" update="false" />
-    <property name="SchoolId" column="SchoolId" type="int" insert="false" update="false" />
-    <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" insert="false" update="false" />
-
-    <!-- Aggregate references -->
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToCommunityOrganizationId" table="EducationOrganizationIdToCommunityOrganizationId" lazy="false" schema="auth">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_CommunityOrganizationIdToEducationOrganizationId" table="CommunityOrganizationIdToEducationOrganizationId" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" />
@@ -88,7 +50,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToCommunityProviderId" table="EducationOrganizationIdToCommunityProviderId" lazy="false" schema="auth">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_CommunityProviderIdToEducationOrganizationId" table="CommunityProviderIdToEducationOrganizationId" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
@@ -101,6 +63,76 @@
     <!-- Properties -->
     <property name="CommunityProviderId" column="CommunityProviderId" type="int" not-null="true" insert="false" update="false" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_CommunityProviderIdToStaffUSI" table="CommunityProviderIdToStaffUSI" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="CommunityProviderId" column="CommunityProviderId" type="int" not-null="true" insert="false" update="false" />
+    <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdentifiers" table="EducationOrganizationIdentifiers" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" />
+      <key-property name="CommunityProviderId" column="CommunityProviderId" type="int" />
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="EducationOrganizationType" column="EducationOrganizationType" type="string" length="26" />
+      <key-property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" />
+      <key-property name="FullEducationOrganizationType" column="FullEducationOrganizationType" type="string" length="128" />
+      <key-property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" />
+      <key-property name="NameOfInstitution" column="NameOfInstitution" type="string" length="75" />
+      <key-property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" />
+      <key-property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" />
+      <key-property name="UniversityId" column="UniversityId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="CommunityOrganizationId" column="CommunityOrganizationId" type="int" insert="false" update="false" />
+    <property name="CommunityProviderId" column="CommunityProviderId" type="int" insert="false" update="false" />
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="EducationOrganizationType" column="EducationOrganizationType" type="string" length="26" insert="false" update="false" />
+    <property name="EducationServiceCenterId" column="EducationServiceCenterId" type="int" insert="false" update="false" />
+    <property name="FullEducationOrganizationType" column="FullEducationOrganizationType" type="string" length="128" insert="false" update="false" />
+    <property name="LocalEducationAgencyId" column="LocalEducationAgencyId" type="int" insert="false" update="false" />
+    <property name="NameOfInstitution" column="NameOfInstitution" type="string" length="75" not-null="true" insert="false" update="false" />
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" insert="false" update="false" />
+    <property name="SchoolId" column="SchoolId" type="int" insert="false" update="false" />
+    <property name="StateEducationAgencyId" column="StateEducationAgencyId" type="int" insert="false" update="false" />
+    <property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" insert="false" update="false" />
+    <property name="UniversityId" column="UniversityId" type="int" insert="false" update="false" />
 
     <!-- Aggregate references -->
 
@@ -269,6 +301,54 @@
     <!-- Properties -->
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" insert="false" update="false" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToTeacherPreparationProviderId" table="EducationOrganizationIdToTeacherPreparationProviderId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToUniversityId" table="EducationOrganizationIdToUniversityId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
+      <key-property name="UniversityId" column="UniversityId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="UniversityId" column="UniversityId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
 
@@ -534,6 +614,30 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_PostSecondaryInstitutionIdToStaffUSI" table="PostSecondaryInstitutionIdToStaffUSI" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" not-null="true" insert="false" update="false" />
+    <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_School" table="School" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
@@ -623,6 +727,54 @@
     <!-- Properties -->
     <property name="SchoolId" column="SchoolId" type="int" not-null="true" insert="false" update="false" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToTeacherPreparationProviderId" table="StaffUSIToTeacherPreparationProviderId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+      <key-property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
+    <property name="TeacherPreparationProviderId" column="TeacherPreparationProviderId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToUniversityId" table="StaffUSIToUniversityId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+      <key-property name="UniversityId" column="UniversityId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
+    <property name="UniversityId" column="UniversityId" type="int" not-null="true" insert="false" update="false" />
 
     <!-- Aggregate references -->
 

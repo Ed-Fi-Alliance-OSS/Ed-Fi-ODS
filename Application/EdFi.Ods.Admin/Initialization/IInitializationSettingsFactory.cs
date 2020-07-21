@@ -3,13 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using Newtonsoft.Json;
-
-namespace EdFi.Ods.Api.Models
+namespace EdFi.Ods.Admin.Initialization
 {
-    public class TokenInfoRequest
+    public interface IInitializationSettingsFactory
     {
-        [JsonProperty("token")]
-        public string AccessToken { get; set; }
+        InitializationModel GetInitializationModel();
     }
 }

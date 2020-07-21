@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Admin.DataAccess;
 
 namespace EdFi.Ods.Admin.Initialization
 {
@@ -22,50 +21,5 @@ namespace EdFi.Ods.Admin.Initialization
         public string Recurrence { get; set; }
 
         public IEnumerable<UserInitializationModel> Users { get; set; }
-    }
-
-    public class UserInitializationModel
-    {
-        public string Name { get; set; }
-
-        public string Email { get; set; }
-
-        public string Password { get; set; }
-
-        public bool Admin { get; set; }
-
-        public string UserName
-        {
-            get { return Email; }
-        }
-
-        public IEnumerable<string> Roles
-        {
-            get
-            {
-                if (Admin)
-                {
-                    yield return "Administrator";
-                }
-            }
-        }
-
-        public IEnumerable<SandboxInitializationModel> Sandboxes { get; set; }
-    }
-
-    public class SandboxInitializationModel
-    {
-        public string Name { get; set; }
-
-        public string Key { get; set; }
-
-        public string Secret { get; set; }
-
-        public SandboxType SandboxType { get; set; }
-
-        /// <summary>
-        /// True if this sandbox should be refreshed automatically
-        /// </summary>
-        public bool Refresh { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace EdFi.Ods.Features.TokenInfo
             _sessionFactory = sessionFactory;
         }
 
-        public async Task<Api.Models.TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
+        public async Task<TokenInfo> GetTokenInfoAsync(ApiKeyContext apiContext)
         {
             using (var session = _sessionFactory.OpenStatelessSession())
             {
@@ -43,7 +43,7 @@ namespace EdFi.Ods.Features.TokenInfo
                         .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
                         .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
 
-                return Api.Models.TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
+                return TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
             }
         }
     }

@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "4.0.0",
+  "odsApiVersion": "5.0.0",
   "schemaDefinition": {
     "logicalName": "Ed-Fi",
     "physicalName": "edfi",
@@ -1246,6 +1246,14 @@
         },
         {
           "schema": "edfi",
+          "name": "EducationOrganizationIndicator"
+        },
+        {
+          "schema": "edfi",
+          "name": "EducationOrganizationIndicatorPeriod"
+        },
+        {
+          "schema": "edfi",
           "name": "EducationOrganizationInstitutionTelephone"
         },
         {
@@ -1667,6 +1675,42 @@
         {
           "schema": "edfi",
           "name": "IncidentLocationDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "IndicatorDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "IndicatorDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "IndicatorGroupDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "IndicatorGroupDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "IndicatorLevelDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "edfi",
+          "name": "IndicatorLevelDescriptor"
         }
       ]
     },
@@ -13876,6 +13920,163 @@
     },
     {
       "schema": "edfi",
+      "name": "EducationOrganizationIndicator",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "DesignatedBy",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The person, organization, or department that defined the metric.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DesignatedBy",
+            "postgreSql": "DesignatedBy"
+          }
+        },
+        {
+          "propertyName": "IndicatorValue",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 35,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The value of the indicator or metric. The semantics of an empty value is \"not submitted.\"",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorValue",
+            "postgreSql": "IndicatorValue"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "EducationOrganizationIndicator_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "IndicatorDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducationOrganizationIndicator_PK",
+            "postgreSql": "EducationOrganizationIndicator_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "An indicator or metric of an Education Organization.",
+      "tableNames": {
+        "sqlServer": "EducationOrganizationIndicator",
+        "postgreSql": "EducationOrganizationIndicator"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "EducationOrganizationIndicatorPeriod",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The month, day, and year for the start of the period.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The month, day, and year for the end of the period.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EndDate",
+            "postgreSql": "EndDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "EducationOrganizationIndicatorPeriod_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "EducationOrganizationId",
+            "IndicatorDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducationOrganizationIndicatorPeriod_PK",
+            "postgreSql": "EducationOrganizationIndicatorPeriod_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The time period or as-of date for the indicator.",
+      "tableNames": {
+        "sqlServer": "EducationOrganizationIndicatorPeriod",
+        "postgreSql": "EducationOrganizationIndicatorPeriod"
+      }
+    },
+    {
+      "schema": "edfi",
       "name": "EducationOrganizationInstitutionTelephone",
       "locallyDefinedProperties": [
         {
@@ -16674,6 +16875,81 @@
       "tableNames": {
         "sqlServer": "IncidentLocationDescriptor",
         "postgreSql": "IncidentLocationDescriptor"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "IndicatorDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "IndicatorDescriptor_PK",
+          "identifyingPropertyNames": [
+            "IndicatorDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "IndicatorDescriptor_PK",
+            "postgreSql": "IndicatorDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The name or code for the indicator or metric.",
+      "tableNames": {
+        "sqlServer": "IndicatorDescriptor",
+        "postgreSql": "IndicatorDescriptor"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "IndicatorGroupDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "IndicatorGroupDescriptor_PK",
+          "identifyingPropertyNames": [
+            "IndicatorGroupDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "IndicatorGroupDescriptor_PK",
+            "postgreSql": "IndicatorGroupDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The name for a group of indicators.",
+      "tableNames": {
+        "sqlServer": "IndicatorGroupDescriptor",
+        "postgreSql": "IndicatorGroupDescriptor"
+      }
+    },
+    {
+      "schema": "edfi",
+      "name": "IndicatorLevelDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "IndicatorLevelDescriptor_PK",
+          "identifyingPropertyNames": [
+            "IndicatorLevelDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "IndicatorLevelDescriptor_PK",
+            "postgreSql": "IndicatorLevelDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"",
+      "tableNames": {
+        "sqlServer": "IndicatorLevelDescriptor",
+        "postgreSql": "IndicatorLevelDescriptor"
       }
     },
     {
@@ -60476,6 +60752,335 @@
     {
       "fullName": {
         "schema": "edfi",
+        "name": "FK_EducationOrganizationIndicator_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicator"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducationOrganizationIndicator_EducationOrganization",
+        "postgreSql": "FK_dde098_EducationOrganization"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_EducationOrganizationIndicator_IndicatorDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "IndicatorDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorDescriptorId",
+            "postgreSql": "IndicatorDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicator"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name or code for the indicator or metric.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorDescriptorId",
+            "postgreSql": "IndicatorDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducationOrganizationIndicator_IndicatorDescriptor",
+        "postgreSql": "FK_dde098_IndicatorDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_EducationOrganizationIndicator_IndicatorGroupDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorGroupDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "IndicatorGroupDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorGroupDescriptorId",
+            "postgreSql": "IndicatorGroupDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicator"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorGroupDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The name for a group of indicators.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorGroupDescriptorId",
+            "postgreSql": "IndicatorGroupDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_EducationOrganizationIndicator_IndicatorGroupDescriptor",
+        "postgreSql": "FK_dde098_IndicatorGroupDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_EducationOrganizationIndicator_IndicatorLevelDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorLevelDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "IndicatorLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorLevelDescriptorId",
+            "postgreSql": "IndicatorLevelDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicator"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorLevelDescriptorId",
+            "postgreSql": "IndicatorLevelDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_EducationOrganizationIndicator_IndicatorLevelDescriptor",
+        "postgreSql": "FK_dde098_IndicatorLevelDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_EducationOrganizationIndicatorPeriod_EducationOrganizationIndicator"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicator"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "IndicatorDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name or code for the indicator or metric.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorDescriptorId",
+            "postgreSql": "IndicatorDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganizationIndicatorPeriod"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "IndicatorDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name or code for the indicator or metric.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IndicatorDescriptorId",
+            "postgreSql": "IndicatorDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducationOrganizationIndicatorPeriod_EducationOrganizationIndicator",
+        "postgreSql": "FK_8486ae_EducationOrganizationIndicator"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
         "name": "FK_EducationOrganizationInstitutionTelephone_EducationOrganization"
       },
       "cardinality": "OneToZeroOrMore",
@@ -67629,6 +68234,183 @@
       "constraintNames": {
         "sqlServer": "FK_IncidentLocationDescriptor_Descriptor",
         "postgreSql": "FK_d24f76_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_IndicatorDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "IndicatorDescriptorId",
+            "postgreSql": "IndicatorDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_IndicatorDescriptor_Descriptor",
+        "postgreSql": "FK_ee0bbf_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_IndicatorGroupDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorGroupDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorGroupDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "IndicatorGroupDescriptorId",
+            "postgreSql": "IndicatorGroupDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_IndicatorGroupDescriptor_Descriptor",
+        "postgreSql": "FK_e0f6fe_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "edfi",
+        "name": "FK_IndicatorLevelDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "edfi",
+        "name": "IndicatorLevelDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IndicatorLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "IndicatorLevelDescriptorId",
+            "postgreSql": "IndicatorLevelDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_IndicatorLevelDescriptor_Descriptor",
+        "postgreSql": "FK_05d3f9_Descriptor"
       }
     },
     {

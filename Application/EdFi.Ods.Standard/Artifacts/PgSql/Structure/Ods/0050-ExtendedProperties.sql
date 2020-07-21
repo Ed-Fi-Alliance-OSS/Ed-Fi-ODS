@@ -1016,6 +1016,22 @@ COMMENT ON COLUMN edfi.EducationOrganizationIdentificationCode.IdentificationCod
 COMMENT ON TABLE edfi.EducationOrganizationIdentificationSystemDescriptor IS 'This descriptor defines the originating record system and code that is used for record-keeping purposes by education organizations.';
 COMMENT ON COLUMN edfi.EducationOrganizationIdentificationSystemDescriptor.EducationOrganizationIdentificationSystemDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[EducationOrganizationIndicator] --
+COMMENT ON TABLE edfi.EducationOrganizationIndicator IS 'An indicator or metric of an Education Organization.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.IndicatorDescriptorId IS 'The name or code for the indicator or metric.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.DesignatedBy IS 'The person, organization, or department that defined the metric.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.IndicatorValue IS 'The value of the indicator or metric. The semantics of an empty value is "not submitted."';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.IndicatorLevelDescriptorId IS 'The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is "not submitted."';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicator.IndicatorGroupDescriptorId IS 'The name for a group of indicators.';
+
+-- Extended Properties [edfi].[EducationOrganizationIndicatorPeriod] --
+COMMENT ON TABLE edfi.EducationOrganizationIndicatorPeriod IS 'The time period or as-of date for the indicator.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicatorPeriod.BeginDate IS 'The month, day, and year for the start of the period.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicatorPeriod.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicatorPeriod.IndicatorDescriptorId IS 'The name or code for the indicator or metric.';
+COMMENT ON COLUMN edfi.EducationOrganizationIndicatorPeriod.EndDate IS 'The month, day, and year for the end of the period.';
+
 -- Extended Properties [edfi].[EducationOrganizationInstitutionTelephone] --
 COMMENT ON TABLE edfi.EducationOrganizationInstitutionTelephone IS 'The 10-digit telephone number, including the area code, for the education entity.';
 COMMENT ON COLUMN edfi.EducationOrganizationInstitutionTelephone.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -1338,6 +1354,18 @@ COMMENT ON COLUMN edfi.IdentificationDocumentUseDescriptor.IdentificationDocumen
 -- Extended Properties [edfi].[IncidentLocationDescriptor] --
 COMMENT ON TABLE edfi.IncidentLocationDescriptor IS 'Identifies where the incident occurred and whether or not it occurred on school property.';
 COMMENT ON COLUMN edfi.IncidentLocationDescriptor.IncidentLocationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[IndicatorDescriptor] --
+COMMENT ON TABLE edfi.IndicatorDescriptor IS 'The name or code for the indicator or metric.';
+COMMENT ON COLUMN edfi.IndicatorDescriptor.IndicatorDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[IndicatorGroupDescriptor] --
+COMMENT ON TABLE edfi.IndicatorGroupDescriptor IS 'The name for a group of indicators.';
+COMMENT ON COLUMN edfi.IndicatorGroupDescriptor.IndicatorGroupDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[IndicatorLevelDescriptor] --
+COMMENT ON TABLE edfi.IndicatorLevelDescriptor IS 'The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is "not submitted."';
+COMMENT ON COLUMN edfi.IndicatorLevelDescriptor.IndicatorLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[InstitutionTelephoneNumberTypeDescriptor] --
 COMMENT ON TABLE edfi.InstitutionTelephoneNumberTypeDescriptor IS 'The type of communication number listed for an organization.';

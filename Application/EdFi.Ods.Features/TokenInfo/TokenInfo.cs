@@ -9,7 +9,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Api.Models
+namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfo
     {
@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Models
                     .Select(
                         x => new
                         {
-                            education_orgainization_id = x.EducationOrganizationId,
+                            education_organization_id = x.EducationOrganizationId,
                             state_education_organization_id = x.StateEducationAgencyId,
                             local_education_agency_id = x.LocalEducationAgencyId,
                             school_id = x.SchoolId,
