@@ -1178,8 +1178,8 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationExams
         public int EducationOrganizationId { get; set; }
         public DateTime EffectiveDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string ExamNamespace { get; set; }
         public Guid Id { get; set; }
+        public string Namespace { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -1231,8 +1231,8 @@ namespace EdFi.Ods.Api.Models.Requests.TPDM.CertificationExamResults
         public bool CertificationExamPassIndicator { get; set; }
         public decimal CertificationExamScore { get; set; }
         public string CertificationExamStatusDescriptor { get; set; }
-        public string ExamNamespace { get; set; }
         public Guid Id { get; set; }
+        public string Namespace { get; set; }
         public string PersonId { get; set; }
         public string SourceSystemDescriptor { get; set; }
     }

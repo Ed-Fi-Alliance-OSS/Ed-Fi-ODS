@@ -775,8 +775,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
     {     
         // Properties for all columns in physical table
         string CertificationExamIdentifier { get; set; }
+        string CertificationExamNamespace { get; set; }
         string CertificationIdentifier { get; set; }
-        string ExamNamespace { get; set; }
         string Namespace { get; set; }
     }
 
@@ -792,8 +792,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         int? EducationOrganizationId { get; set; }
         DateTime? EffectiveDate { get; set; }
         DateTime? EndDate { get; set; }
-        string ExamNamespace { get; set; }
         Guid Id { get; set; }
+        string Namespace { get; set; }
     }
 
     /// <summary>
@@ -808,8 +808,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         bool? CertificationExamPassIndicator { get; set; }
         decimal? CertificationExamScore { get; set; }
         int? CertificationExamStatusDescriptorId { get; set; }
-        string ExamNamespace { get; set; }
         Guid Id { get; set; }
+        string Namespace { get; set; }
         string PersonId { get; set; }
         int SourceSystemDescriptorId { get; set; }
     }

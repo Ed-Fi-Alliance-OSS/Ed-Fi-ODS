@@ -7969,9 +7969,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationAggregate
             {
                 source.CertificationExamIdentifier = target.CertificationExamIdentifier;
             }
-            if (source.ExamNamespace != target.ExamNamespace)
+            if (source.CertificationExamNamespace != target.CertificationExamNamespace)
             {
-                source.ExamNamespace = target.ExamNamespace;
+                source.CertificationExamNamespace = target.CertificationExamNamespace;
             }
 
             // Copy non-PK properties
@@ -7991,7 +7991,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationAggregate
 
             // Copy contextual primary key values
             target.CertificationExamIdentifier = source.CertificationExamIdentifier;
-            target.ExamNamespace = source.ExamNamespace;
+            target.CertificationExamNamespace = source.CertificationExamNamespace;
 
             // Copy non-PK properties
 
@@ -8199,9 +8199,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationExamAggregate
             {
                 source.CertificationExamIdentifier = target.CertificationExamIdentifier;
             }
-            if (source.ExamNamespace != target.ExamNamespace)
+            if (source.Namespace != target.Namespace)
             {
-                source.ExamNamespace = target.ExamNamespace;
+                source.Namespace = target.Namespace;
             }
 
             // Copy non-PK properties
@@ -8259,7 +8259,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationExamAggregate
 
             // Copy contextual primary key values
             target.CertificationExamIdentifier = source.CertificationExamIdentifier;
-            target.ExamNamespace = source.ExamNamespace;
+            target.Namespace = source.Namespace;
 
             // Copy non-PK properties
 
@@ -8359,9 +8359,9 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationExamResultAggregate
             {
                 source.CertificationExamIdentifier = target.CertificationExamIdentifier;
             }
-            if (source.ExamNamespace != target.ExamNamespace)
+            if (source.Namespace != target.Namespace)
             {
-                source.ExamNamespace = target.ExamNamespace;
+                source.Namespace = target.Namespace;
             }
             if (source.PersonId != target.PersonId)
             {
@@ -8421,7 +8421,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationExamResultAggregate
             // Copy contextual primary key values
             target.CertificationExamDate = source.CertificationExamDate;
             target.CertificationExamIdentifier = source.CertificationExamIdentifier;
-            target.ExamNamespace = source.ExamNamespace;
+            target.Namespace = source.Namespace;
             target.PersonId = source.PersonId;
             target.SourceSystemDescriptor = source.SourceSystemDescriptor;
 
