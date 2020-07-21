@@ -1,580 +1,340 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--
-  Order of the Interchange elements and the Element elements is important.
-  Unlike the current order provider, this metadata will list all aggregate types that are part of the interchange.
+<!-- 
+  Order of the Interchange elements and the Element elements is important. 
+  Unlike the current order provider, this metadata will list all aggregate types that are part of the interchange. 
   The extension metadata will replace the core metadata and contain all interchanges and elements for the implementation.
 -->
 <Interchanges>
-  <Interchange name="Descriptors">
-    <!-- order: 2 -->
-    <Element name="AbsenceEventCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AcademicHonorCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AcademicSubjectDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AccommodationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AccountClassificationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AchievementCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AdditionalCreditTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AddressTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AdministrationEnvironmentDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AdministrativeFundingControlDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentIdentificationSystemDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentItemCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentItemResultDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentPeriodDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AssessmentReportingMethodDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AttemptStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="AttendanceEventCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="BehaviorDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CalendarEventDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CalendarTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CareerPathwayDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CharterApprovalAgencyTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CharterStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CitizenshipStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ClassroomPositionDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CohortScopeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CohortTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CohortYearTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CompetencyLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ContactTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ContentClassDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ContinuationOfServicesReasonDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CostRateDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CountryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseAttemptResultDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseDefinedByDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseGPAApplicabilityDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseIdentificationSystemDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseLevelCharacteristicDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CourseRepeatCodeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CredentialFieldDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CredentialTypeDescriptor" />
-	<!-- order: 2 -->
-	<Element name="CreditCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CreditTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CTEProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="CurriculumUsedDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DeliveryMethodDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DiagnosisDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DiplomaLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DiplomaTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisabilityDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisabilityDesignationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisabilityDeterminationSourceTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisciplineActionLengthDifferenceReasonDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisciplineDescriptor" />
-    <!-- order: 2 -->
-    <Element name="DisciplineIncidentParticipationCodeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EducationalEnvironmentDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EducationOrganizationCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EducationOrganizationIdentificationSystemDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EducationPlanDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ElectronicMailTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EmploymentStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EntryGradeLevelReasonDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EntryTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="EventCircumstanceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ExitWithdrawTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GradebookEntryTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GradeLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GradePointAverageTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GradeTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GradingPeriodDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GraduationPlanTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="GunFreeSchoolsActReportingStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="HomelessPrimaryNighttimeResidenceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="HomelessProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="IdentificationDocumentUseDescriptor" />
-    <!-- order: 2 -->
-    <Element name="IncidentLocationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="InstitutionTelephoneNumberTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="InteractivityStyleDescriptor" />
-    <!-- order: 2 -->
-    <Element name="InternetAccessDescriptor" />
-    <!-- order: 2 -->
-    <Element name="InterventionClassDescriptor" />
-    <!-- order: 2 -->
-    <Element name="InterventionEffectivenessRatingDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LanguageDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LanguageInstructionProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LanguageUseDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LearningStandardCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LearningStandardEquivalenceStrengthDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LearningStandardScopeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LevelOfEducationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LicenseStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LicenseTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LimitedEnglishProficiencyDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LocaleDescriptor" />
-    <!-- order: 2 -->
-    <Element name="LocalEducationAgencyCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="MagnetSpecialProgramEmphasisSchoolDescriptor" />
-    <!-- order: 2 -->
-    <Element name="MediumOfInstructionDescriptor" />
-    <!-- order: 2 -->
-    <Element name="MethodCreditEarnedDescriptor" />
-    <!-- order: 2 -->
-    <Element name="MigrantEducationProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="MonitoredDescriptor" />
-    <!-- order: 2 -->
-    <Element name="NeglectedOrDelinquentProgramDescriptor" />
-    <!-- order: 2 -->
-    <Element name="NeglectedOrDelinquentProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="NetworkPurposeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="OldEthnicityDescriptor" />
-    <!-- order: 2 -->
-    <Element name="OperationalStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="OtherNameTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ParticipationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ParticipationStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PerformanceBaseConversionDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PerformanceLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PersonalInformationVerificationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PlatformTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PopulationServedDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PostingResultDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PostSecondaryEventCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PostSecondaryInstitutionLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProficiencyDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgramAssignmentDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgramCharacteristicDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgramSponsorDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgramTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgressDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProgressLevelDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProviderCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProviderProfitabilityDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ProviderStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="PublicationStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RaceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ReasonExitedDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ReasonNotTestedDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RecognitionTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RelationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RepeatIdentifierDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ReporterDescriptionDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ResidencyStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ResponseIndicatorDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ResponsibilityDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RestraintEventReasonDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ResultDatatypeTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="RetestIndicatorDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SchoolCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SchoolChoiceImplementStatusDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SchoolFoodServiceProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SchoolTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SectionCharacteristicDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SeparationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SeparationReasonDescriptor" />
-    <!-- order: 2 -->
-    <Element name="ServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SexDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SpecialEducationProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="SpecialEducationSettingDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StaffClassificationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StaffIdentificationSystemDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StaffLeaveEventCategoryDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StateAbbreviationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StudentCharacteristicDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StudentIdentificationSystemDescriptor" />
-    <!-- order: 2 -->
-    <Element name="StudentParticipationCodeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TeachingCredentialBasisDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TeachingCredentialDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TechnicalSkillsAssessmentDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TelephoneNumberTypeDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TermDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TitleIPartAParticipantDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TitleIPartAProgramServiceDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TitleIPartASchoolDesignationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="TribalAffiliationDescriptor" />
-    <!-- order: 2 -->
-    <Element name="VisaDescriptor" />
-    <!-- order: 2 -->
-    <Element name="WeaponDescriptor" />
-  </Interchange>
-  <Interchange name="Standards">
-    <!-- order: 11 -->
-    <Element name="LearningStandard" />
-    <!-- order: 12 -->
-    <Element name="LearningStandardEquivalenceAssociation" />
-    <!-- order: 12 -->
-    <Element name="LearningObjective" />
-  </Interchange>
-  <Interchange name="EducationOrganization">
-    <!-- order: 4 -->
-    <Element name="PostSecondaryInstitution" />
-    <!-- order: 4 -->
-    <Element name="CommunityOrganization" />
-    <!-- order: 4 -->
-    <Element name="EducationOrganizationNetwork" />
-    <!-- order: 4 -->
-    <Element name="StateEducationAgency" />
-    <!-- order: 6 -->
-    <Element name="CommunityProvider" />
-    <!-- order: 6 -->
-    <Element name="EducationServiceCenter" />
-    <!-- order: 7 -->
-    <Element name="CommunityProviderLicense" />
-    <!-- order: 8 -->
-    <Element name="LocalEducationAgency" />
-    <!-- order: 10 -->
-    <Element name="School" />
-    <!-- order: 11 -->
-    <Element name="EducationOrganizationNetworkAssociation" />
-    <!-- order: 11 -->
-    <Element name="EducationOrganizationPeerAssociation" />
-    <!-- order: 11 -->
-    <Element name="FeederSchoolAssociation" />
-    <!-- order: 11 -->
-    <Element name="AccountabilityRating" />
-    <!-- order: 11 -->
-    <Element name="ClassPeriod" />
-    <!-- order: 11 -->
-    <Element name="Location" />
-    <!-- order: 13 -->
-    <Element name="Program" />
-    <!-- order: 13 -->
-    <Element name="Course" />
-  </Interchange>
-  <Interchange name="EducationOrgCalendar">
-    <!-- order: 11 -->
-    <Element name="AcademicWeek" />
-    <!-- order: 11 -->
-    <Element name="Calendar" />
-    <!-- order: 11 -->
-    <Element name="GradingPeriod" />
-    <!-- order: 12 -->
-    <Element name="CalendarDate" />
-    <!-- order: 12 -->
-    <Element name="Session" />
-  </Interchange>
-  <Interchange name="Finance">
-    <!-- order: 11 -->
-    <Element name="AccountCode" />
-    <!-- order: 12 -->
-    <Element name="Account" />
-    <!-- order: 13 -->
-    <Element name="Budget" />
-    <!-- order: 13 -->
-    <Element name="Actual" />
-    <!-- order: 13 -->
-    <Element name="Payroll" />
-    <!-- order: 13 -->
-    <Element name="ContractedStaff" />
-  </Interchange>
-  <Interchange name="Student">
-    <!-- order: 3 -->
+  <Interchange name="Student" order="10">
+    <Element name="Person" />
     <Element name="Student" />
   </Interchange>
-  <Interchange name="MasterSchedule">
-    <!-- order: 12 -->
-    <Element name="BellSchedule" />
-    <!-- order: 14 -->
-    <Element name="CourseOffering" />
-    <!-- order: 15 -->
-    <Element name="Section" />
+  <Interchange name="Descriptors" order="20">
+    <Element name="TelephoneNumberTypeDescriptor" />
+    <Element name="StudentIdentificationSystemDescriptor" />
+    <Element name="StaffIdentificationSystemDescriptor" />
+    <Element name="SchoolChoiceImplementStatusDescriptor" />
+    <Element name="ResultDatatypeTypeDescriptor" />
+    <Element name="ResponseIndicatorDescriptor" />
+    <Element name="RecognitionTypeDescriptor" />
+    <Element name="PublicationStatusDescriptor" />
+    <Element name="ProgressDescriptor" />
+    <Element name="ProficiencyDescriptor" />
+    <Element name="PersonalInformationVerificationDescriptor" />
+    <Element name="ParticipationDescriptor" />
+    <Element name="OtherNameTypeDescriptor" />
+    <Element name="MonitoredDescriptor" />
+    <Element name="LocaleDescriptor" />
+    <Element name="LanguageUseDescriptor" />
+    <Element name="InterventionEffectivenessRatingDescriptor" />
+    <Element name="InstitutionTelephoneNumberTypeDescriptor" />
+    <Element name="IndicatorLevelDescriptor" />
+    <Element name="IndicatorGroupDescriptor" />
+    <Element name="IndicatorDescriptor" />
+    <Element name="IdentificationDocumentUseDescriptor" />
+    <Element name="GunFreeSchoolsActReportingStatusDescriptor" />
+    <Element name="GradePointAverageTypeDescriptor" />
+    <Element name="ElectronicMailTypeDescriptor" />
+    <Element name="EducationOrganizationIdentificationSystemDescriptor" />
+    <Element name="DisabilityDeterminationSourceTypeDescriptor" />
+    <Element name="DisabilityDesignationDescriptor" />
+    <Element name="DiplomaTypeDescriptor" />
+    <Element name="DiplomaLevelDescriptor" />
+    <Element name="CourseIdentificationSystemDescriptor" />
+    <Element name="CohortYearTypeDescriptor" />
+    <Element name="AssessmentReportingMethodDescriptor" />
+    <Element name="AssessmentItemResultDescriptor" />
+    <Element name="AssessmentIdentificationSystemDescriptor" />
+    <Element name="AddressTypeDescriptor" />
+    <Element name="AdditionalCreditTypeDescriptor" />
+    <Element name="AchievementCategoryDescriptor" />
+    <Element name="AcademicHonorCategoryDescriptor" />
+    <Element name="SurveyLevelDescriptor" />
+    <Element name="QuestionFormDescriptor" />
+    <Element name="SurveyCategoryDescriptor" />
+    <Element name="CreditCategoryDescriptor" />
+    <Element name="CourseRepeatCodeDescriptor" />
+    <Element name="MethodCreditEarnedDescriptor" />
+    <Element name="CourseAttemptResultDescriptor" />
+    <Element name="SchoolFoodServiceProgramServiceDescriptor" />
+    <Element name="NeglectedOrDelinquentProgramServiceDescriptor" />
+    <Element name="ProgressLevelDescriptor" />
+    <Element name="NeglectedOrDelinquentProgramDescriptor" />
+    <Element name="HomelessProgramServiceDescriptor" />
+    <Element name="HomelessPrimaryNighttimeResidenceDescriptor" />
+    <Element name="LanguageInstructionProgramServiceDescriptor" />
+    <Element name="MigrantEducationProgramServiceDescriptor" />
+    <Element name="ContinuationOfServicesReasonDescriptor" />
+    <Element name="TitleIPartAProgramServiceDescriptor" />
+    <Element name="TitleIPartAParticipantDescriptor" />
+    <Element name="CTEProgramServiceDescriptor" />
+    <Element name="TechnicalSkillsAssessmentDescriptor" />
+    <Element name="RestraintEventReasonDescriptor" />
+    <Element name="SpecialEducationProgramServiceDescriptor" />
+    <Element name="SpecialEducationSettingDescriptor" />
+    <Element name="ParticipationStatusDescriptor" />
+    <Element name="ReasonExitedDescriptor" />
+    <Element name="DeliveryMethodDescriptor" />
+    <Element name="DiagnosisDescriptor" />
+    <Element name="InterventionClassDescriptor" />
+    <Element name="ContentClassDescriptor" />
+    <Element name="InteractivityStyleDescriptor" />
+    <Element name="CostRateDescriptor" />
+    <Element name="GradebookEntryTypeDescriptor" />
+    <Element name="PerformanceBaseConversionDescriptor" />
+    <Element name="GradeTypeDescriptor" />
+    <Element name="DisabilityDescriptor" />
+    <Element name="LimitedEnglishProficiencyDescriptor" />
+    <Element name="StudentCharacteristicDescriptor" />
+    <Element name="ResponsibilityDescriptor" />
+    <Element name="GraduationPlanTypeDescriptor" />
+    <Element name="AttemptStatusDescriptor" />
+    <Element name="RepeatIdentifierDescriptor" />
+    <Element name="ResidencyStatusDescriptor" />
+    <Element name="EducationPlanDescriptor" />
+    <Element name="ExitWithdrawTypeDescriptor" />
+    <Element name="EntryTypeDescriptor" />
+    <Element name="EntryGradeLevelReasonDescriptor" />
+    <Element name="DisciplineIncidentParticipationCodeDescriptor" />
+    <Element name="DisciplineActionLengthDifferenceReasonDescriptor" />
+    <Element name="DisciplineDescriptor" />
+    <Element name="StudentParticipationCodeDescriptor" />
+    <Element name="WeaponDescriptor" />
+    <Element name="BehaviorDescriptor" />
+    <Element name="ReporterDescriptionDescriptor" />
+    <Element name="IncidentLocationDescriptor" />
+    <Element name="CohortScopeDescriptor" />
+    <Element name="CohortTypeDescriptor" />
+    <Element name="AttendanceEventCategoryDescriptor" />
+    <Element name="EventCircumstanceDescriptor" />
+    <Element name="PerformanceLevelDescriptor" />
+    <Element name="ReasonNotTestedDescriptor" />
+    <Element name="RetestIndicatorDescriptor" />
+    <Element name="AccommodationDescriptor" />
+    <Element name="AdministrationEnvironmentDescriptor" />
+    <Element name="CountryDescriptor" />
+    <Element name="LearningStandardEquivalenceStrengthDescriptor" />
+    <Element name="LearningStandardScopeDescriptor" />
+    <Element name="LearningStandardCategoryDescriptor" />
+    <Element name="TeachingCredentialBasisDescriptor" />
+    <Element name="TeachingCredentialDescriptor" />
+    <Element name="StateAbbreviationDescriptor" />
+    <Element name="CredentialTypeDescriptor" />
+    <Element name="CredentialFieldDescriptor" />
+    <Element name="AbsenceEventCategoryDescriptor" />
+    <Element name="ContactTypeDescriptor" />
+    <Element name="PostingResultDescriptor" />
+    <Element name="StaffLeaveEventCategoryDescriptor" />
+    <Element name="ClassroomPositionDescriptor" />
+    <Element name="ProgramAssignmentDescriptor" />
+    <Element name="StaffClassificationDescriptor" />
+    <Element name="SeparationReasonDescriptor" />
+    <Element name="SeparationDescriptor" />
+    <Element name="EmploymentStatusDescriptor" />
+    <Element name="VisaDescriptor" />
+    <Element name="CitizenshipStatusDescriptor" />
+    <Element name="TribalAffiliationDescriptor" />
+    <Element name="LevelOfEducationDescriptor" />
+    <Element name="RaceDescriptor" />
+    <Element name="OldEthnicityDescriptor" />
+    <Element name="PostSecondaryEventCategoryDescriptor" />
+    <Element name="SourceSystemDescriptor" />
+    <Element name="RelationDescriptor" />
+    <Element name="SexDescriptor" />
+    <Element name="SectionCharacteristicDescriptor" />
+    <Element name="PopulationServedDescriptor" />
+    <Element name="EducationalEnvironmentDescriptor" />
+    <Element name="CurriculumUsedDescriptor" />
+    <Element name="AccountClassificationDescriptor" />
+    <Element name="CalendarEventDescriptor" />
+    <Element name="CalendarTypeDescriptor" />
+    <Element name="TermDescriptor" />
+    <Element name="PostSecondaryInstitutionLevelDescriptor" />
+    <Element name="MediumOfInstructionDescriptor" />
+    <Element name="LicenseTypeDescriptor" />
+    <Element name="LicenseStatusDescriptor" />
+    <Element name="ProviderCategoryDescriptor" />
+    <Element name="ProviderStatusDescriptor" />
+    <Element name="ProviderProfitabilityDescriptor" />
+    <Element name="NetworkPurposeDescriptor" />
+    <Element name="ServiceDescriptor" />
+    <Element name="ProgramSponsorDescriptor" />
+    <Element name="ProgramCharacteristicDescriptor" />
+    <Element name="ProgramTypeDescriptor" />
+    <Element name="CreditTypeDescriptor" />
+    <Element name="CompetencyLevelDescriptor" />
+    <Element name="CareerPathwayDescriptor" />
+    <Element name="CourseDefinedByDescriptor" />
+    <Element name="CourseGPAApplicabilityDescriptor" />
+    <Element name="CourseLevelCharacteristicDescriptor" />
+    <Element name="CharterApprovalAgencyTypeDescriptor" />
+    <Element name="InternetAccessDescriptor" />
+    <Element name="AdministrativeFundingControlDescriptor" />
+    <Element name="MagnetSpecialProgramEmphasisSchoolDescriptor" />
+    <Element name="TitleIPartASchoolDesignationDescriptor" />
+    <Element name="SchoolTypeDescriptor" />
+    <Element name="SchoolCategoryDescriptor" />
+    <Element name="CharterStatusDescriptor" />
+    <Element name="LocalEducationAgencyCategoryDescriptor" />
+    <Element name="OperationalStatusDescriptor" />
+    <Element name="EducationOrganizationCategoryDescriptor" />
+    <Element name="AssessmentItemCategoryDescriptor" />
+    <Element name="PlatformTypeDescriptor" />
+    <Element name="AssessmentPeriodDescriptor" />
+    <Element name="LanguageDescriptor" />
+    <Element name="GradeLevelDescriptor" />
+    <Element name="GradingPeriodDescriptor" />
+    <Element name="AcademicSubjectDescriptor" />
+    <Element name="AssessmentCategoryDescriptor" />
   </Interchange>
-  <Interchange name="StudentEnrollment">
-    <!-- order: 23 -->
-    <Element name="GraduationPlan" />
-    <!-- order: 18 -->
-    <Element name="StudentSchoolAssociation" />
-    <!-- order: 19 -->
-    <Element name="StudentEducationOrganizationResponsibilityAssociation" />
-    <!-- order: 19 -->
-    <Element name="StudentEducationOrganizationAssociation" />
-    <!-- order: 19 -->
-    <Element name="StudentSectionAssociation" />
-  </Interchange>
-  <Interchange name="StaffAssociation">
-    <!-- order: 3 -->
-    <Element name="Credential" />
-    <!-- order: 4 -->
-    <Element name="Staff" />
-    <!-- order: 12 -->
-    <Element name="StaffEducationOrganizationEmploymentAssociation" />
-    <!-- order: 13 -->
-    <Element name="StaffAbsenceEvent" />
-    <!-- order: 13 -->
-    <Element name="StaffLeave" />
-    <!-- order: 13 -->
-    <Element name="StaffEducationOrganizationContactAssociation" />
-    <!-- order: 13 -->
-    <Element name="OpenStaffPosition" />
-    <!-- order: 13 -->
-    <Element name="StaffEducationOrganizationAssignmentAssociation" />
-    <!-- order: 13 -->
-    <Element name="StaffSchoolAssociation" />
-    <!-- order: 14 -->
-    <Element name="StaffProgramAssociation" />
-    <!-- order: 16 -->
-    <Element name="StaffSectionAssociation" />
-  </Interchange>
-  <Interchange name="StudentProgram">
-    <!-- order: 19 -->
-    <Element name="RestraintEvent" />
-    <!-- order: 20 -->
-    <Element name="StudentSchoolFoodServiceProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentNeglectedOrDelinquentProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentHomelessProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentLanguageInstructionProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentMigrantEducationProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentTitleIPartAProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentCTEProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentSpecialEducationProgramAssociation" />
-    <!-- order: 20 -->
-    <Element name="StudentProgramAssociation" />
-  </Interchange>
-  <Interchange name="AssessmentMetadata">
-    <!-- order: 16 -->
-    <Element name="Assessment" />
-    <!-- order: 17 -->
-    <Element name="AssessmentItem" />
-    <!-- order: 18 -->
-    <Element name="ObjectiveAssessment" />
-  </Interchange>
-  <Interchange name="StudentCohort">
-    <!-- order: 14 -->
-    <Element name="Cohort" />
-    <!-- order: 15 -->
-    <Element name="StaffCohortAssociation" />
-    <!-- order: 19 -->
-    <Element name="StudentCohortAssociation" />
-  </Interchange>
-  <Interchange name="StudentIntervention">
-    <!-- order: 12 -->
-    <Element name="EducationContent" />
-    <!-- order: 13 -->
-    <Element name="InterventionPrescription" />
-    <!-- order: 14 -->
-    <Element name="EducationOrganizationInterventionPrescriptionAssociation" />
-    <!-- order: 14 -->
-    <Element name="InterventionStudy" />
-    <!-- order: 14 -->
-    <Element name="Intervention" />
-    <!-- order: 19 -->
-    <Element name="StudentInterventionAssociation" />
-  </Interchange>
-  <Interchange name="PostSecondaryEvent">
-    <!-- order: 19 -->
-    <Element name="PostSecondaryEvent" />
-  </Interchange>
-  <Interchange name="StudentAssessment">
-    <!-- order: 19 -->
-    <Element name="StudentAssessment" />
-  </Interchange>
-  <Interchange name="StudentAttendance">
-    <!-- order: 16 -->
-    <Element name="SectionAttendanceTakenEvent" />
-    <!-- order: 19 -->
-    <Element name="StudentSchoolAttendanceEvent" />
-    <!-- order: 19 -->
-    <Element name="StudentProgramAttendanceEvent" />
-    <!-- order: 19 -->
-    <Element name="StudentInterventionAttendanceEvent" />
-    <!-- order: 19 -->
-    <Element name="StudentSectionAttendanceEvent" />
-  </Interchange>
-  <Interchange name="StudentDiscipline">
-    <!-- order: 13 -->
-    <Element name="DisciplineIncident" />
-    <!-- order: 14 -->
-    <Element name="StaffDisciplineIncidentAssociation" />
-    <!-- order: 19 -->
-    <Element name="StudentDisciplineIncidentAssociation" />
-    <!-- order: 20 -->
-    <Element name="DisciplineAction" />
-  </Interchange>
-  <Interchange name="Parent">
-    <!-- order: 21 -->
-    <Element name="Parent" />
-    <!-- order: 22 -->
-    <Element name="StudentParentAssociation" />
-  </Interchange>
-    <Interchange name="StudentGrade">
-    <!-- order: 11 -->
+  <Interchange name="StudentGrade" order="30">
     <Element name="CompetencyObjective" />
-    <!-- order: 20 -->
-    <Element name="Grade" />
-    <!-- order: 21 -->
     <Element name="LearningObjective" />
-    <!-- order: 21 -->
     <Element name="StudentLearningObjective" />
-    <!-- order: 21 -->
     <Element name="StudentCompetencyObjective" />
-    <!-- order: 22 -->
+    <Element name="Grade" />
     <Element name="ReportCard" />
   </Interchange>
-  <Interchange name="StudentGradebook">
-    <!-- order: 20 -->
+  <Interchange name="Standards" order="40">
+    <Element name="LearningStandard" />
+    <Element name="LearningStandardEquivalenceAssociation" />
+    <Element name="LearningObjective" />
+  </Interchange>
+  <Interchange name="Parent" order="50">
+    <Element name="Person" />
+    <Element name="Parent" />
+    <Element name="StudentParentAssociation" />
+  </Interchange>
+  <Interchange name="EducationOrgCalendar" order="60">
+    <Element name="AcademicWeek" />
+    <Element name="Calendar" />
+    <Element name="CalendarDate" />
+    <Element name="GradingPeriod" />
+    <Element name="Session" />
+  </Interchange>
+  <Interchange name="EducationOrganization" order="70">
+    <Element name="PostSecondaryInstitution" />
+    <Element name="CommunityOrganization" />
+    <Element name="CommunityProvider" />
+    <Element name="CommunityProviderLicense" />
+    <Element name="EducationOrganizationNetwork" />
+    <Element name="EducationOrganizationNetworkAssociation" />
+    <Element name="EducationOrganizationPeerAssociation" />
+    <Element name="AccountabilityRating" />
+    <Element name="StateEducationAgency" />
+    <Element name="EducationServiceCenter" />
+    <Element name="LocalEducationAgency" />
+    <Element name="School" />
+    <Element name="ClassPeriod" />
+    <Element name="Location" />
+    <Element name="FeederSchoolAssociation" />
+    <Element name="Program" />
+    <Element name="Course" />
+  </Interchange>
+  <Interchange name="StudentTranscript" order="80">
+    <Element name="StudentAcademicRecord" />
+    <Element name="CourseTranscript" />
+  </Interchange>
+  <Interchange name="StudentProgram" order="90">
+    <Element name="StudentSchoolFoodServiceProgramAssociation" />
+    <Element name="StudentNeglectedOrDelinquentProgramAssociation" />
+    <Element name="StudentHomelessProgramAssociation" />
+    <Element name="StudentLanguageInstructionProgramAssociation" />
+    <Element name="StudentMigrantEducationProgramAssociation" />
+    <Element name="StudentTitleIPartAProgramAssociation" />
+    <Element name="StudentCTEProgramAssociation" />
+    <Element name="RestraintEvent" />
+    <Element name="StudentSpecialEducationProgramAssociation" />
+    <Element name="StudentProgramAssociation" />
+  </Interchange>
+  <Interchange name="PostSecondaryEvent" order="100">
+    <Element name="PostSecondaryEvent" />
+  </Interchange>
+  <Interchange name="MasterSchedule" order="110">
+    <Element name="BellSchedule" />
+    <Element name="CourseOffering" />
+    <Element name="Section" />
+  </Interchange>
+  <Interchange name="StudentEnrollment" order="120">
+    <Element name="StudentEducationOrganizationResponsibilityAssociation" />
+    <Element name="GraduationPlan" />
+    <Element name="StudentEducationOrganizationAssociation" />
+    <Element name="StudentSchoolAssociation" />
+    <Element name="StudentSectionAssociation" />
+  </Interchange>
+  <Interchange name="StudentGradebook" order="130">
     <Element name="GradebookEntry" />
-    <!-- order: 21 -->
     <Element name="StudentGradebookEntry" />
   </Interchange>
-  <Interchange name="StudentTranscript">
-    <!-- order: 23 -->
-    <Element name="StudentAcademicRecord" />
-    <!-- order: 24 -->
-    <Element name="CourseTranscript" />
+  <Interchange name="StaffAssociation" order="140">
+    <Element name="Person" />
+    <Element name="Credential" />
+    <Element name="Staff" />
+    <Element name="StaffAbsenceEvent" />
+    <Element name="StaffEducationOrganizationContactAssociation" />
+    <Element name="StaffProgramAssociation" />
+    <Element name="StaffLeave" />
+    <Element name="StaffEducationOrganizationEmploymentAssociation" />
+    <Element name="StaffEducationOrganizationAssignmentAssociation" />
+    <Element name="OpenStaffPosition" />
+    <Element name="StaffSchoolAssociation" />
+    <Element name="StaffSectionAssociation" />
+  </Interchange>
+  <Interchange name="Survey" order="150">
+    <Element name="Survey" />
+    <Element name="SurveySection" />
+    <Element name="SurveyQuestion" />
+    <Element name="SurveyProgramAssociation" />
+    <Element name="SurveyResponse" />
+    <Element name="SurveyResponseStaffTargetAssociation" />
+    <Element name="SurveyResponseEducationOrganizationTargetAssociation" />
+    <Element name="SurveySectionResponse" />
+    <Element name="SurveySectionResponseStaffTargetAssociation" />
+    <Element name="SurveySectionResponseEducationOrganizationTargetAssociation" />
+    <Element name="SurveyQuestionResponse" />
+    <Element name="SurveyCourseAssociation" />
+    <Element name="SurveySectionAssociation" />
+  </Interchange>
+  <Interchange name="StudentDiscipline" order="160">
+    <Element name="DisciplineIncident" />
+    <Element name="StaffDisciplineIncidentAssociation" />
+    <Element name="StudentDisciplineIncidentAssociation" />
+    <Element name="DisciplineAction" />
+  </Interchange>
+  <Interchange name="StudentCohort" order="170">
+    <Element name="Cohort" />
+    <Element name="StaffCohortAssociation" />
+    <Element name="StudentCohortAssociation" />
+  </Interchange>
+  <Interchange name="StudentIntervention" order="180">
+    <Element name="EducationContent" />
+    <Element name="InterventionPrescription" />
+    <Element name="EducationOrganizationInterventionPrescriptionAssociation" />
+    <Element name="InterventionStudy" />
+    <Element name="Intervention" />
+    <Element name="StudentInterventionAssociation" />
+  </Interchange>
+  <Interchange name="StudentAttendance" order="190">
+    <Element name="StudentSchoolAttendanceEvent" />
+    <Element name="StudentProgramAttendanceEvent" />
+    <Element name="StudentInterventionAttendanceEvent" />
+    <Element name="SectionAttendanceTakenEvent" />
+    <Element name="StudentSectionAttendanceEvent" />
+  </Interchange>
+  <Interchange name="Finance" order="200">
+    <Element name="AccountCode" />
+    <Element name="Account" />
+    <Element name="Budget" />
+    <Element name="Actual" />
+    <Element name="Payroll" />
+    <Element name="ContractedStaff" />
+  </Interchange>
+  <Interchange name="AssessmentMetadata" order="210">
+    <Element name="Assessment" />
+    <Element name="AssessmentItem" />
+    <Element name="ObjectiveAssessment" />
+  </Interchange>
+  <Interchange name="StudentAssessment" order="220">
+    <Element name="StudentAssessment" />
   </Interchange>
 </Interchanges>

@@ -6615,6 +6615,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         public virtual ICollection<EducationOrganizationAddressQ> EducationOrganizationAddresses { get; set; }
         public virtual ICollection<EducationOrganizationCategoryQ> EducationOrganizationCategories { get; set; }
         public virtual ICollection<EducationOrganizationIdentificationCodeQ> EducationOrganizationIdentificationCodes { get; set; }
+        public virtual ICollection<EducationOrganizationIndicatorQ> EducationOrganizationIndicators { get; set; }
         public virtual ICollection<EducationOrganizationInstitutionTelephoneQ> EducationOrganizationInstitutionTelephones { get; set; }
         public virtual ICollection<EducationOrganizationInternationalAddressQ> EducationOrganizationInternationalAddresses { get; set; }
 
@@ -6920,6 +6921,97 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ EducationOrganizationIdentificationSystemDescriptor { get; set; }
         // -------------------------------------------------------------
     }
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        [DomainSignature]
+        public virtual int IndicatorDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual string DesignatedBy  { get; set; }
+        public virtual int? IndicatorGroupDescriptorId  { get; set; }
+        public virtual int? IndicatorLevelDescriptorId  { get; set; }
+        public virtual string IndicatorValue  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        public virtual ICollection<EducationOrganizationIndicatorPeriodQ> EducationOrganizationIndicatorPeriods { get; set; }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptorQ IndicatorDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptorQ IndicatorGroupDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptorQ IndicatorLevelDescriptor { get; set; }
+        // -------------------------------------------------------------
+    } 
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriodQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ EducationOrganizationIndicator { get; set; }
+        [DomainSignature]
+        public virtual DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual DateTime? EndDate  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    } 
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS database.
@@ -9131,6 +9223,132 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IncidentLocationDescriptorAgg
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
+}
+// Aggregate: IndicatorDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorDescriptorAggregate.EdFi
+{ 
+
+    /// <summary>
+    /// A class which represents the edfi.IndicatorDescriptor table of the IndicatorDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int IndicatorDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    } 
+}
+// Aggregate: IndicatorGroupDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi
+{ 
+
+    /// <summary>
+    /// A class which represents the edfi.IndicatorGroupDescriptor table of the IndicatorGroupDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int IndicatorGroupDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    } 
+}
+// Aggregate: IndicatorLevelDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi
+{ 
+
+    /// <summary>
+    /// A class which represents the edfi.IndicatorLevelDescriptor table of the IndicatorLevelDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int IndicatorLevelDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    } 
 }
 // Aggregate: InstitutionTelephoneNumberTypeDescriptor
 

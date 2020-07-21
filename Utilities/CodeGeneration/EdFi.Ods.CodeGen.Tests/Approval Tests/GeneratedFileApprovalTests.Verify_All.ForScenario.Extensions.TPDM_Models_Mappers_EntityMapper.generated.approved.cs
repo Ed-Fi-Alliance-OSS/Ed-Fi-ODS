@@ -35730,6 +35730,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.TeacherPreparationProviderAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -35847,6 +35851,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.TeacherPreparationProviderAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -35898,6 +35912,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.TeacherPreparationProviderAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsFederalLocaleCodeDescriptorSupported { get; set; }
@@ -35910,6 +35925,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.TeacherPreparationProviderAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }
@@ -36611,6 +36627,10 @@ namespace EdFi.Ods.Entities.Common.TPDM //.UniversityAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -36717,6 +36737,16 @@ namespace EdFi.Ods.Entities.Common.TPDM //.UniversityAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -36767,6 +36797,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.UniversityAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsFederalLocaleCodeDescriptorSupported { get; set; }
@@ -36778,6 +36809,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.UniversityAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }

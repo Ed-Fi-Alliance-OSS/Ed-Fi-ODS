@@ -2985,6 +2985,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IEducationOrganizationAddress> EducationOrganizationAddresses { get; set; }
         ICollection<IEducationOrganizationCategory> EducationOrganizationCategories { get; set; }
         ICollection<IEducationOrganizationIdentificationCode> EducationOrganizationIdentificationCodes { get; set; }
+        ICollection<IEducationOrganizationIndicator> EducationOrganizationIndicators { get; set; }
         ICollection<IEducationOrganizationInstitutionTelephone> EducationOrganizationInstitutionTelephones { get; set; }
         ICollection<IEducationOrganizationInternationalAddress> EducationOrganizationInternationalAddresses { get; set; }
 
@@ -3119,6 +3120,52 @@ namespace EdFi.Ods.Entities.Common.EdFi
         int EducationOrganizationIdentificationSystemDescriptorId { get; set; }
 
         // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducationOrganizationIndicator model.
+    /// </summary>
+    public interface IEducationOrganizationIndicator : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IEducationOrganization EducationOrganization { get; set; }
+        [NaturalKeyMember]
+        string IndicatorDescriptor { get; set; }
+
+        // Non-PK properties
+        string DesignatedBy { get; set; }
+        string IndicatorGroupDescriptor { get; set; }
+        string IndicatorLevelDescriptor { get; set; }
+        string IndicatorValue { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IEducationOrganizationIndicatorPeriod> EducationOrganizationIndicatorPeriods { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducationOrganizationIndicatorPeriod model.
+    /// </summary>
+    public interface IEducationOrganizationIndicatorPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IEducationOrganizationIndicator EducationOrganizationIndicator { get; set; }
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
 
         // One-to-one relationships
 
@@ -4084,6 +4131,60 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int IncidentLocationDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IndicatorDescriptor model.
+    /// </summary>
+    public interface IIndicatorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int IndicatorDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IndicatorGroupDescriptor model.
+    /// </summary>
+    public interface IIndicatorGroupDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int IndicatorGroupDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the IndicatorLevelDescriptor model.
+    /// </summary>
+    public interface IIndicatorLevelDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int IndicatorLevelDescriptorId { get; set; }
 
         // Non-PK properties
 

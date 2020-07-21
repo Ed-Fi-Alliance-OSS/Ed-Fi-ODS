@@ -594,6 +594,584 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
     // -----------------------------------------------------------------
 
     /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicator : Entities.Common.EdFi.IEducationOrganizationIndicator, Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public EducationOrganizationIndicator()
+        {
+            EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>();
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganization _educationOrganization;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganization Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganization
+        {
+            get { return _educationOrganization; }
+            set { SetEducationOrganization(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganization EducationOrganization
+        {
+            set { SetEducationOrganization(value); }
+        }
+
+        private void SetEducationOrganization(Entities.Common.EdFi.IEducationOrganization value)
+        {
+            _educationOrganization = value;
+        }
+
+        /// <summary>
+        /// The name or code for the indicator or metric.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorDescriptor"), NaturalKeyMember]
+        public string IndicatorDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganization != null)
+                    hash = hash * 23 + _educationOrganization.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The person, organization, or department that defined the metric.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="designatedBy")]
+        public string DesignatedBy { get; set; }
+
+        /// <summary>
+        /// The name for a group of indicators.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorGroupDescriptor")]
+        public string IndicatorGroupDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorLevelDescriptor")]
+        public string IndicatorLevelDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="indicatorValue")]
+        public string IndicatorValue { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicator")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<EducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriods;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriodsCovariant;
+
+        [DataMember(Name="periods"), NoDuplicateMembers]
+        public ICollection<EducationOrganizationIndicatorPeriod> EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriods; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<EducationOrganizationIndicatorPeriod>(value,
+                    (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this);
+                _educationOrganizationIndicatorPeriods = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, EducationOrganizationIndicatorPeriod>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this;
+                _educationOrganizationIndicatorPeriodsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriodsCovariant; }
+            set { EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>(value.Cast<EducationOrganizationIndicatorPeriod>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect external inbound references on deserialization
+            if (_educationOrganizationIndicatorPeriods != null) foreach (var item in _educationOrganizationIndicatorPeriods)
+            {
+                item.EducationOrganizationIndicator = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsDesignatedBySupported                           { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodsSupported  { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorGroupDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorLevelDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorValueSupported                         { get { return true; } set { } }
+
+        // Child collection item filter delegates
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
+        { 
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicator>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicator> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+            var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicatorPeriods)
+            {
+                var validationResult = educationOrganizationIndicatorPeriodsValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriod : Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganizationIndicator _educationOrganizationIndicator;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganizationIndicator Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod.EducationOrganizationIndicator
+        {
+            get { return _educationOrganizationIndicator; }
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganizationIndicator EducationOrganizationIndicator
+        {
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        private void SetEducationOrganizationIndicator(Entities.Common.EdFi.IEducationOrganizationIndicator value)
+        {
+            _educationOrganizationIndicator = value;
+        }
+
+        /// <summary>
+        /// The month, day, and year for the start of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganizationIndicator != null)
+                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The month, day, and year for the end of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EndDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicatorPeriod")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriodPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicatorPeriod>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicatorPeriod> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
@@ -1232,6 +1810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // Inherited lists
             EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationCategory>();
             EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>();
             EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
             EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInternationalAddress>();
         }
@@ -1538,6 +2117,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return _educationOrganizationIdentificationCodesCovariant; }
             set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
         }
+        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
+
+        [DataMember(Name="indicators"), NoDuplicateMembers]
+        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicators; }
+            set
+            {
+                _educationOrganizationIndicators = value;
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicatorsCovariant; }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicator>()); }
+        }
         private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
@@ -1648,6 +2247,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // Reconnect external inbound references on deserialization
             // _educationOrganizationCategories
             // _educationOrganizationIdentificationCodes
+            // _educationOrganizationIndicators
             // _educationOrganizationInstitutionTelephones
             // _educationOrganizationInternationalAddresses
             if (_schoolGradeLevels != null) foreach (var item in _schoolGradeLevels)
@@ -1682,6 +2282,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return true; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return true; } set { } }
@@ -1709,6 +2310,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -1811,6 +2417,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
                 var validationResult = educationOrganizationIdentificationCodesValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicators)
+            {
+                var validationResult = educationOrganizationIndicatorsValidator.Validate(item);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);
@@ -4456,6 +5072,584 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
     // -----------------------------------------------------------------
 
     /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicator : Entities.Common.EdFi.IEducationOrganizationIndicator, Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public EducationOrganizationIndicator()
+        {
+            EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>();
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganization _educationOrganization;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganization Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganization
+        {
+            get { return _educationOrganization; }
+            set { SetEducationOrganization(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganization EducationOrganization
+        {
+            set { SetEducationOrganization(value); }
+        }
+
+        private void SetEducationOrganization(Entities.Common.EdFi.IEducationOrganization value)
+        {
+            _educationOrganization = value;
+        }
+
+        /// <summary>
+        /// The name or code for the indicator or metric.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorDescriptor"), NaturalKeyMember]
+        public string IndicatorDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganization != null)
+                    hash = hash * 23 + _educationOrganization.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The person, organization, or department that defined the metric.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="designatedBy")]
+        public string DesignatedBy { get; set; }
+
+        /// <summary>
+        /// The name for a group of indicators.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorGroupDescriptor")]
+        public string IndicatorGroupDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorLevelDescriptor")]
+        public string IndicatorLevelDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="indicatorValue")]
+        public string IndicatorValue { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicator")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<EducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriods;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriodsCovariant;
+
+        [DataMember(Name="periods"), NoDuplicateMembers]
+        public ICollection<EducationOrganizationIndicatorPeriod> EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriods; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<EducationOrganizationIndicatorPeriod>(value,
+                    (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this);
+                _educationOrganizationIndicatorPeriods = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, EducationOrganizationIndicatorPeriod>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this;
+                _educationOrganizationIndicatorPeriodsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriodsCovariant; }
+            set { EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>(value.Cast<EducationOrganizationIndicatorPeriod>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect external inbound references on deserialization
+            if (_educationOrganizationIndicatorPeriods != null) foreach (var item in _educationOrganizationIndicatorPeriods)
+            {
+                item.EducationOrganizationIndicator = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsDesignatedBySupported                           { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodsSupported  { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorGroupDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorLevelDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorValueSupported                         { get { return true; } set { } }
+
+        // Child collection item filter delegates
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
+        { 
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicator>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicator> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+            var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicatorPeriods)
+            {
+                var validationResult = educationOrganizationIndicatorPeriodsValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriod : Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganizationIndicator _educationOrganizationIndicator;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganizationIndicator Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod.EducationOrganizationIndicator
+        {
+            get { return _educationOrganizationIndicator; }
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganizationIndicator EducationOrganizationIndicator
+        {
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        private void SetEducationOrganizationIndicator(Entities.Common.EdFi.IEducationOrganizationIndicator value)
+        {
+            _educationOrganizationIndicator = value;
+        }
+
+        /// <summary>
+        /// The month, day, and year for the start of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganizationIndicator != null)
+                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The month, day, and year for the end of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EndDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicatorPeriod")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriodPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicatorPeriod>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicatorPeriod> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
@@ -4785,6 +5979,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationAddress>();
             EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationCategory>();
             EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>();
             EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
         }
         // ------------------------------------------------------------
@@ -5156,6 +6351,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return _educationOrganizationIdentificationCodesCovariant; }
             set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
         }
+        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
+
+        [DataMember(Name="indicators"), NoDuplicateMembers]
+        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicators; }
+            set
+            {
+                _educationOrganizationIndicators = value;
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicatorsCovariant; }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicator>()); }
+        }
         private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
@@ -5253,6 +6468,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // _educationOrganizationAddresses
             // _educationOrganizationCategories
             // _educationOrganizationIdentificationCodes
+            // _educationOrganizationIndicators
             // _educationOrganizationInstitutionTelephones
             if (_schoolCategories != null) foreach (var item in _schoolCategories)
             {
@@ -5286,6 +6502,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return true; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return true; } set { } }
@@ -5313,6 +6530,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -5424,6 +6646,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
                 var validationResult = educationOrganizationIdentificationCodesValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicators)
+            {
+                var validationResult = educationOrganizationIndicatorsValidator.Validate(item);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);
@@ -7947,6 +9179,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         // Not supported by this model, so there's "null object pattern" style implementation
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return null; }
+            set { }
+        }
+        // Not supported by this model, so there's "null object pattern" style implementation
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return null; }
@@ -8059,6 +9297,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return false; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return false; } set { } }
@@ -8086,6 +9325,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -9146,6 +10390,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         // Not supported by this model, so there's "null object pattern" style implementation
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return null; }
+            set { }
+        }
+        // Not supported by this model, so there's "null object pattern" style implementation
         ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationInstitutionTelephones
         {
             get { return null; }
@@ -9272,6 +10522,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return false; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return false; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return false; } set { } }
@@ -9299,6 +10550,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -10911,6 +12167,584 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
     // -----------------------------------------------------------------
 
     /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicator : Entities.Common.EdFi.IEducationOrganizationIndicator, Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public EducationOrganizationIndicator()
+        {
+            EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>();
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganization _educationOrganization;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganization Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganization
+        {
+            get { return _educationOrganization; }
+            set { SetEducationOrganization(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganization EducationOrganization
+        {
+            set { SetEducationOrganization(value); }
+        }
+
+        private void SetEducationOrganization(Entities.Common.EdFi.IEducationOrganization value)
+        {
+            _educationOrganization = value;
+        }
+
+        /// <summary>
+        /// The name or code for the indicator or metric.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorDescriptor"), NaturalKeyMember]
+        public string IndicatorDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganization != null)
+                    hash = hash * 23 + _educationOrganization.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The person, organization, or department that defined the metric.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="designatedBy")]
+        public string DesignatedBy { get; set; }
+
+        /// <summary>
+        /// The name for a group of indicators.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorGroupDescriptor")]
+        public string IndicatorGroupDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorLevelDescriptor")]
+        public string IndicatorLevelDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="indicatorValue")]
+        public string IndicatorValue { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicator")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<EducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriods;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriodsCovariant;
+
+        [DataMember(Name="periods"), NoDuplicateMembers]
+        public ICollection<EducationOrganizationIndicatorPeriod> EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriods; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<EducationOrganizationIndicatorPeriod>(value,
+                    (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this);
+                _educationOrganizationIndicatorPeriods = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, EducationOrganizationIndicatorPeriod>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this;
+                _educationOrganizationIndicatorPeriodsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriodsCovariant; }
+            set { EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>(value.Cast<EducationOrganizationIndicatorPeriod>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect external inbound references on deserialization
+            if (_educationOrganizationIndicatorPeriods != null) foreach (var item in _educationOrganizationIndicatorPeriods)
+            {
+                item.EducationOrganizationIndicator = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsDesignatedBySupported                           { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodsSupported  { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorGroupDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorLevelDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorValueSupported                         { get { return true; } set { } }
+
+        // Child collection item filter delegates
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
+        { 
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicator>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicator> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+            var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicatorPeriods)
+            {
+                var validationResult = educationOrganizationIndicatorPeriodsValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriod : Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganizationIndicator _educationOrganizationIndicator;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganizationIndicator Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod.EducationOrganizationIndicator
+        {
+            get { return _educationOrganizationIndicator; }
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganizationIndicator EducationOrganizationIndicator
+        {
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        private void SetEducationOrganizationIndicator(Entities.Common.EdFi.IEducationOrganizationIndicator value)
+        {
+            _educationOrganizationIndicator = value;
+        }
+
+        /// <summary>
+        /// The month, day, and year for the start of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganizationIndicator != null)
+                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The month, day, and year for the end of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EndDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicatorPeriod")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriodPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicatorPeriod>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicatorPeriod> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
@@ -11551,6 +13385,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationAddress>();
             EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationCategory>();
             EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>();
             EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone>();
             EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInternationalAddress>();
         }
@@ -11923,6 +13758,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return _educationOrganizationIdentificationCodesCovariant; }
             set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIdentificationCode>()); }
         }
+        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
+
+        [DataMember(Name="indicators"), NoDuplicateMembers]
+        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicators; }
+            set
+            {
+                _educationOrganizationIndicators = value;
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicatorsCovariant; }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicator>()); }
+        }
         private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
@@ -12056,6 +13911,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // _educationOrganizationAddresses
             // _educationOrganizationCategories
             // _educationOrganizationIdentificationCodes
+            // _educationOrganizationIndicators
             // _educationOrganizationInstitutionTelephones
             // _educationOrganizationInternationalAddresses
             if (_schoolCategories != null) foreach (var item in _schoolCategories)
@@ -12095,6 +13951,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return true; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return true; } set { } }
@@ -12122,6 +13979,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -12243,6 +14105,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
                 var validationResult = educationOrganizationIdentificationCodesValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_ReadOnly_Readable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicators)
+            {
+                var validationResult = educationOrganizationIndicatorsValidator.Validate(item);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);
@@ -15126,6 +16998,584 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
     // -----------------------------------------------------------------
 
     /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicator : Entities.Common.EdFi.IEducationOrganizationIndicator, Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        public EducationOrganizationIndicator()
+        {
+            EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>();
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganization _educationOrganization;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganization Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganization
+        {
+            get { return _educationOrganization; }
+            set { SetEducationOrganization(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganization EducationOrganization
+        {
+            set { SetEducationOrganization(value); }
+        }
+
+        private void SetEducationOrganization(Entities.Common.EdFi.IEducationOrganization value)
+        {
+            _educationOrganization = value;
+        }
+
+        /// <summary>
+        /// The name or code for the indicator or metric.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorDescriptor"), NaturalKeyMember]
+        public string IndicatorDescriptor { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganization != null)
+                    hash = hash * 23 + _educationOrganization.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The person, organization, or department that defined the metric.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="designatedBy")]
+        public string DesignatedBy { get; set; }
+
+        /// <summary>
+        /// The name for a group of indicators.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorGroupDescriptor")]
+        public string IndicatorGroupDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric, as a value from a controlled vocabulary. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="indicatorLevelDescriptor")]
+        public string IndicatorLevelDescriptor { get; set; }
+
+        /// <summary>
+        /// The value of the indicator or metric. The semantics of an empty value is \"not submitted.\"
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="indicatorValue")]
+        public string IndicatorValue { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicator")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        private ICollection<EducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriods;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> _educationOrganizationIndicatorPeriodsCovariant;
+
+        [DataMember(Name="periods"), NoDuplicateMembers]
+        public ICollection<EducationOrganizationIndicatorPeriod> EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriods; }
+            set
+            {
+                if (value == null) return;
+                // Initialize primary list with notifying adapter immediately wired up so existing items are associated with the parent
+                var list = new CollectionAdapterWithAddNotifications<EducationOrganizationIndicatorPeriod>(value,
+                    (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this);
+                _educationOrganizationIndicatorPeriods = list;
+
+                // Initialize covariant list with notifying adapter with deferred wire up so only new items are processed (optimization)
+                var covariantList = new CovariantCollectionAdapterWithAddNotifications<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, EducationOrganizationIndicatorPeriod>(value);
+                covariantList.ItemAdded += (s, e) => ((Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)e.Item).EducationOrganizationIndicator = this;
+                _educationOrganizationIndicatorPeriodsCovariant = covariantList;
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod> Entities.Common.EdFi.IEducationOrganizationIndicator.EducationOrganizationIndicatorPeriods
+        {
+            get { return _educationOrganizationIndicatorPeriodsCovariant; }
+            set { EducationOrganizationIndicatorPeriods = new List<EducationOrganizationIndicatorPeriod>(value.Cast<EducationOrganizationIndicatorPeriod>()); }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+
+        [OnDeserialized]
+        internal void OnDeserialized(StreamingContext context)
+        {
+            // Reconnect external inbound references on deserialization
+            if (_educationOrganizationIndicatorPeriods != null) foreach (var item in _educationOrganizationIndicatorPeriods)
+            {
+                item.EducationOrganizationIndicator = this;
+            }
+
+        }
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicator)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsDesignatedBySupported                           { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodsSupported  { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorGroupDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorLevelDescriptorSupported               { get { return true; } set { } }
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsIndicatorValueSupported                         { get { return true; } set { } }
+
+        // Child collection item filter delegates
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
+        { 
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicator>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicator> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+            var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicatorPeriods)
+            {
+                var validationResult = educationOrganizationIndicatorPeriodsValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
+    /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriod : Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.IEducationOrganizationIndicator _educationOrganizationIndicator;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.IEducationOrganizationIndicator Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod.EducationOrganizationIndicator
+        {
+            get { return _educationOrganizationIndicator; }
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        internal Entities.Common.EdFi.IEducationOrganizationIndicator EducationOrganizationIndicator
+        {
+            set { SetEducationOrganizationIndicator(value); }
+        }
+
+        private void SetEducationOrganizationIndicator(Entities.Common.EdFi.IEducationOrganizationIndicator value)
+        {
+            _educationOrganizationIndicator = value;
+        }
+
+        /// <summary>
+        /// The month, day, and year for the start of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime BeginDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
+        
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+            
+            // Parent Property
+            if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
+                return false;
+
+ 
+            // Standard Property
+            if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_educationOrganizationIndicator != null)
+                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+ 
+                // Standard Property
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                    hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The month, day, and year for the end of the period.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EndDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+    
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        [JsonProperty("_ext")]
+        [JsonConverter(typeof(ExtensionsConverter), "EducationOrganization", "EducationOrganizationIndicatorPeriod")]
+        public System.Collections.IDictionary Extensions { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.SynchronizeTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.EdFi.EducationOrganizationIndicatorPeriodMapper.MapTo(this, (Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
+        void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EducationOrganizationIndicatorPeriodPutPostRequestValidator : FluentValidation.AbstractValidator<EducationOrganizationIndicatorPeriod>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EducationOrganizationIndicatorPeriod> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+        
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+    /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS Database.
     /// </summary>
     [Serializable, DataContract]
@@ -15766,6 +18216,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             EducationOrganizationAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationAddress>();
             EducationOrganizationCategories = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationCategory>();
             EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>();
+            EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>();
             EducationOrganizationInstitutionTelephones = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone>();
             EducationOrganizationInternationalAddresses = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInternationalAddress>();
         }
@@ -16138,6 +18589,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             get { return _educationOrganizationIdentificationCodesCovariant; }
             set { EducationOrganizationIdentificationCodes = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIdentificationCode>()); }
         }
+        private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> _educationOrganizationIndicators;
+        private ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> _educationOrganizationIndicatorsCovariant;
+
+        [DataMember(Name="indicators"), NoDuplicateMembers]
+        public ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator> EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicators; }
+            set
+            {
+                _educationOrganizationIndicators = value;
+                _educationOrganizationIndicatorsCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IEducationOrganizationIndicator, EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IEducationOrganizationIndicator> Entities.Common.EdFi.IEducationOrganization.EducationOrganizationIndicators
+        {
+            get { return _educationOrganizationIndicatorsCovariant; }
+            set { EducationOrganizationIndicators = new List<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>(value.Cast<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicator>()); }
+        }
         private ICollection<EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephones;
         private ICollection<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone> _educationOrganizationInstitutionTelephonesCovariant;
 
@@ -16271,6 +18742,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // _educationOrganizationAddresses
             // _educationOrganizationCategories
             // _educationOrganizationIdentificationCodes
+            // _educationOrganizationIndicators
             // _educationOrganizationInstitutionTelephones
             // _educationOrganizationInternationalAddresses
             if (_schoolCategories != null) foreach (var item in _schoolCategories)
@@ -16310,6 +18782,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationAddressesSupported                { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationCategoriesSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodesSupported      { get { return true; } set { } }
+        bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported               { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported    { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationInternationalAddressesSupported   { get { return true; } set { } }
         bool Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsInternetAccessDescriptorSupported                      { get { return true; } set { } }
@@ -16337,6 +18810,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIdentificationCode, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIdentificationCodeIncluded
         {
+            get { return null; }
+            set { }
+        }
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        { 
             get { return null; }
             set { }
         }
@@ -16458,6 +18936,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             foreach (var item in instance.EducationOrganizationIdentificationCodes)
             {
                 var validationResult = educationOrganizationIdentificationCodesValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+            var educationOrganizationIndicatorsValidator = new EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School.EducationOrganizationIndicatorPutPostRequestValidator();
+
+            foreach (var item in instance.EducationOrganizationIndicators)
+            {
+                var validationResult = educationOrganizationIndicatorsValidator.Validate(item);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);

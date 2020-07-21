@@ -5131,6 +5131,69 @@
           </set>
 
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptorQ" table="IndicatorDescriptor" lazy="false">
+          <key>
+            <column name="IndicatorDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IndicatorDescriptorId" column="IndicatorDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="EducationOrganizationIndicators" cascade="none" lazy="true">
+            <key>
+              <column name="IndicatorDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptorQ" table="IndicatorGroupDescriptor" lazy="false">
+          <key>
+            <column name="IndicatorGroupDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IndicatorGroupDescriptorId" column="IndicatorGroupDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="EducationOrganizationIndicators" cascade="none" lazy="true">
+            <key>
+              <column name="IndicatorGroupDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptorQ" table="IndicatorLevelDescriptor" lazy="false">
+          <key>
+            <column name="IndicatorLevelDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="IndicatorLevelDescriptorId" column="IndicatorLevelDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="EducationOrganizationIndicators" cascade="none" lazy="true">
+            <key>
+              <column name="IndicatorLevelDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" />
+          </set>
+
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptorQ" table="InstitutionTelephoneNumberTypeDescriptor" lazy="false">
           <key>
             <column name="InstitutionTelephoneNumberTypeDescriptorId" />
@@ -8428,6 +8491,13 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIdentificationCodeQ" />
     </set>
 
+    <set name="EducationOrganizationIndicators" cascade="none" lazy="true">
+      <key>
+        <column name="EducationOrganizationId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" />
+    </set>
+
     <set name="EducationOrganizationInstitutionTelephones" cascade="none" lazy="true">
       <key>
         <column name="EducationOrganizationId" />
@@ -9272,6 +9342,77 @@
     <many-to-one name="EducationOrganizationIdentificationSystemDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationIdentificationSystemDescriptorAggregate.EdFi.EducationOrganizationIdentificationSystemDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EducationOrganizationIdentificationSystemDescriptorId" />
     </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ" table="EducationOrganizationIndicator" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IndicatorDescriptorId" column="IndicatorDescriptorId" type="int" />
+      <key-many-to-one name="EducationOrganization">
+        <column name="EducationOrganizationId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="DesignatedBy" column="DesignatedBy" type="string" length="60" />
+    <property name="IndicatorGroupDescriptorId" column="IndicatorGroupDescriptorId" type="int" />
+    <property name="IndicatorLevelDescriptorId" column="IndicatorLevelDescriptorId" type="int" />
+    <property name="IndicatorValue" column="IndicatorValue" type="string" length="35" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="IndicatorDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="IndicatorDescriptorId" />
+    </many-to-one>
+    <many-to-one name="IndicatorGroupDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="IndicatorGroupDescriptorId" />
+    </many-to-one>
+    <many-to-one name="IndicatorLevelDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="IndicatorLevelDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+    <set name="EducationOrganizationIndicatorPeriods" cascade="none" lazy="true">
+      <key>
+        <column name="IndicatorDescriptorId" />
+        <column name="EducationOrganizationId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorPeriodQ" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorPeriodQ" table="EducationOrganizationIndicatorPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BeginDate" column="BeginDate" type="date" />
+      <key-many-to-one name="EducationOrganizationIndicator">
+        <column name="IndicatorDescriptorId" />
+        <column name="EducationOrganizationId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
 
     <!-- Collections -->
 </class>

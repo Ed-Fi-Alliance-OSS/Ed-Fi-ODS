@@ -20,7 +20,7 @@ namespace EdFi.Ods.Common.UnitTests.Utils.Resources
             public void Should_read_entire_resource_content()
             {
                 var result = EmbeddedResourceReader.GetResourceString<EmbeddedResourceReaderTests>("IAmAResource.txt");
-                result.ShouldBe("I have some content, I promise." + Environment.NewLine + "I am a second line.");
+                result.ShouldBe("I have some content, I promise." + Environment.NewLine + "I am a second line.", StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -35,7 +35,7 @@ namespace EdFi.Ods.Common.UnitTests.Utils.Resources
                     using (var reader = new StreamReader(stream))
                     {
                         var result = reader.ReadToEnd();
-                        result.ShouldBe("I have some content, I promise." + Environment.NewLine + "I am a second line.");
+                        result.ShouldBe("I have some content, I promise." + Environment.NewLine + "I am a second line.", StringCompareShould.IgnoreLineEndings);
                     }
                 }
             }

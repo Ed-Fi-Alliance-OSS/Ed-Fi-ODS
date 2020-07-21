@@ -77891,6 +77891,13 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
             set { _isEducationOrganizationIdentificationCodesSupported = value; }
         }
 
+        private bool _isEducationOrganizationIndicatorsSupported = true;
+        bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported
+        {
+            get { return _isEducationOrganizationIndicatorsSupported; }
+            set { _isEducationOrganizationIndicatorsSupported = value; }
+        }
+
         private bool _isEducationOrganizationInstitutionTelephonesSupported = true;
         bool Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported
         {
@@ -77973,6 +77980,13 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
         {
             get { return _isEducationOrganizationIdentificationCodeIncluded; }
             set { _isEducationOrganizationIdentificationCodeIncluded = value; }
+        }
+
+        private Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> _isEducationOrganizationIndicatorIncluded;
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.TPDM.ITeacherPreparationProviderSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        {
+            get { return _isEducationOrganizationIndicatorIncluded; }
+            set { _isEducationOrganizationIndicatorIncluded = value; }
         }
 
         private Func<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, bool> _isEducationOrganizationInstitutionTelephoneIncluded;
@@ -79452,6 +79466,13 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
             set { _isEducationOrganizationIdentificationCodesSupported = value; }
         }
 
+        private bool _isEducationOrganizationIndicatorsSupported = true;
+        bool Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationIndicatorsSupported
+        {
+            get { return _isEducationOrganizationIndicatorsSupported; }
+            set { _isEducationOrganizationIndicatorsSupported = value; }
+        }
+
         private bool _isEducationOrganizationInstitutionTelephonesSupported = true;
         bool Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationInstitutionTelephonesSupported
         {
@@ -79527,6 +79548,13 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
         {
             get { return _isEducationOrganizationIdentificationCodeIncluded; }
             set { _isEducationOrganizationIdentificationCodeIncluded = value; }
+        }
+
+        private Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> _isEducationOrganizationIndicatorIncluded;
+        Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.TPDM.IUniversitySynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
+        {
+            get { return _isEducationOrganizationIndicatorIncluded; }
+            set { _isEducationOrganizationIndicatorIncluded = value; }
         }
 
         private Func<Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone, bool> _isEducationOrganizationInstitutionTelephoneIncluded;

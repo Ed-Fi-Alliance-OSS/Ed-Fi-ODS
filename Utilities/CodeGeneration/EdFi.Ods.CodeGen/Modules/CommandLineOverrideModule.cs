@@ -26,6 +26,9 @@ namespace EdFi.Ods.CodeGen.Modules
 
             if (!Options.ViewsFromDatabase)
             {
+                builder.RegisterType<JsonViewsProvider>()
+                    .As<IViewsProvider>();
+
                 return;
             }
 
@@ -38,6 +41,9 @@ namespace EdFi.Ods.CodeGen.Modules
 
             builder.RegisterType<EngineBasedDatabaseConnectionProvider>()
                 .As<IDatabaseConnectionProvider>();
+
+            builder.RegisterType<DatabaseViewsProvider>()
+                .As<IViewsProvider>();
         }
     }
 }

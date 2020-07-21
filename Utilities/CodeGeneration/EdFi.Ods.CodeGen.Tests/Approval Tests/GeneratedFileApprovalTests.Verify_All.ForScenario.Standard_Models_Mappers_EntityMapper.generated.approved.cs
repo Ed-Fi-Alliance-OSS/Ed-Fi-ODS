@@ -9728,6 +9728,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -9820,6 +9824,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -9872,6 +9886,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsNameOfInstitutionSupported { get; set; }
@@ -9881,6 +9896,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityOrganizationAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }
@@ -9993,6 +10009,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationIdentificationCodesSupported)
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
 
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
@@ -10122,6 +10142,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -10175,6 +10205,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsLicenseExemptIndicatorSupported { get; set; }
@@ -10189,6 +10220,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.CommunityProviderAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }
@@ -21177,6 +21209,247 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     }
 
     [ExcludeFromCodeCoverage]
+    public static class EducationOrganizationIndicatorMapper 
+    {
+        public static bool SynchronizeTo(this IEducationOrganizationIndicator source, IEducationOrganizationIndicator target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IEducationOrganizationIndicatorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.IndicatorDescriptor != target.IndicatorDescriptor)
+            {
+                source.IndicatorDescriptor = target.IndicatorDescriptor;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsDesignatedBySupported)
+                && target.DesignatedBy != source.DesignatedBy)
+            {
+                target.DesignatedBy = source.DesignatedBy;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsIndicatorGroupDescriptorSupported)
+                && target.IndicatorGroupDescriptor != source.IndicatorGroupDescriptor)
+            {
+                target.IndicatorGroupDescriptor = source.IndicatorGroupDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsIndicatorLevelDescriptorSupported)
+                && target.IndicatorLevelDescriptor != source.IndicatorLevelDescriptor)
+            {
+                target.IndicatorLevelDescriptor = source.IndicatorLevelDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsIndicatorValueSupported)
+                && target.IndicatorValue != source.IndicatorValue)
+            {
+                target.IndicatorValue = source.IndicatorValue;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorPeriodsSupported)
+            {
+                isModified |= 
+                    source.EducationOrganizationIndicatorPeriods.SynchronizeCollectionTo(
+                        target.EducationOrganizationIndicatorPeriods, 
+                        onChildAdded: child => 
+                            {
+                                child.EducationOrganizationIndicator = target;
+                            },
+                        includeItem: sourceSupport == null 
+                            ? null 
+                            : sourceSupport.IsEducationOrganizationIndicatorPeriodIncluded);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IEducationOrganizationIndicator source, IEducationOrganizationIndicator target, Action<IEducationOrganizationIndicator, IEducationOrganizationIndicator> onMapped)
+        {
+            var sourceSynchSupport = source as IEducationOrganizationIndicatorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IEducationOrganizationIndicatorSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.IndicatorDescriptor = source.IndicatorDescriptor;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsDesignatedBySupported)
+                target.DesignatedBy = source.DesignatedBy;
+            else
+                targetSynchSupport.IsDesignatedBySupported = false;
+
+            if (sourceSynchSupport.IsIndicatorGroupDescriptorSupported)
+                target.IndicatorGroupDescriptor = source.IndicatorGroupDescriptor;
+            else
+                targetSynchSupport.IsIndicatorGroupDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsIndicatorLevelDescriptorSupported)
+                target.IndicatorLevelDescriptor = source.IndicatorLevelDescriptor;
+            else
+                targetSynchSupport.IsIndicatorLevelDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsIndicatorValueSupported)
+                target.IndicatorValue = source.IndicatorValue;
+            else
+                targetSynchSupport.IsIndicatorValueSupported = false;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorPeriodsSupported)
+            {    
+                targetSynchSupport.IsEducationOrganizationIndicatorPeriodIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorPeriodIncluded;
+                source.EducationOrganizationIndicatorPeriods.MapCollectionTo(target.EducationOrganizationIndicatorPeriods, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorPeriodsSupported = false;
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IEducationOrganizationIndicatorSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsDesignatedBySupported { get; set; }
+        bool IsEducationOrganizationIndicatorPeriodsSupported { get; set; }
+        bool IsIndicatorGroupDescriptorSupported { get; set; }
+        bool IsIndicatorLevelDescriptorSupported { get; set; }
+        bool IsIndicatorValueSupported { get; set; }
+        Func<IEducationOrganizationIndicatorPeriod, bool> IsEducationOrganizationIndicatorPeriodIncluded { get; set; }
+    }
+ 
+    [ExcludeFromCodeCoverage]
+    public static class EducationOrganizationIndicatorPeriodMapper 
+    {
+        public static bool SynchronizeTo(this IEducationOrganizationIndicatorPeriod source, IEducationOrganizationIndicatorPeriod target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.BeginDate != target.BeginDate)
+            {
+                source.BeginDate = target.BeginDate;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsEndDateSupported)
+                && target.EndDate != source.EndDate)
+            {
+                target.EndDate = source.EndDate;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IEducationOrganizationIndicatorPeriod source, IEducationOrganizationIndicatorPeriod target, Action<IEducationOrganizationIndicatorPeriod, IEducationOrganizationIndicatorPeriod> onMapped)
+        {
+            var sourceSynchSupport = source as IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport;
+            var targetSynchSupport = target as IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.BeginDate = source.BeginDate;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsEndDateSupported)
+                target.EndDate = source.EndDate;
+            else
+                targetSynchSupport.IsEndDateSupported = false;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsEndDateSupported { get; set; }
+    }
+ 
+    [ExcludeFromCodeCoverage]
     public static class EducationOrganizationInstitutionTelephoneMapper
     {
         public static bool SynchronizeTo(this IEducationOrganizationInstitutionTelephone source, IEducationOrganizationInstitutionTelephone target)
@@ -22016,6 +22289,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -22113,6 +22390,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -22165,6 +22452,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsNameOfInstitutionSupported { get; set; }
@@ -22175,6 +22463,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationNetworkAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }
@@ -22651,6 +22940,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -22754,6 +23047,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -22806,6 +23109,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsNameOfInstitutionSupported { get; set; }
@@ -22816,6 +23120,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationServiceCenterAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
     }
@@ -28500,6 +28805,543 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IncidentLocationDescriptorAggregate
         bool IsShortDescriptionSupported { get; set; }
     }
 
+}
+// Aggregate: IndicatorDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
+{ 
+    [ExcludeFromCodeCoverage]
+    public static class IndicatorDescriptorMapper 
+    {
+        public static bool SynchronizeTo(this IIndicatorDescriptor source, IIndicatorDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IIndicatorDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.IndicatorDescriptorId != target.IndicatorDescriptorId)
+            {
+                source.IndicatorDescriptorId = target.IndicatorDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IIndicatorDescriptor source, IIndicatorDescriptor target, Action<IIndicatorDescriptor, IIndicatorDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as IIndicatorDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IIndicatorDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.IndicatorDescriptorId = source.IndicatorDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IIndicatorDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+ 
+}
+// Aggregate: IndicatorGroupDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
+{ 
+    [ExcludeFromCodeCoverage]
+    public static class IndicatorGroupDescriptorMapper 
+    {
+        public static bool SynchronizeTo(this IIndicatorGroupDescriptor source, IIndicatorGroupDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IIndicatorGroupDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.IndicatorGroupDescriptorId != target.IndicatorGroupDescriptorId)
+            {
+                source.IndicatorGroupDescriptorId = target.IndicatorGroupDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IIndicatorGroupDescriptor source, IIndicatorGroupDescriptor target, Action<IIndicatorGroupDescriptor, IIndicatorGroupDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as IIndicatorGroupDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IIndicatorGroupDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.IndicatorGroupDescriptorId = source.IndicatorGroupDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IIndicatorGroupDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+ 
+}
+// Aggregate: IndicatorLevelDescriptor
+
+namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
+{ 
+    [ExcludeFromCodeCoverage]
+    public static class IndicatorLevelDescriptorMapper 
+    {
+        public static bool SynchronizeTo(this IIndicatorLevelDescriptor source, IIndicatorLevelDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IIndicatorLevelDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.IndicatorLevelDescriptorId != target.IndicatorLevelDescriptorId)
+            {
+                source.IndicatorLevelDescriptorId = target.IndicatorLevelDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IIndicatorLevelDescriptor source, IIndicatorLevelDescriptor target, Action<IIndicatorLevelDescriptor, IIndicatorLevelDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as IIndicatorLevelDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IIndicatorLevelDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.IndicatorLevelDescriptorId = source.IndicatorLevelDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IIndicatorLevelDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+ 
 }
 // Aggregate: InstitutionTelephoneNumberTypeDescriptor
 
@@ -36505,6 +37347,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -36658,6 +37504,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -36731,6 +37587,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsEducationServiceCenterIdSupported { get; set; }
@@ -36746,6 +37603,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.LocalEducationAgencyAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
         Func<ILocalEducationAgencyAccountability, bool> IsLocalEducationAgencyAccountabilityIncluded { get; set; }
@@ -44140,6 +44998,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -44256,6 +45118,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -44319,6 +45191,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsNameOfInstitutionSupported { get; set; }
@@ -44330,6 +45203,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.PostSecondaryInstitutionAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
         Func<IPostSecondaryInstitutionMediumOfInstruction, bool> IsPostSecondaryInstitutionMediumOfInstructionIncluded { get; set; }
@@ -50870,6 +51744,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -51042,6 +51920,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -51118,6 +52006,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsInternetAccessDescriptorSupported { get; set; }
@@ -51134,6 +52023,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.SchoolAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
         Func<ISchoolCategory, bool> IsSchoolCategoryIncluded { get; set; }
@@ -60784,6 +61674,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
                 isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
 
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
                 isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
                                 sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
@@ -60904,6 +61798,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
                 targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
             }
 
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
             if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
             {
                 targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
@@ -60976,6 +61880,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
         bool IsEducationOrganizationAddressesSupported { get; set; }
         bool IsEducationOrganizationCategoriesSupported { get; set; }
         bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
         bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
         bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
         bool IsNameOfInstitutionSupported { get; set; }
@@ -60987,6 +61892,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StateEducationAgencyAggregate
         Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
         Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
         Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
         Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
         Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
         Func<IStateEducationAgencyAccountability, bool> IsStateEducationAgencyAccountabilityIncluded { get; set; }

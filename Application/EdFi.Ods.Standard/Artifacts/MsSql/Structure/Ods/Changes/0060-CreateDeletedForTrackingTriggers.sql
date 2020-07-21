@@ -2057,6 +2057,60 @@ ALTER TABLE [edfi].[IncidentLocationDescriptor] ENABLE TRIGGER [edfi_IncidentLoc
 GO
 
 
+CREATE TRIGGER [edfi].[edfi_IndicatorDescriptor_TR_DeleteTracking] ON [edfi].[IndicatorDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[IndicatorDescriptor](IndicatorDescriptorId, Id, ChangeVersion)
+    SELECT  d.IndicatorDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.IndicatorDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[IndicatorDescriptor] ENABLE TRIGGER [edfi_IndicatorDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_IndicatorGroupDescriptor_TR_DeleteTracking] ON [edfi].[IndicatorGroupDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[IndicatorGroupDescriptor](IndicatorGroupDescriptorId, Id, ChangeVersion)
+    SELECT  d.IndicatorGroupDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.IndicatorGroupDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[IndicatorGroupDescriptor] ENABLE TRIGGER [edfi_IndicatorGroupDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_IndicatorLevelDescriptor_TR_DeleteTracking] ON [edfi].[IndicatorLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[IndicatorLevelDescriptor](IndicatorLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.IndicatorLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.IndicatorLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[IndicatorLevelDescriptor] ENABLE TRIGGER [edfi_IndicatorLevelDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [edfi].[edfi_InstitutionTelephoneNumberTypeDescriptor_TR_DeleteTracking] ON [edfi].[InstitutionTelephoneNumberTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

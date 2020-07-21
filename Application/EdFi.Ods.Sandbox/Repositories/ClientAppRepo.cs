@@ -19,8 +19,8 @@ using EdFi.Ods.Common.Configuration;
 #elif NETSTANDARD
 using Microsoft.Extensions.Configuration;
 #endif
-using EdFi.Ods.Common.Extensions;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Sandbox.Provisioners;
 
 namespace EdFi.Ods.Sandbox.Repositories
@@ -527,13 +527,22 @@ delete ApiClients where ApiClientId = @clientId",
             }
         }
 
-        public Vendor CreateOrGetVendor(string userEmail, string userName)
+        public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
+                var user = context.Users.Single(u => u.Email.Equals(userEmail));
+
+                user.Vendor = vendor;
+                context.SaveChanges();
+            }
+        }
+
+        public Vendor CreateOrGetVendor(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
         {
             var vendorName = userName.Split(',')[0]
                 .Trim();
-
-            var namePrefix = "uri://" + userEmail.Split('@')[1]
-                .ToLower();
 
             using (var context = _contextFactory.CreateContext())
             {
@@ -543,12 +552,16 @@ delete ApiClients where ApiClientId = @clientId",
                 {
                     vendor = new Vendor {VendorName = vendorName};
 
-                    vendor.VendorNamespacePrefixes.Add(
-                        new VendorNamespacePrefix
+                        foreach (string namespacePrefix in namespacePrefixes)
                         {
-                            Vendor = vendor,
-                            NamespacePrefix = namePrefix
-                        });
+                            vendor.VendorNamespacePrefixes.Add(
+                                new VendorNamespacePrefix
+                                {
+                                    Vendor = vendor,
+                                    NamespacePrefix = namespacePrefix
+                                });
+                        }
+                        context.SaveChanges();
                 }
 
                 return vendor;

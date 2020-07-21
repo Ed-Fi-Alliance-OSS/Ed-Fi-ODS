@@ -1699,6 +1699,32 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
     }
 
     /// <summary>
+    /// Interface for the edfi.EducationOrganizationIndicator table of the EducationOrganization aggregate in the Ods Database.
+    /// </summary>
+    public interface IEducationOrganizationIndicatorRecord
+    {     
+        // Properties for all columns in physical table
+        string DesignatedBy { get; set; }
+        int EducationOrganizationId { get; set; }
+        int IndicatorDescriptorId { get; set; }
+        int? IndicatorGroupDescriptorId { get; set; }
+        int? IndicatorLevelDescriptorId { get; set; }
+        string IndicatorValue { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the Ods Database.
+    /// </summary>
+    public interface IEducationOrganizationIndicatorPeriodRecord
+    {     
+        // Properties for all columns in physical table
+        DateTime BeginDate { get; set; }
+        int EducationOrganizationId { get; set; }
+        DateTime? EndDate { get; set; }
+        int IndicatorDescriptorId { get; set; }
+    }
+
+    /// <summary>
     /// Interface for the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the Ods Database.
     /// </summary>
     public interface IEducationOrganizationInstitutionTelephoneRecord
@@ -2238,6 +2264,33 @@ namespace EdFi.Ods.Entities.Common.Records.EdFi
     {     
         // Properties for all columns in physical table
         int IncidentLocationDescriptorId { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the edfi.IndicatorDescriptor table of the IndicatorDescriptor aggregate in the Ods Database.
+    /// </summary>
+    public interface IIndicatorDescriptorRecord
+    {     
+        // Properties for all columns in physical table
+        int IndicatorDescriptorId { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the edfi.IndicatorGroupDescriptor table of the IndicatorGroupDescriptor aggregate in the Ods Database.
+    /// </summary>
+    public interface IIndicatorGroupDescriptorRecord
+    {     
+        // Properties for all columns in physical table
+        int IndicatorGroupDescriptorId { get; set; }
+    }
+
+    /// <summary>
+    /// Interface for the edfi.IndicatorLevelDescriptor table of the IndicatorLevelDescriptor aggregate in the Ods Database.
+    /// </summary>
+    public interface IIndicatorLevelDescriptorRecord
+    {     
+        // Properties for all columns in physical table
+        int IndicatorLevelDescriptorId { get; set; }
     }
 
     /// <summary>
