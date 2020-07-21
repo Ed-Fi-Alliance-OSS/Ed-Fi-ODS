@@ -23,6 +23,6 @@ namespace EdFi.Ods.Common.Security
         /// <summary>
         /// The name of the claim set assigned to the Ed-Fi ODS API client.
         /// </summary>
-        public const string ClaimSetName = @"http:// ed-fi.org/claims/claimSetName";
+        public const string ClaimSetName = @"http://ed-fi.org/claims/claimSetName";
     }
 }
