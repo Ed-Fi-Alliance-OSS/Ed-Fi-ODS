@@ -9,7 +9,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Api.Models
+namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfo
     {
