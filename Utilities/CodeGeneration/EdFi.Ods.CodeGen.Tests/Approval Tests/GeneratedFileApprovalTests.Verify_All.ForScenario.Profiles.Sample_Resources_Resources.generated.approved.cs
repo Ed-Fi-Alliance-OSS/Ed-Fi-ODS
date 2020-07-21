@@ -669,21 +669,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -705,9 +705,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganization != null)
                     hash = hash * 23 + _educationOrganization.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
                 return hash;
             }
@@ -757,7 +757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -856,7 +856,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 
         // Child collection item filter delegates
         Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -997,21 +997,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
             #pragma warning disable 472
 
@@ -1033,9 +1033,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganizationIndicator != null)
                     hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
                 return hash;
             }
@@ -1064,7 +1064,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2314,7 +2314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -5147,21 +5147,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -5183,9 +5183,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganization != null)
                     hash = hash * 23 + _educationOrganization.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
                 return hash;
             }
@@ -5235,7 +5235,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -5334,7 +5334,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 
         // Child collection item filter delegates
         Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -5475,21 +5475,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
             #pragma warning disable 472
 
@@ -5511,9 +5511,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganizationIndicator != null)
                     hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
                 return hash;
             }
@@ -5542,7 +5542,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -6534,7 +6534,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -9329,7 +9329,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -10554,7 +10554,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -12242,21 +12242,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -12278,9 +12278,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganization != null)
                     hash = hash * 23 + _educationOrganization.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
                 return hash;
             }
@@ -12330,7 +12330,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -12429,7 +12429,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 
         // Child collection item filter delegates
         Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -12570,21 +12570,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
             #pragma warning disable 472
 
@@ -12606,9 +12606,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganizationIndicator != null)
                     hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
                 return hash;
             }
@@ -12637,7 +12637,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -13983,7 +13983,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -17073,21 +17073,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicator;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganization == null || !_educationOrganization.Equals(compareTo.EducationOrganization))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.Equals(compareTo.IndicatorDescriptor))
                 return false;
             #pragma warning disable 472
 
@@ -17109,9 +17109,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganization != null)
                     hash = hash * 23 + _educationOrganization.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
                 return hash;
             }
@@ -17161,7 +17161,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -17260,7 +17260,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
 
         // Child collection item filter delegates
         Func<Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod, bool> Entities.Common.EdFi.IEducationOrganizationIndicatorSynchronizationSourceSupport.IsEducationOrganizationIndicatorPeriodIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -17401,21 +17401,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_educationOrganizationIndicator == null || !_educationOrganizationIndicator.Equals(compareTo.EducationOrganizationIndicator))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate == null
-                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate)) 
+                || !(this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
             #pragma warning disable 472
 
@@ -17437,9 +17437,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
                 //Parent Property
                 if (_educationOrganizationIndicator != null)
                     hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null) 
+                if ((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate != null)
                     hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
                 return hash;
             }
@@ -17468,7 +17468,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -18814,7 +18814,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             set { }
         }
         Func<Entities.Common.EdFi.IEducationOrganizationIndicator, bool> Entities.Common.EdFi.ISchoolSynchronizationSourceSupport.IsEducationOrganizationIndicatorIncluded
-        { 
+        {
             get { return null; }
             set { }
         }

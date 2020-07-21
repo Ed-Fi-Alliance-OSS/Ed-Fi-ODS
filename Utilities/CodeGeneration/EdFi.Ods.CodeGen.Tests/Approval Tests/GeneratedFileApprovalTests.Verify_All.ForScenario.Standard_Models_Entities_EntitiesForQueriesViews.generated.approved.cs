@@ -132,7 +132,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.EducationOrganizationIdentifiers table of the (unspecified) aggregate in the ODS database.
@@ -431,7 +431,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.EducationOrganizationIdToUniversityId table of the (unspecified) aggregate in the ODS database.
@@ -463,7 +463,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.EducationOrganizationToStaffUSI_Assignment table of the (unspecified) aggregate in the ODS database.
@@ -821,7 +821,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.School table of the (unspecified) aggregate in the ODS database.
@@ -950,7 +950,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.StaffUSIToTeacherPreparationProviderId table of the (unspecified) aggregate in the ODS database.
@@ -982,7 +982,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the auth.StaffUSIToUniversityId table of the (unspecified) aggregate in the ODS database.

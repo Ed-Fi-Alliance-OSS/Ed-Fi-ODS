@@ -21209,7 +21209,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     }
 
     [ExcludeFromCodeCoverage]
-    public static class EducationOrganizationIndicatorMapper 
+    public static class EducationOrganizationIndicatorMapper
     {
         public static bool SynchronizeTo(this IEducationOrganizationIndicator source, IEducationOrganizationIndicator target)
         {
@@ -21257,15 +21257,15 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorPeriodsSupported)
             {
-                isModified |= 
+                isModified |=
                     source.EducationOrganizationIndicatorPeriods.SynchronizeCollectionTo(
-                        target.EducationOrganizationIndicatorPeriods, 
-                        onChildAdded: child => 
+                        target.EducationOrganizationIndicatorPeriods,
+                        onChildAdded: child =>
                             {
                                 child.EducationOrganizationIndicator = target;
                             },
-                        includeItem: sourceSupport == null 
-                            ? null 
+                        includeItem: sourceSupport == null
+                            ? null
                             : sourceSupport.IsEducationOrganizationIndicatorPeriodIncluded);
             }
 
@@ -21317,7 +21317,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
             // Map lists
 
             if (sourceSynchSupport.IsEducationOrganizationIndicatorPeriodsSupported)
-            {    
+            {
                 targetSynchSupport.IsEducationOrganizationIndicatorPeriodIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorPeriodIncluded;
                 source.EducationOrganizationIndicatorPeriods.MapCollectionTo(target.EducationOrganizationIndicatorPeriods, target);
             }
@@ -21347,7 +21347,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -21360,9 +21360,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
         bool IsIndicatorValueSupported { get; set; }
         Func<IEducationOrganizationIndicatorPeriod, bool> IsEducationOrganizationIndicatorPeriodIncluded { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
-    public static class EducationOrganizationIndicatorPeriodMapper 
+    public static class EducationOrganizationIndicatorPeriodMapper
     {
         public static bool SynchronizeTo(this IEducationOrganizationIndicatorPeriod source, IEducationOrganizationIndicatorPeriod target)
         {
@@ -21440,7 +21440,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -21448,7 +21448,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.EducationOrganizationAggregate
     {
         bool IsEndDateSupported { get; set; }
     }
- 
+
     [ExcludeFromCodeCoverage]
     public static class EducationOrganizationInstitutionTelephoneMapper
     {
@@ -28809,9 +28809,9 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IncidentLocationDescriptorAggregate
 // Aggregate: IndicatorDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class IndicatorDescriptorMapper 
+    public static class IndicatorDescriptorMapper
     {
         public static bool SynchronizeTo(this IIndicatorDescriptor source, IIndicatorDescriptor target)
         {
@@ -28969,7 +28969,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -28983,14 +28983,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorDescriptorAggregate
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: IndicatorGroupDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class IndicatorGroupDescriptorMapper 
+    public static class IndicatorGroupDescriptorMapper
     {
         public static bool SynchronizeTo(this IIndicatorGroupDescriptor source, IIndicatorGroupDescriptor target)
         {
@@ -29148,7 +29148,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -29162,14 +29162,14 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorGroupDescriptorAggregate
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: IndicatorLevelDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
-{ 
+{
     [ExcludeFromCodeCoverage]
-    public static class IndicatorLevelDescriptorMapper 
+    public static class IndicatorLevelDescriptorMapper
     {
         public static bool SynchronizeTo(this IIndicatorLevelDescriptor source, IIndicatorLevelDescriptor target)
         {
@@ -29327,7 +29327,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
     }
 
     /// <summary>
-    /// Defines properties that indicate whether a particular property of the model abstraction 
+    /// Defines properties that indicate whether a particular property of the model abstraction
     /// is supported by a model implementation being used as the source in a "synchronization"
     /// operation.
     /// </summary>
@@ -29341,7 +29341,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.IndicatorLevelDescriptorAggregate
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
     }
- 
+
 }
 // Aggregate: InstitutionTelephoneNumberTypeDescriptor
 

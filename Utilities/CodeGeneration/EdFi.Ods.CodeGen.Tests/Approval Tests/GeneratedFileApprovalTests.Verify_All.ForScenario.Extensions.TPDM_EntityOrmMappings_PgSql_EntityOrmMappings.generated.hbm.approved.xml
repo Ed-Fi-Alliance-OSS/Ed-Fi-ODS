@@ -2015,7 +2015,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CertificationExamIdentifier" column="CertificationExamIdentifier" type="string" length="60" />
-      <key-property name="ExamNamespace" column="ExamNamespace" type="string" length="255" />
+      <key-property name="CertificationExamNamespace" column="CertificationExamNamespace" type="string" length="255" />
       <key-many-to-one name="Certification">
         <column name="CertificationIdentifier" />
         <column name="Namespace" />
@@ -2030,7 +2030,7 @@
     <!-- Aggregate references -->
     <many-to-one name="CertificationExamReferenceData" class="EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM.CertificationExamReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="CertificationExamIdentifier" />
-      <column name="ExamNamespace" />
+      <column name="CertificationExamNamespace" />
     </many-to-one>
 
     <!-- Back references -->
@@ -2094,7 +2094,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="CertificationExamIdentifier" column="CertificationExamIdentifier" type="string"  length="60"  />
-            <key-property name="ExamNamespace" column="ExamNamespace" type="string"  length="255"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
         </composite-id>
 
         <property name="Id" column="Id" type="guid" insert="false" update="false" />
@@ -2108,7 +2108,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="CertificationExamIdentifier" column="CertificationExamIdentifier" type="string" length="60" />
-      <key-property name="ExamNamespace" column="ExamNamespace" type="string" length="255" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
     </composite-id>
 
     <!-- Discriminator -->
@@ -2147,7 +2147,7 @@
         <composite-id>
             <key-property name="CertificationExamDate" column="CertificationExamDate" type="date"  />
             <key-property name="CertificationExamIdentifier" column="CertificationExamIdentifier" type="string"  length="60"  />
-            <key-property name="ExamNamespace" column="ExamNamespace" type="string"  length="255"  />
+            <key-property name="Namespace" column="Namespace" type="string"  length="255"  />
             <key-property name="PersonId" column="PersonId" type="string"  length="32"  />
             <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int"  />
         </composite-id>
@@ -2164,7 +2164,7 @@
     <composite-id>
       <key-property name="CertificationExamDate" column="CertificationExamDate" type="date" />
       <key-property name="CertificationExamIdentifier" column="CertificationExamIdentifier" type="string" length="60" />
-      <key-property name="ExamNamespace" column="ExamNamespace" type="string" length="255" />
+      <key-property name="Namespace" column="Namespace" type="string" length="255" />
       <key-property name="PersonId" column="PersonId" type="string" length="32" />
       <key-property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
     </composite-id>
@@ -2190,7 +2190,7 @@
     <!-- Aggregate references -->
     <many-to-one name="CertificationExamReferenceData" class="EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM.CertificationExamReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="CertificationExamIdentifier" />
-      <column name="ExamNamespace" />
+      <column name="Namespace" />
     </many-to-one>
     <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="PersonId" />

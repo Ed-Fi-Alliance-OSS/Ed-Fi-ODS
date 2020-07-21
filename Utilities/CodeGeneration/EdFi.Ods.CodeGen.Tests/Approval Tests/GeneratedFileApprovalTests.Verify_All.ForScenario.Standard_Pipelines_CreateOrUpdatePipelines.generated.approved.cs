@@ -683,6 +683,24 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class IndicatorDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor, Entities.NHibernate.IndicatorDescriptorAggregate.EdFi.IndicatorDescriptor>
+    {
+        public IndicatorDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorGroupDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor, Entities.NHibernate.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptor>
+    {
+        public IndicatorGroupDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class IndicatorLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor, Entities.NHibernate.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptor>
+    {
+        public IndicatorLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class InstitutionTelephoneNumberTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.InstitutionTelephoneNumberTypeDescriptor.EdFi.InstitutionTelephoneNumberTypeDescriptor, Entities.NHibernate.InstitutionTelephoneNumberTypeDescriptorAggregate.EdFi.InstitutionTelephoneNumberTypeDescriptor>
     {
         public InstitutionTelephoneNumberTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

@@ -6970,7 +6970,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         protected virtual NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi.IndicatorGroupDescriptorQ IndicatorGroupDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi.IndicatorLevelDescriptorQ IndicatorLevelDescriptor { get; set; }
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationIndicatorPeriod table of the EducationOrganization aggregate in the ODS database.
@@ -7011,7 +7011,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregat
         //              External references for HQL Queries
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    } 
+    }
 
     /// <summary>
     /// A class which represents the edfi.EducationOrganizationInstitutionTelephone table of the EducationOrganization aggregate in the ODS database.
@@ -9227,7 +9227,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IncidentLocationDescriptorAgg
 // Aggregate: IndicatorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.IndicatorDescriptor table of the IndicatorDescriptor aggregate in the ODS database.
@@ -9264,12 +9264,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorDescriptorAggregate.
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: IndicatorGroupDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorGroupDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.IndicatorGroupDescriptor table of the IndicatorGroupDescriptor aggregate in the ODS database.
@@ -9306,12 +9306,12 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorGroupDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: IndicatorLevelDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorLevelDescriptorAggregate.EdFi
-{ 
+{
 
     /// <summary>
     /// A class which represents the edfi.IndicatorLevelDescriptor table of the IndicatorLevelDescriptor aggregate in the ODS database.
@@ -9348,7 +9348,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.IndicatorLevelDescriptorAggre
         protected virtual ICollection<NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationIndicatorQ> EducationOrganizationIndicators  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
-    } 
+    }
 }
 // Aggregate: InstitutionTelephoneNumberTypeDescriptor
 

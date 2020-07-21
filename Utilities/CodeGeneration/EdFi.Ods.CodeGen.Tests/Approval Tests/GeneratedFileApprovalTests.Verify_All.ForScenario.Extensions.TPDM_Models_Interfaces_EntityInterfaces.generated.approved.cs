@@ -1381,7 +1381,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         [NaturalKeyMember]
         string CertificationExamIdentifier { get; set; }
         [NaturalKeyMember]
-        string ExamNamespace { get; set; }
+        string CertificationExamNamespace { get; set; }
 
         // Non-PK properties
 
@@ -1403,7 +1403,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         [NaturalKeyMember]
         string CertificationExamIdentifier { get; set; }
         [NaturalKeyMember]
-        string ExamNamespace { get; set; }
+        string Namespace { get; set; }
 
         // Non-PK properties
         string CertificationExamTitle { get; set; }
@@ -1432,7 +1432,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
         [NaturalKeyMember]
         string CertificationExamIdentifier { get; set; }
         [NaturalKeyMember]
-        string ExamNamespace { get; set; }
+        string Namespace { get; set; }
         [NaturalKeyMember]
         string PersonId { get; set; }
         [NaturalKeyMember]

@@ -18371,7 +18371,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string CertificationExamNamespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -18442,7 +18442,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("CertificationExamNamespace", CertificationExamNamespace);
 
             return keyValues;
         }
@@ -18985,7 +18985,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         //                         Primary Key
         // -------------------------------------------------------------
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string ExamNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         // -------------------------------------------------------------
 
         /// <summary>
@@ -19007,7 +19007,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -19087,7 +19087,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -19236,7 +19236,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
 
             // Add current key values
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
 
             return keyValues;
         }
@@ -19373,7 +19373,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         // -------------------------------------------------------------
         public virtual DateTime CertificationExamDate { get; set; }
         public virtual string CertificationExamIdentifier { get; set; }
-        public virtual string ExamNamespace { get; set; }
+        public virtual string Namespace { get; set; }
         public virtual string PersonId { get; set; }
         public virtual int SourceSystemDescriptorId { get; set; }
         // -------------------------------------------------------------
@@ -19398,7 +19398,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
@@ -19490,7 +19490,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
         public virtual string CertificationExamIdentifier  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
-        public virtual string ExamNamespace  { get; set; }
+        public virtual string Namespace  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(32), NoDangerousText, NoWhitespace]
         public virtual string PersonId  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -19659,7 +19659,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
             // Add current key values
             keyValues.Add("CertificationExamDate", CertificationExamDate);
             keyValues.Add("CertificationExamIdentifier", CertificationExamIdentifier);
-            keyValues.Add("ExamNamespace", ExamNamespace);
+            keyValues.Add("Namespace", Namespace);
             keyValues.Add("PersonId", PersonId);
             keyValues.Add("SourceSystemDescriptorId", SourceSystemDescriptorId);
 
