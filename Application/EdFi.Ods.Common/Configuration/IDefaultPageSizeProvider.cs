@@ -6,6 +6,6 @@ namespace EdFi.Ods.Common.Configuration
 {
     public interface IDefaultPageSizeProvider
     {
-        int GetDefaultPageSize();
+        int GetDefaultPageSizeLimit();
     }
 }

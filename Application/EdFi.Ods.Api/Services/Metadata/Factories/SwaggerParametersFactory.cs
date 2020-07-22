@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Services.Metadata.Factories
                         type = "integer",
                         format = "int32",
                         minimum = 1,
-                        maximum  = new DefaultPageSizeProvider().GetDefaultPageSize(),
+                        maximum  = new DefaultPageSizeProvider().GetDefaultPageSizeLimit(),
                         required = false,
                         @default = 25
                     }

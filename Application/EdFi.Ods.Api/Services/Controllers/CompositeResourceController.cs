@@ -93,19 +93,27 @@ namespace EdFi.Ods.Api.Services.Controllers
                         kvp => rawQueryStringParameters[kvp],
                         StringComparer.InvariantCultureIgnoreCase);
 
-                //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-                var defaultPageSize = new DefaultPageSizeProvider().GetDefaultPageSize();
+                var defaultPageSizeLimit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
+
                 if (queryStringParameters.TryGetValue("limit", out object limitAsObject) && int.TryParse(limitAsObject.ToString(), out int limit))
                 {
                     if (limit <= 0)
                     {
-                        queryStringParameters["limit"] = defaultPageSize.ToString();
+                        queryStringParameters["limit"] = defaultPageSizeLimit.ToString();
+                    }
+                    //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
+                    else if (limit > defaultPageSizeLimit)
+                    {
+                        return BadRequest($"Limit must be omitted or set to a value between 1 and {defaultPageSizeLimit}.");
                     }
                 }
                 else
                 {
-                    queryStringParameters["limit"] = defaultPageSize.ToString();
+                    queryStringParameters["limit"] = defaultPageSizeLimit.ToString();
                 }
+
+                
+
 
                 // Process specification for route and query string parameters
                 var specificationParameters = GetCompositeSpecificationParameters(

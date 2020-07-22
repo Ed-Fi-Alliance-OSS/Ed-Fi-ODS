@@ -133,10 +133,17 @@ namespace EdFi.Ods.Api.Services.Controllers
             [FromUri] UrlQueryParametersRequest urlQueryParametersRequest,
             [FromUri] TGetByExampleRequest request = default(TGetByExampleRequest))
         {
-            //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-            if (urlQueryParametersRequest.Limit == null || urlQueryParametersRequest.Limit <= 0 )
+            var defaultPageSizeLimit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
+
+            if (urlQueryParametersRequest.Limit == null || urlQueryParametersRequest.Limit <= 0)
             {
-                urlQueryParametersRequest.Limit = new DefaultPageSizeProvider().GetDefaultPageSize();
+                urlQueryParametersRequest.Limit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
+            }
+
+            //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
+            if (urlQueryParametersRequest.Limit > defaultPageSizeLimit)
+            {
+                return BadRequest($"Limit must be omitted or set to a value between 1 and {defaultPageSizeLimit}.");
             }
 
             var internalRequestAsResource = new TResourceReadModel();
