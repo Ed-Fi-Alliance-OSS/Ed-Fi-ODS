@@ -24,6 +24,7 @@ using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
@@ -135,9 +136,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
             if (urlQueryParametersRequest.Limit == null || urlQueryParametersRequest.Limit <= 0 )
             {
-                urlQueryParametersRequest.Limit = int.TryParse(System.Configuration.ConfigurationManager.AppSettings["defaultPageSize"], out int defaultPageSize)
-                    ? defaultPageSize
-                    : 500;
+                urlQueryParametersRequest.Limit = new DefaultPageSizeProvider().GetDefaultPageSize();
             }
 
             var internalRequestAsResource = new TResourceReadModel();

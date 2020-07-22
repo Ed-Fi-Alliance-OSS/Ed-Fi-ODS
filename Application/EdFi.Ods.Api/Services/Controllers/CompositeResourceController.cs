@@ -17,6 +17,7 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.NHibernate.Composites;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
@@ -93,14 +94,17 @@ namespace EdFi.Ods.Api.Services.Controllers
                         StringComparer.InvariantCultureIgnoreCase);
 
                 //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-
-                if (queryStringParameters.TryGetValue("limit", out object limitAsObject))
+                var defaultPageSize = new DefaultPageSizeProvider().GetDefaultPageSize();
+                if (queryStringParameters.TryGetValue("limit", out object limitAsObject) && int.TryParse(limitAsObject.ToString(), out int limit))
                 {
-                    if (int.TryParse(limitAsObject.ToString(), out int limit)
-                        && (limit <= 0 || limit > 100))
+                    if (limit <= 0)
                     {
-                        return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                        queryStringParameters["limit"] = defaultPageSize.ToString();
                     }
+                }
+                else
+                {
+                    queryStringParameters["limit"] = defaultPageSize.ToString();
                 }
 
                 // Process specification for route and query string parameters
