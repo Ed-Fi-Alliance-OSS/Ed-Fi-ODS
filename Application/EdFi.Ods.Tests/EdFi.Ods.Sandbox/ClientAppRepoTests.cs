@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -30,7 +30,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
             public void Setup()
             {
 
-                var sandboxProvisionerStub = A.Fake<ISandboxProvisioner>();
                 var configValueProviderStub = A.Fake<IConfigValueProvider>();
                 var usersContext = A.Fake<IUsersContext>();
 
@@ -39,7 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(usersContext);
 
-                _clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                _clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _testClient = new ApiClient(true)
                               {

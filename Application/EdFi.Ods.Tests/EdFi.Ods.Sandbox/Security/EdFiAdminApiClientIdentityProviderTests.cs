@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,14 +44,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 var edOrgs = _expectedEducationOrganizations
                             .Select(
@@ -136,14 +135,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
 
                 var usersContextFactory = Stub<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientIdentityProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }
@@ -175,13 +173,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientIdentityProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }
@@ -213,13 +210,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientIdentityProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }
@@ -253,13 +249,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _testClient = new ApiClient(true)
                               {
@@ -303,13 +298,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientSecretProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }
@@ -341,13 +335,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientSecretProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }
@@ -379,13 +372,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var sandboxProvisionerStub = Stub<ISandboxProvisioner>();
                 var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext());
 
-                var clientAppRepo = new ClientAppRepo(usersContextFactory, sandboxProvisionerStub, configValueProviderStub);
+                var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _apiClientSecretProvider = new EdFiAdminApiClientIdentityProvider(clientAppRepo);
             }

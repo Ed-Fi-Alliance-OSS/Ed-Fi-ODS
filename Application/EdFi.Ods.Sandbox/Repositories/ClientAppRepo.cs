@@ -27,17 +27,14 @@ namespace EdFi.Ods.Sandbox.Repositories
         private const int DefaultDuration = 60;
         private readonly IConfigValueProvider _configValueProvider;
         private readonly IUsersContextFactory _contextFactory;
-        private readonly ISandboxProvisioner _provisioner;
 
         private readonly ILog _logger = LogManager.GetLogger(nameof(ClientAppRepo));
 
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
-            ISandboxProvisioner provisioner,
             IConfigValueProvider configValueProvider)
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
-            _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
             _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
         }
 
@@ -228,11 +225,6 @@ namespace EdFi.Ods.Sandbox.Repositories
 delete ApiClients where ApiClientId = @clientId",
                     new SqlParameter("@clientId", client.ApiClientId))
                     .Wait();
-
-                if (client.UseSandbox)
-                {
-                    _provisioner.DeleteSandboxes(key);
-                }
             }
         }
 
@@ -383,9 +375,6 @@ delete ApiClients where ApiClientId = @clientId",
 
                 _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
-
-                _logger.Debug($"Creating {sandboxType.ToString()} sandbox for {client.Key}");
-                _provisioner.AddSandbox(client.Key, sandboxType);
 
                 context.SaveChanges();
 

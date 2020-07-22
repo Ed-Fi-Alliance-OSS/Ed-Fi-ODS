@@ -57,7 +57,7 @@ namespace EdFi.Ods.Admin.Initialization
             }
         }
 
-        public void CreateUsers()
+        public void CreateIdentityUsers()
         {
             try
             {
