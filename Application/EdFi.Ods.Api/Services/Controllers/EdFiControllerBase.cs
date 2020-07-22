@@ -173,7 +173,6 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (queryParameters.TotalCount)
             {
                 response.Headers.Add("Total-Count", result.ResultMetadata.TotalCount.ToString());
-                response.Headers.Add("limit", "500");
             }
 
             return new ResponseMessageResult(response).WithContentType(GetReadContentType());
