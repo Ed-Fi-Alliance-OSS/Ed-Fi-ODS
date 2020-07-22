@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Schema;
+using EdFi.LoadTools.BulkLoadClient;
 using EdFi.LoadTools.Engine;
 using log4net;
 
@@ -24,13 +25,18 @@ namespace EdFi.LoadTools.ApiClient
         private readonly XmlSchemaSet _xmlSchemaSet;
         private readonly IXsdConfiguration _xsdConfiguration;
         private readonly Lazy<List<FileContext>> _fileContexts;
+        private readonly IBulkLoadClientResult _bulkLoadClientResult;
 
-        public FileContextProvider(XmlSchemaSet xmlSchemaSet, IDataConfiguration dataConfiguration,
-            IXsdConfiguration xsdConfiguration)
+        public FileContextProvider(
+            XmlSchemaSet xmlSchemaSet,
+            IDataConfiguration dataConfiguration,
+            IXsdConfiguration xsdConfiguration,
+            IBulkLoadClientResult bulkLoadClientResult)
         {
             _xmlSchemaSet = xmlSchemaSet;
             _dataConfiguration = dataConfiguration;
             _xsdConfiguration = xsdConfiguration;
+            _bulkLoadClientResult = bulkLoadClientResult;
 
             _fileContexts = new Lazy<List<FileContext>>(() => CreateFileContexts().Where(x => x.IsValid).ToList());
         }
@@ -83,7 +89,8 @@ namespace EdFi.LoadTools.ApiClient
                 var fileContext = new FileContext
                 {
                     FileName = fileName,
-                    Resources = new HashSet<string>()
+                    Resources = new HashSet<string>(),
+                    IsValid = true,
                 };
 
                 var xmlReaderSettings = new XmlReaderSettings {CloseInput = true};
@@ -91,10 +98,19 @@ namespace EdFi.LoadTools.ApiClient
                 if (!_xsdConfiguration.DoNotValidateXml)
                 {
                     _log.Debug($"{contextPrefix} XSD validation is enabled.");
+
                     xmlReaderSettings.Schemas = _xmlSchemaSet;
                     xmlReaderSettings.ValidationType = ValidationType.Schema;
 
-                    xmlReaderSettings.ValidationEventHandler += (s, e) => { _log.Error($"{e.Message}"); };
+                    xmlReaderSettings.ValidationFlags = XmlSchemaValidationFlags.AllowXmlAttributes |
+                                                        XmlSchemaValidationFlags.ReportValidationWarnings |
+                                                        XmlSchemaValidationFlags.ProcessIdentityConstraints;
+
+                    xmlReaderSettings.ValidationEventHandler += (s, e) =>
+                    {
+                        _log.Error($"{e.Message}");
+                        fileContext.IsValid = false;
+                    };
                 }
 
                 using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
@@ -147,8 +163,6 @@ namespace EdFi.LoadTools.ApiClient
                                     fileContext.NumberOfIdRefs++;
                                 }
                             }
-
-                            fileContext.IsValid = true;
                         }
                     }
                     catch (XmlException e)
@@ -178,6 +192,7 @@ namespace EdFi.LoadTools.ApiClient
                 else
                 {
                     _log.Warn($"{contextPrefix} failed XSD validation.");
+                    _bulkLoadClientResult.ExitCode = 1;
                 }
 
                 return fileContext;
