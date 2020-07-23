@@ -17,8 +17,6 @@ namespace EdFi.Ods.Admin.Services
         public SqlServerTemplateDatabaseLeaQuery(IConfigConnectionStringsProvider configConnectionStringsProvider)
             : base(configConnectionStringsProvider) { }
 
-
-
         protected override DbConnection CreateConnection(string templateDatabaseName)
             => new SqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));
     }

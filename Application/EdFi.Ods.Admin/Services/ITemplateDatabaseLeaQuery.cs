@@ -10,8 +10,8 @@ namespace EdFi.Ods.Admin.Services
 {
     public interface ITemplateDatabaseLeaQuery
     {
-        int[] GetLocalEducationAgencyIds(SandboxType sandboxType);
+        int[] GetLocalEducationAgencyIds(string sandboxKey);
 
-        Task<int[]> GetLocalEducationAgencyIdsAsync(SandboxType sandboxType);
+        Task<int[]> GetLocalEducationAgencyIdsAsync(string sandboxKey);
     }
 }

@@ -46,20 +46,9 @@ namespace EdFi.Ods.Admin.Services
                                     .Include(x => x.Applications.Select(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
-                var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(sandboxType);
                 var defaultAppName = _configValueProvider.GetValue("DefaultApplicationName");
                 var applicationName = defaultAppName + " " + sandboxType;
                 var application = GetApplication(context, vendor, applicationName);
-
-                foreach (var leaId in leaIds)
-                {
-                    if (application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
-                    {
-                        continue;
-                    }
-
-                    application.CreateEducationOrganizationAssociation(leaId);
-                }
 
                 context.SaveChanges();
                 return application;

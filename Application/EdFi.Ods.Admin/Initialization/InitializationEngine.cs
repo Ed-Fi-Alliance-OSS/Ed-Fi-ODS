@@ -4,10 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Security;
-using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Sandbox.Repositories;
@@ -22,6 +20,8 @@ namespace EdFi.Ods.Admin.Initialization
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IClientCreator _clientCreator;
         private readonly IEducationOrganizationsInitializer _educationOrganizationsInitializer;
+        private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
+        private readonly IDefaultApplicationCreator _applicationCreator;
 
         private readonly InitializationModel _settings;
 
@@ -29,16 +29,20 @@ namespace EdFi.Ods.Admin.Initialization
             InitializationModel initializationModel,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
-            IEducationOrganizationsInitializer educationOrganizationsInitializer
+            IEducationOrganizationsInitializer educationOrganizationsInitializer,
+            ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
+            IDefaultApplicationCreator applicationCreator
             )
         {
             _settings = initializationModel;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
             _educationOrganizationsInitializer = educationOrganizationsInitializer;
+            _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
+            _applicationCreator = applicationCreator;
         }
 
-        public void CreateRoles()
+        public void CreateIdentityRoles()
         {
             try
             {
@@ -149,6 +153,23 @@ namespace EdFi.Ods.Admin.Initialization
             catch (Exception ex)
             {
                 _log.Error(ex);
+            }
+        }
+
+        public void UpdateClientWithLEAIdsFromPopulatedSandbox()
+        {
+            foreach (var user in _settings.Users)
+            {
+                var clientProfile = _clientAppRepo.GetUser(user.Email);
+
+                // look through all the sandboxes that are populated so we can get the lea ids from the created sandbox.
+                // note our current template process has the populated data with lea's installed in it.
+                foreach (var apiClient in clientProfile.ApiClients)
+                {
+                    var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(apiClient.Key).ToList();
+
+                    _applicationCreator.AddLeaIdsToApplication(leaIds, apiClient.Application.ApplicationId);
+                }
             }
         }
     }
