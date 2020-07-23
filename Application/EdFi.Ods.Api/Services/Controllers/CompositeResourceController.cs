@@ -95,25 +95,15 @@ namespace EdFi.Ods.Api.Services.Controllers
 
                 var defaultPageSizeLimit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
 
-                if (queryStringParameters.TryGetValue("limit", out object limitAsObject) && int.TryParse(limitAsObject.ToString(), out int limit))
+                //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
+                if (queryStringParameters.TryGetValue("limit", out object limitAsObject))
                 {
-                    if (limit <= 0)
+                    if (int.TryParse(limitAsObject.ToString(), out int limit)
+                        && (limit <= 0 || limit > defaultPageSizeLimit))
                     {
-                        queryStringParameters["limit"] = defaultPageSizeLimit.ToString();
-                    }
-                    //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-                    else if (limit > defaultPageSizeLimit)
-                    {
-                        return BadRequest($"Limit must be omitted or set to a value between 1 and {defaultPageSizeLimit}.");
+                        return BadRequest($"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
                     }
                 }
-                else
-                {
-                    queryStringParameters["limit"] = defaultPageSizeLimit.ToString();
-                }
-
-                
-
 
                 // Process specification for route and query string parameters
                 var specificationParameters = GetCompositeSpecificationParameters(

@@ -135,15 +135,11 @@ namespace EdFi.Ods.Api.Services.Controllers
         {
             var defaultPageSizeLimit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
 
-            if (urlQueryParametersRequest.Limit == null || urlQueryParametersRequest.Limit <= 0)
-            {
-                urlQueryParametersRequest.Limit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
-            }
-
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
-            if (urlQueryParametersRequest.Limit > defaultPageSizeLimit)
+            if (urlQueryParametersRequest.Limit != null &&
+                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > defaultPageSizeLimit))
             {
-                return BadRequest($"Limit must be omitted or set to a value between 1 and {defaultPageSizeLimit}.");
+                return BadRequest($"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
             }
 
             var internalRequestAsResource = new TResourceReadModel();
