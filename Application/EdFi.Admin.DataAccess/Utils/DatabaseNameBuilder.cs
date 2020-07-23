@@ -31,7 +31,9 @@ namespace EdFi.Admin.DataAccess.Utils
             get => EdFi + TemplateSampleDatabase;
         }
 
-        public static string SandboxNameForKey(string key) => EdFi + SandboxPrefix + key;
+        public static string SandboxNameForKey(string key) => EdFi + TemplateSandboxNameForKey(key);
+
+        public static string TemplateSandboxNameForKey(string key) => SandboxPrefix + key;
 
         public static string KeyFromSandboxName(string sandboxName) => sandboxName.Replace(SandboxPrefix, string.Empty);
     }
