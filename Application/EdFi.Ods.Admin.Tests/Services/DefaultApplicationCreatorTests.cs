@@ -102,16 +102,6 @@ namespace EdFi.Ods.Admin.Tests.Services
             }
 
             [Test]
-            public void Should_associate_all_available_LEAs_with_application()
-            {
-                var leas = _loadedApplication.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
-                    .ToArray();
-
-                leas.Length.ShouldBe(1);
-                leas.ShouldContain(_leaId);
-            }
-
-            [Test]
             public void Should_associate_application_with_vendor()
             {
                 _createdApplication.Vendor.VendorName.ShouldBe(_vendorName);
@@ -214,17 +204,6 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(leaId2);
                 DeleteApplication(_foundApplication.ApplicationName);
                 DeleteVendor(vendorName);
-            }
-
-            [Test]
-            public void Should_add_lea_association_that_was_missing()
-            {
-                var leaIds = _loadedApplication.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
-                    .ToArray();
-
-                leaIds.Length.ShouldBe(2);
-                leaIds.ShouldContain(leaId1);
-                leaIds.ShouldContain(leaId2);
             }
 
             [Test]
