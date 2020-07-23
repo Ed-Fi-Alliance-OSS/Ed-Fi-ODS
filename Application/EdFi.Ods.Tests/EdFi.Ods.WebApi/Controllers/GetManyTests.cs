@@ -52,7 +52,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     .Result;
 
                 var students = DefaultTestJsonSerializer.DeserializeObject<Student[]>(result);
-                students.Length.ShouldBe(500);
+                students.Length.ShouldBe(25);
             }
         }
 
