@@ -15,7 +15,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="FakeItEasy" Version="6.0.1" />
     <PackageReference Include="log4net" Version="2.0.8" />
