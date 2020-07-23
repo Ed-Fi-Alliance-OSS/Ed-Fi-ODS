@@ -23,7 +23,7 @@
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
     <PackageReference Include="CompareNETObjects" Version="4.65.0" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
-    <PackageReference Include="FakeItEasy" Version="6.0.1" />
+    <PackageReference Include="FakeItEasy" Version="6.2.0" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="HttpSimulator" Version="2.3.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
