@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Data.Common;
+using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using Npgsql;
 
@@ -11,8 +12,8 @@ namespace EdFi.Ods.Admin.Services
 {
     public class PostgresTemplateDatabaseLeaQuery : TemplateDatabaseLeaQueryBase
     {
-        public PostgresTemplateDatabaseLeaQuery(IConfigConnectionStringsProvider configConnectionStringsProvider)
-            : base(configConnectionStringsProvider) { }
+        public PostgresTemplateDatabaseLeaQuery(IConfigConnectionStringsProvider configConnectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
+            : base(configConnectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection(string templateDatabaseName)
             => new NpgsqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));

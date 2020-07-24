@@ -21,8 +21,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
         private readonly ILog _logger = LogManager.GetLogger(nameof(SqlServerSandboxProvisioner));
 
         public SqlServerSandboxProvisioner(IConfigValueProvider configValueProvider,
-            IConfigConnectionStringsProvider connectionStringsProvider)
-            : base(configValueProvider, connectionStringsProvider) { }
+            IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
+            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection() => new SqlConnection(ConnectionString);
 
@@ -32,7 +32,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 var results = await conn.QueryAsync<string>(
                         $"SELECT name FROM sys.databases WHERE name like @DbName;",
-                        new {DbName = DatabaseNameBuilder.SandboxNameForKey("%")}, commandTimeout: CommandTimeout)
+                        new {DbName = _databaseNameBuilder.SandboxNameForKey("%")}, commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
                 return results.ToArray();
@@ -54,7 +54,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 var results = await conn.QueryAsync<SandboxStatus>(
                         $"SELECT name as Name, state as Code, state_desc as Description FROM sys.databases WHERE name = @DbName;",
-                        new {DbName = DatabaseNameBuilder.SandboxNameForKey(clientKey)},
+                        new {DbName = _databaseNameBuilder.SandboxNameForKey(clientKey)},
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 

@@ -8,14 +8,15 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Admin.Services
 {
     public class SqlServerTemplateDatabaseLeaQuery : TemplateDatabaseLeaQueryBase
     {
-        public SqlServerTemplateDatabaseLeaQuery(IConfigConnectionStringsProvider configConnectionStringsProvider)
-            : base(configConnectionStringsProvider) { }
+        public SqlServerTemplateDatabaseLeaQuery(IConfigConnectionStringsProvider configConnectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
+            : base(configConnectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection(string templateDatabaseName)
             => new SqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));

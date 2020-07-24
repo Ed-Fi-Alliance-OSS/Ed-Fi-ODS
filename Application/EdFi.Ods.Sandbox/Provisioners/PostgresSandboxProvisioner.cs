@@ -19,8 +19,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
         private readonly ILog _logger = LogManager.GetLogger(nameof(PostgresSandboxProvisioner));
 
         public PostgresSandboxProvisioner(IConfigValueProvider configValueProvider,
-            IConfigConnectionStringsProvider connectionStringsProvider)
-            : base(configValueProvider, connectionStringsProvider) { }
+            IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
+            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
 
         public override async Task RenameSandboxAsync(string oldName, string newName)
         {
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             using (var conn = CreateConnection())
             {
                 var results = await conn.QueryAsync<SandboxStatus>(
-                        $"SELECT datname as Name, 0 as Code, 'ONLINE' Description FROM pg_database WHERE name = \"{DatabaseNameBuilder.SandboxNameForKey(clientKey)}\";",
+                        $"SELECT datname as Name, 0 as Code, 'ONLINE' Description FROM pg_database WHERE name = \"{_databaseNameBuilder.SandboxNameForKey(clientKey)}\";",
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             using (var conn = CreateConnection())
             {
                 var results = await conn.QueryAsync<string>(
-                        $"SELECT datname FROM pg_database WHERE name like \"{DatabaseNameBuilder.SandboxNameForKey("%")}\";",
+                        $"SELECT datname FROM pg_database WHERE name like \"{_databaseNameBuilder.SandboxNameForKey("%")}\";",
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 

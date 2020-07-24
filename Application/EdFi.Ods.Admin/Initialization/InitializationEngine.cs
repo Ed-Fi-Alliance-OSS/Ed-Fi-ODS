@@ -19,7 +19,6 @@ namespace EdFi.Ods.Admin.Initialization
         private readonly ILog _log = LogManager.GetLogger(typeof(InitializationEngine));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IClientCreator _clientCreator;
-        private readonly IEducationOrganizationsInitializer _educationOrganizationsInitializer;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IDefaultApplicationCreator _applicationCreator;
 
@@ -29,7 +28,6 @@ namespace EdFi.Ods.Admin.Initialization
             InitializationModel initializationModel,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
-            IEducationOrganizationsInitializer educationOrganizationsInitializer,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             IDefaultApplicationCreator applicationCreator
             )
@@ -37,7 +35,6 @@ namespace EdFi.Ods.Admin.Initialization
             _settings = initializationModel;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
-            _educationOrganizationsInitializer = educationOrganizationsInitializer;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }

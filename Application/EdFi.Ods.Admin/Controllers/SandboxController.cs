@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +18,14 @@ namespace EdFi.Ods.Admin.Controllers
     public class SandboxController : Controller
     {
         private readonly IClientAppRepo _clientAppRepo;
+        private readonly IDatabaseNameBuilder _databaseNameBuilder;
         private readonly ISandboxProvisioner _sandboxProvisioner;
 
-        public SandboxController(ISandboxProvisioner sandboxProvisioner, IClientAppRepo clientAppRepo)
+        public SandboxController(ISandboxProvisioner sandboxProvisioner, IClientAppRepo clientAppRepo, IDatabaseNameBuilder databaseNameBuilder)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _clientAppRepo = clientAppRepo;
+            _databaseNameBuilder = databaseNameBuilder;
         }
 
         [HttpGet]
@@ -46,7 +48,7 @@ namespace EdFi.Ods.Admin.Controllers
                         new SandboxViewModel
                         {
                             Client = client.Name, User = user.Email, ApplicationName = client.Application.ApplicationName,
-                            Sandbox = DatabaseNameBuilder.SandboxNameForKey(client.Key)
+                            Sandbox = _databaseNameBuilder.SandboxNameForKey(client.Key)
                         });
                 }
             }
@@ -81,7 +83,7 @@ namespace EdFi.Ods.Admin.Controllers
             {
                 var orphanKeys = GetSandboxIndexViewModel()
                                 .OrphanSandboxes
-                                .Select(DatabaseNameBuilder.KeyFromSandboxName)
+                                .Select(_databaseNameBuilder.KeyFromSandboxName)
                                 .ToArray();
 
                 _sandboxProvisioner.DeleteSandboxes(orphanKeys);
@@ -91,7 +93,7 @@ namespace EdFi.Ods.Admin.Controllers
                 message = e.Message;
                 success = false;
 
-                //GULP.  
+                //GULP.
                 //  Exception swallowed since we just reload the page either way.  We aren't showing error messages here right now.
                 //  If we start showing error messages, we should either handled exceptions or stop catching them.
             }

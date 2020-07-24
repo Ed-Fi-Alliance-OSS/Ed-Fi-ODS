@@ -15,12 +15,12 @@ namespace EdFi.Ods.Admin.Services
 {
     public abstract class TemplateDatabaseLeaQueryBase : ITemplateDatabaseLeaQuery
     {
-        protected readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
+        private readonly IDatabaseNameBuilder _databaseNameBuilder;
         protected readonly string _connectionStringTemplate;
 
-        protected TemplateDatabaseLeaQueryBase(IConfigConnectionStringsProvider configConnectionStringsProvider)
+        protected TemplateDatabaseLeaQueryBase(IConfigConnectionStringsProvider configConnectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
         {
-            _configConnectionStringsProvider = configConnectionStringsProvider;
+            _databaseNameBuilder = databaseNameBuilder;
             _connectionStringTemplate = configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
         }
 
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Admin.Services
 
         public async Task<int[]> GetLocalEducationAgencyIdsAsync(string sandboxKey)
         {
-            using (var conn = CreateConnection(DatabaseNameBuilder.TemplateSandboxNameForKey(sandboxKey)))
+            using (var conn = CreateConnection(_databaseNameBuilder.TemplateSandboxNameForKey(sandboxKey)))
             {
                 var results = await conn.QueryAsync<int>(@"select LocalEducationAgencyId from edfi.LocalEducationAgency")
                     .ConfigureAwait(false);

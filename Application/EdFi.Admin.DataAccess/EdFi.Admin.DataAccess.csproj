@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
+    <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />

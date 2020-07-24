@@ -10,21 +10,21 @@ namespace EdFi.Ods.Common.Database
 {
     public class DbConnectionStringBuilderAdapterFactory : IDbConnectionStringBuilderAdapterFactory
     {
-        private readonly DatabaseEngine _databaseEngine;
+        private readonly IDatabaseEngineProvider _databaseEngineProvider;
 
-        public DbConnectionStringBuilderAdapterFactory(DatabaseEngine databaseEngine)
+        public DbConnectionStringBuilderAdapterFactory(IDatabaseEngineProvider databaseEngineProvider)
         {
-            _databaseEngine = databaseEngine;
+            _databaseEngineProvider = databaseEngineProvider;
         }
 
         public IDbConnectionStringBuilderAdapter Get()
         {
-            if (_databaseEngine == DatabaseEngine.Postgres)
+            if (_databaseEngineProvider.DatabaseEngine == DatabaseEngine.Postgres)
             {
                 return Activator.CreateInstance<NpgsqlConnectionStringBuilderAdapter>();
             }
 
-            if (_databaseEngine == DatabaseEngine.SqlServer)
+            if (_databaseEngineProvider.DatabaseEngine == DatabaseEngine.SqlServer)
             {
                 return Activator.CreateInstance<SqlConnectionStringBuilderAdapter>();
             }

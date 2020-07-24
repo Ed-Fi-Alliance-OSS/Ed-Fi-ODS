@@ -18,12 +18,14 @@ namespace EdFi.Ods.Sandbox.Provisioners
     {
         private readonly IConfigValueProvider _configValueProvider;
         private readonly IConfigConnectionStringsProvider _connectionStringsProvider;
+        protected readonly IDatabaseNameBuilder _databaseNameBuilder;
 
         protected SandboxProvisionerBase(IConfigValueProvider configValueProvider,
-            IConfigConnectionStringsProvider connectionStringsProvider)
+            IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
         {
             _configValueProvider = configValueProvider;
             _connectionStringsProvider = connectionStringsProvider;
+            _databaseNameBuilder = databaseNameBuilder;
 
             CommandTimeout = int.TryParse(_configValueProvider.GetValue("SandboxAdminSQLCommandTimeout"), out int timeout)
                 ? timeout
@@ -55,22 +57,22 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 case SandboxType.Minimal:
                     await CopySandboxAsync(
-                            DatabaseNameBuilder.MinimalDatabase,
-                            DatabaseNameBuilder.SandboxNameForKey(sandboxKey))
+                            _databaseNameBuilder.MinimalDatabase,
+                            _databaseNameBuilder.SandboxNameForKey(sandboxKey))
                         .ConfigureAwait(false);
 
                     break;
                 case SandboxType.Sample:
                     await CopySandboxAsync(
-                            DatabaseNameBuilder.SampleDatabase,
-                            DatabaseNameBuilder.SandboxNameForKey(sandboxKey))
+                            _databaseNameBuilder.SampleDatabase,
+                            _databaseNameBuilder.SandboxNameForKey(sandboxKey))
                         .ConfigureAwait(false);
 
                     break;
                 case SandboxType.Empty:
                     await CopySandboxAsync(
-                            DatabaseNameBuilder.EmptyDatabase,
-                            DatabaseNameBuilder.SandboxNameForKey(sandboxKey))
+                            _databaseNameBuilder.EmptyDatabase,
+                            _databaseNameBuilder.SandboxNameForKey(sandboxKey))
                         .ConfigureAwait(false);
 
                     break;
@@ -85,7 +87,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 foreach (string key in deletedClientKeys)
                 {
-                    await conn.ExecuteAsync($"DROP DATABASE IF EXISTS {DatabaseNameBuilder.SandboxNameForKey(key)};", commandTimeout: CommandTimeout)
+                    await conn.ExecuteAsync($"DROP DATABASE IF EXISTS {_databaseNameBuilder.SandboxNameForKey(key)};", commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
                 }
             }
@@ -96,9 +98,9 @@ namespace EdFi.Ods.Sandbox.Provisioners
         public async Task ResetDemoSandboxAsync()
         {
             var tmpName = Guid.NewGuid().ToString("N");
-            await CopySandboxAsync(DatabaseNameBuilder.SampleDatabase, tmpName).ConfigureAwait(false);
-            await DeleteSandboxesAsync(DatabaseNameBuilder.DemoSandboxDatabase).ConfigureAwait(false);
-            await RenameSandboxAsync(tmpName, DatabaseNameBuilder.DemoSandboxDatabase).ConfigureAwait(false);
+            await CopySandboxAsync(_databaseNameBuilder.SampleDatabase, tmpName).ConfigureAwait(false);
+            await DeleteSandboxesAsync(_databaseNameBuilder.DemoSandboxDatabase).ConfigureAwait(false);
+            await RenameSandboxAsync(tmpName, _databaseNameBuilder.DemoSandboxDatabase).ConfigureAwait(false);
         }
 
         public abstract Task<string[]> GetSandboxDatabasesAsync();
