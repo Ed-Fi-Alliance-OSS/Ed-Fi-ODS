@@ -13,6 +13,7 @@ using EdFi.Ods.Pipelines.Factories;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Api.Services.Requests;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
 {
@@ -28,8 +29,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
         Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorDelete,
         Api.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample>
     {
-        public ArtMediumDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ArtMediumDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -45,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
             return "artMediumDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
 {
@@ -61,8 +62,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
         Api.Models.Requests.Sample.Buses.BusDelete,
         Api.Models.Requests.Sample.Buses.BusGetByExample>
     {
-        public BusesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -79,7 +80,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
             return "buses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
 {
@@ -95,8 +96,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
         Api.Models.Requests.Sample.BusRoutes.BusRouteDelete,
         Api.Models.Requests.Sample.BusRoutes.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -128,7 +129,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
             return "busRoutes";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescriptors
 {
@@ -144,8 +145,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
         Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorDelete,
         Api.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample>
     {
-        public FavoriteBookCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public FavoriteBookCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -161,7 +162,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
             return "favoriteBookCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
 {
@@ -177,8 +178,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
         Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorDelete,
         Api.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample>
     {
-        public MembershipTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MembershipTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -194,7 +195,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
             return "membershipTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
 {
@@ -210,8 +211,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
         Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationDelete,
         Api.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample>
     {
-        public StudentArtProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentArtProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -243,7 +244,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             return "studentArtProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociations
 {
@@ -259,8 +260,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
         Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationDelete,
         Api.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample>
     {
-        public StudentGraduationPlanAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentGraduationPlanAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -289,4 +290,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
             return "studentGraduationPlanAssociations";
         }
     }
-}
+    }

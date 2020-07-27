@@ -13,6 +13,7 @@ using EdFi.Ods.Pipelines.Factories;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Api.Services.Requests;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
 {
@@ -28,8 +29,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
         Api.Models.Requests.Homograph.Names.NameDelete,
         Api.Models.Requests.Homograph.Names.NameGetByExample>
     {
-        public NamesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public NamesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
             return "names";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
 {
@@ -63,8 +64,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
         Api.Models.Requests.Homograph.Parents.ParentDelete,
         Api.Models.Requests.Homograph.Parents.ParentGetByExample>
     {
-        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -82,7 +83,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
             return "parents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
 {
@@ -98,8 +99,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
         Api.Models.Requests.Homograph.Schools.SchoolDelete,
         Api.Models.Requests.Homograph.Schools.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -117,7 +118,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
             return "schools";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
 {
@@ -133,8 +134,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
         Api.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypeDelete,
         Api.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypeGetByExample>
     {
-        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -151,7 +152,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
             return "schoolYearTypes";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
 {
@@ -167,8 +168,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
         Api.Models.Requests.Homograph.Staffs.StaffDelete,
         Api.Models.Requests.Homograph.Staffs.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -186,7 +187,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
             return "staffs";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
 {
@@ -202,8 +203,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
         Api.Models.Requests.Homograph.Students.StudentDelete,
         Api.Models.Requests.Homograph.Students.StudentGetByExample>
     {
-        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -222,7 +223,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
             return "students";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
 {
@@ -238,8 +239,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
         Api.Models.Requests.Homograph.StudentSchoolAssociations.StudentSchoolAssociationDelete,
         Api.Models.Requests.Homograph.StudentSchoolAssociations.StudentSchoolAssociationGetByExample>
     {
-        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -258,4 +259,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
             return "studentSchoolAssociations";
         }
     }
-}
+    }

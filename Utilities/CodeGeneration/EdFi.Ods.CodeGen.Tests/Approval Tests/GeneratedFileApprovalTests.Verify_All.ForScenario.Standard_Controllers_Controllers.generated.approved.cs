@@ -13,6 +13,7 @@ using EdFi.Ods.Pipelines.Factories;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Api.Services.Requests;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
 {
@@ -28,8 +29,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
         Api.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorDelete,
         Api.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorGetByExample>
     {
-        public AbsenceEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AbsenceEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -45,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
             return "absenceEventCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdFi
 {
@@ -61,8 +62,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
         Api.Models.Requests.AcademicHonorCategoryDescriptors.EdFi.AcademicHonorCategoryDescriptorDelete,
         Api.Models.Requests.AcademicHonorCategoryDescriptors.EdFi.AcademicHonorCategoryDescriptorGetByExample>
     {
-        public AcademicHonorCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AcademicHonorCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -78,7 +79,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
             return "academicHonorCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
 {
@@ -94,8 +95,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
         Api.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorDelete,
         Api.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorGetByExample>
     {
-        public AcademicSubjectDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AcademicSubjectDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -111,7 +112,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
             return "academicSubjectDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
 {
@@ -127,8 +128,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
         Api.Models.Requests.AcademicWeeks.EdFi.AcademicWeekDelete,
         Api.Models.Requests.AcademicWeeks.EdFi.AcademicWeekGetByExample>
     {
-        public AcademicWeeksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AcademicWeeksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -149,7 +150,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
             return "academicWeeks";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
 {
@@ -165,8 +166,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
         Api.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorDelete,
         Api.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorGetByExample>
     {
-        public AccommodationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AccommodationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -182,7 +183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
             return "accommodationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
 {
@@ -198,8 +199,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
         Api.Models.Requests.Accounts.EdFi.AccountDelete,
         Api.Models.Requests.Accounts.EdFi.AccountGetByExample>
     {
-        public AccountsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AccountsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -219,7 +220,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
             return "accounts";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
 {
@@ -235,8 +236,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
         Api.Models.Requests.AccountabilityRatings.EdFi.AccountabilityRatingDelete,
         Api.Models.Requests.AccountabilityRatings.EdFi.AccountabilityRatingGetByExample>
     {
-        public AccountabilityRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AccountabilityRatingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -259,7 +260,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
             return "accountabilityRatings";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdFi
 {
@@ -275,8 +276,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
         Api.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorDelete,
         Api.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample>
     {
-        public AccountClassificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AccountClassificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -292,7 +293,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
             return "accountClassificationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
 {
@@ -308,8 +309,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
         Api.Models.Requests.AccountCodes.EdFi.AccountCodeDelete,
         Api.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample>
     {
-        public AccountCodesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AccountCodesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -330,7 +331,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
             return "accountCodes";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
 {
@@ -346,8 +347,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
         Api.Models.Requests.AchievementCategoryDescriptors.EdFi.AchievementCategoryDescriptorDelete,
         Api.Models.Requests.AchievementCategoryDescriptors.EdFi.AchievementCategoryDescriptorGetByExample>
     {
-        public AchievementCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AchievementCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -363,7 +364,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
             return "achievementCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
 {
@@ -379,8 +380,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
         Api.Models.Requests.Actuals.EdFi.ActualDelete,
         Api.Models.Requests.Actuals.EdFi.ActualGetByExample>
     {
-        public ActualsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ActualsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -401,7 +402,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
             return "actuals";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
 {
@@ -417,8 +418,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
         Api.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorDelete,
         Api.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorGetByExample>
     {
-        public AdditionalCreditTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AdditionalCreditTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -434,7 +435,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
             return "additionalCreditTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
 {
@@ -450,8 +451,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
         Api.Models.Requests.AddressTypeDescriptors.EdFi.AddressTypeDescriptorDelete,
         Api.Models.Requests.AddressTypeDescriptors.EdFi.AddressTypeDescriptorGetByExample>
     {
-        public AddressTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AddressTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -467,7 +468,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
             return "addressTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors.EdFi
 {
@@ -483,8 +484,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
         Api.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorDelete,
         Api.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorGetByExample>
     {
-        public AdministrationEnvironmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AdministrationEnvironmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -500,7 +501,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
             return "administrationEnvironmentDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescriptors.EdFi
 {
@@ -516,8 +517,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
         Api.Models.Requests.AdministrativeFundingControlDescriptors.EdFi.AdministrativeFundingControlDescriptorDelete,
         Api.Models.Requests.AdministrativeFundingControlDescriptors.EdFi.AdministrativeFundingControlDescriptorGetByExample>
     {
-        public AdministrativeFundingControlDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AdministrativeFundingControlDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -533,7 +534,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
             return "administrativeFundingControlDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
 {
@@ -549,8 +550,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
         Api.Models.Requests.Assessments.EdFi.AssessmentDelete,
         Api.Models.Requests.Assessments.EdFi.AssessmentGetByExample>
     {
-        public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -578,7 +579,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
             return "assessments";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
 {
@@ -594,8 +595,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
         Api.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorDelete,
         Api.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorGetByExample>
     {
-        public AssessmentCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -611,7 +612,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
             return "assessmentCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescriptors.EdFi
 {
@@ -627,8 +628,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
         Api.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorDelete,
         Api.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorGetByExample>
     {
-        public AssessmentIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -644,7 +645,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
             return "assessmentIdentificationSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
 {
@@ -660,8 +661,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
         Api.Models.Requests.AssessmentItems.EdFi.AssessmentItemDelete,
         Api.Models.Requests.AssessmentItems.EdFi.AssessmentItemGetByExample>
     {
-        public AssessmentItemsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentItemsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -687,7 +688,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
             return "assessmentItems";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.EdFi
 {
@@ -703,8 +704,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
         Api.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorDelete,
         Api.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorGetByExample>
     {
-        public AssessmentItemCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentItemCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -720,7 +721,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
             return "assessmentItemCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
 {
@@ -736,8 +737,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
         Api.Models.Requests.AssessmentItemResultDescriptors.EdFi.AssessmentItemResultDescriptorDelete,
         Api.Models.Requests.AssessmentItemResultDescriptors.EdFi.AssessmentItemResultDescriptorGetByExample>
     {
-        public AssessmentItemResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentItemResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -753,7 +754,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
             return "assessmentItemResultDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
 {
@@ -769,8 +770,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
         Api.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorDelete,
         Api.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorGetByExample>
     {
-        public AssessmentPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -786,7 +787,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
             return "assessmentPeriodDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors.EdFi
 {
@@ -802,8 +803,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
         Api.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorDelete,
         Api.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorGetByExample>
     {
-        public AssessmentReportingMethodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AssessmentReportingMethodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -819,7 +820,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
             return "assessmentReportingMethodDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
 {
@@ -835,8 +836,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
         Api.Models.Requests.AttemptStatusDescriptors.EdFi.AttemptStatusDescriptorDelete,
         Api.Models.Requests.AttemptStatusDescriptors.EdFi.AttemptStatusDescriptorGetByExample>
     {
-        public AttemptStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AttemptStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -852,7 +853,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
             return "attemptStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.EdFi
 {
@@ -868,8 +869,8 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
         Api.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorDelete,
         Api.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorGetByExample>
     {
-        public AttendanceEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public AttendanceEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -885,7 +886,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
             return "attendanceEventCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
 {
@@ -901,8 +902,8 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
         Api.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorDelete,
         Api.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorGetByExample>
     {
-        public BehaviorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BehaviorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -918,7 +919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
             return "behaviorDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
 {
@@ -934,8 +935,8 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
         Api.Models.Requests.BellSchedules.EdFi.BellScheduleDelete,
         Api.Models.Requests.BellSchedules.EdFi.BellScheduleGetByExample>
     {
-        public BellSchedulesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BellSchedulesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -957,7 +958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
             return "bellSchedules";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
 {
@@ -973,8 +974,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
         Api.Models.Requests.Budgets.EdFi.BudgetDelete,
         Api.Models.Requests.Budgets.EdFi.BudgetGetByExample>
     {
-        public BudgetsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BudgetsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -995,7 +996,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
             return "budgets";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
 {
@@ -1011,8 +1012,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
         Api.Models.Requests.Calendars.EdFi.CalendarDelete,
         Api.Models.Requests.Calendars.EdFi.CalendarGetByExample>
     {
-        public CalendarsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CalendarsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1032,7 +1033,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
             return "calendars";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
 {
@@ -1048,8 +1049,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
         Api.Models.Requests.CalendarDates.EdFi.CalendarDateDelete,
         Api.Models.Requests.CalendarDates.EdFi.CalendarDateGetByExample>
     {
-        public CalendarDatesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CalendarDatesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1069,7 +1070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
             return "calendarDates";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
 {
@@ -1085,8 +1086,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
         Api.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorDelete,
         Api.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorGetByExample>
     {
-        public CalendarEventDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CalendarEventDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1102,7 +1103,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
             return "calendarEventDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
 {
@@ -1118,8 +1119,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
         Api.Models.Requests.CalendarTypeDescriptors.EdFi.CalendarTypeDescriptorDelete,
         Api.Models.Requests.CalendarTypeDescriptors.EdFi.CalendarTypeDescriptorGetByExample>
     {
-        public CalendarTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CalendarTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1135,7 +1136,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
             return "calendarTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
 {
@@ -1151,8 +1152,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
         Api.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorDelete,
         Api.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorGetByExample>
     {
-        public CareerPathwayDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CareerPathwayDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1168,7 +1169,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
             return "careerPathwayDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors.EdFi
 {
@@ -1184,8 +1185,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
         Api.Models.Requests.CharterApprovalAgencyTypeDescriptors.EdFi.CharterApprovalAgencyTypeDescriptorDelete,
         Api.Models.Requests.CharterApprovalAgencyTypeDescriptors.EdFi.CharterApprovalAgencyTypeDescriptorGetByExample>
     {
-        public CharterApprovalAgencyTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CharterApprovalAgencyTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1201,7 +1202,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
             return "charterApprovalAgencyTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
 {
@@ -1217,8 +1218,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
         Api.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorDelete,
         Api.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorGetByExample>
     {
-        public CharterStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CharterStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1234,7 +1235,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
             return "charterStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
 {
@@ -1250,8 +1251,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
         Api.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorDelete,
         Api.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorGetByExample>
     {
-        public CitizenshipStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CitizenshipStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1267,7 +1268,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
             return "citizenshipStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
 {
@@ -1283,8 +1284,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
         Api.Models.Requests.ClassPeriods.EdFi.ClassPeriodDelete,
         Api.Models.Requests.ClassPeriods.EdFi.ClassPeriodGetByExample>
     {
-        public ClassPeriodsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ClassPeriodsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1303,7 +1304,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
             return "classPeriods";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
 {
@@ -1319,8 +1320,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
         Api.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorDelete,
         Api.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorGetByExample>
     {
-        public ClassroomPositionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ClassroomPositionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1336,7 +1337,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
             return "classroomPositionDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
 {
@@ -1352,8 +1353,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
         Api.Models.Requests.Cohorts.EdFi.CohortDelete,
         Api.Models.Requests.Cohorts.EdFi.CohortGetByExample>
     {
-        public CohortsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CohortsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1375,7 +1376,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
             return "cohorts";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
 {
@@ -1391,8 +1392,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
         Api.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorDelete,
         Api.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorGetByExample>
     {
-        public CohortScopeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CohortScopeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1408,7 +1409,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
             return "cohortScopeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
 {
@@ -1424,8 +1425,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
         Api.Models.Requests.CohortTypeDescriptors.EdFi.CohortTypeDescriptorDelete,
         Api.Models.Requests.CohortTypeDescriptors.EdFi.CohortTypeDescriptorGetByExample>
     {
-        public CohortTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CohortTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1441,7 +1442,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
             return "cohortTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
 {
@@ -1457,8 +1458,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
         Api.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorDelete,
         Api.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorGetByExample>
     {
-        public CohortYearTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CohortYearTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1474,7 +1475,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
             return "cohortYearTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
 {
@@ -1490,8 +1491,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
         Api.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationDelete,
         Api.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationGetByExample>
     {
-        public CommunityOrganizationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CommunityOrganizationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1507,7 +1508,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
             return "communityOrganizations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
 {
@@ -1523,8 +1524,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
         Api.Models.Requests.CommunityProviders.EdFi.CommunityProviderDelete,
         Api.Models.Requests.CommunityProviders.EdFi.CommunityProviderGetByExample>
     {
-        public CommunityProvidersController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CommunityProvidersController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1546,7 +1547,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
             return "communityProviders";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
 {
@@ -1562,8 +1563,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
         Api.Models.Requests.CommunityProviderLicenses.EdFi.CommunityProviderLicenseDelete,
         Api.Models.Requests.CommunityProviderLicenses.EdFi.CommunityProviderLicenseGetByExample>
     {
-        public CommunityProviderLicensesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CommunityProviderLicensesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1590,7 +1591,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
             return "communityProviderLicenses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
 {
@@ -1606,8 +1607,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
         Api.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorDelete,
         Api.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorGetByExample>
     {
-        public CompetencyLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CompetencyLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1623,7 +1624,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
             return "competencyLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
 {
@@ -1639,8 +1640,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
         Api.Models.Requests.CompetencyObjectives.EdFi.CompetencyObjectiveDelete,
         Api.Models.Requests.CompetencyObjectives.EdFi.CompetencyObjectiveGetByExample>
     {
-        public CompetencyObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CompetencyObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1662,7 +1663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
             return "competencyObjectives";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
 {
@@ -1678,8 +1679,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
         Api.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorDelete,
         Api.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample>
     {
-        public ContactTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ContactTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1695,7 +1696,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
             return "contactTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 {
@@ -1711,8 +1712,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
         Api.Models.Requests.ContentClassDescriptors.EdFi.ContentClassDescriptorDelete,
         Api.Models.Requests.ContentClassDescriptors.EdFi.ContentClassDescriptorGetByExample>
     {
-        public ContentClassDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ContentClassDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1728,7 +1729,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
             return "contentClassDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescriptors.EdFi
 {
@@ -1744,8 +1745,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
         Api.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorDelete,
         Api.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorGetByExample>
     {
-        public ContinuationOfServicesReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ContinuationOfServicesReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1761,7 +1762,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
             return "continuationOfServicesReasonDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
 {
@@ -1777,8 +1778,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
         Api.Models.Requests.ContractedStaffs.EdFi.ContractedStaffDelete,
         Api.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample>
     {
-        public ContractedStaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ContractedStaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1800,7 +1801,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
             return "contractedStaffs";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
 {
@@ -1816,8 +1817,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
         Api.Models.Requests.CostRateDescriptors.EdFi.CostRateDescriptorDelete,
         Api.Models.Requests.CostRateDescriptors.EdFi.CostRateDescriptorGetByExample>
     {
-        public CostRateDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CostRateDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1833,7 +1834,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
             return "costRateDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
 {
@@ -1849,8 +1850,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
         Api.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorDelete,
         Api.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorGetByExample>
     {
-        public CountryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CountryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1866,7 +1867,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
             return "countryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
 {
@@ -1882,8 +1883,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
         Api.Models.Requests.Courses.EdFi.CourseDelete,
         Api.Models.Requests.Courses.EdFi.CourseGetByExample>
     {
-        public CoursesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CoursesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1918,7 +1919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
             return "courses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
 {
@@ -1934,8 +1935,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
         Api.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorDelete,
         Api.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorGetByExample>
     {
-        public CourseAttemptResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseAttemptResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1951,7 +1952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
             return "courseAttemptResultDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
 {
@@ -1967,8 +1968,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
         Api.Models.Requests.CourseDefinedByDescriptors.EdFi.CourseDefinedByDescriptorDelete,
         Api.Models.Requests.CourseDefinedByDescriptors.EdFi.CourseDefinedByDescriptorGetByExample>
     {
-        public CourseDefinedByDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseDefinedByDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -1984,7 +1985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
             return "courseDefinedByDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.EdFi
 {
@@ -2000,8 +2001,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
         Api.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorDelete,
         Api.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorGetByExample>
     {
-        public CourseGPAApplicabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseGPAApplicabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2017,7 +2018,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
             return "courseGPAApplicabilityDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptors.EdFi
 {
@@ -2033,8 +2034,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
         Api.Models.Requests.CourseIdentificationSystemDescriptors.EdFi.CourseIdentificationSystemDescriptorDelete,
         Api.Models.Requests.CourseIdentificationSystemDescriptors.EdFi.CourseIdentificationSystemDescriptorGetByExample>
     {
-        public CourseIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2050,7 +2051,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
             return "courseIdentificationSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors.EdFi
 {
@@ -2066,8 +2067,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
         Api.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorDelete,
         Api.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorGetByExample>
     {
-        public CourseLevelCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseLevelCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2083,7 +2084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
             return "courseLevelCharacteristicDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
 {
@@ -2099,8 +2100,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
         Api.Models.Requests.CourseOfferings.EdFi.CourseOfferingDelete,
         Api.Models.Requests.CourseOfferings.EdFi.CourseOfferingGetByExample>
     {
-        public CourseOfferingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseOfferingsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2124,7 +2125,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
             return "courseOfferings";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
 {
@@ -2140,8 +2141,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
         Api.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorDelete,
         Api.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorGetByExample>
     {
-        public CourseRepeatCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseRepeatCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2157,7 +2158,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
             return "courseRepeatCodeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
 {
@@ -2173,8 +2174,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
         Api.Models.Requests.CourseTranscripts.EdFi.CourseTranscriptDelete,
         Api.Models.Requests.CourseTranscripts.EdFi.CourseTranscriptGetByExample>
     {
-        public CourseTranscriptsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CourseTranscriptsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2214,7 +2215,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             return "courseTranscripts";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
 {
@@ -2230,8 +2231,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
         Api.Models.Requests.Credentials.EdFi.CredentialDelete,
         Api.Models.Requests.Credentials.EdFi.CredentialGetByExample>
     {
-        public CredentialsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CredentialsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2257,7 +2258,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
             return "credentials";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
 {
@@ -2273,8 +2274,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
         Api.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorDelete,
         Api.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorGetByExample>
     {
-        public CredentialFieldDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CredentialFieldDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2290,7 +2291,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
             return "credentialFieldDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
 {
@@ -2306,8 +2307,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
         Api.Models.Requests.CredentialTypeDescriptors.EdFi.CredentialTypeDescriptorDelete,
         Api.Models.Requests.CredentialTypeDescriptors.EdFi.CredentialTypeDescriptorGetByExample>
     {
-        public CredentialTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CredentialTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2323,7 +2324,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
             return "credentialTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
 {
@@ -2339,8 +2340,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
         Api.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorDelete,
         Api.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorGetByExample>
     {
-        public CreditCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CreditCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2356,7 +2357,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
             return "creditCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
 {
@@ -2372,8 +2373,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
         Api.Models.Requests.CreditTypeDescriptors.EdFi.CreditTypeDescriptorDelete,
         Api.Models.Requests.CreditTypeDescriptors.EdFi.CreditTypeDescriptorGetByExample>
     {
-        public CreditTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CreditTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2389,7 +2390,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
             return "creditTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
 {
@@ -2405,8 +2406,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
         Api.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorDelete,
         Api.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorGetByExample>
     {
-        public CTEProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CTEProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2422,7 +2423,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
             return "cteProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
 {
@@ -2438,8 +2439,8 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
         Api.Models.Requests.CurriculumUsedDescriptors.EdFi.CurriculumUsedDescriptorDelete,
         Api.Models.Requests.CurriculumUsedDescriptors.EdFi.CurriculumUsedDescriptorGetByExample>
     {
-        public CurriculumUsedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public CurriculumUsedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2455,7 +2456,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
             return "curriculumUsedDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
 {
@@ -2471,8 +2472,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
         Api.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorDelete,
         Api.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorGetByExample>
     {
-        public DeliveryMethodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DeliveryMethodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2488,7 +2489,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
             return "deliveryMethodDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
 {
@@ -2504,8 +2505,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
         Api.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorDelete,
         Api.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorGetByExample>
     {
-        public DiagnosisDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DiagnosisDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2521,7 +2522,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
             return "diagnosisDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
 {
@@ -2537,8 +2538,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
         Api.Models.Requests.DiplomaLevelDescriptors.EdFi.DiplomaLevelDescriptorDelete,
         Api.Models.Requests.DiplomaLevelDescriptors.EdFi.DiplomaLevelDescriptorGetByExample>
     {
-        public DiplomaLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DiplomaLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2554,7 +2555,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
             return "diplomaLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
 {
@@ -2570,8 +2571,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
         Api.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorDelete,
         Api.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorGetByExample>
     {
-        public DiplomaTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DiplomaTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2587,7 +2588,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
             return "diplomaTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
 {
@@ -2603,8 +2604,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
         Api.Models.Requests.DisabilityDescriptors.EdFi.DisabilityDescriptorDelete,
         Api.Models.Requests.DisabilityDescriptors.EdFi.DisabilityDescriptorGetByExample>
     {
-        public DisabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2620,7 +2621,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
             return "disabilityDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdFi
 {
@@ -2636,8 +2637,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
         Api.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorDelete,
         Api.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorGetByExample>
     {
-        public DisabilityDesignationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisabilityDesignationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2653,7 +2654,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
             return "disabilityDesignationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDescriptors.EdFi
 {
@@ -2669,8 +2670,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
         Api.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorDelete,
         Api.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorGetByExample>
     {
-        public DisabilityDeterminationSourceTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisabilityDeterminationSourceTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2686,7 +2687,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
             return "disabilityDeterminationSourceTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
 {
@@ -2702,8 +2703,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
         Api.Models.Requests.DisciplineActions.EdFi.DisciplineActionDelete,
         Api.Models.Requests.DisciplineActions.EdFi.DisciplineActionGetByExample>
     {
-        public DisciplineActionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisciplineActionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2730,7 +2731,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
             return "disciplineActions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReasonDescriptors.EdFi
 {
@@ -2746,8 +2747,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
         Api.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorDelete,
         Api.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorGetByExample>
     {
-        public DisciplineActionLengthDifferenceReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisciplineActionLengthDifferenceReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2763,7 +2764,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
             return "disciplineActionLengthDifferenceReasonDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
 {
@@ -2779,8 +2780,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
         Api.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorDelete,
         Api.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorGetByExample>
     {
-        public DisciplineDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisciplineDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2796,7 +2797,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
             return "disciplineDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
 {
@@ -2812,8 +2813,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
         Api.Models.Requests.DisciplineIncidents.EdFi.DisciplineIncidentDelete,
         Api.Models.Requests.DisciplineIncidents.EdFi.DisciplineIncidentGetByExample>
     {
-        public DisciplineIncidentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisciplineIncidentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2841,7 +2842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
             return "disciplineIncidents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeDescriptors.EdFi
 {
@@ -2857,8 +2858,8 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
         Api.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorDelete,
         Api.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorGetByExample>
     {
-        public DisciplineIncidentParticipationCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public DisciplineIncidentParticipationCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2874,7 +2875,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
             return "disciplineIncidentParticipationCodeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.EdFi
 {
@@ -2890,8 +2891,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
         Api.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorDelete,
         Api.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorGetByExample>
     {
-        public EducationalEnvironmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationalEnvironmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2907,7 +2908,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
             return "educationalEnvironmentDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
 {
@@ -2923,8 +2924,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
         Api.Models.Requests.EducationContents.EdFi.EducationContentDelete,
         Api.Models.Requests.EducationContents.EdFi.EducationContentGetByExample>
     {
-        public EducationContentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationContentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2957,7 +2958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
             return "educationContents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescriptors.EdFi
 {
@@ -2973,8 +2974,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
         Api.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi.EducationOrganizationCategoryDescriptorDelete,
         Api.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi.EducationOrganizationCategoryDescriptorGetByExample>
     {
-        public EducationOrganizationCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -2990,7 +2991,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
             return "educationOrganizationCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationSystemDescriptors.EdFi
 {
@@ -3006,8 +3007,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
         Api.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorDelete,
         Api.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorGetByExample>
     {
-        public EducationOrganizationIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3023,7 +3024,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
             return "educationOrganizationIdentificationSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPrescriptionAssociations.EdFi
 {
@@ -3039,8 +3040,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
         Api.Models.Requests.EducationOrganizationInterventionPrescriptionAssociations.EdFi.EducationOrganizationInterventionPrescriptionAssociationDelete,
         Api.Models.Requests.EducationOrganizationInterventionPrescriptionAssociations.EdFi.EducationOrganizationInterventionPrescriptionAssociationGetByExample>
     {
-        public EducationOrganizationInterventionPrescriptionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationInterventionPrescriptionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3061,7 +3062,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
             return "educationOrganizationInterventionPrescriptionAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
 {
@@ -3077,8 +3078,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
         Api.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkDelete,
         Api.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkGetByExample>
     {
-        public EducationOrganizationNetworksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationNetworksController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3095,7 +3096,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
             return "educationOrganizationNetworks";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociations.EdFi
 {
@@ -3111,8 +3112,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
         Api.Models.Requests.EducationOrganizationNetworkAssociations.EdFi.EducationOrganizationNetworkAssociationDelete,
         Api.Models.Requests.EducationOrganizationNetworkAssociations.EdFi.EducationOrganizationNetworkAssociationGetByExample>
     {
-        public EducationOrganizationNetworkAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationNetworkAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3132,7 +3133,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
             return "educationOrganizationNetworkAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociations.EdFi
 {
@@ -3148,8 +3149,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
         Api.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationDelete,
         Api.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationGetByExample>
     {
-        public EducationOrganizationPeerAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationOrganizationPeerAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3167,7 +3168,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
             return "educationOrganizationPeerAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
 {
@@ -3183,8 +3184,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
         Api.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorDelete,
         Api.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorGetByExample>
     {
-        public EducationPlanDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationPlanDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3200,7 +3201,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
             return "educationPlanDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
 {
@@ -3216,8 +3217,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
         Api.Models.Requests.EducationServiceCenters.EdFi.EducationServiceCenterDelete,
         Api.Models.Requests.EducationServiceCenters.EdFi.EducationServiceCenterGetByExample>
     {
-        public EducationServiceCentersController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EducationServiceCentersController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3234,7 +3235,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
             return "educationServiceCenters";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
 {
@@ -3250,8 +3251,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
         Api.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorDelete,
         Api.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorGetByExample>
     {
-        public ElectronicMailTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ElectronicMailTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3267,7 +3268,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
             return "electronicMailTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
 {
@@ -3283,8 +3284,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
         Api.Models.Requests.EmploymentStatusDescriptors.EdFi.EmploymentStatusDescriptorDelete,
         Api.Models.Requests.EmploymentStatusDescriptors.EdFi.EmploymentStatusDescriptorGetByExample>
     {
-        public EmploymentStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EmploymentStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3300,7 +3301,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
             return "employmentStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdFi
 {
@@ -3316,8 +3317,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
         Api.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorDelete,
         Api.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorGetByExample>
     {
-        public EntryGradeLevelReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EntryGradeLevelReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3333,7 +3334,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
             return "entryGradeLevelReasonDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
 {
@@ -3349,8 +3350,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
         Api.Models.Requests.EntryTypeDescriptors.EdFi.EntryTypeDescriptorDelete,
         Api.Models.Requests.EntryTypeDescriptors.EdFi.EntryTypeDescriptorGetByExample>
     {
-        public EntryTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EntryTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3366,7 +3367,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
             return "entryTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
 {
@@ -3382,8 +3383,8 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
         Api.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorDelete,
         Api.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorGetByExample>
     {
-        public EventCircumstanceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public EventCircumstanceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3399,7 +3400,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
             return "eventCircumstanceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
 {
@@ -3415,8 +3416,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
         Api.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorDelete,
         Api.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorGetByExample>
     {
-        public ExitWithdrawTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ExitWithdrawTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3432,7 +3433,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
             return "exitWithdrawTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
 {
@@ -3448,8 +3449,8 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
         Api.Models.Requests.FeederSchoolAssociations.EdFi.FeederSchoolAssociationDelete,
         Api.Models.Requests.FeederSchoolAssociations.EdFi.FeederSchoolAssociationGetByExample>
     {
-        public FeederSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public FeederSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3470,7 +3471,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
             return "feederSchoolAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
 {
@@ -3486,8 +3487,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
         Api.Models.Requests.Grades.EdFi.GradeDelete,
         Api.Models.Requests.Grades.EdFi.GradeGetByExample>
     {
-        public GradesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3518,7 +3519,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             return "grades";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
 {
@@ -3534,8 +3535,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
         Api.Models.Requests.GradebookEntries.EdFi.GradebookEntryDelete,
         Api.Models.Requests.GradebookEntries.EdFi.GradebookEntryGetByExample>
     {
-        public GradebookEntriesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradebookEntriesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3563,7 +3564,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             return "gradebookEntries";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
 {
@@ -3579,8 +3580,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
         Api.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorDelete,
         Api.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorGetByExample>
     {
-        public GradebookEntryTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradebookEntryTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3596,7 +3597,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
             return "gradebookEntryTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
 {
@@ -3612,8 +3613,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
         Api.Models.Requests.GradeLevelDescriptors.EdFi.GradeLevelDescriptorDelete,
         Api.Models.Requests.GradeLevelDescriptors.EdFi.GradeLevelDescriptorGetByExample>
     {
-        public GradeLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradeLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3629,7 +3630,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
             return "gradeLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdFi
 {
@@ -3645,8 +3646,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
         Api.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorDelete,
         Api.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorGetByExample>
     {
-        public GradePointAverageTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradePointAverageTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3662,7 +3663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
             return "gradePointAverageTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
 {
@@ -3678,8 +3679,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
         Api.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorDelete,
         Api.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorGetByExample>
     {
-        public GradeTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradeTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3695,7 +3696,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
             return "gradeTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
 {
@@ -3711,8 +3712,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
         Api.Models.Requests.GradingPeriods.EdFi.GradingPeriodDelete,
         Api.Models.Requests.GradingPeriods.EdFi.GradingPeriodGetByExample>
     {
-        public GradingPeriodsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradingPeriodsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3735,7 +3736,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
             return "gradingPeriods";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
 {
@@ -3751,8 +3752,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
         Api.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorDelete,
         Api.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorGetByExample>
     {
-        public GradingPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GradingPeriodDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3768,7 +3769,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
             return "gradingPeriodDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
 {
@@ -3784,8 +3785,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
         Api.Models.Requests.GraduationPlans.EdFi.GraduationPlanDelete,
         Api.Models.Requests.GraduationPlans.EdFi.GraduationPlanGetByExample>
     {
-        public GraduationPlansController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GraduationPlansController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3808,7 +3809,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
             return "graduationPlans";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
 {
@@ -3824,8 +3825,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
         Api.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorDelete,
         Api.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorGetByExample>
     {
-        public GraduationPlanTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GraduationPlanTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3841,7 +3842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
             return "graduationPlanTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDescriptors.EdFi
 {
@@ -3857,8 +3858,8 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
         Api.Models.Requests.GunFreeSchoolsActReportingStatusDescriptors.EdFi.GunFreeSchoolsActReportingStatusDescriptorDelete,
         Api.Models.Requests.GunFreeSchoolsActReportingStatusDescriptors.EdFi.GunFreeSchoolsActReportingStatusDescriptorGetByExample>
     {
-        public GunFreeSchoolsActReportingStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public GunFreeSchoolsActReportingStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3874,7 +3875,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
             return "gunFreeSchoolsActReportingStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDescriptors.EdFi
 {
@@ -3890,8 +3891,8 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
         Api.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorDelete,
         Api.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorGetByExample>
     {
-        public HomelessPrimaryNighttimeResidenceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public HomelessPrimaryNighttimeResidenceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3907,7 +3908,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
             return "homelessPrimaryNighttimeResidenceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.EdFi
 {
@@ -3923,8 +3924,8 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
         Api.Models.Requests.HomelessProgramServiceDescriptors.EdFi.HomelessProgramServiceDescriptorDelete,
         Api.Models.Requests.HomelessProgramServiceDescriptors.EdFi.HomelessProgramServiceDescriptorGetByExample>
     {
-        public HomelessProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public HomelessProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3940,7 +3941,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
             return "homelessProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors.EdFi
 {
@@ -3956,8 +3957,8 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
         Api.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorDelete,
         Api.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorGetByExample>
     {
-        public IdentificationDocumentUseDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public IdentificationDocumentUseDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -3973,7 +3974,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
             return "identificationDocumentUseDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
 {
@@ -3989,8 +3990,8 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
         Api.Models.Requests.IncidentLocationDescriptors.EdFi.IncidentLocationDescriptorDelete,
         Api.Models.Requests.IncidentLocationDescriptors.EdFi.IncidentLocationDescriptorGetByExample>
     {
-        public IncidentLocationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public IncidentLocationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4006,7 +4007,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
             return "incidentLocationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
 {
@@ -4022,8 +4023,8 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
         Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorDelete,
         Api.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample>
     {
-        public IndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public IndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4039,7 +4040,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
             return "indicatorDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
 {
@@ -4055,8 +4056,8 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
         Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorDelete,
         Api.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample>
     {
-        public IndicatorGroupDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public IndicatorGroupDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4072,7 +4073,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
             return "indicatorGroupDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
 {
@@ -4088,8 +4089,8 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
         Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorDelete,
         Api.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample>
     {
-        public IndicatorLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public IndicatorLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4105,7 +4106,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
             return "indicatorLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescriptors.EdFi
 {
@@ -4121,8 +4122,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
         Api.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi.InstitutionTelephoneNumberTypeDescriptorDelete,
         Api.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi.InstitutionTelephoneNumberTypeDescriptorGetByExample>
     {
-        public InstitutionTelephoneNumberTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InstitutionTelephoneNumberTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4138,7 +4139,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
             return "institutionTelephoneNumberTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
 {
@@ -4154,8 +4155,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
         Api.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorDelete,
         Api.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorGetByExample>
     {
-        public InteractivityStyleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InteractivityStyleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4171,7 +4172,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
             return "interactivityStyleDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
 {
@@ -4187,8 +4188,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
         Api.Models.Requests.InternetAccessDescriptors.EdFi.InternetAccessDescriptorDelete,
         Api.Models.Requests.InternetAccessDescriptors.EdFi.InternetAccessDescriptorGetByExample>
     {
-        public InternetAccessDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InternetAccessDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4204,7 +4205,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
             return "internetAccessDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
 {
@@ -4220,8 +4221,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
         Api.Models.Requests.Interventions.EdFi.InterventionDelete,
         Api.Models.Requests.Interventions.EdFi.InterventionGetByExample>
     {
-        public InterventionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InterventionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4245,7 +4246,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
             return "interventions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
 {
@@ -4261,8 +4262,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
         Api.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorDelete,
         Api.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorGetByExample>
     {
-        public InterventionClassDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InterventionClassDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4278,7 +4279,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
             return "interventionClassDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescriptors.EdFi
 {
@@ -4294,8 +4295,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
         Api.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorDelete,
         Api.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorGetByExample>
     {
-        public InterventionEffectivenessRatingDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InterventionEffectivenessRatingDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4311,7 +4312,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
             return "interventionEffectivenessRatingDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
 {
@@ -4327,8 +4328,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
         Api.Models.Requests.InterventionPrescriptions.EdFi.InterventionPrescriptionDelete,
         Api.Models.Requests.InterventionPrescriptions.EdFi.InterventionPrescriptionGetByExample>
     {
-        public InterventionPrescriptionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InterventionPrescriptionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4350,7 +4351,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
             return "interventionPrescriptions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
 {
@@ -4366,8 +4367,8 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
         Api.Models.Requests.InterventionStudies.EdFi.InterventionStudyDelete,
         Api.Models.Requests.InterventionStudies.EdFi.InterventionStudyGetByExample>
     {
-        public InterventionStudiesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public InterventionStudiesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4390,7 +4391,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
             return "interventionStudies";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
 {
@@ -4406,8 +4407,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
         Api.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorDelete,
         Api.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorGetByExample>
     {
-        public LanguageDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LanguageDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4423,7 +4424,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
             return "languageDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDescriptors.EdFi
 {
@@ -4439,8 +4440,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
         Api.Models.Requests.LanguageInstructionProgramServiceDescriptors.EdFi.LanguageInstructionProgramServiceDescriptorDelete,
         Api.Models.Requests.LanguageInstructionProgramServiceDescriptors.EdFi.LanguageInstructionProgramServiceDescriptorGetByExample>
     {
-        public LanguageInstructionProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LanguageInstructionProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4456,7 +4457,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
             return "languageInstructionProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
 {
@@ -4472,8 +4473,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
         Api.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorDelete,
         Api.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorGetByExample>
     {
-        public LanguageUseDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LanguageUseDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4489,7 +4490,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
             return "languageUseDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
 {
@@ -4505,8 +4506,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
         Api.Models.Requests.LearningObjectives.EdFi.LearningObjectiveDelete,
         Api.Models.Requests.LearningObjectives.EdFi.LearningObjectiveGetByExample>
     {
-        public LearningObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4530,7 +4531,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
             return "learningObjectives";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
 {
@@ -4546,8 +4547,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
         Api.Models.Requests.LearningStandards.EdFi.LearningStandardDelete,
         Api.Models.Requests.LearningStandards.EdFi.LearningStandardGetByExample>
     {
-        public LearningStandardsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningStandardsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4573,7 +4574,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
             return "learningStandards";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.EdFi
 {
@@ -4589,8 +4590,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
         Api.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorDelete,
         Api.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorGetByExample>
     {
-        public LearningStandardCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningStandardCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4606,7 +4607,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
             return "learningStandardCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociations.EdFi
 {
@@ -4622,8 +4623,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
         Api.Models.Requests.LearningStandardEquivalenceAssociations.EdFi.LearningStandardEquivalenceAssociationDelete,
         Api.Models.Requests.LearningStandardEquivalenceAssociations.EdFi.LearningStandardEquivalenceAssociationGetByExample>
     {
-        public LearningStandardEquivalenceAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningStandardEquivalenceAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4645,7 +4646,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
             return "learningStandardEquivalenceAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthDescriptors.EdFi
 {
@@ -4661,8 +4662,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
         Api.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorDelete,
         Api.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorGetByExample>
     {
-        public LearningStandardEquivalenceStrengthDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningStandardEquivalenceStrengthDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4678,7 +4679,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
             return "learningStandardEquivalenceStrengthDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdFi
 {
@@ -4694,8 +4695,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
         Api.Models.Requests.LearningStandardScopeDescriptors.EdFi.LearningStandardScopeDescriptorDelete,
         Api.Models.Requests.LearningStandardScopeDescriptors.EdFi.LearningStandardScopeDescriptorGetByExample>
     {
-        public LearningStandardScopeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LearningStandardScopeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4711,7 +4712,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
             return "learningStandardScopeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
 {
@@ -4727,8 +4728,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
         Api.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorDelete,
         Api.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorGetByExample>
     {
-        public LevelOfEducationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LevelOfEducationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4744,7 +4745,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
             return "levelOfEducationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
 {
@@ -4760,8 +4761,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
         Api.Models.Requests.LicenseStatusDescriptors.EdFi.LicenseStatusDescriptorDelete,
         Api.Models.Requests.LicenseStatusDescriptors.EdFi.LicenseStatusDescriptorGetByExample>
     {
-        public LicenseStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LicenseStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4777,7 +4778,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
             return "licenseStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
 {
@@ -4793,8 +4794,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
         Api.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorDelete,
         Api.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorGetByExample>
     {
-        public LicenseTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LicenseTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4810,7 +4811,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
             return "licenseTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors.EdFi
 {
@@ -4826,8 +4827,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
         Api.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorDelete,
         Api.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorGetByExample>
     {
-        public LimitedEnglishProficiencyDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LimitedEnglishProficiencyDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4843,7 +4844,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
             return "limitedEnglishProficiencyDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
 {
@@ -4859,8 +4860,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
         Api.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorDelete,
         Api.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorGetByExample>
     {
-        public LocaleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LocaleDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4876,7 +4877,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
             return "localeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
 {
@@ -4892,8 +4893,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
         Api.Models.Requests.LocalEducationAgencies.EdFi.LocalEducationAgencyDelete,
         Api.Models.Requests.LocalEducationAgencies.EdFi.LocalEducationAgencyGetByExample>
     {
-        public LocalEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LocalEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4914,7 +4915,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             return "localEducationAgencies";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescriptors.EdFi
 {
@@ -4930,8 +4931,8 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
         Api.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorDelete,
         Api.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorGetByExample>
     {
-        public LocalEducationAgencyCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LocalEducationAgencyCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4947,7 +4948,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
             return "localEducationAgencyCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
 {
@@ -4963,8 +4964,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
         Api.Models.Requests.Locations.EdFi.LocationDelete,
         Api.Models.Requests.Locations.EdFi.LocationGetByExample>
     {
-        public LocationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public LocationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -4984,7 +4985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
             return "locations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi
 {
@@ -5000,8 +5001,8 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
         Api.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorDelete,
         Api.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorGetByExample>
     {
-        public MagnetSpecialProgramEmphasisSchoolDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MagnetSpecialProgramEmphasisSchoolDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5017,7 +5018,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
             return "magnetSpecialProgramEmphasisSchoolDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
 {
@@ -5033,8 +5034,8 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
         Api.Models.Requests.MediumOfInstructionDescriptors.EdFi.MediumOfInstructionDescriptorDelete,
         Api.Models.Requests.MediumOfInstructionDescriptors.EdFi.MediumOfInstructionDescriptorGetByExample>
     {
-        public MediumOfInstructionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MediumOfInstructionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5050,7 +5051,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
             return "mediumOfInstructionDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
 {
@@ -5066,8 +5067,8 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
         Api.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorDelete,
         Api.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorGetByExample>
     {
-        public MethodCreditEarnedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MethodCreditEarnedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5083,7 +5084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
             return "methodCreditEarnedDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescriptors.EdFi
 {
@@ -5099,8 +5100,8 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
         Api.Models.Requests.MigrantEducationProgramServiceDescriptors.EdFi.MigrantEducationProgramServiceDescriptorDelete,
         Api.Models.Requests.MigrantEducationProgramServiceDescriptors.EdFi.MigrantEducationProgramServiceDescriptorGetByExample>
     {
-        public MigrantEducationProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MigrantEducationProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5116,7 +5117,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
             return "migrantEducationProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
 {
@@ -5132,8 +5133,8 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
         Api.Models.Requests.MonitoredDescriptors.EdFi.MonitoredDescriptorDelete,
         Api.Models.Requests.MonitoredDescriptors.EdFi.MonitoredDescriptorGetByExample>
     {
-        public MonitoredDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public MonitoredDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5149,7 +5150,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
             return "monitoredDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescriptors.EdFi
 {
@@ -5165,8 +5166,8 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
         Api.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorDelete,
         Api.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorGetByExample>
     {
-        public NeglectedOrDelinquentProgramDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public NeglectedOrDelinquentProgramDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5182,7 +5183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
             return "neglectedOrDelinquentProgramDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceDescriptors.EdFi
 {
@@ -5198,8 +5199,8 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
         Api.Models.Requests.NeglectedOrDelinquentProgramServiceDescriptors.EdFi.NeglectedOrDelinquentProgramServiceDescriptorDelete,
         Api.Models.Requests.NeglectedOrDelinquentProgramServiceDescriptors.EdFi.NeglectedOrDelinquentProgramServiceDescriptorGetByExample>
     {
-        public NeglectedOrDelinquentProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public NeglectedOrDelinquentProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5215,7 +5216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
             return "neglectedOrDelinquentProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
 {
@@ -5231,8 +5232,8 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
         Api.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorDelete,
         Api.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorGetByExample>
     {
-        public NetworkPurposeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public NetworkPurposeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5248,7 +5249,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
             return "networkPurposeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
 {
@@ -5264,8 +5265,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
         Api.Models.Requests.ObjectiveAssessments.EdFi.ObjectiveAssessmentDelete,
         Api.Models.Requests.ObjectiveAssessments.EdFi.ObjectiveAssessmentGetByExample>
     {
-        public ObjectiveAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ObjectiveAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5290,7 +5291,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
             return "objectiveAssessments";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
 {
@@ -5306,8 +5307,8 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
         Api.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorDelete,
         Api.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorGetByExample>
     {
-        public OldEthnicityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public OldEthnicityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5323,7 +5324,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
             return "oldEthnicityDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
 {
@@ -5339,8 +5340,8 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
         Api.Models.Requests.OpenStaffPositions.EdFi.OpenStaffPositionDelete,
         Api.Models.Requests.OpenStaffPositions.EdFi.OpenStaffPositionGetByExample>
     {
-        public OpenStaffPositionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public OpenStaffPositionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5365,7 +5366,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
             return "openStaffPositions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
 {
@@ -5381,8 +5382,8 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
         Api.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorDelete,
         Api.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorGetByExample>
     {
-        public OperationalStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public OperationalStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5398,7 +5399,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
             return "operationalStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
 {
@@ -5414,8 +5415,8 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
         Api.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorDelete,
         Api.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorGetByExample>
     {
-        public OtherNameTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public OtherNameTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5431,7 +5432,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
             return "otherNameTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
 {
@@ -5447,8 +5448,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
         Api.Models.Requests.Parents.EdFi.ParentDelete,
         Api.Models.Requests.Parents.EdFi.ParentGetByExample>
     {
-        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5475,7 +5476,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             return "parents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
 {
@@ -5491,8 +5492,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
         Api.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorDelete,
         Api.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorGetByExample>
     {
-        public ParticipationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ParticipationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5508,7 +5509,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
             return "participationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
 {
@@ -5524,8 +5525,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
         Api.Models.Requests.ParticipationStatusDescriptors.EdFi.ParticipationStatusDescriptorDelete,
         Api.Models.Requests.ParticipationStatusDescriptors.EdFi.ParticipationStatusDescriptorGetByExample>
     {
-        public ParticipationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ParticipationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5541,7 +5542,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
             return "participationStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
 {
@@ -5557,8 +5558,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
         Api.Models.Requests.Payrolls.EdFi.PayrollDelete,
         Api.Models.Requests.Payrolls.EdFi.PayrollGetByExample>
     {
-        public PayrollsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PayrollsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5580,7 +5581,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
             return "payrolls";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors.EdFi
 {
@@ -5596,8 +5597,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
         Api.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorDelete,
         Api.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorGetByExample>
     {
-        public PerformanceBaseConversionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PerformanceBaseConversionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5613,7 +5614,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
             return "performanceBaseConversionDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
 {
@@ -5629,8 +5630,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
         Api.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorDelete,
         Api.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorGetByExample>
     {
-        public PerformanceLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PerformanceLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5646,7 +5647,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
             return "performanceLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
 {
@@ -5662,8 +5663,8 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
         Api.Models.Requests.People.EdFi.PersonDelete,
         Api.Models.Requests.People.EdFi.PersonGetByExample>
     {
-        public PeopleController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PeopleController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5681,7 +5682,7 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
             return "people";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescriptors.EdFi
 {
@@ -5697,8 +5698,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
         Api.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorDelete,
         Api.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorGetByExample>
     {
-        public PersonalInformationVerificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PersonalInformationVerificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5714,7 +5715,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
             return "personalInformationVerificationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
 {
@@ -5730,8 +5731,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
         Api.Models.Requests.PlatformTypeDescriptors.EdFi.PlatformTypeDescriptorDelete,
         Api.Models.Requests.PlatformTypeDescriptors.EdFi.PlatformTypeDescriptorGetByExample>
     {
-        public PlatformTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PlatformTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5747,7 +5748,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
             return "platformTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
 {
@@ -5763,8 +5764,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
         Api.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorDelete,
         Api.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorGetByExample>
     {
-        public PopulationServedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PopulationServedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5780,7 +5781,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
             return "populationServedDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
 {
@@ -5796,8 +5797,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
         Api.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorDelete,
         Api.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorGetByExample>
     {
-        public PostingResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PostingResultDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5813,7 +5814,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
             return "postingResultDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
 {
@@ -5829,8 +5830,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
         Api.Models.Requests.PostSecondaryEvents.EdFi.PostSecondaryEventDelete,
         Api.Models.Requests.PostSecondaryEvents.EdFi.PostSecondaryEventGetByExample>
     {
-        public PostSecondaryEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PostSecondaryEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5850,7 +5851,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
             return "postSecondaryEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptors.EdFi
 {
@@ -5866,8 +5867,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
         Api.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorDelete,
         Api.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorGetByExample>
     {
-        public PostSecondaryEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PostSecondaryEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5883,7 +5884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
             return "postSecondaryEventCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
 {
@@ -5899,8 +5900,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
         Api.Models.Requests.PostSecondaryInstitutions.EdFi.PostSecondaryInstitutionDelete,
         Api.Models.Requests.PostSecondaryInstitutions.EdFi.PostSecondaryInstitutionGetByExample>
     {
-        public PostSecondaryInstitutionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PostSecondaryInstitutionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5918,7 +5919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
             return "postSecondaryInstitutions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescriptors.EdFi
 {
@@ -5934,8 +5935,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
         Api.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorDelete,
         Api.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorGetByExample>
     {
-        public PostSecondaryInstitutionLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PostSecondaryInstitutionLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5951,7 +5952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
             return "postSecondaryInstitutionLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
 {
@@ -5967,8 +5968,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
         Api.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorDelete,
         Api.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorGetByExample>
     {
-        public ProficiencyDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProficiencyDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -5984,7 +5985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
             return "proficiencyDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
 {
@@ -6000,8 +6001,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
         Api.Models.Requests.Programs.EdFi.ProgramDelete,
         Api.Models.Requests.Programs.EdFi.ProgramGetByExample>
     {
-        public ProgramsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgramsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6021,7 +6022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
             return "programs";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
 {
@@ -6037,8 +6038,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
         Api.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorDelete,
         Api.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorGetByExample>
     {
-        public ProgramAssignmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgramAssignmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6054,7 +6055,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
             return "programAssignmentDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdFi
 {
@@ -6070,8 +6071,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
         Api.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorDelete,
         Api.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorGetByExample>
     {
-        public ProgramCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgramCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6087,7 +6088,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
             return "programCharacteristicDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 {
@@ -6103,8 +6104,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
         Api.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorDelete,
         Api.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorGetByExample>
     {
-        public ProgramSponsorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgramSponsorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6120,7 +6121,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
             return "programSponsorDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
 {
@@ -6136,8 +6137,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
         Api.Models.Requests.ProgramTypeDescriptors.EdFi.ProgramTypeDescriptorDelete,
         Api.Models.Requests.ProgramTypeDescriptors.EdFi.ProgramTypeDescriptorGetByExample>
     {
-        public ProgramTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgramTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6153,7 +6154,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
             return "programTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
 {
@@ -6169,8 +6170,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
         Api.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorDelete,
         Api.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorGetByExample>
     {
-        public ProgressDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgressDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6186,7 +6187,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
             return "progressDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
 {
@@ -6202,8 +6203,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
         Api.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorDelete,
         Api.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorGetByExample>
     {
-        public ProgressLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProgressLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6219,7 +6220,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
             return "progressLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
 {
@@ -6235,8 +6236,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
         Api.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorDelete,
         Api.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorGetByExample>
     {
-        public ProviderCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProviderCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6252,7 +6253,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
             return "providerCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdFi
 {
@@ -6268,8 +6269,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
         Api.Models.Requests.ProviderProfitabilityDescriptors.EdFi.ProviderProfitabilityDescriptorDelete,
         Api.Models.Requests.ProviderProfitabilityDescriptors.EdFi.ProviderProfitabilityDescriptorGetByExample>
     {
-        public ProviderProfitabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProviderProfitabilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6285,7 +6286,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
             return "providerProfitabilityDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
 {
@@ -6301,8 +6302,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
         Api.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorDelete,
         Api.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorGetByExample>
     {
-        public ProviderStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ProviderStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6318,7 +6319,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
             return "providerStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
 {
@@ -6334,8 +6335,8 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
         Api.Models.Requests.PublicationStatusDescriptors.EdFi.PublicationStatusDescriptorDelete,
         Api.Models.Requests.PublicationStatusDescriptors.EdFi.PublicationStatusDescriptorGetByExample>
     {
-        public PublicationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public PublicationStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6351,7 +6352,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
             return "publicationStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
 {
@@ -6367,8 +6368,8 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
         Api.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorDelete,
         Api.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorGetByExample>
     {
-        public QuestionFormDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public QuestionFormDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6384,7 +6385,7 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
             return "questionFormDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
 {
@@ -6400,8 +6401,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
         Api.Models.Requests.RaceDescriptors.EdFi.RaceDescriptorDelete,
         Api.Models.Requests.RaceDescriptors.EdFi.RaceDescriptorGetByExample>
     {
-        public RaceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RaceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6417,7 +6418,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
             return "raceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
 {
@@ -6433,8 +6434,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
         Api.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorDelete,
         Api.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorGetByExample>
     {
-        public ReasonExitedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ReasonExitedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6450,7 +6451,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
             return "reasonExitedDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
 {
@@ -6466,8 +6467,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
         Api.Models.Requests.ReasonNotTestedDescriptors.EdFi.ReasonNotTestedDescriptorDelete,
         Api.Models.Requests.ReasonNotTestedDescriptors.EdFi.ReasonNotTestedDescriptorGetByExample>
     {
-        public ReasonNotTestedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ReasonNotTestedDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6483,7 +6484,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
             return "reasonNotTestedDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
 {
@@ -6499,8 +6500,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
         Api.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorDelete,
         Api.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorGetByExample>
     {
-        public RecognitionTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RecognitionTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6516,7 +6517,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
             return "recognitionTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
 {
@@ -6532,8 +6533,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
         Api.Models.Requests.RelationDescriptors.EdFi.RelationDescriptorDelete,
         Api.Models.Requests.RelationDescriptors.EdFi.RelationDescriptorGetByExample>
     {
-        public RelationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RelationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6549,7 +6550,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
             return "relationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
 {
@@ -6565,8 +6566,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
         Api.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorDelete,
         Api.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorGetByExample>
     {
-        public RepeatIdentifierDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RepeatIdentifierDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6582,7 +6583,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
             return "repeatIdentifierDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
 {
@@ -6598,8 +6599,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
         Api.Models.Requests.ReportCards.EdFi.ReportCardDelete,
         Api.Models.Requests.ReportCards.EdFi.ReportCardGetByExample>
     {
-        public ReportCardsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ReportCardsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6626,7 +6627,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
             return "reportCards";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
 {
@@ -6642,8 +6643,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
         Api.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorDelete,
         Api.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorGetByExample>
     {
-        public ReporterDescriptionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ReporterDescriptionDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6659,7 +6660,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
             return "reporterDescriptionDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
 {
@@ -6675,8 +6676,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
         Api.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorDelete,
         Api.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorGetByExample>
     {
-        public ResidencyStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ResidencyStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6692,7 +6693,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
             return "residencyStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
 {
@@ -6708,8 +6709,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
         Api.Models.Requests.ResponseIndicatorDescriptors.EdFi.ResponseIndicatorDescriptorDelete,
         Api.Models.Requests.ResponseIndicatorDescriptors.EdFi.ResponseIndicatorDescriptorGetByExample>
     {
-        public ResponseIndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ResponseIndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6725,7 +6726,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
             return "responseIndicatorDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
 {
@@ -6741,8 +6742,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
         Api.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorDelete,
         Api.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorGetByExample>
     {
-        public ResponsibilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ResponsibilityDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6758,7 +6759,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
             return "responsibilityDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
 {
@@ -6774,8 +6775,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
         Api.Models.Requests.RestraintEvents.EdFi.RestraintEventDelete,
         Api.Models.Requests.RestraintEvents.EdFi.RestraintEventGetByExample>
     {
-        public RestraintEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RestraintEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6796,7 +6797,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
             return "restraintEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
 {
@@ -6812,8 +6813,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
         Api.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorDelete,
         Api.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorGetByExample>
     {
-        public RestraintEventReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RestraintEventReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6829,7 +6830,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
             return "restraintEventReasonDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
 {
@@ -6845,8 +6846,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
         Api.Models.Requests.ResultDatatypeTypeDescriptors.EdFi.ResultDatatypeTypeDescriptorDelete,
         Api.Models.Requests.ResultDatatypeTypeDescriptors.EdFi.ResultDatatypeTypeDescriptorGetByExample>
     {
-        public ResultDatatypeTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ResultDatatypeTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6862,7 +6863,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
             return "resultDatatypeTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
 {
@@ -6878,8 +6879,8 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
         Api.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorDelete,
         Api.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorGetByExample>
     {
-        public RetestIndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public RetestIndicatorDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6895,7 +6896,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
             return "retestIndicatorDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
 {
@@ -6911,8 +6912,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
         Api.Models.Requests.Schools.EdFi.SchoolDelete,
         Api.Models.Requests.Schools.EdFi.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6937,7 +6938,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
             return "schools";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
 {
@@ -6953,8 +6954,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
         Api.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorDelete,
         Api.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorGetByExample>
     {
-        public SchoolCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -6970,7 +6971,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
             return "schoolCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescriptors.EdFi
 {
@@ -6986,8 +6987,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
         Api.Models.Requests.SchoolChoiceImplementStatusDescriptors.EdFi.SchoolChoiceImplementStatusDescriptorDelete,
         Api.Models.Requests.SchoolChoiceImplementStatusDescriptors.EdFi.SchoolChoiceImplementStatusDescriptorGetByExample>
     {
-        public SchoolChoiceImplementStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolChoiceImplementStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7003,7 +7004,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
             return "schoolChoiceImplementStatusDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescriptors.EdFi
 {
@@ -7019,8 +7020,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
         Api.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorDelete,
         Api.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorGetByExample>
     {
-        public SchoolFoodServiceProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolFoodServiceProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7036,7 +7037,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
             return "schoolFoodServiceProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
 {
@@ -7052,8 +7053,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
         Api.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorDelete,
         Api.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorGetByExample>
     {
-        public SchoolTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7069,7 +7070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
             return "schoolTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
 {
@@ -7085,8 +7086,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
         Api.Models.Requests.SchoolYearTypes.EdFi.SchoolYearTypeDelete,
         Api.Models.Requests.SchoolYearTypes.EdFi.SchoolYearTypeGetByExample>
     {
-        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7105,7 +7106,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
             return "schoolYearTypes";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
 {
@@ -7121,8 +7122,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
         Api.Models.Requests.Sections.EdFi.SectionDelete,
         Api.Models.Requests.Sections.EdFi.SectionGetByExample>
     {
-        public SectionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SectionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7155,7 +7156,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
             return "sections";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
 {
@@ -7171,8 +7172,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
         Api.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventDelete,
         Api.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventGetByExample>
     {
-        public SectionAttendanceTakenEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SectionAttendanceTakenEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7197,7 +7198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
             return "sectionAttendanceTakenEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdFi
 {
@@ -7213,8 +7214,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
         Api.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorDelete,
         Api.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorGetByExample>
     {
-        public SectionCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SectionCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7230,7 +7231,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
             return "sectionCharacteristicDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
 {
@@ -7246,8 +7247,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
         Api.Models.Requests.SeparationDescriptors.EdFi.SeparationDescriptorDelete,
         Api.Models.Requests.SeparationDescriptors.EdFi.SeparationDescriptorGetByExample>
     {
-        public SeparationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SeparationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7263,7 +7264,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
             return "separationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
 {
@@ -7279,8 +7280,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
         Api.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorDelete,
         Api.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorGetByExample>
     {
-        public SeparationReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SeparationReasonDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7296,7 +7297,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
             return "separationReasonDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
 {
@@ -7312,8 +7313,8 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
         Api.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorDelete,
         Api.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorGetByExample>
     {
-        public ServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public ServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7329,7 +7330,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
             return "serviceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
 {
@@ -7345,8 +7346,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
         Api.Models.Requests.Sessions.EdFi.SessionDelete,
         Api.Models.Requests.Sessions.EdFi.SessionGetByExample>
     {
-        public SessionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SessionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7369,7 +7370,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
             return "sessions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
 {
@@ -7385,8 +7386,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
         Api.Models.Requests.SexDescriptors.EdFi.SexDescriptorDelete,
         Api.Models.Requests.SexDescriptors.EdFi.SexDescriptorGetByExample>
     {
-        public SexDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SexDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7402,7 +7403,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
             return "sexDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
 {
@@ -7418,8 +7419,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
         Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorDelete,
         Api.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample>
     {
-        public SourceSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SourceSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7435,7 +7436,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
             return "sourceSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
 {
@@ -7451,8 +7452,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
         Api.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi.SpecialEducationProgramServiceDescriptorDelete,
         Api.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi.SpecialEducationProgramServiceDescriptorGetByExample>
     {
-        public SpecialEducationProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SpecialEducationProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7468,7 +7469,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
             return "specialEducationProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.EdFi
 {
@@ -7484,8 +7485,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
         Api.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorDelete,
         Api.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorGetByExample>
     {
-        public SpecialEducationSettingDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SpecialEducationSettingDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7501,7 +7502,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
             return "specialEducationSettingDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
 {
@@ -7517,8 +7518,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
         Api.Models.Requests.Staffs.EdFi.StaffDelete,
         Api.Models.Requests.Staffs.EdFi.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7553,7 +7554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             return "staffs";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
 {
@@ -7569,8 +7570,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
         Api.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventDelete,
         Api.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventGetByExample>
     {
-        public StaffAbsenceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffAbsenceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7591,7 +7592,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
             return "staffAbsenceEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
 {
@@ -7607,8 +7608,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
         Api.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorDelete,
         Api.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorGetByExample>
     {
-        public StaffClassificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffClassificationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7624,7 +7625,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
             return "staffClassificationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
 {
@@ -7640,8 +7641,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
         Api.Models.Requests.StaffCohortAssociations.EdFi.StaffCohortAssociationDelete,
         Api.Models.Requests.StaffCohortAssociations.EdFi.StaffCohortAssociationGetByExample>
     {
-        public StaffCohortAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffCohortAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7663,7 +7664,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
             return "staffCohortAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.EdFi
 {
@@ -7679,8 +7680,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
         Api.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationDelete,
         Api.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationGetByExample>
     {
-        public StaffDisciplineIncidentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffDisciplineIncidentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7699,7 +7700,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
             return "staffDisciplineIncidentAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignmentAssociations.EdFi
 {
@@ -7715,8 +7716,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
         Api.Models.Requests.StaffEducationOrganizationAssignmentAssociations.EdFi.StaffEducationOrganizationAssignmentAssociationDelete,
         Api.Models.Requests.StaffEducationOrganizationAssignmentAssociations.EdFi.StaffEducationOrganizationAssignmentAssociationGetByExample>
     {
-        public StaffEducationOrganizationAssignmentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffEducationOrganizationAssignmentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7744,7 +7745,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             return "staffEducationOrganizationAssignmentAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAssociations.EdFi
 {
@@ -7760,8 +7761,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
         Api.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationDelete,
         Api.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample>
     {
-        public StaffEducationOrganizationContactAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffEducationOrganizationContactAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7782,7 +7783,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
             return "staffEducationOrganizationContactAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmploymentAssociations.EdFi
 {
@@ -7798,8 +7799,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
         Api.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi.StaffEducationOrganizationEmploymentAssociationDelete,
         Api.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi.StaffEducationOrganizationEmploymentAssociationGetByExample>
     {
-        public StaffEducationOrganizationEmploymentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffEducationOrganizationEmploymentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7828,7 +7829,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
             return "staffEducationOrganizationEmploymentAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors.EdFi
 {
@@ -7844,8 +7845,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
         Api.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorDelete,
         Api.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorGetByExample>
     {
-        public StaffIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7861,7 +7862,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
             return "staffIdentificationSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
 {
@@ -7877,8 +7878,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
         Api.Models.Requests.StaffLeaves.EdFi.StaffLeaveDelete,
         Api.Models.Requests.StaffLeaves.EdFi.StaffLeaveGetByExample>
     {
-        public StaffLeavesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffLeavesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7900,7 +7901,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
             return "staffLeaves";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.EdFi
 {
@@ -7916,8 +7917,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
         Api.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorDelete,
         Api.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorGetByExample>
     {
-        public StaffLeaveEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffLeaveEventCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7933,7 +7934,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
             return "staffLeaveEventCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
 {
@@ -7949,8 +7950,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
         Api.Models.Requests.StaffProgramAssociations.EdFi.StaffProgramAssociationDelete,
         Api.Models.Requests.StaffProgramAssociations.EdFi.StaffProgramAssociationGetByExample>
     {
-        public StaffProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -7973,7 +7974,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
             return "staffProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
 {
@@ -7989,8 +7990,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
         Api.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationDelete,
         Api.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationGetByExample>
     {
-        public StaffSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8011,7 +8012,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
             return "staffSchoolAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
 {
@@ -8027,8 +8028,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
         Api.Models.Requests.StaffSectionAssociations.EdFi.StaffSectionAssociationDelete,
         Api.Models.Requests.StaffSectionAssociations.EdFi.StaffSectionAssociationGetByExample>
     {
-        public StaffSectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffSectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8056,7 +8057,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
             return "staffSectionAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
 {
@@ -8072,8 +8073,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
         Api.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorDelete,
         Api.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorGetByExample>
     {
-        public StateAbbreviationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StateAbbreviationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8089,7 +8090,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
             return "stateAbbreviationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
 {
@@ -8105,8 +8106,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
         Api.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyDelete,
         Api.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyGetByExample>
     {
-        public StateEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StateEducationAgenciesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8122,7 +8123,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
             return "stateEducationAgencies";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
 {
@@ -8138,8 +8139,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
         Api.Models.Requests.Students.EdFi.StudentDelete,
         Api.Models.Requests.Students.EdFi.StudentGetByExample>
     {
-        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8173,7 +8174,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             return "students";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
 {
@@ -8189,8 +8190,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
         Api.Models.Requests.StudentAcademicRecords.EdFi.StudentAcademicRecordDelete,
         Api.Models.Requests.StudentAcademicRecords.EdFi.StudentAcademicRecordGetByExample>
     {
-        public StudentAcademicRecordsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentAcademicRecordsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8228,7 +8229,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
             return "studentAcademicRecords";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
 {
@@ -8244,8 +8245,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
         Api.Models.Requests.StudentAssessments.EdFi.StudentAssessmentDelete,
         Api.Models.Requests.StudentAssessments.EdFi.StudentAssessmentGetByExample>
     {
-        public StudentAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentAssessmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8277,7 +8278,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             return "studentAssessments";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdFi
 {
@@ -8293,8 +8294,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
         Api.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorDelete,
         Api.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorGetByExample>
     {
-        public StudentCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentCharacteristicDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8310,7 +8311,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
             return "studentCharacteristicDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
 {
@@ -8326,8 +8327,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
         Api.Models.Requests.StudentCohortAssociations.EdFi.StudentCohortAssociationDelete,
         Api.Models.Requests.StudentCohortAssociations.EdFi.StudentCohortAssociationGetByExample>
     {
-        public StudentCohortAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentCohortAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8348,7 +8349,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
             return "studentCohortAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
 {
@@ -8364,8 +8365,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
         Api.Models.Requests.StudentCompetencyObjectives.EdFi.StudentCompetencyObjectiveDelete,
         Api.Models.Requests.StudentCompetencyObjectives.EdFi.StudentCompetencyObjectiveGetByExample>
     {
-        public StudentCompetencyObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentCompetencyObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8391,7 +8392,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
             return "studentCompetencyObjectives";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
 {
@@ -8407,8 +8408,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
         Api.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationDelete,
         Api.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationGetByExample>
     {
-        public StudentCTEProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentCTEProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8432,7 +8433,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
             return "studentCTEProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociations.EdFi
 {
@@ -8448,8 +8449,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
         Api.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationDelete,
         Api.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationGetByExample>
     {
-        public StudentDisciplineIncidentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentDisciplineIncidentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8469,7 +8470,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
             return "studentDisciplineIncidentAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi
 {
@@ -8485,8 +8486,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
         Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.StudentEducationOrganizationAssociationDelete,
         Api.Models.Requests.StudentEducationOrganizationAssociations.EdFi.StudentEducationOrganizationAssociationGetByExample>
     {
-        public StudentEducationOrganizationAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentEducationOrganizationAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8510,7 +8511,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "studentEducationOrganizationAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsibilityAssociations.EdFi
 {
@@ -8526,8 +8527,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
         Api.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationDelete,
         Api.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationGetByExample>
     {
-        public StudentEducationOrganizationResponsibilityAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentEducationOrganizationResponsibilityAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8548,7 +8549,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
             return "studentEducationOrganizationResponsibilityAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
 {
@@ -8564,8 +8565,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
         Api.Models.Requests.StudentGradebookEntries.EdFi.StudentGradebookEntryDelete,
         Api.Models.Requests.StudentGradebookEntries.EdFi.StudentGradebookEntryGetByExample>
     {
-        public StudentGradebookEntriesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentGradebookEntriesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8595,7 +8596,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             return "studentGradebookEntries";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.EdFi
 {
@@ -8611,8 +8612,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
         Api.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationDelete,
         Api.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationGetByExample>
     {
-        public StudentHomelessProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentHomelessProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8636,7 +8637,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
             return "studentHomelessProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescriptors.EdFi
 {
@@ -8652,8 +8653,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
         Api.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorDelete,
         Api.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorGetByExample>
     {
-        public StudentIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentIdentificationSystemDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8669,7 +8670,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             return "studentIdentificationSystemDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
 {
@@ -8685,8 +8686,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
         Api.Models.Requests.StudentInterventionAssociations.EdFi.StudentInterventionAssociationDelete,
         Api.Models.Requests.StudentInterventionAssociations.EdFi.StudentInterventionAssociationGetByExample>
     {
-        public StudentInterventionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentInterventionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8709,7 +8710,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
             return "studentInterventionAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.EdFi
 {
@@ -8725,8 +8726,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
         Api.Models.Requests.StudentInterventionAttendanceEvents.EdFi.StudentInterventionAttendanceEventDelete,
         Api.Models.Requests.StudentInterventionAttendanceEvents.EdFi.StudentInterventionAttendanceEventGetByExample>
     {
-        public StudentInterventionAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentInterventionAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8751,7 +8752,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
             return "studentInterventionAttendanceEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAssociations.EdFi
 {
@@ -8767,8 +8768,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
         Api.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationDelete,
         Api.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationGetByExample>
     {
-        public StudentLanguageInstructionProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentLanguageInstructionProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8791,7 +8792,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
             return "studentLanguageInstructionProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
 {
@@ -8807,8 +8808,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
         Api.Models.Requests.StudentLearningObjectives.EdFi.StudentLearningObjectiveDelete,
         Api.Models.Requests.StudentLearningObjectives.EdFi.StudentLearningObjectiveGetByExample>
     {
-        public StudentLearningObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentLearningObjectivesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8833,7 +8834,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
             return "studentLearningObjectives";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssociations.EdFi
 {
@@ -8849,8 +8850,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
         Api.Models.Requests.StudentMigrantEducationProgramAssociations.EdFi.StudentMigrantEducationProgramAssociationDelete,
         Api.Models.Requests.StudentMigrantEducationProgramAssociations.EdFi.StudentMigrantEducationProgramAssociationGetByExample>
     {
-        public StudentMigrantEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentMigrantEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8880,7 +8881,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
             return "studentMigrantEducationProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramAssociations.EdFi
 {
@@ -8896,8 +8897,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
         Api.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationDelete,
         Api.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationGetByExample>
     {
-        public StudentNeglectedOrDelinquentProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentNeglectedOrDelinquentProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8921,7 +8922,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             return "studentNeglectedOrDelinquentProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
 {
@@ -8937,8 +8938,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
         Api.Models.Requests.StudentParentAssociations.EdFi.StudentParentAssociationDelete,
         Api.Models.Requests.StudentParentAssociations.EdFi.StudentParentAssociationGetByExample>
     {
-        public StudentParentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentParentAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8962,7 +8963,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
             return "studentParentAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.EdFi
 {
@@ -8978,8 +8979,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
         Api.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorDelete,
         Api.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample>
     {
-        public StudentParticipationCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentParticipationCodeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -8995,7 +8996,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
             return "studentParticipationCodeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
 {
@@ -9011,8 +9012,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
         Api.Models.Requests.StudentProgramAssociations.EdFi.StudentProgramAssociationDelete,
         Api.Models.Requests.StudentProgramAssociations.EdFi.StudentProgramAssociationGetByExample>
     {
-        public StudentProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9033,7 +9034,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
             return "studentProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
 {
@@ -9049,8 +9050,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
         Api.Models.Requests.StudentProgramAttendanceEvents.EdFi.StudentProgramAttendanceEventDelete,
         Api.Models.Requests.StudentProgramAttendanceEvents.EdFi.StudentProgramAttendanceEventGetByExample>
     {
-        public StudentProgramAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentProgramAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9077,7 +9078,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
             return "studentProgramAttendanceEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
 {
@@ -9093,8 +9094,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
         Api.Models.Requests.StudentSchoolAssociations.EdFi.StudentSchoolAssociationDelete,
         Api.Models.Requests.StudentSchoolAssociations.EdFi.StudentSchoolAssociationGetByExample>
     {
-        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9131,7 +9132,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
             return "studentSchoolAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
 {
@@ -9147,8 +9148,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
         Api.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventDelete,
         Api.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventGetByExample>
     {
-        public StudentSchoolAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSchoolAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9176,7 +9177,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
             return "studentSchoolAttendanceEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssociations.EdFi
 {
@@ -9192,8 +9193,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
         Api.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationDelete,
         Api.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationGetByExample>
     {
-        public StudentSchoolFoodServiceProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSchoolFoodServiceProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9215,7 +9216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
             return "studentSchoolFoodServiceProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
 {
@@ -9231,8 +9232,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
         Api.Models.Requests.StudentSectionAssociations.EdFi.StudentSectionAssociationDelete,
         Api.Models.Requests.StudentSectionAssociations.EdFi.StudentSectionAssociationGetByExample>
     {
-        public StudentSectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9260,7 +9261,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
             return "studentSectionAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
 {
@@ -9276,8 +9277,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
         Api.Models.Requests.StudentSectionAttendanceEvents.EdFi.StudentSectionAttendanceEventDelete,
         Api.Models.Requests.StudentSectionAttendanceEvents.EdFi.StudentSectionAttendanceEventGetByExample>
     {
-        public StudentSectionAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSectionAttendanceEventsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9307,7 +9308,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
             return "studentSectionAttendanceEvents";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi
 {
@@ -9323,8 +9324,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
         Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociationDelete,
         Api.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociationGetByExample>
     {
-        public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentSpecialEducationProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9355,7 +9356,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "studentSpecialEducationProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociations.EdFi
 {
@@ -9371,8 +9372,8 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
         Api.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationDelete,
         Api.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationGetByExample>
     {
-        public StudentTitleIPartAProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentTitleIPartAProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9394,7 +9395,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             return "studentTitleIPartAProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
 {
@@ -9410,8 +9411,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
         Api.Models.Requests.Surveys.EdFi.SurveyDelete,
         Api.Models.Requests.Surveys.EdFi.SurveyGetByExample>
     {
-        public SurveysController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveysController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9436,7 +9437,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
             return "surveys";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
 {
@@ -9452,8 +9453,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
         Api.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorDelete,
         Api.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorGetByExample>
     {
-        public SurveyCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9469,7 +9470,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
             return "surveyCategoryDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
 {
@@ -9485,8 +9486,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
         Api.Models.Requests.SurveyCourseAssociations.EdFi.SurveyCourseAssociationDelete,
         Api.Models.Requests.SurveyCourseAssociations.EdFi.SurveyCourseAssociationGetByExample>
     {
-        public SurveyCourseAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyCourseAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9506,7 +9507,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
             return "surveyCourseAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
 {
@@ -9522,8 +9523,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
         Api.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorDelete,
         Api.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorGetByExample>
     {
-        public SurveyLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyLevelDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9539,7 +9540,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
             return "surveyLevelDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
 {
@@ -9555,8 +9556,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
         Api.Models.Requests.SurveyProgramAssociations.EdFi.SurveyProgramAssociationDelete,
         Api.Models.Requests.SurveyProgramAssociations.EdFi.SurveyProgramAssociationGetByExample>
     {
-        public SurveyProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9577,7 +9578,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
             return "surveyProgramAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
 {
@@ -9593,8 +9594,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
         Api.Models.Requests.SurveyQuestions.EdFi.SurveyQuestionDelete,
         Api.Models.Requests.SurveyQuestions.EdFi.SurveyQuestionGetByExample>
     {
-        public SurveyQuestionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyQuestionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9616,7 +9617,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
             return "surveyQuestions";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
 {
@@ -9632,8 +9633,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
         Api.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponseDelete,
         Api.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponseGetByExample>
     {
-        public SurveyQuestionResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyQuestionResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9655,7 +9656,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
             return "surveyQuestionResponses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
 {
@@ -9671,8 +9672,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
         Api.Models.Requests.SurveyResponses.EdFi.SurveyResponseDelete,
         Api.Models.Requests.SurveyResponses.EdFi.SurveyResponseGetByExample>
     {
-        public SurveyResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9699,7 +9700,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
             return "surveyResponses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationTargetAssociations.EdFi
 {
@@ -9715,8 +9716,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
         Api.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationDelete,
         Api.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationGetByExample>
     {
-        public SurveyResponseEducationOrganizationTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyResponseEducationOrganizationTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9736,7 +9737,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
             return "surveyResponseEducationOrganizationTargetAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociations.EdFi
 {
@@ -9752,8 +9753,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
         Api.Models.Requests.SurveyResponseStaffTargetAssociations.EdFi.SurveyResponseStaffTargetAssociationDelete,
         Api.Models.Requests.SurveyResponseStaffTargetAssociations.EdFi.SurveyResponseStaffTargetAssociationGetByExample>
     {
-        public SurveyResponseStaffTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveyResponseStaffTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9773,7 +9774,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
             return "surveyResponseStaffTargetAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
 {
@@ -9789,8 +9790,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
         Api.Models.Requests.SurveySections.EdFi.SurveySectionDelete,
         Api.Models.Requests.SurveySections.EdFi.SurveySectionGetByExample>
     {
-        public SurveySectionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveySectionsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9809,7 +9810,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
             return "surveySections";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
 {
@@ -9825,8 +9826,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
         Api.Models.Requests.SurveySectionAssociations.EdFi.SurveySectionAssociationDelete,
         Api.Models.Requests.SurveySectionAssociations.EdFi.SurveySectionAssociationGetByExample>
     {
-        public SurveySectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveySectionAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9849,7 +9850,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
             return "surveySectionAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
 {
@@ -9865,8 +9866,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
         Api.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponseDelete,
         Api.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponseGetByExample>
     {
-        public SurveySectionResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveySectionResponsesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9887,7 +9888,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
             return "surveySectionResponses";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi
 {
@@ -9903,8 +9904,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
         Api.Models.Requests.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationDelete,
         Api.Models.Requests.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationGetByExample>
     {
-        public SurveySectionResponseEducationOrganizationTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveySectionResponseEducationOrganizationTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9925,7 +9926,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
             return "surveySectionResponseEducationOrganizationTargetAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAssociations.EdFi
 {
@@ -9941,8 +9942,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
         Api.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationDelete,
         Api.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationGetByExample>
     {
-        public SurveySectionResponseStaffTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SurveySectionResponseStaffTargetAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9963,7 +9964,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
             return "surveySectionResponseStaffTargetAssociations";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.EdFi
 {
@@ -9979,8 +9980,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
         Api.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorDelete,
         Api.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorGetByExample>
     {
-        public TeachingCredentialBasisDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TeachingCredentialBasisDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -9996,7 +9997,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
             return "teachingCredentialBasisDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
 {
@@ -10012,8 +10013,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
         Api.Models.Requests.TeachingCredentialDescriptors.EdFi.TeachingCredentialDescriptorDelete,
         Api.Models.Requests.TeachingCredentialDescriptors.EdFi.TeachingCredentialDescriptorGetByExample>
     {
-        public TeachingCredentialDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TeachingCredentialDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10029,7 +10030,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
             return "teachingCredentialDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors.EdFi
 {
@@ -10045,8 +10046,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
         Api.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorDelete,
         Api.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorGetByExample>
     {
-        public TechnicalSkillsAssessmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TechnicalSkillsAssessmentDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10062,7 +10063,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
             return "technicalSkillsAssessmentDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
 {
@@ -10078,8 +10079,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
         Api.Models.Requests.TelephoneNumberTypeDescriptors.EdFi.TelephoneNumberTypeDescriptorDelete,
         Api.Models.Requests.TelephoneNumberTypeDescriptors.EdFi.TelephoneNumberTypeDescriptorGetByExample>
     {
-        public TelephoneNumberTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TelephoneNumberTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10095,7 +10096,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
             return "telephoneNumberTypeDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
 {
@@ -10111,8 +10112,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
         Api.Models.Requests.TermDescriptors.EdFi.TermDescriptorDelete,
         Api.Models.Requests.TermDescriptors.EdFi.TermDescriptorGetByExample>
     {
-        public TermDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TermDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10128,7 +10129,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
             return "termDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.EdFi
 {
@@ -10144,8 +10145,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
         Api.Models.Requests.TitleIPartAParticipantDescriptors.EdFi.TitleIPartAParticipantDescriptorDelete,
         Api.Models.Requests.TitleIPartAParticipantDescriptors.EdFi.TitleIPartAParticipantDescriptorGetByExample>
     {
-        public TitleIPartAParticipantDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TitleIPartAParticipantDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10161,7 +10162,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
             return "titleIPartAParticipantDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors.EdFi
 {
@@ -10177,8 +10178,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
         Api.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorDelete,
         Api.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorGetByExample>
     {
-        public TitleIPartAProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TitleIPartAProgramServiceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10194,7 +10195,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
             return "titleIPartAProgramServiceDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescriptors.EdFi
 {
@@ -10210,8 +10211,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
         Api.Models.Requests.TitleIPartASchoolDesignationDescriptors.EdFi.TitleIPartASchoolDesignationDescriptorDelete,
         Api.Models.Requests.TitleIPartASchoolDesignationDescriptors.EdFi.TitleIPartASchoolDesignationDescriptorGetByExample>
     {
-        public TitleIPartASchoolDesignationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TitleIPartASchoolDesignationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10227,7 +10228,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
             return "titleIPartASchoolDesignationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
 {
@@ -10243,8 +10244,8 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
         Api.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorDelete,
         Api.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorGetByExample>
     {
-        public TribalAffiliationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public TribalAffiliationDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10260,7 +10261,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
             return "tribalAffiliationDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
 {
@@ -10276,8 +10277,8 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
         Api.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorDelete,
         Api.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorGetByExample>
     {
-        public VisaDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public VisaDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10293,7 +10294,7 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
             return "visaDescriptors";
         }
     }
-}
+    }
 
 namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
 {
@@ -10309,8 +10310,8 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
         Api.Models.Requests.WeaponDescriptors.EdFi.WeaponDescriptorDelete,
         Api.Models.Requests.WeaponDescriptors.EdFi.WeaponDescriptorGetByExample>
     {
-        public WeaponDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public WeaponDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -10326,4 +10327,4 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
             return "weaponDescriptors";
         }
     }
-}
+    }

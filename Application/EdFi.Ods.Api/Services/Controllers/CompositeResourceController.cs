@@ -95,7 +95,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                         kvp => rawQueryStringParameters[kvp],
                         StringComparer.InvariantCultureIgnoreCase);
 
-                var defaultPageSizeLimit = _defaultPageSizeProvider.GetDefaultPageSizeLimit();
+                var defaultPageSizeLimit = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
                 //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
                 if (queryStringParameters.TryGetValue("limit", out object limitAsObject))
