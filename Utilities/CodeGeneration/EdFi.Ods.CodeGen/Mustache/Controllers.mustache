@@ -30,16 +30,16 @@ namespace {{ControllersNamespace}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     public partial class {{ControllerClass}} : EdFiControllerBase<
-{{ResourceReadModel}},
-{{ResourceWriteModel}},
-{{EntityInterface}},
-{{AggregateRoot}},
-{{PutRequest}},
-{{PostRequest}},
-{{DeleteRequest}},
-{{GetByExampleRequest}}>
+        {{ResourceReadModel}},
+        {{ResourceWriteModel}},
+        {{EntityInterface}},
+        {{AggregateRoot}},
+        {{PutRequest}},
+        {{PostRequest}},
+        {{DeleteRequest}},
+        {{GetByExampleRequest}}>
     {
-        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeProvider defaultPageSizeProvider)
+        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
             : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeProvider)
         {
         }

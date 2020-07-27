@@ -70,18 +70,18 @@ namespace EdFi.Ods.Api.Services.Controllers
 
         //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider schoolYearContextProvider;
-        protected IDefaultPageSizeProvider defaultPageSizeProvider;
+        protected IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider;
 
         protected EdFiControllerBase(
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
-            IDefaultPageSizeProvider defaultPageSizeProvider) //IRepository<TAggregateRoot> repository, 
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository, 
         {
             //this.repository = repository;
             this.schoolYearContextProvider = schoolYearContextProvider;
             this.restErrorProvider = restErrorProvider;
-            this.defaultPageSizeProvider = defaultPageSizeProvider;
+            this.defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
 
             getByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -136,7 +136,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             [FromUri] UrlQueryParametersRequest urlQueryParametersRequest,
             [FromUri] TGetByExampleRequest request = default(TGetByExampleRequest))
         {
-            var defaultPageSizeLimit = defaultPageSizeProvider.GetDefaultPageSizeLimit();
+            var defaultPageSizeLimit = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
             if (urlQueryParametersRequest.Limit != null &&

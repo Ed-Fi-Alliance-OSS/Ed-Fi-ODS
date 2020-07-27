@@ -47,15 +47,17 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
 
         public CompositeResourceController(
             ICompositeResourceResponseProvider compositeResourceResponseProvider,
             ICompositesMetadataProvider compositeMetadataProvider,
-            IRESTErrorProvider restErrorProvider)
+            IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
             _restErrorProvider = restErrorProvider;
+            _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
         }
 
         public virtual IHttpActionResult Get()
@@ -93,7 +95,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                         kvp => rawQueryStringParameters[kvp],
                         StringComparer.InvariantCultureIgnoreCase);
 
-                var defaultPageSizeLimit = new DefaultPageSizeProvider().GetDefaultPageSizeLimit();
+                var defaultPageSizeLimit = _defaultPageSizeProvider.GetDefaultPageSizeLimit();
 
                 //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
                 if (queryStringParameters.TryGetValue("limit", out object limitAsObject))

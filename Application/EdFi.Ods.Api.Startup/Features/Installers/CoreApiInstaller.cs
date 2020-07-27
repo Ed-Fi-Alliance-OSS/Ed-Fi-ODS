@@ -99,12 +99,12 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             RegisterApiControllers(container);
             RegisterProfilesProcessing(container);
             RegisterApiVersionProvider(container);
-            RegisterDefaultPageSizeProvider(container);
+            RegisterDefaultPageSizeLimitProvider(container);
         }
 
-        private void RegisterDefaultPageSizeProvider(IWindsorContainer container)
+        private void RegisterDefaultPageSizeLimitProvider(IWindsorContainer container)
         {
-            container.Register(Component.For<IDefaultPageSizeProvider>().ImplementedBy<DefaultPageSizeProvider>());
+            container.Register(Component.For<IDefaultPageSizeLimitProvider>().ImplementedBy<DefaultPageSizeLimitProvider>());
         }
 
         private void RegisterSandboxProvisioner(IWindsorContainer container)
