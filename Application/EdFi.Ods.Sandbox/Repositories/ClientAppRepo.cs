@@ -644,6 +644,27 @@ delete ApiClients where ApiClientId = @clientId",
                 });
         }
 
+        public void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var application = context.Applications.SingleOrDefault(a => a.ApplicationId == applicationId);
+
+                if (application != null)
+                {
+                    foreach (var leaId in localEducationAgencyIds)
+                    {
+                        if (!application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
+                        {
+                            application.CreateEducationOrganizationAssociation(leaId);
+                        }
+                    }
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
         internal class EmailResult
         {
             public string Email { get; set; }
