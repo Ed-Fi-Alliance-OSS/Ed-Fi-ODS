@@ -43,12 +43,12 @@ using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Api.NetCore.Startup
 {
-    public class StartupBase
+    public abstract class OdsStartupBase
     {
         private const string CorsPolicyName = "_development_";
-        private readonly ILog _logger = LogManager.GetLogger(typeof(StartupBase));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
-        public StartupBase(IWebHostEnvironment env)
+        public OdsStartupBase(IWebHostEnvironment env)
         {
             _logger.Debug("Loading configuration files");
 
