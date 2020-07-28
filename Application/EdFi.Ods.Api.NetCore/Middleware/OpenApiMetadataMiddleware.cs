@@ -9,11 +9,11 @@ using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.NetCore.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Helpers;
-using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Api.NetCore.Providers;
 using log4net;
 using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Features.Middleware
+namespace EdFi.Ods.Api.NetCore.Middleware
 {
     public class OpenApiMetadataMiddleware : IMiddleware
     {
