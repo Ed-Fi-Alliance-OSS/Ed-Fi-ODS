@@ -48,7 +48,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
             return "names";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
 {
@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
             return "parents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
 {
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
             return "schools";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
 {
@@ -152,7 +152,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
             return "schoolYearTypes";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
 {
@@ -187,7 +187,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
             return "staffs";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
 {
@@ -223,7 +223,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
             return "students";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
 {
@@ -259,4 +259,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
             return "studentSchoolAssociations";
         }
     }
-    }
+}

@@ -46,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
             return "absenceEventCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdFi
 {
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
             return "academicHonorCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
 {
@@ -112,7 +112,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
             return "academicSubjectDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
 {
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
             return "academicWeeks";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
 {
@@ -183,7 +183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
             return "accommodationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
 {
@@ -220,7 +220,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
             return "accounts";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
 {
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
             return "accountabilityRatings";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdFi
 {
@@ -293,7 +293,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
             return "accountClassificationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
 {
@@ -331,7 +331,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
             return "accountCodes";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
 {
@@ -364,7 +364,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
             return "achievementCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
 {
@@ -402,7 +402,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
             return "actuals";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
 {
@@ -435,7 +435,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
             return "additionalCreditTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
 {
@@ -468,7 +468,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
             return "addressTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors.EdFi
 {
@@ -501,7 +501,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
             return "administrationEnvironmentDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescriptors.EdFi
 {
@@ -534,7 +534,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
             return "administrativeFundingControlDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
 {
@@ -579,7 +579,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
             return "assessments";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
 {
@@ -612,7 +612,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
             return "assessmentCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescriptors.EdFi
 {
@@ -645,7 +645,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
             return "assessmentIdentificationSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
 {
@@ -688,7 +688,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
             return "assessmentItems";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.EdFi
 {
@@ -721,7 +721,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
             return "assessmentItemCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
 {
@@ -754,7 +754,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
             return "assessmentItemResultDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
 {
@@ -787,7 +787,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
             return "assessmentPeriodDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors.EdFi
 {
@@ -820,7 +820,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
             return "assessmentReportingMethodDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
 {
@@ -853,7 +853,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
             return "attemptStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.EdFi
 {
@@ -886,7 +886,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
             return "attendanceEventCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
 {
@@ -919,7 +919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
             return "behaviorDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
 {
@@ -958,7 +958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
             return "bellSchedules";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
 {
@@ -996,7 +996,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
             return "budgets";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
 {
@@ -1033,7 +1033,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
             return "calendars";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
 {
@@ -1070,7 +1070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
             return "calendarDates";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
 {
@@ -1103,7 +1103,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
             return "calendarEventDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
 {
@@ -1136,7 +1136,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
             return "calendarTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
 {
@@ -1169,7 +1169,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
             return "careerPathwayDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors.EdFi
 {
@@ -1202,7 +1202,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
             return "charterApprovalAgencyTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
 {
@@ -1235,7 +1235,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
             return "charterStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
 {
@@ -1268,7 +1268,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
             return "citizenshipStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
 {
@@ -1304,7 +1304,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
             return "classPeriods";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
 {
@@ -1337,7 +1337,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
             return "classroomPositionDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
 {
@@ -1376,7 +1376,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
             return "cohorts";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
 {
@@ -1409,7 +1409,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
             return "cohortScopeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
 {
@@ -1442,7 +1442,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
             return "cohortTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
 {
@@ -1475,7 +1475,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
             return "cohortYearTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
 {
@@ -1508,7 +1508,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
             return "communityOrganizations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
 {
@@ -1547,7 +1547,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
             return "communityProviders";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
 {
@@ -1591,7 +1591,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
             return "communityProviderLicenses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
 {
@@ -1624,7 +1624,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
             return "competencyLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
 {
@@ -1663,7 +1663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
             return "competencyObjectives";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
 {
@@ -1696,7 +1696,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
             return "contactTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 {
@@ -1729,7 +1729,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
             return "contentClassDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescriptors.EdFi
 {
@@ -1762,7 +1762,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
             return "continuationOfServicesReasonDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
 {
@@ -1801,7 +1801,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
             return "contractedStaffs";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
 {
@@ -1834,7 +1834,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
             return "costRateDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
 {
@@ -1867,7 +1867,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
             return "countryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
 {
@@ -1919,7 +1919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
             return "courses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
 {
@@ -1952,7 +1952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
             return "courseAttemptResultDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
 {
@@ -1985,7 +1985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
             return "courseDefinedByDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.EdFi
 {
@@ -2018,7 +2018,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
             return "courseGPAApplicabilityDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptors.EdFi
 {
@@ -2051,7 +2051,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
             return "courseIdentificationSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors.EdFi
 {
@@ -2084,7 +2084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
             return "courseLevelCharacteristicDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
 {
@@ -2125,7 +2125,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
             return "courseOfferings";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
 {
@@ -2158,7 +2158,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
             return "courseRepeatCodeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
 {
@@ -2215,7 +2215,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             return "courseTranscripts";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
 {
@@ -2258,7 +2258,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
             return "credentials";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
 {
@@ -2291,7 +2291,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
             return "credentialFieldDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
 {
@@ -2324,7 +2324,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
             return "credentialTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
 {
@@ -2357,7 +2357,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
             return "creditCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
 {
@@ -2390,7 +2390,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
             return "creditTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
 {
@@ -2423,7 +2423,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
             return "cteProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
 {
@@ -2456,7 +2456,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
             return "curriculumUsedDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
 {
@@ -2489,7 +2489,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
             return "deliveryMethodDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
 {
@@ -2522,7 +2522,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
             return "diagnosisDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
 {
@@ -2555,7 +2555,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
             return "diplomaLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
 {
@@ -2588,7 +2588,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
             return "diplomaTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
 {
@@ -2621,7 +2621,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
             return "disabilityDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdFi
 {
@@ -2654,7 +2654,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
             return "disabilityDesignationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDescriptors.EdFi
 {
@@ -2687,7 +2687,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
             return "disabilityDeterminationSourceTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
 {
@@ -2731,7 +2731,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
             return "disciplineActions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReasonDescriptors.EdFi
 {
@@ -2764,7 +2764,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
             return "disciplineActionLengthDifferenceReasonDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
 {
@@ -2797,7 +2797,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
             return "disciplineDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
 {
@@ -2842,7 +2842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
             return "disciplineIncidents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeDescriptors.EdFi
 {
@@ -2875,7 +2875,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
             return "disciplineIncidentParticipationCodeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.EdFi
 {
@@ -2908,7 +2908,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
             return "educationalEnvironmentDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
 {
@@ -2958,7 +2958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
             return "educationContents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescriptors.EdFi
 {
@@ -2991,7 +2991,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
             return "educationOrganizationCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationSystemDescriptors.EdFi
 {
@@ -3024,7 +3024,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
             return "educationOrganizationIdentificationSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPrescriptionAssociations.EdFi
 {
@@ -3062,7 +3062,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
             return "educationOrganizationInterventionPrescriptionAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
 {
@@ -3096,7 +3096,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
             return "educationOrganizationNetworks";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociations.EdFi
 {
@@ -3133,7 +3133,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
             return "educationOrganizationNetworkAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociations.EdFi
 {
@@ -3168,7 +3168,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
             return "educationOrganizationPeerAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
 {
@@ -3201,7 +3201,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
             return "educationPlanDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
 {
@@ -3235,7 +3235,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
             return "educationServiceCenters";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
 {
@@ -3268,7 +3268,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
             return "electronicMailTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
 {
@@ -3301,7 +3301,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
             return "employmentStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdFi
 {
@@ -3334,7 +3334,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
             return "entryGradeLevelReasonDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
 {
@@ -3367,7 +3367,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
             return "entryTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
 {
@@ -3400,7 +3400,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
             return "eventCircumstanceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
 {
@@ -3433,7 +3433,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
             return "exitWithdrawTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
 {
@@ -3471,7 +3471,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
             return "feederSchoolAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
 {
@@ -3519,7 +3519,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             return "grades";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
 {
@@ -3564,7 +3564,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             return "gradebookEntries";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
 {
@@ -3597,7 +3597,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
             return "gradebookEntryTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
 {
@@ -3630,7 +3630,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
             return "gradeLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdFi
 {
@@ -3663,7 +3663,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
             return "gradePointAverageTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
 {
@@ -3696,7 +3696,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
             return "gradeTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
 {
@@ -3736,7 +3736,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
             return "gradingPeriods";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
 {
@@ -3769,7 +3769,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
             return "gradingPeriodDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
 {
@@ -3809,7 +3809,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
             return "graduationPlans";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
 {
@@ -3842,7 +3842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
             return "graduationPlanTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDescriptors.EdFi
 {
@@ -3875,7 +3875,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
             return "gunFreeSchoolsActReportingStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDescriptors.EdFi
 {
@@ -3908,7 +3908,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
             return "homelessPrimaryNighttimeResidenceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.EdFi
 {
@@ -3941,7 +3941,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
             return "homelessProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors.EdFi
 {
@@ -3974,7 +3974,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
             return "identificationDocumentUseDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
 {
@@ -4007,7 +4007,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
             return "incidentLocationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
 {
@@ -4040,7 +4040,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
             return "indicatorDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
 {
@@ -4073,7 +4073,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
             return "indicatorGroupDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
 {
@@ -4106,7 +4106,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
             return "indicatorLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescriptors.EdFi
 {
@@ -4139,7 +4139,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
             return "institutionTelephoneNumberTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
 {
@@ -4172,7 +4172,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
             return "interactivityStyleDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
 {
@@ -4205,7 +4205,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
             return "internetAccessDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
 {
@@ -4246,7 +4246,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
             return "interventions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
 {
@@ -4279,7 +4279,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
             return "interventionClassDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescriptors.EdFi
 {
@@ -4312,7 +4312,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
             return "interventionEffectivenessRatingDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
 {
@@ -4351,7 +4351,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
             return "interventionPrescriptions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
 {
@@ -4391,7 +4391,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
             return "interventionStudies";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
 {
@@ -4424,7 +4424,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
             return "languageDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDescriptors.EdFi
 {
@@ -4457,7 +4457,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
             return "languageInstructionProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
 {
@@ -4490,7 +4490,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
             return "languageUseDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
 {
@@ -4531,7 +4531,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
             return "learningObjectives";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
 {
@@ -4574,7 +4574,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
             return "learningStandards";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.EdFi
 {
@@ -4607,7 +4607,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
             return "learningStandardCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociations.EdFi
 {
@@ -4646,7 +4646,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
             return "learningStandardEquivalenceAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthDescriptors.EdFi
 {
@@ -4679,7 +4679,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
             return "learningStandardEquivalenceStrengthDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdFi
 {
@@ -4712,7 +4712,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
             return "learningStandardScopeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
 {
@@ -4745,7 +4745,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
             return "levelOfEducationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
 {
@@ -4778,7 +4778,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
             return "licenseStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
 {
@@ -4811,7 +4811,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
             return "licenseTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors.EdFi
 {
@@ -4844,7 +4844,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
             return "limitedEnglishProficiencyDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
 {
@@ -4877,7 +4877,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
             return "localeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
 {
@@ -4915,7 +4915,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             return "localEducationAgencies";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescriptors.EdFi
 {
@@ -4948,7 +4948,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
             return "localEducationAgencyCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
 {
@@ -4985,7 +4985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
             return "locations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi
 {
@@ -5018,7 +5018,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
             return "magnetSpecialProgramEmphasisSchoolDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
 {
@@ -5051,7 +5051,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
             return "mediumOfInstructionDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
 {
@@ -5084,7 +5084,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
             return "methodCreditEarnedDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescriptors.EdFi
 {
@@ -5117,7 +5117,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
             return "migrantEducationProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
 {
@@ -5150,7 +5150,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
             return "monitoredDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescriptors.EdFi
 {
@@ -5183,7 +5183,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
             return "neglectedOrDelinquentProgramDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceDescriptors.EdFi
 {
@@ -5216,7 +5216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
             return "neglectedOrDelinquentProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
 {
@@ -5249,7 +5249,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
             return "networkPurposeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
 {
@@ -5291,7 +5291,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
             return "objectiveAssessments";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
 {
@@ -5324,7 +5324,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
             return "oldEthnicityDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
 {
@@ -5366,7 +5366,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
             return "openStaffPositions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
 {
@@ -5399,7 +5399,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
             return "operationalStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
 {
@@ -5432,7 +5432,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
             return "otherNameTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
 {
@@ -5476,7 +5476,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             return "parents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
 {
@@ -5509,7 +5509,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
             return "participationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
 {
@@ -5542,7 +5542,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
             return "participationStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
 {
@@ -5581,7 +5581,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
             return "payrolls";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors.EdFi
 {
@@ -5614,7 +5614,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
             return "performanceBaseConversionDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
 {
@@ -5647,7 +5647,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
             return "performanceLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
 {
@@ -5682,7 +5682,7 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
             return "people";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescriptors.EdFi
 {
@@ -5715,7 +5715,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
             return "personalInformationVerificationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
 {
@@ -5748,7 +5748,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
             return "platformTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
 {
@@ -5781,7 +5781,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
             return "populationServedDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
 {
@@ -5814,7 +5814,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
             return "postingResultDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
 {
@@ -5851,7 +5851,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
             return "postSecondaryEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptors.EdFi
 {
@@ -5884,7 +5884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
             return "postSecondaryEventCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
 {
@@ -5919,7 +5919,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
             return "postSecondaryInstitutions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescriptors.EdFi
 {
@@ -5952,7 +5952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
             return "postSecondaryInstitutionLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
 {
@@ -5985,7 +5985,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
             return "proficiencyDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
 {
@@ -6022,7 +6022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
             return "programs";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
 {
@@ -6055,7 +6055,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
             return "programAssignmentDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdFi
 {
@@ -6088,7 +6088,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
             return "programCharacteristicDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 {
@@ -6121,7 +6121,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
             return "programSponsorDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
 {
@@ -6154,7 +6154,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
             return "programTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
 {
@@ -6187,7 +6187,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
             return "progressDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
 {
@@ -6220,7 +6220,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
             return "progressLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
 {
@@ -6253,7 +6253,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
             return "providerCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdFi
 {
@@ -6286,7 +6286,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
             return "providerProfitabilityDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
 {
@@ -6319,7 +6319,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
             return "providerStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
 {
@@ -6352,7 +6352,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
             return "publicationStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
 {
@@ -6385,7 +6385,7 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
             return "questionFormDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
 {
@@ -6418,7 +6418,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
             return "raceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
 {
@@ -6451,7 +6451,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
             return "reasonExitedDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
 {
@@ -6484,7 +6484,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
             return "reasonNotTestedDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
 {
@@ -6517,7 +6517,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
             return "recognitionTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
 {
@@ -6550,7 +6550,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
             return "relationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
 {
@@ -6583,7 +6583,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
             return "repeatIdentifierDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
 {
@@ -6627,7 +6627,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
             return "reportCards";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
 {
@@ -6660,7 +6660,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
             return "reporterDescriptionDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
 {
@@ -6693,7 +6693,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
             return "residencyStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
 {
@@ -6726,7 +6726,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
             return "responseIndicatorDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
 {
@@ -6759,7 +6759,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
             return "responsibilityDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
 {
@@ -6797,7 +6797,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
             return "restraintEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
 {
@@ -6830,7 +6830,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
             return "restraintEventReasonDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
 {
@@ -6863,7 +6863,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
             return "resultDatatypeTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
 {
@@ -6896,7 +6896,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
             return "retestIndicatorDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
 {
@@ -6938,7 +6938,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
             return "schools";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
 {
@@ -6971,7 +6971,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
             return "schoolCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescriptors.EdFi
 {
@@ -7004,7 +7004,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
             return "schoolChoiceImplementStatusDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescriptors.EdFi
 {
@@ -7037,7 +7037,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
             return "schoolFoodServiceProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
 {
@@ -7070,7 +7070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
             return "schoolTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
 {
@@ -7106,7 +7106,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
             return "schoolYearTypes";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
 {
@@ -7156,7 +7156,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
             return "sections";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
 {
@@ -7198,7 +7198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
             return "sectionAttendanceTakenEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdFi
 {
@@ -7231,7 +7231,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
             return "sectionCharacteristicDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
 {
@@ -7264,7 +7264,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
             return "separationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
 {
@@ -7297,7 +7297,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
             return "separationReasonDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
 {
@@ -7330,7 +7330,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
             return "serviceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
 {
@@ -7370,7 +7370,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
             return "sessions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
 {
@@ -7403,7 +7403,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
             return "sexDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
 {
@@ -7436,7 +7436,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
             return "sourceSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
 {
@@ -7469,7 +7469,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
             return "specialEducationProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.EdFi
 {
@@ -7502,7 +7502,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
             return "specialEducationSettingDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
 {
@@ -7554,7 +7554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             return "staffs";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
 {
@@ -7592,7 +7592,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
             return "staffAbsenceEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
 {
@@ -7625,7 +7625,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
             return "staffClassificationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
 {
@@ -7664,7 +7664,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
             return "staffCohortAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.EdFi
 {
@@ -7700,7 +7700,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
             return "staffDisciplineIncidentAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignmentAssociations.EdFi
 {
@@ -7745,7 +7745,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             return "staffEducationOrganizationAssignmentAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAssociations.EdFi
 {
@@ -7783,7 +7783,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
             return "staffEducationOrganizationContactAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmploymentAssociations.EdFi
 {
@@ -7829,7 +7829,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
             return "staffEducationOrganizationEmploymentAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors.EdFi
 {
@@ -7862,7 +7862,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
             return "staffIdentificationSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
 {
@@ -7901,7 +7901,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
             return "staffLeaves";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.EdFi
 {
@@ -7934,7 +7934,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
             return "staffLeaveEventCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
 {
@@ -7974,7 +7974,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
             return "staffProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
 {
@@ -8012,7 +8012,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
             return "staffSchoolAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
 {
@@ -8057,7 +8057,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
             return "staffSectionAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
 {
@@ -8090,7 +8090,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
             return "stateAbbreviationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
 {
@@ -8123,7 +8123,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
             return "stateEducationAgencies";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
 {
@@ -8174,7 +8174,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             return "students";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
 {
@@ -8229,7 +8229,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
             return "studentAcademicRecords";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
 {
@@ -8278,7 +8278,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             return "studentAssessments";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdFi
 {
@@ -8311,7 +8311,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
             return "studentCharacteristicDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
 {
@@ -8349,7 +8349,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
             return "studentCohortAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
 {
@@ -8392,7 +8392,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
             return "studentCompetencyObjectives";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
 {
@@ -8433,7 +8433,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
             return "studentCTEProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociations.EdFi
 {
@@ -8470,7 +8470,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
             return "studentDisciplineIncidentAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi
 {
@@ -8511,7 +8511,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "studentEducationOrganizationAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsibilityAssociations.EdFi
 {
@@ -8549,7 +8549,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
             return "studentEducationOrganizationResponsibilityAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
 {
@@ -8596,7 +8596,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             return "studentGradebookEntries";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.EdFi
 {
@@ -8637,7 +8637,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
             return "studentHomelessProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescriptors.EdFi
 {
@@ -8670,7 +8670,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             return "studentIdentificationSystemDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
 {
@@ -8710,7 +8710,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
             return "studentInterventionAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.EdFi
 {
@@ -8752,7 +8752,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
             return "studentInterventionAttendanceEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAssociations.EdFi
 {
@@ -8792,7 +8792,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
             return "studentLanguageInstructionProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
 {
@@ -8834,7 +8834,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
             return "studentLearningObjectives";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssociations.EdFi
 {
@@ -8881,7 +8881,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
             return "studentMigrantEducationProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramAssociations.EdFi
 {
@@ -8922,7 +8922,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             return "studentNeglectedOrDelinquentProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
 {
@@ -8963,7 +8963,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
             return "studentParentAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.EdFi
 {
@@ -8996,7 +8996,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
             return "studentParticipationCodeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
 {
@@ -9034,7 +9034,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
             return "studentProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
 {
@@ -9078,7 +9078,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
             return "studentProgramAttendanceEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
 {
@@ -9132,7 +9132,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
             return "studentSchoolAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
 {
@@ -9177,7 +9177,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
             return "studentSchoolAttendanceEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssociations.EdFi
 {
@@ -9216,7 +9216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
             return "studentSchoolFoodServiceProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
 {
@@ -9261,7 +9261,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
             return "studentSectionAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
 {
@@ -9308,7 +9308,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
             return "studentSectionAttendanceEvents";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi
 {
@@ -9356,7 +9356,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "studentSpecialEducationProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociations.EdFi
 {
@@ -9395,7 +9395,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             return "studentTitleIPartAProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
 {
@@ -9437,7 +9437,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
             return "surveys";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
 {
@@ -9470,7 +9470,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
             return "surveyCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
 {
@@ -9507,7 +9507,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
             return "surveyCourseAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
 {
@@ -9540,7 +9540,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
             return "surveyLevelDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
 {
@@ -9578,7 +9578,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
             return "surveyProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
 {
@@ -9617,7 +9617,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
             return "surveyQuestions";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
 {
@@ -9656,7 +9656,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
             return "surveyQuestionResponses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
 {
@@ -9700,7 +9700,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
             return "surveyResponses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationTargetAssociations.EdFi
 {
@@ -9737,7 +9737,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
             return "surveyResponseEducationOrganizationTargetAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociations.EdFi
 {
@@ -9774,7 +9774,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
             return "surveyResponseStaffTargetAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
 {
@@ -9810,7 +9810,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
             return "surveySections";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
 {
@@ -9850,7 +9850,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
             return "surveySectionAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
 {
@@ -9888,7 +9888,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
             return "surveySectionResponses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi
 {
@@ -9926,7 +9926,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
             return "surveySectionResponseEducationOrganizationTargetAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAssociations.EdFi
 {
@@ -9964,7 +9964,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
             return "surveySectionResponseStaffTargetAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.EdFi
 {
@@ -9997,7 +9997,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
             return "teachingCredentialBasisDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
 {
@@ -10030,7 +10030,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
             return "teachingCredentialDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors.EdFi
 {
@@ -10063,7 +10063,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
             return "technicalSkillsAssessmentDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
 {
@@ -10096,7 +10096,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
             return "telephoneNumberTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
 {
@@ -10129,7 +10129,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
             return "termDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.EdFi
 {
@@ -10162,7 +10162,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
             return "titleIPartAParticipantDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors.EdFi
 {
@@ -10195,7 +10195,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
             return "titleIPartAProgramServiceDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescriptors.EdFi
 {
@@ -10228,7 +10228,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
             return "titleIPartASchoolDesignationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
 {
@@ -10261,7 +10261,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
             return "tribalAffiliationDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
 {
@@ -10294,7 +10294,7 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
             return "visaDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
 {
@@ -10327,4 +10327,4 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
             return "weaponDescriptors";
         }
     }
-    }
+}

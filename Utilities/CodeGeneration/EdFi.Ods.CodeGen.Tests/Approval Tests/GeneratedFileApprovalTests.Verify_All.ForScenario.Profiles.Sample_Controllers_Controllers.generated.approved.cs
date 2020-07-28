@@ -60,7 +60,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
             return "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
 {
@@ -107,7 +107,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             return "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
@@ -158,21 +158,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(SchoolsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(SchoolsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
@@ -212,18 +210,16 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
             return "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Get(Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Get(Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}

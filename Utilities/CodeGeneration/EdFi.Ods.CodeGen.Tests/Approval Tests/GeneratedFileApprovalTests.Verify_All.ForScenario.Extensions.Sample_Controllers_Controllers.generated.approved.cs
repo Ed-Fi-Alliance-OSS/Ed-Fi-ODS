@@ -46,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
             return "artMediumDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
 {
@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
             return "buses";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
 {
@@ -129,7 +129,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
             return "busRoutes";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescriptors
 {
@@ -162,7 +162,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
             return "favoriteBookCategoryDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
 {
@@ -195,7 +195,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
             return "membershipTypeDescriptors";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
 {
@@ -244,7 +244,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             return "studentArtProgramAssociations";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociations
 {
@@ -290,4 +290,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
             return "studentGraduationPlanAssociations";
         }
     }
-    }
+}

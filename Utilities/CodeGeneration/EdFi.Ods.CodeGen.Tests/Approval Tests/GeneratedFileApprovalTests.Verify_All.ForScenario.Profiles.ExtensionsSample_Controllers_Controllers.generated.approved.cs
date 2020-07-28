@@ -67,7 +67,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             return "application/vnd.ed-fi.busroute.busroute-mixedinclude.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
 {
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             return "application/vnd.ed-fi.busroute.busroute-mixedinclude1.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
 {
@@ -175,7 +175,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             return "application/vnd.ed-fi.busroute.busroute-mixedinclude2.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
 {
@@ -229,7 +229,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude
 {
@@ -286,7 +286,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             return "application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
 {
@@ -340,7 +340,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude2.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
 {
@@ -397,7 +397,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             return "application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude2.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
 {
@@ -451,7 +451,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             return "application/vnd.ed-fi.busroute.staff-and-prospect-mixedinclude.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedInclude
 {
@@ -508,7 +508,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             return "application/vnd.ed-fi.staff.staff-and-prospect-mixedinclude.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
 {
@@ -565,7 +565,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
             return "application/vnd.ed-fi.staff.staff-entity-extension-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
 {
@@ -622,7 +622,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
             return "application/vnd.ed-fi.staff.staff-entity-extension-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
 {
@@ -679,7 +679,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
             return "application/vnd.ed-fi.staff.staff-include-all.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
 {
@@ -735,4 +735,4 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
             return "application/vnd.ed-fi.student.student-include-all.readable+json";
         }
     }
-    }
+}

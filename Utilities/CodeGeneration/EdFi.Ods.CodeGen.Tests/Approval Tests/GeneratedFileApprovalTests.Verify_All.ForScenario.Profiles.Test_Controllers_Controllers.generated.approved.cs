@@ -60,21 +60,19 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Rea
             return "application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(AcademicWeeksNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(AcademicWeeksNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(AcademicWeeksNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(AcademicWeeksNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Academic-Week-Readable-Excludes-Optional-References' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
 {
@@ -114,21 +112,19 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Wri
             return "application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Get(Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Get(Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AcademicWeeksNullReadRequest specification = null)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AcademicWeeksNullReadRequest specification = null)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Academic-Week-Writable-Excludes-Optional-References' profile are PUT, POST, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
 {
@@ -182,21 +178,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             return "application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(AssessmentsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(AssessmentsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(AssessmentsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(AssessmentsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Readable-Excludes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
 {
@@ -250,21 +244,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             return "application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(AssessmentsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(AssessmentsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(AssessmentsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(AssessmentsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Readable-Includes-Embedded-Object' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
 {
@@ -304,21 +296,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
             return "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Get(Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Get(Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Writable-Excludes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
 {
@@ -358,21 +348,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
             return "application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Get(Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Get(Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, AssessmentsNullReadRequest specification = null)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Assessment-Writable-Includes-Embedded-Object' profile are PUT, POST, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
 {
@@ -435,21 +423,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StudentSchoolAssociationsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-ExcludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
 {
@@ -512,21 +498,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StudentSchoolAssociationsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StudentSchoolAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StudentSchoolAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'MinimalStudentSchoolAssociation-IncludeOnly' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restricted
 {
@@ -586,21 +570,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restr
             return "application/vnd.ed-fi.student.student-readable-restricted.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StudentsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StudentsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StudentsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StudentsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Student-Readable-Restricted' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
 {
@@ -653,7 +635,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
 {
@@ -706,7 +688,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
 {
@@ -759,7 +741,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
 {
@@ -812,7 +794,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.test-parentnonabstractbaseclass-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
 {
@@ -865,7 +847,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.test-parentnonabstractbaseclass-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
@@ -908,7 +890,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
             return "application/vnd.ed-fi.localeducationagency.test-profile-edorgs-resources-child-collection-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
@@ -955,7 +937,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
             return "application/vnd.ed-fi.school.test-profile-edorgs-resources-child-collection-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
@@ -998,7 +980,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
             return "application/vnd.ed-fi.localeducationagency.test-profile-edorgs-resources-child-collection-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
@@ -1045,7 +1027,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
             return "application/vnd.ed-fi.school.test-profile-edorgs-resources-child-collection-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
@@ -1106,21 +1088,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composi
             return "application/vnd.ed-fi.staff.test-profile-for-composites-with-multiple-resources.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StaffsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StaffsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StaffsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StaffsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
@@ -1170,21 +1150,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-For-Composites-With-Multiple-Resources' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
 {
@@ -1231,7 +1209,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
 {
@@ -1282,21 +1260,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly-2.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(SchoolsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(SchoolsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
 {
@@ -1343,7 +1319,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
 {
@@ -1390,7 +1366,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             return "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-excludeonly-specific-descriptors.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
 {
@@ -1437,7 +1413,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             return "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
 {
@@ -1484,7 +1460,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             return "application/vnd.ed-fi.school.test-profile-resource-child-collection-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
 {
@@ -1531,7 +1507,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
             return "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeAll
 {
@@ -1578,7 +1554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             return "application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
 {
@@ -1625,7 +1601,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             return "application/vnd.ed-fi.school.test-profile-resource-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
 {
@@ -1679,7 +1655,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             return "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
 {
@@ -1733,7 +1709,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             return "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
@@ -1784,21 +1760,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return "application/vnd.ed-fi.school.test-profile-resource-readonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(SchoolsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(SchoolsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
 {
@@ -1845,7 +1819,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return "application/vnd.ed-fi.school.test-profile-resource-references-excludeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
 {
@@ -1892,7 +1866,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             return "application/vnd.ed-fi.school.test-profile-resource-references-includeonly.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
@@ -1932,21 +1906,19 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
             return "application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Get(Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Get(Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
 {
@@ -2003,7 +1975,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_R
             return "application/vnd.ed-fi.staff.test-profile-staffonly-resource-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_and_School_Include_All
 {
@@ -2050,7 +2022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_an
             return "application/vnd.ed-fi.school.test-profile-student-and-school-include-all.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_and_School_Include_All
 {
@@ -2106,7 +2078,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_a
             return "application/vnd.ed-fi.student.test-profile-student-and-school-include-all.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
 {
@@ -2162,7 +2134,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             return "application/vnd.ed-fi.student.test-profile-studentonly2-resource-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
 {
@@ -2218,7 +2190,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             return "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json";
         }
     }
-    }
+}
 
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
 {
@@ -2268,18 +2240,16 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             return "application/vnd.ed-fi.studenteducationorganizationassociation.test-studenteducationorganizationassociation-exclude-all-addrs-except-physical.readable+json";
         }
 
-        public override Task<IHttpActionResult>
-    Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
-    }
+        public override Task<IHttpActionResult> Post(StudentEducationOrganizationAssociationsNullWriteRequest request)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
+        }
 
-        public override Task<IHttpActionResult>
-    Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
-    {
-    return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-    .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
+        public override Task<IHttpActionResult> Put(StudentEducationOrganizationAssociationsNullWriteRequest request, Guid id)
+        {
+            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the 'Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical' profile are GET, DELETE and OPTIONS."));
+        }
     }
-    }
-    }
+}
