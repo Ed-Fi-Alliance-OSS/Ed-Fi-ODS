@@ -6,8 +6,10 @@
 #if NETCOREAPP
 using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Features.OpenApiMetadata.Providers {
-    public interface IOpenApiMetadataDocumentProvider {
+namespace EdFi.Ods.Api.NetCore.Providers
+{
+    public interface IOpenApiMetadataDocumentProvider
+    {
         bool TryGetSwaggerDocument(HttpRequest request, out string document);
     }
 }
