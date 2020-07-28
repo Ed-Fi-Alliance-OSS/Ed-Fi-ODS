@@ -12,6 +12,7 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Pipelines.Common;
@@ -88,7 +89,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     typeof(T),
                     factory,
                     new StubCurrentSchoolYearContextProvider(),
-                    new RESTErrorProvider(translators));
+                    new RESTErrorProvider(translators),
+                    new DefaultPageSizeLimitProvider());
 
             controller.Configuration = new HttpConfiguration();
             var uri = $@"http://localhost/api/ods/v3/ed-fi/Students/{id}";

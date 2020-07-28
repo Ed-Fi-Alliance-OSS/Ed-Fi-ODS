@@ -16,6 +16,7 @@ using EdFi.Ods.Api.Identity;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
 using EdFi.Ods.Common.Composites;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Metadata;
@@ -117,6 +118,10 @@ namespace EdFi.Ods.WebService.Tests._Installers
             container.Register(
                 Component.For<ICompositesMetadataProvider>()
                          .ImplementedBy<CompositesMetadataProvider>());
+
+            container.Register(
+                Component.For<IDefaultPageSizeLimitProvider>()
+                    .ImplementedBy<DefaultPageSizeLimitProvider>());
         }
 
         protected virtual void RegisterNHibernateComponents(IWindsorContainer container)
