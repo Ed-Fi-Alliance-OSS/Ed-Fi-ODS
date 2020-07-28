@@ -49,8 +49,8 @@ namespace EdFi.Ods.Api.Validation
                         }
                         else
                         {
-                            var extensionBagNameParts = SystemConventions.GetExtensionBagNameParts((string) entry.Key);
-                            compositeResults.AddResult(new ValidationResult($"{context.DisplayName} ({extensionBagNameParts.SchemaProperCaseName}): {itemResult}"));
+                            var schemaProperCaseName = entry.Key;
+                            compositeResults.AddResult(new ValidationResult($"{context.DisplayName} ({schemaProperCaseName}): {itemResult}"));
                         }
                     }
                 }
