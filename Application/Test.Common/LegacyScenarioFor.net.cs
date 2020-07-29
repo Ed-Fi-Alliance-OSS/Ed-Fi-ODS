@@ -204,7 +204,6 @@ namespace Test.Common
                     _constructorArgs[argIndex] = new Lazy<object>(() => explicitDependency);
                 }
             }
-            
             return (TDependency) lazyDependency.Value;
         }
 
