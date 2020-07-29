@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
                         {
                             ValidatedDictionary = new Hashtable
                             {
-                                {"TestSchema_Items", new List<TestObjectExtension> {new TestObjectExtension() }}
+                                {"TestSchema", new List<TestObjectExtension> {new TestObjectExtension() }}
                             }
                         });
             }
