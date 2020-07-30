@@ -22,7 +22,7 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
             var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
 
             A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
-                          "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
+                          "Host=localhost; Port=5432; Username=sqlserver; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
 
             new SecurityContextFactory(connectionstringProvider, DatabaseEngine.SqlServer)
                  .CreateContext()
