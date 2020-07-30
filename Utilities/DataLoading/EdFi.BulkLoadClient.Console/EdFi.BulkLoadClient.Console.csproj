@@ -36,7 +36,7 @@
     <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Common" Version="3.4.0" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
     <PackageReference Include="FluentCommandLineParser" Version="1.4.3" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />

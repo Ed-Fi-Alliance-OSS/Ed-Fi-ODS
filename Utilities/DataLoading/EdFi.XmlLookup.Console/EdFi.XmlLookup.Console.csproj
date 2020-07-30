@@ -35,7 +35,7 @@
     <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Common" Version="3.4.0" PrivateAssets="all" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="FluentCommandLineParser" Version="1.4.3" PrivateAssets="all" />
     <PackageReference Include="log4net" Version="2.0.8" PrivateAssets="all" />
     <PackageReference Include="SimpleInjector" Version="4.1.0" PrivateAssets="all" />
