@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
                 _actualPaths = SwaggerDocumentFactoryHelper.CreateSwaggerPathsFactory(
                                                                 DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                                                           .Create(swaggerResources);
+                                                           .Create(swaggerResources, false);
             }
 
             [Assert]
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 _actualPaths = SwaggerDocumentFactoryHelper
                               .CreateSwaggerPathsFactory(_swaggerDocumentContext)
-                              .Create(_swaggerResources);
+                              .Create(_swaggerResources, false);
             }
 
             [Assert]
