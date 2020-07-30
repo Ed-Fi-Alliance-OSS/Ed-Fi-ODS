@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Contexts;
@@ -67,7 +68,8 @@ namespace EdFi.Ods.Admin.Services
                     {
                         if (application.ApplicationEducationOrganizations.All(x => x.EducationOrganizationId != leaId))
                         {
-                            application.CreateEducationOrganizationAssociation(leaId);
+                            var applicationEducationOrganization = application.CreateEducationOrganizationAssociation(leaId);
+                            context.ApplicationEducationOrganizations.AddOrUpdate(applicationEducationOrganization);
                         }
                     }
 
