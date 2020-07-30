@@ -2,13 +2,14 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Data.Entity;
 using System.Linq;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Admin.DataAccess.IntegrationTests.Models;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
@@ -35,23 +36,23 @@ namespace EdFi.Ods.Admin.Tests.Services
             private Application _createdApplication;
             private Application _loadedApplication;
 
-            private string vendorName;
-            private int leaId;
+            private string _vendorName;
+            private int _leaId;
 
             [OneTimeSetUp]
             public new void Setup()
             {
-                vendorName = $"{DateTime.Now.Ticks}_TestData";
-                leaId = int.MaxValue - 1;
+                _vendorName = $"{DateTime.Now.Ticks}_TestData";
+                _leaId = int.MaxValue - 1;
 
-                DeleteApplicationEducationOrganization(leaId);
-                DeleteVendor(vendorName);
+                DeleteApplicationEducationOrganization(_leaId);
+                DeleteVendor(_vendorName);
 
-                var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
-                A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
+                A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(A<string>._))
                     .Returns(
-                        new[] {leaId});
+                        new[] {_leaId});
 
                 var configValueProvider = Stub<IConfigValueProvider>();
 
@@ -71,7 +72,7 @@ namespace EdFi.Ods.Admin.Tests.Services
 
                 using (var context = new SqlServerUsersContext())
                 {
-                    var vendor = new Vendor {VendorName = vendorName};
+                    var vendor = new Vendor {VendorName = _vendorName};
 
                     context.Vendors.Add(vendor);
                     context.SaveChanges();
@@ -86,7 +87,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                     _loadedApplication =
                         context.Applications.Where(
                                 a => a.ApplicationName == _createdApplication.ApplicationName &&
-                                     a.Vendor.VendorName == vendorName)
+                                     a.Vendor.VendorName == _vendorName)
                             .Include(x => x.ApplicationEducationOrganizations)
                             .Single();
                 }
@@ -95,25 +96,15 @@ namespace EdFi.Ods.Admin.Tests.Services
             [OneTimeTearDown]
             public new void TearDown()
             {
-                DeleteApplicationEducationOrganization(leaId);
+                DeleteApplicationEducationOrganization(_leaId);
                 DeleteApplication(_createdApplication.ApplicationName);
-                DeleteVendor(vendorName);
-            }
-
-            [Test]
-            public void Should_associate_all_available_LEAs_with_application()
-            {
-                var leas = _loadedApplication.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
-                    .ToArray();
-
-                leas.Length.ShouldBe(1);
-                leas.ShouldContain(leaId);
+                DeleteVendor(_vendorName);
             }
 
             [Test]
             public void Should_associate_application_with_vendor()
             {
-                _createdApplication.Vendor.VendorName.ShouldBe(vendorName);
+                _createdApplication.Vendor.VendorName.ShouldBe(_vendorName);
             }
 
             [Test]
@@ -158,9 +149,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(leaId2);
                 DeleteVendor(vendorName);
 
-                var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
-                A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
+                A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(A<string>._))
                     .Returns(
                         new[]
                         {
@@ -189,7 +180,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                     var vendor = new Vendor {VendorName = vendorName};
 
                     var application = vendor.CreateApplication(_defaultApplicationName + " Sample", _defaultClaimSet);
-                    application.CreateEducationOrganizationAssociation(leaId1);
+                    application.CreateApplicationEducationOrganization(leaId1);
                     application.OperationalContextUri = _defaultOperationalContextUri;
                     context.Vendors.Add(vendor);
                     context.SaveChanges();
@@ -213,17 +204,6 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(leaId2);
                 DeleteApplication(_foundApplication.ApplicationName);
                 DeleteVendor(vendorName);
-            }
-
-            [Test]
-            public void Should_add_lea_association_that_was_missing()
-            {
-                var leaIds = _loadedApplication.ApplicationEducationOrganizations.Select(x => x.EducationOrganizationId)
-                    .ToArray();
-
-                leaIds.Length.ShouldBe(2);
-                leaIds.ShouldContain(leaId1);
-                leaIds.ShouldContain(leaId2);
             }
 
             [Test]

@@ -2,13 +2,15 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
-using System.Configuration;
-using System.Data.SqlClient;
+
+using System;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Admin.DataAccess.Utils
 {
-    public class DatabaseNameBuilder
+    public class DatabaseNameBuilder : IDatabaseNameBuilder
     {
         private const string TemplatePrefix = "Ods_";
         private const string SandboxPrefix = TemplatePrefix + "Sandbox_";
@@ -16,59 +18,55 @@ namespace EdFi.Admin.DataAccess.Utils
         private const string TemplateEmptyDatabase = TemplatePrefix + "Empty_Template";
         private const string TemplateMinimalDatabase = TemplatePrefix + "Minimal_Template";
         private const string TemplateSampleDatabase = TemplatePrefix + "Populated_Template";
-        public const string CodeGenDatabase = "EdFi_Ods";
 
-        private static string _databaseNameTemplate;
+        private readonly Lazy<string> _databaseNameTemplate;
 
-        private static string DatabaseNameTemplate
+        public DatabaseNameBuilder(IConfigConnectionStringsProvider connectionStringsProvider, IDbConnectionStringBuilderAdapterFactory connectionStringBuilderFactory)
         {
-            get
-            {
-                return _databaseNameTemplate ??
-                       (_databaseNameTemplate =
-                           ConfigurationManager.ConnectionStrings["EdFi_Ods"] != null
-                               ? new SqlConnectionStringBuilder(
-                                   ConfigurationManager.ConnectionStrings["EdFi_Ods"]
-                                                       .ConnectionString).InitialCatalog
-                               : string.Empty);
-            }
+            _databaseNameTemplate = new Lazy<string>(
+                () =>
+                {
+                    if (!connectionStringsProvider.ConnectionStringProviderByName.ContainsKey("EdFi_Ods"))
+                    {
+                        return string.Empty;
+                    }
+
+                    var connectionStringBuilder = connectionStringBuilderFactory.Get();
+
+                    connectionStringBuilder.ConnectionString = connectionStringsProvider.GetConnectionString("EdFi_Ods");
+
+                    return connectionStringBuilder.DatabaseName;
+                });
         }
 
-        public static string EmptyDatabase
+        public string DemoSandboxDatabase
         {
-            get { return DatabaseName(TemplateEmptyDatabase); }
+            get => "EdFi_Ods";
         }
 
-        public static string MinimalDatabase
+        public string EmptyDatabase
         {
-            get { return DatabaseName(TemplateMinimalDatabase); }
+            get => DatabaseName(TemplateEmptyDatabase);
         }
 
-        public static string SampleDatabase
+        public string MinimalDatabase
         {
-            get { return DatabaseName(TemplateSampleDatabase); }
+            get => DatabaseName(TemplateMinimalDatabase);
         }
 
-        private static string DatabaseName(string databaseName)
+        public string SampleDatabase
         {
-            return DatabaseNameTemplate.Contains("{0}")
-                ? string.Format(DatabaseNameTemplate, databaseName)
-                : DatabaseNameTemplate;
+            get => DatabaseName(TemplateSampleDatabase);
         }
 
-        public static string SandboxNameForKey(string key)
-        {
-            return DatabaseName(SandboxPrefix + key);
-        }
+        public string SandboxNameForKey(string key) => DatabaseName(SandboxPrefix + key);
 
-        public static string YearSpecificOdsDatabaseName(int year)
-        {
-            return DatabaseName(TemplatePrefix + year);
-        }
+        public string KeyFromSandboxName(string sandboxName) => sandboxName.Replace(DatabaseName(SandboxPrefix), string.Empty);
 
-        public static string KeyFromSandboxName(string sandboxName)
-        {
-            return sandboxName.Replace(DatabaseName(SandboxPrefix), string.Empty);
-        }
+        public string TemplateSandboxNameForKey(string key) => SandboxPrefix + key;
+
+        private string DatabaseName(string databaseName) => _databaseNameTemplate.Value.IsFormatString()
+            ? string.Format(_databaseNameTemplate.Value, databaseName)
+            : _databaseNameTemplate.Value;
     }
 }
