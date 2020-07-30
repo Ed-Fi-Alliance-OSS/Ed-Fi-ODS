@@ -17,20 +17,15 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
     public class SecurityContextFactoryTests
     {
         [Test]
-        public void Given_null_argument_then_constructor_throws_exception()
-        {
-            Should.Throw<ArgumentNullException>(() => new SecurityContextFactory(null,null));
-        }
-
-        [Test]
         public void Given_configured_for_SqlServer_then_create_SqlServerSecurityContext()
         {
             var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
-            var databaseEngine = A.Fake<DatabaseEngine>();
-            A.CallTo(() => databaseEngine).Returns(DatabaseEngine.SqlServer);
-            
-            new SecurityContextFactory(connectionstringProvider, databaseEngine)
-                .CreateContext()
+
+            A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
+                          "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
+
+            new SecurityContextFactory(connectionstringProvider, DatabaseEngine.SqlServer)
+                 .CreateContext()
                 .ShouldBeOfType<SqlServerSecurityContext>()
                 .ShouldNotBeNull();
         }
@@ -39,10 +34,11 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
         public void Given_configured_for_Postgres_then_create_PostgresSecurityContext()
         {
             var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
-            var databaseEngine = A.Fake<DatabaseEngine>();
-            A.CallTo(() => databaseEngine).Returns(DatabaseEngine.Postgres);
 
-            new SecurityContextFactory(connectionstringProvider, databaseEngine)
+            A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
+                "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
+
+            new SecurityContextFactory(connectionstringProvider, DatabaseEngine.Postgres)
                 .CreateContext()
                 .ShouldBeOfType<PostgresSecurityContext>()
                 .ShouldNotBeNull();
@@ -58,10 +54,12 @@ namespace EdFi.Security.DataAccess.UnitTests.Contexts
         public void Given_configured_for_Unsupported_then_throws_invalid_operation_exception()
         {
             var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
-            var databaseEngine = A.Fake<DatabaseEngine>();
-            A.CallTo(() => databaseEngine).Returns(new UnsupportedDatabaseEngine());
-            
-            Should.Throw<InvalidOperationException>(() => new SecurityContextFactory(connectionstringProvider,databaseEngine).CreateContext());
+
+            A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
+                "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Application Name=EdFi.Ods.WebApi;");
+
+            Should.Throw<InvalidOperationException>(() => new SecurityContextFactory(connectionstringProvider, new UnsupportedDatabaseEngine())
+            .CreateContext());
         }
     }
 }
