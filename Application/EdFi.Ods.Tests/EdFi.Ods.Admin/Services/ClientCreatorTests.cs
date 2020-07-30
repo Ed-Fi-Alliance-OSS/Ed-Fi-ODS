@@ -35,9 +35,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
                 var defaultApplicationCreator = A.Fake<IDefaultApplicationCreator>();
 
                 var application = new Application {ApplicationName = "Application.ApplicationName"};
-                application.CreateEducationOrganizationAssociation(111);
-                application.CreateEducationOrganizationAssociation(222);
-                application.CreateEducationOrganizationAssociation(333);
+                application.CreateApplicationEducationOrganization(111);
+                application.CreateApplicationEducationOrganization(222);
+                application.CreateApplicationEducationOrganization(333);
 
                 A.CallTo(
                         () =>

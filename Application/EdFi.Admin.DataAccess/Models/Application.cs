@@ -42,7 +42,7 @@ namespace EdFi.Admin.DataAccess.Models
 
         public virtual ICollection<Profile> Profiles { get; set; }
 
-        public ApplicationEducationOrganization CreateEducationOrganizationAssociation(int educationOrganizationId)
+        public ApplicationEducationOrganization CreateApplicationEducationOrganization(int educationOrganizationId)
             => new ApplicationEducationOrganization
             {
                 EducationOrganizationId = educationOrganizationId,

@@ -180,7 +180,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                     var vendor = new Vendor {VendorName = vendorName};
 
                     var application = vendor.CreateApplication(_defaultApplicationName + " Sample", _defaultClaimSet);
-                    application.CreateEducationOrganizationAssociation(leaId1);
+                    application.CreateApplicationEducationOrganization(leaId1);
                     application.OperationalContextUri = _defaultOperationalContextUri;
                     context.Vendors.Add(vendor);
                     context.SaveChanges();
