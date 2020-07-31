@@ -1,0 +1,555 @@
+﻿{
+  "schemaDefinition": {
+    "logicalName": "Sample",
+    "physicalName": "sample"
+  },
+  "aggregateDefinitions": [
+  ],
+  "aggregateExtensionDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StaffPet"
+        },
+        {
+          "schema": "sample",
+          "name": "StaffPetPreference"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StudentPet"
+        },
+        {
+          "schema": "sample",
+          "name": "StudentPetPreference"
+        }
+      ]
+    }
+  ],
+  "entityDefinitions": [
+    {
+      "schema": "sample",
+      "name": "StaffExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "FirstPetOwnedDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK_StaffExtension",
+          "identifyingPropertyNames": [
+            "StaffUSI"
+          ],
+          "isPrimary": "true",
+          "isUpdatable": "false"
+        }
+      ],
+      "isAbstract": false,
+      "description": ""
+    },
+    {
+      "schema": "sample",
+      "name": "StaffPet",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "PetName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": true,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "IsFixed",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK_StaffPet",
+          "identifyingPropertyNames": [
+            "StaffUSI",
+            "PetName"
+          ],
+          "isPrimary": "true",
+          "isUpdatable": "false"
+        }
+      ],
+      "isAbstract": false,
+      "description": ""
+    },
+    {
+      "schema": "sample",
+      "name": "StaffPetPreference",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "MinimumWeight",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "MaximumWeight",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK_StaffPetPreference",
+          "identifyingPropertyNames": [
+            "StaffUSI"
+          ],
+          "isPrimary": "true",
+          "isUpdatable": "false"
+        }
+      ],
+      "isAbstract": false,
+      "description": ""
+    },
+    {
+      "schema": "sample",
+      "name": "StudentPet",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "PetName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": true,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "IsFixed",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK_StudentPet",
+          "identifyingPropertyNames": [
+            "StudentUSI",
+            "PetName"
+          ],
+          "isPrimary": "true",
+          "isUpdatable": "false"
+        }
+      ],
+      "isAbstract": false,
+      "description": ""
+    },
+    {
+      "schema": "sample",
+      "name": "StudentPetPreference",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "MinimumWeight",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "MaximumWeight",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "PK_StudentPetPreference",
+          "identifyingPropertyNames": [
+            "StudentUSI"
+          ],
+          "isPrimary": "true",
+          "isUpdatable": "false"
+        }
+      ],
+      "isAbstract": false,
+      "description": ""
+    }
+  ],
+  "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StaffExtension_Staff_StaffUSI"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StaffExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": "true",
+          "isServerAssigned": "false"
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StaffPet_Staff_StaffUSI"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StaffPet"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": "true",
+          "isServerAssigned": "false"
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StaffPetPreference_Staff_StaffUSI"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StaffPetPreference"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentPet_Student_StudentUSI"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentPet"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": "true",
+          "isServerAssigned": "false"
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentPetPreference_Student_StudentUSI"
+      },
+      "cardinality": "OneToOne",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentPetPreference"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": "true",
+          "isServerAssigned": "true"
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true
+    }
+  ]
+}

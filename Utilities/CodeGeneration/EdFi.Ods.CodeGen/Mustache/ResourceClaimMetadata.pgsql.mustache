@@ -1,0 +1,497 @@
+begin transaction;
+
+/* --------------------------------- */
+/*      Applications and Actions     */
+/* --------------------------------- */
+do $$
+begin
+    insert into dbo.Applications (ApplicationName) values ('Ed-Fi ODS API');
+
+    insert into dbo.Actions (ActionName, ActionUri) values ('Create' , 'http://ed-fi.org/odsapi/actions/create');
+    insert into dbo.Actions (ActionName, ActionUri) values ('Read' , 'http://ed-fi.org/odsapi/actions/read');
+    insert into dbo.Actions (ActionName, ActionUri) values ('Update' , 'http://ed-fi.org/odsapi/actions/update');
+    insert into dbo.Actions (ActionName, ActionUri) values ('Delete' , 'http://ed-fi.org/odsapi/actions/delete');
+end;
+$$;
+
+/* --------------------------------- */
+/*      Authorization Strategies     */
+/* --------------------------------- */
+do $$
+    DECLARE application_id INT;
+begin
+    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('No Further Authorization Required', 'NoFurtherAuthorizationRequired', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Namespace Based', 'NamespaceBased', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Relationships with People only', 'RelationshipsWithPeopleOnly', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Relationships with Students only', 'RelationshipsWithStudentsOnly', application_id);
+
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', application_id);
+
+end $$;
+
+/* --------------------------------- */
+/*           Claimsets               */
+/* --------------------------------- */
+do $$
+    declare application_id INT;
+begin
+    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('SIS Vendor', application_id);
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('Ed-Fi Sandbox', application_id);
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('Roster Vendor', application_id);
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('Assessment Vendor', application_id);
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('Assessment Read', application_id);
+
+    insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
+    values ('Bootstrap Descriptors and EdOrgs', application_id);
+
+end $$;
+
+/* --------------------------------- */
+/*     Parent resource claims        */
+/* --------------------------------- */
+do $$
+    declare application_id int;
+begin
+    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('types', 'types', 'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('managedDescriptors', 'managedDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('relationshipBasedData', 'relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('assessmentMetadata', 'assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('identity', 'identity', 'http://ed-fi.org/ods/identity/claims/domains/identity', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('educationStandards', 'educationStandards', 'http://ed-fi.org/ods/identity/claims/domains/educationStandards', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('primaryRelationships', 'primaryRelationships', 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', null, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', null, application_id);
+
+end $$;
+
+/* --------------------------------- */
+/*        Resource Claims            */
+/* --------------------------------- */
+do $$
+    declare application_id int;
+
+    declare typesResourceClaimId int;
+    declare systemDescriptorsResourceClaimId int;
+    declare managedDescriptorsResourceClaimId int;
+    declare educationOrganizationsResourceClaimId int;
+    declare peopleResourceClaimId int;
+    declare relationshipBasedDataResourceClaimId int;
+    declare assessmentMetadataResourceClaimId int;
+    declare identityResourceClaimId int;
+    declare educationStandardsResourceClaimId int;
+    declare primaryRelationshipsResourceClaimId int;
+    declare surveyDomainResourceClaimId int;
+begin
+    select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
+
+    select ResourceClaimId into typesResourceClaimId from dbo.ResourceClaims where ResourceName = 'types';
+    select ResourceClaimId into systemDescriptorsResourceClaimId from dbo.ResourceClaims where ResourceName = 'systemDescriptors';
+    select ResourceClaimId into managedDescriptorsResourceClaimId from dbo.ResourceClaims where ResourceName = 'managedDescriptors';
+    select ResourceClaimId into educationOrganizationsResourceClaimId from dbo.ResourceClaims where ResourceName = 'educationOrganizations';
+    select ResourceClaimId into peopleResourceClaimId from dbo.ResourceClaims where ResourceName = 'people';
+    select ResourceClaimId into relationshipBasedDataResourceClaimId from dbo.ResourceClaims where ResourceName = 'relationshipBasedData';
+    select ResourceClaimId into assessmentMetadataResourceClaimId from dbo.ResourceClaims where ResourceName = 'assessmentMetadata';
+    select ResourceClaimId into identityResourceClaimId from dbo.ResourceClaims where ResourceName = 'identity';
+    select ResourceClaimId into educationStandardsResourceClaimId from dbo.ResourceClaims where ResourceName = 'educationStandards';
+    select ResourceClaimId into primaryRelationshipsResourceClaimId from dbo.ResourceClaims where ResourceName = 'primaryRelationships';
+    select ResourceClaimId into surveyDomainResourceClaimId from dbo.ResourceClaims where ResourceName = 'surveyDomain';
+
+{{#Aggregates}}
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('{{DisplayName}}', '{{ResourceName}}', 'http://ed-fi.org/ods/identity/claims/{{ResourceName}}', {{#HasParent}}{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}null{{/HasParent}}, application_id);
+{{/Aggregates}}
+end $$;
+
+/* --------------------------------- */
+/*     ClaimSetResourceClaims        */
+/* --------------------------------- */
+do $$
+    declare claim_set_id int;
+    declare authorization_strategy_id int;
+begin
+
+    /* SIS Vendors Claims */
+    select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'SIS Vendor';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+       (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations')
+    union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+    where ResourceName IN ('people'
+        , 'relationshipBasedData'
+        , 'assessmentMetadata'
+        , 'managedDescriptors'
+        , 'primaryRelationships'
+        , 'educationStandards'
+        , 'educationContent');
+
+    /* EdFi Sandbox Claims */
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Ed-Fi Sandbox';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('types', 'identity')
+    union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create', 'Update')) as ac on true
+    where ResourceName IN ('identity')
+    union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+    where ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
+        'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+        'educationContent', 'surveyDomain');
+
+    /* EdFi Sandbox Claims with Overrides */
+    select AuthorizationStrategyId INTO authorization_strategy_id
+    from dbo.AuthorizationStrategies
+    where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, authorization_strategy_id, cast (null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+    where ResourceName IN ('communityProviderLicense');
+
+    /* Roster Vendor Claims */
+    select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Roster Vendor';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('educationOrganizations', 'section', 'student', 'staff', 'courseOffering',
+        'session', 'classPeriod', 'location', 'course', 'staffSectionAssociation',
+        'staffEducationOrganizationAssignmentAssociation', 'studentSectionAssociation', 'studentSchoolAssociation');
+
+    /* Assessment Vendor Claims */
+    select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Assessment Vendor';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+    where ResourceName IN ('assessmentMetadata')
+    union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('learningObjective', 'learningStandard', 'student');
+
+    /* Assessment Read Resource Claims */
+    select ClaimSetId into claim_set_id from dbo.ClaimSets where ClaimSetName = 'Assessment Read';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int), cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('assessmentMetadata', 'learningObjective', 'learningStandard', 'student');
+
+    /* Bootstrap Descriptors and EdOrgs Claims */
+
+    select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
+    select AuthorizationStrategyId INTO authorization_strategy_id
+    from dbo.AuthorizationStrategies
+    where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    insert into dbo.ClaimSetResourceClaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    select ac.ActionId, claim_set_id, ResourceClaimId, authorization_strategy_id, cast (null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN (
+        'systemDescriptors',
+        'managedDescriptors',
+        'educationOrganizations',
+        -- from Interchange-Standards.xml
+        'learningObjective',
+        'learningStandard',
+        'learningStandardEquivalenceAssociation',
+        -- from Interchange-EducationOrganization.xml
+        'accountabilityRating',
+        'classPeriod',
+        'communityOrganization',
+        'communityProvider',
+        'communityProviderLicense',
+        'course',
+        'educationOrganizationNetwork',
+        'educationOrganizationNetworkAssociation',
+        'educationOrganizationPeerAssociation',
+        'educationServiceCenter',
+        'feederSchoolAssociation',
+        'localEducationAgency',
+        'location',
+        'postSecondaryInstitution',
+        'program',
+        'school',
+        'stateEducationAgency'
+    );
+
+end $$;
+
+/* --------------------------------- */
+/* ResourceClaimAuthorizationMeatada */
+/* --------------------------------- */
+do $$
+    declare authorization_strategy_id int;
+begin
+
+    /* NoFurtherAuthorizationRequired */
+    select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    insert into dbo.ResourceClaimAuthorizationMetadatas
+        (Action_ActionId
+        ,AuthorizationStrategy_AuthorizationStrategyId
+        ,ResourceClaim_ResourceClaimId
+        ,ValidationRuleSetName)
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Update')) as ac on true
+    where ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int) from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Delete')) as ac on true
+    where ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+
+    /* NamespaceBased */
+    select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NamespaceBased';
+
+    insert into dbo.ResourceClaimAuthorizationMetadatas
+        (Action_ActionId
+        ,AuthorizationStrategy_AuthorizationStrategyId
+        ,ResourceClaim_ResourceClaimId
+        ,ValidationRuleSetName)
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read')) as ac on true
+    where ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create', 'Update', 'Delete')) as ac on true
+    where ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain');
+
+    /* RelationshipsWithEdOrgsAndPeople */
+    select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople';
+
+    insert into dbo.ResourceClaimAuthorizationMetadatas
+        (Action_ActionId
+        ,AuthorizationStrategy_AuthorizationStrategyId
+        ,ResourceClaim_ResourceClaimId
+        ,ValidationRuleSetName)
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Read', 'Update')) as ac on true
+    where ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ('relationshipBasedData')
+    union
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Delete')) as ac on true
+    where ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships');
+
+    /* RelationshipsWithStudentsOnly */
+    select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'RelationshipsWithStudentsOnly';
+
+    insert into dbo.ResourceClaimAuthorizationMetadatas
+        (Action_ActionId
+        ,AuthorizationStrategy_AuthorizationStrategyId
+        ,ResourceClaim_ResourceClaimId
+        ,ValidationRuleSetName)
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ('studentParentAssociation');
+
+    /* RelationshipsWithEdOrgsOnly */
+    select AuthorizationStrategyId INTO authorization_strategy_id from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly';
+
+    insert into dbo.ResourceClaimAuthorizationMetadatas
+        (Action_ActionId
+        ,AuthorizationStrategy_AuthorizationStrategyId
+        ,ResourceClaim_ResourceClaimId
+        ,ValidationRuleSetName)
+    select ac.ActionId, authorization_strategy_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ('primaryRelationships');
+
+end $$;
+
+commit;

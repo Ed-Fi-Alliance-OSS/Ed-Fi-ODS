@@ -1,0 +1,846 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<CompositeMetadata organizationCode="ed-fi">
+  <Category displayName="Test" name="test">
+    <Routes>
+      <Route relativeRouteTemplate="/nonExistents/{NonExistent.Id}/{compositeName}" />
+    </Routes>
+
+    <Composites>
+      <!-- The composite definitions below (prefixed with Invalid) are commented out because 
+          they will break the build due to exceptions intentionally thrown during T4 generation, 
+          but are needed for interactively testing the Composite validation process. -->
+
+      <!-- BEGIN Composites for Interactive Validation Testing -->
+      <!--<Composite name="InvalidBaseResource">
+        <BaseResource name="InvalidBaseResource">
+          <Property name="SomeProperty"/>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidProperty">       
+        <BaseResource name="Student">
+          <Property name="FirstInvalidProperty"/>
+          <Property name="SecondInvalidProperty"/>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidCollection">       
+        <BaseResource name="Student">
+          <Property name="FirstName"/>
+          <Collection name="InvalidCollection">
+            <Property name="FooProperty"/>
+          </Collection>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidLinkedCollection">       
+        <BaseResource name="Student">
+          <Property name="FirstName"/>
+          <LinkedCollection name="InvalidLinkedCollection">
+            <Property name="FooProperty"/>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidReference">       
+        <BaseResource name="Student">
+          <Property name="FirstName"/>
+          <ReferencedResource name="InvalidReference">
+            <Property name="FooProperty"/>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidEmbeddedObject">        
+        <BaseResource name="Student">
+          <Property name="FirstName"/>
+          <EmbeddedObject name="InvalidEmbeddedObject">
+            <Property name="FooProperty"/>
+          </EmbeddedObject>
+        </BaseResource>
+      </Composite>-->
+
+      <!--<Composite name="InvalidWithMultipleErrors">        
+        <BaseResource name="Student">
+          <Property name="InvalidProperty"/>
+          <EmbeddedObject name="InvalidEmbeddedObject">
+            <Property name="ObjectFooProperty"/>
+          </EmbeddedObject>
+          <Collection name="InvalidCollection">
+            <Property name="CollectionFooProperty"/>
+          </Collection>
+        </BaseResource>
+      </Composite>-->
+      <!-- END Composites for Interactive Validation Testing -->
+
+      <Composite name="BaseAssessmentUnflattenedEmbeddedObject">
+        <BaseResource name="Assessment">
+          <EmbeddedObject name="AssessmentContentStandard">
+            <Property name="Title" />
+            <Property name="PublicationDate" />
+          </EmbeddedObject>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="BaseAssessmentFlattenedEmbeddedObject">
+        <BaseResource name="Assessment">
+          <EmbeddedObject name="AssessmentContentStandard" flatten="true">
+            <Property name="Title" />
+            <Property name="PublicationDate" />
+          </EmbeddedObject>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="UnflattenedEmbeddedObjectWithProperty">
+        <BaseResource name="Assessment">
+          <EmbeddedObject name="AssessmentContentStandard">
+            <Property name="Title" />
+            <Property name="PublicationDate" />
+            <Property name="URI" />
+            <Property name="BeginDate" />
+          </EmbeddedObject>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="FlattenedEmbeddedObjectWithProperty">
+        <BaseResource name="Assessment">
+          <EmbeddedObject name="AssessmentContentStandard" flatten="true">
+            <Property name="Title" />
+            <Property name="PublicationDate" />
+            <Property name="URI" />
+            <Property name="BeginDate" />
+          </EmbeddedObject>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentProperty">
+        <BaseResource name="Student">
+          <Property name="StudentUniqueId" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="BirthDate" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentLinkedCollection">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentAcademicRecords">
+            <Property name="CumulativeEarnedCredits" />
+            <Property name="TermDescriptor" />
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentFlattenedReferencesWithProperty">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="true">
+            <Property name="FirstName" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentUnflattenedReferenceWithProperty">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="false">
+            <Property name="FirstName" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentEducationOrganizationAssociationCollection">
+        <BaseResource name="StudentEducationOrganizationAssociation">
+          <Collection name="StudentEducationOrganizationAssociationAddresses">
+            <Property name="AddressTypeDescriptor" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentEducationOrganizationAssociationCollectionWithProperty">
+        <BaseResource name="StudentEducationOrganizationAssociation">
+          <Collection name="StudentEducationOrganizationAssociationAddresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="StreetNumberName" />
+            <Property name="City" />
+            <Property name="StateAbbreviationDescriptor" />
+            <Property name="PostalCode" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentCollectionWithCollection">
+        <BaseResource name="StudentAssessment">
+          <Collection name="StudentAssessmentStudentObjectiveAssessments">
+            <Collection name="StudentAssessmentStudentObjectiveAssessmentScoreResults">
+              <Property name="Result" />
+            </Collection>
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="ResourceWithCollectionWithCollection">
+        <BaseResource name="Parent">
+          <Collection name="ParentAddresses">
+            <Collection name="ParentAddressPeriods">
+              <Property name="BeginDate" />
+            </Collection>
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+
+      <Composite name="StudentLinkedCollectionWithLinkedCollection">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentAcademicRecords">
+            <LinkedCollection name="CourseTranscripts">
+              <Property name="CourseTitle" />
+              <Property name="FinalLetterGradeEarned" />
+              <Property name="FinalNumericGradeEarned" />
+            </LinkedCollection>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentLinkedCollectionWithUnflattenedReference">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentAcademicRecords">
+            <ReferencedResource name="SchoolYearTypeReference" flatten="false">
+              <Property name="SchoolYear" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentLinkedCollectionWithFlattenedPropertyReference">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentAcademicRecords">
+            <ReferencedResource name="SchoolYearTypeReference" flatten="true">
+              <Property name="SchoolYear" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentUnflattenedReferenceWithLinkedCollection">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="false">
+            <LinkedCollection name="StudentAssessments">
+              <Property name="StudentAssessmentIdentifier" />
+            </LinkedCollection>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentFlattenedReferenceWithFlattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="true">
+            <ReferencedResource name="LocalEducationAgencyReference" flatten="true">
+              <Property name="LocalEducationAgencyCategoryDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentFlattenedReferenceWithUnflattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="true">
+            <ReferencedResource name="LocalEducationAgencyReference" flatten="false">
+              <Property name="EducationServiceCenterId" />
+            </ReferencedResource>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentUnflattenedReferenceWithUnflattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="false">
+            <ReferencedResource name="LocalEducationAgencyReference" flatten="false">
+              <Property name="LocalEducationAgencyCategoryDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentFlattenedReferenceWithLinkedCollection">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="true">
+            <LinkedCollection name="StudentAssessments">
+              <Property name="StudentAssessmentIdentifier" />
+            </LinkedCollection>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentUnflattenedReferenceWithflattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="false">
+            <ReferencedResource name="LocalEducationAgencyReference" flatten="true">
+              <Property name="LocalEducationAgencyCategoryDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="MembersIncludeDisplayName">
+        <BaseResource name="School">
+          <Property name="SchoolTypeDescriptor" displayName="Property1" />
+          <Collection name="SchoolCategories" displayName="Collection1">
+            <Property name="SchoolCategoryDescriptor" />
+          </Collection>
+          <LinkedCollection name="StudentSchoolAssociations" displayName="LinkedCollection1">
+            <Property name="EntryGradeLevelDescriptor" displayName="SubProperty" />
+          </LinkedCollection>
+          <LinkedCollection name="StaffSchoolAssociations" displayName="LinkedCollection2">
+            <ReferencedResource name="StaffReference" flatten="false" displayName="UnflattenedReference">
+              <Property name="FirstName" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="UnflattenedReferenceIncludeDisplayName">
+        <BaseResource name="School">
+          <ReferencedResource name="LocalEducationAgencyReference" flatten="false" displayName="UnflattenedReference">
+            <Property name="NameOfInstitution" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="EdFiShortDescription">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentSchoolAssociations">
+            <ReferencedResource name="SchoolReference" flatten="false">
+              <Property name="SchoolTypeDescriptor" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="BaseResourceCanContainNoProperty">
+        <BaseResource name="StudentEducationOrganizationAssociation">
+          <Collection name="StudentEducationOrganizationAssociationAddresses">
+            <Property name="City" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentUnflattenedReferenceWithCollection">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="false">
+            <Collection name="EducationOrganizationAddresses">
+              <Property name="City" />
+            </Collection>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentLinkedCollectionWithProperty">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentAcademicRecords">
+            <Property name="CumulativeEarnedCredits" />
+            <Property name="TermDescriptor" />
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentLinkedCollectionWithCollection">
+        <BaseResource name="Student">
+          <LinkedCollection name="StudentEducationOrganizationAssociations">
+            <Collection name="StudentEducationOrganizationAssociationProgramParticipations">
+              <Property name="BeginDate" />
+            </Collection>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+      <Composite name="ResourceLinkedCollectionWithCollection">
+        <BaseResource name="Assessment">
+          <LinkedCollection name="AssessmentItems">
+            <Collection name="AssessmentItemLearningStandards">
+              <Property name="LearningStandardId" />
+            </Collection>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+      <Composite name="StudentSchoolUnflattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="false">
+            <Property name="FirstName" />
+            <Property name="MiddleName" />
+            <Property name="LastSurname" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentSchoolFlattenedReference">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="StudentReference" flatten="true">
+            <Property name="FirstName" />
+            <Property name="MiddleName" />
+            <Property name="LastSurname" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="SchoolFlattenedReferenceWithCollection">
+        <BaseResource name="StudentSchoolAssociation">
+          <ReferencedResource name="SchoolReference" flatten="true">
+            <Collection name="SchoolCategories">
+              <Property name="SchoolCategoryDescriptor" />
+            </Collection>
+            <Collection name="SchoolGradeLevels">
+              <Property name="GradeLevelDescriptor" />
+            </Collection>
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentCollectionWithUnflattenedReference">
+        <BaseResource name="StudentAssessment">
+          <Collection name="StudentAssessmentStudentObjectiveAssessments">
+            <ReferencedResource name="ObjectiveAssessmentReference" flatten="false">
+              <Property name="MaxRawScore" />
+            </ReferencedResource>
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="ResourceCollectionWithUnflattenedReference">
+        <BaseResource name="Session">
+          <Collection name="SessionGradingPeriods">
+            <ReferencedResource name="GradingPeriodReference" flatten="false">
+              <Property name="BeginDate" />
+            </ReferencedResource>
+          </Collection>
+        </BaseResource>
+      </Composite>
+     
+      <Composite name="StudentCollectionWithFlattenedReference">
+        <BaseResource name="StudentAssessment">
+          <Collection name="StudentAssessmentStudentObjectiveAssessments">
+            <ReferencedResource name="ObjectiveAssessmentReference" flatten="true">
+              <Property name="MaxRawScore" />
+            </ReferencedResource>
+          </Collection>
+        </BaseResource>
+      </Composite>
+      
+      <Composite name="ResourceCollectionWithFlattenedReference">
+        <BaseResource name="Session">
+          <Collection name="SessionGradingPeriods">
+            <ReferencedResource name="GradingPeriodReference" flatten="true">
+              <Property name="BeginDate" />
+            </ReferencedResource>
+          </Collection>
+        </BaseResource>
+      </Composite>
+      
+      <Composite name="StaffFilter">
+        <BaseResource name="Staff">
+          <Property name="HispanicLatinoEthnicity" />
+          <Property name="YearsOfPriorProfessionalExperience" />
+          <Property name="LastSurname" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="SessionFilter">
+        <BaseResource name="Session">
+          <Property name="SchoolYear" />
+          <Property name="TotalInstructionalDays" />
+          <Property name="BeginDate" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentById">
+        <BaseResource name="Student">
+          <Property name="StudentUniqueId" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="BirthDate" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StaffByRange">
+        <BaseResource name="Staff">
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="BirthDate" />
+          <Property name="YearsOfPriorProfessionalExperience" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="SessionByRange">
+        <BaseResource name="Session">
+          <Property name="BeginDate" />
+          <Property name="EndDate" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="ProgramWithDescriptor">
+        <BaseResource name="Program">
+          <Property name="ProgramTypeDescriptor" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StaffWithDescriptor">
+        <BaseResource name="Staff">
+          <Property name="HighestCompletedLevelOfEducationDescriptor" />
+          <Property name="Id" />
+          <Property name="StaffUniqueId" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StaffWithUniqueId">
+        <BaseResource name="Staff">
+          <Property name="StaffUniqueId" />
+          <Property name="Id" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentByExample">
+        <BaseResource name="Student">
+          <Property name="Id" />
+          <Property name="FirstName" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="StudentAssessmentWithUniqueIdAndDescriptor">
+        <BaseResource name="StudentAssessment">
+          <Property name="StudentUniqueId" />
+          <Property name="AdministrationDate" />
+          <Property name="AdministrationLanguageDescriptor" />
+          <Property name="AdministrationEnvironmentDescriptor" />
+        </BaseResource>
+      </Composite>
+
+      <Composite name="AssessmentWithHierarchicalObjectiveAssessment">
+        <BaseResource name="Assessment">
+          <Property name="AssessmentTitle" />
+          <Property name="AssessmentVersion" />
+
+          <Collection name="AssessmentAcademicSubjects" displayName="academicSubjects">
+            <Property name="AcademicSubjectDescriptor" />
+          </Collection>
+          <Collection name="AssessmentAssessedGradeLevels" displayName="assessedGradeLevels">
+            <Property name="GradeLevelDescriptor" />
+          </Collection>
+
+          <Property name="RevisionDate" />
+          <Property name="MaxRawScore" />
+
+          <LinkedCollection name="ObjectiveAssessments" useHierarchy="true">
+            <Property name="IdentificationCode" />
+            <Property name="ParentIdentificationCode" />
+            <Property name="MaxRawScore" />
+            <Property name="PercentOfAssessment" />
+            <Property name="Nomenclature" />
+            <Property name="Description" />
+
+            <Collection name="ObjectiveAssessmentLearningObjectives" displayName="learningObjectives">
+              <ReferencedResource name="LearningObjectiveReference" flatten="true">
+                <Property name="LearningObjectiveId" />
+                <Property name="Namespace" />
+                <Property name="Description" />
+                <Collection name="LearningObjectiveAcademicSubjects" displayName="academicSubjects">
+                  <Property name="AcademicSubjectDescriptor" />
+                </Collection>
+              </ReferencedResource>
+            </Collection>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="Staff">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School->LocalEducationAgency.Id" />
+          <Parameter name="School.Id"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School.Id" />
+          <Parameter name="Section.Id" filterPath="StaffSectionAssociations->Section.Id" />
+          <Parameter name="Student.Id"
+                     filterPath="StaffSectionAssociations->Section->StudentSectionAssociations->Student.Id" />
+          <Parameter name="LocalEducationAgencyId"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School->LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->SchoolReference.SchoolId" />
+          <Parameter name="StaffUniqueId" filterPath="StaffUniqueId" />
+          <Parameter name="StudentUniqueId"
+                     filterPath="StaffSectionAssociations->Section->StudentSectionAssociations->Student.StudentUniqueId" />
+        </Specification>
+        <BaseResource name="Staff">
+          <Property name="Id" />
+          <Property name="StaffUniqueId" />
+          <Property name="PersonalTitlePrefix" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="LoginId" />
+          <Property name="SexDescriptor" />
+          <Property name="BirthDate" />
+          <Property name="HispanicLatinoEthnicity" />
+          <Collection name="StaffAddresses" displayName="addresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="StreetNumberName" />
+            <Property name="City" />
+            <Property name="StateAbbreviationDescriptor" />
+            <Property name="PostalCode" />
+            <Property name="NameOfCounty" />
+          </Collection>
+          <Collection name="StaffElectronicMails" displayName="electronicMails">
+            <Property name="ElectronicMailTypeDescriptor" />
+            <Property name="ElectronicMailAddress" />
+          </Collection>
+          <Collection name="StaffIdentificationCodes" displayName="identificationCodes">
+            <Property name="StaffIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="StaffLanguages" displayName="languages">
+            <Property name="LanguageDescriptor" />
+          </Collection>
+          <Collection name="StaffRaces" displayName="races">
+            <Property name="RaceDescriptor" />
+          </Collection>
+          <Collection name="StaffTelephones" displayName="telephones">
+            <Property name="TelephoneNumberTypeDescriptor" />
+            <Property name="OrderOfPriority" />
+            <Property name="TelephoneNumber" />
+          </Collection>
+          <LinkedCollection name="StaffEducationOrganizationAssignmentAssociations" displayName="classifications">
+            <Property name="StaffClassificationDescriptor" displayName="classification" />
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="School">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id" filterPath="LocalEducationAgency.Id" />
+          <Parameter name="Section.Id" filterPath="Sections.Id" />
+          <Parameter name="Staff.Id" filterPath="Sections->StaffSectionAssociations->Staff.Id" />
+          <Parameter name="Student.Id" filterPath="Sections->StudentSectionAssociations->Student.Id" />
+          <Parameter name="LocalEducationAgencyId" filterPath="LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId" filterPath="SchoolId" />
+          <Parameter name="StaffUniqueId" filterPath="Sections->StaffSectionAssociations->Staff.StaffUniqueId" />
+          <Parameter name="StudentUniqueId" filterPath="Sections->StudentSectionAssociations->Student.StudentUniqueId" />
+        </Specification>
+        <BaseResource name="School">
+          <ReferencedResource name="LocalEducationAgencyReference">
+            <Property name="Id" />
+            <Property name="LocalEducationAgencyId" />
+          </ReferencedResource>
+          <Property name="Id" />
+          <Property name="SchoolId" />
+          <Property name="NameOfInstitution" />
+          <Property name="ShortNameOfInstitution" />
+          <Property name="WebSite" />
+          <Property name="OperationalStatusDescriptor" />
+          <Property name="SchoolTypeDescriptor" displayName="type" />
+          <Property name="CharterStatusDescriptor" />
+          <Property name="TitleIPartASchoolDesignationDescriptor" />
+          <Property name="AdministrativeFundingControlDescriptor" />
+          <Collection name="EducationOrganizationAddresses" displayName="addresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="StreetNumberName" />
+            <Property name="City" />
+            <Property name="StateAbbreviationDescriptor" />
+            <Property name="PostalCode" />
+            <Property name="NameOfCounty" />
+          </Collection>
+          <Collection name="EducationOrganizationCategories">
+            <Property name="EducationOrganizationCategoryDescriptor" displayName="category" />
+          </Collection>
+          <Collection name="EducationOrganizationIdentificationCodes" displayName="identificationCodes">
+            <Property name="EducationOrganizationIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="EducationOrganizationInstitutionTelephones" displayName="institutionTelephones">
+            <Property name="InstitutionTelephoneNumberTypeDescriptor" />
+            <Property name="TelephoneNumber" />
+          </Collection>
+          <Collection name="EducationOrganizationInternationalAddresses" displayName="internationalAddresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="AddressLine1" />
+            <Property name="AddressLine2" />
+            <Property name="AddressLine3" />
+            <Property name="AddressLine4" />
+            <Property name="CountryDescriptor" />
+          </Collection>
+          <Collection name="SchoolCategories">
+            <Property name="SchoolCategoryDescriptor" displayName="category" />
+          </Collection>
+          <Collection name="SchoolGradeLevels" displayName="gradeLevels">
+            <Property name="GradeLevelDescriptor" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+
+      <Composite name="SectionEnrollment">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id"
+                     filterPath="CourseOfferingReference->SessionReference->School->LocalEducationAgency.Id" />
+          <Parameter name="School.Id" filterPath="CourseOfferingReference->SessionReference->School.Id" />
+          <Parameter name="Staff.Id" filterPath="StaffSectionAssociations->Staff.Id" />
+          <Parameter name="Student.Id" filterPath="StudentSectionAssociations->Student.Id" />
+          <Parameter name="LocalEducationAgencyId"
+                     filterPath="CourseOfferingReference->SessionReference->School->LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId" filterPath="CourseOfferingReference->SessionReference->SchoolReference.SchoolId" />
+          <Parameter name="StaffUniqueId" filterPath="StaffSectionAssociations.Staff.StaffUniqueId" />
+          <Parameter name="StudentUniqueId" filterPath="StudentSectionAssociations.Student.StudentUniqueId" />
+        </Specification>
+        <BaseResource name="Section">
+          <Property name="Id" />
+          <Property name="SectionIdentifier" />
+          <Property name="SequenceOfCourse" />
+          <Property name="EducationalEnvironmentDescriptor" />
+          <Property name="AvailableCredits" />
+          <Collection name="SectionClassPeriods" displayName="classPeriods">
+            <Property name="ClassPeriodName" displayName="name" />
+          </Collection>
+          <LinkedCollection name="StaffSectionAssociations" displayName="staff">
+            <ReferencedResource name="StaffReference" flatten="true">
+              <!-- IMPORTANT: Copied verbatim from the Staff composite resource above -->
+              <Property name="Id" />
+              <Property name="StaffUniqueId" />
+              <Property name="PersonalTitlePrefix" />
+              <Property name="FirstName" />
+              <Property name="LastSurname" />
+              <Property name="SexDescriptor" />
+              <Property name="BirthDate" />
+              <Property name="HispanicLatinoEthnicity" />
+              <Collection name="StaffAddresses" displayName="addresses">
+                <Property name="AddressTypeDescriptor" />
+                <Property name="StreetNumberName" />
+                <Property name="City" />
+                <Property name="StateAbbreviationDescriptor" />
+                <Property name="PostalCode" />
+                <Property name="NameOfCounty" />
+              </Collection>
+              <Collection name="StaffElectronicMails" displayName="electronicMails">
+                <Property name="ElectronicMailTypeDescriptor" />
+                <Property name="ElectronicMailAddress" />
+              </Collection>
+              <Collection name="StaffIdentificationCodes" displayName="identificationCodes">
+                <Property name="StaffIdentificationSystemDescriptor" />
+                <Property name="IdentificationCode" />
+              </Collection>
+              <Collection name="StaffLanguages" displayName="languages">
+                <Property name="LanguageDescriptor" />
+              </Collection>
+              <Collection name="StaffRaces" displayName="races">
+                <Property name="RaceDescriptor" />
+              </Collection>
+              <Collection name="StaffTelephones" displayName="telephones">
+                <Property name="TelephoneNumberTypeDescriptor" />
+                <Property name="OrderOfPriority" />
+                <Property name="TelephoneNumber" />
+              </Collection>
+              <LinkedCollection name="StaffEducationOrganizationAssignmentAssociations" displayName="classifications">
+                <Property name="StaffClassificationDescriptor" displayName="classification" />
+              </LinkedCollection>
+            </ReferencedResource>
+            <Property name="Id" displayName="staffSectionAssociation_id" />
+          </LinkedCollection>
+          <LinkedCollection name="StudentSectionAssociations" displayName="students">
+            <ReferencedResource name="StudentReference" flatten="true">
+              <!-- IMPORTANT: Copied verbatim from the Student composite resource above -->
+              <Property name="Id" />
+              <Property name="StudentUniqueId" />
+              <Property name="PersonalTitlePrefix" />
+              <Property name="FirstName" />
+              <Property name="MiddleName" />
+              <Property name="LastSurname" />
+              <Property name="BirthDate" />
+              <LinkedCollection name="StudentSchoolAssociations" displayName="schools">
+                <ReferencedResource name="SchoolReference" flatten="true">
+                  <Property name="Id" />
+                  <Property name="SchoolId" />
+                </ReferencedResource>
+                <Property name="EntryGradeLevelDescriptor" />
+              </LinkedCollection>
+              <LinkedCollection name="StudentEducationOrganizationAssociations" displayName="educationOrganizations">
+                <Property name="EducationOrganizationId" />
+                <Property name="LoginId" />
+                <Property name="SexDescriptor" />
+                <Property name="HispanicLatinoEthnicity" />
+                <Collection name="StudentEducationOrganizationAssociationAddresses" displayName="addresses">
+                  <Property name="AddressTypeDescriptor" />
+                  <Property name="StreetNumberName" />
+                  <Property name="City" />
+                  <Property name="StateAbbreviationDescriptor" />
+                  <Property name="PostalCode" />
+                  <Property name="NameOfCounty" />
+                </Collection>
+                <Collection name="StudentEducationOrganizationAssociationElectronicMails" displayName="electronicMails">
+                  <Property name="ElectronicMailTypeDescriptor" />
+                  <Property name="ElectronicMailAddress" />
+                </Collection>
+                <Collection name="StudentEducationOrganizationAssociationStudentIdentificationCodes"
+                            displayName="identificationCodes">
+                  <Property name="AssigningOrganizationIdentificationCode" />
+                  <Property name="StudentIdentificationSystemDescriptor" />
+                  <Property name="IdentificationCode" />
+                </Collection>
+                <Collection name="StudentEducationOrganizationAssociationLanguages" displayName="languages">
+                  <Property name="LanguageDescriptor" />
+                </Collection>
+                <Collection name="StudentEducationOrganizationAssociationRaces" displayName="races">
+                  <Property name="RaceDescriptor" />
+                </Collection>
+                <Collection name="StudentEducationOrganizationAssociationTelephones" displayName="telephones">
+                  <Property name="TelephoneNumberTypeDescriptor" />
+                  <Property name="OrderOfPriority" />
+                  <Property name="TelephoneNumber" />
+                </Collection>
+              </LinkedCollection>
+            </ReferencedResource>
+            <Property name="Id" displayName="studentSectionAssociation_id" />
+          </LinkedCollection>
+          <ReferencedResource name="CourseOfferingReference" flatten="true">
+            <ReferencedResource name="CourseReference" flatten="true">
+              <Property name="AcademicSubjectDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+          <ReferencedResource name="CourseOfferingReference" flatten="true">
+            <ReferencedResource name="SessionReference">
+              <Property name="Id" />
+              <ReferencedResource name="SchoolReference" flatten="true">
+                <Property name="SchoolId" />
+              </ReferencedResource>
+              <Property name="SchoolYear" />
+              <Property name="TermDescriptor" />
+              <Property name="SessionName" />
+              <Property name="BeginDate" />
+              <Property name="EndDate" />
+              <Property name="TotalInstructionalDays" />
+            </ReferencedResource>
+          </ReferencedResource>
+          <ReferencedResource name="CourseOfferingReference">
+            <Property name="Id" />
+            <Property name="LocalCourseCode" />
+            <ReferencedResource name="SessionReference" flatten="true">
+              <ReferencedResource name="SchoolReference" flatten="true">
+                <Property name="SchoolId" />
+              </ReferencedResource>
+              <Property name="SchoolYear" />
+              <Property name="TermDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+          <ReferencedResource name="LocationReference">
+            <Property name="Id" />
+            <ReferencedResource name="SchoolReference" flatten="true">
+              <Property name="SchoolId" />
+            </ReferencedResource>
+            <Property name="ClassroomIdentificationCode" />
+          </ReferencedResource>
+          <ReferencedResource name="LocationSchoolReference">
+            <Property name="Id" />
+            <Property name="SchoolId" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+    </Composites>
+  </Category>
+</CompositeMetadata>

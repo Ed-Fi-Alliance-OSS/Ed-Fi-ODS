@@ -1,0 +1,4305 @@
+{
+	"info": {
+		"_postman_id": "b97c978b-7e09-4092-b9b5-87deb509dd4b",
+		"name": "Ed-Fi ODS/API Integration Test Suite AuthorizationTests",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authorization Tests",
+			"item": [
+				{
+					"name": "Initialize Education Organization Ids",
+					"item": [
+						{
+							"name": "Initialize Education Organization Ids",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "112271e1-3ff0-4379-8cab-170739feb315",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "944aaba2-acfc-4474-9141-b367686109a6",
+										"exec": [
+											"pm.environment.set('known:localEducationAgencyId', 255901);\r",
+											"pm.environment.set('known:schoolId', 255901001);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "StudentAuthorizationTests",
+					"item": [
+						{
+							"name": "When_associating_a_student_not_related_to_vendors_leas_should_fail_with_403_forbidden",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"pm.environment.set('scenarioId',createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname',newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName',newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_associating_a_student_not_related_to_vendors_leas_should_fail_with_403_forbidden",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':schoolId',1);",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{supplied:{{scenarioId}}:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_associating_a_student_related_to_vendors_leas_should_return_201_created",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_associating_a_student_related_to_vendors_leas_should_return_201_created",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_creating_a_student_Should_return_201_created",
+							"item": [
+								{
+									"name": "When_creating_a_student_Should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_a_student_in_use_should_fail_with_409_Conflict",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentSchoolAssociations Data for Delete Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':schoolId',255901001);",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_a_student_in_use_should_fail_with_409_Conflict",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 409\", () => {",
+													"    pm.expect(pm.response.code).to.equal(409);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:{{scenarioId}}:studentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_an_unused_student_should_return_204_nocontent",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_an_unused_student_should_return_204_nocontent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:{{scenarioId}}:studentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_updating_a_associated_student_should_succeed",
+							"item": [
+								{
+									"name": "Initialize Student Data for Put Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentSchoolAssociations Data for Put Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':schoolId',255901001);",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{supplied:{{scenarioId}}:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_a_associated_student_should_succeed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"GotMarried\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students",
+												"{{known:{{scenarioId}}:studentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "StaffAuthorizationTests",
+					"item": [
+						{
+							"name": "When_associating_a_staff_related_to_vendors_leas_should_return_201_created",
+							"item": [
+								{
+									"name": "Initialize Staff Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_associating_a_staff_related_to_vendors_leas_should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let hireDate=new Date();",
+													"hireDate = hireDate.addMonths(-24);",
+													"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':hireDate', hireDate);",
+													"pm.environment.set('supplied:'+scenarioId+':employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \r\n   \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{known:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"{{supplied:{{scenarioId}}:employmentStatusDescriptor}}\",\r\n   \"hireDate\":\"{{supplied:{{scenarioId}}:hireDate}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StaffEducationOrganizationEmploymentAssociations"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_creating_a_staff_should_return_201_created",
+							"item": [
+								{
+									"name": "When_creating_a_staff_should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_a_staff_in_use_should_return_409_conflict",
+							"item": [
+								{
+									"name": "Initialize Staff Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StaffEducation Organization Employment Association Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let hireDate=new Date();",
+													"hireDate = hireDate.addMonths(-24);",
+													"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':hireDate', hireDate);",
+													"pm.environment.set('supplied:'+scenarioId+':employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \r\n   \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{known:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"{{supplied:{{scenarioId}}:employmentStatusDescriptor}}\",\r\n   \"hireDate\":\"{{supplied:{{scenarioId}}:hireDate}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StaffEducationOrganizationEmploymentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_a_staff_in_use_should_return_409_conflict",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 409\", () => {",
+													"    pm.expect(pm.response.code).to.equal(409);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:{{scenarioId}}:staffGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:{{scenarioId}}:staffGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_an_unused_staff_should_return_204_nocontent",
+							"item": [
+								{
+									"name": "Initialize Staff Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_an_unused_staff_should_return_204_nocontent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:{{scenarioId}}:staffGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:{{scenarioId}}:staffGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_updating_a_associated_staff_should_succeed",
+							"item": [
+								{
+									"name": "Initialize Staff Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':staffUniqueId',pm.environment.get('supplied:'+scenarioId+':staffUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n  \"sexDescriptor\":\"uri://ed-fi.org/SexDescriptor#Female\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StaffEducation Organization Employment Association Data for Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let hireDate=new Date();",
+													"hireDate = hireDate.addMonths(-24);",
+													"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':hireDate', hireDate);",
+													"pm.environment.set('supplied:'+scenarioId+':employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \r\n   \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{known:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"{{supplied:{{scenarioId}}:employmentStatusDescriptor}}\",\r\n   \"hireDate\":\"{{supplied:{{scenarioId}}:hireDate}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StaffEducationOrganizationEmploymentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_a_associated_staff_should_succeed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname',\"GotMarried\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n  \r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs/{{known:{{scenarioId}}:staffGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"staffs",
+												"{{known:{{scenarioId}}:staffGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ProgramAuthorizationTests",
+					"item": [
+						{
+							"name": "When_creating_a_program_not_related_to_vendors_lea_should_fail_with_404_not_found",
+							"item": [
+								{
+									"name": "When_creating_a_program_not_related_to_vendors_lea_should_fail_with_404_not_found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 404\", () => {",
+													"    pm.expect(pm.response.code).to.equal(404);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationId', 1000);",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{supplied:{{scenarioId}}:educationOrganizationId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_creating_a_program_Should_return_201_created",
+							"item": [
+								{
+									"name": "When_creating_a_program_Should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_an_unused_program_should_return_204_nocontent",
+							"item": [
+								{
+									"name": "Initialize Program Data for Delete Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('known:'+scenarioId+':programGuid', pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_an_unused_program_should_return_204_nocontent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs",
+												"{{known:{{scenarioId}}:programGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_non_existant_program_should_fail_with_404_not_found",
+							"item": [
+								{
+									"name": "Initialize Program Data for Delete Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const __ = require('lodash');",
+													"const responseItems = pm.response.json();",
+													"pm.environment.set('known:'+scenarioId+':programGuid', __.first(responseItems)[\"id\"].replace(/[0-9]/g, \"a\"));",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':programName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':programId', uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\").substring(0, 20));",
+													"pm.environment.set('supplied:'+scenarioId+':programTypeDescriptor', \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:localEducationAgencyId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_non_existant_program_should_fail_with_404_not_found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 404\", () => {",
+													"    pm.expect(pm.response.code).to.equal(404);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/{{known:{{scenarioId}}:programGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"programs",
+												"{{known:{{scenarioId}}:programGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "AssessmentAuthorizationTests",
+					"item": [
+						{
+							"name": "Should_fail_to_create_the_assessment",
+							"item": [
+								{
+									"name": "Should_fail_to_create_the_assessment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':assessmentIdentifier', \"TestAId\" +uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"));",
+													"pm.environment.set('supplied:'+scenarioId+':namespace', \"uri://www.FAIL.org/\");",
+													"pm.environment.set('supplied:'+scenarioId+':academicSubjectDescriptor', \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\");",
+													"pm.environment.set('supplied:'+scenarioId+':assessmentTitle', \"Assessment\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ]\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Should_successfully_create_the_assessment",
+							"item": [
+								{
+									"name": "Should_successfully_create_the_assessment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':assessmentIdentifier', \"TestAId\" +uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"));",
+													"pm.environment.set('supplied:'+scenarioId+':namespace', \"uri://ed-fi.org/\");",
+													"pm.environment.set('supplied:'+scenarioId+':academicSubjectDescriptor', \"uri://ed-fi.org/AcademicSubjectDescriptor#Mathematics\");",
+													"pm.environment.set('supplied:'+scenarioId+':assessmentTitle', \"Assessment\");"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"assessmentIdentifier\":\"{{supplied:{{scenarioId}}:assessmentIdentifier}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"assessmentTitle\":\"{{supplied:{{scenarioId}}:assessmentTitle}}\",\r\n   \"academicSubjects\":[ \r\n      { \r\n         \"academicSubjectDescriptor\":\"{{supplied:{{scenarioId}}:academicSubjectDescriptor}}\"\r\n      }\r\n   ]\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "GetAllAuthorizationTests",
+					"item": [
+						{
+							"name": "GetAll_Assessment_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_Assessment_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of assessment\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAll_AssessmentItem_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_AssessmentItem_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of assessmentitems\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/assessmentitems",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"assessmentitems"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAll_Descriptors_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_Descriptors_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"     ",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicsubjectdescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"academicsubjectdescriptors"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAll_GradebookEntry_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_GradebookEntry_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradebookentries",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"gradebookentries"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAll_ObjectiveAssessment_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_ObjectiveAssessment_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/objectiveassessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"objectiveassessments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetAll_StudentAssessment_ShouldUseNHibernateFilters",
+							"item": [
+								{
+									"name": "GetAll_StudentAssessment_ShouldUseNHibernateFilters",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"pm.test(\"Should return some rows of academicsubjectdescriptors\", () => {",
+													"    const responseItems = pm.response.json();",
+													"    pm.expect(responseItems.length).to.be.greaterThan(0);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentassessments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentassessments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ManagedResourceAuthorizationTests",
+					"item": [
+						{
+							"name": "Create_Fail",
+							"item": [
+								{
+									"name": "Create_Fail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':namespace', \"uri://www.FAIL.org/AcademicSubjectDescriptor\");",
+													"",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let effectiveBeginDate=new Date();",
+													"effectiveBeginDate= moment(effectiveBeginDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set(\"supplied:effectiveBeginDate\",effectiveBeginDate);",
+													"pm.environment.set('supplied:'+scenarioId+':effectiveBeginDate', effectiveBeginDate);",
+													"pm.environment.set('supplied:'+scenarioId+':description', \"German\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n\r\n   \"codeValue\":\"{{supplied:{{scenarioId}}:description}}\",\r\n   \"description\":\"{{supplied:{{scenarioId}}:description}}\",\r\n   \"effectiveBeginDate\":\"{{supplied:{{scenarioId}}:effectiveBeginDate}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"shortDescription\":\"{{supplied:{{scenarioId}}:description}}\"\r\n   \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/AcademicSubjectDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"AcademicSubjectDescriptors"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Create_Success",
+							"item": [
+								{
+									"name": "Create_Success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':namespace', \"uri://ed-fi.org/AcademicSubjectDescriptor\");",
+													"",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let effectiveBeginDate=new Date();",
+													"effectiveBeginDate= moment(effectiveBeginDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set(\"supplied:effectiveBeginDate\",effectiveBeginDate);",
+													"pm.environment.set('supplied:'+scenarioId+':effectiveBeginDate', effectiveBeginDate);",
+													"pm.environment.set('supplied:'+scenarioId+':description', \"German\" + createScenarioId());",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n\r\n   \"codeValue\":\"{{supplied:{{scenarioId}}:description}}\",\r\n   \"description\":\"{{supplied:{{scenarioId}}:description}}\",\r\n   \"effectiveBeginDate\":\"{{supplied:{{scenarioId}}:effectiveBeginDate}}\",\r\n   \"namespace\":\"{{supplied:{{scenarioId}}:namespace}}\",\r\n   \"shortDescription\":\"{{supplied:{{scenarioId}}:description}}\"\r\n   \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/AcademicSubjectDescriptors",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"AcademicSubjectDescriptors"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ParentAuthorizationTests",
+					"item": [
+						{
+							"name": "When_updating_an_associated_parent_should_succeed",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentSchoolAssociations Data for Post Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Parent Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentParentAssociations Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentParentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_an_associated_parent_should_succeed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"gotmarried\");",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n   \r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:{{scenarioId}}:parentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents",
+												"{{known:{{scenarioId}}:parentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_associating_a_parent_related_to_vendors_leas_should_return_201_created",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentSchoolAssociations Data for Post Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Parent Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_associating_a_parent_related_to_vendors_leas_should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentParentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_an_associated_parent_should_succeed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', \"gotmarried\");",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n   \r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:{{scenarioId}}:parentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents",
+												"{{known:{{scenarioId}}:parentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_a_parent_in_use_should_return_409_conflict",
+							"item": [
+								{
+									"name": "Initialize Student Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"",
+													"",
+													"const moment = require('moment');",
+													"let birthDate=new Date();",
+													"birthDate = birthDate.addYears(-20);",
+													"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+													"",
+													"let enteredUSDate=new Date();",
+													"enteredUSDate = enteredUSDate.addMonths(-20);",
+													"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentSchoolAssociations Data for Post Request",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const moment = require('moment');",
+													"let entryDate=new Date();",
+													"entryDate = entryDate.addMonths(-10);",
+													"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+													"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+													"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+													" "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Parent Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize StudentParentAssociations Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n  \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentParentAssociations"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_updating_an_associated_parent_should_succeed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 409\", () => {",
+													"    pm.expect(pm.response.code).to.equal(409);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:{{scenarioId}}:parentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents",
+												"{{known:{{scenarioId}}:parentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_deleting_an_unused_parent_should_return_204_nocontent",
+							"item": [
+								{
+									"name": "Initialize Parent Data for Post Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "When_deleting_an_unused_parent_should_return_204_nocontent",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													"    pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents/{{known:{{scenarioId}}:parentGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents",
+												"{{known:{{scenarioId}}:parentGuid}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "When_creating_a_parent_Should_return_201_created",
+							"item": [
+								{
+									"name": "When_creating_a_parent_Should_return_201_created",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
+												"exec": [
+													" pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"",
+													"    "
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+													"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"parents"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Clean Up Test Data",
+					"item": [
+						{
+							"name": "Clean up Envirnoment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "112271e1-3ff0-4379-8cab-170739feb315",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
+											"const keys = __.keys(pm.environment.toObject());\r",
+											"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+											"\r",
+											"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+											"\r",
+											"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+											"\r",
+											"const remainingKeys = __.keys(pm.environment.toObject());\r",
+											"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e60e7900-c8a0-41a8-82ab-d1a214cd87bf",
+				"type": "text/javascript",
+				"exec": [
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"let tokenExpiration = pm.environment.get('TokenExpiry');",
+					"let currentToken = pm.environment.get('AccessToken');",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get('ApiKey_255901');",
+					"    let clientSecret = pm.environment.get('ApiSecret_255901');",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(\"AccessToken\", newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set('TokenExpiry', expiryDate.getTime());",
+					"    });",
+					"}",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a6356328-da92-4bfc-9373-1ceb77f5fb86",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

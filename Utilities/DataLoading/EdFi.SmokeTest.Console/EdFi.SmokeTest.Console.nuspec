@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.SmokeTest.Console</id>
+    <version>0.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Smoke Test utility for the Ed-Fi ODS/API solution.</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="readme.md" target="" />
+    <file src="bin\$configuration$\net48\*.*" target="tools\" />
+  </files>
+</package>

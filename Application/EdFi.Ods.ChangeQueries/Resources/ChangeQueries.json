@@ -1,0 +1,83 @@
+{
+  "host": "%HOST%",
+  "basePath": "%BASE_PATH%",
+  "swagger": "2.0",
+  "info": {
+    "title": "Available Change Versions API Endpoint",
+    "version": "1.0.0",
+    "description":
+      "The Ed-Fi ODS / API enables applications to read and write education data stored in an Ed-Fi ODS through a secure REST interface. \n***\n > *Note: Consumers of ODS / API information should sanitize all data for display and storage. The ODS / API provides reasonable safeguards against cross-site scripting attacks and other malicious content, but the platform does not and cannot guarantee that the data it contains is free of all potentially harmful content.* \n***\n"
+  },
+  "tags": [
+    {
+      "name": "availableChangeVersions",
+      "description": "Gets the change versions for the earliest (oldest) and most recent (newest) changes available."
+    }
+  ],
+  "paths": {
+    "/availableChangeVersions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "availableChangeVersions"
+        ],
+        "operationId": "getAvailableChangeVersions",
+        "summary": "Gets the change versions for the earliest (oldest) and most recent (newest) changes available.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The resource was successfully retrieved.",
+            "schema": {
+              "$ref": "#/definitions/availableChangeVersion"
+            }
+          },
+          "401": {
+            "description":
+              "Unauthorized.  The request requires authentication.  The OAuth bearer token was either not provided or is invalid.  The operation may succeed once authenication has been successfully completed."
+          },
+          "403": {
+            "description":
+              "Forbidden.  The request cannot be completed in the current authorization context.  Contact your administrator if you believe this operation should be allowed."
+          },
+          "500": {
+            "description": "An unhandled error occurred on the server. See the response body for details."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "availableChangeVersion": {
+      "required": [
+        "oldestChangeVersionId",
+        "newestChangeVersionId"
+      ], 
+      "properties": {
+        "oldestChangeVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "newestChangeVersionId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2_client_credentials": {
+      "type": "oauth2",
+      "description": "Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization",
+      "flow": "application",
+      "tokenUrl": "%TOKEN_URL%",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2_client_credentials": []
+    }
+  ]
+}

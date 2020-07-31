@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity StudentTransportation
+    documentation "StudentTransportation"
+    domain entity EdFi.School
+        documentation "The school to and from which the student is being transported."
+        is part of identity
+    domain entity EdFi.Student
+        documentation "The student being transported."
+        is part of identity
+    string AMBusNumber
+        documentation "The bus that delivers the student to the school in the morning."
+        is part of identity
+        max length 6
+    string PMBusNumber
+        documentation "Te bus that delivers the student home in the afternoon."
+        is part of identity
+        max length 6
+    decimal EstimatedMilesFromSchool
+        documentation "The estimated distance, in miles, the student lives from the school."
+        is required
+        total digits 5
+        decimal places 2

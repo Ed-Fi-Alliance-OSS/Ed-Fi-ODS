@@ -1,0 +1,90 @@
+﻿HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaa.Id as id,
+	comp_aaa.StudentUniqueId as studentUniqueId,
+	comp_aaa.PersonalTitlePrefix as personalTitlePrefix,
+	comp_aaa.FirstName as firstName,
+	comp_aaa.MiddleName as middleName,
+	comp_aaa.LastSurname as lastSurname,
+	comp_aaa.BirthDate as birthDate
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+where comp_aaa.Id = :Id
+order by comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.EntryDate as PK2a_EntryDate,
+	comp_aab.SchoolId as PK2a_SchoolId,
+	comp_aac.Namespace as entryGradeLevelDescriptor__Namespace,
+	comp_aac.CodeValue as entryGradeLevelDescriptor,
+	comp_aab.EntryDate as enrollmentBeginDate,
+	comp_aab.ExitWithdrawDate as enrollmentEndDate,
+	comp_aad.Id as id,
+	comp_aad.SchoolId as schoolId,
+	comp_aad.NameOfInstitution as nameOfInstitution
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentSchoolAssociations comp_aab
+		left join comp_aab.EntryGradeLevelDescriptor comp_aac 
+	join comp_aab.School comp_aad
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aab.EntryDate,
+	comp_aab.SchoolId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaf.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aaf.LoginId as loginId,
+	comp_aag.Namespace as sexDescriptor__Namespace,
+	comp_aag.CodeValue as sexDescriptor,
+	comp_aaf.HispanicLatinoEthnicity as hispanicLatinoEthnicity,
+	comp_aah.Discriminator as educationOrganizationType__PassThrough,
+	comp_aah.EducationOrganizationId as educationOrganizationId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaf
+		left join comp_aaf.SexDescriptor comp_aag 
+	join comp_aaf.EducationOrganization comp_aah
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aaf.EducationOrganizationId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaf.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aai.LanguageDescriptorId as PK3a_LanguageDescriptorId,
+	comp_aaj.Namespace as languageDescriptor__Namespace,
+	comp_aaj.CodeValue as languageDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaf
+	join comp_aaf.StudentEducationOrganizationAssociationLanguages comp_aai
+		left join comp_aai.LanguageDescriptor comp_aaj 
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aaf.EducationOrganizationId,
+	comp_aai.LanguageDescriptorId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaf.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aak.RaceDescriptorId as PK3b_RaceDescriptorId,
+	comp_aal.Namespace as raceDescriptor__Namespace,
+	comp_aal.CodeValue as raceDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaf
+	join comp_aaf.StudentEducationOrganizationAssociationRaces comp_aak
+		left join comp_aak.RaceDescriptor comp_aal 
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aaf.EducationOrganizationId,
+	comp_aak.RaceDescriptorId

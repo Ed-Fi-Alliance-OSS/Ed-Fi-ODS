@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+      "psioniq.psi-header",
+      "ms-dotnettools.csharp",
+      "ms-vscode.powershell",
+      "streetsidesoftware.code-spell-checker"
+    ]
+}

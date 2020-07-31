@@ -1,0 +1,484 @@
+DECLARE @ClaimSetId INT;
+DECLARE @AuthorizationStrategyId INT;
+DECLARE @applicationId INT;
+
+DECLARE @peopleResourceClaimId INT;
+DECLARE @relationshipBasedDataResourceClaimId INT;
+DECLARE @assessmentMetadataResourceClaimId INT;
+DECLARE @educationStandardsResourceClaimId INT;
+DECLARE @primaryRelationshipsResourceClaimId INT;
+DECLARE @educationOrganizationsResourceClaimId INT;
+DECLARE @typesResourceClaimId INT;
+DECLARE @systemDescriptorsResourceClaimId INT;
+DECLARE @managedDescriptorsResourceClaimId INT;
+DECLARE @identityResourceClaimId INT;
+DECLARE @surveyDomainResourceClaimId INT;
+
+/* --------------------------------- */
+/*             Actions               */
+/* --------------------------------- */
+
+INSERT INTO [dbo].[Actions] ([ActionName], [ActionUri]) VALUES ('Create' , 'http://ed-fi.org/odsapi/actions/create');
+INSERT INTO [dbo].[Actions] ([ActionName], [ActionUri]) VALUES ('Read' , 'http://ed-fi.org/odsapi/actions/read');
+INSERT INTO [dbo].[Actions] ([ActionName], [ActionUri]) VALUES ('Update' , 'http://ed-fi.org/odsapi/actions/update');
+INSERT INTO [dbo].[Actions] ([ActionName], [ActionUri]) VALUES ('Delete' , 'http://ed-fi.org/odsapi/actions/delete');
+
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*           Applications            */
+/* --------------------------------- */
+
+INSERT INTO [dbo].[Applications] ([ApplicationName])
+VALUES ('Ed-Fi ODS API');
+
+SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
+
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*      Authorization Strategies     */
+/* --------------------------------- */
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('No Further Authorization Required', 'NoFurtherAuthorizationRequired', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Relationships with Education Organizations and People', 'RelationshipsWithEdOrgsAndPeople', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Relationships with Education Organizations only', 'RelationshipsWithEdOrgsOnly', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Namespace Based', 'NamespaceBased', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Relationships with People only', 'RelationshipsWithPeopleOnly', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly', @applicationId);
+
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', @applicationId);
+
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*           Claimsets               */
+/* --------------------------------- */
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('SIS Vendor', @applicationId);
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('Ed-Fi Sandbox', @applicationId);
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('Roster Vendor', @applicationId);
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('Assessment Vendor', @applicationId);
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('Assessment Read', @applicationId);
+
+INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
+VALUES ('Bootstrap Descriptors and EdOrgs', @applicationId);
+
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*     Parent resource claims        */
+/* --------------------------------- */
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'types', N'types', N'http://ed-fi.org/ods/identity/claims/domains/edFiTypes', NULL, @applicationId);
+SELECT @typesResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'systemDescriptors', N'systemDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', NULL, @applicationId);
+SELECT @systemDescriptorsResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'managedDescriptors', N'managedDescriptors', N'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors', NULL, @applicationId);
+SELECT @managedDescriptorsResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'educationOrganizations', N'educationOrganizations', N'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', NULL, @applicationId);
+SELECT @educationOrganizationsResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'people', N'people', N'http://ed-fi.org/ods/identity/claims/domains/people', NULL, @applicationId);
+SELECT @peopleResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'relationshipBasedData', N'relationshipBasedData', N'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', NULL, @applicationId);
+SELECT @relationshipBasedDataResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'assessmentMetadata', N'assessmentMetadata', N'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', NULL, @applicationId);
+SELECT @assessmentMetadataResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'identity', N'identity', N'http://ed-fi.org/ods/identity/claims/domains/identity', NULL, @applicationId);
+SELECT @identityResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'educationStandards', N'educationStandards', N'http://ed-fi.org/ods/identity/claims/domains/educationStandards', NULL, @applicationId);
+SELECT @educationStandardsResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'primaryRelationships', N'primaryRelationships', N'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships', NULL, @applicationId);
+SELECT @primaryRelationshipsResourceClaimId = SCOPE_IDENTITY();
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'surveyDomain', N'surveyDomain', N'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', NULL, @applicationId);
+SELECT @surveyDomainResourceClaimId = SCOPE_IDENTITY();
+
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*        Resource Claims            */
+/* --------------------------------- */
+
+{{#Aggregates}}
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'{{DisplayName}}', N'{{ResourceName}}', N'http://ed-fi.org/ods/identity/claims/{{ResourceName}}', {{#HasParent}}@{{ParentResourceName}}ResourceClaimId{{/HasParent}}{{^HasParent}}NULL{{/HasParent}}, @applicationId);
+
+{{/Aggregates}}
+/* --------------------------------- */
+
+/* --------------------------------- */
+/*     ClaimSetResourceClaims        */
+/* --------------------------------- */
+
+/* SIS Vendors Claims */
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'SIS Vendor');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+   (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('people'
+    , 'relationshipBasedData'
+    , 'assessmentMetadata'
+    , 'managedDescriptors'
+    , 'primaryRelationships'
+    , 'educationStandards'
+    , 'educationContent');
+
+/* EdFi Sandbox Claims */
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Ed-Fi Sandbox');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('types', 'identity')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create', 'Update')) AS ac
+WHERE ResourceName IN ('identity')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null  FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
+    'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+    'educationContent', 'surveyDomain');
+
+/* EdFi Sandbox Claims with Overrides */
+
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, @AuthorizationStrategyId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('communityProviderLicense');
+
+/* Roster Vendor Claims */
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Roster Vendor');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('educationOrganizations', 'section', 'student', 'staff', 'courseOffering',
+    'session', 'classPeriod', 'location', 'course', 'staffSectionAssociation',
+    'staffEducationOrganizationAssignmentAssociation', 'studentSectionAssociation', 'studentSchoolAssociation');
+
+/* Assessment Vendor Claims */
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Vendor');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('assessmentMetadata')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('learningObjective', 'learningStandard', 'student');
+
+/* Assessment Read Resource Claims */
+SET @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Assessment Read');
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('assessmentMetadata', 'learningObjective', 'learningStandard', 'student');
+
+/* Bootstrap Descriptors and EdOrgs Claims */
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Bootstrap Descriptors and EdOrgs');
+SELECT @AuthorizationStrategyId = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
+
+INSERT INTO [dbo].[ClaimSetResourceClaims]
+    ([Action_ActionId]
+    ,[ClaimSet_ClaimSetId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[AuthorizationStrategyOverride_AuthorizationStrategyId]
+    ,[ValidationRuleSetNameOverride])
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, @AuthorizationStrategyId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN (
+    'systemDescriptors',
+    'managedDescriptors',
+    'educationOrganizations',
+    -- from Interchange-Standards.xml
+    'learningObjective',
+    'learningStandard',
+    'learningStandardEquivalenceAssociation',
+    -- from Interchange-EducationOrganization.xml
+    'accountabilityRating',
+    'classPeriod',
+    'communityOrganization',
+    'communityProvider',
+    'communityProviderLicense',
+    'course',
+    'educationOrganizationNetwork',
+    'educationOrganizationNetworkAssociation',
+    'educationOrganizationPeerAssociation',
+    'educationServiceCenter',
+    'feederSchoolAssociation',
+    'localEducationAgency',
+    'location',
+    'postSecondaryInstitution',
+    'program',
+    'school',
+    'stateEducationAgency'
+);
+
+/* --------------------------------- */
+/* ResourceClaimAuthorizationMeatada */
+/* --------------------------------- */
+
+/* NoFurtherAuthorizationRequired */
+
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
+
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person' )
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Update')) AS ac
+WHERE ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Delete')) AS ac
+WHERE ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+
+/* NamespaceBased */
+
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NamespaceBased');
+
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read')) AS ac
+WHERE ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create', 'Update', 'Delete')) AS ac
+WHERE ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain');
+
+/* RelationshipsWithEdOrgsAndPeople */
+
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople');
+
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Read', 'Update')) AS ac
+WHERE ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ('relationshipBasedData')
+UNION
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Delete')) AS ac
+WHERE ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships');
+
+/* RelationshipsWithStudentsOnly */
+
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'RelationshipsWithStudentsOnly');
+
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ('studentParentAssociation');
+
+/* RelationshipsWithEdOrgsOnly */
+
+SET @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly');
+
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+    ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ('primaryRelationships')
+
+/* --------------------------------- */
+

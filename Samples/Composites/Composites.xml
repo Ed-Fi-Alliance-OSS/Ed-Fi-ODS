@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CompositeMetadata organizationCode="ed-fi">
+  <Category displayName="My Sample Composites" name="MyComposite">
+    <Routes>
+      <Route relativeRouteTemplate="/sections/{Section.Id}/{compositeName}" />
+    </Routes>
+    <Composites>
+      <Composite name="Student">
+        <Specification>
+          <Parameter name="Section.Id" filterPath="StudentSectionAssociation->Section.Id" />
+        </Specification>
+        <BaseResource name="Student">
+          <Property name="StudentUniqueId" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="BirthDate" />
+        </BaseResource>
+      </Composite>
+    </Composites>
+  </Category>
+</CompositeMetadata>

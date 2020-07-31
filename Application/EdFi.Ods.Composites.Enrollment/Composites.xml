@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<CompositeMetadata organizationCode="ed-fi">
+  <Category displayName="Ed-Fi Enrollment" name="enrollment">
+    <Routes>
+      <Route relativeRouteTemplate="/localEducationAgencies/{LocalEducationAgency.Id}/{compositeName}" />
+      <Route relativeRouteTemplate="/schools/{School.Id}/{compositeName}" />
+      <Route relativeRouteTemplate="/sections/{Section.Id}/{compositeName}" />
+      <Route relativeRouteTemplate="/staffs/{Staff.Id}/{compositeName}" />
+      <Route relativeRouteTemplate="/students/{Student.Id}/{compositeName}" />
+    </Routes>
+    <Composites>
+      <Composite name="LocalEducationAgency">
+        <Specification>
+          <Parameter name="LocalEducationAgencyId" filterPath="LocalEducationAgencyReference.LocalEducationAgencyId" />
+        </Specification>
+        <BaseResource name="LocalEducationAgency">
+          <Property name="Id" />
+          <Property name="LocalEducationAgencyId" />
+          <Property name="StateEducationAgencyId" />
+          <Property name="NameOfInstitution" />
+          <Property name="ShortNameOfInstitution" />
+          <Property name="WebSite" />
+          <Property name="LocalEducationAgencyCategoryDescriptor" />
+          <Property name="CharterStatusDescriptor" />
+          <Collection name="EducationOrganizationAddresses" displayName="addresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="StreetNumberName" />
+            <Property name="City" />
+            <Property name="StateAbbreviationDescriptor" />
+            <Property name="PostalCode" />
+            <Property name="NameOfCounty" />
+          </Collection>
+          <Collection name="EducationOrganizationIdentificationCodes" displayName="identificationCodes">
+            <Property name="EducationOrganizationIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="EducationOrganizationInstitutionTelephones" displayName="institutionTelephones">
+            <Property name="InstitutionTelephoneNumberTypeDescriptor" />
+            <Property name="TelephoneNumber" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+      <Composite name="School">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id" filterPath="LocalEducationAgency.Id" />
+          <Parameter name="Section.Id" filterPath="Sections.Id" />
+          <Parameter name="Staff.Id" filterPath="Sections->StaffSectionAssociations->Staff.Id" />
+          <Parameter name="Student.Id" filterPath="Sections->StudentSectionAssociations->Student.Id" />
+          <Parameter name="LocalEducationAgencyId" filterPath="LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId" filterPath="SchoolId" />
+        </Specification>
+        <BaseResource name="School">
+          <ReferencedResource name="LocalEducationAgencyReference" displayName="localEducationAgency">
+            <Property name="Id" />
+            <Property name="LocalEducationAgencyId" />
+          </ReferencedResource>
+          <Property name="Id" />
+          <Property name="SchoolId" />
+          <Property name="NameOfInstitution" />
+          <Property name="ShortNameOfInstitution" />
+          <Property name="WebSite" />
+          <Property name="SchoolTypeDescriptor" />
+          <Collection name="EducationOrganizationAddresses" displayName="addresses">
+            <Property name="AddressTypeDescriptor" />
+            <Property name="StreetNumberName" />
+            <Property name="City" />
+            <Property name="StateAbbreviationDescriptor" />
+            <Property name="PostalCode" />
+            <Property name="NameOfCounty" />
+          </Collection>
+          <Collection name="EducationOrganizationCategories">
+            <Property name="EducationOrganizationCategoryDescriptor" displayName="category" />
+          </Collection>
+          <Collection name="EducationOrganizationIdentificationCodes" displayName="identificationCodes">
+            <Property name="EducationOrganizationIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="EducationOrganizationInstitutionTelephones" displayName="institutionTelephones">
+            <Property name="InstitutionTelephoneNumberTypeDescriptor" />
+            <Property name="TelephoneNumber" />
+          </Collection>
+          <Collection name="SchoolCategories">
+            <Property name="SchoolCategoryDescriptor" displayName="category" />
+          </Collection>
+          <Collection name="SchoolGradeLevels" displayName="gradeLevels">
+            <Property name="GradeLevelDescriptor" />
+          </Collection>
+        </BaseResource>
+      </Composite>
+      <Composite name="Section">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id"
+                     filterPath="CourseOfferingReference->SessionReference->School->LocalEducationAgency.Id" />
+          <Parameter name="School.Id" filterPath="CourseOfferingReference->SessionReference->School.Id" />
+          <Parameter name="Staff.Id" filterPath="StaffSectionAssociations->Staff.Id" />
+          <Parameter name="Student.Id" filterPath="StudentSectionAssociations->Student.Id" />
+          <Parameter name="LocalEducationAgencyId"
+                     filterPath="CourseOfferingReference->SessionReference->School->LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId" filterPath="CourseOfferingReference->SessionReference->SchoolReference.SchoolId" />
+        </Specification>
+        <BaseResource name="Section">
+          <Property name="Id" />
+          <Property name="SectionIdentifier" />
+          <Property name="SequenceOfCourse" />
+          <Property name="EducationalEnvironmentDescriptor" />
+          <Property name="AvailableCredits" />
+          <LinkedCollection name="StaffSectionAssociations" displayName="staff">
+            <ReferencedResource name="StaffReference" flatten="true">
+              <Property name="Id" />
+              <Property name="StaffUniqueId" />
+            </ReferencedResource>
+          </LinkedCollection>
+          <LinkedCollection name="StudentSectionAssociations" displayName="students">
+            <ReferencedResource name="StudentReference" flatten="true">
+              <Property name="Id" />
+              <Property name="StudentUniqueId" />
+            </ReferencedResource>
+            <Property name="BeginDate" displayName="enrollmentBeginDate" />
+            <Property name="EndDate" displayName="enrollmentEndDate" />
+          </LinkedCollection>
+          <ReferencedResource name="CourseOfferingReference" flatten="true">
+            <ReferencedResource name="CourseReference" flatten="true">
+              <Property name="AcademicSubjectDescriptor" />
+            </ReferencedResource>
+          </ReferencedResource>
+          <ReferencedResource name="CourseOfferingReference" flatten="true">
+            <ReferencedResource name="SessionReference" displayName="session">
+              <Property name="Id" />
+              <Property name="SchoolId" />
+              <Property name="SchoolYear" />
+              <Property name="TermDescriptor" />
+              <Property name="SessionName" />
+              <Property name="BeginDate" />
+              <Property name="EndDate" />
+              <Property name="TotalInstructionalDays" />
+            </ReferencedResource>
+          </ReferencedResource>
+          <Collection name="SectionClassPeriods" displayName="classPeriods">
+            <Property name="ClassPeriodName" />
+          </Collection>
+          <ReferencedResource name="CourseOfferingReference" flatten="true">
+            <Property name="LocalCourseCode" />
+            <Property name="LocalCourseTitle" />
+          </ReferencedResource>
+          <ReferencedResource name="LocationReference" displayName="location">
+            <Property name="Id" />
+            <Property name="SchoolId" />
+            <Property name="ClassroomIdentificationCode" />
+          </ReferencedResource>
+        </BaseResource>
+      </Composite>
+      <Composite name="Student">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id"
+                     filterPath="StudentSchoolAssociations->School->LocalEducationAgency.Id" />
+          <Parameter name="School.Id" filterPath="StudentSchoolAssociations->School.Id" />
+          <Parameter name="Section.Id" filterPath="StudentSectionAssociations->Section.Id" />
+          <Parameter name="Staff.Id"
+                     filterPath="StudentSectionAssociations->Section->StaffSectionAssociations->Staff.Id" />
+          <Parameter name="LocalEducationAgencyId"
+                     filterPath="StudentSchoolAssociations->School.LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId" filterPath="StudentSchoolAssociations.SchoolReference.SchoolId" />
+          <Parameter name="StudentUniqueId" filterPath="StudentUniqueId" />
+        </Specification>
+        <BaseResource name="Student">
+          <Property name="Id" />
+          <Property name="StudentUniqueId" />
+          <Property name="PersonalTitlePrefix" />
+          <Property name="FirstName" />
+          <Property name="MiddleName" />
+          <Property name="LastSurname" />
+          <Property name="BirthDate" />
+          <LinkedCollection name="StudentSchoolAssociations" displayName="studentSchoolEnrollments">
+            <ReferencedResource name="SchoolReference" flatten="true">
+              <Property name="Id" />
+              <Property name="SchoolId" />
+              <Property name="NameOfInstitution" />
+            </ReferencedResource>
+            <Property name="EntryGradeLevelDescriptor" />
+            <Property name="EntryDate" displayName="enrollmentBeginDate" />
+            <Property name="ExitWithdrawDate" displayName="enrollmentEndDate" />
+          </LinkedCollection>
+          <LinkedCollection name="StudentEducationOrganizationAssociations" displayName="studentDemographics">
+            <ReferencedResource name="EducationOrganizationReference" flatten="true" includeResourceSubtype="true">
+              <Property name="EducationOrganizationId" />
+            </ReferencedResource>
+            <Property name="LoginId" />
+            <Property name="SexDescriptor" />
+            <Property name="HispanicLatinoEthnicity" />
+            <Collection name="StudentEducationOrganizationAssociationLanguages" displayName="languages">
+              <Property name="LanguageDescriptor" />
+            </Collection>
+            <Collection name="StudentEducationOrganizationAssociationRaces" displayName="races">
+              <Property name="RaceDescriptor" />
+            </Collection>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+      <Composite name="Staff">
+        <Specification>
+          <Parameter name="LocalEducationAgency.Id"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School->LocalEducationAgency.Id" />
+          <Parameter name="School.Id"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School.Id" />
+          <Parameter name="Section.Id" filterPath="StaffSectionAssociations->Section.Id" />
+          <Parameter name="Student.Id"
+                     filterPath="StaffSectionAssociations->Section->StudentSectionAssociations->Student.Id" />
+
+          <Parameter name="LocalEducationAgencyId"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->School->LocalEducationAgencyReference.LocalEducationAgencyId" />
+          <Parameter name="SchoolId"
+                     filterPath="StaffSectionAssociations->Section->CourseOfferingReference->SessionReference->SchoolReference.SchoolId" />
+          <Parameter name="StaffUniqueId" filterPath="StaffUniqueId" />
+        </Specification>
+        <BaseResource name="Staff">
+          <Property name="Id" />
+          <Property name="StaffUniqueId" />
+          <Property name="PersonalTitlePrefix" />
+          <Property name="FirstName" />
+          <Property name="LastSurname" />
+          <Property name="LoginId" />
+          <Property name="SexDescriptor" />
+          <Property name="HispanicLatinoEthnicity" />
+          <Collection name="StaffElectronicMails" displayName="electronicMails">
+            <Property name="ElectronicMailTypeDescriptor" />
+            <Property name="ElectronicMailAddress" />
+          </Collection>
+          <Collection name="StaffIdentificationCodes" displayName="identificationCodes">
+            <Property name="StaffIdentificationSystemDescriptor" />
+            <Property name="IdentificationCode" />
+          </Collection>
+          <Collection name="StaffLanguages" displayName="languages">
+            <Property name="LanguageDescriptor" />
+          </Collection>
+          <Collection name="StaffRaces" displayName="races">
+            <Property name="RaceDescriptor" />
+          </Collection>
+          <Collection name="StaffTelephones" displayName="telephones">
+            <Property name="TelephoneNumberTypeDescriptor" />
+            <Property name="OrderOfPriority" />
+            <Property name="TelephoneNumber" />
+          </Collection>
+          <LinkedCollection name="StaffEducationOrganizationAssignmentAssociations"
+                            displayName="educationOrganizationAssignments">
+            <Property name="StaffClassificationDescriptor" />
+            <ReferencedResource name="EducationOrganizationReference" flatten="true" includeResourceSubtype="true">
+              <Property name="EducationOrganizationId" />
+            </ReferencedResource>
+          </LinkedCollection>
+        </BaseResource>
+      </Composite>
+    </Composites>
+  </Category>
+</CompositeMetadata>

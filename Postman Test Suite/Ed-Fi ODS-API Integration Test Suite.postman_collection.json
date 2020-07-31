@@ -1,0 +1,4574 @@
+{
+	"info": {
+		"_postman_id": "4309b1dd-e4f4-44a9-81d8-dd13da7a1726",
+		"name": "Ed-Fi ODS/API Integration Test Suite",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Initialize Known Data",
+			"item": [
+				{
+					"name": "Initialize Known School Ids",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a06a8894-339f-4bf1-af3b-19deccc47ecf",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schools = pm.response.json();",
+									"const schoolIds = __.map(schools, school => school.schoolId);",
+									"pm.environment.set(\"known:schoolIds\",schoolIds);",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							],
+							"query": [
+								{
+									"key": "localEducationAgencyId",
+									"value": "255901"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "AcademicWeeks",
+			"item": [
+				{
+					"name": "WeekIdentifier is required validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(12);",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Should return the item with WeekIdentifier is required string\", () => {",
+									"    ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"Validation of \\'AcademicWeek\\' failed\");",
+									"     pm.expect(responseItem.message).to.include(\"WeekIdentifier is required\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "SchoolId is required validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(12);",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {",
+									"    pm.expect(pm.response.code).to.equal(403);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Should return the item with SchoolId of the resource is empty string\", () => {",
+									"     ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"Access to the resource item could not be authorized because the \\'SchoolId\\' of the resource is empty\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw SchoolId is required error when SchoolId is not passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "BeginDate is required validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(12);",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Should returns the item with String was not recognized as a valid date string\", () => {",
+									"     ",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"The request is invalid\");",
+									"     pm.expect(responseItem.modelState[\"request.beginDate\"][0]).to.include(\"String was not recognized as a valid date\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw BeginDate is required error when BeginDate is not passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "EndDate is required validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"let  endDate=new Date();",
+									"endDate = endDate.addMonths(12);",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Should return the item with String was not recognized as a valid date string\", () => {",
+									"     ",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"The request is invalid\");",
+									"     pm.expect(responseItem.modelState[\"request.endDate\"][0]).to.include(\"String was not recognized as a valid date\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw EndDate is required error when EndDate is not passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid SchoolID validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(12);",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 403\", () => {",
+									"    pm.expect(pm.response.code).to.equal(403);",
+									"});",
+									"",
+									"pm.test(\"Should return the item with Invalid SchoolId Validation string\", () => {",
+									"     ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"Authorization denied.  The claim does not have any established relationships with the requested resource\");",
+									"      ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"23432\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw Invalid SchoolId  error when Invalid SchoolId is passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid BeginDate & EndDate Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(70));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Should return the item with BeginDate must be within SQL datetime range string\", () => {",
+									"     ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"BeginDate : \\'1/1/1751 12:00:00 AM\\' must be within SQL datetime range\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Should return the item with EndDate must be within SQL datetime range string\", () => {",
+									"     ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"EndDate : \\'1/1/1752 12:00:00 AM\\' must be within SQL datetime range\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"1/1/1751\",\r\n  \"endDate\":\"1/1/1752\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw BeginDate & EndDate invalid error when invalid BeginDate & EndDate  is  passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Insert new academicWeeks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f036ce35-6677-4917-8de5-7735cad31b33",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const schoolId =pm.environment.get(\"known:schoolId\");",
+									"const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"const title =\"Should return newly Added Academic weeks for School \"+schoolId;",
+									"let isacadmeicWeeksAdded = false;",
+									"",
+									"",
+									"const academicWeeksGetRequest = {",
+									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks\",",
+									"  method:'GET',",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  body: {",
+									"  }",
+									"};",
+									"",
+									"",
+									"",
+									"pm.test(title,  () => {",
+									"    ",
+									"    pm.sendRequest(academicWeeksGetRequest, function (err, academicWeeks) {",
+									"    if (err) {",
+									"        console.log(err);",
+									"    } else {",
+									"    ",
+									"     academicWeeks.json().forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier)",
+									"         {",
+									"             isacadmeicWeeksAdded=true;",
+									"             pm.environment.set(\"known:academicWeeksReferenceIdforSchool\",responseItem.id);",
+									"             pm.environment.set(\"known:academicWeeksReferenceIds\",[]);",
+									"             const academicWeeksReferenceIds=pm.environment.get(\"known:academicWeeksReferenceIds\");",
+									"              academicWeeksReferenceIds.push(responseItem.id);",
+									"             pm.environment.set(\"known:academicWeeksReferenceIds\",academicWeeksReferenceIds);",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.eql(schoolId);",
+									"         }",
+									"    });",
+									"",
+									"      pm.expect(Boolean(isacadmeicWeeksAdded)).to.eql(true);",
+									"",
+									"    }",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7afc605d-0e6f-4048-bc78-a4317edb51d4",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(__.random(12));",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "Pre-Condition : School record should be pre-populated.\n\nThis api post method adds new academicWeeks for particular school ."
+					},
+					"response": []
+				},
+				{
+					"name": "Get  by ReferenceId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2493b55c-1ff0-458d-a5f7-85894ae49a8d",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Should return the item matching the supplied academicWeeks reference Id \", () => {",
+									"    ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.id).to.equal(pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"     pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"     pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"     pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"     pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"     pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"     ",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Get method retrieves academicWeeks for given school .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Insert new academicWeeks -Second",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
+								"exec": [
+									"const __ = require('lodash');",
+									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
+									"pm.environment.set(\"known:schoolId\", __.sample(schoolIds));",
+									"pm.environment.set(\"known:weekIdentifier\",__.random(70).toString());",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(__.random(12));",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"",
+									"",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(10));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"const schoolId =pm.environment.get(\"known:schoolId\");",
+									"const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"const title =\"Should return newly Added Academic weeks for School \"+schoolId;",
+									"let isacadmeicWeeksAdded = false;",
+									"",
+									"",
+									"const academicWeeksGetRequest = {",
+									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks\",",
+									"  method:'GET',",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  body: {",
+									"  }",
+									"};",
+									"",
+									"",
+									"",
+									"pm.test(title, function () {",
+									"    ",
+									"    pm.sendRequest(academicWeeksGetRequest, function (err, academicWeeks) {",
+									"    if (err) {",
+									"        console.log(err);",
+									"    } else {",
+									"        ",
+									"        ",
+									"        academicWeeks.json().forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier)",
+									"         {",
+									"            isacadmeicWeeksAdded=true;",
+									"            pm.environment.set(\"known:academicWeeksReferenceIdforSchool\",responseItem.id);",
+									"            const academicWeeksReferenceIds=pm.environment.get(\"known:academicWeeksReferenceIds\");",
+									"            academicWeeksReferenceIds.push(responseItem.id);",
+									"            pm.environment.set(\"known:academicWeeksReferenceIds\",academicWeeksReferenceIds);",
+									"            pm.expect(responseItem.schoolReference.schoolId).to.eql(schoolId);",
+									"         }",
+									"    });",
+									"    ",
+									"      pm.expect(Boolean(isacadmeicWeeksAdded)).to.eql(true);",
+									"",
+									"    }",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"School\",\r\n      \"href\": \"/ed-fi/schools/\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"string\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "Pre-Condition : School record should be pre-populated.\n\nThis api post method adds new academicWeeks for particular school ."
+					},
+					"response": []
+				},
+				{
+					"name": "Get  by ReferenceId -Second",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2493b55c-1ff0-458d-a5f7-85894ae49a8d",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Should return the item matching the supplied academicWeeks reference Id \", () => {",
+									"    ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.id).to.equal(pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"     pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"     pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"     pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"     pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"     pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"     ",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Get method retrieves academicWeeks for given school .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "BeginDate is required Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "88760c03-7b0a-4bd1-bb04-5421c135a511",
+								"exec": [
+									"const __ = require('lodash');",
+									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(__.random(9));",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(9));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a81b229-dfe4-40df-84ec-9a20b1e4a998",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"pm.test(\"Should return the item  with String was not recognized as a valid date string\", () => {",
+									"     ",
+									"     const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.modelState[\"request.beginDate\"][0]).to.include(\"String was not recognized as a valid date\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{id}}\",\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"\",\r\n      \"href\": \"\"\r\n    }\r\n  },\r\n \"beginDate\":\"\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Put method updates academicWeeks for given school .\nThis test method will throw  BeginDate is required error when BeginDate  is not passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "EndDate is required Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "88760c03-7b0a-4bd1-bb04-5421c135a511",
+								"exec": [
+									"const __ = require('lodash');",
+									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(__.random(9));",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(9));",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a81b229-dfe4-40df-84ec-9a20b1e4a998",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Should return the item  with String was not recognized as a valid date String\", () => {",
+									"     ",
+									"      const responseItem = pm.response.json();",
+									"      pm.expect(responseItem.modelState[\"request.endDate\"][0]).to.include(\"String was not recognized as a valid date\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{id}}\",\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"\",\r\n      \"href\": \"\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Put method updates academicWeeks for given school .\nThis test method will throw  EndDate is required error when EndDate  is not passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid BeginDate & EndDate Validation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "88760c03-7b0a-4bd1-bb04-5421c135a511",
+								"exec": [
+									"const __ = require('lodash');",
+									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(9));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a81b229-dfe4-40df-84ec-9a20b1e4a998",
+								"exec": [
+									"pm.test(\"Status code is 400\", () => {",
+									"    pm.expect(pm.response.code).to.equal(400);",
+									"});",
+									"",
+									"",
+									"",
+									"pm.test(\"Should return the item  with BeginDate must be within SQL datetime range string\", () => {",
+									"     ",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"BeginDate : \\'1/1/1751 12:00:00 AM\\' must be within SQL datetime range\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Should return the item  with EndDate must be within SQL datetime range string\", () => {",
+									"     ",
+									"      const responseItem = pm.response.json();",
+									"     pm.expect(responseItem.message).to.include(\"EndDate : \\'1/1/1752 12:00:00 AM\\' must be within SQL datetime range\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{known:id}}\",\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"\",\r\n      \"href\": \"\"\r\n    }\r\n  },\r\n \"beginDate\":\"1/1/1751\",\r\n  \"endDate\":\"1/1/1752\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Put method updates academicWeeks for given school .\nThis test method will throw BeginDate & EndDate invalid error when invalid BeginDate & EndDate  is  passed in Request."
+					},
+					"response": []
+				},
+				{
+					"name": "Put on  EndDate & TotalInstructionalDays",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "88760c03-7b0a-4bd1-bb04-5421c135a511",
+								"exec": [
+									"const __ = require('lodash');",
+									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"",
+									"",
+									"const moment = require('moment');",
+									"const beginDate= moment(new Date()).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:beginDate\",beginDate);",
+									"",
+									"",
+									"let endDate=new Date();",
+									"endDate = endDate.addMonths(__.random(9));",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set(\"known:endDate\",endDate);",
+									"pm.environment.set(\"known:totalInstructionalDays\",__.random(9));",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7a81b229-dfe4-40df-84ec-9a20b1e4a998",
+								"exec": [
+									"pm.test(\"Status code is 204\",() => {",
+									"    pm.response.to.have.status(204);",
+									"});",
+									"",
+									"",
+									"const schoolId =pm.environment.get(\"known:schoolId\");",
+									"const title =\"Should return newly updated Academic weeks for School \"+schoolId;",
+									"const isacadmeicWeeksAdded = false;",
+									"",
+									"",
+									"const academicWeeksGetRequest = {",
+									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"),",
+									"  method:'GET',",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  body: {",
+									"  }",
+									"};",
+									"",
+									"",
+									"",
+									"pm.test(title, () => {",
+									"    ",
+									"    pm.sendRequest(academicWeeksGetRequest, function (err, academicWeeks) {",
+									"    if (err) {",
+									"        console.log(err);",
+									"    } else {",
+									"        ",
+									"        const responseItem = academicWeeks.json();",
+									"         pm.expect(responseItem.id).to.equal(pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"         pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"         pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"         pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"         pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"         pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"",
+									"    }",
+									"    });",
+									"    ",
+									"    ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": \"{{known:id}}\",\r\n  \"weekIdentifier\":\"{{known:weekIdentifier}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\",\r\n    \"link\": {\r\n      \"rel\": \"\",\r\n      \"href\": \"\"\r\n    }\r\n  },\r\n \"beginDate\":\"{{known:beginDate}}\",\r\n  \"endDate\":\"{{known:endDate}}\",\r\n  \"totalInstructionalDays\": \"{{known:totalInstructionalDays}}\",\r\n  \"_etag\": \"\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "Update the AcademicWeeks and Will create Academicweeks if not exist already "
+					},
+					"response": []
+				},
+				{
+					"name": "Get all academicWeeks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the all items for  academicWeeks\", () => {",
+									"    ",
+									"     const responseItems = pm.response.json();",
+									"     const schoolId =pm.environment.get(\"known:schoolId\");",
+									"     const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"     pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by weekIdentifier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the item for matching week identifier\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      ",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"",
+									"      ",
+									"      ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?weekIdentifier={{known:weekIdentifier}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "weekIdentifier",
+									"value": "{{known:weekIdentifier}}"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by weekIdenitifier .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by schoolId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the items for matching schoolId\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      ",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"",
+									"      ",
+									"      ",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?schoolId={{known:schoolId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "schoolId",
+									"value": "{{known:schoolId}}"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by SchoolId .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by beginDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the items for matching beginDate\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      const beginDate =pm.environment.get(\"known:beginDate\");",
+									"      ",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier && responseItem.beginDate===beginDate)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?beginDate={{known:beginDate}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "beginDate",
+									"value": "{{known:beginDate}}"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by Begindate .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by endDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the items for matching endDate\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      const endDate =pm.environment.get(\"known:endDate\");",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem => {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier && responseItem.endDate===endDate)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?endDate={{known:endDate}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "endDate",
+									"value": "{{known:endDate}}"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by endDate.\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by totalInstructionalDays",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the items for matching TotalInstructionDays\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      const totalInstructionalDays =pm.environment.get(\"known:totalInstructionalDays\");",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem => {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier && responseItem.totalInstructionalDays===totalInstructionalDays)",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?totalInstructionalDays={{known:totalInstructionalDays}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "totalInstructionalDays",
+									"value": "{{known:totalInstructionalDays}}"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by totalInstructionalDays.\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all by limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95c655be-18b9-471f-93a0-5c7c8ab4539b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return the items for limit\", () => {",
+									"    ",
+									"      const responseItems = pm.response.json();",
+									"      const schoolId =pm.environment.get(\"known:schoolId\");",
+									"      const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"      const totalInstructionalDays =pm.environment.get(\"known:totalInstructionalDays\");",
+									"      pm.expect(Boolean(responseItems.length)).to.equal(true);",
+									"     ",
+									"     ",
+									"     responseItems.forEach(responseItem =>  {",
+									"        if(responseItem.schoolReference.schoolId===schoolId && responseItem.weekIdentifier===weekIdentifier )",
+									"         {",
+									"             pm.expect(responseItem.weekIdentifier).to.equal(pm.environment.get(\"known:weekIdentifier\"));",
+									"             pm.expect(responseItem.beginDate).to.equal(pm.environment.get(\"known:beginDate\"));",
+									"             pm.expect(responseItem.endDate).to.equal(pm.environment.get(\"known:endDate\"));",
+									"             pm.expect(responseItem.totalInstructionalDays).to.equal(pm.environment.get(\"known:totalInstructionalDays\"));",
+									"             pm.expect(responseItem.schoolReference.schoolId).to.equal(pm.environment.get(\"known:schoolId\"));",
+									"         }",
+									"    });",
+									"",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks?limit=2",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "This api Get method retrieves all academicWeeks by limit .\nThis test method will validate the academicweeks record exist or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  by ReferenceId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb58d7ed-ab20-43ff-8b74-ce53398bef57",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 204\", () => {",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"});",
+									"",
+									"const schoolId =pm.environment.get(\"known:schoolId\");",
+									"const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"const academicWeeksReferenceIdforSchool =pm.environment.get(\"known:academicWeeksReferenceIdforSchool\");",
+									"const title =\" Should academic weeks by ReferenceID \"+academicWeeksReferenceIdforSchool+\" is deleted\";",
+									"",
+									"",
+									"",
+									"const gacademicWeeksGetRequest = {",
+									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\") ,",
+									"  method:'GET',",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  body: {",
+									"  }",
+									"};",
+									"",
+									"",
+									"",
+									"pm.test(title, () => {",
+									"    ",
+									"    pm.sendRequest(gacademicWeeksGetRequest, function (err, academicWeeks) {",
+									"    if (err) {",
+									"        console.log(err);",
+									"    } else {",
+									"        ",
+									"    const responseItem = academicWeeks.json();",
+									"    pm.expect(responseItem.message).to.include(\"Entity of type \\'AcademicWeek\\' with the specified id was not found\");",
+									"    ",
+									"    }",
+									"    });",
+									"});",
+									"",
+									"",
+									" ",
+									"const academicWeeksReferenceIds=pm.environment.get(\"known:academicWeeksReferenceIds\");",
+									"const index = academicWeeksReferenceIds.indexOf(pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
+									"if (index !== -1) academicWeeksReferenceIds.splice(index, 1);",
+									"pm.environment.set(\"known:academicWeeksReferenceIds\",academicWeeksReferenceIds);",
+									"pm.environment.set(\"known:academicWeeksReferenceIdforSchool\",academicWeeksReferenceIds[0]);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Delete method deletes academicWeeks by referenceID\nThis test method will validate the academicweeks record is deleted or not."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  by ReferenceId Second one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cb58d7ed-ab20-43ff-8b74-ce53398bef57",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 204\", () => {",
+									"    pm.expect(pm.response.code).to.equal(204);",
+									"});",
+									"",
+									"const schoolId =pm.environment.get(\"known:schoolId\");",
+									"const weekIdentifier =pm.environment.get(\"known:weekIdentifier\");",
+									"const academicWeeksReferenceIdforSchool =pm.environment.get(\"known:academicWeeksReferenceIdforSchool\");",
+									"const title =\" Should academic weeks by ReferenceID \"+academicWeeksReferenceIdforSchool+\" is deleted\";",
+									"",
+									"",
+									"",
+									"const gacademicWeeksGetRequest = {",
+									"  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/academicWeeks/\"+pm.environment.get(\"known:academicWeeksReferenceIdforSchool\") ,",
+									"  method:'GET',",
+									"  header:'Authorization:bearer '+pm.environment.get(\"AccessToken\"),",
+									"  body: {",
+									"  }",
+									"};",
+									"",
+									"",
+									"",
+									"pm.test(title, () => {",
+									"    ",
+									"    pm.sendRequest(gacademicWeeksGetRequest, function (err, academicWeeks) {",
+									"    if (err) {",
+									"        console.log(err);",
+									"    } else {",
+									"        ",
+									"    const responseItem = academicWeeks.json();",
+									"    pm.expect(responseItem.message).to.include(\"Entity of type \\'AcademicWeek\\' with the specified id was not found\");",
+									"    ",
+									"    }",
+									"    });",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/academicWeeks/{{known:academicWeeksReferenceIdforSchool}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"academicWeeks",
+								"{{known:academicWeeksReferenceIdforSchool}}"
+							]
+						},
+						"description": "This api Delete method deletes academicWeeks by referenceID\nThis test method will validate the academicweeks record is deleted or not."
+					},
+					"response": []
+				}
+			],
+			"description": "This folder will contain CRUD operations for Academic weeks",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2e630bb9-b1be-42c7-b855-504eb30e476a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b947314f-806d-481c-a08b-2e869ba7a0ac",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Limit/Offset/Total Count",
+			"item": [
+				{
+					"name": "Include total count in Get request without search condition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8f79b5b9-d7f7-4321-af5c-a94655fdad65",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Total-Count header is present\", () => {",
+									"    pm.response.to.have.header(\"Total-Count\");",
+									"});",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Should return the 25 items in response\", () => {",
+									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"});",
+									"pm.environment.set('known:courseCode', __.first(responseItems).courseCode);",
+									"pm.environment.set('known:totalCount', postman.getResponseHeader(\"Total-Count\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "totalCount",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Include total count in Get request ,Set limit to 100",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ce8e184b-5811-4cee-80dd-e5bbece12efb",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
+									"     pm.expect(responseItems.length).to.be.at.most(100);",
+									"});",
+									"const courses = __.takeRight(responseItems, 25);",
+									"const courseCodes = __.map(courses, course => course.courseCode);",
+									"console.log(courseCodes);",
+									"pm.environment.set(\"known:courseCodes\",courseCodes);    ",
+									"  "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=100",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Include total count in Get request and a search parameter like course code is passed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a87d9581-7954-45b4-8c1d-9e14a5ee1950",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Total-Count header is present\", () => {",
+									"    pm.response.to.have.header(\"Total-Count\");",
+									"});",
+									"",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Should return 1 item in response\", () => {",
+									"     pm.expect(responseItems).to.have.lengthOf(1);",
+									"    });",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?totalCount=true&courseCode={{known:courseCode}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "totalCount",
+									"value": "true"
+								},
+								{
+									"key": "courseCode",
+									"value": "{{known:courseCode}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Include total count in Get request , Set offset equal to totalcount minus one",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc183481-a738-4be8-a556-560a1e83da02",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Should return 1 item in response\", () => {",
+									"     pm.expect(responseItems).to.have.lengthOf(1);",
+									"});",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "769ffa97-6883-4b89-9780-130c2e964383",
+								"exec": [
+									"const totalCount =pm.environment.get(\"known:totalCount\");",
+									"pm.environment.set(\"known:offset\", Number(totalCount) -1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "{{known:offset}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Include total count in Get request , Set offset equal to totalcount minus 25 and limit is 25",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "db637db9-3f38-4fa3-91fc-e5c86487a4ba",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Should return 25 item in response\", () => {",
+									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"});",
+									"",
+									"pm.test(\"Should match with each  item course  in response\", () => {",
+									"    const courseCodes= pm.environment.get(\"known:courseCodes\");",
+									"     \t__.each(responseItems, responseItem => {",
+									"        \t      pm.expect(__.includes(courseCodes, responseItem.courseCode)).to.equal(true);",
+									"        });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "88154940-2f1d-4e07-ad1d-1327108de4ab",
+								"exec": [
+									"const totalCount =pm.environment.get(\"known:totalCount\");",
+									"pm.environment.set(\"known:offset\", Number(totalCount) -25);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?offset={{known:offset}}&limit=25",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "{{known:offset}}"
+								},
+								{
+									"key": "limit",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Person Entity",
+			"item": [
+				{
+					"name": "Scenario 1 - Create Person With \"District\" sourceSystemDescriptor and associate with Staff",
+					"item": [
+						{
+							"name": "Create SourceSystemDescriptors",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8b221910-370d-4d0b-bd2b-f83d796807c2",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "13717536-d73f-44ff-962d-afaaeb826a8c",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e856ed11-ee7f-4538-ad0d-02287ccb4a4b",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6d779263-3bda-468d-abe2-440cc534e8f9",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staffs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9330548f-dbd5-4aa1-b555-46b94849067d",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', __.random(10000));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "48f3f07c-7e77-4174-8ed7-4a0d5dc5bf45",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"Staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StaffEducationOrganizationEmploymentAssociations Data for Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "36b700df-31a4-43e8-916d-2fc94aeeaab1",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "8c807350-e4e3-43be-8253-99247c982f04",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let hireDate=new Date();",
+											"hireDate = hireDate.addMonths(-24);",
+											"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':hireDate', hireDate);",
+											"pm.environment.set('supplied:'+scenarioId+':employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n    \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"255901\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{supplied:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"{{supplied:{{scenarioId}}:employmentStatusDescriptor}}\",\r\n   \"hireDate\":\"{{supplied:{{scenarioId}}:hireDate}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StaffEducationOrganizationEmploymentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Staff by StaffUniqueId & PersonId",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "20122cca-b19a-44d7-bff2-4b46570569c0",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "32634204-b95e-453e-a6ab-410ed6821c67",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.test(\"Should return the 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"",
+											"pm.test(\"Should match with Staffs Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"      });       ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs?staffUniqueId={{supplied:{{scenarioId}}:staffUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"Staffs"
+									],
+									"query": [
+										{
+											"key": "staffUniqueId",
+											"value": "{{supplied:{{scenarioId}}:staffUniqueId}}"
+										},
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario 1 - Create Person With \"District\" sourceSystemDescriptor and Associate with Staff\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Staff With Associated Person\r\nStep 4 Link  Staff With StaffEducationOrganizationEmploymentAssociations\r\nStep 5 Get Staff by StaffUniqueId & PersonUniqueId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "42859aff-1e7e-438b-bc18-a7fa47740d3a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3016f7cf-034e-46dd-bf92-a4dc6b78ef2b",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Scenario 2 - Create same Person With  different  sourceSystemDescriptor and associate with Staff",
+					"item": [
+						{
+							"name": "Create SourceSystemDescriptors",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "f0a936b1-c246-4038-aaf9-6dec8935feed",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "7a80d73e-837b-47c2-9c88-86c01a92b4ef",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "43778ec4-8833-4193-9636-a8a01885bee2",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "11e76b0f-cf56-4a58-9ef0-a4042f2eed5f",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create SourceSystemDescriptors -Two",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ec70efa8-7d6a-4dc5-b3eb-e0cf72e4e486",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':seconddescription', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c52fa112-fedc-4511-af38-497626061694",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:seconddescription}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:seconddescription}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:seconddescription}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create same People with different SourceSystemDescriptor",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5246f9fd-16c5-477e-bd92-83febd48bc84",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':secondsourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':seconddescription'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9d3d0757-f0df-4006-a0cd-37ec88b4861c",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:secondsourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get person by PersonId",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bc4e8c9e-b8be-47d5-9aff-83df6521bd07",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f165c93b-3657-4c20-9ce1-18d36b2eac80",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the 2 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(2);",
+											"});",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const sourceSystemDescriptors = [''];",
+											"sourceSystemDescriptors.push(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"sourceSystemDescriptors.push(pm.environment.get('supplied:'+scenarioId+':secondsourceSystemDescriptor'));",
+											"pm.test(\"Should match with Person Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"       pm.expect(sourceSystemDescriptors.includes(responseItem.sourceSystemDescriptor)).to.equal(true);",
+											"      });       ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people?personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									],
+									"query": [
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Staffs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "a61122b4-c0cc-4d3e-a344-b986278c7f10",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':staffUniqueId', __.random(10000));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "a4964b1f-a80c-481a-b09e-94c82d9eeb60",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':staffGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n     \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:secondsourceSystemDescriptor}}\"\r\n  },\r\n  \"birthDate\": \"1969-09-13\",\r\n  \"firstName\": \"Steve\",\r\n  \"lastSurname\": \"Buck\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"Staffs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StaffEducationOrganizationEmploymentAssociations Data for Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9fd1cba9-64f5-49b6-927a-7df39f2efa30",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "514986fa-07b6-4707-b8d7-0fce59094559",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let hireDate=new Date();",
+											"hireDate = hireDate.addMonths(-24);",
+											"hireDate= moment(hireDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':hireDate', hireDate);",
+											"pm.environment.set('supplied:'+scenarioId+':employmentStatusDescriptor', \"uri://ed-fi.org/EmploymentStatusDescriptor#Tenured or permanent\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n  \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"255901\"\r\n   },\r\n   \"staffReference\":{ \r\n      \"staffUniqueId\":\"{{supplied:{{scenarioId}}:staffUniqueId}}\"\r\n   },\r\n   \"employmentStatusDescriptor\":\"{{supplied:{{scenarioId}}:employmentStatusDescriptor}}\",\r\n   \"hireDate\":\"{{supplied:{{scenarioId}}:hireDate}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StaffEducationOrganizationEmploymentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StaffEducationOrganizationEmploymentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Staff by StaffUniqueId & personId",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b97ee7c0-e13a-4b6d-8154-2ae3088d616b",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "f352630d-076b-405d-93d2-f9eb2fd1c219",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											" ",
+											"pm.test(\"Should match with Staffs Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':secondsourceSystemDescriptor'));",
+											"      });       ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Staffs?staffUniqueId={{supplied:{{scenarioId}}:staffUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"Staffs"
+									],
+									"query": [
+										{
+											"key": "staffUniqueId",
+											"value": "{{supplied:{{scenarioId}}:staffUniqueId}}"
+										},
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario 2 - Create same Person With  different  sourceSystemDescriptor and associate with Staff\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3  Create \"State\" sourceSystemDescriptor\r\nStep 4 Create same Person With \"State\" sourceSystemDescriptor\r\nStep 5 Create Staff With Associated Person\r\nStep 6 Link  Staff With StaffEducationOrganizationEmploymentAssociations\r\n",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "36ecaa56-0cdc-402e-a4e5-af8d7f00053f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9de0e7cf-cb38-496c-90ac-ff0c878cc26a",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Scenario 3 - Create Person With  District  sourceSystemDescriptor and associate with Student",
+					"item": [
+						{
+							"name": "Create SourceSystemDescriptors",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "ebdbba79-9296-41bd-9319-8792405117cf",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "9208685f-0f82-463a-8312-d2c2f8de7963",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bbbe3e0e-9316-4e26-8e72-0629641184ed",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "54390cd4-9f9d-4d56-b956-3276cc1c23ed",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e7ee7f2-bd92-40f3-80d1-b5571feeb8fb",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"        pm.expect(pm.response.code).to.equal(201);",
+											"    });   ",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "522ede2e-3caa-45b9-baed-13b951cadbe0",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':StudentUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':LastSurname',newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':FirstName',newGuid());",
+											"",
+											"const moment = require('moment');",
+											"let birthDate=new Date();",
+											"birthDate = birthDate.addYears(-20);",
+											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':BirthDate',birthDate);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c0473bae-c79b-45b1-8014-b8752b3283cb",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let entryDate=new Date();",
+											"entryDate = entryDate.addMonths(-10);",
+											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "411cae79-b53a-4d96-8692-35c05701f3e5",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"255901001\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student By studentuniqueId and personID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8ecddc12-f3c3-4dd9-985d-b02d0670d4a1",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });   ",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											" ",
+											"pm.test(\"Should match with Student Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"      });       ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "fd1f5868-8675-4d69-a5b5-d4cd689c8999",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?studentUniqueId={{supplied:{{scenarioId}}:StudentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "{{supplied:{{scenarioId}}:StudentUniqueId}}"
+										},
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario 3 - Create Person With \"District\" sourceSystemDescriptor and Associate with Student\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Get Student by StudenID & PersonId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "43998c77-378c-46c5-bfac-d8d68a1edba6",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4798defa-53a6-461f-8e42-e075fb04cbc2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Scenario 4 - Create Person With  District  sourceSystemDescriptor and associate the same person with multiple Student",
+					"item": [
+						{
+							"name": "Create SourceSystemDescriptors",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9b56d4de-ee55-4610-b882-e45f33713727",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "638a9866-c33e-4083-b168-e0cb4e41553c",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "57e3d0a4-75ac-4edf-8615-27a15ec2ab36",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "5396dd58-3da0-4b85-af69-1c4d28a6f6b1",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "39e3be98-d863-498a-9d27-83d05f6e0667",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"        pm.expect(pm.response.code).to.equal(201);",
+											"    });   ",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "6c6d75c5-2f31-4356-b244-8c5b478ec49c",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':StudentUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':LastSurname',newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':FirstName',newGuid());",
+											"",
+											"const moment = require('moment');",
+											"let birthDate=new Date();",
+											"birthDate = birthDate.addYears(-20);",
+											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':BirthDate',birthDate);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations Data",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "bcc04184-e906-4589-8b1b-61cb9ad3dac2",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let entryDate=new Date();",
+											"entryDate = entryDate.addMonths(-10);",
+											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "6fd8faf5-262d-40ce-9377-b7f6b9f87c9b",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"255901001\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student -two",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "22316f54-aeb6-4aad-ad36-e78e6dc06218",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"        pm.expect(pm.response.code).to.equal(201);",
+											"    });   ",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "0493d812-4604-4e40-9cc0-11b763884912",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('supplied:'+scenarioId+':SecondStudentUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':SecondLastSurname',newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':SecondFirstName',newGuid());",
+											"",
+											"const moment = require('moment');",
+											"let birthDate=new Date();",
+											"birthDate = birthDate.addYears(-20);",
+											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':SecondBirthDate',birthDate);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:SecondStudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:SecondBirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:SecondFirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:SecondLastSurname}}\",\r\n  \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations Data -Two",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "9834da12-736e-4b8d-bf29-568c450283f1",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let entryDate=new Date();",
+											"entryDate = entryDate.addMonths(-10);",
+											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "c759c87f-25c8-48d0-a150-46f898569d8c",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"255901001\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{supplied:{{scenarioId}}:SecondStudentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n  \r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Student By personID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "45ecf607-dd44-4cbe-994c-c1783c7ccb7b",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });   ",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the 2 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(2);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											" ",
+											"pm.test(\"Should match with Student Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"      });       ",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1cb25f8e-00ba-41a0-a33a-74137db668ed",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario 4 - Create Person With  District  sourceSystemDescriptor and associate the same person with multiple Student\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create another Student With Associated same Person\r\nStep 4 Get Student by  PersonId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9d0e2eac-3f81-42be-8ee9-c5813abedc58",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "b8f3c400-3417-453f-9704-cdea8c66babf",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent",
+					"item": [
+						{
+							"name": "Create SourceSystemDescriptors",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e282cfbd-be38-48f4-9775-b5d1b486a7ca",
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':description', newGuid());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "940df491-448e-4c49-9716-879adeaf9447",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"codeValue\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"description\": \"{{supplied:{{scenarioId}}:description}}\",\r\n  \"namespace\": \"uri://ed-fi.org/SourceSystemDescriptor\",\r\n  \"shortDescription\": \"{{supplied:{{scenarioId}}:description}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sourceSystemDescriptors",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sourceSystemDescriptors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create People",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "5d612fcf-f942-49f1-ae57-590c1de8f8af",
+										"exec": [
+											"const __ = require('lodash');\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':personId', __.random(10000));\r",
+											"pm.environment.set('supplied:'+scenarioId+':sourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':description'));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "56ad982e-f7f6-4674-9ad4-58b85d0e831a",
+										"exec": [
+											"pm.test(\"Status code is 200 or 201\", () => {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':peopleGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n  \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/people",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"people"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize Student Data for Post Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f780afb8-4323-483f-9ac3-ba78477273b7",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+											"",
+											"",
+											"    "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4418f93a-afe6-4049-b175-cd3633bcaf62",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+											"",
+											"",
+											"const moment = require('moment');",
+											"let birthDate=new Date();",
+											"birthDate = birthDate.addYears(-20);",
+											"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);",
+											"",
+											"let enteredUSDate=new Date();",
+											"enteredUSDate = enteredUSDate.addMonths(-20);",
+											"enteredUSDate= moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':enteredUSDate',enteredUSDate);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"dateEnteredUS\": \"{{supplied:{{scenarioId}}:enteredUSDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentSchoolAssociations Data for Post Request",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "1706a91e-9aeb-42df-aa53-cad805d46ede",
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"const moment = require('moment');",
+											"let entryDate=new Date();",
+											"entryDate = entryDate.addMonths(-10);",
+											"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+											"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+											"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+											" "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "69b3466c-5c5c-405e-aef5-5df788f489a0",
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize Parent Data for Post Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7c4aa63d-3c29-4349-8395-106c0b3a4f18",
+										"exec": [
+											" pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':parentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+											"pm.environment.set('known:'+scenarioId+':parentUniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+											"",
+											"    "
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "cac68ca5-c556-4cda-bc8d-2f4d7f876ed2",
+										"exec": [
+											"const uuid = require('uuid');",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+											"function createScenarioId() { return newGuid().substring(0,5); }",
+											"",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"",
+											"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':lastSurname', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':firstName', newGuid());",
+											"pm.environment.set('supplied:'+scenarioId+':sexDescriptor', \"uri://ed-fi.org/SexDescriptor#Female\");",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n   \"sexDescriptor\":\"{{supplied:{{scenarioId}}:sexDescriptor}}\",\r\n    \"personReference\": {\r\n    \"personId\": \"{{supplied:{{scenarioId}}:personId}}\",\r\n    \"sourceSystemDescriptor\": \"{{supplied:{{scenarioId}}:sourceSystemDescriptor}}\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"parents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Initialize StudentParentAssociations Data for Post Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a5f5332f-b78e-4578-b8ae-7bbaf70960cf",
+										"exec": [
+											" pm.test(\"Status code is 201\", () => {",
+											"    pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b2f02af1-0bb8-43c4-8ce8-c29c9a5c9c4d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parentUniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentParentAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Parent  By PersonID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "8311677d-3a10-4bd1-a128-aaa2906f8b59",
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"        pm.expect(pm.response.code).to.equal(200);",
+											"    });   ",
+											"const __ = require('lodash');",
+											"const responseItems = pm.response.json();",
+											"pm.test(\"Should return the 1 item in response\", () => {",
+											"     pm.expect(responseItems).to.have.lengthOf(1);",
+											"});",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											" ",
+											"pm.test(\"Should match with Student Response \", () => {",
+											"    __.each(responseItems, (responseItem) => {",
+											"        pm.expect(responseItem.personReference.personId).to.equal(pm.environment.get('supplied:'+scenarioId+':personId').toString());",
+											"        pm.expect(responseItem.personReference.sourceSystemDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':sourceSystemDescriptor'));",
+											"      });       ",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "b12b86c6-6b23-4e5f-bf7c-3877b2a4f70c",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents?parentUniqueId={{supplied:{{scenarioId}}:parentUniqueId}}&personId={{supplied:{{scenarioId}}:personId}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"parents"
+									],
+									"query": [
+										{
+											"key": "parentUniqueId",
+											"value": "{{supplied:{{scenarioId}}:parentUniqueId}}"
+										},
+										{
+											"key": "personId",
+											"value": "{{supplied:{{scenarioId}}:personId}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Scenario 4 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent\r\n\r\nStep 1  Create \"District\" sourceSystemDescriptor\r\nStep 2 Create Person With \"District\" sourceSystemDescriptor\r\nStep 3 Create Student With Associated Person\r\nStep 4 Create parent With Associated same Person\r\nStep 4 Get Parent  by PersonId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "53c7b334-11b6-41fa-af91-d1ee715980b2",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e914047e-7500-4c89-8068-af12721bb772",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e60e7900-c8a0-41a8-82ab-d1a214cd87bf",
+				"type": "text/javascript",
+				"exec": [
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"let tokenExpiration = pm.environment.get('TokenExpiry');",
+					"let currentToken = pm.environment.get('AccessToken');",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get('ApiKey_255901');",
+					"    let clientSecret = pm.environment.get('ApiSecret_255901');",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(\"AccessToken\", newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set('TokenExpiry', expiryDate.getTime());",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a6356328-da92-4bfc-9373-1ceb77f5fb86",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

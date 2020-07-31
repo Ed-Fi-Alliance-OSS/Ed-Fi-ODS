@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterchangeDescriptors xmlns="http://ed-fi.org/0320b" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ed-fi.org/0320b EXTENSION-Interchange-Descriptors-Extension.xsd">
+	<InstitutionControlDescriptor>
+		<CodeValue>State</CodeValue>
+		<ShortDescription>State</ShortDescription>
+		<Namespace>uri://ed-fi.org/InstitutionControlDescriptor</Namespace>
+	</InstitutionControlDescriptor>
+	<InstitutionLevelDescriptor>
+		<CodeValue>High</CodeValue>
+		<ShortDescription>High</ShortDescription>
+		<Namespace>uri://ed-fi.org/InstitutionLevelDescriptor</Namespace>
+	</InstitutionLevelDescriptor>
+	<SpecialEducationGraduationStatusDescriptor>
+		<CodeValue>Graduated</CodeValue>
+		<ShortDescription>Graduated</ShortDescription>
+		<Namespace>uri://ed-fi.org/SpecialEducationGraduationStatusDescriptor</Namespace>
+	</SpecialEducationGraduationStatusDescriptor>
+	<SubmissionCertificationDescriptor>
+		<CodeValue>Applied</CodeValue>
+		<ShortDescription>Applied</ShortDescription>
+		<Namespace>uri://ed-fi.org/SubmissionCertificationDescriptor</Namespace>
+	</SubmissionCertificationDescriptor>
+</InterchangeDescriptors>

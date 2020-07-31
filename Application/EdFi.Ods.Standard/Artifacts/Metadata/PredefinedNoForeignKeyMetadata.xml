@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Order of the elements is not important. The extension metadata will add to the core metadata.
+-->
+<PredefinedNoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>CourseReference</ElementName>
+    <ParentElementName>CourseTranscript</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>SchoolReference</ElementName>
+    <ParentElementName>CourseTranscript</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationOrganizationReference</ElementName>
+    <ParentElementName>ReportCard</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>SchoolYear</ElementName>
+    <ParentElementName>StaffSchoolAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+
+
+  <!-- these are actually circular references that aren't generated properly -->
+  <NoForeignKeyMetadata>
+    <ElementName>ParentLearningObjectiveReference</ElementName>
+    <ParentElementName>LearningObjective</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>PrerequisiteLearningStandardReference</ElementName>
+    <ParentElementName>LearningStandard</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ParentLearningStandardReference</ElementName>
+    <ParentElementName>LearningStandard</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ParentLocalEducationAgencyReference</ElementName>
+    <ParentElementName>LocalEducationAgency</ParentElementName>
+  </NoForeignKeyMetadata>
+  <!--<NoForeignKeyMetadata>
+    <ElementName>ParentObjectiveAssessmentReference</ElementName>
+    <ParentElementName>ObjectiveAssessment</ParentElementName>
+  </NoForeignKeyMetadata>-->
+  <NoForeignKeyMetadata>
+    <ElementName>PrerequisiteLearningStandardReference</ElementName>
+    <ParentElementName>LearningStandard</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationContentReference</ElementName>
+    <ParentElementName>DerivativeSourceEducationContentSource</ParentElementName>
+  </NoForeignKeyMetadata>
+  
+  
+
+  <!-- these are actually subclasses that aren't generating the base class references properly -->
+  <NoForeignKeyMetadata>
+    <ElementName>StudentReference</ElementName>
+    <ParentElementName>StudentCTEProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ProgramReference</ElementName>
+    <ParentElementName>StudentCTEProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationOrganizationReference</ElementName>
+    <ParentElementName>StudentCTEProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>StudentReference</ElementName>
+    <ParentElementName>StudentMigrantEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ProgramReference</ElementName>
+    <ParentElementName>StudentMigrantEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationOrganizationReference</ElementName>
+    <ParentElementName>StudentMigrantEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>StudentReference</ElementName>
+    <ParentElementName>StudentSpecialEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ProgramReference</ElementName>
+    <ParentElementName>StudentSpecialEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationOrganizationReference</ElementName>
+    <ParentElementName>StudentSpecialEducationProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>StudentReference</ElementName>
+    <ParentElementName>StudentTitleIPartAProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>ProgramReference</ElementName>
+    <ParentElementName>StudentTitleIPartAProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+  <NoForeignKeyMetadata>
+    <ElementName>EducationOrganizationReference</ElementName>
+    <ParentElementName>StudentTitleIPartAProgramAssociation</ParentElementName>
+  </NoForeignKeyMetadata>
+</PredefinedNoForeignKeyMetadata>

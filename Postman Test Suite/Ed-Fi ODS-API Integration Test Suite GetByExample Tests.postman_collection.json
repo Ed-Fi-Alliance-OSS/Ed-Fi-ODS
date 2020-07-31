@@ -1,0 +1,820 @@
+{
+	"info": {
+		"_postman_id": "70bfc09f-5bc1-41c1-abb0-c63472f5f844",
+		"name": "Ed-Fi ODS/API Integration Test Suite GetByExample Tests",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Shared Initialization",
+			"item": [
+				{
+					"name": "Initialize Schools Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "92b6dabc-9ec9-47f1-8053-48031e5d934e",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"pm.environment.set('known:schoolId', __.first(responseItems).schoolId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?localEducationAgencyId=255901",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools"
+							],
+							"query": [
+								{
+									"key": "localEducationAgencyId",
+									"value": "255901"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "StudentParentAssociation Tests",
+			"item": [
+				{
+					"name": "Initialize Student Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4be5381c-68a5-4a6b-addc-a764141e0332",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':StudentUniqueId'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a37bc8b8-ccf7-4cf8-b69a-d6c1cde66c46",
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"function createScenarioId() { return newGuid().substring(0,5); }",
+									"pm.environment.set('scenarioId', createScenarioId());",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':StudentUniqueId', newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':LastSurname',newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':FirstName',newGuid());",
+									"",
+									"const moment = require('moment');",
+									"let birthDate=new Date();",
+									"birthDate = birthDate.addYears(-20);",
+									"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':BirthDate',birthDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize StudentSchoolAssociation Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a3bb8672-8bf8-4bd1-93a5-ed5b43977cff",
+								"exec": [
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"const moment = require('moment');",
+									"let entryDate = new Date();",
+									"entryDate = entryDate.addMonths(-10);",
+									"entryDate = moment(entryDate).format(\"YYYY-MM-DD\");",
+									"pm.variables.set('supplied:'+scenarioId+':entryDate', entryDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "875e3c2a-06d1-4a53-bee3-93c2d15d69d3",
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\": \"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\": \"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\": \"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize First Parent Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dc2bed6d-c0bd-4bf1-aecb-a9ec1592c7d5",
+								"exec": [
+									" pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':parent1Guid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':parent1UniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f8ac2f44-42ca-4d46-a96e-200bdb5f80a5",
+								"exec": [
+									"const uuid=require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':LastSurname',newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':FirstName',newGuid());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"parents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize Second Parent Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd578b20-53a2-4bd0-856b-7852f1db1ccc",
+								"exec": [
+									" pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':parent2Guid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':parent2UniqueId',pm.environment.get('supplied:'+scenarioId+':parentUniqueId'));",
+									"",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ec3bea67-f030-44b7-8574-a81579bd0f80",
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':parentUniqueId', newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':LastSurname',newGuid());",
+									"pm.environment.set('supplied:'+scenarioId+':FirstName',newGuid());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/parents",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"parents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize First StudentParentAssociation Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "927f68a3-8b99-4dcd-a136-c19ddf45a866",
+								"exec": [
+									" pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parent1UniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentParentAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize Second StudentParentAssociation Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "670b1d36-c438-444e-b7b5-9cb0360170f8",
+								"exec": [
+									" pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"parentReference\":{ \r\n      \"parentUniqueId\":\"{{known:{{scenarioId}}:parent2UniqueId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentParentAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentParentAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentParentAssociation by Invalid StudentUniqueId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ffc20e95-f4f9-4b6a-98d0-6b8eece8c6d2",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return no rows\", () => {",
+									"    const responseItems = pm.response.json();",
+									"    pm.expect(responseItems.length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId=InvalidStudentId",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentParentAssociations"
+							],
+							"query": [
+								{
+									"key": "studentUniqueId",
+									"value": "InvalidStudentId"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentParentAssociation Has Additional Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "421b4c57-f0af-49f4-bd67-afc577f40b8b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return more than just test data\", () => {",
+									"    const responseItems = pm.response.json();",
+									"    pm.expect(responseItems.length).to.be.greaterThan(2);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentParentAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentParentAssociation by Valid StudentUniqueId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a13daac9-6c07-4146-9d2d-2591b5cbdfcd",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return exactly two items\", () => {",
+									"    const responseItems = pm.response.json();",
+									"    pm.expect(responseItems.length).to.equal(2);",
+									"});",
+									"",
+									"pm.test(\"Should return only items for the provided student unique id\", () => {",
+									"    const scenarioId = pm.environment.get('scenarioId');",
+									"    const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
+									"    const responseItems = pm.response.json();",
+									"    responseItems.forEach(item => {",
+									"        pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentParentAssociations"
+							],
+							"query": [
+								{
+									"key": "studentUniqueId",
+									"value": "{{known:{{scenarioId}}:studentUniqueId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentParentAssociation by Valid ParentUniqueId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c5434d6-a697-4c99-9a08-ddb34c8cd4a6",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return exactly one item\", () => {",
+									"    const responseItems = pm.response.json();",
+									"    pm.expect(responseItems.length).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Should return only items for the provided parent unique id\", () => {",
+									"    const scenarioId = pm.environment.get('scenarioId');",
+									"    const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
+									"    const responseItems = pm.response.json();",
+									"    responseItems.forEach(item => {",
+									"        pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?parentUniqueId={{known:{{scenarioId}}:parent1UniqueId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentParentAssociations"
+							],
+							"query": [
+								{
+									"key": "parentUniqueId",
+									"value": "{{known:{{scenarioId}}:parent1UniqueId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "StudentParentAssociation by Valid StudentUniqueId and ParentUniqueId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "346a018f-d3b1-4087-a3e4-9b3360e3396d",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return exactly one item\", () => {",
+									"    const responseItems = pm.response.json();",
+									"    pm.expect(responseItems.length).to.equal(1);",
+									"});",
+									"",
+									"pm.test(\"Should return only items for the provided student and parent unique id\", () => {",
+									"    const scenarioId = pm.environment.get('scenarioId');",
+									"    const studentUniqueId = pm.variables.get('known:'+scenarioId+':studentUniqueId');",
+									"    const parentUniqueId = pm.variables.get('known:'+scenarioId+':parent1UniqueId');",
+									"    const responseItems = pm.response.json();",
+									"    responseItems.forEach(item => {",
+									"        pm.expect(item.studentReference.studentUniqueId).to.equal(studentUniqueId);",
+									"        pm.expect(item.parentReference.parentUniqueId).to.equal(parentUniqueId);",
+									"    })",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentParentAssociations?studentUniqueId={{known:{{scenarioId}}:studentUniqueId}}&parentUniqueId={{known:{{scenarioId}}:parent1UniqueId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentParentAssociations"
+							],
+							"query": [
+								{
+									"key": "studentUniqueId",
+									"value": "{{known:{{scenarioId}}:studentUniqueId}}"
+								},
+								{
+									"key": "parentUniqueId",
+									"value": "{{known:{{scenarioId}}:parent1UniqueId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Clean Up Test Data",
+			"item": [
+				{
+					"name": "Clean up Environment Variables",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dbf02bc0-8bac-4e0a-a7c0-4db34b13a00a",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"\r",
+									"const keys = __.keys(pm.environment.toObject());\r",
+									"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+									"\r",
+									"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:') || x == 'scenarioId');\r",
+									"\r",
+									"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+									"\r",
+									"const remainingKeys = __.keys(pm.environment.toObject());\r",
+									"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a6b2378c-07e8-4d25-ab60-cb42299d1b4a",
+				"type": "text/javascript",
+				"exec": [
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the AccessToken or TokenExpiry variables to force a new token",
+					"let tokenExpiration = pm.environment.get('TokenExpiry');",
+					"let currentToken = pm.environment.get('AccessToken');",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get('ApiKey_255901');",
+					"    let clientSecret = pm.environment.get('ApiSecret_255901');",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(\"AccessToken\", newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set('TokenExpiry', expiryDate.getTime());",
+					"    });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a21b1060-f471-40b3-abfa-e1729e71000f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
