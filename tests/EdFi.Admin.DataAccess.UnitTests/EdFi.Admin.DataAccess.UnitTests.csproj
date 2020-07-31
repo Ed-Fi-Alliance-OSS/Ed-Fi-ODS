@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>EdFi.Admin.DataAccess.UnitTests</AssemblyName>
     <RootNamespace>EdFi.Admin.DataAccess.UnitTests</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -26,7 +26,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="RhinoMocks" Version="3.6.1" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>

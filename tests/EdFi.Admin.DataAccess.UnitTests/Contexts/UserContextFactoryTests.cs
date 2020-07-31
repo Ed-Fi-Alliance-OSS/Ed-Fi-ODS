@@ -9,6 +9,7 @@ using EdFi.Admin.DataAccess.Contexts;
 using NUnit.Framework;
 using Shouldly;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {
@@ -18,19 +19,12 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         // Not using TestFixtureBase because the tests are too simple to merit it.
 
         [Test]
-        public void Given_null_argument_then_constructor_throws_exception()
-        {
-            Should.Throw<ArgumentNullException>(() => new UsersContextFactory(null));
-        }
-       
-
-        [Test]
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext()
         {
-            var configurationProvider = A.Fake<IApiConfigurationProvider>();
-            A.CallTo(() => configurationProvider.DatabaseEngine).Returns(DatabaseEngine.SqlServer);
+            var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
 
-            new UsersContextFactory(configurationProvider)
+            new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext()
                 .ShouldBeOfType<SqlServerUsersContext>()
                 .ShouldNotBeNull();
@@ -39,10 +33,10 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         [Test]
         public void Given_configured_for_Postgres_then_create_PostgresUsersContext()
         {
-            var configurationProvider = A.Fake<IApiConfigurationProvider>();
-            A.CallTo(() => configurationProvider.DatabaseEngine).Returns(DatabaseEngine.Postgres);
+            var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin_Test; Application Name=EdFi.Ods.WebApi;");
 
-            new UsersContextFactory(configurationProvider)
+            new UsersContextFactory(connectionStringsProvider, DatabaseEngine.Postgres)
                 .CreateContext()
                 .ShouldBeOfType<PostgresUsersContext>()
                 .ShouldNotBeNull();
@@ -57,10 +51,10 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         [Test]
         public void Given_configured_for_Unsupported_then_throws_invalid_operation_exception()
         {
-            var configurationProvider = A.Fake<IApiConfigurationProvider>();
-            A.CallTo(() => configurationProvider.DatabaseEngine).Returns(new UnsupportedDatabaseEngine());
+            var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
+            A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("unsupported");
 
-            Should.Throw<InvalidOperationException>(() => new UsersContextFactory(configurationProvider).CreateContext());
+            Should.Throw<InvalidOperationException>(() => new UsersContextFactory(connectionStringsProvider, new UnsupportedDatabaseEngine()).CreateContext());
         }
     }
 }
