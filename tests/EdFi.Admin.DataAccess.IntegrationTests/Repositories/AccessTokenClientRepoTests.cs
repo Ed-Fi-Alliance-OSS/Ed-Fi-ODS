@@ -6,14 +6,16 @@
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Common.Database;
+using EdFi.Ods.Api.NetCore.Providers;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 
@@ -39,20 +41,23 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         protected override void Arrange()
         {
             _transaction = new TransactionScope();
-
+          
             Factory = Stub<IUsersContextFactory>();
-
-            var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
-
-            A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
-                          "Server=(local); Database=EdFi_Security; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
-
+           
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\.."))+"\\")
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+           
+            var connectionStringProvider = new ConfigConnectionStringsProvider(config);
+          
             A.CallTo(() => Factory.CreateContext())
-                .Returns(new SqlServerUsersContext(connectionstringProvider.GetConnectionString()));
+                .Returns(new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")));
 
             SystemUnderTest = new AccessTokenClientRepo(Factory);
 
-            TestFixtureContext = new SqlServerUsersContext(connectionstringProvider.GetConnectionString());
+            TestFixtureContext = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin"));
         }
 
         [OneTimeTearDown]

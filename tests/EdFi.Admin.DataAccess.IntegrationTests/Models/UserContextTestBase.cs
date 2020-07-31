@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Configuration;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Transactions;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Ods.Api.NetCore.Providers;
 using EdFi.TestFixture;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
@@ -18,17 +20,22 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
     {
         private TransactionScope _transaction;
 
-        private static string connectionString = ConfigurationManager.ConnectionStrings["EdFi_Admin"]
-                           .ConnectionString;
-
-        protected string ConnectionString { get; private set; }
+       protected string ConnectionString { get; private set; }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            using (var usersContext = new SqlServerUsersContext(connectionString))
+            var config = new ConfigurationBuilder()
+                  .SetBasePath(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..")) + "\\")
+                  .AddJsonFile("appsettings.json", optional: true)
+                  .AddEnvironmentVariables()
+                  .Build();
+
+            var connectionStringProvider = new ConfigConnectionStringsProvider(config);
+
+            using (var context = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")))
             {
-                ConnectionString = usersContext.Database.Connection.ConnectionString;
+                ConnectionString = context.Database.Connection.ConnectionString;
             }
         }
 
@@ -78,7 +85,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             Func<SqlServerUsersContext, IQueryable<T>> filter)
             where T : class
         {
-            using (var context = new SqlServerUsersContext(connectionString))
+            using (var context = new SqlServerUsersContext(ConnectionString))
             {
                 foreach (var tDelete in filter(context))
                 {
