@@ -6,6 +6,7 @@
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -41,12 +42,17 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
             Factory = Stub<IUsersContextFactory>();
 
+            var connectionstringProvider = A.Fake<ISecurityDatabaseConnectionStringProvider>();
+
+            A.CallTo(() => connectionstringProvider.GetConnectionString()).Returns(
+                          "Server=(local); Database=EdFi_Security; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
+
             A.CallTo(() => Factory.CreateContext())
-                .Returns(new SqlServerUsersContext());
+                .Returns(new SqlServerUsersContext(connectionstringProvider.GetConnectionString()));
 
             SystemUnderTest = new AccessTokenClientRepo(Factory);
 
-            TestFixtureContext = new SqlServerUsersContext();
+            TestFixtureContext = new SqlServerUsersContext(connectionstringProvider.GetConnectionString());
         }
 
         [OneTimeTearDown]

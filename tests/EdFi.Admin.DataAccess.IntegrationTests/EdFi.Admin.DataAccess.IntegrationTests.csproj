@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Admin.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Admin.DataAccess.IntegrationTests</Assembly>

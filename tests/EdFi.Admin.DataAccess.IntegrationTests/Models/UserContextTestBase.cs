@@ -2,8 +2,9 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
@@ -17,12 +18,15 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
     {
         private TransactionScope _transaction;
 
+        private static string connectionString = ConfigurationManager.ConnectionStrings["EdFi_Admin"]
+                           .ConnectionString;
+
         protected string ConnectionString { get; private set; }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            using (var usersContext = new SqlServerUsersContext())
+            using (var usersContext = new SqlServerUsersContext(connectionString))
             {
                 ConnectionString = usersContext.Database.Connection.ConnectionString;
             }
@@ -74,7 +78,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             Func<SqlServerUsersContext, IQueryable<T>> filter)
             where T : class
         {
-            using (var context = new SqlServerUsersContext())
+            using (var context = new SqlServerUsersContext(connectionString))
             {
                 foreach (var tDelete in filter(context))
                 {
