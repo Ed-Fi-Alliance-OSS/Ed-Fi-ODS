@@ -65,7 +65,7 @@
       <xs:element name="Property" type="Property" />
       <xs:element name="Collection" type="Collection" />
       <xs:element name="ReferencedResource" type="ReferencedResource" />
-      <xs:element name="LinkedCollection" type="LinkedCollection" />
+      <xs:element name="LinkedCollection" type="Resource" />
       <xs:element name="EmbeddedObject" type="EmbeddedObject" />
     </xs:choice>
     <xs:attribute name="name" type="xs:string" use="required" />
@@ -86,8 +86,6 @@
     </xs:choice>
     <xs:attribute name="name" type="xs:string" use="required" />
     <xs:attribute name="displayName" type="xs:string" />
-    <xs:attribute name="useReferencedHierarchy" type="xs:boolean" />
-    <xs:attribute name="hierarchicalReferenceName" type="xs:string" />
   </xs:complexType>
 
   <xs:complexType name="EmbeddedObject">
@@ -108,19 +106,11 @@
       <xs:element name="Collection" type="Collection" />
       <xs:element name="ReferencedResource" type="ReferencedResource" />
       <xs:element name="EmbeddedObject" type="EmbeddedObject" />
-      <xs:element name="LinkedCollection" type="LinkedCollection" />
+      <xs:element name="LinkedCollection" type="Resource" />
     </xs:choice>
     <xs:attribute name="name" type="xs:string" use="required" />
     <xs:attribute name="displayName" type="xs:string" />
     <xs:attribute name="flatten" type="xs:boolean" />
     <xs:attribute name="includeResourceSubtype" type="xs:boolean" />
-  </xs:complexType>
-
-  <xs:complexType name="LinkedCollection">
-    <xs:complexContent>
-      <xs:extension base="Resource">
-        <xs:attribute name="useHierarchy" type="xs:boolean" />
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
 </xs:schema>

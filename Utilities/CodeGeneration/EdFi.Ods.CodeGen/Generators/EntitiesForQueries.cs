@@ -84,95 +84,91 @@ namespace EdFi.Ods.CodeGen.Generators
 
             foreach (var classContext in classContexts)
             {
-                var contextualSuffixes = GetContextualClassAndPropertyNameSuffixes(entity);
-
-                foreach (var contextualSuffix in contextualSuffixes)
-                {
-                    yield return
-                        new
-                        {
-                            AggregateName = aggregate.Name, ClassName = entity.Name, TableName = entity.Name, SchemaName = entity.Schema,
-                            ClassNameSuffix = QueryModelSuffix, ContextualClassNameSuffix = contextualSuffix.ClassNameSuffix, entity.IsAggregateRoot,
-                            entity.IsAbstract, entity.IsDerived, classContext.IsConcreteEntityBaseClass,
-                            classContext.IsConcreteEntityChildClassForBase, BaseAggregateRootRelativeNamespace =
-                                entity.IsDerived
-                                    ? entity.BaseEntity.GetRelativeEntityNamespace(
-                                          entity.BaseEntity.SchemaProperCaseName(),
-                                          true,
-                                          !entity.BaseEntity.IsEdFiStandardEntity)
-                                      + (!entity.BaseEntity.IsAbstract
-                                          ? "Base"
-                                          : string.Empty)
-                                      + QueryModelSuffix
-                                    : NotRendered,
-                            PrimaryKey = new
-                                         {
-                                             ParentReference = entity.ParentAssociation != null
-                                                 ? new
-                                                   {
-                                                       ParentClassName = entity.Parent.Name, FullyQualifiedParentClassName =
-                                                           $"{entity.GetRelativeAggregateNamespace(entity.Parent.IsEdFiStandardEntity ? EdFiConventions.ProperCaseName : TemplateContext.SchemaProperCaseName, isQueryModel: true)}.{entity.Parent.Name}",
-                                                       ContextualSuffix = (classContext.IsConcreteEntityChildClassForBase
-                                                                              ? "Base"
-                                                                              : string.Empty)
-                                                                          + QueryModelSuffix
-                                                   }
-                                                 : NotRendered,
-                                             NonParentProperties = entity
-                                                                  .Identifier
-                                                                  .Properties
-                                                                  .Where(p => !p.IsFromParent)
-                                                                  .Select(
-                                                                       p => new
-                                                                            {
-                                                                                entity.IsAbstract,
-                                                                                NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
-                                                                                CSharpDeclaredType =
-                                                                                    p.PropertyType.ToCSharp(includeNullability: true),
-                                                                                CSharpSafePropertyName =
-                                                                                    p.PropertyName.MakeSafeForCSharpClass(entity.Name)
-                                                                            })
-                                         },
-                            Properties = GetMappedProperties(entity, contextualSuffix)
-                                        .OrderBy(p => p.PropertyName)
-                                        .Select(
-                                             p => new
-                                                  {
-                                                      CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), PropertyName = p.PropertyName.ToMixedCase()
-                                                  }),
-                            HasOneToOnes = GetMappedNavigableOneToOnes(entity).Any(), OneToOnes = GetMappedNavigableOneToOnes(entity)
-                               .Select(
-                                    a => new
-                                         {
-                                             OtherClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix
-                                         }),
-                            NavigableChildren = GetMappedCollectionAssociations(entity)
-                                               .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                               .OrderBy(a => a.Name)
-                                               .SelectMany(a => GetContextualNavigableChildren(a, classContext)),
-                            HasNonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
-                               .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
-                            NonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
-                                                  .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                                  .OrderBy(a => a.Name)
-                                                  .SelectMany(GetContextualNonNavigableChildren),
-                            HasNonNavigableParents = GetMappedExternalParentAssociations(entity)
-                               .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
-                            NonNavigableParents = GetMappedExternalParentAssociations(entity)
-                                                 .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                                 .OrderBy(a => a.Name)
-                                                 .Select(
-                                                      a => new
-                                                           {
-                                                               AggregateRelativeNamespace = a.OtherEntity.GetRelativeAggregateNamespace(
-                                                                   TemplateContext.SchemaProperCaseName,
-                                                                   isQueryModel: true,
-                                                                   isExtensionContext: TemplateContext.IsExtension),
-                                                               ClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix,
-                                                               AssociationName = a.Name
-                                                           })
-                        };
-                }
+                yield return
+                    new
+                    {
+                        AggregateName = aggregate.Name, ClassName = entity.Name, TableName = entity.Name, SchemaName = entity.Schema,
+                        ClassNameSuffix = QueryModelSuffix,
+                        IsAggregateRoot = entity.IsAggregateRoot,
+                        entity.IsAbstract, entity.IsDerived, classContext.IsConcreteEntityBaseClass,
+                        classContext.IsConcreteEntityChildClassForBase, BaseAggregateRootRelativeNamespace =
+                            entity.IsDerived
+                                ? entity.BaseEntity.GetRelativeEntityNamespace(
+                                      entity.BaseEntity.SchemaProperCaseName(),
+                                      true,
+                                      !entity.BaseEntity.IsEdFiStandardEntity)
+                                  + (!entity.BaseEntity.IsAbstract
+                                      ? "Base"
+                                      : string.Empty)
+                                  + QueryModelSuffix
+                                : NotRendered,
+                        PrimaryKey = new
+                                     {
+                                         ParentReference = entity.ParentAssociation != null
+                                             ? new
+                                               {
+                                                   ParentClassName = entity.Parent.Name, FullyQualifiedParentClassName =
+                                                       $"{entity.GetRelativeAggregateNamespace(entity.Parent.IsEdFiStandardEntity ? EdFiConventions.ProperCaseName : TemplateContext.SchemaProperCaseName, isQueryModel: true)}.{entity.Parent.Name}",
+                                                   ContextualSuffix = (classContext.IsConcreteEntityChildClassForBase
+                                                                          ? "Base"
+                                                                          : string.Empty)
+                                                                      + QueryModelSuffix
+                                               }
+                                             : NotRendered,
+                                         NonParentProperties = entity
+                                                              .Identifier
+                                                              .Properties
+                                                              .Where(p => !p.IsFromParent)
+                                                              .Select(
+                                                                   p => new
+                                                                        {
+                                                                            entity.IsAbstract,
+                                                                            NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
+                                                                            CSharpDeclaredType =
+                                                                                p.PropertyType.ToCSharp(includeNullability: true),
+                                                                            CSharpSafePropertyName =
+                                                                                p.PropertyName.MakeSafeForCSharpClass(entity.Name)
+                                                                        })
+                                     },
+                        Properties = GetMappedProperties(entity)
+                                    .OrderBy(p => p.PropertyName)
+                                    .Select(
+                                         p => new
+                                              {
+                                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), PropertyName = p.PropertyName.ToMixedCase()
+                                              }),
+                        HasOneToOnes = GetMappedNavigableOneToOnes(entity).Any(), OneToOnes = GetMappedNavigableOneToOnes(entity)
+                           .Select(
+                                a => new
+                                     {
+                                         OtherClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix
+                                     }),
+                        NavigableChildren = GetMappedCollectionAssociations(entity)
+                                           .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                                           .OrderBy(a => a.Name)
+                                           .SelectMany(a => GetContextualNavigableChildren(a, classContext)),
+                        HasNonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
+                           .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
+                        NonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
+                                              .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                                              .OrderBy(a => a.Name)
+                                              .Select(GetContextualNonNavigableChild),
+                        HasNonNavigableParents = GetMappedExternalParentAssociations(entity)
+                           .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
+                        NonNavigableParents = GetMappedExternalParentAssociations(entity)
+                                             .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                                             .OrderBy(a => a.Name)
+                                             .Select(
+                                                  a => new
+                                                       {
+                                                           AggregateRelativeNamespace = a.OtherEntity.GetRelativeAggregateNamespace(
+                                                               TemplateContext.SchemaProperCaseName,
+                                                               isQueryModel: true,
+                                                               isExtensionContext: TemplateContext.IsExtension),
+                                                           ClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix,
+                                                           AssociationName = a.Name
+                                                       })
+                    };
             }
         }
 
@@ -199,11 +195,9 @@ namespace EdFi.Ods.CodeGen.Generators
                          .Concat(entity.NonNavigableChildren.Where(a => a.AssociatesEntitiesOfTheSameAggregate && a.IsSelfReferencingManyToMany));
         }
 
-        private static IEnumerable<EntityProperty> GetMappedProperties(Entity entity, SuffixesContext contextualSuffix)
+        private static IEnumerable<EntityProperty> GetMappedProperties(Entity entity)
         {
-            var properties = contextualSuffix.ViewProperties.Any()
-                ? contextualSuffix.ViewProperties
-                : entity.NonIdentifyingProperties;
+            var properties = entity.NonIdentifyingProperties;
 
             return properties.Where(p => !p.IsAlreadyDefinedInCSharpEntityBaseClasses());
         }
@@ -215,38 +209,29 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private IEnumerable<object> GetContextualNavigableChildren(AssociationView a, ClassContext classContext)
         {
-            var childContexts = GetContextualClassAndPropertyNameSuffixes(a.OtherEntity);
-
-            foreach (var childContext in childContexts)
-            {
-                yield return new
-                             {
-                                 ClassNameSuffix = QueryModelSuffix + childContext.ClassNameSuffix, ChildClassName = a.OtherEntity.Name,
-                                 AssociationName = a.Name + childContext.PropertyNameSuffix,
-                                 IsChildForConcreteBase = classContext.IsConcreteEntityBaseClass
-                             };
-            }
+            yield return new
+                         {
+                             ClassNameSuffix = QueryModelSuffix, 
+                             ChildClassName = a.OtherEntity.Name,
+                             AssociationName = a.Name,
+                             IsChildForConcreteBase = classContext.IsConcreteEntityBaseClass
+                         };
         }
 
-        private IEnumerable<object> GetContextualNonNavigableChildren(AssociationView a)
+        private object GetContextualNonNavigableChild(AssociationView a)
         {
-            var childContexts = GetContextualClassAndPropertyNameSuffixes(a.OtherEntity);
-
-            foreach (var childContext in childContexts)
-            {
-                yield return new
-                             {
-                                 AggregateRelativeNamespace =
-                                     a.OtherEntity.GetRelativeAggregateNamespace(
-                                         a.OtherEntity.ResolvedEdFiEntity()
-                                          .SchemaProperCaseName(),
-                                         isQueryModel: true,
-                                         isExtensionContext: !a.OtherEntity.ResolvedEdFiEntity()
-                                                               .IsEdFiStandardEntity),
-                                 ChildClassName = a.OtherEntity.ResolvedEdFiEntityName() + QueryModelSuffix,
-                                 ChildClassNameSuffix = childContext.ClassNameSuffix, AssociationName = a.Name, childContext.PropertyNameSuffix
-                             };
-            }
+            return new
+                 {
+                     AggregateRelativeNamespace =
+                         a.OtherEntity.GetRelativeAggregateNamespace(
+                             a.OtherEntity.ResolvedEdFiEntity()
+                              .SchemaProperCaseName(),
+                             isQueryModel: true,
+                             isExtensionContext: !a.OtherEntity.ResolvedEdFiEntity()
+                                                   .IsEdFiStandardEntity),
+                     ChildClassName = a.OtherEntity.ResolvedEdFiEntityName() + QueryModelSuffix,
+                     AssociationName = a.Name
+                 };
         }
 
         private static IEnumerable<ClassContext> GetClassGenerationContexts(Entity entity)
@@ -275,56 +260,6 @@ namespace EdFi.Ods.CodeGen.Generators
             }
         }
 
-        private IEnumerable<SuffixesContext> GetContextualClassAndPropertyNameSuffixes(Entity entity)
-        {
-            yield return new SuffixesContext();
-
-            // Build the expected name for a hierarchical view (by convention)
-            // TODO: Embedded convention - Building hierarchical view name
-            var hierarchicalViewFqn = new FullName(entity.Schema, entity.Name + "H");
-
-            // Find the hierarchical view, by convention
-            var view = _viewsProvider.LoadViews()
-                                              .SingleOrDefault(v => new FullName(v.SchemaOwner, v.Name) == hierarchicalViewFqn);
-
-            if (entity.HasSelfReferencingAssociations || view != null)
-            {
-                // Query the hierarchy recursively
-                var context = new SuffixesContext
-                              {
-                                  ClassNameSuffix = "H", PropertyNameSuffix = "Hierarchy"
-                              };
-
-                var columns = view.Columns.Where(c => !c.IsPrimaryKey)
-
-                                   // Filter out boilerplate properties
-                                  .Where(x => !IsAlreadyExplicitlyGeneratedInTemplate(x.Name))
-
-                                   // Filter out properties that are part of the entity's identifier
-                                  .Where(x => entity.Identifier.Properties.All(pkc => !pkc.PropertyName.EqualsIgnoreCase(x.Name)));
-
-                // Convert the IDatabaseSchemaProvider properties to entity properties
-                context.ViewProperties = columns
-                   .Select(
-                        c =>
-                            new EntityProperty(
-                                new EntityPropertyDefinition(
-                                    c.Name.ToMixedCase(),
-                                    new PropertyType(_databaseTypeTranslator.GetDbType(c.DbDataType), c.Length ?? 0, c.Precision ?? 0, c.Scale ?? 0, c.Nullable))));
-
-                yield return context;
-            }
-        }
-
-        private static bool IsAlreadyExplicitlyGeneratedInTemplate(string propertyName)
-        {
-            return new[]
-                   {
-                       "Id", "CreateDate", "LastModifiedDate"
-                   }
-               .Contains(propertyName);
-        }
-
         /// <summary>
         /// Holds contextual information for the generation of the current NHibernate entity.
         /// </summary>
@@ -346,24 +281,6 @@ namespace EdFi.Ods.CodeGen.Generators
             /// classes for the specialized "base class" mapping.
             /// </summary>
             public bool IsConcreteEntityChildClassForBase { get; set; }
-        }
-
-        private class SuffixesContext
-        {
-            public SuffixesContext()
-            {
-                // Initialize array of view properties to an empty list
-                ViewProperties = new EntityProperty[0];
-            }
-
-            public string ClassNameSuffix { get; set; }
-
-            public string PropertyNameSuffix { get; set; }
-
-            /// <summary>
-            /// Contains additional properties extracted from the hierarchical database view found for the specified entity.
-            /// </summary>
-            public IEnumerable<EntityProperty> ViewProperties { get; set; }
         }
     }
 }

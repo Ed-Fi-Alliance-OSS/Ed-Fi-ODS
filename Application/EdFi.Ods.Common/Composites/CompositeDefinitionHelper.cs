@@ -20,12 +20,9 @@ namespace EdFi.Ods.Common.Composites
         public const string Collection = "Collection";
         public const string LinkedCollection = "LinkedCollection";
 
-        public const string HierarchicalReferenceName = "hierarchicalReferenceName";
         public const string Name = "name";
         public const string Flatten = "flatten";
         public const string IncludeResourceSubtype = "includeResourceSubtype";
-        public const string UseHierarchy = "useHierarchy";
-        public const string UseReferencedHierarchy = "useReferencedHierarchy";
         public const string Property = "Property";
         public const string DisplayName = "displayName";
         
@@ -33,7 +30,6 @@ namespace EdFi.Ods.Common.Composites
         public const string Fields = "fields";
         public const string NamespaceMarker = "__Namespace";
         public const string Marker = "__";
-        public const string HierarchyMarker = "H_";
         public const string PassThroughMarker = "__PassThrough";
         public const string UniqueId = "UniqueId";
 

@@ -88,19 +88,6 @@ namespace EdFi.Ods.Api.NHibernate.Composites
             builderContext.SpecificationFrom = new StringBuilder();
             builderContext.SpecificationWhere = new StringBuilder();
 
-            bool isHierarchicalResource =
-                processorContext.ShouldUseHierarchy()
-                && processorContext.CurrentResourceClass.Entity.HasSelfReferencingAssociations;
-
-            // Prevent use of hierarchical resources as the BaseResource of a composite
-            // NOTE: To support this behavior, it will require a different approach involving the use of 
-            // NHibernate <sql-query> entries in the mapping, with embedded server-specific SQL CTE queries
-            if (isHierarchicalResource)
-            {
-                throw new NotImplementedException(
-                    "Support for the use of hierarchical resources as the BaseResource of composite resources has not been implemented.");
-            }
-
             // Fully qualified entity name is required to perform hql queries for an entity
             // This requirement was added in phase 3 when multiple entity extensions were added to the same entity
             var properCaseName =
@@ -251,18 +238,10 @@ namespace EdFi.Ods.Api.NHibernate.Composites
         {
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();
 
-            bool isHierarchicalResource =
-                processorContext.ShouldUseHierarchy()
-                && processorContext.CurrentResourceClass.Entity.HasSelfReferencingAssociations
-                || processorContext.ShouldUseReferenceHierarchy();
-
             builderContext.From.AppendFormat(
-                "\r\n\tjoin {0}.{1}{2} {3}",
+                "\r\n\tjoin {0}.{1} {2}",
                 builderContext.ParentAlias,
                 processorContext.EntityMemberName,
-                isHierarchicalResource
-                    ? "Hierarchy"
-                    : string.Empty,
                 builderContext.CurrentAlias);
 
             var collection = processorContext.CurrentResourceMember as Collection;
@@ -404,71 +383,14 @@ namespace EdFi.Ods.Api.NHibernate.Composites
                         (char) (processorContext.ChildIndex + 'a'));
                 });
 
-            IEnumerable<EntityProperty> orderByProperties;
-
-            if (processorContext.ShouldUseHierarchy()
-                && processorContext.CurrentResourceClass.Entity.HasSelfReferencingAssociations)
-            {
-                var selfReferencingAssociation =
-                    processorContext.CurrentResourceClass.Entity.OutgoingAssociations
-                                    .Single(x => x.IsSelfReferencing);
-
-                var safelySortableProperties =
-                    selfReferencingAssociation.ThisProperties
-                                              .Intersect(selfReferencingAssociation.OtherProperties);
-
-                orderByProperties = locallyDefinedIdentifyingProperties
-                   .Intersect(safelySortableProperties);
-            }
-            else
-            {
-                orderByProperties = locallyDefinedIdentifyingProperties;
-            }
-
             // Add ORDER BY for the primary keys
-            orderByProperties.ForEach(
+            locallyDefinedIdentifyingProperties.ForEach(
                 pk =>
                     builderContext.OrderBy.AppendFormat(
                         "{0}{1}.{2}",
                         CommaIfNeeded(builderContext.OrderBy),
                         builderContext.CurrentAlias,
                         pk.PropertyName));
-        }
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        public void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            HqlBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
-        {
-            // Multiple self-recursive relationships are not yet supported.  Need additional metadata to determine which self-recursive relationship to use.
-            if (selfReferencingAssociations.Count() > 1)
-            {
-                throw new NotSupportedException(
-                    string.Format(
-                        "The '{0}' resource has multiple self-recursive relationships.  Recursion is not supported for this scenario.",
-                        processorContext.CurrentResourceClass.Name));
-            }
-
-            var association = selfReferencingAssociations.Single();
-
-            association.SelfReferencingPropertyMappings.Select(m => m.OtherProperty)
-                       .ForEach(
-                            p =>
-                            {
-                                builderContext.Select.AppendFormat(
-                                    "{0}{1}.{2} as H_{2}",
-                                    CommaIfNeeded(builderContext.Select),
-                                    builderContext.CurrentAlias,
-                                    p.PropertyName);
-                            });
         }
 
         /// <summary>
@@ -823,37 +745,19 @@ namespace EdFi.Ods.Api.NHibernate.Composites
             // Apply current query's filter parameters.
             SetQueryParameters(query, builderContext.CurrentQueryFilterParameterValueByName);
 
-            CompositeQuery thisQuery;
+            bool isSingleItemResult =
+                processorContext.IsReferenceResource()
+                || processorContext.IsEmbeddedObject();
 
-            if (processorContext.ShouldUseHierarchy())
-            {
-                thisQuery = CreateHierarchicalCompositeQuery(parentResult, processorContext, builderContext, query);
-            }
-            else if (processorContext.ShouldUseReferenceHierarchy())
-            {
-                thisQuery = CreateReferencedHierarchicalCompositeQuery(
-                    parentResult,
-                    processorContext,
-                    builderContext,
-                    query,
-                    processorContext.AttributeValue("hierarchicalReferenceName"));
-            }
-            else
-            {
-                bool isSingleItemResult =
-                    processorContext.IsReferenceResource()
-                    || processorContext.IsEmbeddedObject();
-
-                thisQuery = new CompositeQuery(
-                    parentResult,
-                    processorContext.MemberDisplayName.ToCamelCase(),
-                    builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                                  .ToArray(),
-                    query
-                       .SetResultTransformer(Transformers.AliasToEntityMap)
-                       .Future<object>(),
-                    isSingleItemResult);
-            }
+            var thisQuery = new CompositeQuery(
+                parentResult,
+                processorContext.MemberDisplayName.ToCamelCase(),
+                builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
+                              .ToArray(),
+                query
+                   .SetResultTransformer(Transformers.AliasToEntityMap)
+                   .Future<object>(),
+                isSingleItemResult);
 
             parentResult.ChildQueries.Add(thisQuery);
 
@@ -1074,149 +978,6 @@ namespace EdFi.Ods.Api.NHibernate.Composites
                     query.SetParameter(parameterName, value);
                 }
             }
-        }
-
-        private static CompositeQuery CreateHierarchicalCompositeQuery(
-            CompositeQuery parentResult,
-            CompositeDefinitionProcessorContext processorContext,
-            HqlBuilderContext builderContext,
-            IQuery query)
-        {
-            var selfReferencingAssociations =
-                processorContext.CurrentResourceClass.Entity.OutgoingAssociations
-                                .Where(a => a.IsSelfReferencing)
-                                .ToList();
-
-            // Can't recurse without self-recursive relationships
-            if (!selfReferencingAssociations.Any())
-            {
-                throw new Exception(
-                    string.Format(
-                        "Unable to recurse on resource '{0}' because it does not have any self-referencing relationships.",
-                        processorContext.CurrentResourceClass.Name));
-            }
-
-            // Multiple self-recursive relationships are not yet supported.  Need additional metadata to determine which self-recursive relationship to use.
-            if (selfReferencingAssociations.Count() > 1)
-            {
-                throw new NotSupportedException(
-                    string.Format(
-                        "The '{0}' resource has multiple self-recursive relationships.  Recursion is not supported for this scenario.",
-                        processorContext.CurrentResourceClass.Name));
-            }
-
-            var recursiveAssociation = selfReferencingAssociations.Single();
-
-            // Create the map for the parent/child instance join
-            var recursiveChildKeyMap = recursiveAssociation
-                                      .ThisProperties.Select(
-                                           (p, i) =>
-                                               new
-                                               {
-                                                   ParentName = p.PropertyName,
-                                                   ChildName = recursiveAssociation.OtherProperties[i]
-                                                                                   .PropertyName
-                                               })
-                                      .ToDictionary(
-                                           x => x.ParentName,
-                                           x => x.ChildName);
-
-            // Create a composite query with the required self-recursive details
-            var orderedFieldNames = builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                                                       .ToList();
-
-            // add support for discriminator values
-            if (processorContext.ShouldIncludeResourceSubtype())
-            {
-                orderedFieldNames.Add(processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type");
-            }
-
-            CompositeQuery thisQuery = new CompositeQuery(
-                parentResult,
-                processorContext.MemberDisplayName.ToCamelCase(),
-                orderedFieldNames.ToArray(),
-                query
-                   .SetResultTransformer(Transformers.AliasToEntityMap)
-                   .Future<object>(),
-                isSingleItemResult: false,
-                recursiveChildKeyMap: recursiveChildKeyMap);
-
-            return thisQuery;
-        }
-
-        private static CompositeQuery CreateReferencedHierarchicalCompositeQuery(
-            CompositeQuery parentResult,
-            CompositeDefinitionProcessorContext processorContext,
-            HqlBuilderContext builderContext,
-            IQuery query,
-            string referenceName)
-        {
-            var referenceAssociation =
-                processorContext.CurrentResourceClass
-                                .ReferenceByName[referenceName]
-                                .Association;
-
-            var selfReferencingAssociations =
-                referenceAssociation.OtherEntity.OutgoingAssociations
-                                    .Where(a => a.IsSelfReferencing)
-                                    .ToList();
-
-            // Can't recurse without self-recursive relationships
-            if (!selfReferencingAssociations.Any())
-            {
-                throw new Exception(
-                    string.Format(
-                        "Unable to recurse on reference '{0}' of resource '{1}' because it does not have any self-referencing relationships.",
-                        referenceName,
-                        processorContext.CurrentResourceClass.Name));
-            }
-
-            // Multiple self-recursive relationships are not yet supported.  Need additional metadata to determine which self-recursive relationship to use.
-            if (selfReferencingAssociations.Count() > 1)
-            {
-                throw new NotSupportedException(
-                    string.Format(
-                        "The resource referenced by '{0}' on resource '{1}' has multiple self-recursive relationships.  Recursion is not supported for this scenario.",
-                        referenceName,
-                        processorContext.CurrentResourceClass.Name));
-            }
-
-            var recursiveAssociation = selfReferencingAssociations.Single();
-
-            // Create the map for the parent/child instance join
-            var recursiveChildKeyMap = recursiveAssociation
-                                      .PropertyMappingByThisName
-                                      .ToDictionary(
-                                           x => x.Value.ThisProperty.PropertyName,
-                                           x => x.Value.OtherProperty.PropertyName
-                                       );
-
-            // Augment the recursive child key map with the missing primary key fields of the main resource
-            processorContext.CurrentResourceClass.Entity.Identifier.Properties
-                            .Where(p => !recursiveChildKeyMap.ContainsKey(p.PropertyName))
-                            .Select(p => new KeyValuePair<string, string>(p.PropertyName, p.PropertyName))
-                            .ForEach(kvp => recursiveChildKeyMap.Add(kvp.Key, kvp.Value));
-
-            // Create a composite query with the required self-recursive details
-            var orderedFieldNames = builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase()).ToList();
-
-            // add support for discriminator values
-            if (processorContext.ShouldIncludeResourceSubtype())
-            {
-                orderedFieldNames.Add(processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type");
-            }
-
-            CompositeQuery thisQuery = new CompositeQuery(
-                parentResult,
-                processorContext.MemberDisplayName.ToCamelCase(),
-                orderedFieldNames.ToArray(),
-                query
-                   .SetResultTransformer(Transformers.AliasToEntityMap)
-                   .Future<object>(),
-                isSingleItemResult: false,
-                recursiveChildKeyMap: recursiveChildKeyMap);
-
-            return thisQuery;
         }
 
         private static string AndIfNeeded(StringBuilder where)

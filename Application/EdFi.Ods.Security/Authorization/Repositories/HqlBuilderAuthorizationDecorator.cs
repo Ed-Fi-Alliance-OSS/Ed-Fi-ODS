@@ -7,23 +7,18 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Claims;
 using System.Text;
 using EdFi.Ods.Api.NHibernate.Composites;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Utils.Extensions;
 using log4net;
-using log4net.Core;
-using log4net.Repository.Hierarchy;
 
 namespace EdFi.Ods.Security.Authorization.Repositories
 {
@@ -120,22 +115,6 @@ namespace EdFi.Ods.Security.Authorization.Repositories
             builderContext.CurrentQueryFilterByName = authorizationFilters.ToDictionary(x => x.FilterName, x => x);
 
             return true;
-        }
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        public void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            HqlBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
-        {
-            _next.ApplySelfReferencingProperties(selfReferencingAssociations, builderContext, processorContext);
         }
 
         /// <summary>
