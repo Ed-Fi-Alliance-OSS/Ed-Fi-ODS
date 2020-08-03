@@ -41,8 +41,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         protected override void Arrange()
         {
             _transaction = new TransactionScope();
-          
-            Factory = Stub<IUsersContextFactory>();
+             Factory = Stub<IUsersContextFactory>();
            
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
