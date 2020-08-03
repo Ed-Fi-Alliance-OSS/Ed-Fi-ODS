@@ -139,7 +139,7 @@ namespace EdFi.ApiLoader.Console.Properties {
 
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\v3.2\\Schemas\\Bulk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\Schemas\\Bulk")]
         public string XsdFolder {
             get {
                 return ((string)(this["XsdFolder"]));
@@ -148,7 +148,7 @@ namespace EdFi.ApiLoader.Console.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\v3.2\\Schemas\\Bulk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\..\\..\\..\\Ed-Fi-Standard\\Schemas\\Bulk")]
         public string InterchangeFolder {
             get {
                 return ((string)(this["InterchangeFolder"]));
