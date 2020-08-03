@@ -45,7 +45,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             Factory = Stub<IUsersContextFactory>();
            
             var config = new ConfigurationBuilder()
-                .SetBasePath(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\.."))+"\\")
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();

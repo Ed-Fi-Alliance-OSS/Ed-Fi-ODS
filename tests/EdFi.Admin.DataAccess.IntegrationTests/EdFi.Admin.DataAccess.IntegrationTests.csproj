@@ -35,4 +35,9 @@
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
-</Project>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+ </Project>
