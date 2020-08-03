@@ -33,10 +33,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 
             var connectionStringProvider = new ConfigConnectionStringsProvider(config);
 
-            using (var context = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")))
-            {
-                ConnectionString = context.Database.Connection.ConnectionString;
-            }
+            ConnectionString = connectionStringProvider.GetConnectionString("EdFi_Admin");
         }
 
         [SetUp]
@@ -49,52 +46,6 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         public void TearDown()
         {
             _transaction.Dispose();
-        }
-
-        protected void DeleteUser(string emailAddress)
-        {
-            Delete(context => context.Users, context => context.Users.Where(u => u.Email == emailAddress));
-        }
-
-        protected void DeleteClient(string clientName)
-        {
-            Delete(context => context.Clients, context => context.Clients.Where(c => c.Name == clientName));
-        }
-
-        protected void DeleteApplicationEducationOrganization(int educationOrganizationId)
-        {
-            Delete(
-                context => context.ApplicationEducationOrganizations,
-                context => context.ApplicationEducationOrganizations
-                    .Where(aeo => aeo.EducationOrganizationId == educationOrganizationId)
-            );
-        }
-
-        protected void DeleteApplication(string appName)
-        {
-            Delete(context => context.Applications, context => context.Applications.Where(app => app.ApplicationName == appName));
-        }
-
-        protected void DeleteVendor(string vendorName)
-        {
-            Delete(context => context.Vendors, context => context.Vendors.Where(app => app.VendorName == vendorName));
-        }
-
-        protected void Delete<T>(
-            Func<SqlServerUsersContext, IDbSet<T>> dbObject,
-            Func<SqlServerUsersContext, IQueryable<T>> filter)
-            where T : class
-        {
-            using (var context = new SqlServerUsersContext(ConnectionString))
-            {
-                foreach (var tDelete in filter(context))
-                {
-                    dbObject(context)
-                        .Remove(tDelete);
-                }
-
-                context.SaveChangesForTest();
-            }
         }
     }
 }
