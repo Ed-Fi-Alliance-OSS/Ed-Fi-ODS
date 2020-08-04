@@ -29,7 +29,6 @@
     <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\tests\EdFi.Admin.DataAccess.IntegrationTests\EdFi.Admin.DataAccess.IntegrationTests.csproj" />
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Admin\EdFi.Ods.Admin.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
