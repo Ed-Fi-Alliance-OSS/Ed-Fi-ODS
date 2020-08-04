@@ -52,13 +52,7 @@ namespace EdFi.Ods.Api.NetCore.Startup
         {
             _logger.Debug("Loading configuration files");
 
-            //var builder = new ConfigurationBuilder()
-            //    .SetBasePath(env.ContentRootPath)
-            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-            //    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            //    .AddEnvironmentVariables();
-
-            Configuration = (IConfigurationRoot)configuration;
+            Configuration = (IConfigurationRoot) configuration;
 
             ApiSettings = new ApiSettings();
 

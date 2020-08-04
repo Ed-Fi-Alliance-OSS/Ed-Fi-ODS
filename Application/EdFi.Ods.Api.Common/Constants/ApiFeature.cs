@@ -18,7 +18,6 @@ namespace EdFi.Ods.Api.Common.Constants
         public static readonly ApiFeature OwnershipBasedAuthorization = new ApiFeature("ownershipBasedAuthorization", "Ownership Based Authorization");
         public static readonly ApiFeature UniqueIdValidation = new ApiFeature("uniqueIdValidation", "Unique Identification Validation");
         public static readonly ApiFeature TokenInfo = new ApiFeature("tokenInfo", "Token Introspective Endpoint");
-        public static readonly ApiFeature UpdateAdminDatabase = new ApiFeature("updateAdminDatabase", "Update Admin Database");
 
         public ApiFeature(string value, string displayName)
             : base(value, displayName) { }
