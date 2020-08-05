@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
@@ -35,7 +34,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps
             if (!validationResults.IsValid())
             {
                 result.Exception = new ValidationException(
-                    $"Validation of '{((Object) context.Resource).GetType().Name}' failed.\n{string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))}");
+                    $"Validation of '{((object) context.Resource).GetType().Name}' failed.\n{string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))}");
             }
         }
 

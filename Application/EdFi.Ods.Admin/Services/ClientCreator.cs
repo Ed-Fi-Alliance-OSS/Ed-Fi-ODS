@@ -8,14 +8,15 @@ using EdFi.Ods.Admin.Initialization;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Sandbox.Provisioners;
 using log4net;
 using EdFi.Ods.Sandbox.Repositories;
-
 
 namespace EdFi.Ods.Admin.Services
 {
     public class ClientCreator : IClientCreator
     {
+        private readonly ISandboxProvisioner _sandboxProvisioner;
         private static readonly ILog _log = LogManager.GetLogger(typeof(ClientCreator));
 
         private const string MaximumSandboxesPerUserConfigKey = "MaximumSandboxesPerUser";
@@ -30,8 +31,10 @@ namespace EdFi.Ods.Admin.Services
         public ClientCreator(
             IConfigValueProvider configValueProvider,
             IClientAppRepo clientAppRepo,
-            IDefaultApplicationCreator defaultApplicationCreator)
+            IDefaultApplicationCreator defaultApplicationCreator,
+            ISandboxProvisioner sandboxProvisioner)
         {
+            _sandboxProvisioner = sandboxProvisioner;
             _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
             _maximumSandboxesPerUser = GetMaximumSandboxesPerUserOrDefault();
 
@@ -58,6 +61,24 @@ namespace EdFi.Ods.Admin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
+            var client = SetupDefaultSandboxClient(createModel, user);
+
+            ProvisionSandbox(client);
+
+            return client;
+        }
+
+        public ApiClient ResetSandboxClient(SandboxInitializationModel createModel, User user)
+        {
+            var client = SetupDefaultSandboxClient(createModel, user);
+
+            ProvisionSandbox(client);
+
+            return client;
+        }
+
+        private ApiClient SetupDefaultSandboxClient(SandboxInitializationModel createModel, User user)
+        {
             var defaultApplication = _defaultApplicationCreator
                 .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, createModel.SandboxType);
 
@@ -70,18 +91,10 @@ namespace EdFi.Ods.Admin.Services
                 defaultApplication.ApplicationId);
         }
 
-        public ApiClient ResetSandboxClient(SandboxInitializationModel createModel, User user)
+        private void ProvisionSandbox(ApiClient client)
         {
-            var defaultApplication = _defaultApplicationCreator
-                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, createModel.SandboxType);
-
-            return _clientAppRepo.SetupDefaultSandboxClient(
-                createModel.Name,
-                createModel.SandboxType,
-                createModel.Key,
-                createModel.Secret,
-                user.UserId,
-                defaultApplication.ApplicationId);
+            _log.Debug($"Creating {client.SandboxType.ToString()} sandbox for {client.Key}");
+            _sandboxProvisioner.AddSandbox(client.Key, client.SandboxType);
         }
     }
 }

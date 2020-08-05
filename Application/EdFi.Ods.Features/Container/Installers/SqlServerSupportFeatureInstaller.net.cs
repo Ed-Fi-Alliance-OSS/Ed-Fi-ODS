@@ -9,6 +9,7 @@ using Castle.Windsor;
 using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
 using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Features.Container.Installers {
@@ -32,6 +33,11 @@ namespace EdFi.Ods.Features.Container.Installers {
                 Component
                     .For<IAuthorizationSegmentsSqlProvider>()
                     .ImplementedBy<SqlServerAuthorizationSegmentSqlProvider>());
+        }
+
+        private void RegisterSandboxProvisioner(IWindsorContainer container)
+        {
+            container.Register(Component.For<ISandboxProvisioner>().ImplementedBy<SqlServerSandboxProvisioner>());
         }
     }
 }

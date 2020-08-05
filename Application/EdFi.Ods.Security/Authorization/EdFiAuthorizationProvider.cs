@@ -408,10 +408,17 @@ namespace EdFi.Ods.Security.Authorization
             {
                 response.Success = false;
 
-                response.SecurityExceptionMessage = string.Format(
-                    "Access to the resource could not be authorized. Are you missing a claim? This resource can be authorized by: {0}.  ClaimsPrincipal has the following claims: {1}",
-                    string.Join(", ", authorizingClaimNames),
-                    string.Join(", ", principal.Claims.Select(c => c.Type)));
+                var apiClientResourceClaims = principal.Claims.Select(c => c.Type)
+                    .Where(x => x.StartsWith(EdFi.Ods.Common.Conventions.EdFiConventions.EdFiOdsResourceClaimBaseUri));
+
+                string apiClientClaimSetName =
+                    principal.Claims.SingleOrDefault(c => c.Type == EdFiOdsApiClaimTypes.ClaimSetName)?.Value;
+
+                response.SecurityExceptionMessage = 
+                    $@"Access to the resource could not be authorized. Are you missing a claim? This resource can be authorized by the following claims:
+    {string.Join(Environment.NewLine + "    ", authorizingClaimNames)}
+The API client has been assigned the '{apiClientClaimSetName}' claim set with the following resource claims:
+    {string.Join(Environment.NewLine + "    ", apiClientResourceClaims)}";
 
                 return response;
             }

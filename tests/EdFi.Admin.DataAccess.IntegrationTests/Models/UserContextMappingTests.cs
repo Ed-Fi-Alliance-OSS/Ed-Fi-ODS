@@ -5,6 +5,7 @@
 
 using System;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -210,9 +211,9 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
 
                 vendor.CreateApplication(appName, ClaimSetName);
 
-                vendor.Applications.AsEnumerable()
+                var educationOrganizationAssociation = vendor.Applications.AsEnumerable()
                     .ElementAt(0)
-                    .CreateEducationOrganizationAssociation(leaId);
+                    .CreateApplicationEducationOrganization(leaId);
 
                 using (var context = new SqlServerUsersContext(ConnectionString))
                 {
@@ -220,6 +221,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                         .ElementAt(0)
                         .OperationalContextUri = "uri://ed-fi-api-host.org";
 
+                    context.ApplicationEducationOrganizations.AddOrUpdate(educationOrganizationAssociation);
                     context.Vendors.Add(vendor);
                     context.SaveChangesForTest();
 

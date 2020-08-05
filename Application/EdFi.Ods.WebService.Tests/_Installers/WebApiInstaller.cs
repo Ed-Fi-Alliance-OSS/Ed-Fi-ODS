@@ -17,6 +17,7 @@ using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.IO;
@@ -114,7 +115,7 @@ namespace EdFi.Ods.WebService.Tests._Installers
             // TODO: GKM - IMPORTANT: Review these registrations from Muhammad's pull request
             container.Register(
                 Component.For<ISandboxProvisioner>()
-                         .ImplementedBy<SqlSandboxProvisioner>());
+                         .ImplementedBy<SqlServerSandboxProvisioner>());
 
             container.Register(
                 Component.For<IClaimsIdentityProvider>()
@@ -127,6 +128,10 @@ namespace EdFi.Ods.WebService.Tests._Installers
             container.Register(
                 Component.For<IProfileResourceNamesProvider, IProfileMetadataProvider>()
                          .ImplementedBy<ProfileResourceNamesProvider>());
+
+            container.Register(
+                Component.For<IDefaultPageSizeLimitProvider>()
+                    .ImplementedBy<DefaultPageSizeLimitProvider>());
         }
 
         protected virtual void RegisterNHibernateComponents(IWindsorContainer container)

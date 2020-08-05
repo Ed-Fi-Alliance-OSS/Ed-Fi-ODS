@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Features.Profiles
@@ -36,7 +37,10 @@ namespace EdFi.Ods.Features.Profiles
                     .ImplementedBy<PostgresAuthorizationSegmentSqlProvider>());
         }
 
-
+        private void RegisterSandboxProvisioner(IWindsorContainer container)
+        {
+            container.Register(Component.For<ISandboxProvisioner>().ImplementedBy<PostgresSandboxProvisioner>());
+        }
     }
 }
 #endif

@@ -3,7 +3,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -33,6 +33,7 @@ using EdFi.Ods.Security.AuthorizationStrategies;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Security.Claims;
 using EdFi.Ods.Security.Utilities;
+using log4net;
 
 namespace EdFi.Ods.Security.Container.Installers
 {
@@ -64,6 +65,8 @@ namespace EdFi.Ods.Security.Container.Installers
             {typeof(IPutPipelineStepsProvider), typeof(AuthorizationContextPutPipelineStepsProviderDecorator)},
             {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)}
         };
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SecurityInstaller));
 
         public SecurityInstaller(IConfigValueProvider configValueProvider)
         {
@@ -270,9 +273,28 @@ namespace EdFi.Ods.Security.Container.Installers
             // Register all context data providers
             var relationshipContextDataProviderTypes = container.Resolve<IAssembliesProvider>().GetAssemblies()
                 .Where(a => a.IsExtensionAssembly() || a.IsStandardAssembly())
-                .SelectMany(a => a.GetTypes())
-                .Where(
-                    t => !t.IsAbstract && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
+                .SelectMany(a =>
+                {
+                    _logger.Info(
+                        $"Processing assembly '{a.GetName().Name}' for relationship-based authorization context data providers.");
+
+                    var contextDataProviderTypes = a.GetTypes()
+                        .Where(t => !t.IsAbstract
+                                && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
+                        .ToArray();
+
+                    if (_logger.IsDebugEnabled)
+                    {
+                        _logger.Debug($@"Found {contextDataProviderTypes.Count()} types:
+    {string.Join(Environment.NewLine + "    ", contextDataProviderTypes.Select(t => t.FullName))}");
+                    }
+                    else
+                    {
+                        _logger.Info($"Found {contextDataProviderTypes.Count()} types.");
+                    }
+
+                    return contextDataProviderTypes;
+                })
                 .ToList();
 
             // Register all context data providers including any defined in extension assemblies.

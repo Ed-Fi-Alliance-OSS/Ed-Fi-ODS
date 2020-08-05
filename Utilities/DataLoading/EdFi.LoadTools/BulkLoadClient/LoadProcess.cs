@@ -142,6 +142,7 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<IXsdConfiguration>(() => configuration);
             container.RegisterSingleton<IInterchangeOrderConfiguration>(() => configuration);
             container.RegisterSingleton<IThrottleConfiguration>(() => configuration);
+            container.RegisterSingleton<IBulkLoadClientResult, BulkLoadClientResult>();
             container.RegisterSingleton<DependenciesRetriever>();
             container.RegisterSingleton<SwaggerMetadataRetriever>();
             container.RegisterSingleton<SwaggerRetriever>();

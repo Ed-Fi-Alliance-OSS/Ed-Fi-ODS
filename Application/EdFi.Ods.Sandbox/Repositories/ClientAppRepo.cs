@@ -22,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Sandbox.Provisioners;
+using log4net;
 
 namespace EdFi.Ods.Sandbox.Repositories
 {
@@ -29,7 +30,8 @@ namespace EdFi.Ods.Sandbox.Repositories
     {
         private const int DefaultDuration = 60;
         private readonly IUsersContextFactory _contextFactory;
-        private readonly ISandboxProvisioner _provisioner;
+
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ClientAppRepo));
         private readonly Lazy<int> _duration;
         private readonly Lazy<string> _defaultOperationalContextUri;
         private readonly Lazy<string> _defaultAppName;
@@ -38,11 +40,9 @@ namespace EdFi.Ods.Sandbox.Repositories
 #if NETFRAMEWORK
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
-            ISandboxProvisioner provisioner,
             IConfigValueProvider configValueProvider)
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
-            _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
             Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
 
             _duration = new Lazy<int>(
@@ -64,11 +64,9 @@ namespace EdFi.Ods.Sandbox.Repositories
 #elif NETSTANDARD
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
-            ISandboxProvisioner provisioner,
             IConfigurationRoot config)
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
-            _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
             Preconditions.ThrowIfNull(config, nameof(config));
 
             _duration = new Lazy<int>(
@@ -299,11 +297,6 @@ namespace EdFi.Ods.Sandbox.Repositories
 delete ApiClients where ApiClientId = @clientId",
                         new SqlParameter("@clientId", client.ApiClientId))
                     .Wait();
-
-                if (client.UseSandbox)
-                {
-                    _provisioner.DeleteSandboxes(key);
-                }
             }
         }
 
@@ -466,11 +459,11 @@ delete ApiClients where ApiClientId = @clientId",
         {
             using (var context = _contextFactory.CreateContext())
             {
+                _logger.Debug($"Creating API Client");
                 var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
 
+                _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
-
-                _provisioner.AddSandbox(client.Key, sandboxType);
 
                 context.SaveChanges();
 
@@ -531,10 +524,21 @@ delete ApiClients where ApiClientId = @clientId",
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = CreateOrGetVendor(userEmail, userName, namespacePrefixes);
-                var user = context.Users.Single(u => u.Email.Equals(userEmail));
+                var vendor =  Vendor.Create(userName, namespacePrefixes);
 
-                user.Vendor = vendor;
+                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail));
+
+                if (user == null)
+                {
+                    user = User.Create(userEmail, userName, vendor);
+                }
+                else
+                {
+                    user.Vendor = vendor;
+                }
+
+                context.Vendors.AddOrUpdate(vendor);
+                context.Users.AddOrUpdate(user);
                 context.SaveChanges();
             }
         }
@@ -550,17 +554,7 @@ delete ApiClients where ApiClientId = @clientId",
 
                 if (vendor == null)
                 {
-                    vendor = new Vendor {VendorName = vendorName};
-
-                        foreach (string namespacePrefix in namespacePrefixes)
-                        {
-                            vendor.VendorNamespacePrefixes.Add(
-                                new VendorNamespacePrefix
-                                {
-                                    Vendor = vendor,
-                                    NamespacePrefix = namespacePrefix
-                                });
-                        }
+                        vendor = Vendor.Create(vendorName, namespacePrefixes);
                         context.SaveChanges();
                 }
 
@@ -656,7 +650,7 @@ delete ApiClients where ApiClientId = @clientId",
                     {
                         if (!application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
                         {
-                            application.CreateEducationOrganizationAssociation(leaId);
+                            application.CreateApplicationEducationOrganization(leaId);
                         }
                     }
 

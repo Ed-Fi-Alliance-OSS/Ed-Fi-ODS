@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Contexts;
@@ -17,16 +18,16 @@ namespace EdFi.Ods.Admin.Services
     public class DefaultApplicationCreator : IDefaultApplicationCreator
     {
         private readonly IConfigValueProvider _configValueProvider;
-        private readonly IDatabaseTemplateLeaQuery _leaQuery;
+        private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IUsersContextFactory _usersContextFactory;
 
         public DefaultApplicationCreator(
             IUsersContextFactory usersContextFactory,
-            IDatabaseTemplateLeaQuery leaQuery,
+            ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             IConfigValueProvider configValueProvider)
         {
             _usersContextFactory = Preconditions.ThrowIfNull(usersContextFactory, nameof(usersContextFactory));
-            _leaQuery = Preconditions.ThrowIfNull(leaQuery, nameof(leaQuery));
+            _templateDatabaseLeaQuery = Preconditions.ThrowIfNull(templateDatabaseLeaQuery, nameof(templateDatabaseLeaQuery));
             _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
         }
 
@@ -46,20 +47,9 @@ namespace EdFi.Ods.Admin.Services
                                     .Include(x => x.Applications.Select(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
-                var leaIds = _leaQuery.GetLocalEducationAgencyIds(sandboxType);
                 var defaultAppName = _configValueProvider.GetValue("DefaultApplicationName");
                 var applicationName = defaultAppName + " " + sandboxType;
                 var application = GetApplication(context, vendor, applicationName);
-
-                foreach (var leaId in leaIds)
-                {
-                    if (application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
-                    {
-                        continue;
-                    }
-
-                    application.CreateEducationOrganizationAssociation(leaId);
-                }
 
                 context.SaveChanges();
                 return application;
@@ -76,9 +66,10 @@ namespace EdFi.Ods.Admin.Services
                 {
                     foreach (var leaId in localEducationAgencyIds)
                     {
-                        if (!application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
+                        if (application.ApplicationEducationOrganizations.All(x => x.EducationOrganizationId != leaId))
                         {
-                            application.CreateEducationOrganizationAssociation(leaId); 
+                            var applicationEducationOrganization = application.CreateApplicationEducationOrganization(leaId);
+                            context.ApplicationEducationOrganizations.AddOrUpdate(applicationEducationOrganization);
                         }
                     }
 

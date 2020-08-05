@@ -9,7 +9,6 @@ using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
@@ -39,7 +38,6 @@ namespace EdFi.Ods.Security.Container.Modules {
                             .GetDatabaseEngine()))
                 .As<ISecurityContextFactory>()
                 .SingleInstance();
-            builder.RegisterType<SqlSandboxProvisioner>().As<ISandboxProvisioner>().SingleInstance();
         }
     }
 }

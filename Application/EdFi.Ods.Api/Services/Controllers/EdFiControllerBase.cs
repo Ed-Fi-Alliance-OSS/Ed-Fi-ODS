@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +29,7 @@ using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
@@ -68,15 +69,18 @@ namespace EdFi.Ods.Api.Services.Controllers
 
         //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider schoolYearContextProvider;
+        protected IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider;
 
         protected EdFiControllerBase(
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
-            IRESTErrorProvider restErrorProvider) //IRepository<TAggregateRoot> repository, 
+            IRESTErrorProvider restErrorProvider,
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository, 
         {
             //this.repository = repository;
             this.schoolYearContextProvider = schoolYearContextProvider;
             this.restErrorProvider = restErrorProvider;
+            this.defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
 
             getByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -131,11 +135,13 @@ namespace EdFi.Ods.Api.Services.Controllers
             [FromUri] UrlQueryParametersRequest urlQueryParametersRequest,
             [FromUri] TGetByExampleRequest request = default(TGetByExampleRequest))
         {
+            var defaultPageSizeLimit = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
+
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
             if (urlQueryParametersRequest.Limit != null &&
-                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > 100))
+                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > defaultPageSizeLimit))
             {
-                return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                return BadRequest($"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
             }
 
             var internalRequestAsResource = new TResourceReadModel();

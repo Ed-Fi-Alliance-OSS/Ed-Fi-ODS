@@ -93,7 +93,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                               ? null
                                               : SwaggerDocumentHelper.GetConsumes(),
                                           produces = SwaggerDocumentHelper.GetProduces(), tags = _tagsFactory.Create(resources),
-                                          paths = _pathsFactory.Create(resources), definitions = _definitionsFactory.Create(resources),
+                                          paths = _pathsFactory.Create(resources, _documentContext.IsCompositeContext), definitions = _definitionsFactory.Create(resources),
                                           parameters = _parametersFactory.Create(_documentContext.IsCompositeContext), responses = _responsesFactory.Create()
                                       };
 

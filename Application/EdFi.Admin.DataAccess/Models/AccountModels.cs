@@ -53,6 +53,16 @@ namespace EdFi.Admin.DataAccess.Models
             ApiClients.Add(client);
             return client;
         }
+
+        public static User Create(string userEmail, string userName, Vendor vendor = null)
+        {
+            return new User
+            {
+                Email = userEmail,
+                FullName = userName,
+                Vendor =  vendor
+            };
+        }
     }
 
     public class RegisterExternalLoginModel

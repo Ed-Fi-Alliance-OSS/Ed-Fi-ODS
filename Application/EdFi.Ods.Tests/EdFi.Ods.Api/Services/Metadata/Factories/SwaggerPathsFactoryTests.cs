@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
                 _actualPaths = SwaggerDocumentFactoryHelper.CreateSwaggerPathsFactory(
                                                                 DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                                                           .Create(swaggerResources);
+                                                           .Create(swaggerResources, false);
             }
 
             [Assert]
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 _actualPaths = SwaggerDocumentFactoryHelper
                               .CreateSwaggerPathsFactory(_swaggerDocumentContext)
-                              .Create(_swaggerResources);
+                              .Create(_swaggerResources, false);
             }
 
             [Assert]

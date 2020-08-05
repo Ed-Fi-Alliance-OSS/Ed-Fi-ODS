@@ -31576,6 +31576,42 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [StringLength(32), NoDangerousText]
+        public virtual string ReviewerPersonId  { get; set; }
+        public virtual int? ReviewerSourceSystemDescriptorId 
+        {
+            get
+            {
+                if (_reviewerSourceSystemDescriptorId == default(int?))
+                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
+
+                return _reviewerSourceSystemDescriptorId;
+            } 
+            set
+            {
+                _reviewerSourceSystemDescriptorId = value;
+                _reviewerSourceSystemDescriptor = null;
+            }
+        }
+
+        private int? _reviewerSourceSystemDescriptorId;
+        private string _reviewerSourceSystemDescriptor;
+
+        public virtual string ReviewerSourceSystemDescriptor
+        {
+            get
+            {
+                if (_reviewerSourceSystemDescriptor == null)
+                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
+                    
+                return _reviewerSourceSystemDescriptor;
+            }
+            set
+            {
+                _reviewerSourceSystemDescriptor = value;
+                _reviewerSourceSystemDescriptorId = default(int?);
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -31650,23 +31686,23 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
+        public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData ReviewerPersonReferenceData { get; set; }
 
         /// <summary>
-        /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
+        /// Read-only property that allows the ReviewerPerson discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IEvaluationRatingReviewer.PersonDiscriminator
+        string Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
-            get { return PersonReferenceData?.Discriminator; }
+            get { return ReviewerPersonReferenceData?.Discriminator; }
             set { }
         }
 
         /// <summary>
-        /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
+        /// Read-only property that allows the ReviewerPerson resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IEvaluationRatingReviewer.PersonResourceId
+        Guid? Entities.Common.TPDM.IEvaluationRatingReviewer.ReviewerPersonResourceId
         {
-            get { return PersonReferenceData?.Id; }
+            get { return ReviewerPersonReferenceData?.Id; }
             set { }
         }
 
@@ -31682,6 +31718,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
+                { "ReviewerSourceSystemDescriptor", new LookupColumnDetails { PropertyName = "ReviewerSourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
             };
@@ -31793,6 +31830,20 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         {
             get { return _isEvaluationRatingReviewerReceivedTrainingSupported; }
             set { _isEvaluationRatingReviewerReceivedTrainingSupported = value; }
+        }
+
+        private bool _isReviewerPersonIdSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
+        {
+            get { return _isReviewerPersonIdSupported; }
+            set { _isReviewerPersonIdSupported = value; }
+        }
+
+        private bool _isReviewerSourceSystemDescriptorSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
+        {
+            get { return _isReviewerSourceSystemDescriptorSupported; }
+            set { _isReviewerSourceSystemDescriptorSupported = value; }
         }
 
         // -----------------------------------------
@@ -41911,6 +41962,42 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        [StringLength(32), NoDangerousText]
+        public virtual string ReviewerPersonId  { get; set; }
+        public virtual int? ReviewerSourceSystemDescriptorId 
+        {
+            get
+            {
+                if (_reviewerSourceSystemDescriptorId == default(int?))
+                    _reviewerSourceSystemDescriptorId = string.IsNullOrWhiteSpace(_reviewerSourceSystemDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("SourceSystemDescriptor", _reviewerSourceSystemDescriptor);
+
+                return _reviewerSourceSystemDescriptorId;
+            } 
+            set
+            {
+                _reviewerSourceSystemDescriptorId = value;
+                _reviewerSourceSystemDescriptor = null;
+            }
+        }
+
+        private int? _reviewerSourceSystemDescriptorId;
+        private string _reviewerSourceSystemDescriptor;
+
+        public virtual string ReviewerSourceSystemDescriptor
+        {
+            get
+            {
+                if (_reviewerSourceSystemDescriptor == null)
+                    _reviewerSourceSystemDescriptor = _reviewerSourceSystemDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("SourceSystemDescriptor", _reviewerSourceSystemDescriptorId.Value);
+                    
+                return _reviewerSourceSystemDescriptor;
+            }
+            set
+            {
+                _reviewerSourceSystemDescriptor = value;
+                _reviewerSourceSystemDescriptorId = default(int?);
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -41985,23 +42072,23 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         // =============================================================
         //                     Reference Data
         // -------------------------------------------------------------
-        public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData PersonReferenceData { get; set; }
+        public virtual NHibernate.PersonAggregate.EdFi.PersonReferenceData ReviewerPersonReferenceData { get; set; }
 
         /// <summary>
-        /// Read-only property that allows the Person discriminator value to be mapped to the resource reference.
+        /// Read-only property that allows the ReviewerPerson discriminator value to be mapped to the resource reference.
         /// </summary>
-        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PersonDiscriminator
+        string Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonDiscriminator
         {
-            get { return PersonReferenceData?.Discriminator; }
+            get { return ReviewerPersonReferenceData?.Discriminator; }
             set { }
         }
 
         /// <summary>
-        /// Read-only property that allows the Person resource identifier value to be mapped to the resource reference.
+        /// Read-only property that allows the ReviewerPerson resource identifier value to be mapped to the resource reference.
         /// </summary>
-        Guid? Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.PersonResourceId
+        Guid? Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer.ReviewerPersonResourceId
         {
-            get { return PersonReferenceData?.Id; }
+            get { return ReviewerPersonReferenceData?.Id; }
             set { }
         }
 
@@ -42017,6 +42104,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
             {
                 { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
+                { "ReviewerSourceSystemDescriptor", new LookupColumnDetails { PropertyName = "ReviewerSourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
             };
@@ -42128,6 +42216,20 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         {
             get { return _isPerformanceEvaluationRatingReviewerReceivedTrainingSupported; }
             set { _isPerformanceEvaluationRatingReviewerReceivedTrainingSupported = value; }
+        }
+
+        private bool _isReviewerPersonIdSupported = true;
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerPersonIdSupported
+        {
+            get { return _isReviewerPersonIdSupported; }
+            set { _isReviewerPersonIdSupported = value; }
+        }
+
+        private bool _isReviewerSourceSystemDescriptorSupported = true;
+        bool Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport.IsReviewerSourceSystemDescriptorSupported
+        {
+            get { return _isReviewerSourceSystemDescriptorSupported; }
+            set { _isReviewerSourceSystemDescriptorSupported = value; }
         }
 
         // -----------------------------------------

@@ -9,9 +9,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.BulkLoadClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.FileImportPipeline;
 using EdFi.LoadTools.Engine.ResourcePipeline;
+using EdFi.Ods.Common.Utils.Extensions;
 using log4net;
 
 namespace EdFi.LoadTools
@@ -27,6 +29,7 @@ namespace EdFi.LoadTools
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
         private readonly IResourceHashCache _xmlResourceHashCache;
         private readonly DependenciesRetriever _dependenciesRetriever;
+        private readonly IBulkLoadClientResult _bulkLoadClientResult;
 
         public ApiLoaderApplication(
             FileImportPipeline fileImportPipeline,
@@ -35,7 +38,8 @@ namespace EdFi.LoadTools
             IResourceHashCache xmlResourceHashCache,
             IXmlReferenceCacheFactory xmlReferenceCacheFactory,
             IApiConfiguration apiConfiguration,
-            DependenciesRetriever dependenciesRetriever)
+            DependenciesRetriever dependenciesRetriever,
+            IBulkLoadClientResult bulkLoadClientResult)
         {
             _fileImportPipeline = fileImportPipeline;
             _resourcePipeline = resourcePipeline;
@@ -44,6 +48,7 @@ namespace EdFi.LoadTools
             _xmlReferenceCacheFactory = xmlReferenceCacheFactory;
             _apiConfiguration = apiConfiguration;
             _dependenciesRetriever = dependenciesRetriever;
+            _bulkLoadClientResult = bulkLoadClientResult;
         }
 
         public async Task<int> Run()
@@ -92,7 +97,17 @@ namespace EdFi.LoadTools
                _log.Warn("No interchange files found for import");
             }
 
-            return 0;
+            return _bulkLoadClientResult.ExitCode;
+        }
+
+        private void SetNonZeroExitCode(ApiLoaderWorkItem resource)
+        {
+            if (resource.IsSuccess)
+            {
+                return;
+            }
+
+            _bulkLoadClientResult.ExitCode = 1;
         }
 
         private static void LogResource(ApiLoaderWorkItem resource)
@@ -118,7 +133,7 @@ namespace EdFi.LoadTools
                 }
                 else
                 {
-                    _log.Debug($"{contextPrefix} #{response.RequestNumber} {response.Message} - {(int)response.StatusCode} - {response.Content}");
+                    _log.Warn($"{contextPrefix} #{response.RequestNumber} {response.Message} - {(int)response.StatusCode} - {response.Content}");
                 }
 
                 if (_log.IsDebugEnabled)
@@ -164,6 +179,7 @@ namespace EdFi.LoadTools
                     else
                     {
                         LogResource(x);
+                        SetNonZeroExitCode(x);
                     }
                 },
                 new ExecutionDataflowBlockOptions
@@ -232,6 +248,7 @@ namespace EdFi.LoadTools
                 delegate(ApiLoaderWorkItem resource)
                 {
                     LogResource(resource);
+                    SetNonZeroExitCode(resource);
                     return resource;
                 });
 

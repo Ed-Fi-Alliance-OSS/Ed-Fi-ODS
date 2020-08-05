@@ -14230,6 +14230,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
+            if ((sourceSupport == null || sourceSupport.IsReviewerPersonIdSupported)
+                && target.ReviewerPersonId != source.ReviewerPersonId)
+            {
+                target.ReviewerPersonId = source.ReviewerPersonId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsReviewerSourceSystemDescriptorSupported)
+                && target.ReviewerSourceSystemDescriptor != source.ReviewerSourceSystemDescriptor)
+            {
+                target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
+                isModified = true;
+            }
+
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
@@ -14277,12 +14291,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
 
             // Copy non-PK properties
 
+            if (sourceSynchSupport.IsReviewerPersonIdSupported)
+                target.ReviewerPersonId = source.ReviewerPersonId;
+            else
+                targetSynchSupport.IsReviewerPersonIdSupported = false;
+
+            if (sourceSynchSupport.IsReviewerSourceSystemDescriptorSupported)
+                target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
+            else
+                targetSynchSupport.IsReviewerSourceSystemDescriptorSupported = false;
+
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
-                target.PersonResourceId = source.PersonResourceId;
-                target.PersonDiscriminator = source.PersonDiscriminator;
+                target.ReviewerPersonResourceId = source.ReviewerPersonResourceId;
+                target.ReviewerPersonDiscriminator = source.ReviewerPersonDiscriminator;
             }
 
 
@@ -14347,6 +14371,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
     public interface IEvaluationRatingReviewerSynchronizationSourceSupport 
     {
         bool IsEvaluationRatingReviewerReceivedTrainingSupported { get; set; }
+        bool IsReviewerPersonIdSupported { get; set; }
+        bool IsReviewerSourceSystemDescriptorSupported { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -19607,6 +19633,20 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
+            if ((sourceSupport == null || sourceSupport.IsReviewerPersonIdSupported)
+                && target.ReviewerPersonId != source.ReviewerPersonId)
+            {
+                target.ReviewerPersonId = source.ReviewerPersonId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsReviewerSourceSystemDescriptorSupported)
+                && target.ReviewerSourceSystemDescriptor != source.ReviewerSourceSystemDescriptor)
+            {
+                target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
+                isModified = true;
+            }
+
             // ----------------------------------
             //   Synch One-to-one relationships
             // ----------------------------------
@@ -19654,12 +19694,22 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
 
             // Copy non-PK properties
 
+            if (sourceSynchSupport.IsReviewerPersonIdSupported)
+                target.ReviewerPersonId = source.ReviewerPersonId;
+            else
+                targetSynchSupport.IsReviewerPersonIdSupported = false;
+
+            if (sourceSynchSupport.IsReviewerSourceSystemDescriptorSupported)
+                target.ReviewerSourceSystemDescriptor = source.ReviewerSourceSystemDescriptor;
+            else
+                targetSynchSupport.IsReviewerSourceSystemDescriptorSupported = false;
+
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
                 || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
             {
-                target.PersonResourceId = source.PersonResourceId;
-                target.PersonDiscriminator = source.PersonDiscriminator;
+                target.ReviewerPersonResourceId = source.ReviewerPersonResourceId;
+                target.ReviewerPersonDiscriminator = source.ReviewerPersonDiscriminator;
             }
 
 
@@ -19724,6 +19774,8 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
     public interface IPerformanceEvaluationRatingReviewerSynchronizationSourceSupport 
     {
         bool IsPerformanceEvaluationRatingReviewerReceivedTrainingSupported { get; set; }
+        bool IsReviewerPersonIdSupported { get; set; }
+        bool IsReviewerSourceSystemDescriptorSupported { get; set; }
     }
 
     [ExcludeFromCodeCoverage]

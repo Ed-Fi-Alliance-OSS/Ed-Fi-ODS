@@ -35,7 +35,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
         }
 
-        public IDictionary<string, PathItem> Create(IList<SwaggerResource> swaggerResources)
+        public IDictionary<string, PathItem> Create(IList<SwaggerResource> swaggerResources, bool isCompositeContext)
         {
             return _swaggerPathsFactorySelectorStrategy
                 .ApplyStrategy(swaggerResources)
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 ? new
                                 {
                                     Path = resourcePath,
-                                    PathItem = CreatePathItemForNonIdAccessedOperations(r)
+                                    PathItem = CreatePathItemForNonIdAccessedOperations(r, isCompositeContext)
                                 }
                                 : null,
                             r.SupportsIdAccessOperations
@@ -67,8 +67,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 }
                                 : null
 #if NETFRAMEWORK
-                                ,
-                            ChangeQueryFeature.IsEnabled && !r.Name.Equals(ChangeQueryFeature.SchoolYearTypesResourceName)
+                            ,
+                            ChangeQueryFeature.IsEnabled && !r.Name.Equals(ChangeQueryFeature.SchoolYearTypesResourceName) && !isCompositeContext
                                 ? new
                                 {
                                     Path = $"{resourcePath}/deletes",
@@ -85,11 +85,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .ToDictionary(p => p.Path, p => p.PathItem);
         }
 
-        private PathItem CreatePathItemForNonIdAccessedOperations(SwaggerPathsResource swaggerResource)
+        private PathItem CreatePathItemForNonIdAccessedOperations(SwaggerPathsResource swaggerResource, bool isCompositeContext)
             => new PathItem
             {
                 get = swaggerResource.Readable
-                    ? CreateGetOperation(swaggerResource)
+                    ? CreateGetOperation(swaggerResource, isCompositeContext)
                     : null,
                 post = swaggerResource.Writable
                     ? CreatePostOperation(swaggerResource)
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     : null
             };
 
-        private Operation CreateGetOperation(SwaggerPathsResource swaggerResource)
+        private Operation CreateGetOperation(SwaggerPathsResource swaggerResource, bool isCompositeContext)
         {
             var operation = new Operation
             {
@@ -133,7 +133,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 operationId = swaggerResource.OperationId ?? $"get{swaggerResource.Resource.PluralName}",
                 deprecated = swaggerResource.IsDeprecated,
                 produces = new[] {_contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Readable)},
-                parameters = CreateGetByExampleParameters(swaggerResource),
+                parameters = CreateGetByExampleParameters(swaggerResource, isCompositeContext),
                 responses = SwaggerDocumentHelper.GetReadOperationResponses(
                     _pathsFactoryNamingStrategy.GetResourceName(swaggerResource, ContentTypeUsage.Readable),
                     true)
@@ -172,7 +172,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        private IList<Parameter> CreateQueryParameters()
+        private IList<Parameter> CreateQueryParameters(bool isCompositeContext)
         {
             var parameterList = new List<Parameter>
             {
@@ -181,13 +181,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
 
 #if NETFRAMEWORK
-            if (ChangeQueryFeature.IsEnabled)
+            if (ChangeQueryFeature.IsEnabled && !isCompositeContext)
             {
                 parameterList.Add(
-                    new Parameter {@ref = SwaggerDocumentHelper.GetParameterReference("MinChangeVersion")});
+                    new Parameter { @ref = SwaggerDocumentHelper.GetParameterReference("MinChangeVersion") });
 
                 parameterList.Add(
-                    new Parameter {@ref = SwaggerDocumentHelper.GetParameterReference("MaxChangeVersion")});
+                    new Parameter { @ref = SwaggerDocumentHelper.GetParameterReference("MaxChangeVersion") });
             }
 #endif
 
@@ -200,9 +200,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return parameterList;
         }
 
-        private IList<Parameter> CreateGetByExampleParameters(SwaggerPathsResource swaggerResource)
+        private IList<Parameter> CreateGetByExampleParameters(SwaggerPathsResource swaggerResource, bool isCompositeContext)
         {
-            var parameterList = CreateQueryParameters()
+            var parameterList = CreateQueryParameters(isCompositeContext)
                 .Concat(
                     swaggerResource.DefaultGetByExampleParameters.Select(
                         p => new Parameter {@ref = SwaggerDocumentHelper.GetParameterReference(p)}))

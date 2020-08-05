@@ -203,6 +203,11 @@ namespace EdFi.Ods.Admin.Controllers.Api
             }
 
             _repository.DeleteClient(id);
+
+            if (client.UseSandbox)
+            {
+                _sandboxProvisioner.DeleteSandboxes(client.Key);
+            }
         }
     }
 }

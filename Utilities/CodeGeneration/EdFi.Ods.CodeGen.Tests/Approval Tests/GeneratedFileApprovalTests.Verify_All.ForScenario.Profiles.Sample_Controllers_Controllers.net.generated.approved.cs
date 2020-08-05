@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
 {
@@ -29,8 +30,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolDelete,
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -76,8 +77,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolDelete,
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -127,8 +128,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolDelete,
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -190,8 +191,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_WriteOnly.SchoolDelete,
         SchoolsNullReadRequest>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 

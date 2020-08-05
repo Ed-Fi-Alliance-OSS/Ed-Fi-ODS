@@ -8,11 +8,11 @@ using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.NetCore.Providers
 {
-    public class OspreyApiVersionProvider : IApiVersionProvider
+    public class EnterpriseApiVersionProvider : IApiVersionProvider
     {
-        public string Version { get; } = "5.0.0-pre1";
+        public string Version { get; } = ApiVersionConstants.Version;
 
-        public string InformationalVersion { get; } = "Coyote 1.0.0-pre1";
+        public string InformationalVersion { get; } = ApiVersionConstants.InformationalVersion;
 
         public string Build { get; } = ApiVersionConstants.Build;
 

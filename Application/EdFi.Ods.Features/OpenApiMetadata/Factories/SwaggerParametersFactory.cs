@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -35,8 +36,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         @in = "query",
                         type = "integer",
                         format = "int32",
-                        minItems = 1,
-                        maxItems = 100,
+                        minimum = 1,
+#if NETFRAMEWORK
+                        maximum  = new DefaultPageSizeLimitProvider().GetDefaultPageSizeLimit(),
+#endif
                         required = false,
                         @default = 25
                     }
