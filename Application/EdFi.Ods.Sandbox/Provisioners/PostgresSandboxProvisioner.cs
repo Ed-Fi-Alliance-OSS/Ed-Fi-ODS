@@ -16,7 +16,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 {
     public class PostgresSandboxProvisioner : SandboxProvisionerBase
     {
-        private readonly ILog _logger = LogManager.GetLogger(nameof(PostgresSandboxProvisioner));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(PostgresSandboxProvisioner));
 
         public PostgresSandboxProvisioner(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)

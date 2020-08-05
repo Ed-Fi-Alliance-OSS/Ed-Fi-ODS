@@ -18,6 +18,9 @@ namespace EdFi.Ods.Api.NetCore.Container.Modules
             builder.RegisterType<AssembliesProvider>().As<IAssembliesProvider>();
             builder.RegisterType<FileSystemWrapper>().As<IFileSystem>();
             builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
+            builder.RegisterType<AppConfigValueProvider>().As<IConfigValueProvider>();
+            builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
+            builder.RegisterType<DatabaseEngineProvider>().As<IDatabaseEngineProvider>();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps
             if (!validationResults.IsValid())
             {
                 result.Exception = new ValidationException(
-                    $"Validation of '{((Object) context.Resource).GetType().Name}' failed.\n{string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))}");
+                    $"Validation of '{((object) context.Resource).GetType().Name}' failed.\n{string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))}");
             }
         }
 

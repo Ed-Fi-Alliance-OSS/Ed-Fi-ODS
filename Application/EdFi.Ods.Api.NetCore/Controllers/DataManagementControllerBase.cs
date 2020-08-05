@@ -21,6 +21,7 @@ using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Api.NetCore.Extensions;
 using EdFi.Ods.Api.NetCore.Filters;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using log4net;
@@ -54,6 +55,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers
         private const string GetByIdRequest = "GetByIdRequest";
 
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly int _defaultPageLimitSize;
         private string _applicationUrl;
 
         private ILog _logger;
@@ -71,11 +73,13 @@ namespace EdFi.Ods.Api.NetCore.Controllers
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
-            IRESTErrorProvider restErrorProvider) //IRepository<TAggregateRoot> repository, 
+            IRESTErrorProvider restErrorProvider,
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
         {
             //this.repository = repository;
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
+            _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -134,7 +138,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
             if (urlQueryParametersRequest.Limit != null &&
-                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > 100))
+                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
                 return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
             }

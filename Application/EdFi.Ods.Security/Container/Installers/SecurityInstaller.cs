@@ -42,7 +42,6 @@ namespace EdFi.Ods.Security.Container.Installers
         public const string CacheTimeoutKey = "SecurityMetadataCacheTimeoutMinutes";
 
         private readonly IConfigValueProvider _configValueProvider;
-        private readonly IAssembliesProvider _assembliesProvider;
         private readonly IDictionary<Type, Type> _decoratorRegistrations = new Dictionary<Type, Type>
         {
             // NHibernate authorization decorators
@@ -68,14 +67,10 @@ namespace EdFi.Ods.Security.Container.Installers
         };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(SecurityInstaller));
-        
-        public SecurityInstaller(IAssembliesProvider assembliesProvider, IConfigValueProvider configValueProvider)
-        {
-            _assembliesProvider = Preconditions.ThrowIfNull(assembliesProvider, nameof(assembliesProvider));
-            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
 
-            // force security to be loaded
-            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Standard>();
+        public SecurityInstaller(IConfigValueProvider configValueProvider)
+        {
+            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)

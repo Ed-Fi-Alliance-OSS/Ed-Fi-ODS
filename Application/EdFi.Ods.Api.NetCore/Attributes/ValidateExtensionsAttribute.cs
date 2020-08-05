@@ -57,7 +57,7 @@ namespace EdFi.Ods.Api.NetCore.Attributes
 
                             compositeResults.AddResult(
                                 new ValidationResult(
-                                    $"{context.DisplayName} ({extensionBagNameParts.SchemaProperCaseName}): {itemResult}"));
+                                    $"{context.DisplayName} ({schemaProperCaseName}): {itemResult}"));
                         }
                     }
                 }

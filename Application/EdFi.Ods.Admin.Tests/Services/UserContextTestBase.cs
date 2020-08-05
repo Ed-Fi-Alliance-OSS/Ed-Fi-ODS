@@ -119,9 +119,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                     DeleteApplicationEducationOrganization(leaId);
                     DeleteVendor(vendorName);
 
-                    var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                    var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
-                    A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
+                    A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(A<string>._))
                         .Returns(
                             new[] {leaId});
 
@@ -230,9 +230,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                     DeleteApplicationEducationOrganization(leaId2);
                     DeleteVendor(vendorName);
 
-                    var leaQuery = Stub<IDatabaseTemplateLeaQuery>();
+                    var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
 
-                    A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(SandboxType.Sample))
+                    A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(A<string>._))
                         .Returns(
                             new[]
                             {
@@ -261,7 +261,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                         var vendor = new Vendor {VendorName = vendorName};
 
                         var application = vendor.CreateApplication(_defaultApplicationName + " Sample", _defaultClaimSet);
-                        application.CreateEducationOrganizationAssociation(leaId1);
+                        application.CreateApplicationEducationOrganization(leaId1);
                         application.OperationalContextUri = _defaultOperationalContextUri;
                         context.Vendors.Add(vendor);
                         context.SaveChanges();

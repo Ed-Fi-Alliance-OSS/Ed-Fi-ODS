@@ -31,7 +31,7 @@ namespace EdFi.Ods.Sandbox.Repositories
         private const int DefaultDuration = 60;
         private readonly IUsersContextFactory _contextFactory;
 
-        private readonly ILog _logger = LogManager.GetLogger(nameof(ClientAppRepo));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ClientAppRepo));
         private readonly Lazy<int> _duration;
         private readonly Lazy<string> _defaultOperationalContextUri;
         private readonly Lazy<string> _defaultAppName;
@@ -64,11 +64,9 @@ namespace EdFi.Ods.Sandbox.Repositories
 #elif NETSTANDARD
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
-            ISandboxProvisioner provisioner,
             IConfigurationRoot config)
         {
             _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
-            _provisioner = Preconditions.ThrowIfNull(provisioner, nameof(provisioner));
             Preconditions.ThrowIfNull(config, nameof(config));
 
             _duration = new Lazy<int>(
@@ -652,7 +650,7 @@ delete ApiClients where ApiClientId = @clientId",
                     {
                         if (!application.ApplicationEducationOrganizations.Any(x => x.EducationOrganizationId == leaId))
                         {
-                            application.CreateEducationOrganizationAssociation(leaId);
+                            application.CreateApplicationEducationOrganization(leaId);
                         }
                     }
 

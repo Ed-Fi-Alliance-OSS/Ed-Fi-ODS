@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.NetCore.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<OspreyApiVersionProvider>().As<IApiVersionProvider>();
+            builder.RegisterType<EnterpriseApiVersionProvider>().As<IApiVersionProvider>();
         }
     }
 }

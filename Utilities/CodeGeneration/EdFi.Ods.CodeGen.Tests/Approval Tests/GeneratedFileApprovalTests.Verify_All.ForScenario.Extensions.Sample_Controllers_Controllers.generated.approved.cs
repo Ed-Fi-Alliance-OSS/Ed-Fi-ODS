@@ -4,11 +4,11 @@ using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Models.Requests;
 using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.Sample;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.NetCore.Controllers.Sample.ArtMediumDescriptors
 {

@@ -55,7 +55,7 @@ namespace EdFi.Ods.Common.Database
 
             if (string.IsNullOrEmpty(protoTypeConnectionString))
             {
-                throw new ConfigurationErrorsException(
+                throw new ArgumentException(
                     $"No connection string named '{_prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
             }
 
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Common.Database
             {
                 if (_configConnectionStringsProvider.Count == 0)
                 {
-                    throw new ConfigurationErrorsException("No connection strings were found in the configuration file.");
+                    throw new ArgumentException("No connection strings were found in the configuration file.");
                 }
 
                 if (string.IsNullOrWhiteSpace(_prototypeConnectionStringName))
