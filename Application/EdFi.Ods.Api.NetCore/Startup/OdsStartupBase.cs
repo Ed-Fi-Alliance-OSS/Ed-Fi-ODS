@@ -50,8 +50,6 @@ namespace EdFi.Ods.Api.NetCore.Startup
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            _logger.Debug("Loading configuration files");
-
             Configuration = (IConfigurationRoot) configuration;
 
             ApiSettings = new ApiSettings();
