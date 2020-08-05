@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api._Installers
         private const string DescriptorCacheAbsoluteExpirationSecondsKey = "caching:descriptors:absoluteExpirationSeconds";
         private const string PersonCacheAbsoluteExpirationSecondsKey = "caching:personUniqueIdToUsi:absoluteExpirationSeconds";
         private const string PersonCacheSlidingExpirationSecondsKey = "caching:personUniqueIdToUsi:slidingExpirationSeconds";
-        
+
         private readonly IConfigValueProvider _configValueProvider;
         private readonly Assembly _apiAssembly;
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
@@ -96,15 +96,15 @@ namespace EdFi.Ods.Api._Installers
             RegisterSecureHashing(container);
             RegisterPipeline(container);
             RegisterResourceLoadGraphFactory(container);
-            RegisterSandboxProvisioner(container);
             RegisterApiControllers(container);
             RegisterProfilesProcessing(container);
             RegisterApiVersionProvider(container);
+            RegisterDefaultPageSizeLimitProvider(container);
         }
 
-        private void RegisterSandboxProvisioner(IWindsorContainer container)
+        private void RegisterDefaultPageSizeLimitProvider(IWindsorContainer container)
         {
-            container.Register(Component.For<ISandboxProvisioner>().ImplementedBy<SqlSandboxProvisioner>());
+            container.Register(Component.For<IDefaultPageSizeLimitProvider>().ImplementedBy<DefaultPageSizeLimitProvider>());
         }
 
         private void RegisterResourceLoadGraphFactory(IWindsorContainer container)
@@ -242,14 +242,14 @@ namespace EdFi.Ods.Api._Installers
                 .ImplementedBy<PersonUniqueIdToUsiCache>()
                 .DependsOn(Dependency.OnValue("slidingExpiration",
                     TimeSpan.FromSeconds(Convert.ToInt32(_configValueProvider.GetValue(PersonCacheSlidingExpirationSecondsKey) ?? "14400"))))
-                .DependsOn(Dependency.OnValue("absoluteExpirationPeriod", 
+                .DependsOn(Dependency.OnValue("absoluteExpirationPeriod",
                     TimeSpan.FromSeconds(Convert.ToInt32(_configValueProvider.GetValue(PersonCacheAbsoluteExpirationSecondsKey) ?? "86400"))))
-                .DependsOn(Dependency.OnValue("synchronousInitialization", false))); 
+                .DependsOn(Dependency.OnValue("synchronousInitialization", false)));
         }
 
         private void RegisterDescriptorCache(IWindsorContainer container)
         {
-            var absoluteExpirationPeriod = TimeSpan.FromSeconds( 
+            var absoluteExpirationPeriod = TimeSpan.FromSeconds(
                 Convert.ToInt32(_configValueProvider.GetValue(DescriptorCacheAbsoluteExpirationSecondsKey) ?? "60"));
 
             var cacheProvider = new ExpiringConcurrentDictionaryCacheProvider(absoluteExpirationPeriod);

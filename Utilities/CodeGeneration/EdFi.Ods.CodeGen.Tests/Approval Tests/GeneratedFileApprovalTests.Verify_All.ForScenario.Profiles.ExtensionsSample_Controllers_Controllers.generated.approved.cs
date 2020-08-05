@@ -8,6 +8,7 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
 {
@@ -27,8 +28,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -85,8 +86,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -143,8 +144,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -201,8 +202,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -259,8 +260,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedE
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -320,8 +321,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -378,8 +379,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedE
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -439,8 +440,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -497,8 +498,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedI
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -558,8 +559,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_Ex
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -619,8 +620,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_In
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -680,8 +681,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Include_All
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffDelete,
         Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 
@@ -741,8 +742,8 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Include_All
         Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentDelete,
         Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample>
     {
-        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 

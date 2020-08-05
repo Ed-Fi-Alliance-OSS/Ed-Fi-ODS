@@ -18,6 +18,7 @@ using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
@@ -47,15 +48,17 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositeResourceResponseProvider _compositeResourceResponseProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceController));
         private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
 
         public CompositeResourceController(
             ICompositeResourceResponseProvider compositeResourceResponseProvider,
             ICompositesMetadataProvider compositeMetadataProvider,
-            IRESTErrorProvider restErrorProvider)
+            IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
         {
             _compositeResourceResponseProvider = compositeResourceResponseProvider;
             _compositeMetadataProvider = compositeMetadataProvider;
             _restErrorProvider = restErrorProvider;
+            _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
         }
 
         public virtual IHttpActionResult Get()
@@ -93,14 +96,15 @@ namespace EdFi.Ods.Features.Composites
                         kvp => rawQueryStringParameters[kvp],
                         StringComparer.InvariantCultureIgnoreCase);
 
-                //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
+                var defaultPageSizeLimit = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
 
+                //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
                 if (queryStringParameters.TryGetValue("limit", out object limitAsObject))
                 {
                     if (int.TryParse(limitAsObject.ToString(), out int limit)
-                        && (limit <= 0 || limit > 100))
+                        && (limit <= 0 || limit > defaultPageSizeLimit))
                     {
-                        return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                        return BadRequest($"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
                     }
                 }
 

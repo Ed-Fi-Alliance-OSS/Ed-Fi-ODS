@@ -14,6 +14,7 @@ using EdFi.Ods.Api.Common.Models.Queries;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.{{ProperCaseName}};
+using EdFi.Ods.Common.Configuration;
 {{#IsExtensionContext}}
 using {{ControllersBaseNamespace}};
 {{/IsExtensionContext}}
@@ -39,8 +40,8 @@ namespace {{ControllersNamespace}}
         {{DeleteRequest}},
         {{GetByExampleRequest}}>
     {
-        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider)
+        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
         {
         }
 

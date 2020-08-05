@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -15,6 +15,7 @@ using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.InversionOfControl;
 using Rhino.Mocks;
@@ -89,7 +90,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                     typeof(T),
                     factory,
                     new StubCurrentSchoolYearContextProvider(),
-                    new RESTErrorProvider(translators));
+                    new RESTErrorProvider(translators),
+                    new DefaultPageSizeLimitProvider());
 
             controller.Configuration = new HttpConfiguration();
             var uri = $@"http://localhost/api/ods/v3/ed-fi/Students/{id}";

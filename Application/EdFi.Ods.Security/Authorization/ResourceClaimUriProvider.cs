@@ -14,7 +14,7 @@ using EdFi.Ods.Security.Conventions;
 namespace EdFi.Ods.Security.Authorization
 {
     /// <summary>
-    /// Provides extension methods for building resource claim URIs for authorization purposes.
+    /// Provides methods for building resource claim URIs for authorization purposes.
     /// </summary>
     public class ResourceClaimUriProvider : IResourceClaimUriProvider
     {

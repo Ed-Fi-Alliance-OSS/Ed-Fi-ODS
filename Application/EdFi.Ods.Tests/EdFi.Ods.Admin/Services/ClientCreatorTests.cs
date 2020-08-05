@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Admin.Initialization;
@@ -10,6 +10,7 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
@@ -34,9 +35,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
                 var defaultApplicationCreator = A.Fake<IDefaultApplicationCreator>();
 
                 var application = new Application {ApplicationName = "Application.ApplicationName"};
-                application.CreateEducationOrganizationAssociation(111);
-                application.CreateEducationOrganizationAssociation(222);
-                application.CreateEducationOrganizationAssociation(333);
+                application.CreateApplicationEducationOrganization(111);
+                application.CreateApplicationEducationOrganization(222);
+                application.CreateApplicationEducationOrganization(333);
 
                 A.CallTo(
                         () =>
@@ -64,7 +65,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
                         application.ApplicationId)).Returns(apiClient);
 
                 var clientAppConfigValueProviderRepo = A.Fake<IConfigValueProvider>();
-                var creator = new ClientCreator(clientAppConfigValueProviderRepo, clientAppRepo, defaultApplicationCreator);
+
+                var sandboxProvisioner = A.Fake<ISandboxProvisioner>();
+
+                var creator = new ClientCreator(clientAppConfigValueProviderRepo, clientAppRepo, defaultApplicationCreator, sandboxProvisioner);
                 _apiClient = creator.CreateNewSandboxClient(sandboxClientCreateModel, user);
             }
 
@@ -84,6 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
             private IDefaultApplicationCreator _defaultApplicationCreator;
             private ClientCreator _clientCreator;
             private User _user;
+            private ISandboxProvisioner _sandboxProvisioner;
 
             protected override void Arrange()
             {
@@ -93,7 +98,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
 
                 _defaultApplicationCreator = A.Fake<IDefaultApplicationCreator>();
 
-                _clientCreator = new ClientCreator(_configValueProvider, _clientAppRepo, _defaultApplicationCreator);
+                _sandboxProvisioner = A.Fake<ISandboxProvisioner>();
+
+                _clientCreator = new ClientCreator(_configValueProvider, _clientAppRepo, _defaultApplicationCreator, _sandboxProvisioner);
 
                 _user = A.Fake<User>();
                 A.CallTo(() => _user.ApiClients).Returns(new List<ApiClient>());
@@ -147,6 +154,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
             private IDefaultApplicationCreator _defaultApplicationCreator;
             private ClientCreator _clientCreator;
             private User _user;
+            private ISandboxProvisioner _sandboxProvisioner;
 
             protected override void Arrange()
             {
@@ -157,7 +165,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Services
 
                 _defaultApplicationCreator = A.Fake<IDefaultApplicationCreator>();
 
-                _clientCreator = new ClientCreator(_configValueProvider, _clientAppRepo, _defaultApplicationCreator);
+                _sandboxProvisioner = A.Fake<ISandboxProvisioner>();
+
+                _clientCreator = new ClientCreator(_configValueProvider, _clientAppRepo, _defaultApplicationCreator, _sandboxProvisioner);
 
                 _user = A.Fake<User>();
 

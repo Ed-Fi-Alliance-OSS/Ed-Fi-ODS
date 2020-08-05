@@ -34,12 +34,31 @@ namespace EdFi.Admin.DataAccess.Models
         public Application CreateApplication(string applicationName, string claimSetName)
         {
             var application = new Application
-                              {
-                                  ApplicationName = applicationName, Vendor = this, ClaimSetName = claimSetName
-                              };
+            {
+                ApplicationName = applicationName,
+                Vendor = this,
+                ClaimSetName = claimSetName
+            };
 
             Applications.Add(application);
             return application;
+        }
+
+        public static Vendor Create(string vendorName, IEnumerable<string> namespacePrefixes)
+        {
+            var vendor = new Vendor {VendorName = vendorName};
+
+            foreach (string namespacePrefix in namespacePrefixes)
+            {
+                vendor.VendorNamespacePrefixes.Add(
+                    new VendorNamespacePrefix
+                    {
+                        Vendor = vendor,
+                        NamespacePrefix = namespacePrefix
+                    });
+            }
+
+            return vendor;
         }
     }
 }

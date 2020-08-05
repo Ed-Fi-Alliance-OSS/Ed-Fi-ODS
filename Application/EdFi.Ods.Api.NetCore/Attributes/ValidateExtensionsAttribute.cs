@@ -53,7 +53,7 @@ namespace EdFi.Ods.Api.NetCore.Attributes
                         }
                         else
                         {
-                            var extensionBagNameParts = SystemConventions.GetExtensionBagNameParts((string) entry.Key);
+                            var schemaProperCaseName = entry.Key;
 
                             compositeResults.AddResult(
                                 new ValidationResult(

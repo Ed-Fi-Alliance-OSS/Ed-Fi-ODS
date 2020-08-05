@@ -35,8 +35,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         @in = "query",
                         type = "integer",
                         format = "int32",
-                        minItems = 1,
-                        maxItems = 100,
+                        minimum = 1,
+                        maximum  = new DefaultPageSizeLimitProvider().GetDefaultPageSizeLimit(),
                         required = false,
                         @default = 25
                     }

@@ -19,5 +19,10 @@ namespace EdFi.Ods.Common.Security
         /// The name of an assigned Ed-Fi API profile.
         /// </summary>
         public const string Profile = @"http://ed-fi.org/claims/profile";
+
+        /// <summary>
+        /// The name of the claim set assigned to the Ed-Fi ODS API client.
+        /// </summary>
+        public const string ClaimSetName = @"http://ed-fi.org/claims/claimSetName";
     }
 }
