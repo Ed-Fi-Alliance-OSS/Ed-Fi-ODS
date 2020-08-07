@@ -2396,6 +2396,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string LastSurname { get; set; }
 
         // Non-PK properties
+        string ReviewerPersonId { get; set; }
+        string ReviewerSourceSystemDescriptor { get; set; }
 
         // One-to-one relationships
 
@@ -2404,8 +2406,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
-        Guid? PersonResourceId { get; set; }
-        string PersonDiscriminator { get; set; }
+        Guid? ReviewerPersonResourceId { get; set; }
+        string ReviewerPersonDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -3167,6 +3169,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string LastSurname { get; set; }
 
         // Non-PK properties
+        string ReviewerPersonId { get; set; }
+        string ReviewerSourceSystemDescriptor { get; set; }
 
         // One-to-one relationships
 
@@ -3175,8 +3179,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
-        Guid? PersonResourceId { get; set; }
-        string PersonDiscriminator { get; set; }
+        Guid? ReviewerPersonResourceId { get; set; }
+        string ReviewerPersonDiscriminator { get; set; }
     }
 
     /// <summary>

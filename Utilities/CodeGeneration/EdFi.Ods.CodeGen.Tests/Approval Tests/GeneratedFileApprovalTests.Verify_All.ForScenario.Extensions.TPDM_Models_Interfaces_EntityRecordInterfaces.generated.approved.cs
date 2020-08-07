@@ -1362,6 +1362,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        string ReviewerPersonId { get; set; }
+        int? ReviewerSourceSystemDescriptorId { get; set; }
         short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
@@ -1799,6 +1801,8 @@ namespace EdFi.Ods.Entities.Common.Records.TPDM
         string PerformanceEvaluationTitle { get; set; }
         int PerformanceEvaluationTypeDescriptorId { get; set; }
         string PersonId { get; set; }
+        string ReviewerPersonId { get; set; }
+        int? ReviewerSourceSystemDescriptorId { get; set; }
         short SchoolYear { get; set; }
         int SourceSystemDescriptorId { get; set; }
         int TermDescriptorId { get; set; }
