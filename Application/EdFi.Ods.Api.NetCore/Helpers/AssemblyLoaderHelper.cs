@@ -86,7 +86,7 @@ namespace EdFi.Ods.Api.NetCore.Helpers
                         Assembly.GetExecutingAssembly()
                             .Location));
 
-                _logger.Debug($"Loaded assemblies from executing folder:");
+                _logger.Debug($"Loaded assemblies from executing folder: {directoryInfo.FullName}");
 
                 foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll")
                     .Where(fi => ShouldLoad(fi.Name)))

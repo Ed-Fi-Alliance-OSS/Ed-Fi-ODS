@@ -190,7 +190,7 @@ namespace EdFi.Ods.Api.NetCore.Startup
             {
                 foreach (IExternalTask externalTask in Container.Resolve<IEnumerable<IExternalTask>>())
                 {
-                    _logger.Debug($"Running external task {nameof(externalTask)}");
+                    _logger.Debug($"Running external task {externalTask.GetType().Name}");
                     externalTask.Execute();
                 }
             }
