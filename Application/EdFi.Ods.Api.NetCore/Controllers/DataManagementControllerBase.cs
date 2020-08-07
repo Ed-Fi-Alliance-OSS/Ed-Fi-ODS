@@ -140,7 +140,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                return BadRequest("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
             }
 
             var internalRequestAsResource = new TResourceReadModel();
@@ -336,7 +336,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers
                     var urlBuilder = new UriBuilder
                     {
                         Scheme = Request.Scheme,
-                        Host = Request.Host.Value,
+                        Host = Request.Host.ToString(),
                         Path = Request.Path
                     };
 
