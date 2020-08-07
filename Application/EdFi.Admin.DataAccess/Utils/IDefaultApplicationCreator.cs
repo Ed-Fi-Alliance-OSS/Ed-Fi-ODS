@@ -4,11 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Admin.Models;
 
-namespace EdFi.Ods.Admin.Services
+namespace EdFi.Admin.DataAccess.Utils
 {
     public interface IDefaultApplicationCreator
     {
