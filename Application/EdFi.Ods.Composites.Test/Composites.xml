@@ -518,43 +518,6 @@
         </BaseResource>
       </Composite>
 
-      <Composite name="AssessmentWithHierarchicalObjectiveAssessment">
-        <BaseResource name="Assessment">
-          <Property name="AssessmentTitle" />
-          <Property name="AssessmentVersion" />
-
-          <Collection name="AssessmentAcademicSubjects" displayName="academicSubjects">
-            <Property name="AcademicSubjectDescriptor" />
-          </Collection>
-          <Collection name="AssessmentAssessedGradeLevels" displayName="assessedGradeLevels">
-            <Property name="GradeLevelDescriptor" />
-          </Collection>
-
-          <Property name="RevisionDate" />
-          <Property name="MaxRawScore" />
-
-          <LinkedCollection name="ObjectiveAssessments" useHierarchy="true">
-            <Property name="IdentificationCode" />
-            <Property name="ParentIdentificationCode" />
-            <Property name="MaxRawScore" />
-            <Property name="PercentOfAssessment" />
-            <Property name="Nomenclature" />
-            <Property name="Description" />
-
-            <Collection name="ObjectiveAssessmentLearningObjectives" displayName="learningObjectives">
-              <ReferencedResource name="LearningObjectiveReference" flatten="true">
-                <Property name="LearningObjectiveId" />
-                <Property name="Namespace" />
-                <Property name="Description" />
-                <Collection name="LearningObjectiveAcademicSubjects" displayName="academicSubjects">
-                  <Property name="AcademicSubjectDescriptor" />
-                </Collection>
-              </ReferencedResource>
-            </Collection>
-          </LinkedCollection>
-        </BaseResource>
-      </Composite>
-
       <Composite name="Staff">
         <Specification>
           <Parameter name="LocalEducationAgency.Id"
