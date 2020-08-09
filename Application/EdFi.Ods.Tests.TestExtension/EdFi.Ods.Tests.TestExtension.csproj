@@ -32,36 +32,10 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Artifacts\**\Metadata\*.xml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
-    <Content Include="Artifacts\**\Database\*.sql">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
-    <Content Include="Artifacts\**\Schemas\*.xsd">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Marker_EdFi_Ods_Test_TestExtension.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Artifacts\Metadata\**\ApiModel-EXTENSION.json">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="**\*.generated.hbm.xml">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
@@ -70,6 +44,7 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
   </ItemGroup>
    <ItemGroup>
-    <EmbeddedResource Include="NHibernate\Mappings\SqlServer\EntityOrmMappings.hbm.xml" />
+     <EmbeddedResource Include="Artifacts\Metadata\ApiModel.json" />
+     <EmbeddedResource Include="NHibernate\Mappings\SqlServer\EntityOrmMappings.hbm.xml" />
   </ItemGroup>
 </Project>
