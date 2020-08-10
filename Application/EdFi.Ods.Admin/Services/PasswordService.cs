@@ -4,84 +4,69 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Threading.Tasks;
 using EdFi.Ods.Admin.Extensions;
-using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Admin.Models.Results;
+using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Sandbox.Repositories;
-using WebMatrix.WebData;
 
 namespace EdFi.Ods.Admin.Services
 {
     public class PasswordService : IPasswordService
     {
-        private const int PasswordResetTimeoutMinutes = 2 * 24 * 60;
+        private readonly IIdentityProvider _identityProvider;
 
-        private readonly IClientAppRepo _clientAppRepository;
-
-        public PasswordService(IClientAppRepo clientAppRepository)
+        public PasswordService(IIdentityProvider identityProvider)
         {
-            _clientAppRepository = clientAppRepository;
+            _identityProvider = identityProvider;
         }
 
-        public async Task<ConfirmationResult> ConfirmAccountAsync(string secret)
+        public ConfirmationResult ConfirmAccount(string userEmail, string secret)
         {
-            var userName = await _clientAppRepository.GetUserNameFromTokenAsync(secret);
 
-            if (userName == null)
-            {
-                return ConfirmationResult.Failure;
-            }
-
-            if (WebSecurity.IsConfirmed(userName))
+            if (_identityProvider.VerifyUserEmailConfirmed(userEmail))
             {
                 return ConfirmationResult.UserAlreadyConfirmed;
             }
 
-            var success = WebSecurity.ConfirmAccount(secret);
+            var success = _identityProvider.ConfirmEmailWithToken(userEmail, secret);
 
             if (success)
             {
-                var passwordResetToken = WebSecurity.GeneratePasswordResetToken(userName);
-                var result = ConfirmationResult.Successful(userName, passwordResetToken);
+                var passwordResetToken = _identityProvider.GeneratePasswordResetToken(userEmail);
+                var result = ConfirmationResult.Successful(userEmail, passwordResetToken);
                 return result;
             }
 
             return ConfirmationResult.Failure;
         }
 
-        public User GetUserForPasswordResetToken(string secret)
-        {
-            var userId = WebSecurity.GetUserIdFromPasswordResetToken(secret);
-            return _clientAppRepository.GetUser(userId);
-        }
 
-        public PasswordResetResult ValidateRequest(string userName, string secret)
+        public PasswordResetResult ValidateRequest(string userEmail, string secret)
         {
-            if (!WebSecurity.UserExists(userName))
+            if (!_identityProvider.VerifyUserExists(userEmail))
             {
                 return PasswordResetResult.BadUsername;
             }
 
-            if (!WebSecurity.IsConfirmed(userName))
+            if (!_identityProvider.VerifyUserEmailConfirmed(userEmail))
             {
-                if (!WebSecurity.ConfirmAccount(userName, secret))
+                if (!_identityProvider.VerifyUserPassword(userEmail, secret))
                 {
-                    return PasswordResetResult.Expired(userName);
+                    return PasswordResetResult.Expired(userEmail);
                 }
             }
 
             return PasswordResetResult.Successful;
         }
 
-        public string SetPasswordResetSecret(string userName)
+        public string SetPasswordResetSecret(string userEmail)
         {
-            if (!WebSecurity.IsConfirmed(userName))
+            if (!_identityProvider.VerifyUserEmailConfirmed(userEmail))
             {
-                throw new InvalidOperationException(string.Format("User '{0}' has not been confirmed.  Cannot reset password", userName));
+                throw new InvalidOperationException(string.Format("User '{0}' has not been confirmed.  Cannot reset password", userEmail));
             }
 
-            var resetToken = WebSecurity.GeneratePasswordResetToken(userName, PasswordResetTimeoutMinutes);
+            var resetToken = _identityProvider.GeneratePasswordResetToken(userEmail);
 
             return resetToken;
         }

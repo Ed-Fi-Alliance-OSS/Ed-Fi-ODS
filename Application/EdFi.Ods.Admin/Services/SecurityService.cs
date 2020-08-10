@@ -1,14 +1,18 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
 using System.Data.SqlClient;
-using System.Web.Security;
+using System.Security.Principal;
+using System.Web;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Admin.Contexts;
+using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Sandbox.Repositories;
-using WebMatrix.WebData;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EdFi.Ods.Admin.Services
 {
@@ -25,13 +29,13 @@ namespace EdFi.Ods.Admin.Services
             get { return CurrentUser != null; }
         }
 
-        public static UserLookupResult ForUser(User user)
+        public static UserLookupResult ForUser(User user, IPrincipal identity)
         {
             var isAdmin = false;
 
-            if (user != null)
+            if (user != null && identity != null)
             {
-                isAdmin = Roles.IsUserInRole(user.Email, "Administrator");
+                isAdmin = identity.IsInRole(SecurityRoles.Administrator);
             }
 
             return new UserLookupResult
@@ -41,46 +45,40 @@ namespace EdFi.Ods.Admin.Services
         }
     }
 
-    public class UserIdLookupResult
-    {
-        public static readonly UserIdLookupResult Empty = new UserIdLookupResult();
-
-        public int CurrentUserId { get; private set; }
-
-        public bool HasCurrentUser
-        {
-            get { return CurrentUserId != default(int); }
-        }
-
-        public static UserIdLookupResult ForUserId(int id)
-        {
-            return new UserIdLookupResult
-                   {
-                       CurrentUserId = id
-                   };
-        }
-    }
 
     public class SecurityService : ISecurityService
     {
         private readonly IClientAppRepo _clientAppRepo;
+        private readonly AdminIdentityDbContext _adminIdentityDbContext;
 
-        public SecurityService(IClientAppRepo clientAppRepo)
+        public SecurityService(IClientAppRepo clientAppRepo, AdminIdentityDbContext adminIdentityDbContext)
         {
             _clientAppRepo = clientAppRepo;
+            _adminIdentityDbContext = adminIdentityDbContext;
         }
 
         public UserLookupResult GetCurrentUser()
         {
             try
             {
-                var idLookupResult = GetCurrentUserId();
+                string currentUserName = HttpContext.Current.User?.Identity?.Name;
 
-                if (idLookupResult.HasCurrentUser)
+                if (String.IsNullOrEmpty(currentUserName))
                 {
-                    var userProfile = _clientAppRepo.GetUser(idLookupResult.CurrentUserId);
-                    return UserLookupResult.ForUser(userProfile);
+                    return UserLookupResult.Empty;
                 }
+
+                var identityUserStore = new UserStore<IdentityUser>(_adminIdentityDbContext);
+                var identityUserManager = new UserManager<IdentityUser>(identityUserStore);
+                var identityUser = identityUserManager.FindByName(currentUserName);
+
+                if (identityUser == null)
+                {
+                    return UserLookupResult.Empty;
+                }
+
+                var userProfile = _clientAppRepo.GetUser(identityUser.Email);
+                return UserLookupResult.ForUser(userProfile, HttpContext.Current.User);
             }
             catch (SqlException)
             {
@@ -90,17 +88,5 @@ namespace EdFi.Ods.Admin.Services
             return UserLookupResult.Empty;
         }
 
-        public UserIdLookupResult GetCurrentUserId()
-        {
-            try
-            {
-                return UserIdLookupResult.ForUserId(WebSecurity.CurrentUserId);
-            }
-
-            catch (InvalidOperationException) //When there isn't a current user...
-            {
-                return UserIdLookupResult.Empty;
-            }
-        }
     }
 }

@@ -17,8 +17,6 @@ namespace EdFi.Ods.Sandbox.Repositories
 
         Task<string> GetTokenFromUserNameAsync(string userName);
 
-        Task<string> GetUserNameFromTokenAsync(string token);
-
         IEnumerable<User> GetUsers();
 
         User GetUser(int userId);

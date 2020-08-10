@@ -4,14 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Web.Security;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Admin.Contexts;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Sandbox.Repositories;
 using log4net;
-using WebMatrix.WebData;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EdFi.Ods.Admin.Initialization
 {
@@ -20,6 +22,7 @@ namespace EdFi.Ods.Admin.Initialization
         private readonly ILog _log = LogManager.GetLogger(typeof(InitializationEngine));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IClientCreator _clientCreator;
+        private readonly AdminIdentityDbContext _adminIdentityDbContext;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IDefaultApplicationCreator _applicationCreator;
 
@@ -27,6 +30,7 @@ namespace EdFi.Ods.Admin.Initialization
 
         public InitializationEngine(
             InitializationModel initializationModel,
+            AdminIdentityDbContext adminIdentityDbContext,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
@@ -36,6 +40,7 @@ namespace EdFi.Ods.Admin.Initialization
             _settings = initializationModel;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
+            _adminIdentityDbContext = adminIdentityDbContext;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }
@@ -44,12 +49,15 @@ namespace EdFi.Ods.Admin.Initialization
         {
             try
             {
+                var roleStore = new RoleStore<IdentityRole>(_adminIdentityDbContext);
+                var manager = new RoleManager<IdentityRole>(roleStore);
+
                 foreach (var role in SecurityRoles.AllRoles)
                 {
-                    if (!Roles.RoleExists(role))
+                    if (manager.FindByName(role) == null)
                     {
                         _log.Debug($"Adding role: {role} to asp net security.");
-                        Roles.CreateRole(role);
+                        manager.Create(new IdentityRole() {Name = role});
                     }
                 }
             }
@@ -65,22 +73,27 @@ namespace EdFi.Ods.Admin.Initialization
             {
                 foreach (var user in _settings.Users)
                 {
-                    if (WebSecurity.UserExists(user.UserName))
+                    var userStore = new UserStore<IdentityUser>(_adminIdentityDbContext);
+                    var manager = new UserManager<IdentityUser>(userStore);
+                    var identityUser = manager.Find(user.Name, user.Password);
+
+
+                    if (identityUser != null)
                     {
                         continue;
                     }
 
                     _log.Debug($"Adding user: {user} to asp net security.");
-                    WebSecurity.CreateUserAndAccount(user.UserName, user.Password, new {FullName = user.Name});
+                    IdentityResult result = manager.Create(new IdentityUser() { UserName = user.UserName, Email = user.Email }, user.Password);
 
-                    foreach (var role in user.Roles)
+                    if (!result.Succeeded)
                     {
-                        _log.Debug($"Adding user: {user} to role: {role} in asp net security.");
-                        Roles.AddUserToRole(user.Email, role);
+                        _log.Error($"Failed adding user: {user} to asp net security. {string.Join(",", result.Errors)}");
+                        continue;
                     }
-
-                    _log.Debug($"Applying password to  user: {user} in asp net security.");
-                    WebSecurityService.UpdatePasswordAndActivate(user.UserName, user.Password);
+                    identityUser = manager.Find(user.Name, user.Password);
+                    _log.Debug($"Adding user: {user} to roles:  {string.Join(",", user.Roles)} in asp net security.");
+                    manager.AddToRoles(identityUser.Id, user.Roles.ToArray());
                 }
             }
             catch (Exception ex)

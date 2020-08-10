@@ -14,7 +14,6 @@ using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Sandbox.Repositories;
 using log4net;
-using WebMatrix.WebData;
 
 namespace EdFi.Ods.Admin.Services
 {
@@ -26,18 +25,19 @@ namespace EdFi.Ods.Admin.Services
         private readonly IEmailService _emailService;
         private readonly ILog _log = LogManager.GetLogger(typeof(UserAccountManager));
         private readonly IPasswordService _passwordService;
-        private readonly ISecurityService _securityService;
+        private readonly IIdentityProvider _identityProvider;
 
         public UserAccountManager(
             IClientAppRepo clientAppRepository,
             IEmailService emailService,
             IPasswordService passwordService,
-            ISecurityService securityService)
+            ISecurityService securityService,
+            IIdentityProvider identityProvider)
         {
             _clientAppRepository = clientAppRepository;
             _emailService = emailService;
             _passwordService = passwordService;
-            _securityService = securityService;
+            _identityProvider = identityProvider;
         }
 
         public CreateLoginResult Create(CreateLoginModel model)
@@ -49,12 +49,12 @@ namespace EdFi.Ods.Admin.Services
                 return validationResult;
             }
 
-            if (!WebSecurity.UserExists(model.Email))
+            if (!_identityProvider.VerifyUserExists(model.Email))
             {
                 return CreateNewUser(model);
             }
 
-            if (WebSecurity.IsConfirmed(model.Email))
+            if (_identityProvider.VerifyUserEmailConfirmed(model.Email))
             {
                 return new CreateLoginResult
                        {
@@ -83,7 +83,7 @@ namespace EdFi.Ods.Admin.Services
                     return validationResult;
                 }
 
-                WebSecurityService.UpdatePasswordAndActivate(model.UserName, model.Password);
+                _identityProvider.ResetUserPassword(model.Email, model.Password);
 
                 return PasswordResetResult.Successful;
             }
@@ -105,7 +105,7 @@ namespace EdFi.Ods.Admin.Services
 
             try
             {
-                var currentPasswordOkay = WebSecurity.Login(model.UserName, model.CurrentPassword, false);
+                var currentPasswordOkay = _identityProvider.VerifyUserPassword(model.UserName, model.CurrentPassword);
 
                 if (!currentPasswordOkay)
                 {
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Admin.Services
                     return badPasswordResult;
                 }
 
-                WebSecurityService.UpdatePasswordAndActivate(model.UserName, model.NewPassword);
+                _identityProvider.ResetUserPassword(model.UserName, model.NewPassword);
                 return ChangePasswordResult.Successful;
             }
             catch (Exception e)
@@ -131,9 +131,9 @@ namespace EdFi.Ods.Admin.Services
 
         public ForgotPasswordResetResult ForgotPassword(ForgotPasswordModel model)
         {
-            var userProfile = _clientAppRepository.GetUser(model.Email);
+            var userExists = _identityProvider.VerifyUserExists(model.Email);
 
-            if (userProfile == null)
+            if (!userExists)
             {
                 return ForgotPasswordResetResult.BadEmail(model.Email);
             }
@@ -144,14 +144,14 @@ namespace EdFi.Ods.Admin.Services
         public async Task<ForgotPasswordResetResult> ResendConfirmationAsync(ForgotPasswordModel model)
         {
             var userName = model.Email;
-            var badUserName = !WebSecurity.UserExists(userName);
+            var badUserName = _identityProvider.VerifyUserExists(userName);
 
             if (badUserName)
             {
                 return ForgotPasswordResetResult.BadEmail(userName);
             }
 
-            var isConfirmed = WebSecurity.IsConfirmed(userName);
+           var isConfirmed = _identityProvider.VerifyUserEmailConfirmed(userName);
 
             if (isConfirmed)
             {
@@ -187,15 +187,10 @@ namespace EdFi.Ods.Admin.Services
 
             try
             {
-                string confirmationSecret = WebSecurity.CreateUserAndAccount(
-                    model.Email,
-                    randomPassword,
-                    new
-                    {
-                        FullName = model.Name
-                    },
-                    true);
-
+                bool success = _identityProvider.CreateUser(model.Name, model.Email, randomPassword);
+                
+                string confirmationSecret = _identityProvider.GenerateEmailConfirmationToken(model.Email);
+              
                 _clientAppRepository.SetDefaultVendorOnUserFromEmailAndName(model.Email, model.Name);
 
                 _emailService.SendConfirmationEmail(model.Email, confirmationSecret);
@@ -290,7 +285,7 @@ namespace EdFi.Ods.Admin.Services
                 return PasswordResetResult.BadPassword;
             }
 
-            var validateResetRequest = _passwordService.ValidateRequest(model.UserName, model.Marker);
+            var validateResetRequest = _passwordService.ValidateRequest(model.Email, model.Marker);
 
             if (validateResetRequest.Success)
             {

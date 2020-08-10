@@ -44,14 +44,6 @@ namespace EdFi.Ods.Admin.Controllers.Api
             _clientCreator = clientCreator;
         }
 
-        public int UserId
-        {
-            get
-            {
-                return _securityService.GetCurrentUserId()
-                                       .CurrentUserId;
-            }
-        }
 
         private User UserProfile
         {

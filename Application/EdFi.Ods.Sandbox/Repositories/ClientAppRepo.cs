@@ -137,22 +137,6 @@ namespace EdFi.Ods.Sandbox.Repositories
             }
         }
 
-        public async Task<string> GetUserNameFromTokenAsync(string token)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                // Used by Sandbox Admin only, therefore PostgreSQL support is not needed
-                var result = await context
-                    .ExecuteQueryAsync<EmailResult>(
-                        $"select top 1 U.Email from webpages_Membership M join Users U on M.UserId = U.UserId and M.ConfirmationToken = {token}");
-
-                return result.FirstOrDefault() == null
-                    ? null
-                    : result.FirstOrDefault()
-                        .Email;
-            }
-        }
-
         public async Task<string> GetTokenFromUserNameAsync(string userName)
         {
             using (var context = _contextFactory.CreateContext())
@@ -508,16 +492,7 @@ delete ApiClients where ApiClientId = @clientId",
             var namePrefix = "uri://" + userEmail.Split('@')[1]
                 .ToLower();
 
-            var vendorName = userName.Split(',')[0]
-                .Trim();
-
-            using (var context = _contextFactory.CreateContext())
-            {
-                var vendor = FindOrCreateVendorByDomainName(context, vendorName, namePrefix);
-                var usr = context.Users.Single(u => u.Email == userEmail);
-                usr.Vendor = vendor;
-                context.SaveChanges();
-            }
+            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string>(){ namePrefix });
         }
 
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
