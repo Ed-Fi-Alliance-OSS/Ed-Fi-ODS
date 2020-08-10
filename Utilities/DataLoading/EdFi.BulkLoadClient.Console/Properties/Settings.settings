@@ -35,8 +35,5 @@
     <Setting Name="DataFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">..\..\..\..\..\..\..\Ed-Fi-Standard\Samples\Sample XML</Value>
     </Setting>
-    <Setting Name="BaseUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://localhost:54746</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

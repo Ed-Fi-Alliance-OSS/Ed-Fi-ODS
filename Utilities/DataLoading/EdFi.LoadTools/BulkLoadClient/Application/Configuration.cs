@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Text;
 using EdFi.LoadTools.Engine;
+using System.Configuration;
 
 namespace EdFi.LoadTools.BulkLoadClient.Application
 {
@@ -14,13 +15,48 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                                  IDataConfiguration, IOAuthTokenConfiguration, IApiMetadataConfiguration, IXsdConfiguration,
                                  IInterchangeOrderConfiguration
     {
-        public string ApiUrl { get; set; }
+        private readonly string _relativeApiUrl;
+        private readonly string _relativeMetadataUrl;
+        private readonly string _relativeOauthUrl;
+        private readonly string _relativeDependenciesUrl;
+        private readonly string _defaultBaseUrl;
+        private string _apiUrl;
+        private string _metadataUrl;
+        private string _oauthUrl;
+        private string _dependenciesUrl;
+        private string _baseUrl;
+
+        public Configuration()
+        {
+            _relativeApiUrl =  ConfigurationManager.AppSettings.Get("RelativeApiUrl");
+            _relativeMetadataUrl =  ConfigurationManager.AppSettings.Get("RelativeMetadataUrl");
+            _relativeOauthUrl =  ConfigurationManager.AppSettings.Get("RelativeOauthUrl");
+            _relativeDependenciesUrl =  ConfigurationManager.AppSettings.Get("RelativeDependenciesUrl");
+            _defaultBaseUrl =  ConfigurationManager.AppSettings.Get("DefaultBaseUrl");
+        }
+
+        public string ApiUrl
+        {
+            get => !string.IsNullOrEmpty(_apiUrl)
+                ? _apiUrl
+                : new Uri(new Uri(BaseUrl), _relativeApiUrl).ToString();
+
+            
+            set => _apiUrl = value;
+        }
 
         public string OauthKey { get; set; }
 
         public string OauthSecret { get; set; }
 
-        public string OauthUrl { get; set; }
+        public string OauthUrl 
+        { 
+            get => !string.IsNullOrEmpty(_oauthUrl)
+                 ? _oauthUrl
+                 : new Uri(new Uri(BaseUrl), _relativeOauthUrl).ToString(); 
+            
+            set => _oauthUrl = value;
+        }
 
         public string DataFolder { get; set; }
 
@@ -28,7 +64,14 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
         public bool Metadata { get; set; }
 
-        public string MetadataUrl { get; set; }
+        public string MetadataUrl 
+        { 
+            get => !string.IsNullOrEmpty(_metadataUrl) 
+                ? _metadataUrl
+                : new Uri(new Uri(BaseUrl), _relativeMetadataUrl).ToString();
+
+            set => _metadataUrl = value;
+        }
 
         public string XsdFolder { get; set; }
 
@@ -40,7 +83,23 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
         public bool DoNotValidateXml { get; set; }
 
-        public string DependenciesUrl { get; set; }
+        public string DependenciesUrl
+        {
+            get => !string.IsNullOrEmpty(_dependenciesUrl) 
+                ? _dependenciesUrl
+                : new Uri(new Uri(BaseUrl), _relativeDependenciesUrl).ToString(); 
+
+            set => _dependenciesUrl = value;
+        }
+
+        public string BaseUrl
+        {
+            get => !string.IsNullOrEmpty(_baseUrl)
+                ? _baseUrl
+                : _defaultBaseUrl;
+
+            set => _baseUrl = value;
+        }
 
         public bool IsValid
         {
