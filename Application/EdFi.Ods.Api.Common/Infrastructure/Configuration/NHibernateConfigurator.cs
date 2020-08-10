@@ -5,7 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Api.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Common.Providers;
@@ -51,7 +53,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Configuration
             IEnumerable<INHibernateFilterConfigurator> authorizationStrategyConfigurators,
             IFilterCriteriaApplicatorProvider filterCriteriaApplicatorProvider,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
-            IOrmMappingFileDataProvider ormMappingFileDataProvider, 
+            IOrmMappingFileDataProvider ormMappingFileDataProvider,
             IOdsDatabaseConnectionStringProvider connectionStringProvider)
 #endif
         {
@@ -113,7 +115,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Configuration
 #if NETSTANDARD
             // NOTE: the NHibernate documentation states that this file would be automatically loaded, however in testings this was not the case.
             // The expectation is that this file will be in the binaries location.
-            configuration.Configure("hibernate.cfg.xml");
+            configuration.Configure(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
             // NOTE: since we are using the connection string provider instead we just need to configure the connection string.
             configuration.DataBaseIntegration(c => c.ConnectionString = _connectionStringProvider.GetConnectionString());
@@ -128,7 +130,7 @@ namespace EdFi.Ods.Api.Common.Infrastructure.Configuration
                 .Distinct()
                 .ToList();
 
-            // Group the filters by name first (there can only be 1 "default" filter, but flexibility 
+            // Group the filters by name first (there can only be 1 "default" filter, but flexibility
             // to apply same filter name with same parameters to different entities should be supported
             // (and is in fact supported below when filters are applied to individual entity mappings)
             var allFilterDetailsGroupedByName = allFilterDetails

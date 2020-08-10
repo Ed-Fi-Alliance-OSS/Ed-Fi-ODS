@@ -7,27 +7,23 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Admin.DataAccess;
 
-namespace EdFi.Ods.Admin.Services
+namespace EdFi.Admin.DataAccess.Utils
 {
     public class DefaultApplicationCreator : IDefaultApplicationCreator
     {
         private readonly IConfigValueProvider _configValueProvider;
-        private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IUsersContextFactory _usersContextFactory;
 
         public DefaultApplicationCreator(
             IUsersContextFactory usersContextFactory,
-            ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             IConfigValueProvider configValueProvider)
         {
             _usersContextFactory = Preconditions.ThrowIfNull(usersContextFactory, nameof(usersContextFactory));
-            _templateDatabaseLeaQuery = Preconditions.ThrowIfNull(templateDatabaseLeaQuery, nameof(templateDatabaseLeaQuery));
             _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
         }
 
@@ -44,7 +40,7 @@ namespace EdFi.Ods.Admin.Services
             {
                 var vendor = context.Vendors
                                     .Where(x => x.VendorId == vendorId)
-                                    .Include(x => x.Applications.Select(a => a.ApplicationEducationOrganizations))
+                                    .Include(x => x.Applications.Select<Application, ICollection<ApplicationEducationOrganization>>(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
                 var defaultAppName = _configValueProvider.GetValue("DefaultApplicationName");

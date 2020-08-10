@@ -28,7 +28,8 @@ namespace EdFi.Ods.Security.Container.Modules {
                         (pi, ctx) => pi.GetType() == typeof(DatabaseEngine),
                         (pi, ctx) => ctx.Resolve<ApiSettings>()
                             .GetDatabaseEngine()))
-                .As<IUsersContextFactory>().SingleInstance();
+                .As<IUsersContextFactory>();
+
 
             builder.RegisterType<SecurityContextFactory>()
                 .WithParameter(
@@ -36,8 +37,7 @@ namespace EdFi.Ods.Security.Container.Modules {
                         (pi, ctx) => pi.GetType() == typeof(DatabaseEngine),
                         (pi, ctx) => ctx.Resolve<ApiSettings>()
                             .GetDatabaseEngine()))
-                .As<ISecurityContextFactory>()
-                .SingleInstance();
+                .As<ISecurityContextFactory>();
         }
     }
 }

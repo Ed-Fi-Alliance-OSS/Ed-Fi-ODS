@@ -16,6 +16,6 @@ namespace EdFi.Ods.Admin.Services
             : base(configConnectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection(string templateDatabaseName)
-            => new NpgsqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));
+            => new NpgsqlConnection(string.Format((string) _connectionStringTemplate, templateDatabaseName));
     }
 }

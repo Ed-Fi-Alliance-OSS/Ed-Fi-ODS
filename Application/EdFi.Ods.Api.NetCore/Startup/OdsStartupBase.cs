@@ -48,17 +48,9 @@ namespace EdFi.Ods.Api.NetCore.Startup
         private const string CorsPolicyName = "_development_";
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
-        public OdsStartupBase(IWebHostEnvironment env)
+        public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            _logger.Debug("Loading configuration files");
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+            Configuration = (IConfigurationRoot) configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -198,7 +190,7 @@ namespace EdFi.Ods.Api.NetCore.Startup
             {
                 foreach (IExternalTask externalTask in Container.Resolve<IEnumerable<IExternalTask>>())
                 {
-                    _logger.Debug($"Running external task {nameof(externalTask)}");
+                    _logger.Debug($"Running external task {externalTask.GetType().Name}");
                     externalTask.Execute();
                 }
             }

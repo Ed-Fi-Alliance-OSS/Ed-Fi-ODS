@@ -5,9 +5,6 @@
 
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 
@@ -19,6 +16,6 @@ namespace EdFi.Ods.Admin.Services
             : base(configConnectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection(string templateDatabaseName)
-            => new SqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));
+            => new SqlConnection(string.Format((string) _connectionStringTemplate, templateDatabaseName));
     }
 }

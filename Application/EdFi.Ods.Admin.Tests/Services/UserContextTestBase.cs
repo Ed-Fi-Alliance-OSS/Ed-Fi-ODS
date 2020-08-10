@@ -10,6 +10,7 @@ using System.Transactions;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
@@ -148,7 +149,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                         context.Vendors.Add(vendor);
                         context.SaveChanges();
 
-                        var creator = new DefaultApplicationCreator(usersContextFactory, leaQuery, configValueProvider);
+                        var creator = new DefaultApplicationCreator(usersContextFactory, configValueProvider);
 
                         _createdApplication =
                             creator.FindOrCreateUpdatedDefaultSandboxApplication(vendor.VendorId, SandboxType.Sample);
@@ -266,7 +267,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                         context.Vendors.Add(vendor);
                         context.SaveChanges();
 
-                        var creator = new DefaultApplicationCreator(usersContextFactory, leaQuery, configValueProvider);
+                        var creator = new DefaultApplicationCreator(usersContextFactory, configValueProvider);
                         _foundApplication = creator.FindOrCreateUpdatedDefaultSandboxApplication(vendor.VendorId, SandboxType.Sample);
                         context.SaveChanges();
 
