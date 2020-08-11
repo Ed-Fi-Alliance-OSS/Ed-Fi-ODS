@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
@@ -17,5 +18,6 @@ namespace EdFi.Ods.Api.NetCore.Extensions
                && controller.ControllerType.BaseType.IsGenericType
                && controller.ControllerType.BaseType.Name
                    .StartsWith("DataManagement", StringComparison.InvariantCultureIgnoreCase);
-   }
+    }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using EdFi.Ods.Common.Context;
 using Microsoft.AspNetCore.Http;
@@ -65,3 +66,4 @@ namespace EdFi.Ods.Api.NetCore.Infrastructure.Context
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Autofac.Core;
 using EdFi.Ods.Common.Extensibility;
 using log4net;
+
 namespace EdFi.Ods.Api.NetCore.Helpers
 {
     public static class AssemblyLoaderHelper
@@ -175,3 +176,4 @@ namespace EdFi.Ods.Api.NetCore.Helpers
         }
     }
 }
+#endif

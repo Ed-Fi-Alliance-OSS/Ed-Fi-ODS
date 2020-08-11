@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using EdFi.Ods.Api.Common.Caching;
 using Microsoft.Extensions.Caching.Memory;
@@ -40,3 +41,4 @@ namespace EdFi.Ods.Api.NetCore.Providers
                 });
     }
 }
+#endif
