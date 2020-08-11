@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models.Domain;
@@ -317,22 +316,6 @@ namespace EdFi.Ods.Common.Composites
         {
             // No reason not to include the resource in this usage scenario
             return true;
-        }
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        public void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            CompositeResourceModelBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
-        {
-            // Nothing to do
         }
 
         private static void AddItem<T>(IReadOnlyList<T> readOnlyList, T item)

@@ -66,10 +66,6 @@ namespace EdFi.Ods.Common.Composites
 
         public bool ShouldIncludeResourceSubtype() => AttributeValueAsBool(CompositeDefinitionHelper.IncludeResourceSubtype);
 
-        public bool ShouldUseHierarchy() => AttributeValueAsBool(CompositeDefinitionHelper.UseHierarchy);
-
-        public bool ShouldUseReferenceHierarchy() => AttributeValueAsBool(CompositeDefinitionHelper.UseReferencedHierarchy);
-
         public string AttributeValue(string attributeName) => CurrentElement.AttributeValue(attributeName);
 
         public IEnumerable<XElement> PropertyElements() => CurrentElement.Elements(CompositeDefinitionHelper.Property);

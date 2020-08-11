@@ -127,19 +127,6 @@ namespace EdFi.Ods.Common.Composites
         /// <param name="builderContext">The current builder context.</param>
         /// <returns><b>true</b> if the resource can be processed; otherwise <b>false</b>.</returns>
         bool TryIncludeResource(CompositeDefinitionProcessorContext processorContext, TBuilderContext builderContext);
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            TBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext);
     }
 
     public class CompositePropertyProjection

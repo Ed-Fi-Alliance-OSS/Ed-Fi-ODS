@@ -104,10 +104,6 @@ namespace EdFi.Ods.Common.Composites
 
             ApplyLocalIdentifyingProperties(builderContext, processorContext, nonIncomingIdentifyingProperties);
 
-            ApplySelfReferencingAssociations(builderContext, processorContext);
-
-            ApplyReferenceHierarchy(builderContext, processorContext);
-
             // Capture current applicable builder state so it can be modified further at this level without changes affecting children
             _compositeBuilder.SnapshotParentingContext(builderContext);
 
@@ -148,34 +144,6 @@ namespace EdFi.Ods.Common.Composites
             }
 
             return thisBuildResult;
-        }
-
-        private void ApplyReferenceHierarchy(TBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext)
-        {
-            if (processorContext.ShouldUseReferenceHierarchy())
-            {
-                string referenceName = processorContext.AttributeValue(CompositeDefinitionHelper.HierarchicalReferenceName);
-
-                var referencedResourceClass = processorContext.CurrentResourceClass.ReferenceByName[referenceName]
-                                                              .ReferencedResource;
-
-                _compositeBuilder.ApplySelfReferencingProperties(
-                    referencedResourceClass.Entity.SelfReferencingAssociations,
-                    builderContext,
-                    processorContext);
-            }
-        }
-
-        private void ApplySelfReferencingAssociations(TBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext)
-        {
-            if (processorContext.CurrentResourceClass.Entity.HasSelfReferencingAssociations
-                && processorContext.ShouldUseHierarchy())
-            {
-                _compositeBuilder.ApplySelfReferencingProperties(
-                    processorContext.CurrentResourceClass.Entity.SelfReferencingAssociations,
-                    builderContext,
-                    processorContext);
-            }
         }
 
         private void ApplyLocalIdentifyingProperties(TBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext,

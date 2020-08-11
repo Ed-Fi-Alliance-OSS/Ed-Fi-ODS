@@ -3308,6 +3308,8 @@
 
 
     <!-- Properties -->
+    <property name="ReviewerPersonId" column="ReviewerPersonId" type="string" length="32" />
+    <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
     <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -3329,9 +3331,9 @@
     </set>
 
     <!-- Aggregate references -->
-    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="PersonId" />
-      <column name="SourceSystemDescriptorId" />
+    <many-to-one name="ReviewerPersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ReviewerPersonId" />
+      <column name="ReviewerSourceSystemDescriptorId" />
     </many-to-one>
 
     <!-- Back references -->
@@ -4142,6 +4144,8 @@
 
 
     <!-- Properties -->
+    <property name="ReviewerPersonId" column="ReviewerPersonId" type="string" length="32" />
+    <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
     <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Api.NHibernate.Architecture.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -4161,9 +4165,9 @@
     </set>
 
     <!-- Aggregate references -->
-    <many-to-one name="PersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="PersonId" />
-      <column name="SourceSystemDescriptorId" />
+    <many-to-one name="ReviewerPersonReferenceData" class="EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi.PersonReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ReviewerPersonId" />
+      <column name="ReviewerSourceSystemDescriptorId" />
     </many-to-one>
 
     <!-- Back references -->

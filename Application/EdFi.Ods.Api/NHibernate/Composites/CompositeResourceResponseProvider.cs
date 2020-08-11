@@ -54,7 +54,6 @@ namespace EdFi.Ods.Api.NHibernate.Composites
 
         public CompositeResourceResponseProvider(
             ISessionFactory sessionFactory,
-            IConfigValueProvider configValueProvider,
             ICompositeDefinitionProcessor<HqlBuilderContext, CompositeQuery> compositeDefinitionProcessor,
             IResourceModelProvider resourceModelProvider,
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
@@ -240,12 +239,11 @@ namespace EdFi.Ods.Api.NHibernate.Composites
             Hashtable parentRow,
             string[] parentKeys,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
-            NullValueHandling nullValueHandling,
-            IDictionary<string, string> recursiveChildKeyMap = null)
+            NullValueHandling nullValueHandling)
         {
             var results = new List<IDictionary>();
 
-            var currentEnumerator = query.GetEnumerator(parentRow, parentKeys, recursiveChildKeyMap);
+            var currentEnumerator = query.GetEnumerator(parentRow);
 
             do
             {
@@ -264,7 +262,7 @@ namespace EdFi.Ods.Api.NHibernate.Composites
                 }
 
                 // If the child is outside the context of the parent, quit processing
-                if (parentRow != null && !IsChildRow(parentKeys, parentRow, recursiveChildKeyMap, currentRow))
+                if (parentRow != null && !IsChildRow(parentKeys, parentRow, currentRow))
                 {
                     break;
                 }
@@ -302,32 +300,7 @@ namespace EdFi.Ods.Api.NHibernate.Composites
                            .ApplyCardinality(childQuery.IsSingleItemResult);
                 }
 
-                // Is the current query recursive?
-                if (query.IsRecursive)
-                {
-                    // Need to add a child "self" collection with recursion
-                    resultItem[query.DisplayName] = ProcessResults(
-                        query,
-                        currentRow,
-                        query.KeyFields,
-                        fieldSelections,
-                        nullValueHandling,
-                        query.RecursiveChildKeyMap);
-
-                    // Strip out hierarchical support fields from the response
-                    resultItem.Keys.OfType<string>()
-                              .Where(k => k.StartsWith(CompositeDefinitionHelper.HierarchyMarker))
-                              .ToList()
-                              .ForEach(k => resultItem.Remove(k));
-
-                    // Add the row - we're done.
-                    results.Add(resultItem);
-                }
-                else
-                {
-                    // Just add the row - we're done.
-                    results.Add(resultItem);
-                }
+                results.Add(resultItem);
             }
             while (currentEnumerator.MoveNext());
 
@@ -367,8 +340,7 @@ namespace EdFi.Ods.Api.NHibernate.Composites
             }
 
             var keysToProcess = keys.Where(x => !x.StartsWith(CompositeDefinitionHelper.Marker)
-                                                && !x.EndsWith(CompositeDefinitionHelper.NamespaceMarker)
-                                                && !x.StartsWith(CompositeDefinitionHelper.HierarchyMarker));
+                                                && !x.EndsWith(CompositeDefinitionHelper.NamespaceMarker));
 
             // Retain order of properties
             // since pass through items are not in the resource and/or domain model, we need to add them as part of the return fields.
@@ -464,23 +436,10 @@ namespace EdFi.Ods.Api.NHibernate.Composites
             }
         }
 
-        private bool IsChildRow(string[] parentKeys, Hashtable parentRow, IDictionary<string, string> recursiveChildKeyMap, Hashtable currentRow)
+        private bool IsChildRow(string[] parentKeys, Hashtable parentRow, Hashtable currentRow)
         {
-            // If no explicit key fields for the children are provided, match values based on name.
-            if (recursiveChildKeyMap == null)
-            {
-                return parentKeys.All(k => Equals(parentRow[k], currentRow[k]));
-            }
-
-            // Explicit child keys have been provided, so match based on values retrieved by name, but positionally for the child
-            return recursiveChildKeyMap
-                  .Select(
-                       kvp =>
-                           new
-                           {
-                               ParentKeyValue = parentRow[kvp.Key], ChildKeyValue = currentRow[kvp.Value]
-                           })
-                  .All(x => Equals(x.ParentKeyValue, x.ChildKeyValue));
+            // Match values based on name.
+            return parentKeys.All(k => Equals(parentRow[k], currentRow[k]));
         }
     }
 }

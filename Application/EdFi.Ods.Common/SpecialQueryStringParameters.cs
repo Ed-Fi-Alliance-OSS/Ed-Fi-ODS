@@ -34,7 +34,7 @@ namespace EdFi.Ods.Common
         public static readonly string Offset = "offset";
 
         /// <summary>
-        /// Gets the name of the parameter used for debugging/diagnostic correlation of request with thier log entries.
+        /// Gets the name of the parameter used for debugging/diagnostic correlation of request with their log entries.
         /// </summary>
         public static readonly string CorrelationId = "$correlationId";
 
