@@ -12,7 +12,7 @@ using System.Linq;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.NetCore.Routing;
+using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;

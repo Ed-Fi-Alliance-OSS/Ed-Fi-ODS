@@ -3,13 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
 using System.Transactions;
-using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Ods.Api.NetCore.Providers;
+using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;

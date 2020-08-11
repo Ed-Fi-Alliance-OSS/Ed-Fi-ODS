@@ -9,7 +9,7 @@ using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Container;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.NetCore.Routing;
+using EdFi.Ods.Api.Routing;
 using EdFi.Ods.ChangeQueries.Providers;
 
 namespace EdFi.Ods.ChangeQueries.Container.Modules

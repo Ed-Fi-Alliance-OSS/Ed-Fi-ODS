@@ -7,7 +7,7 @@
 using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Dtos;
-using EdFi.Ods.Api.NetCore.Routing;
+using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 

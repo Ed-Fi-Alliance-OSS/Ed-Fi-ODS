@@ -8,9 +8,7 @@ using Autofac;
 using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Container;
-using EdFi.Ods.Api.NetCore.Providers;
-using EdFi.Ods.Api.NetCore.Routing;
-using EdFi.Ods.Features.Composites;
+using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Features.RouteInformations;
 
 namespace EdFi.Ods.Features.Container.Modules

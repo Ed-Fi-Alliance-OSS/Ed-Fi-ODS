@@ -11,7 +11,6 @@ using System.Web;
 using System.Web.Http;
 using EdFi.Ods.Api.Common.Models.Tokens;
 using EdFi.Ods.Api.Services.Authentication;
-using EdFi.Ods.Api.Services.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
 using EdFi.Ods.Sandbox.Repositories;

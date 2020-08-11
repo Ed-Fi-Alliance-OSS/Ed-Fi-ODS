@@ -11,7 +11,7 @@ using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.NetCore.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Helpers;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;

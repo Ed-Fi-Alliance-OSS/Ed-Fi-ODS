@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using Microsoft.AspNetCore.Http;
-using EdFi.Ods.Api.NetCore.Providers;
+using EdFi.Ods.Api.Providers;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {

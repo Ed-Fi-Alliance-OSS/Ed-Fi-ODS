@@ -11,11 +11,9 @@ using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Common.Models.Identity;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.HttpRouteConfigurations;
-using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Metadata;
 using EdFi.Ods.Features.IdentityManagement;
-using EdFi.Ods.Features.OpenApiMetadata;
-using EdFi.Ods.Features.OpenApiMetadata.Providers;
 
 namespace EdFi.Ods.Features.Container.Installers
 {

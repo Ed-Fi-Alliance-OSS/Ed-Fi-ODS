@@ -16,6 +16,7 @@ using EdFi.Ods.Api.Common;
 using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.Models.Identity;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;

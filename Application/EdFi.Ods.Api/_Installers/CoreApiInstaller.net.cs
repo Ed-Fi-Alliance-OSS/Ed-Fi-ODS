@@ -25,10 +25,10 @@ using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Common.Validation;
 using EdFi.Ods.Api.Context;
 using EdFi.Ods.Api.ETag;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authentication.ClientCredentials;
 using EdFi.Ods.Api.Services.Authorization;
-using EdFi.Ods.Api.Services.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
@@ -361,5 +361,4 @@ namespace EdFi.Ods.Api._Installers
         }
     }
 }
-
 #endif
