@@ -67,9 +67,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                 var usersContextFactory = Stub<IUsersContextFactory>();
 
                 A.CallTo(() => usersContextFactory.CreateContext())
-                    .Returns(new SqlServerUsersContext());
+                    .Returns(new SqlServerUsersContext(ConnectionString));
 
-                using (var context = new SqlServerUsersContext())
+                using (var context = new SqlServerUsersContext(ConnectionString))
                 {
                     var vendor = new Vendor {VendorName = _vendorName};
 
@@ -172,9 +172,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                 var usersContextFactory = Stub<IUsersContextFactory>();
 
                 A.CallTo(() => usersContextFactory.CreateContext())
-                    .Returns(new SqlServerUsersContext());
+                    .Returns(new SqlServerUsersContext(ConnectionString));
 
-                using (var context = new SqlServerUsersContext())
+                using (var context = new SqlServerUsersContext(ConnectionString))
                 {
                     var vendor = new Vendor {VendorName = vendorName};
 
