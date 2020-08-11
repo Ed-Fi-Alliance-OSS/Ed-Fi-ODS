@@ -6,13 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Extensions;
-using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.CodeGen.Generators
@@ -21,18 +17,7 @@ namespace EdFi.Ods.CodeGen.Generators
     {
         private const string QueryModelSuffix = "Q";
         private static readonly object NotRendered = null;
-        private readonly IViewsProvider _viewsProvider;
-        private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
-
-        public EntitiesForQueries(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
-        {
-            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
-            Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
-
-            _viewsProvider = viewsProvider;
-            _databaseTypeTranslator = databaseTypeTranslator;
-        }
 
         protected override void Configure()
         {
@@ -44,36 +29,26 @@ namespace EdFi.Ods.CodeGen.Generators
             var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
 
             var orderedAggregates = domainModel.Aggregates
-                                               .Where(
-                                                    a =>
-                                                        a.Members.Any(
-                                                            e => _shouldRenderEntityForSchema(e)
-                                                                 || e.Extensions.Any(
-                                                                     ex =>
-                                                                         _shouldRenderEntityForSchema
-                                                                             (ex))))
-                                               .OrderBy(x => x.FullName.Name);
+                .Where(
+                    a => a.Members.Any(
+                        e => _shouldRenderEntityForSchema(e) || e.Extensions.Any(ex => _shouldRenderEntityForSchema(ex))))
+                .OrderBy(x => x.FullName.Name);
 
             var result = new
-                         {
-                             Aggregates = orderedAggregates
-                                .Select(
-                                     aggregate => new
-                                                  {
-                                                      AggregateName = aggregate.Name, AggregateNamespace =
-                                                          aggregate.AggregateRoot.AggregateQueryNamespace(
-                                                              TemplateContext.SchemaProperCaseName,
-                                                              TemplateContext.IsExtension),
-                                                      Classes = aggregate.Members.Where(
-                                                                              e =>
-                                                                                  _shouldRenderEntityForSchema(e))
-                                                                         .Concat(
-                                                                              aggregate.Members.SelectMany(m => m.Extensions)
-                                                                                       .Where(ex => _shouldRenderEntityForSchema(ex)))
-                                                                         .SelectMany(entity => GetClasses(aggregate, entity)),
-                                                      HasDiscriminator = aggregate.AggregateRoot.HasDiscriminator()
-                                                  })
-                         };
+            {
+                Aggregates = orderedAggregates.Select(
+                    aggregate => new
+                    {
+                        AggregateName = aggregate.Name,
+                        AggregateNamespace = aggregate.AggregateRoot.AggregateQueryNamespace(
+                            TemplateContext.SchemaProperCaseName,
+                            TemplateContext.IsExtension),
+                        Classes = aggregate.Members.Where(e => _shouldRenderEntityForSchema(e))
+                            .Concat(aggregate.Members.SelectMany(m => m.Extensions).Where(ex => _shouldRenderEntityForSchema(ex)))
+                            .SelectMany(entity => GetClasses(aggregate, entity)),
+                        HasDiscriminator = aggregate.AggregateRoot.HasDiscriminator()
+                    })
+            };
 
             return result;
         }
@@ -84,91 +59,95 @@ namespace EdFi.Ods.CodeGen.Generators
 
             foreach (var classContext in classContexts)
             {
-                yield return
-                    new
+                yield return new
+                {
+                    AggregateName = aggregate.Name,
+                    ClassName = entity.Name,
+                    TableName = entity.Name,
+                    SchemaName = entity.Schema,
+                    ClassNameSuffix = QueryModelSuffix,
+                    IsAggregateRoot = entity.IsAggregateRoot,
+                    IsAbstract = entity.IsAbstract,
+                    IsDerived = entity.IsDerived,
+                    IsConcreteEntityBaseClass = classContext.IsConcreteEntityBaseClass,
+                    IsConcreteEntityChildClassForBase = classContext.IsConcreteEntityChildClassForBase,
+                    BaseAggregateRootRelativeNamespace = entity.IsDerived
+                        ? entity.BaseEntity.GetRelativeEntityNamespace(
+                            entity.BaseEntity.SchemaProperCaseName(),
+                            true,
+                            !entity.BaseEntity.IsEdFiStandardEntity)
+                        + (!entity.BaseEntity.IsAbstract
+                            ? "Base"
+                            : string.Empty)
+                        + QueryModelSuffix
+                        : NotRendered,
+                    PrimaryKey = new
                     {
-                        AggregateName = aggregate.Name, ClassName = entity.Name, TableName = entity.Name, SchemaName = entity.Schema,
-                        ClassNameSuffix = QueryModelSuffix,
-                        IsAggregateRoot = entity.IsAggregateRoot,
-                        entity.IsAbstract, entity.IsDerived, classContext.IsConcreteEntityBaseClass,
-                        classContext.IsConcreteEntityChildClassForBase, BaseAggregateRootRelativeNamespace =
-                            entity.IsDerived
-                                ? entity.BaseEntity.GetRelativeEntityNamespace(
-                                      entity.BaseEntity.SchemaProperCaseName(),
-                                      true,
-                                      !entity.BaseEntity.IsEdFiStandardEntity)
-                                  + (!entity.BaseEntity.IsAbstract
-                                      ? "Base"
-                                      : string.Empty)
-                                  + QueryModelSuffix
-                                : NotRendered,
-                        PrimaryKey = new
-                                     {
-                                         ParentReference = entity.ParentAssociation != null
-                                             ? new
-                                               {
-                                                   ParentClassName = entity.Parent.Name, FullyQualifiedParentClassName =
-                                                       $"{entity.GetRelativeAggregateNamespace(entity.Parent.IsEdFiStandardEntity ? EdFiConventions.ProperCaseName : TemplateContext.SchemaProperCaseName, isQueryModel: true)}.{entity.Parent.Name}",
-                                                   ContextualSuffix = (classContext.IsConcreteEntityChildClassForBase
-                                                                          ? "Base"
-                                                                          : string.Empty)
-                                                                      + QueryModelSuffix
-                                               }
-                                             : NotRendered,
-                                         NonParentProperties = entity
-                                                              .Identifier
-                                                              .Properties
-                                                              .Where(p => !p.IsFromParent)
-                                                              .Select(
-                                                                   p => new
-                                                                        {
-                                                                            entity.IsAbstract,
-                                                                            NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
-                                                                            CSharpDeclaredType =
-                                                                                p.PropertyType.ToCSharp(includeNullability: true),
-                                                                            CSharpSafePropertyName =
-                                                                                p.PropertyName.MakeSafeForCSharpClass(entity.Name)
-                                                                        })
-                                     },
-                        Properties = GetMappedProperties(entity)
-                                    .OrderBy(p => p.PropertyName)
-                                    .Select(
-                                         p => new
-                                              {
-                                                  CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true), PropertyName = p.PropertyName.ToMixedCase()
-                                              }),
-                        HasOneToOnes = GetMappedNavigableOneToOnes(entity).Any(), OneToOnes = GetMappedNavigableOneToOnes(entity)
-                           .Select(
-                                a => new
-                                     {
-                                         OtherClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix
-                                     }),
-                        NavigableChildren = GetMappedCollectionAssociations(entity)
-                                           .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                           .OrderBy(a => a.Name)
-                                           .SelectMany(a => GetContextualNavigableChildren(a, classContext)),
-                        HasNonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
-                           .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
-                        NonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
-                                              .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                              .OrderBy(a => a.Name)
-                                              .Select(GetContextualNonNavigableChild),
-                        HasNonNavigableParents = GetMappedExternalParentAssociations(entity)
-                           .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
-                        NonNavigableParents = GetMappedExternalParentAssociations(entity)
-                                             .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
-                                             .OrderBy(a => a.Name)
-                                             .Select(
-                                                  a => new
-                                                       {
-                                                           AggregateRelativeNamespace = a.OtherEntity.GetRelativeAggregateNamespace(
-                                                               TemplateContext.SchemaProperCaseName,
-                                                               isQueryModel: true,
-                                                               isExtensionContext: TemplateContext.IsExtension),
-                                                           ClassName = a.OtherEntity.Name, ClassNameSuffix = QueryModelSuffix,
-                                                           AssociationName = a.Name
-                                                       })
-                    };
+                        ParentReference = entity.ParentAssociation != null
+                            ? new
+                            {
+                                ParentClassName = entity.Parent.Name,
+                                FullyQualifiedParentClassName =
+                                    $"{entity.GetRelativeAggregateNamespace(entity.Parent.IsEdFiStandardEntity ? EdFiConventions.ProperCaseName : TemplateContext.SchemaProperCaseName, isQueryModel: true)}.{entity.Parent.Name}",
+                                ContextualSuffix = (classContext.IsConcreteEntityChildClassForBase
+                                        ? "Base"
+                                        : string.Empty)
+                                    + QueryModelSuffix
+                            }
+                            : NotRendered,
+                        NonParentProperties = entity.Identifier.Properties.Where(p => !p.IsFromParent)
+                            .Select(
+                                p => new
+                                {
+                                    IsAbstract = entity.IsAbstract,
+                                    NeedsOverride = entity.IsDerived && !p.IsInheritedIdentifyingRenamed,
+                                    CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
+                                    CSharpSafePropertyName = p.PropertyName.MakeSafeForCSharpClass(entity.Name)
+                                })
+                    },
+                    Properties = GetMappedProperties(entity)
+                        .OrderBy(p => p.PropertyName)
+                        .Select(
+                            p => new
+                            {
+                                CSharpDeclaredType = p.PropertyType.ToCSharp(includeNullability: true),
+                                PropertyName = p.PropertyName.ToMixedCase()
+                            }),
+                    HasOneToOnes = GetMappedNavigableOneToOnes(entity).Any(),
+                    OneToOnes = GetMappedNavigableOneToOnes(entity)
+                    .Select(
+                        a => new
+                        {
+                            OtherClassName = a.OtherEntity.Name,
+                            ClassNameSuffix = QueryModelSuffix
+                        }),
+                    NavigableChildren = GetMappedCollectionAssociations(entity)
+                        .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                        .OrderBy(a => a.Name)
+                        .SelectMany(a => GetContextualNavigableChildren(a, classContext)),
+                    HasNonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
+                        .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
+                    NonNavigableChildren = GetMappedExternalCollectionAssociations(entity)
+                        .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                        .OrderBy(a => a.Name)
+                        .Select(GetContextualNonNavigableChild),
+                    HasNonNavigableParents = GetMappedExternalParentAssociations(entity)
+                        .Any(a => _shouldRenderEntityForSchema(a.OtherEntity)),
+                    NonNavigableParents = GetMappedExternalParentAssociations(entity)
+                        .Where(a => _shouldRenderEntityForSchema(a.OtherEntity))
+                        .OrderBy(a => a.Name)
+                        .Select(
+                            a => new
+                            {
+                                AggregateRelativeNamespace = a.OtherEntity.GetRelativeAggregateNamespace(
+                                    TemplateContext.SchemaProperCaseName,
+                                    isQueryModel: true,
+                                    isExtensionContext: TemplateContext.IsExtension),
+                                ClassName = a.OtherEntity.Name,
+                                ClassNameSuffix = QueryModelSuffix,
+                                AssociationName = a.Name
+                            })
+                };
             }
         }
 
@@ -181,18 +160,20 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return entity.NonNavigableChildren
 
-                          // NOTE: This filter prevents collections related to hierarchical structures from being rendered. It may make sense to include these.
-                         .Where(a => !a.IsSelfReferencing && !(a.IsSelfReferencingManyToMany && a.AssociatesEntitiesOfTheSameAggregate));
+                // NOTE: This filter prevents collections related to hierarchical structures from being rendered. It may make sense to include these.
+                .Where(a => !a.IsSelfReferencing && !(a.IsSelfReferencingManyToMany && a.AssociatesEntitiesOfTheSameAggregate));
         }
 
         private static IEnumerable<AssociationView> GetMappedCollectionAssociations(Entity entity)
         {
             return entity.NavigableChildren
 
-                          // NOTE: This concatenation adds in self-many-to-many collections under "Collections", while removing the filter on 
-                          // GetMappedExternalCollectionAssociations will allow it to come in there, which is more appropriate, and then the following
-                          // statement could be removed.
-                         .Concat(entity.NonNavigableChildren.Where(a => a.AssociatesEntitiesOfTheSameAggregate && a.IsSelfReferencingManyToMany));
+                // NOTE: This concatenation adds in self-many-to-many collections under "Collections", while removing the filter on 
+                // GetMappedExternalCollectionAssociations will allow it to come in there, which is more appropriate, and then the following
+                // statement could be removed.
+                .Concat(
+                    entity.NonNavigableChildren.Where(
+                        a => a.AssociatesEntitiesOfTheSameAggregate && a.IsSelfReferencingManyToMany));
         }
 
         private static IEnumerable<EntityProperty> GetMappedProperties(Entity entity)
@@ -210,28 +191,25 @@ namespace EdFi.Ods.CodeGen.Generators
         private IEnumerable<object> GetContextualNavigableChildren(AssociationView a, ClassContext classContext)
         {
             yield return new
-                         {
-                             ClassNameSuffix = QueryModelSuffix, 
-                             ChildClassName = a.OtherEntity.Name,
-                             AssociationName = a.Name,
-                             IsChildForConcreteBase = classContext.IsConcreteEntityBaseClass
-                         };
+            {
+                ClassNameSuffix = QueryModelSuffix,
+                ChildClassName = a.OtherEntity.Name,
+                AssociationName = a.Name,
+                IsChildForConcreteBase = classContext.IsConcreteEntityBaseClass
+            };
         }
 
         private object GetContextualNonNavigableChild(AssociationView a)
         {
             return new
-                 {
-                     AggregateRelativeNamespace =
-                         a.OtherEntity.GetRelativeAggregateNamespace(
-                             a.OtherEntity.ResolvedEdFiEntity()
-                              .SchemaProperCaseName(),
-                             isQueryModel: true,
-                             isExtensionContext: !a.OtherEntity.ResolvedEdFiEntity()
-                                                   .IsEdFiStandardEntity),
-                     ChildClassName = a.OtherEntity.ResolvedEdFiEntityName() + QueryModelSuffix,
-                     AssociationName = a.Name
-                 };
+            {
+                AggregateRelativeNamespace = a.OtherEntity.GetRelativeAggregateNamespace(
+                    a.OtherEntity.ResolvedEdFiEntity().SchemaProperCaseName(),
+                    isQueryModel: true,
+                    isExtensionContext: !a.OtherEntity.ResolvedEdFiEntity().IsEdFiStandardEntity),
+                ChildClassName = a.OtherEntity.ResolvedEdFiEntityName() + QueryModelSuffix,
+                AssociationName = a.Name
+            };
         }
 
         private static IEnumerable<ClassContext> GetClassGenerationContexts(Entity entity)
@@ -241,22 +219,22 @@ namespace EdFi.Ods.CodeGen.Generators
             if (!entity.IsAbstract && entity.IsBase)
             {
                 // For concrete base classes, we also need to generate a separate class to act as the base for the derived classes (an NHibernate mapping requirement)
-                yield return
-                    new ClassContext
-                    {
-                        IsConcreteEntityBaseClass = true, IsConcreteEntityChildClassForBase = false
-                    };
+                yield return new ClassContext
+                {
+                    IsConcreteEntityBaseClass = true,
+                    IsConcreteEntityChildClassForBase = false
+                };
             }
             else if (!entity.IsAggregateRoot // For child classes
-                     && !entity.Aggregate.AggregateRoot.IsAbstract // Where the aggregate root is not abstract
-                     && entity.Aggregate.AggregateRoot.IsBase) // ... and the aggregate root is a base class
+                && !entity.Aggregate.AggregateRoot.IsAbstract // Where the aggregate root is not abstract
+                && entity.Aggregate.AggregateRoot.IsBase) // ... and the aggregate root is a base class
             {
                 // For children of concrete base classes, we need to generate a separate class for when the parent is having the special base class generated
-                yield return
-                    new ClassContext
-                    {
-                        IsConcreteEntityBaseClass = false, IsConcreteEntityChildClassForBase = true
-                    };
+                yield return new ClassContext
+                {
+                    IsConcreteEntityBaseClass = false,
+                    IsConcreteEntityChildClassForBase = true
+                };
             }
         }
 
