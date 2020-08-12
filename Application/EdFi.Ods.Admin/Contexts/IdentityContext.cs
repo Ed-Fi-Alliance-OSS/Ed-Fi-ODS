@@ -12,12 +12,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EdFi.Ods.Admin.Contexts
 {
-    public class AdminIdentityDbContext : IdentityDbContext
+    public class IdentityContext : IdentityDbContext
     {
         public const string ConnectionStringName = "EdFi_Admin";
 
 
-        public AdminIdentityDbContext()
+        public IdentityContext()
             : base(ConnectionStringName) { }
     }
 }

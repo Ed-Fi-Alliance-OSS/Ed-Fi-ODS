@@ -30,7 +30,6 @@ namespace EdFi.Ods.Admin.Initialization
 
         public InitializationEngine(
             InitializationModel initializationModel,
-            AdminIdentityDbContext adminIdentityDbContext,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
