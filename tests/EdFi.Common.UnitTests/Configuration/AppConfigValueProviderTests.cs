@@ -5,6 +5,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 
@@ -27,7 +28,13 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
             [SetUp]
             public void SetUp()
             {
-                SystemUnderTest = new AppConfigValueProvider();
+                var config = new ConfigurationBuilder()
+                   .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                   .AddJsonFile("appsettings.json", optional: true)
+                   .AddEnvironmentVariables()
+                   .Build();
+
+                SystemUnderTest = new AppConfigValueProvider(config);
             }
         }
 
