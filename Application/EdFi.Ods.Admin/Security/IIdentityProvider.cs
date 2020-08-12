@@ -3,6 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
+
 namespace EdFi.Ods.Admin.Security
 {
     public interface IIdentityProvider
@@ -13,7 +16,13 @@ namespace EdFi.Ods.Admin.Security
 
         bool VerifyUserPassword(string userName, string password);
 
+        IdentityUser FindUser(string userName);
+
+        IdentityUser FindUserByEmail(string userEmail);
+
         bool Login(string userEmail, string password);
+
+        void CreateRole(string role);
 
         bool ResetUserPassword(string userName, string newPassword);
 
@@ -24,5 +33,7 @@ namespace EdFi.Ods.Admin.Security
         bool ConfirmEmailWithToken(string email, string token);
 
         string GeneratePasswordResetToken(string email);
+
+        void AddToRoles(string userId, IEnumerable<string> roles);
     }
 }

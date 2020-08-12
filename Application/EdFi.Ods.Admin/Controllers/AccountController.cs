@@ -15,10 +15,6 @@ using EdFi.Ods.Admin.Models.Results;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
 using EdFi.Admin.DataAccess.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using EdFi.Ods.Admin.Contexts;
-using Microsoft.Owin.Security;
 
 namespace EdFi.Ods.Admin.Controllers
 {
@@ -28,12 +24,9 @@ namespace EdFi.Ods.Admin.Controllers
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IPasswordService _passwordService;
         private readonly ISecurityService _securityService;
-        private readonly AdminIdentityDbContext _adminIdentityDbContext;
-
         private readonly IUserAccountManager _userAccountManager;
 
         public AccountController(
-            AdminIdentityDbContext adminIdentityDbContext,
             IUserAccountManager userAccountManager,
             IPasswordService passwordService,
             ISecurityService securityService,
@@ -43,7 +36,6 @@ namespace EdFi.Ods.Admin.Controllers
             _passwordService = passwordService;
             _securityService = securityService;
             _clientAppRepo = clientAppRepo;
-            _adminIdentityDbContext = adminIdentityDbContext;
         }
 
         public ActionResult SessionInfo()
@@ -222,9 +214,9 @@ namespace EdFi.Ods.Admin.Controllers
 
         [HttpPost]
         [Authorize(Roles = SecurityRoles.Administrator)]
-        public async Task<ActionResult> ResendAccountActivation(ForgotPasswordModel model)
+        public ActionResult ResendAccountActivation(ForgotPasswordModel model)
         {
-            var result = await _userAccountManager.ResendConfirmationAsync(model);
+            var result = _userAccountManager.ResendConfirmationAsync(model);
 
             if (result.Success)
             {
@@ -285,16 +277,8 @@ namespace EdFi.Ods.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var identityUserStore = new UserStore<IdentityUser>(_adminIdentityDbContext);
-                var identityUserManager = new UserManager<IdentityUser>(identityUserStore);
-                var identityUser = identityUserManager.FindByEmail(model.EmailAddress);
-                var result = identityUserManager.PasswordHasher.VerifyHashedPassword(identityUser.PasswordHash, model.Password);
-
-                if (result == PasswordVerificationResult.Success)
+                if (_userAccountManager.Login(model.EmailAddress, model.Password))
                 {
-                    var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-                    var userIdentity = identityUserManager.CreateIdentity(identityUser, DefaultAuthenticationTypes.ApplicationCookie);
-                    authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
                     var user = _clientAppRepo.GetUser(model.EmailAddress);
 
                     return Json(

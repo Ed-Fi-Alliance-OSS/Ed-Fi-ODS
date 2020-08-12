@@ -72,6 +72,11 @@ namespace EdFi.Ods.Admin.Services
                .AddFailingField(x => x.Email);
         }
 
+        public bool Login(string userEmail, string password)
+        {
+            return _identityProvider.Login(userEmail, password);
+        }
+
         public PasswordResetResult ResetPassword(PasswordResetModel model)
         {
             try
@@ -83,7 +88,19 @@ namespace EdFi.Ods.Admin.Services
                     return validationResult;
                 }
 
-                _identityProvider.ResetUserPassword(model.Email, model.Password);
+                var user = _identityProvider.FindUserByEmail(model.Email);
+
+                if (user == null)
+                {
+                    return PasswordResetResult.BadUsername;
+                }
+
+                var resetSuccessful = _identityProvider.ResetUserPassword(user.UserName, model.Password);
+
+                if (!resetSuccessful)
+                {
+                    return PasswordResetResult.BadPassword;
+                }
 
                 return PasswordResetResult.Successful;
             }
@@ -141,23 +158,23 @@ namespace EdFi.Ods.Admin.Services
             return SendEmail(model, (email, confirmationSecret) => _emailService.SendForgotPasswordEmail(email, confirmationSecret));
         }
 
-        public async Task<ForgotPasswordResetResult> ResendConfirmationAsync(ForgotPasswordModel model)
+        public ForgotPasswordResetResult ResendConfirmationAsync(ForgotPasswordModel model)
         {
-            var userName = model.Email;
-            var badUserName = _identityProvider.VerifyUserExists(userName);
+            var userEmail = model.Email;
+            var isVerifiedUser = _identityProvider.VerifyUserExists(userEmail);
 
-            if (badUserName)
+            if (!isVerifiedUser)
             {
-                return ForgotPasswordResetResult.BadEmail(userName);
+                return ForgotPasswordResetResult.BadEmail(userEmail);
             }
 
-           var isConfirmed = _identityProvider.VerifyUserEmailConfirmed(userName);
+           var isConfirmed = _identityProvider.VerifyUserEmailConfirmed(userEmail);
 
             if (isConfirmed)
             {
                 var message = string.Format(
                     "The account with email address '{0}' has already been confirmed.  Use the password reset if the password has been lost.",
-                    userName);
+                    userEmail);
 
                 return new ForgotPasswordResetResult
                        {
@@ -165,11 +182,11 @@ namespace EdFi.Ods.Admin.Services
                        };
             }
 
-            var secret = await _clientAppRepository.GetTokenFromUserNameAsync(userName);
+            var secret =  _identityProvider.GenerateEmailConfirmationToken(userEmail);
 
             try
             {
-                _emailService.SendConfirmationEmail(userName, secret);
+                _emailService.SendConfirmationEmail(userEmail, secret);
             }
             catch (Exception e)
             {

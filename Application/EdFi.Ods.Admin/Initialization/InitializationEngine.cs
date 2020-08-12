@@ -22,9 +22,9 @@ namespace EdFi.Ods.Admin.Initialization
         private readonly ILog _log = LogManager.GetLogger(typeof(InitializationEngine));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IClientCreator _clientCreator;
-        private readonly AdminIdentityDbContext _adminIdentityDbContext;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IDefaultApplicationCreator _applicationCreator;
+        private readonly IIdentityProvider _identityProvider;
 
         private readonly InitializationModel _settings;
 
@@ -34,13 +34,14 @@ namespace EdFi.Ods.Admin.Initialization
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
-            IDefaultApplicationCreator applicationCreator
+            IDefaultApplicationCreator applicationCreator,
+            IIdentityProvider identityProvider
             )
         {
             _settings = initializationModel;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
-            _adminIdentityDbContext = adminIdentityDbContext;
+            _identityProvider = identityProvider;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }
@@ -49,16 +50,9 @@ namespace EdFi.Ods.Admin.Initialization
         {
             try
             {
-                var roleStore = new RoleStore<IdentityRole>(_adminIdentityDbContext);
-                var manager = new RoleManager<IdentityRole>(roleStore);
-
                 foreach (var role in SecurityRoles.AllRoles)
                 {
-                    if (manager.FindByName(role) == null)
-                    {
-                        _log.Debug($"Adding role: {role} to asp net security.");
-                        manager.Create(new IdentityRole() {Name = role});
-                    }
+                    _identityProvider.CreateRole(role);
                 }
             }
             catch (Exception ex)
@@ -73,10 +67,7 @@ namespace EdFi.Ods.Admin.Initialization
             {
                 foreach (var user in _settings.Users)
                 {
-                    var userStore = new UserStore<IdentityUser>(_adminIdentityDbContext);
-                    var manager = new UserManager<IdentityUser>(userStore);
-                    var identityUser = manager.Find(user.Name, user.Password);
-
+                    var identityUser = _identityProvider.FindUser(user.Name);
 
                     if (identityUser != null)
                     {
@@ -84,16 +75,13 @@ namespace EdFi.Ods.Admin.Initialization
                     }
 
                     _log.Debug($"Adding user: {user} to asp net security.");
-                    IdentityResult result = manager.Create(new IdentityUser() { UserName = user.UserName, Email = user.Email }, user.Password);
 
-                    if (!result.Succeeded)
+                    if (_identityProvider.CreateUser(user.UserName, user.Email, user.Password, confirm: true))
                     {
-                        _log.Error($"Failed adding user: {user} to asp net security. {string.Join(",", result.Errors)}");
-                        continue;
+                        identityUser = _identityProvider.FindUser(user.Name);
+                        _log.Debug($"Adding user: {user} to roles:  {string.Join(",", user.Roles)} in asp net security.");
+                        _identityProvider.AddToRoles(identityUser.Id, user.Roles);
                     }
-                    identityUser = manager.Find(user.Name, user.Password);
-                    _log.Debug($"Adding user: {user} to roles:  {string.Join(",", user.Roles)} in asp net security.");
-                    manager.AddToRoles(identityUser.Id, user.Roles.ToArray());
                 }
             }
             catch (Exception ex)

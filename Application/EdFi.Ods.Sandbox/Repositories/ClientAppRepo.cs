@@ -137,22 +137,6 @@ namespace EdFi.Ods.Sandbox.Repositories
             }
         }
 
-        public async Task<string> GetTokenFromUserNameAsync(string userName)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                // Used by Sandbox Admin only, therefore PostgreSQL support is not needed
-                var result = await context
-                    .ExecuteQueryAsync<ConfirmationTokenResult>(
-                        $"select top 1 M.ConfirmationToken from webpages_Membership M join Users U on M.UserId = U.UserId and U.Email = {userName}");
-
-                return result.FirstOrDefault() == null
-                    ? null
-                    : result.FirstOrDefault()
-                        .ConfirmationToken;
-            }
-        }
-
         public User CreateUser(User user)
         {
             using (var context = _contextFactory.CreateContext())

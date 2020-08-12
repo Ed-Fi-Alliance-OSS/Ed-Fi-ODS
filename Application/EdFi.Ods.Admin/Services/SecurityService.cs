@@ -49,12 +49,12 @@ namespace EdFi.Ods.Admin.Services
     public class SecurityService : ISecurityService
     {
         private readonly IClientAppRepo _clientAppRepo;
-        private readonly AdminIdentityDbContext _adminIdentityDbContext;
+        private readonly IIdentityProvider _identityProvider;
 
-        public SecurityService(IClientAppRepo clientAppRepo, AdminIdentityDbContext adminIdentityDbContext)
+        public SecurityService(IClientAppRepo clientAppRepo, IIdentityProvider identityProvidert)
         {
             _clientAppRepo = clientAppRepo;
-            _adminIdentityDbContext = adminIdentityDbContext;
+            _identityProvider = identityProvidert;
         }
 
         public UserLookupResult GetCurrentUser()
@@ -68,9 +68,7 @@ namespace EdFi.Ods.Admin.Services
                     return UserLookupResult.Empty;
                 }
 
-                var identityUserStore = new UserStore<IdentityUser>(_adminIdentityDbContext);
-                var identityUserManager = new UserManager<IdentityUser>(identityUserStore);
-                var identityUser = identityUserManager.FindByName(currentUserName);
+                var identityUser = _identityProvider.FindUser(currentUserName);
 
                 if (identityUser == null)
                 {

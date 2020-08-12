@@ -13,12 +13,14 @@ namespace EdFi.Ods.Admin.Services
     {
         CreateLoginResult Create(CreateLoginModel model);
 
+        bool Login(string userName, string password);
+
         PasswordResetResult ResetPassword(PasswordResetModel model);
 
         ChangePasswordResult ChangePassword(ChangePasswordModel model);
 
         ForgotPasswordResetResult ForgotPassword(ForgotPasswordModel model);
 
-        Task<ForgotPasswordResetResult> ResendConfirmationAsync(ForgotPasswordModel model);
+        ForgotPasswordResetResult ResendConfirmationAsync(ForgotPasswordModel model);
     }
 }
