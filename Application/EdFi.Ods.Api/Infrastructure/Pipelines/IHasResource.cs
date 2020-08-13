@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines
+using EdFi.Ods.Common;
+
+namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface IHasResource<TResourceModel>
         where TResourceModel : IHasETag

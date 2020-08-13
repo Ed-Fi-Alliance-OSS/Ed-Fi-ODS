@@ -5,10 +5,11 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Common;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.CreateOrUpdate
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.CreateOrUpdate
 {
     public abstract class
         CreateOrUpdatePipeline<TResourceModel, TEntityModel> : ICreateOrUpdatePipeline<TResourceModel, TEntityModel>

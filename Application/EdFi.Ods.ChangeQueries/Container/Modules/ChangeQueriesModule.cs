@@ -5,6 +5,7 @@
 
 #if NETCOREAPP
 using Autofac;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.ChangeQueries.Conventions;
 using EdFi.Ods.ChangeQueries.NHibernate;
 using EdFi.Ods.ChangeQueries.Providers;

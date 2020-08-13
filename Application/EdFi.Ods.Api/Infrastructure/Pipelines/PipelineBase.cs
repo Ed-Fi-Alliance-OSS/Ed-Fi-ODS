@@ -6,8 +6,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines
+namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface IPipeline
     {

@@ -5,8 +5,8 @@
 
 #if NETFRAMEWORK
 using System.Web.Http;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Services.Authentication;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Models.Queries;
 
 namespace EdFi.Ods.ChangeQueries.Controllers

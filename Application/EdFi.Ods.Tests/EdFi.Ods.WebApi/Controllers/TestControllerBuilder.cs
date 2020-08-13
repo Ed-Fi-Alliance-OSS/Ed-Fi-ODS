@@ -13,12 +13,12 @@ using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling.Translators;
 using EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.InversionOfControl;
 using Rhino.Mocks;
 

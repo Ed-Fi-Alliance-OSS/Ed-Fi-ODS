@@ -5,8 +5,9 @@
 
 using System;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.Factories
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 {
     /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "GetById" access.

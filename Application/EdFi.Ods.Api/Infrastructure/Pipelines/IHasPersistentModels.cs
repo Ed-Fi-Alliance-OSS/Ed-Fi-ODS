@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines
+namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface IHasPersistentModels<TEntityModel>
         where TEntityModel : class

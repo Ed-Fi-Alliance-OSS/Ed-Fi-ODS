@@ -3,13 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.Factories
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 {
     public interface IPipelineFactory
     {

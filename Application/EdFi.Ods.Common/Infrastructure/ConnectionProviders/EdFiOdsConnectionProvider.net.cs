@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Data.Common;
 using System.Threading;
@@ -52,3 +53,4 @@ namespace EdFi.Ods.Common.Infrastructure.ConnectionProviders
             => Task.FromResult(GetConnection());
     }
 }
+#endif

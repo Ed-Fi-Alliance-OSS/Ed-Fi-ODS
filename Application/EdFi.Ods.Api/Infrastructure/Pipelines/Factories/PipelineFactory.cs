@@ -6,14 +6,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Get;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common.InversionOfControl;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.Factories
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 {
     public class PipelineFactory : IPipelineFactory
     {

@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.Get
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.Get
 {
     public class GetContext<TEntityModel> : IHasPersistentModel<TEntityModel>, IHasETag, IHasIdentifier
         where TEntityModel : class

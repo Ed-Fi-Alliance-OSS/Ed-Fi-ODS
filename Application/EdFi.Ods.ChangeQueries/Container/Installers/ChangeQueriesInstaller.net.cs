@@ -10,6 +10,7 @@ using Castle.Windsor;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.ChangeQueries.NHibernate;
 using EdFi.Ods.ChangeQueries.Providers;

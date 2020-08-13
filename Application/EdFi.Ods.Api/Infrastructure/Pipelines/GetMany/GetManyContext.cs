@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
 {

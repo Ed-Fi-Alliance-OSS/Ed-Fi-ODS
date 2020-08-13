@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.GetMany
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.GetMany
 {
     public class GetManyResult<TResourceModel> : PipelineResultBase, IHasResources<TResourceModel>
         where TResourceModel : IHasETag

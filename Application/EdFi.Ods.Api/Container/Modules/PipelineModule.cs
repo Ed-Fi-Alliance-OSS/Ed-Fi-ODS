@@ -3,17 +3,20 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetDeletedResource;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Put;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
+using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
+using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
+using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 
-namespace EdFi.Ods.Api.Common.Container.Modules
+namespace EdFi.Ods.Api.Container.Modules
 {
     public class PipelineModule : Module
     {

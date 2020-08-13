@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines.Put
+namespace EdFi.Ods.Api.Infrastructure.Pipelines.Put
 {
     public class PutContext<TResourceModel, TEntityModel> : IHasPersistentModel<TEntityModel>, IHasResource<TResourceModel>, IHasIdentifier
         where TResourceModel : IHasETag

@@ -5,9 +5,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Common;
 
-namespace EdFi.Ods.Common.Infrastructure.Pipelines
+namespace EdFi.Ods.Api.Infrastructure.Pipelines
 {
     public interface ICreateOrUpdatePipeline<TResourceModel, TEntityModel>
         where TResourceModel : IHasETag

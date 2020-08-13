@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.ChangeQueries.SqlServer;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
