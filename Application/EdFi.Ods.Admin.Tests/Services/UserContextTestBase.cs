@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
@@ -13,7 +12,6 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Admin.Services;
-using EdFi.Ods.Api.NetCore.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
 using FakeItEasy;
