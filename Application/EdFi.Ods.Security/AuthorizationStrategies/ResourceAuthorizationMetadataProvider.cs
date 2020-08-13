@@ -6,8 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Exceptions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
@@ -15,7 +15,7 @@ using EdFi.Security.DataAccess.Repositories;
 namespace EdFi.Ods.Security.AuthorizationStrategies
 {
     /// <summary>
-    /// Implements the <see cref="IResourceAuthorizationMetadataProvider"/> interface using the security repository 
+    /// Implements the <see cref="IResourceAuthorizationMetadataProvider"/> interface using the security repository
     /// for access to the authorization metadata.
     /// </summary>
     public class ResourceAuthorizationMetadataProvider : IResourceAuthorizationMetadataProvider
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies
         }
 
         /// <summary>
-        /// Gets the lineage of all resource claims (going up the resource claims taxonomy) that can be used to authorize the 
+        /// Gets the lineage of all resource claims (going up the resource claims taxonomy) that can be used to authorize the
         /// request for specified resource and action, including the explicitly assigned authorization strategy (if applicable).
         /// </summary>
         /// <param name="resourceClaimUri">The URI representation of the resource claim associated with the request.</param>
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies
             {
                 return Enumerable.Empty<ResourceClaimAuthorizationMetadata>();
             }
-            
+
             var resourceClaimLineageWithMetadata =
                 _securityRepository
                     .GetResourceClaimLineageMetadata(resourceClaimUri, action)

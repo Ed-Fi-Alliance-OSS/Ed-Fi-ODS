@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETFRAMEWORK
-using EdFi.Ods.Api.Common.ExternalTasks;
+using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Security.Profiles;
 

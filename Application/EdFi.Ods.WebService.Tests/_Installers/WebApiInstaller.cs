@@ -12,10 +12,12 @@ using Castle.Windsor.Installer;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Api;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Common;
-using EdFi.Ods.Api.Common.Authentication;
 using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Models.Identity;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Models.Identity;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Controllers.IdentityManagement;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
@@ -60,7 +62,7 @@ namespace EdFi.Ods.WebService.Tests._Installers
 
             container.Register(
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
-                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>().BasedOn<IExceptionTranslator>()
+                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
 
             // TODO: GKM - Profiles - temporary workaround for lack of composability

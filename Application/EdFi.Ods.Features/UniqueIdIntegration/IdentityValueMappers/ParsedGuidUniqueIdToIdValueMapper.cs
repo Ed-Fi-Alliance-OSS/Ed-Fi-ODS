@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
+using EdFi.Ods.Api.IdentityValueMappers;
 
 namespace EdFi.Ods.Features.UniqueIdIntegration.IdentityValueMappers
 {

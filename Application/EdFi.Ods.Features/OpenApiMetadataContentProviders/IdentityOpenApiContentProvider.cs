@@ -6,11 +6,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
-using EdFi.Ods.Features.OpenApiMetadata.Models;
+using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.IdentityManagement
 {

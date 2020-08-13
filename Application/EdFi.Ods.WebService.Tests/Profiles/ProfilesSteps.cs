@@ -15,10 +15,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Attributes;
 using EdFi.Ods.Api.Common.Models.Resources.Actual.EdFi;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Repositories;
@@ -143,7 +143,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             _currentScenarioContext.Set(resourceModelName, ScenarioContextKeys.ResourceModelName);
         }
 
-      
+
         // TODO: JSM - these test may go away in swagger 3.0. If they do we can delete this code, otherwise it will need to be addressed at that time.
         [When(
             @"a GET \(by id\) request is submitted using (.*) to (.*) with an accept header content type of (?:the appropriate value for the profile in use|""(.*)"")")]
@@ -365,7 +365,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             // Assign the "updated" entity the original entity's identifier and primary key
             entityForUpdate.Id = id;
 
-            // Copy the child collection contextual primary keys to the "updated" version so that 
+            // Copy the child collection contextual primary keys to the "updated" version so that
             // they are seen as the same entities (rather than deletions and additions)
             if (preserveChildCollections)
             {
@@ -697,7 +697,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                         .GetResultSafely());
         }
 
-     
+
 
         [Then(@"the response model should not contain the explicitly excluded properties of \[(.*)\]")]
         public void ThenTheResponseModelShouldNotContainTheExplicitlyExcludedProperties(string excludedProperties)
@@ -753,7 +753,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             int actualExcludedMemberCount = fullResourcePropertyCount - actualIncludedPropertyCount;
             Assert.That(actualExcludedMemberCount, Is.EqualTo(actualExcludedMembers.Count()), DisplayList("Actual Excluded Members", actualExcludedMembers));
 
-            Assert.That(actualExcludedMemberCount, Is.EqualTo(profileExcludedMemberCount), 
+            Assert.That(actualExcludedMemberCount, Is.EqualTo(profileExcludedMemberCount),
                 DisplayLists(actualExcludedMembers, profileExcludedMembers));
         }
 
@@ -877,7 +877,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                                       // Eliminate duplicates caused by Id suffix normalization on entities
                                      .Distinct();
 
-            // the only values not changed ... 
+            // the only values not changed ...
             var actualUnchangedPropertyNames =
                 allEntityProperties?
                    .Except(differingPropertyNames)
@@ -891,7 +891,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                    .OrderBy(x => x)
                    .ToList();
 
-            Assert.That(actualUnchangedPropertyNames, Is.EqualTo(expectedUnchangedPropertyNames), 
+            Assert.That(actualUnchangedPropertyNames, Is.EqualTo(expectedUnchangedPropertyNames),
                 DisplayLists(actualUnchangedPropertyNames, expectedUnchangedPropertyNames));
         }
 
@@ -1340,8 +1340,8 @@ namespace EdFi.Ods.WebService.Tests.Profiles
 
             Assert.That(unmodifiedPropertyNames, Is.EquivalentTo(expectedUnmodified), DisplayLists(unmodifiedPropertyNames, expectedUnmodified));
         }
-    
-       
+
+
 
         private string DisplayList(string label, IEnumerable<string> items)
         {

@@ -4,14 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Common.Exceptions;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Authorization
 {
     /// <summary>
-    /// Transforms the provided <see cref="RelationshipsAuthorizationContextData"/> instance such that the abstract 
+    /// Transforms the provided <see cref="RelationshipsAuthorizationContextData"/> instance such that the abstract
     /// <see cref="RelationshipsAuthorizationContextData.EducationOrganizationId"/> property is replaced with the
     /// known concrete identifer type (e.g. LocalEducationAgencyId, SchoolId, etc.).
     /// </summary>

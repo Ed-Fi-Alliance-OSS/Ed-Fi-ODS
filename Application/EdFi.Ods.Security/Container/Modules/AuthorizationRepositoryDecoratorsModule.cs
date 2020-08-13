@@ -7,10 +7,10 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Container;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Providers.Criteria;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Security.Authorization.Pipeline;
 using EdFi.Ods.Security.Authorization.Repositories;

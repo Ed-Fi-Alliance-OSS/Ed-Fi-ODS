@@ -5,8 +5,8 @@
 
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Security.Authorization.Pipeline
 {

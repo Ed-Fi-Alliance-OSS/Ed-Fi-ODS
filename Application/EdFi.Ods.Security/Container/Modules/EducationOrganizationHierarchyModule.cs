@@ -5,8 +5,8 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Container;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Container.Modules

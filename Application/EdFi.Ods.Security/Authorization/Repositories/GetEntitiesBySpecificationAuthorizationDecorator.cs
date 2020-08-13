@@ -6,8 +6,8 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Infrastructure.Architecture;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization.Filtering;

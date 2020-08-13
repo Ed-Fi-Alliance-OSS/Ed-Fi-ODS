@@ -7,7 +7,6 @@
 using Autofac;
 using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Ods.Api.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Security.DataAccess.Contexts;

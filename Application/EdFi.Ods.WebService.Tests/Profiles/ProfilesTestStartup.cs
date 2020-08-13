@@ -15,19 +15,19 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api;
 using EdFi.Ods.Api.Architecture;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Common;
-using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Infrastructure.Pipelines;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Repositories;
@@ -148,7 +148,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
 
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
                     .BasedOn(typeof(IStep<,>))
                     .WithService
                     .Self());
@@ -156,7 +156,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             // Register the providers of the core pipeline steps
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
                     .BasedOn<IPipelineStepsProvider>()
                     .WithServiceFirstInterface());
         }

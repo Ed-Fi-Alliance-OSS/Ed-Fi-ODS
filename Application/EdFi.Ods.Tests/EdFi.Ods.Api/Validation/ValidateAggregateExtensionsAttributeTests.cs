@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Validation;
+using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             }
         }
 
-        public class When_validating_an_object_with_a_valid_aggregate_extensions_collection 
+        public class When_validating_an_object_with_a_valid_aggregate_extensions_collection
             : TestFixtureBase
         {
             private ICollection<ValidationResult> _actualResults;
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             }
         }
 
-        public class When_validating_an_object_with_an_invalid_aggregate_extensions_collection 
+        public class When_validating_an_object_with_an_invalid_aggregate_extensions_collection
             : TestFixtureBase
         {
             private ICollection<ValidationResult> _actualResults;

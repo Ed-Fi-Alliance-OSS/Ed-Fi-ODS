@@ -6,6 +6,7 @@
 using System;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.ETag;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Exceptions;
 using NUnit.Framework;

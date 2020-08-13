@@ -7,9 +7,9 @@
 using System;
 using System.Linq;
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Container;
-using EdFi.Ods.Api.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 

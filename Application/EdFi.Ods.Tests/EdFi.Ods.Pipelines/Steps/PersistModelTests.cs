@@ -5,8 +5,8 @@
 
 using System;
 using System.Threading;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Put;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Tests.EdFi.Ods.Common._Stubs.Repositories;

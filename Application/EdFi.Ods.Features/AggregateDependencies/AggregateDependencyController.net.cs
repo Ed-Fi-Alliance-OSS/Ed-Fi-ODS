@@ -1,16 +1,16 @@
-#if NETFRAMEWORK
 // SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models.GraphML;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Graphs;

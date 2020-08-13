@@ -6,7 +6,6 @@
 #if NETCOREAPP
 using System.Linq;
 using Autofac;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
 
 namespace EdFi.Ods.Standard.Container.Modules
 {

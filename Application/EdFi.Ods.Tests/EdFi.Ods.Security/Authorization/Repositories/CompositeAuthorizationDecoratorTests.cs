@@ -14,11 +14,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Infrastructure.Filtering;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -254,7 +254,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
                 Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName, Has.Count.EqualTo(1));
 
                 Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName.Keys, Is.EquivalentTo(new [] { SuppliedParameterName }));
-                
+
                 Assert.That(
                     _hqlBuilderContext.CurrentQueryFilterParameterValueByName[SuppliedParameterName],
                     Is.EqualTo(SuppliedParameterValue));

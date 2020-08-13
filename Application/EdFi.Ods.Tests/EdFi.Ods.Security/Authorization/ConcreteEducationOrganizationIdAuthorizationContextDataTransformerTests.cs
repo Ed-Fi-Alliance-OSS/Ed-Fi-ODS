@@ -5,8 +5,8 @@
 
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Common.Exceptions;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;

@@ -10,8 +10,8 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.Http;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Models.Requests.Students.EdFi;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Services.Controllers.Students.EdFi;
 using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Common;
@@ -66,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 var etagprovider = _locator.Resolve<IETagProvider>();
 
-                // The etagprovider implementation for this test just adds a prefix of "new" to whatever is passed in, 
+                // The etagprovider implementation for this test just adds a prefix of "new" to whatever is passed in,
                 // but is the same provider that should be called by the controller for the response
                 string newETag = etagprovider.GetETag("etag");
 
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 var etagprovider = _container.Resolve<IETagProvider>();
 
-                // The etagprovider implementation for this test just adds a prefix of "new" to whatever is passed in, 
+                // The etagprovider implementation for this test just adds a prefix of "new" to whatever is passed in,
                 // but is the same provider that should be called by the controller for the response
                 string newETag = etagprovider.GetETag("etag");
 

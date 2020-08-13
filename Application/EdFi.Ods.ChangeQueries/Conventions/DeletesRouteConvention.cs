@@ -6,8 +6,7 @@
 #if NETCOREAPP
 using System.Linq;
 using System.Reflection;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.ChangeQueries.Controllers;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;

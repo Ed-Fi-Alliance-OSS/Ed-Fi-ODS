@@ -6,6 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using EdFi.Ods.Common.Attributes;
 
 namespace EdFi.Ods.Common.Extensions
 {
@@ -88,6 +90,18 @@ namespace EdFi.Ods.Common.Extensions
                     .Any(it => it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
                 || type.IsGenericType && type.GetGenericTypeDefinition() == genericType
                 || type.BaseType != null && IsAssignableFromGeneric(genericType, type.BaseType);
+        }
+
+        public static IEnumerable<PropertyInfo> GetSignatureProperties(this Type type)
+        {
+            return type.GetProperties()
+                .Where(
+                    p => Attribute.IsDefined(p, typeof(DomainSignatureAttribute), true));
+        }
+
+        public static bool IsScalar(this Type type)
+        {
+            return type.IsValueType || type == typeof(string);
         }
     }
 }

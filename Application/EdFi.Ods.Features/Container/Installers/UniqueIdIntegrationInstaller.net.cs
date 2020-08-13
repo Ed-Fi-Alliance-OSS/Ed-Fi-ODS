@@ -6,11 +6,10 @@
 
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
 using EdFi.Ods.Features.UniqueIdIntegration.Pipeline;
@@ -53,7 +52,7 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Installers
                     .For<IEntityValidator>()
                     .ImplementedBy<UniqueIdNotChangedEntityValidator>(),
 
-                // Register a validator that ensures that 
+                // Register a validator that ensures that
                 Component
                     .For<IEntityValidator>()
                     .ImplementedBy<EnsureUniqueIdAlreadyExistsEntityValidator>());
