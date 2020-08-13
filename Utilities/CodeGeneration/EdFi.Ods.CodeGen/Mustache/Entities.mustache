@@ -6,11 +6,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api.Common.Adapters;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.Dtos;
-using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 {{#HasExtensionDerivedFromEdFiBaseEntity}}
@@ -555,7 +557,7 @@ namespace {{AggregateNamespace}}
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
