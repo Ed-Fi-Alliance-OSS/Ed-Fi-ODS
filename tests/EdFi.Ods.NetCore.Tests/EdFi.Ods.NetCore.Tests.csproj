@@ -30,7 +30,6 @@
     <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
   </ItemGroup>
 </Project>

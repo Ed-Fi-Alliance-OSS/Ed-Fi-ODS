@@ -4,8 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;

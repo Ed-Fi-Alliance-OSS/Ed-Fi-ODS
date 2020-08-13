@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Dtos;
 
 namespace EdFi.Ods.Api.Routing
 {

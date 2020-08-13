@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models.Tokens;
+using EdFi.Ods.Api.Models.Tokens;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Models.ClientCredentials

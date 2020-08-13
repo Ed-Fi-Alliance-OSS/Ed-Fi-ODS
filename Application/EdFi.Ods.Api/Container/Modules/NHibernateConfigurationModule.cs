@@ -6,9 +6,9 @@
 #if NETCOREAPP
 using System;
 using Autofac;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Providers;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Container.Modules

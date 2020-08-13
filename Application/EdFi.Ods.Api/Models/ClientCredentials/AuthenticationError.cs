@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models.Tokens;
+using EdFi.Ods.Api.Models.Tokens;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

@@ -6,8 +6,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Validation;
+using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Common.Attributes;
 using NUnit.Framework;
 using Test.Common;
 

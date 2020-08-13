@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
-using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Common.Configuration;
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Services.Authentication
                 return;
             }
 
-            // 3. If there are credentials but the filter does not recognize the 
+            // 3. If there are credentials but the filter does not recognize the
             //    authentication scheme, do nothing.
             if (!authorization.Scheme.EqualsIgnoreCase(AuthenticationScheme))
             {

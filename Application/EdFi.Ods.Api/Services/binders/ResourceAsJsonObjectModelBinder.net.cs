@@ -8,7 +8,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.ModelBinding;
-using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Models;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Api.Services.Binders

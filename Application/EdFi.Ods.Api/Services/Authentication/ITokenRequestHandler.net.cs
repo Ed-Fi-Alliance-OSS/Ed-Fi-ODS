@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System.Net.Http;
 using System.Web.Http;
-using EdFi.Ods.Api.Common.Models.Tokens;
+using EdFi.Ods.Api.Models.Tokens;
 
 namespace EdFi.Ods.Api.Services.Authentication
 {

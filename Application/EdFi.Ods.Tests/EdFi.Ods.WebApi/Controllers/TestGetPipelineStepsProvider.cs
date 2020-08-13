@@ -11,18 +11,17 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Exceptions;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common.Security;
 using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 {
-    public class SimpleResourceCreationStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class SimpleResourceCreationStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TContext : IHasPersistentModel<TEntityModel>, IHasIdentifier, IHasETag
         where TResult : PipelineResultBase, IHasResource<TResourceModel>
@@ -42,7 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class PersistNewModel<TContext, TResult, TResourceModel, TEntityModel> 
+    public class PersistNewModel<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TContext : PutContext<TResourceModel, TEntityModel>
         where TResult : PutResult
@@ -78,7 +77,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class PersistExistingModel<TContext, TResult, TResourceModel, TEntityModel> 
+    public class PersistExistingModel<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TContext : PutContext<TResourceModel, TEntityModel>
         where TResult : PutResult
@@ -117,7 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         : ExceptionStep<TContext, TResult, TResourceModel, TEntityModel, SqlException>
         where TResult : PipelineResultBase { }
 
-    public class DeleteReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class DeleteReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TResult : PipelineResultBase
     {
@@ -128,12 +127,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 ExceptionCreator.Create(
                     typeof(SqlException),
                     @"The DELETE statement conflicted with the REFERENCE constraint ""FK_SomeForeignKey"". The conflict occurred in database ""DB_NAME"", table ""schema.TableName"", column 'ColumnName'."));
-                
+
             return Task.CompletedTask;
         }
     }
 
-    public class UpdateReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class UpdateReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TResult : PipelineResultBase
     {
@@ -149,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class InsertReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class InsertReferentialExceptionStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TResult : PipelineResultBase
     {
@@ -160,12 +159,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 ExceptionCreator.Create(
                     typeof(SqlException),
                     @"The INSERT statement conflicted with the FOREIGN KEY constraint ""FK_SomeForeignKey"". The conflict occurred in database ""DB_NAME"", table ""schema.TableName"", column 'ColumnName'."));
-                
+
             return Task.CompletedTask;
         }
     }
 
-    public class InsertUniqueIdExceptionStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class InsertUniqueIdExceptionStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TResult : PipelineResultBase
     {
@@ -209,7 +208,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         : ExceptionStep<TContext, TResult, TResourceModel, TEntityModel, Exception>
         where TResult : PipelineResultBase { }
 
-    public abstract class ExceptionStep<TContext, TResult, TResourceModel, TEntityModel, TException> 
+    public abstract class ExceptionStep<TContext, TResult, TResourceModel, TEntityModel, TException>
         : IStep<TContext, TResult>
         where TResult : PipelineResultBase
         where TException : Exception
@@ -233,7 +232,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class SimpleGetManyResourceCreationStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class SimpleGetManyResourceCreationStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TContext : GetManyContext<TResourceModel, TEntityModel>
         where TResult : PipelineResultBase, IHasResources<TResourceModel>
@@ -253,7 +252,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class SetNullResourceStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class SetNullResourceStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
         where TResult : IHasResource<TResourceModel>
         where TResourceModel : IHasETag
@@ -266,7 +265,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 
-    public class EmptyResourceStep<TContext, TResult, TResourceModel, TEntityModel> 
+    public class EmptyResourceStep<TContext, TResult, TResourceModel, TEntityModel>
         : IStep<TContext, TResult>
     {
         public Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)

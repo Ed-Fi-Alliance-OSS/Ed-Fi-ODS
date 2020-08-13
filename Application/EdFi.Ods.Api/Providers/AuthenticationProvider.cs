@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;

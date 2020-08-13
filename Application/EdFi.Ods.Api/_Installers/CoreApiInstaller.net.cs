@@ -11,35 +11,34 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Sandbox.Security;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Common;
-using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.Common.Validation;
 using EdFi.Ods.Api.Context;
 using EdFi.Ods.Api.ETag;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authentication.ClientCredentials;
 using EdFi.Ods.Api.Services.Authorization;
+using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Sandbox.Provisioners;
@@ -292,7 +291,7 @@ namespace EdFi.Ods.Api._Installers
         {
             container.Register(
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
-                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>().BasedOn<IExceptionTranslator>()
+                Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
         }
 

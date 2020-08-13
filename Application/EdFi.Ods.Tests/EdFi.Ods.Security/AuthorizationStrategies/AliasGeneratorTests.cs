@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Api.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Tests._Extensions;
 using NUnit.Framework;
 using Shouldly;

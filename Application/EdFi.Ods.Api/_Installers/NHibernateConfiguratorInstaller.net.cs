@@ -8,15 +8,17 @@ using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;
-using EdFi.Ods.Api.Common.Infrastructure.ConnectionProviders;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Infrastructure.ConnectionProviders;
+using EdFi.Ods.Common.Providers;
 using NHibernate;
 using NHibernate.Cfg;
 using Environment = NHibernate.Cfg.Environment;
@@ -49,7 +51,7 @@ namespace EdFi.Ods.Api._Installers
                    .For<ISessionFactory>()
                    .UsingFactoryMethod(kernel => kernel.Resolve<Configuration>().BuildSessionFactory())
                    .LifestyleSingleton(),
-                
+
                 // ----------------------------------------------------------------------------------------------------
                 // NOTE: Sometimes ISessionFactory cannot be injected, so we're injecting a Func<IStatelessSession> rather
                 // than the ISessionFactory or IStatelessSession (the latter of which can result in a memory leak).

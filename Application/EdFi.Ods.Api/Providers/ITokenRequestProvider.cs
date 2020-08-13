@@ -5,8 +5,8 @@
 
 #if NETCOREAPP
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models.Tokens;
 using EdFi.Ods.Api.Models.ClientCredentials;
+using EdFi.Ods.Api.Models.Tokens;
 
 namespace EdFi.Ods.Api.Providers
 {

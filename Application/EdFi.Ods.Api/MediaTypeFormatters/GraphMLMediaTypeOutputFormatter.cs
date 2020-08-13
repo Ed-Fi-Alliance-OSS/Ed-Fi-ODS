@@ -7,8 +7,8 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models.GraphML;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models.GraphML;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;

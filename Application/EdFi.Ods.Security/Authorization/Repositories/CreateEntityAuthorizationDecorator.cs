@@ -5,12 +5,12 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Dtos;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Security.Authorization.Repositories
 {

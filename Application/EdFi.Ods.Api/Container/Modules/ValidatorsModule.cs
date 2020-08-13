@@ -5,8 +5,8 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
-using EdFi.Ods.Api.Common.Validation;
+using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using FluentValidation;
 

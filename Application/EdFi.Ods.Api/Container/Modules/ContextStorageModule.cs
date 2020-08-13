@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Infrastructure.Context;
+using EdFi.Ods.Api.Context;
 using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Api.Container.Modules

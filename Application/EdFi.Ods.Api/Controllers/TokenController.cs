@@ -7,7 +7,7 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models.Tokens;
+using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Extensions;
 using log4net;

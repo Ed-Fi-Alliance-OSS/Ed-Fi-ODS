@@ -5,14 +5,13 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Container;
-using EdFi.Ods.Api.Common.ExternalTasks;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.OpenApiMetadata;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.RouteInformations;

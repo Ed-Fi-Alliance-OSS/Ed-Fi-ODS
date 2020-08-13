@@ -9,6 +9,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Services.Metadata;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.InversionOfControl;

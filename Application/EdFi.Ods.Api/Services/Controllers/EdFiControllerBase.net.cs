@@ -16,15 +16,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Castle.MicroKernel.Internal;
 using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Exceptions;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetDeletedResource;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Put;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
 using EdFi.Ods.Api.Services.Extensions;
@@ -33,6 +25,13 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Get;
+using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
+using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Put;
+using EdFi.Ods.Common.Models.Queries;
 using log4net;
 
 namespace EdFi.Ods.Api.Services.Controllers
@@ -76,7 +75,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository, 
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository,
         {
             //this.repository = repository;
             this.schoolYearContextProvider = schoolYearContextProvider;

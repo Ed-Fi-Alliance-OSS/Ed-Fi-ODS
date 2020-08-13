@@ -14,8 +14,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models.GraphML;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models.GraphML;
 
 namespace EdFi.Ods.Api.Architecture
 {

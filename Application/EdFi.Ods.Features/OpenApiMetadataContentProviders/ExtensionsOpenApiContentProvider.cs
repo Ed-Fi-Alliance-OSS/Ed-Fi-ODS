@@ -6,16 +6,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
-using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
+using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.Extensions
 {

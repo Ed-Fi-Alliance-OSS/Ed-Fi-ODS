@@ -8,9 +8,9 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Api.Common.Models.Tokens;
 
 namespace EdFi.Ods.Api.Services.Authentication.ClientCredentials
 {

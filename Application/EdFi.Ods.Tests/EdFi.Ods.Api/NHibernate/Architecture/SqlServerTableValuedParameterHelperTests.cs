@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
+using EdFi.Ods.Common.Infrastructure.SqlServer;
 using NHibernate;
 using NHibernate.Type;
 using NUnit.Framework;
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
 
             // External dependencies
             private IQuery _query;
-            
+
             protected override void Arrange()
             {
                 _query = Stub<IQuery>();
@@ -110,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
 
             // External dependencies
             private IQuery _query;
-            
+
             protected override void Arrange()
             {
                 _query = Stub<IQuery>();

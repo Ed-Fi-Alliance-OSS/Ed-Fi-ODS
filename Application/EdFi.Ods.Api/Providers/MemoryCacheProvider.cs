@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using System;
-using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Common.Caching;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace EdFi.Ods.Api.Providers

@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Extensions;

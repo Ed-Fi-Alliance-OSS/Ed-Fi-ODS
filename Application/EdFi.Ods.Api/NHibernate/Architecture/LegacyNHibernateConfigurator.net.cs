@@ -9,18 +9,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
-using EdFi.Ods.Api.Common.Infrastructure.Architecture.SqlServer;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;
-using EdFi.Ods.Api.Common.Infrastructure.ConnectionProviders;
-using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
-using EdFi.Ods.Api.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.Common.Providers.Criteria;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Activities;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Infrastructure.ConnectionProviders;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Infrastructure.SqlServer;
+using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Providers.Criteria;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -99,7 +101,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                 .Distinct()
                 .ToList();
 
-            // Group the filters by name first (there can only be 1 "default" filter, but flexibility 
+            // Group the filters by name first (there can only be 1 "default" filter, but flexibility
             // to apply same filter name with same parameters to different entities should be supported
             // (and is in fact supported below when filters are applied to individual entity mappings)
             var allFilterDetailsGroupedByName =
@@ -204,7 +206,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
                 Component
                     .For<IParameterListSetter>()
                     .ImplementedBy<SqlServerTableValuedParameterListSetter>());
-            
+
             return configuration;
         }
 

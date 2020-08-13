@@ -10,14 +10,15 @@ using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.WebService.Tests._Installers;
 using EdFi.TestFixture;
 using NUnit.Framework;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.WebService.Tests.IdentityValueMappers
         private IEnumerable<PersonIdentifiersValueMap> _actualParentIdentifiers;
 
         private IWindsorContainer _container;
-        
+
         protected override void Arrange()
         {
             InitializeIoC();
@@ -68,12 +69,12 @@ namespace EdFi.Ods.WebService.Tests.IdentityValueMappers
 
             new LegacyNHibernateConfigurator().Configure(_container);
 #pragma warning restore 618
-            
+
             _container.Register(
                 Component.For<ICacheProvider>()
                     .ImplementedBy<MemoryCacheProvider>());
         }
-        
+
         protected override void Act()
         {
             var provider = _container.Resolve<IPersonIdentifiersProvider>();
@@ -81,7 +82,7 @@ namespace EdFi.Ods.WebService.Tests.IdentityValueMappers
             _actualStudentIdentifiers = provider.GetAllPersonIdentifiers("Student").Result;
             _actualStaffIdentifiers = provider.GetAllPersonIdentifiers("Staff").Result;
             _actualParentIdentifiers = provider.GetAllPersonIdentifiers("Parent").Result;
-            
+
             // This statement throws an exception
             var ignoredDueToException = provider.GetAllPersonIdentifiers("NonPersonType").Result;
         }
@@ -97,7 +98,7 @@ namespace EdFi.Ods.WebService.Tests.IdentityValueMappers
         {
             Assert.That(_actualStaffIdentifiers, Has.Count.GreaterThan(0));
         }
-        
+
         [Assert]
         public void Should_load_some_Parent_identity_mappings()
         {

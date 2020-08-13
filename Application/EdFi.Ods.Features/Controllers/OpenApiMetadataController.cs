@@ -7,11 +7,12 @@
 using System;
 using System.Linq;
 using System.Net;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Helpers;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
@@ -19,6 +20,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.Controllers
 {

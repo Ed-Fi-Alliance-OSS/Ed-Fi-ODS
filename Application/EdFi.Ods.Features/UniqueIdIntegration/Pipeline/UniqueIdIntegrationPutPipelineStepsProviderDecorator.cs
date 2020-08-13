@@ -5,14 +5,14 @@
 
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
 {
     /// <summary>
-    /// Implements a <see cref="EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories.IPutPipelineStepsProvider"/> decorator that inserts a step to
+    /// Implements a <see cref="IPutPipelineStepsProvider"/> decorator that inserts a step to
     /// populate the GUID-based Id from the supplied UniqueId for person-type resources.
     /// </summary>
     public class UniqueIdIntegrationPutPipelineStepsProviderDecorator : IPutPipelineStepsProvider

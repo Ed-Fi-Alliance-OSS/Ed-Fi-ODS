@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Common.Dtos;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.NHibernate.StaffLeaveAggregate.EdFi;
 using EdFi.Ods.Tests.TestExtension.Models.Interfaces;
 

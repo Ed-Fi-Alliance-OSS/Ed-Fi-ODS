@@ -5,9 +5,9 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         protected readonly IResourceClaimUriProvider ResourceClaimUriProvider;
 
         protected SetAuthorizationContextBase(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
         {
@@ -46,10 +46,10 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         {
             Preconditions.ThrowIfNull(context, nameof(context));
             Preconditions.ThrowIfNull(result, nameof(result));
-            
+
             AuthorizationContextProvider.SetResourceUris(
                 ResourceClaimUriProvider.GetResourceClaimUris(typeof(TResourceModel)));
-            
+
             AuthorizationContextProvider.SetAction(Action);
 
             return Task.CompletedTask;
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         where TResult : class
     {
         public SetAuthorizationContextForGet(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
             : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         where TResult : class
     {
         public SetAuthorizationContextForPut(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
             : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         where TResult : class
     {
         public SetAuthorizationContextForPost(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
             : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }
@@ -129,7 +129,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         where TResult : class
     {
         public SetAuthorizationContextForDelete(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
             : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }
@@ -146,7 +146,7 @@ namespace EdFi.Ods.Security.Authorization.Pipeline
         where TResult : class
     {
         public SetAuthorizationContextForGetDeletedResourceIds(
-            IAuthorizationContextProvider authorizationContextProvider, 
+            IAuthorizationContextProvider authorizationContextProvider,
             ISecurityRepository securityRepository,
             IResourceClaimUriProvider resourceClaimUriProvider)
             : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }

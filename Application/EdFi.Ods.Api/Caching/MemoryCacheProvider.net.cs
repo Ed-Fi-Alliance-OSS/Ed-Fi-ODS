@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System;
 using System.Runtime.Caching;
-using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Api.Caching
 {

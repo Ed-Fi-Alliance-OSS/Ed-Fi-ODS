@@ -7,7 +7,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json.Linq;
 

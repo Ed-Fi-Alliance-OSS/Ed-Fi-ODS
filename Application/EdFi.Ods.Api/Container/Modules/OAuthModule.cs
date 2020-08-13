@@ -5,10 +5,10 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Container;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Container;
 
 namespace EdFi.Ods.Api.Container.Modules
 {

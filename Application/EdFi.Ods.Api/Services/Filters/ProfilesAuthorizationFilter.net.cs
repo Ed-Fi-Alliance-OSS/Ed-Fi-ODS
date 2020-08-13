@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
-using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Metadata;
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Api.Services.Filters
                                                          .Profiles.ToList();
             }
 
-            // declare profile content type variable because it can be retrieved from the 
+            // declare profile content type variable because it can be retrieved from the
             // accept header or the content-type header
             string profileContentType = null;
             ProfileContentTypeDetails profileContentTypeDetails = null;
@@ -79,14 +79,14 @@ namespace EdFi.Ods.Api.Services.Filters
                 profileContentTypeDetails = profileContentType.GetContentTypeDetails();
             }
 
-            // If the caller has not specified a profile specific content type and there are no assigned 
+            // If the caller has not specified a profile specific content type and there are no assigned
             // profiles then allow the request to be processed (there is nothing left to check)
             if (string.IsNullOrEmpty(profileContentType) && !assignedProfiles.Any())
             {
                 return continuation();
             }
 
-            // If the caller has not specified a profile specific content type but the targeted 
+            // If the caller has not specified a profile specific content type but the targeted
             // resource is covered by an assigned profile then we must refuse the request
             if (string.IsNullOrEmpty(profileContentType)
                 && IsResourceCoveredByAssignedProfile(assignedProfiles, resourceItemName))
@@ -227,7 +227,7 @@ namespace EdFi.Ods.Api.Services.Filters
                                                           && x.ResourceName.EqualsIgnoreCase(resourceItemName));
         }
 
-        // Generates a list of assigned profiles that can be used by the client for the sent resource 
+        // Generates a list of assigned profiles that can be used by the client for the sent resource
         private IEnumerable<string> GetApplicableContentTypes(
             IEnumerable<string> assignedProfiles,
             string resourceCollectionName,

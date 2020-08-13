@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System.Web.Http;
 using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.Common.ExceptionHandling;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Services.ActionFilters;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Common;
@@ -23,7 +23,7 @@ namespace EdFi.Ods.Api.HttpConfigurators
         private readonly ISecurityRepository _securityRepository;
         private readonly IRESTErrorProvider _restErrorProvider;
 
-        public HttpFilterConfigurator(ISchoolYearContextProvider schoolYearContextProvider, 
+        public HttpFilterConfigurator(ISchoolYearContextProvider schoolYearContextProvider,
                                       IEdFiAuthorizationProvider edFiAuthorizationProvider,
                                       ISecurityRepository securityRepository,
                                       IRESTErrorProvider restErrorProvider)

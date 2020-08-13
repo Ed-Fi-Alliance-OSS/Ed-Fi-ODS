@@ -8,12 +8,10 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
-using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Providers;
 using log4net;
 
 namespace EdFi.Ods.Security.Authorization
@@ -32,7 +30,7 @@ namespace EdFi.Ods.Security.Authorization
         private readonly bool _synchronousInitialization;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="cacheProvider">The cache where the database-specific maps (dictionaries) are stored, expiring after 4 hours of inactivity.</param>
         /// <param name="edFiOdsInstanceIdentificationProvider">Identifies the ODS instance for the current call.</param>

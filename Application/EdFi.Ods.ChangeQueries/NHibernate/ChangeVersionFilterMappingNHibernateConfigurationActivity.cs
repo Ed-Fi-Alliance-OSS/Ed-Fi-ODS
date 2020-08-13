@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.ChangeQueries.SqlServer;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using log4net;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;

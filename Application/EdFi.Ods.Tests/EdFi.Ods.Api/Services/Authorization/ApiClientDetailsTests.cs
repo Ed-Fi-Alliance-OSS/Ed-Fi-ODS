@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.TestFixture;
 using NUnit.Framework;

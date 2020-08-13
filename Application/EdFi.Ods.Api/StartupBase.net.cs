@@ -5,7 +5,6 @@
 
 #if NETFRAMEWORK
 using System.Web.Http;
-using EdFi.Ods.Api.Common.ExternalTasks;
 using EdFi.Ods.Api.ContainerBuilders;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Startup;
@@ -15,6 +14,7 @@ using Microsoft.Owin.Logging;
 using Owin;
 using System;
 using Castle.Windsor;
+using EdFi.Ods.Api.ExternalTasks;
 
 namespace EdFi.Ods.Api
 {

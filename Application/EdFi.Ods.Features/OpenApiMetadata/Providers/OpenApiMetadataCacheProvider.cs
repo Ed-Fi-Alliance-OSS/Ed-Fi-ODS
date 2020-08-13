@@ -9,17 +9,17 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
-using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using log4net;
+using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 {

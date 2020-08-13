@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
@@ -41,8 +41,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
             protected override void Arrange()
             {
-                
-                A.CallTo(() => 
+
+                A.CallTo(() =>
                         Given<IGetEntityById<Student>>().GetByIdAsync(A<Guid>.Ignored, A<CancellationToken>._))
                         .Returns(Task.FromResult<Student>(null));
             }
@@ -80,15 +80,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             {
                 Supplied(Guid.NewGuid());
 
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IGetEntityById<Student>>().GetByIdAsync(Supplied<Guid>(), A<CancellationToken>._))
                     .Returns(Task.FromResult(Supplied(new Student())));
 
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IAuthorizationContextProvider>().GetAction())
                     .Returns("Action");
 
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IAuthorizationContextProvider>().GetResourceUris())
                     .Returns(new[] {"Resource"});
 
@@ -130,7 +130,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             [Assert]
             public void Should_invoke_authorization_on_the_item()
             {
-                A.CallTo(() => 
+                A.CallTo(() =>
                     Given<IEdFiAuthorizationProvider>()
                         .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
                     .MustHaveHappened();

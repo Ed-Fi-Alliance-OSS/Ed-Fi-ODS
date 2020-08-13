@@ -16,16 +16,14 @@ using System.Web.Http.Dispatcher;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Ods.Api;
 using EdFi.Ods.Sandbox.Security;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Common;
-using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.HttpRouteConfigurations;
 using EdFi.Ods.Api.InversionOfControl;
@@ -40,13 +38,18 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common.ChainOfResponsibility;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Common.Infrastructure.Pipelines;
+using EdFi.Ods.Common.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
@@ -289,7 +292,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
 
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
                     .BasedOn(typeof(IStep<,>))
                     .WithService
                     .Self());
@@ -297,7 +300,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             // Register the providers of the core pipeline steps
             Container.Register(
                 Classes
-                    .FromAssemblyContaining<Marker_EdFi_Ods_Api_Common>()
+                    .FromAssemblyContaining<Marker_EdFi_Ods_Api>()
                     .BasedOn<IPipelineStepsProvider>()
                     .WithServiceFirstInterface());
         }

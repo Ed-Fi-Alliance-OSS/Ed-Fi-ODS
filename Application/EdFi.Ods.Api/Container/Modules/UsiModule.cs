@@ -6,8 +6,8 @@
 #if NETCOREAPP
 using System;
 using Autofac;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
+using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Api.Container.Modules

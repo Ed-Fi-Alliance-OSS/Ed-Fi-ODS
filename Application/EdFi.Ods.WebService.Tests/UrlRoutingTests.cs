@@ -131,7 +131,6 @@ namespace EdFi.Ods.WebService.Tests
             {
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Api>();
-                AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Api_Common>();
             }
 
             protected override void InstallOpenApiMetadata(IWindsorContainer container)

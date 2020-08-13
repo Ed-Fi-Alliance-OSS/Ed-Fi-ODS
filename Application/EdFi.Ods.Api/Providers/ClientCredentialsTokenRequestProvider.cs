@@ -6,8 +6,8 @@
 #if NETCOREAPP
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Common.Models.Tokens;
 using EdFi.Ods.Api.Models.ClientCredentials;
+using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Sandbox.Repositories;

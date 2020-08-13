@@ -5,10 +5,9 @@
 
 #if NETCOREAPP
 using System;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Providers;
 
 namespace EdFi.Ods.Features.UniqueIdIntegration.Caching
 {

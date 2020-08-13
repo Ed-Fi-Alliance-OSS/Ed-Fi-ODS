@@ -6,9 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Extensions;
 using NUnit.Framework;
 using Shouldly;
 

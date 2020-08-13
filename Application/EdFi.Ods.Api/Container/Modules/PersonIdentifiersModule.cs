@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
+using EdFi.Ods.Api.IdentityValueMappers;
 
 namespace EdFi.Ods.Api.Container.Modules
 {

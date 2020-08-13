@@ -5,10 +5,10 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Common.Authentication;
-using EdFi.Ods.Api.Common.Caching;
 using EdFi.Ods.Api.Services.Authorization;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using Rhino.Mocks;

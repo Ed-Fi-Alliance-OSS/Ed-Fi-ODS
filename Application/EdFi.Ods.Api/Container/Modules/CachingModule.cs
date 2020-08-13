@@ -6,7 +6,7 @@
 #if NETCOREAPP
 using Autofac;
 using Autofac.Core;
-using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using Microsoft.Extensions.Caching.Memory;

@@ -10,11 +10,11 @@ using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Security.Authorization;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -26,7 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
     public class EducationOrganizationCacheTests
     {
         /// <summary>
-        /// Provides a simple implementation of a connection string provider that exposes a property 
+        /// Provides a simple implementation of a connection string provider that exposes a property
         /// for the value to be returned.
         /// </summary>
         private class FakeConnectionStringProvider : IDatabaseConnectionStringProvider

@@ -5,10 +5,10 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Container;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.RouteInformations;
 
 namespace EdFi.Ods.Features.Container.Modules

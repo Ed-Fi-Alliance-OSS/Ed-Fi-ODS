@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System.Web.Http;
 using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Services.Metadata;
 using EdFi.Ods.Common;
 

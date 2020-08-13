@@ -11,6 +11,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Controllers;
 using EdFi.Ods.Features.OpenApiMetadata.Models;

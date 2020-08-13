@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using EdFi.Ods.Api.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure

@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Caching;
-using EdFi.Ods.Api.Common.Caching;
+using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Api.Caching
 {

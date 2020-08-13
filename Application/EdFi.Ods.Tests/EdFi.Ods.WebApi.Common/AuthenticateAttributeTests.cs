@@ -15,7 +15,7 @@ using System.Web.Http.Dependencies;
 using System.Web.Http.Filters;
 using System.Web.Http.Hosting;
 using Castle.MicroKernel.Registration;
-using EdFi.Ods.Api.Common.Authentication;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authorization;

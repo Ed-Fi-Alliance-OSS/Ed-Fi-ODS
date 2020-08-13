@@ -14,7 +14,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.Routing;
-using EdFi.Ods.Api.Common.Models;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Api.Architecture
                 }
             }
 
-            // Remove any duplicates from the dictionary, because these create ambiguous matches. 
+            // Remove any duplicates from the dictionary, because these create ambiguous matches.
             // For example, "Foo.V1.ProductsController" and "Bar.V1.ProductsController" both map to "v1.products".
             foreach (string s in _duplicates)
             {

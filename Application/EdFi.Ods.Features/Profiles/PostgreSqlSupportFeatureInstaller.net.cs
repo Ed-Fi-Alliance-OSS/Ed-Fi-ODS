@@ -6,8 +6,8 @@
 #if NETFRAMEWORK
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Infrastructure.Architecture.Activities;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Sandbox.Provisioners;

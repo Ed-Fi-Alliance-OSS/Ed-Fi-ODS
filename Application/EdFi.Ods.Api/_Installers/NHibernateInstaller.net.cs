@@ -7,9 +7,10 @@
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Infrastructure.Repositories;
 using EdFi.Ods.Api.Common.Providers;
-using EdFi.Ods.Api.Common.Providers.Criteria;
+using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Infrastructure.Repositories;
+using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api._Installers

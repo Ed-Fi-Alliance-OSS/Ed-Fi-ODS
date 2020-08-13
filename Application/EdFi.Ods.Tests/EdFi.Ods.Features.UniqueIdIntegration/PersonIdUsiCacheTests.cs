@@ -11,9 +11,9 @@ using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.IdentityValueMappers;
 using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.IdentityValueMappers;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -108,7 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
-                        TimeSpan.Zero, 
+                        TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
 
@@ -492,7 +492,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                 _usiCache = new PersonUniqueIdToUsiCache(
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                    TimeSpan.Zero, TimeSpan.Zero, 
+                    TimeSpan.Zero, TimeSpan.Zero,
                     synchronousInitialization: true);
             }
 
