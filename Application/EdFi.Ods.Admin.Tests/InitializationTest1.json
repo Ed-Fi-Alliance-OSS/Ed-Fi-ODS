@@ -1,0 +1,33 @@
+﻿{
+  "initialization": {
+    "enabled": "true",
+    "users": [
+      {
+        "name": "Test Admin",
+        "email": "test@ed-fi.org",
+        "password": "***REMOVED***",
+        "admin": "true",
+        "namespacePrefixes": [
+          "uri://ed-fi.org",
+          "uri://gbisd.edu"
+        ],
+        "sandboxes": [
+          {
+            "name": "Populated Demonstration Sandbox",
+            "key": "populatedSandbox",
+            "secret": "populatedSandboxSecret",
+            "type": "Sample",
+            "refresh": "true"
+          },
+          {
+            "name": "Minimal Demonstration Sandbox",
+            "key": "populatedSandbox2",
+            "secret": "populatedSandboxSecret2",
+            "type": "Minimal",
+            "refresh": "true"
+          }
+        ]
+      }
+    ]
+  }
+}
