@@ -1,18 +1,61 @@
-﻿using System;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Admin.Contexts
 {
     public class IdentityContextFactory : IIdentityContextFactory
     {
-        public IdentityContextFactory() { }
+
+        private readonly Dictionary<DatabaseEngine, Type> _identityContextTypeByDatabaseEngine =
+            new Dictionary<DatabaseEngine, Type>
+            {
+                {DatabaseEngine.SqlServer, typeof(SqlServerIdentityContext)},
+                {DatabaseEngine.Postgres, typeof(PostgresIdentityContext)}
+            };
+
+        private readonly DatabaseEngine _databaseEngine;
+
+
+#if NETFRAMEWORK
+        public IdentityContextFactory(IApiConfigurationProvider configurationProvider)
+        {
+            Preconditions.ThrowIfNull(configurationProvider, nameof(configurationProvider));
+            _databaseEngine = configurationProvider.DatabaseEngine;
+        }
+#elif NETSTANDARD
+        private readonly IDatabaseConnectionStringProvider _connectionStringsProvider;
+
+        public IdentityContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
+        {
+            _connectionStringsProvider = connectionStringsProvider;
+            _databaseEngine = databaseEngine;
+        }
+#endif
 
         public IdentityContext CreateContext()
         {
-            return Activator.CreateInstance(typeof(IdentityContext)) as IdentityContext;
+            if (_identityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
+            {
+#if NETFRAMEWORK
+                return Activator.CreateInstance(contextType) as IdentityContext;
+#elif NETSTANDARD
+                return Activator.CreateInstance(contextType, _connectionStringsProvider.GetConnectionString()) as IdentityContext;
+#endif
+            }
+
+            throw new InvalidOperationException(
+                $"Cannot create an IUsersContext for database type {_databaseEngine.DisplayName}");
         }
     }
 }

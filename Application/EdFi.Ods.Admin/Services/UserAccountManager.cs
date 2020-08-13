@@ -148,6 +148,13 @@ namespace EdFi.Ods.Admin.Services
 
         public ForgotPasswordResetResult ForgotPassword(ForgotPasswordModel model)
         {
+            var validationResult = ValidateForgotModel(model);
+
+            if (validationResult != null)
+            {
+                return validationResult;
+            }
+
             var userExists = _identityProvider.VerifyUserExists(model.Email);
 
             if (!userExists)
@@ -155,7 +162,8 @@ namespace EdFi.Ods.Admin.Services
                 return ForgotPasswordResetResult.BadEmail(model.Email);
             }
 
-            return SendEmail(model, (email, confirmationSecret) => _emailService.SendForgotPasswordEmail(email, confirmationSecret));
+            return SendEmail(
+                model, (email, confirmationSecret) => _emailService.SendForgotPasswordEmail(email, confirmationSecret));
         }
 
         public ForgotPasswordResetResult ResendConfirmationAsync(ForgotPasswordModel model)
