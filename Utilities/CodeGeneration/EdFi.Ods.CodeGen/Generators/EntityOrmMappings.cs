@@ -26,7 +26,7 @@ namespace EdFi.Ods.CodeGen.Generators
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Dictionary<Entity, List<ClassMappingContext>> _classMappingsForEntities;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
-        private readonly string _propertyAccessor = $"EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, {Namespaces.Api.AssemblyName}.Common";
+        private readonly string _propertyAccessor = $"EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common";
 
         public EntityOrmMappings(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
