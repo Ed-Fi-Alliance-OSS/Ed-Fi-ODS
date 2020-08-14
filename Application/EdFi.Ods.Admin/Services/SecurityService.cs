@@ -63,7 +63,7 @@ namespace EdFi.Ods.Admin.Services
             {
                 string currentUserName = HttpContext.Current.User?.Identity?.Name;
 
-                if (String.IsNullOrEmpty(currentUserName))
+                if (string.IsNullOrEmpty(currentUserName))
                 {
                     return UserLookupResult.Empty;
                 }

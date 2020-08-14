@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,8 +17,7 @@ namespace EdFi.Ods.Admin.Contexts
 {
     public class PostgresIdentityContext : IdentityContext
     {
-        public PostgresIdentityContext(string connectionString)
-            : base(connectionString) { }
+        public PostgresIdentityContext() { }
 
         protected override void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder)
         {

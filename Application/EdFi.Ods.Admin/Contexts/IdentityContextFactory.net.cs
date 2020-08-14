@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,21 +27,18 @@ namespace EdFi.Ods.Admin.Contexts
 
         private readonly DatabaseEngine _databaseEngine;
 
-        private readonly IDatabaseConnectionStringProvider _connectionStringsProvider;
 
-        public IdentityContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider,
-            DatabaseEngine databaseEngine)
+        public IdentityContextFactory(IApiConfigurationProvider configurationProvider)
         {
-            _connectionStringsProvider = connectionStringsProvider;
-            _databaseEngine = databaseEngine;
+            Preconditions.ThrowIfNull(configurationProvider, nameof(configurationProvider));
+            _databaseEngine = configurationProvider.DatabaseEngine;
         }
-
 
         public IdentityContext CreateContext()
         {
             if (_identityContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                return Activator.CreateInstance(contextType, _connectionStringsProvider.GetConnectionString()) as IdentityContext;
+                return Activator.CreateInstance(contextType) as IdentityContext;
             }
 
             throw new InvalidOperationException(
