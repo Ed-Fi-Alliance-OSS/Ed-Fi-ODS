@@ -99,8 +99,14 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             RegisterProfilesProcessing(container);
             RegisterApiVersionProvider(container);
             RegisterDefaultPageSizeLimitProvider(container);
+            RegisterSystemDateProvider(container);
         }
 
+        private void RegisterSystemDateProvider(IWindsorContainer container)
+        {
+            container.Register(Component.For<ISystemDateProvider>().ImplementedBy<SystemDateProvider>());
+
+        }
         private void RegisterDefaultPageSizeLimitProvider(IWindsorContainer container)
         {
             container.Register(Component.For<IDefaultPageSizeLimitProvider>().ImplementedBy<DefaultPageSizeLimitProvider>());

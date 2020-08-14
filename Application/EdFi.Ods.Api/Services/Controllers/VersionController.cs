@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
 using System.Web.Http;
@@ -20,23 +21,24 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IApiVersionProvider _apiVersionProvider;
-        private readonly ISchoolYearContextProvider _schoolYearContextProvider;
+        private readonly ISystemDateProvider _systemDateProvider;
+        
 
         public VersionController(
             IApiConfigurationProvider apiConfigurationProvider,
             IDomainModelProvider domainModelProvider,
             IApiVersionProvider apiVersionProvider,
-            ISchoolYearContextProvider schoolYearContextProvider)
+            ISystemDateProvider systemDateProvider)
         {
             Preconditions.ThrowIfNull(apiConfigurationProvider, nameof(apiConfigurationProvider));
             Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
             Preconditions.ThrowIfNull(apiVersionProvider, nameof(apiVersionProvider));
-            Preconditions.ThrowIfNull(schoolYearContextProvider, nameof(schoolYearContextProvider));
+            Preconditions.ThrowIfNull(systemDateProvider, nameof(systemDateProvider));
 
             _apiConfigurationProvider = apiConfigurationProvider;
             _domainModelProvider = domainModelProvider;
             _apiVersionProvider = apiVersionProvider;
-            _schoolYearContextProvider = schoolYearContextProvider;
+            _systemDateProvider = systemDateProvider;
         }
 
         [Route("")]
@@ -59,9 +61,9 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             if (_apiConfigurationProvider.IsYearSpecific())
             {
-                var schoolYear = _schoolYearContextProvider.GetSchoolYear();
-                metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = schoolYear });
-                dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = schoolYear });
+                var currentSchoolYear = _systemDateProvider.GetDate().Year.ToString();
+                metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = currentSchoolYear });
+                dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = currentSchoolYear });
                 oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
             }
             else
@@ -71,7 +73,6 @@ namespace EdFi.Ods.Api.Services.Controllers
                 oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
             }
 
-
             var content = new
             {
                 version = _apiVersionProvider.Version,
@@ -80,11 +81,16 @@ namespace EdFi.Ods.Api.Services.Controllers
                 build = _apiVersionProvider.Build,
                 apiMode = _apiConfigurationProvider.Mode.DisplayName,
                 dataModels = dataModels,
-                metaDataUrl = metaDataUrl,
-                dependenciesUrl = dependenciesUrl,
-                oauthUrl = oauthUrl,
-                apiUrl = new Uri(new Uri(Url.Request.RequestUri.AbsoluteUri), $"/data/v{_apiVersionProvider.InformationalVersion}/").ToString()
-        };
+                urls = new
+                {
+                    openApiMetadata = metaDataUrl,
+                    dependencies = dependenciesUrl,
+                    oauth = oauthUrl,
+                    dataManagementApi = new Uri(new Uri(Url.Request.RequestUri.AbsoluteUri),
+                        $"v{_apiVersionProvider.InformationalVersion}/api/data/v{ApiVersionConstants.Ods}/" + 
+                        (_apiConfigurationProvider.IsYearSpecific() ? _systemDateProvider.GetDate().Year.ToString() : string.Empty)).ToString()
+                }
+            };
 
             return Ok(content);
         }
