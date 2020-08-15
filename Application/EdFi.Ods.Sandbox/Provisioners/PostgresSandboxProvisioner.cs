@@ -51,7 +51,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             using (var conn = CreateConnection())
             {
                 var results = await conn.QueryAsync<SandboxStatus>(
-                        $"SELECT datname as Name, 0 as Code, 'ONLINE' Description FROM pg_database WHERE name = \"{_databaseNameBuilder.SandboxNameForKey(clientKey)}\";",
+                        $"SELECT datname as Name, 0 as Code, 'ONLINE' Description FROM pg_database WHERE datname = \'{_databaseNameBuilder.SandboxNameForKey(clientKey)}\';",
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
