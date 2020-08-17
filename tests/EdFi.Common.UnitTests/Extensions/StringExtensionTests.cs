@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Extensions;
 using EdFi.TestFixture;
@@ -61,7 +62,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
             ("NotABoolean").ToBoolean()
                 .ShouldBeFalse();
         }
-        
+
         [Test]
         public void Should_convert_a_boolean_true_value_string_using_mixed_casing_to_true()
         {
@@ -77,3 +78,4 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
         }
     }
 }
+#endif

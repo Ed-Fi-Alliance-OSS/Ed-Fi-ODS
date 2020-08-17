@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -82,7 +83,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
             }
         }
 
-        public class When_inserting_an_item_after_the_second_item_of_a_two_item_list 
+        public class When_inserting_an_item_after_the_second_item_of_a_two_item_list
         {
             // Supplied values
             private readonly object object1 = new object();
@@ -325,7 +326,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
                 _actualResult.ShouldBeFalse();
             }
         }
-        
+
         public class When_checking_an_enumerable_of_nullable_values_containing_some_null_values : TestFixtureBase
         {
             private bool _actualResult;
@@ -343,7 +344,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
                 _actualResult.ShouldBeFalse();
             }
         }
-        
+
         public class When_checking_a_null_enumerable : TestFixtureBase
         {
             private bool _actualResult;
@@ -363,3 +364,4 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
         }
     }
 }
+#endif
