@@ -73,6 +73,8 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
+            var isLocalHost = Url.Request.RequestUri.AbsoluteUri.Contains("localhost");
+
             var content = new
             {
                 version = _apiVersionProvider.Version,
@@ -87,7 +89,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                     dependencies = dependenciesUrl,
                     oauth = oauthUrl,
                     dataManagementApi = new Uri(new Uri(Url.Request.RequestUri.AbsoluteUri),
-                        $"v{_apiVersionProvider.InformationalVersion}/api/data/v{ApiVersionConstants.Ods}/" + 
+                        (isLocalHost ? string.Empty : $"v{_apiVersionProvider.InformationalVersion}/api") + $"/data/v{ApiVersionConstants.Ods}/" + 
                         (_apiConfigurationProvider.IsYearSpecific() ? _systemDateProvider.GetDate().Year.ToString() : string.Empty)).ToString()
                 }
             };
