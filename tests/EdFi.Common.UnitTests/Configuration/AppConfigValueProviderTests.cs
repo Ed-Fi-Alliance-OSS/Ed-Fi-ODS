@@ -32,7 +32,6 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                 var config = new ConfigurationBuilder()
                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
                    .AddJsonFile("appsettings.json", optional: true)
-                   .AddEnvironmentVariables()
                    .Build();
 
                 SystemUnderTest = new AppConfigValueProvider(config);

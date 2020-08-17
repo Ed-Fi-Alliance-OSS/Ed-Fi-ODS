@@ -22,7 +22,6 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                 var config = new ConfigurationBuilder()
                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
                    .AddJsonFile("appsettings.json", optional: true)
-                   .AddEnvironmentVariables()
                    .Build();
 
                 new AppConfigValueProvider(config).GetValue("Non-existent Key")
