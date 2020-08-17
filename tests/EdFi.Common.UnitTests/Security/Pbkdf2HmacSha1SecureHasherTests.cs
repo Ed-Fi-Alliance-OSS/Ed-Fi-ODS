@@ -70,7 +70,7 @@ namespace EdFi.Ods.Common.UnitTests.Security
             {
                 _secureHasher = new Pbkdf2HmacSha1SecureHasher(null);
 
-                _request = new SecureHashRequest {HashAlgorithm = 1234};
+                _request = new SecureHashRequest { HashAlgorithm = 1234 };
             }
 
             protected override void Act()

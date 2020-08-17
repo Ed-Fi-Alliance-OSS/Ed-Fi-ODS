@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EdFi.Ods.Common.InversionOfControl;
@@ -20,7 +21,7 @@ namespace EdFi.Ods.Common.UnitTests.InversionOfControl
             protected override void Act()
             {
                 SystemUnderTest.Install(
-                    Given<IWindsorContainer>(), 
+                    Given<IWindsorContainer>(),
                     Given<IConfigurationStore>());
             }
 
@@ -33,7 +34,7 @@ namespace EdFi.Ods.Common.UnitTests.InversionOfControl
             [Test]
             public void Should_invoke_the_protected_non_virtual_registration_method()
             {
-                SystemUnderTest.ProtectedCalled.ShouldBeTrue();                
+                SystemUnderTest.ProtectedCalled.ShouldBeTrue();
             }
 
             [Test]
@@ -74,7 +75,7 @@ namespace EdFi.Ods.Common.UnitTests.InversionOfControl
             public bool WrongSignatureCalled { get; private set; }
 
             public bool WrongMethodPrefixCalled { get; private set; }
-            
+
             protected virtual void RegisterSomethingProtectedVirtual(IWindsorContainer container)
             {
                 ProtectedVirtualCalled = true;
@@ -107,3 +108,4 @@ namespace EdFi.Ods.Common.UnitTests.InversionOfControl
         }
     }
 }
+#endif

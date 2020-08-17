@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,7 +38,7 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                     .Returns(ApiConfigurationConstants.Sandbox);
 
                 A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
-                    .Returns(new Dictionary<string, string> {{"db", ApiConfigurationConstants.SqlServerProviderName}});
+                    .Returns(new Dictionary<string, string> { { "db", ApiConfigurationConstants.SqlServerProviderName } });
 
                 _systemUnderTest = new ApiConfigurationProvider(_configValueProvider, _databaseEngineProvider);
             }
@@ -79,7 +80,7 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                     .Returns(ApiConfigurationConstants.YearSpecific);
 
                 A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
-                    .Returns(new Dictionary<string, string> {{"db", ApiConfigurationConstants.SqlServerProviderName}});
+                    .Returns(new Dictionary<string, string> { { "db", ApiConfigurationConstants.SqlServerProviderName } });
 
                 _systemUnderTest = new ApiConfigurationProvider(_configValueProvider, _databaseEngineProvider);
             }
@@ -121,7 +122,7 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                     .Returns(ApiConfigurationConstants.SharedInstance);
 
                 A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
-                    .Returns(new Dictionary<string, string> {{"db", ApiConfigurationConstants.SqlServerProviderName}});
+                    .Returns(new Dictionary<string, string> { { "db", ApiConfigurationConstants.SqlServerProviderName } });
 
                 _systemUnderTest = new ApiConfigurationProvider(_configValueProvider, _databaseEngineProvider);
             }
@@ -163,7 +164,7 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
                     .Returns(ApiConfigurationConstants.DistrictSpecific);
 
                 A.CallTo(() => _configConnectionStringsProvider.ConnectionStringProviderByName)
-                    .Returns(new Dictionary<string, string> {{"db", ApiConfigurationConstants.SqlServerProviderName}});
+                    .Returns(new Dictionary<string, string> { { "db", ApiConfigurationConstants.SqlServerProviderName } });
 
                 _systemUnderTest = new ApiConfigurationProvider(_configValueProvider, _databaseEngineProvider);
             }
@@ -245,3 +246,4 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
         }
     }
 }
+#endif

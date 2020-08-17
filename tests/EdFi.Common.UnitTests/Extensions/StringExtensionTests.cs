@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.UnitTests.Extensions
             ("NotABoolean").ToBoolean()
                 .ShouldBeFalse();
         }
-        
+
         [Test]
         public void Should_convert_a_boolean_true_value_string_using_mixed_casing_to_true()
         {
