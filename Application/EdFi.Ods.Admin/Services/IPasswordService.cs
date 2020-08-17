@@ -11,14 +11,12 @@ namespace EdFi.Ods.Admin.Services
 {
     public interface IPasswordService
     {
-        PasswordResetResult ValidateRequest(string userName, string secret);
+        PasswordResetResult ValidateRequest(string userEmail, string secret);
 
-        Task<ConfirmationResult> ConfirmAccountAsync(string secret); 
+        ConfirmationResult ConfirmAccount(string userEmail, string secret);
 
-        string SetPasswordResetSecret(string userName);
+        string SetPasswordResetSecret(string userEmail);
 
         bool PasswordIsStrong(string password);
-
-        User GetUserForPasswordResetToken(string secret);
     }
 }

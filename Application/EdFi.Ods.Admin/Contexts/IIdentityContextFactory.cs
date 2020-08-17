@@ -3,12 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Admin.Models
+namespace EdFi.Ods.Admin.Contexts
 {
-    public class PasswordResetViewModel
+    public interface IIdentityContextFactory
     {
-        public string Marker { get; set; }
-
-        public string Email { get; set; }
+        IdentityContext CreateContext();
     }
 }

@@ -4,14 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data.Entity;
 using System.Linq;
-using System.Web.Security;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Admin.Contexts;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Sandbox.Repositories;
 using log4net;
-using WebMatrix.WebData;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EdFi.Ods.Admin.Initialization
 {
@@ -22,6 +24,7 @@ namespace EdFi.Ods.Admin.Initialization
         private readonly IClientCreator _clientCreator;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IDefaultApplicationCreator _applicationCreator;
+        private readonly IIdentityProvider _identityProvider;
 
         private readonly InitializationModel _settings;
 
@@ -30,12 +33,14 @@ namespace EdFi.Ods.Admin.Initialization
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
-            IDefaultApplicationCreator applicationCreator
+            IDefaultApplicationCreator applicationCreator,
+            IIdentityProvider identityProvider
             )
         {
             _settings = initializationModel;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
+            _identityProvider = identityProvider;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }
@@ -46,11 +51,7 @@ namespace EdFi.Ods.Admin.Initialization
             {
                 foreach (var role in SecurityRoles.AllRoles)
                 {
-                    if (!Roles.RoleExists(role))
-                    {
-                        _log.Debug($"Adding role: {role} to asp net security.");
-                        Roles.CreateRole(role);
-                    }
+                    _identityProvider.CreateRole(role);
                 }
             }
             catch (Exception ex)
@@ -65,22 +66,21 @@ namespace EdFi.Ods.Admin.Initialization
             {
                 foreach (var user in _settings.Users)
                 {
-                    if (WebSecurity.UserExists(user.UserName))
+                    var identityUser = _identityProvider.FindUser(user.Name);
+
+                    if (identityUser != null)
                     {
                         continue;
                     }
 
                     _log.Debug($"Adding user: {user} to asp net security.");
-                    WebSecurity.CreateUserAndAccount(user.UserName, user.Password, new {FullName = user.Name});
 
-                    foreach (var role in user.Roles)
+                    if (_identityProvider.CreateUser(user.UserName, user.Email, user.Password, confirm: true))
                     {
-                        _log.Debug($"Adding user: {user} to role: {role} in asp net security.");
-                        Roles.AddUserToRole(user.Email, role);
+                        identityUser = _identityProvider.FindUser(user.Name);
+                        _log.Debug($"Adding user: {user} to roles:  {string.Join(",", user.Roles)} in asp net security.");
+                        _identityProvider.AddToRoles(identityUser.Id, user.Roles);
                     }
-
-                    _log.Debug($"Applying password to  user: {user} in asp net security.");
-                    WebSecurityService.UpdatePasswordAndActivate(user.UserName, user.Password);
                 }
             }
             catch (Exception ex)

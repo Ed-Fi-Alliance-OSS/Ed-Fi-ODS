@@ -16,25 +16,27 @@ namespace EdFi.Ods.Admin.Services
             get { return new UrlHelper(HttpContext.Current.Request.RequestContext); }
         }
 
-        public string GetRouteForPasswordReset(string marker)
+        public string GetRouteForPasswordReset(string email, string marker)
         {
             return Url.Action(
                            "ResetPassword",
                            "Account",
                            new
                            {
+                               Email = email,
                                Marker = marker
                            })
                       .ToAbsolutePath();
         }
 
-        public string GetRouteForActivation(string marker)
+        public string GetRouteForActivation(string email, string marker)
         {
             return Url.Action(
                            "ActivateAccount",
                            "Account",
                            new
                            {
+                               Email = email,
                                Marker = marker
                            })
                       .ToAbsolutePath();
