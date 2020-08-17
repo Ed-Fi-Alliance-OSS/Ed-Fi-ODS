@@ -17,7 +17,6 @@ namespace EdFi.Ods.Admin.Contexts
 {
     public class IdentityContextFactory : IIdentityContextFactory
     {
-
         private readonly Dictionary<DatabaseEngine, Type> _identityContextTypeByDatabaseEngine =
             new Dictionary<DatabaseEngine, Type>
             {
@@ -26,7 +25,6 @@ namespace EdFi.Ods.Admin.Contexts
             };
 
         private readonly DatabaseEngine _databaseEngine;
-
 
         public IdentityContextFactory(IApiConfigurationProvider configurationProvider)
         {

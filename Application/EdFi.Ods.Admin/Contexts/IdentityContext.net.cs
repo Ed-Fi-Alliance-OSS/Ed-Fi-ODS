@@ -20,10 +20,8 @@ namespace EdFi.Ods.Admin.Contexts
     {
         public const string ConnectionStringName = "EdFi_Admin";
 
-
         protected IdentityContext()
             : base(ConnectionStringName) { }
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

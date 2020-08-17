@@ -7,6 +7,6 @@ namespace EdFi.Ods.Admin.Services
 {
     public interface ISecurityService
     {
-        UserLookupResult GetCurrentUser();
+        UserLookupResult GetCurrentUser(string currentUserName);
     }
 }

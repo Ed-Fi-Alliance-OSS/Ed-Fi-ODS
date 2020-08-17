@@ -51,18 +51,16 @@ namespace EdFi.Ods.Admin.Services
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IIdentityProvider _identityProvider;
 
-        public SecurityService(IClientAppRepo clientAppRepo, IIdentityProvider identityProvidert)
+        public SecurityService(IClientAppRepo clientAppRepo, IIdentityProvider identityProvider)
         {
             _clientAppRepo = clientAppRepo;
-            _identityProvider = identityProvidert;
+            _identityProvider = identityProvider;
         }
 
-        public UserLookupResult GetCurrentUser()
+        public UserLookupResult GetCurrentUser(string currentUserName)
         {
             try
             {
-                string currentUserName = HttpContext.Current.User?.Identity?.Name;
-
                 if (string.IsNullOrEmpty(currentUserName))
                 {
                     return UserLookupResult.Empty;

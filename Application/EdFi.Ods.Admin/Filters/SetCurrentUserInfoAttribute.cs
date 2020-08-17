@@ -37,7 +37,8 @@ namespace EdFi.Ods.Admin.Filters
                 return;
             }
 
-            var userLookup = SecurityService.GetCurrentUser();
+            string currentUserName = HttpContext.Current.User?.Identity?.Name;
+            var userLookup = SecurityService.GetCurrentUser(currentUserName);
             filterContext.Controller.ViewBag.UserLookup = userLookup;
         }
     }

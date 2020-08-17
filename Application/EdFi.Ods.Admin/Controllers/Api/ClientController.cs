@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using EdFi.Ods.Admin.Initialization;
 using EdFi.Ods.Admin.Models.Client;
@@ -49,7 +50,8 @@ namespace EdFi.Ods.Admin.Controllers.Api
         {
             get
             {
-                return _securityService.GetCurrentUser()
+                string currentUserName = HttpContext.Current.User?.Identity?.Name;
+                return _securityService.GetCurrentUser(currentUserName)
                                        .CurrentUser;
             }
         }
