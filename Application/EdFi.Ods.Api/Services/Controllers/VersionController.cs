@@ -59,21 +59,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                     })
                 .ToArray();
 
-            if (_apiConfigurationProvider.IsYearSpecific())
-            {
-                var currentSchoolYear = _systemDateProvider.GetDate().Year.ToString();
-                metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = currentSchoolYear });
-                dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = currentSchoolYear });
-            }
-            else
-            {
-                metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections" });
-                dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get" });
-            }
-
-            oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
-
-            var isLocalHost = Url.Request.RequestUri.AbsoluteUri.Contains("localhost");
+            var exposedUrls = GetUrls();
 
             var content = new
             {
@@ -85,16 +71,46 @@ namespace EdFi.Ods.Api.Services.Controllers
                 dataModels = dataModels,
                 urls = new
                 {
-                    openApiMetadata = metaDataUrl,
-                    dependencies = dependenciesUrl,
-                    oauth = oauthUrl,
-                    dataManagementApi = new Uri(new Uri(Url.Request.RequestUri.AbsoluteUri),
-                        (isLocalHost ? string.Empty : $"v{_apiVersionProvider.InformationalVersion}/api") + $"/data/v{ApiVersionConstants.Ods}/" + 
-                        (_apiConfigurationProvider.IsYearSpecific() ? _systemDateProvider.GetDate().Year.ToString() : string.Empty)).ToString()
+                    openApiMetadata = exposedUrls.MetaDataUrl,
+                    dependencies = exposedUrls.DependenciesUrl,
+                    oauth = exposedUrls.OauthUrl,
+                    dataManagementApi = exposedUrls.ApiUrl
                 }
             };
 
             return Ok(content);
+        }
+
+        private ExposedUrls GetUrls()
+        {
+            var exposedUrls = new ExposedUrls();
+
+            if (_apiConfigurationProvider.IsYearSpecific())
+            {
+                var currentSchoolYear = _systemDateProvider.GetDate().Year.ToString();
+                exposedUrls.MetaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = currentSchoolYear });
+                exposedUrls.DependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = currentSchoolYear });
+            }
+            else
+            {
+                exposedUrls.MetaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections" });
+                exposedUrls.DependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get" });
+            }
+
+            exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
+
+            var isLocalHost = Url.Request.RequestUri.AbsoluteUri.Contains("localhost");
+
+            exposedUrls.ApiUrl = new Uri(
+                new Uri(Url.Request.RequestUri.AbsoluteUri),
+                (isLocalHost
+                    ? string.Empty
+                    : $"v{_apiVersionProvider.InformationalVersion}/api") + $"/data/v{ApiVersionConstants.Ods}/" +
+                (_apiConfigurationProvider.IsYearSpecific()
+                    ? _systemDateProvider.GetDate().Year.ToString()
+                    : string.Empty)).ToString();
+
+            return exposedUrls;
         }
     }
 }

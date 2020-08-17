@@ -3,15 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-
 namespace EdFi.Ods.Common
 {
-    public class SystemDateProvider : ISystemDateProvider
+    public class ExposedUrls
     {
-        public DateTime GetDate()
-        {
-            return DateTime.Today;
-        }
+        public string MetaDataUrl { get; set; }
+        public string DependenciesUrl { get; set; }
+        public string OauthUrl { get; set; }
+        public string ApiUrl { get; set; }
     }
 }
