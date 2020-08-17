@@ -64,14 +64,14 @@ namespace EdFi.Ods.Api.Services.Controllers
                 var currentSchoolYear = _systemDateProvider.GetDate().Year.ToString();
                 metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = currentSchoolYear });
                 dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = currentSchoolYear });
-                oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
             }
             else
             {
                 metaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections" });
                 dependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get" });
-                oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
             }
+
+            oauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
             var content = new
             {
