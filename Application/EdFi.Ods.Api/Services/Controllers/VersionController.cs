@@ -97,16 +97,25 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             var versionUrl =  Url.Link("VersionGet", new { controller = "Version", Action = "get"});
 
-           // var versionUrl = Url.Link("ApiDefaultItem");
-
-           Url.Request.IsLocal();
+            var isLocalHost = Url.Request.RequestUri.AbsoluteUri.Contains("localhost");
 
             exposedUrls.ApiUrl = new Uri(
-                new Uri(versionUrl),
-                 $"/data/v{ApiVersionConstants.Ods}/" +
+                new Uri(Url.Request.RequestUri.AbsoluteUri),
+                (isLocalHost
+                    ? string.Empty
+                    : $"v{_apiVersionProvider.InformationalVersion}/api") + $"/data/v{ApiVersionConstants.Ods}/" +
                 (_apiConfigurationProvider.IsYearSpecific()
                     ? _systemDateProvider.GetDate().Year.ToString()
                     : string.Empty)).ToString();
+
+
+
+            //exposedUrls.ApiUrl = new Uri(
+            //    new Uri(Url.Request.RequestUri.AbsoluteUri),
+            //     $"/data/v{ApiVersionConstants.Ods}/" +
+            //    (_apiConfigurationProvider.IsYearSpecific()
+            //        ? _systemDateProvider.GetDate().Year.ToString()
+            //        : string.Empty)).ToString();
 
             return exposedUrls;
         }
