@@ -5,6 +5,7 @@
 
 using System;
 using System.Linq;
+using System.Net.Http;
 using System.Web.Http;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common;
@@ -94,9 +95,11 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
-            var versionUrl =  Url.Link("Root", new { controller = "Version"});
+            var versionUrl =  Url.Link("VersionGet", new { controller = "Version", Action = "get"});
 
            // var versionUrl = Url.Link("ApiDefaultItem");
+
+           Url.Request.IsLocal();
 
             exposedUrls.ApiUrl = new Uri(
                 new Uri(versionUrl),
