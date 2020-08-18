@@ -92,8 +92,10 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
+            var versionUrl =  Url.Link("Root", new { controller = "Version"});
+
             exposedUrls.ApiUrl = new Uri(
-                new Uri(Url.Request.RequestUri.AbsoluteUri),
+                new Uri(versionUrl),
                  $"/data/v{ApiVersionConstants.Ods}/" +
                 (_apiConfigurationProvider.IsYearSpecific()
                     ? _systemDateProvider.GetDate().Year.ToString()
