@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Http;
 using EdFi.Ods.Admin.Initialization;
 using EdFi.Ods.Admin.Models.Client;
@@ -56,11 +57,11 @@ namespace EdFi.Ods.Admin.Controllers.Api
             }
         }
 
-        private void AddClientStatusInfo(ApiClient client)
+        private async Task AddClientStatusInfo(ApiClient client)
         {
             if (client.UseSandbox)
             {
-                var status = _sandboxProvisioner.GetSandboxStatus(client.Key);
+                var status = await _sandboxProvisioner.GetSandboxStatusAsync(client.Key);
                 client.Status = status.Description;
             }
             else
@@ -69,22 +70,22 @@ namespace EdFi.Ods.Admin.Controllers.Api
             }
         }
 
-        private void AddClientStatusInfo(IEnumerable<ApiClient> clients)
+        private async Task AddClientStatusInfo(IEnumerable<ApiClient> clients)
         {
             foreach (var client in clients)
             {
-                AddClientStatusInfo(client);
+                await AddClientStatusInfo(client);
             }
         }
 
         [HttpGet]
-        public IEnumerable<ClientIndexViewModel> GetClients()
+        public async Task<IEnumerable<ClientIndexViewModel>> GetClients()
         {
             //TODO: This is an ugly patch for now. We should really do this type of thing in a top-level exception handler.
             try
             {
                 var clients = UserProfile.ApiClients;
-                AddClientStatusInfo(clients);
+                await AddClientStatusInfo(clients);
 
                 var models = clients.Select(ToClientIndexViewModel)
                                     .ToArray();
@@ -143,7 +144,7 @@ namespace EdFi.Ods.Admin.Controllers.Api
         }
 
         [HttpPost]
-        public ClientIndexViewModel PostClient(SandboxClientCreateModel sandboxClient)
+        public async Task<ClientIndexViewModel> PostClient(SandboxClientCreateModel sandboxClient)
         {
             if (ModelState["client.Name"] == null)
             {
@@ -158,7 +159,7 @@ namespace EdFi.Ods.Admin.Controllers.Api
                         },
                         profile);
 
-                    AddClientStatusInfo(newClient);
+                    await AddClientStatusInfo(newClient);
                     return ToClientIndexViewModel(newClient);
                 }
                 catch (ArgumentOutOfRangeException)
@@ -171,7 +172,7 @@ namespace EdFi.Ods.Admin.Controllers.Api
         }
 
         [HttpPut]
-        public ClientIndexViewModel PutClient(ClientIndexViewModel client)
+        public async Task<ClientIndexViewModel> PutClient(ClientIndexViewModel client)
         {
             var test = UserProfile.ApiClients.FirstOrDefault(c => c.Key == client.Key && c.ApiClientId == client.Id);
 
@@ -182,7 +183,7 @@ namespace EdFi.Ods.Admin.Controllers.Api
 
             test.GenerateSecret();
             _repository.UpdateClient(test);
-            AddClientStatusInfo(test);
+            await AddClientStatusInfo(test);
             return ToClientIndexViewModel(test);
         }
 
