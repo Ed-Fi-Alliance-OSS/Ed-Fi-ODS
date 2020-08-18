@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using Castle.Windsor;
 using EdFi.Ods.Common.Configuration;
 using TechTalk.SpecFlow;
@@ -29,3 +30,4 @@ namespace EdFi.Ods.WebService.Tests.Composites
         }
     }
 }
+#endif

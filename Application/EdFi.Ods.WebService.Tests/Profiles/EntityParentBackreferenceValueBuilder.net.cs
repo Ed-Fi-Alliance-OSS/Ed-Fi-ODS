@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.TestObjects;
 using log4net;
@@ -35,3 +36,4 @@ namespace EdFi.Ods.WebService.Tests.Profiles
         public ITestObjectFactory Factory { get; set; }
     }
 }
+#endif
