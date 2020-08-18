@@ -8,7 +8,6 @@ namespace EdFi.Admin.DataAccess
     public enum SandboxType
     {
         Minimal,
-        Sample,
-        Empty
+        Sample
     }
 }

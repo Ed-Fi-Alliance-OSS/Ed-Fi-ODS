@@ -22,7 +22,7 @@ namespace EdFi.Admin.DataAccess.UnitTests
             public void Setup()
             {
                 _user = new User();
-                _client = _user.AddSandboxClient("MyClientName", SandboxType.Empty, string.Empty, string.Empty);
+                _client = _user.AddSandboxClient("MyClientName", SandboxType.Minimal, string.Empty, string.Empty);
             }
 
             [Test]
@@ -59,7 +59,7 @@ namespace EdFi.Admin.DataAccess.UnitTests
             [Test]
             public void Should_set_sandbox_type()
             {
-                _client.SandboxType.ShouldBe(SandboxType.Empty);
+                _client.SandboxType.ShouldBe(SandboxType.Minimal);
             }
 
             [Test]

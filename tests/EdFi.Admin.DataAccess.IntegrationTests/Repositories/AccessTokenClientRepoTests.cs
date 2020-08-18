@@ -66,7 +66,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     Name = "name",
                     IsApproved = true,
                     UseSandbox = true,
-                    SandboxType = SandboxType.Empty,
+                    SandboxType = SandboxType.Minimal,
                     SecretIsHashed = false,
                     Application = application
                 });
