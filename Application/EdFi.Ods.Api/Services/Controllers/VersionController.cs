@@ -99,13 +99,9 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
-            var isLocalHost = Url.Request.RequestUri.AbsoluteUri.Contains("localhost");
-
             exposedUrls.ApiUrl = new Uri(
                 new Uri(Url.Request.RequestUri.AbsoluteUri),
-                (isLocalHost
-                    ? string.Empty
-                    : $"v{_apiVersionProvider.InformationalVersion}/api") + $"/data/v{ApiVersionConstants.Ods}/" +
+                 $"/data/v{ApiVersionConstants.Ods}/" +
                 (_apiConfigurationProvider.IsYearSpecific()
                     ? _systemDateProvider.GetDate().Year.ToString()
                     : string.Empty)).ToString();
