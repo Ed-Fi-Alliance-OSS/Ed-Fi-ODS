@@ -4,14 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using System.Web.Http;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Services.Controllers
@@ -44,10 +41,6 @@ namespace EdFi.Ods.Api.Services.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            var metaDataUrl = string.Empty;
-            var dependenciesUrl = string.Empty;
-            var oauthUrl = string.Empty;
-
             var dataModels = _domainModelProvider
                 .GetDomainModel()
                 .Schemas
