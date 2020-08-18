@@ -38,7 +38,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             _systemDateProvider = systemDateProvider;
         }
 
-        [Route("")]
+       // [Route("")]
         public IHttpActionResult Get()
         {
             var dataModels = _domainModelProvider
@@ -67,7 +67,9 @@ namespace EdFi.Ods.Api.Services.Controllers
                     openApiMetadata = exposedUrls.MetaDataUrl,
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
-                    dataManagementApi = exposedUrls.ApiUrl
+                    dataManagementApi = exposedUrls.ApiUrl,
+                    Url.Request.RequestUri.AbsolutePath,
+                    Url.Request.RequestUri.AbsoluteUri
                 }
             };
 
@@ -93,6 +95,8 @@ namespace EdFi.Ods.Api.Services.Controllers
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
             var versionUrl =  Url.Link("Root", new { controller = "Version"});
+
+           // var versionUrl = Url.Link("ApiDefaultItem");
 
             exposedUrls.ApiUrl = new Uri(
                 new Uri(versionUrl),

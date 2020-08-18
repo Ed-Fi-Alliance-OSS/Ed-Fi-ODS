@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.Startup.HttpRouteConfigurations
                 defaults: new
                 {
                     controller = "Version",
-                    action = "Index"
+                    action = "get"
                 });
         }
 
