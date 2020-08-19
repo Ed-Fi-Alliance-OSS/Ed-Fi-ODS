@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             _systemDateProvider = systemDateProvider;
         }
 
-       [Route("")]
+        [Route("")]
         public IHttpActionResult Get()
         {
             var dataModels = _domainModelProvider
