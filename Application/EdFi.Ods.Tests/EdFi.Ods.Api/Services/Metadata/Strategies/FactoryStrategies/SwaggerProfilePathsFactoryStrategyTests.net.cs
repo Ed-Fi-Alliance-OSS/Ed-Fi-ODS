@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,41 +79,41 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                 _testProfileResourceNamesProvider = new TestProfileResourceNamesProvider();
 
                 var studentProgramAssociation = _resourceModelProvider.GetResourceModel()
-                                                                     .GetResourceByFullName(
-                                                                          new FullName(
-                                                                              EdFiConventions
-                                                                                 .PhysicalSchemaName,
-                                                                              "StudentProgramAssociation"));
+                    .GetResourceByFullName(
+                        new FullName(
+                            EdFiConventions
+                                .PhysicalSchemaName,
+                            "StudentProgramAssociation"));
 
                 var studentSpecialEducationProgramAssociation = _resourceModelProvider
-                                                               .GetResourceModel()
-                                                               .GetResourceByFullName(
-                                                                    new FullName(
-                                                                        EdFiConventions
-                                                                           .PhysicalSchemaName,
-                                                                        "StudentSpecialEducationProgramAssociation"));
+                    .GetResourceModel()
+                    .GetResourceByFullName(
+                        new FullName(
+                            EdFiConventions
+                                .PhysicalSchemaName,
+                            "StudentSpecialEducationProgramAssociation"));
 
                 _expectedFilteredResources = new[]
-                                             {
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "studentProgramAssociation", Readable = true
-                                                 },
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "studentProgramAssociation", Readable = true,
-                                                     ContextualResource = studentSpecialEducationProgramAssociation
-                                                 },
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "studentProgramAssociation_StudentSpecialEducationProgramAssociation", Readable = true,
-                                                     Writable = true
-                                                 },
-                                                 new SwaggerResource(studentSpecialEducationProgramAssociation)
-                                                 {
-                                                     Name = "studentSpecialEducationProgramAssociation", Readable = true, Writable = true
-                                                 }
-                                             };
+                {
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "studentProgramAssociation", Readable = true
+                    },
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "studentProgramAssociation", Readable = true,
+                        ContextualResource = studentSpecialEducationProgramAssociation
+                    },
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "studentProgramAssociation_StudentSpecialEducationProgramAssociation", Readable = true,
+                        Writable = true
+                    },
+                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    {
+                        Name = "studentSpecialEducationProgramAssociation", Readable = true, Writable = true
+                    }
+                };
 
                 _schemaNameMapProviderStub = Stub<ISchemaNameMapProvider>();
 
@@ -136,12 +137,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             protected override void Act()
             {
                 _actualFilteredResources = new SwaggerPathsFactoryProfileStrategy(_swaggerDocumentContext)
-                   .ApplyStrategy(
+                    .ApplyStrategy(
                         new OpenApiProfileStrategy().GetFilteredResources(_swaggerDocumentContext));
             }
 
             [Assert]
-            public void Should_not_return_empty_list_of_filtered_resources() 
+            public void Should_not_return_empty_list_of_filtered_resources()
             {
                 Assert.That(_actualFilteredResources, Is.Not.Empty);
             }
@@ -169,18 +170,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             {
                 AssertHelper.All(
                     _actualFilteredResources
-                       .Select(
+                        .Select(
                             r =>
                                 (Action)
                                 (() =>
-                                     Assert.That(
-                                         _expectedFilteredResources.Contains(
-                                             r,
-                                             new SwaggerResourceProfileComparer()),
-                                         Is.True,
-                                         $"Swagger Resource {r.Name} does not exist in expected")))
-                       .ToArray());
+                                    Assert.That(
+                                        _expectedFilteredResources.Contains(
+                                            r,
+                                            new SwaggerResourceProfileComparer()),
+                                        Is.True,
+                                        $"Swagger Resource {r.Name} does not exist in expected")))
+                        .ToArray());
             }
         }
     }
 }
+#endif

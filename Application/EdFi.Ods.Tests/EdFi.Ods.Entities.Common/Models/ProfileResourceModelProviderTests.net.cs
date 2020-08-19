@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Data;
 using System.Xml.Linq;
@@ -108,8 +109,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
             {
                 // Initialize dependencies
                 Given<IProfileMetadataProvider>()
-                   .Stub(x => x.GetProfileDefinition("Profile1"))
-                   .Return(
+                    .Stub(x => x.GetProfileDefinition("Profile1"))
+                    .Return(
                         XElement.Parse(
                             @"
                             <Profile name='Profile1'>
@@ -124,8 +125,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                             </Profile>"));
 
                 Given<IProfileMetadataProvider>()
-                   .Stub(x => x.GetProfileDefinition("Profile2"))
-                   .Return(
+                    .Stub(x => x.GetProfileDefinition("Profile2"))
+                    .Return(
                         XElement.Parse(
                             @"
                             <Profile name='Profile2'>
@@ -142,12 +143,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                             </Profile>"));
 
                 Given<IProfileMetadataProvider>()
-                   .Stub(x => x.GetProfileDefinition("ProfileX"))
-                   .Throw(new KeyNotFoundException());
+                    .Stub(x => x.GetProfileDefinition("ProfileX"))
+                    .Throw(new KeyNotFoundException());
 
                 Given<IResourceModelProvider>()
-                   .Stub(x => x.GetResourceModel())
-                   .Return(GetTestResourceModel());
+                    .Stub(x => x.GetResourceModel())
+                    .Return(GetTestResourceModel());
             }
 
             protected override void Act()
@@ -174,3 +175,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
         }
     }
 }
+#endif

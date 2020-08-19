@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -22,8 +23,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var expected = short.Parse("2015");
 
             XElement.Parse(schoolyear)
-                    .Last4CharactersAsNullableShort()
-                    .ShouldBe(expected);
+                .Last4CharactersAsNullableShort()
+                .ShouldBe(expected);
         }
     }
 
@@ -37,8 +38,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var expected = default(decimal);
 
             XElement.Parse(emptyval)
-                    .DecimalValueOf("myval")
-                    .ShouldBe(expected);
+                .DecimalValueOf("myval")
+                .ShouldBe(expected);
         }
 
         [Test]
@@ -48,8 +49,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var expected = (decimal) 10.3;
 
             XElement.Parse(reals)
-                    .DecimalValueOf("reals")
-                    .ShouldBe(expected);
+                .DecimalValueOf("reals")
+                .ShouldBe(expected);
         }
     }
 
@@ -63,8 +64,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var expected = (decimal?) 100.4;
 
             XElement.Parse(valuable)
-                    .NullableDecimalValueOf("valuable")
-                    .ShouldBe(expected);
+                .NullableDecimalValueOf("valuable")
+                .ShouldBe(expected);
         }
 
         [Test]
@@ -73,8 +74,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var nullish = @"<root><nullish></nullish></root>";
 
             XElement.Parse(nullish)
-                    .NullableDecimalValueOf("nullish")
-                    .ShouldBeNull();
+                .NullableDecimalValueOf("nullish")
+                .ShouldBeNull();
         }
     }
 
@@ -87,9 +88,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             const string xml = @"<Root></Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("A")
-                    .ElementOrEmpty("B")
-                    .ShouldBeNull();
+                .ElementOrEmpty("A")
+                .ElementOrEmpty("B")
+                .ShouldBeNull();
         }
 
         [Test]
@@ -103,9 +104,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .IntValueOf("GrandChild")
-                    .ShouldBe(1);
+                .ElementOrEmpty("Child")
+                .IntValueOf("GrandChild")
+                .ShouldBe(1);
         }
 
         [Test]
@@ -114,9 +115,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             const string xml = @"<Root><Child><GrandChild>TheValue</GrandChild></Child></Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .ElementOrEmpty("GrandChild")
-                    .Value.ShouldBe("TheValue");
+                .ElementOrEmpty("Child")
+                .ElementOrEmpty("GrandChild")
+                .Value.ShouldBe("TheValue");
         }
     }
 
@@ -135,9 +136,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementsOrEmpty("Child")
-                    .Count()
-                    .ShouldBe(4);
+                .ElementsOrEmpty("Child")
+                .Count()
+                .ShouldBe(4);
         }
 
         [Test]
@@ -151,9 +152,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementsOrEmpty("Child")
-                    .Count()
-                    .ShouldBe(3);
+                .ElementsOrEmpty("Child")
+                .Count()
+                .ShouldBe(3);
         }
 
         [Test]
@@ -162,9 +163,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             const string xml = @"<Root></Root>";
 
             XElement.Parse(xml)
-                    .ElementsOrEmpty("A")
-                    .Count()
-                    .ShouldBe(0);
+                .ElementsOrEmpty("A")
+                .Count()
+                .ShouldBe(0);
         }
     }
 
@@ -180,9 +181,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                 </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .AttributeValue("id")
-                    .ShouldBe("123");
+                .ElementOrEmpty("Child")
+                .AttributeValue("id")
+                .ShouldBe("123");
         }
 
         [Test]
@@ -194,9 +195,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                 </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .AttributeValue("SomeAttribute")
-                    .ShouldBeNull();
+                .ElementOrEmpty("Child")
+                .AttributeValue("SomeAttribute")
+                .ShouldBeNull();
         }
 
         [Test]
@@ -207,9 +208,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                 </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .AttributeValue("SomeAttribute")
-                    .ShouldBeNull();
+                .ElementOrEmpty("Child")
+                .AttributeValue("SomeAttribute")
+                .ShouldBeNull();
         }
     }
 
@@ -224,8 +225,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ValueOf("Child")
-                    .ShouldBeNull();
+                .ValueOf("Child")
+                .ShouldBeNull();
         }
 
         [Test]
@@ -237,8 +238,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ValueOf("Child")
-                    .ShouldBe("foo");
+                .ValueOf("Child")
+                .ShouldBe("foo");
         }
     }
 
@@ -256,9 +257,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .IntValueOf("GrandChild")
-                    .ShouldBe(1);
+                .ElementOrEmpty("Child")
+                .IntValueOf("GrandChild")
+                .ShouldBe(1);
         }
 
         [Test]
@@ -270,9 +271,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .IntValueOf("GrandChild")
-                    .ShouldBe(0);
+                .ElementOrEmpty("Child")
+                .IntValueOf("GrandChild")
+                .ShouldBe(0);
         }
 
         [Test]
@@ -283,9 +284,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                   </Root>";
 
             XElement.Parse(xml)
-                    .ElementOrEmpty("Child")
-                    .IntValueOf("GrandChild")
-                    .ShouldBe(0);
+                .ElementOrEmpty("Child")
+                .IntValueOf("GrandChild")
+                .ShouldBe(0);
         }
     }
 
@@ -298,15 +299,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             XElement nullElement = null;
 
             nullElement.ValueOrDefault()
-                       .ShouldBeNull();
+                .ShouldBeNull();
         }
 
         [Test]
         public void Of_An_Empty_Object_Should_Return_Empty_String()
         {
             XElement.Parse("<node></node>")
-                    .ValueOrDefault()
-                    .ShouldBeEmpty();
+                .ValueOrDefault()
+                .ShouldBeEmpty();
         }
     }
 
@@ -319,10 +320,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var xml = "<root><timespan>07:57:00.0000000-05:00</timespan></root>";
 
             XElement.Parse(xml)
-                    .TimeSpanValueOf("timespan")
-                    .ShouldBe(
-                         XmlConvert.ToDateTime("07:57:00.0000000-05:00", XmlDateTimeSerializationMode.Utc)
-                                   .TimeOfDay);
+                .TimeSpanValueOf("timespan")
+                .ShouldBe(
+                    XmlConvert.ToDateTime("07:57:00.0000000-05:00", XmlDateTimeSerializationMode.Utc)
+                        .TimeOfDay);
         }
     }
 
@@ -335,10 +336,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var xml = "<root><timespan>07:57:00.0000000-05:00</timespan></root>";
 
             XElement.Parse(xml)
-                    .TimeSpanValueOf("timespan")
-                    .ShouldBe(
-                         XmlConvert.ToDateTime("07:57:00.0000000-05:00", XmlDateTimeSerializationMode.Utc)
-                                   .TimeOfDay);
+                .TimeSpanValueOf("timespan")
+                .ShouldBe(
+                    XmlConvert.ToDateTime("07:57:00.0000000-05:00", XmlDateTimeSerializationMode.Utc)
+                        .TimeOfDay);
         }
     }
 
@@ -352,12 +353,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var xml = "<student><name><firstname>" + expected + "</firstname></name></student>";
 
             XElement.Parse(xml)
-                    .NestedValueOf(
-                         new[]
-                         {
-                             "name", "firstname"
-                         })
-                    .ShouldBe(expected);
+                .NestedValueOf(
+                    new[]
+                    {
+                        "name", "firstname"
+                    })
+                .ShouldBe(expected);
         }
 
         [Test]
@@ -372,14 +373,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var xml = openxml + openNick + expected1 + closeNick + openNick + expected2 + closeNick + closexml;
 
             var found = XElement.Parse(xml)
-                                .NestedElementsOrEmpty(
-                                     new[]
-                                     {
-                                         "name", "nick"
-                                     });
+                .NestedElementsOrEmpty(
+                    new[]
+                    {
+                        "name", "nick"
+                    });
 
             found.Count()
-                 .ShouldBe(2);
+                .ShouldBe(2);
         }
 
         [Test]
@@ -388,15 +389,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var xml = "<root><something></something></root>";
 
             var given = new[]
-                        {
-                            "Bob", "Lisa"
-                        };
+            {
+                "Bob", "Lisa"
+            };
 
             var result = XElement.Parse(xml)
-                                 .NestedValueOf(given);
+                .NestedValueOf(given);
 
             string.IsNullOrWhiteSpace(result)
-                  .ShouldBeTrue();
+                .ShouldBeTrue();
         }
     }
 
@@ -418,10 +419,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var given = allElements;
 
             var found = XElement.Parse(xml)
-                                .AllElementsOrEmpty(given);
+                .AllElementsOrEmpty(given);
 
             found.Count()
-                 .ShouldBe(3);
+                .ShouldBe(3);
         }
 
         [Test]
@@ -431,10 +432,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var given = allElements;
 
             var found = XElement.Parse(xml)
-                                .AllElementsOrEmpty(given);
+                .AllElementsOrEmpty(given);
 
             found.Count()
-                 .ShouldBe(3);
+                .ShouldBe(3);
         }
 
         [Test]
@@ -444,8 +445,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var given = allElements;
 
             XElement.Parse(xml)
-                    .AllElementsOrEmpty(given)
-                    .ShouldBeEmpty();
+                .AllElementsOrEmpty(given)
+                .ShouldBeEmpty();
         }
 
         [Test]
@@ -461,10 +462,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var given = allElements;
 
             var found = XElement.Parse(xml)
-                                .AllElementsOrEmpty(given);
+                .AllElementsOrEmpty(given);
 
             found.Count()
-                 .ShouldBe(4);
+                .ShouldBe(4);
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Constants;
@@ -13,19 +14,19 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
 {
-    public static class OpenApiMetadataHelper
-    {
-        public static OpenApiMetadataDocument DeserializeSwaggerDocument(string json)
-        {
-            return JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
-                json,
-                new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore}
-            );
-        }
+   public static class OpenApiMetadataHelper
+   {
+      public static OpenApiMetadataDocument DeserializeSwaggerDocument(string json)
+      {
+         return JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
+            json,
+            new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore}
+         );
+      }
 
-        public static OpenApiContent GetIdentityContent()
-        {
-            var identityJson = @"{  
+      public static OpenApiContent GetIdentityContent()
+      {
+         var identityJson = @"{  
                        ""swagger"":""2.0"",
                        ""info"":{  
                           ""description"":""The Ed-Fi ODS / API enables applications to read and write education data stored in an Ed-Fi ODS through a secure REST interface. \n***\n > *Note: Consumers of ODS / API information should sanitize all data for display and storage. The ODS / API provides reasonable safeguards against cross-site scripting attacks and other malicious content, but the platform does not and cannot guarantee that the data it contains is free of all potentially harmful content.* \n***\n"",
@@ -93,8 +94,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                       },                       
                     }";
 
-            return new OpenApiContent(
-                "Other", "identity", new Lazy<string>(() => identityJson), $"Identity/v{ApiVersionConstants.Identity}");
-        }
-    }
+         return new OpenApiContent(
+            "Other", "identity", new Lazy<string>(() => identityJson), $"Identity/v{ApiVersionConstants.Identity}");
+      }
+   }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 _openApiMetadataCacheProvider.Stub(x => x.GetOpenApiContentByFeedName(Arg<string>.Is.Anything))
-                                             .Return(OpenApiMetadataHelper.GetIdentityContent());
+                    .Return(OpenApiMetadataHelper.GetIdentityContent());
 
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
                 var config = new HttpConfiguration();
@@ -81,9 +82,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             public async Task Should_return_valid_http_response_message()
             {
                 var request = new OpenApiMetadataRequest
-                              {
-                                  OtherName = "identity"
-                              };
+                {
+                    OtherName = "identity"
+                };
 
                 HttpResponseMessage response = _controller.Get(request);
                 Assert.IsNotNull(response);
@@ -114,7 +115,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 _openApiMetadataCacheProvider.Stub(x => x.GetOpenApiContentByFeedName(Arg<string>.Is.Anything))
-                                             .Return(OpenApiMetadataHelper.GetIdentityContent());
+                    .Return(OpenApiMetadataHelper.GetIdentityContent());
 
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
                 var config = new HttpConfiguration();
@@ -161,9 +162,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             public async Task Should_return_valid_http_response_message()
             {
                 var request = new OpenApiMetadataRequest
-                              {
-                                  OtherName = "identity"
-                              };
+                {
+                    OtherName = "identity"
+                };
 
                 HttpResponseMessage response = _controller.Get(request);
                 Assert.IsNotNull(response);
@@ -190,7 +191,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 _openApiMetadataCacheProvider.Stub(x => x.GetOpenApiContentByFeedName(Arg<string>.Is.Anything))
-                                             .Return(OpenApiMetadataHelper.GetIdentityContent());
+                    .Return(OpenApiMetadataHelper.GetIdentityContent());
 
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
                 var config = new HttpConfiguration();
@@ -233,9 +234,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
             public async Task Should_return_valid_http_response_message()
             {
                 var request = new OpenApiMetadataRequest
-                              {
-                                  OtherName = "identity"
-                              };
+                {
+                    OtherName = "identity"
+                };
 
                 HttpResponseMessage response = _controller.Get(request);
                 Assert.IsNotNull(response);
@@ -249,3 +250,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Controllers
         }
     }
 }
+#endif

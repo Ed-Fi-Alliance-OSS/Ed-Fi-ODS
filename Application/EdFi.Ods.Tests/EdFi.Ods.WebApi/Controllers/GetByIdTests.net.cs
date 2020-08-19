@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Net;
 using System.Net.Http;
@@ -50,7 +51,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.OK);
 
                 var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .GetResultSafely();
+                    .GetResultSafely();
 
                 var resource = DefaultTestJsonSerializer.DeserializeObject<Student>(result);
                 resource.Id.ShouldBe(_id);
@@ -84,7 +85,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Should_contain_error_message_in_content()
             {
                 var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .Result;
+                    .Result;
 
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldBe("Exception for testing");
@@ -188,3 +189,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 }
+#endif

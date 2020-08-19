@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,13 +19,13 @@ namespace EdFi.Ods.Tests
         private IEnumerable<IGrouping<string, Reference>> FindReferencesWithTheSameShortNameButDiffererntFullNames(List<Reference> references)
         {
             return from reference in references
-                   group reference by reference.ReferencedAssembly.Name
-                   into referenceGroup
-                   where referenceGroup.ToList()
-                                       .Select(reference => reference.ReferencedAssembly.FullName)
-                                       .Distinct()
-                                       .Count() > 1
-                   select referenceGroup;
+                group reference by reference.ReferencedAssembly.Name
+                into referenceGroup
+                where referenceGroup.ToList()
+                    .Select(reference => reference.ReferencedAssembly.FullName)
+                    .Distinct()
+                    .Count() > 1
+                select referenceGroup;
         }
 
         private List<Reference> GetReferencesFromAllAssemblies(List<Assembly> assemblies)
@@ -87,3 +88,4 @@ namespace EdFi.Ods.Tests
         }
     }
 }
+#endif

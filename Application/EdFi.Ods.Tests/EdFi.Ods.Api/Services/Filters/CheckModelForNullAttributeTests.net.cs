@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
@@ -39,9 +40,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
                 var httpActionDescriptor = Stub<HttpActionDescriptor>();
 
                 var controllerContext = new HttpControllerContext
-                                        {
-                                            Request = new HttpRequestMessage()
-                                        };
+                {
+                    Request = new HttpRequestMessage()
+                };
 
                 var actionContext = new HttpActionContext(controllerContext, httpActionDescriptor);
                 var actionFilter = new CheckModelForNullAttribute();
@@ -54,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
                 response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
                 var responseMessage = response.Content.ReadAsStringAsync()
-                                              .Result;
+                    .Result;
 
                 responseMessage.ShouldBe("{\"Message\":\"The request is invalid because it is missing a classParameter.\"}");
             }
@@ -65,9 +66,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
                 var httpActionDescriptor = Stub<HttpActionDescriptor>();
 
                 var controllerContext = new HttpControllerContext
-                                        {
-                                            Request = new HttpRequestMessage()
-                                        };
+                {
+                    Request = new HttpRequestMessage()
+                };
 
                 var actionContext = new HttpActionContext(controllerContext, httpActionDescriptor);
                 var actionFilter = new CheckModelForNullAttribute();
@@ -80,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
                 response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
                 var responseMessage = response.Content.ReadAsStringAsync()
-                                              .Result;
+                    .Result;
 
                 responseMessage.ShouldBe("{\"Message\":\"The request is invalid because it is missing requestParameter', 'classParameter \"}");
 
@@ -88,3 +89,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
         }
     }
 }
+#endif

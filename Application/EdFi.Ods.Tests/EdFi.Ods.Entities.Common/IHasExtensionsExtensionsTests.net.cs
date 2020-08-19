@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -34,19 +35,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedSourceEntityExtension = Stub<ISynchronizable>();
 
                 _suppliedSourceEntityExtension
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(true);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(true);
 
                 // Source extension entry, mapped from the resource object, will be an ArrayList of "transient" entities
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension
+                        }
+                    }
+                };
 
                 _suppliedSourceEntity = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -54,14 +55,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -104,19 +105,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 // No modifications have been made
                 _suppliedSourceEntityExtension
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(false);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(false);
 
                 // Source extension entry, mapped from the resource object, will be a "transient" entity
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension
+                        }
+                    }
+                };
 
                 _suppliedSourceEntity = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -124,14 +125,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedTargetEntityExtension
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedTargetEntityExtension
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -177,30 +178,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 // First extension has modifications
                 _suppliedSourceEntityExtension1
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(true);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(true);
 
                 // Second extension has no modifications, but should not overwrite state
                 _suppliedSourceEntityExtension2
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(false);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(false);
 
                 // Source extension entry, mapped from the resource object, will be a ArrayList of "transient" entities
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension1
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension2
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension1
+                        }
+                    },
+                    {
+                        "Extension2", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension2
+                        }
+                    }
+                };
 
                 _suppliedSourceEntity = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -209,20 +210,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension2 = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension1
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension2
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension1
+                        }
+                    },
+                    {
+                        "Extension2", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension2
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -257,25 +258,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedSourceEntityExtension2 = Stub<ISynchronizable>();
 
                 _suppliedSourceEntityExtension1
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(true);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(true);
 
                 // Source extension entry, mapped from the resource object, will be an ArrayList of "transient" entities
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension1
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension2
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension1
+                        }
+                    },
+                    {
+                        "Extension2", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension2
+                        }
+                    }
+                };
 
                 _suppliedSourceEntity = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -287,20 +288,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension2 = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension1
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension2
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension1
+                        }
+                    },
+                    {
+                        "Extension2", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension2
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -340,8 +341,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedSourceEntityExtension1 = Stub<ISynchronizable>();
 
                 _suppliedSourceEntityExtension1
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(true);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(true);
 
                 // Source extension entry, mapped from the resource object, will be a "transient" entity
                 var sourceExtensions = new Dictionary<string, object>();
@@ -351,14 +352,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension1 = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension1
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension1
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -378,7 +379,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         [TestFixture]
         public class When_synchronizing_entity_extensions_where_the_target_entity_does_not_have_the_extension_present : LegacyTestFixtureBase
         {
-            // NOTE: Given current system behavior, this should never happen - the extensions factory should 
+            // NOTE: Given current system behavior, this should never happen - the extensions factory should
             // create the new extension entity instance in the target list during entity initialization.
             // If there were not to be an extension entity present on the target, it should simply be ignored
             // as the source would be deemed to be invalid.
@@ -396,25 +397,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedSourceEntityExtension2 = Stub<ISynchronizable>();
 
                 _suppliedSourceEntityExtension1
-                   .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
-                   .Return(true);
+                    .Expect(x => x.Synchronize(Arg<object>.Is.Anything))
+                    .Return(true);
 
                 // Source extension entry, mapped from the resource object, will be an ArrayList of "transient" entities
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension1
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new ArrayList
-                                                             {
-                                                                 _suppliedSourceEntityExtension2
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension1
+                        }
+                    },
+                    {
+                        "Extension2", new ArrayList
+                        {
+                            _suppliedSourceEntityExtension2
+                        }
+                    }
+                };
 
                 _suppliedSourceEntity = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -422,14 +423,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedTargetEntityExtension1 = Stub<ISynchronizable>();
 
                 var targetExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<ISynchronizable>
-                                                             {
-                                                                 _suppliedTargetEntityExtension1
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<ISynchronizable>
+                        {
+                            _suppliedTargetEntityExtension1
+                        }
+                    }
+                };
 
                 _suppliedTargetEntity = new FakeEntityWithExtensions(targetExtensions);
             }
@@ -486,20 +487,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 // Entity extensions are always wrapped in a list, due to NHibernate mappings
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", new List<IMappableExtensionEntity>
-                                                             {
-                                                                 _suppliedSourceExtension1Object
-                                                             }
-                                           },
-                                           {
-                                               "Extension2", new List<IMappableExtensionEntity>
-                                                             {
-                                                                 _suppliedSourceExtension2Object
-                                                             }
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", new List<IMappableExtensionEntity>
+                        {
+                            _suppliedSourceExtension1Object
+                        }
+                    },
+                    {
+                        "Extension2", new List<IMappableExtensionEntity>
+                        {
+                            _suppliedSourceExtension2Object
+                        }
+                    }
+                };
 
                 _suppliedSourceObject = new FakeEntityWithExtensions(sourceExtensions);
 
@@ -508,14 +509,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 IHasExtensionsExtensions.CreateTargetExtensionObject
                     = (t, x) =>
-                      {
-                          var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
-                          targetExtensionObjectMock.Replay();
+                    {
+                        var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
+                        targetExtensionObjectMock.Replay();
 
-                          _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
+                        _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
 
-                          return targetExtensionObjectMock;
-                      };
+                        return targetExtensionObjectMock;
+                    };
             }
 
             protected override void Act()
@@ -626,14 +627,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 IHasExtensionsExtensions.CreateTargetExtensionObject
                     = (t, x) =>
-                      {
-                          var targetExtensionObjectMock = mocks.Stub<IMappableResource>();
-                          targetExtensionObjectMock.Replay();
+                    {
+                        var targetExtensionObjectMock = mocks.Stub<IMappableResource>();
+                        targetExtensionObjectMock.Replay();
 
-                          _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
+                        _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
 
-                          return targetExtensionObjectMock;
-                      };
+                        return targetExtensionObjectMock;
+                    };
             }
 
             protected override void Act()
@@ -729,17 +730,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedUnsupportedExtensionObject = MockRepository.GenerateStub<IMappableResource>();
 
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", _suppliedSourceExtension1Object
-                                           },
-                                           {
-                                               "Extension2", _suppliedSourceExtension2Object
-                                           },
-                                           {
-                                               "UnsupportedExtension", _suppliedUnsupportedExtensionObject
-                                           }
-                                       };
+                {
+                    {
+                        "Extension1", _suppliedSourceExtension1Object
+                    },
+                    {
+                        "Extension2", _suppliedSourceExtension2Object
+                    },
+                    {
+                        "UnsupportedExtension", _suppliedUnsupportedExtensionObject
+                    }
+                };
 
                 _suppliedSourceObject = new FakeEntityWithExtensions(sourceExtensions);
                 _suppliedSourceObject.SetExtensionSupported("UnsupportedExtension", false);
@@ -749,14 +750,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 IHasExtensionsExtensions.CreateTargetExtensionObject
                     = (t, x) =>
-                      {
-                          var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
-                          targetExtensionObjectMock.Replay();
+                    {
+                        var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
+                        targetExtensionObjectMock.Replay();
 
-                          _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
+                        _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
 
-                          return targetExtensionObjectMock;
-                      };
+                        return targetExtensionObjectMock;
+                    };
             }
 
             protected override void Act()
@@ -882,14 +883,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 _suppliedSourceExtension2Object = MockRepository.GenerateStub<IMappableResource>();
 
                 var sourceExtensions = new Dictionary<string, object>
-                                       {
-                                           {
-                                               "Extension1", _suppliedSourceExtension1Object
-                                           },
-                                           {
-                                               "Extension2", _suppliedSourceExtension2Object
-                                           } // Not supported
-                                       };
+                {
+                    {
+                        "Extension1", _suppliedSourceExtension1Object
+                    },
+                    {
+                        "Extension2", _suppliedSourceExtension2Object
+                    } // Not supported
+                };
 
                 // Source resource doesn't support Extension2
                 _suppliedSourceObject = new FakeEntityWithExtensions(sourceExtensions);
@@ -900,14 +901,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 IHasExtensionsExtensions.CreateTargetExtensionObject
                     = (t, x) =>
-                      {
-                          var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
-                          targetExtensionObjectMock.Replay();
+                    {
+                        var targetExtensionObjectMock = mocks.Stub<IMappableExtensionEntity>();
+                        targetExtensionObjectMock.Replay();
 
-                          _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
+                        _suppliedTargetExtensionObjectByExtensionName.Add(x, targetExtensionObjectMock);
 
-                          return targetExtensionObjectMock;
-                      };
+                        return targetExtensionObjectMock;
+                    };
             }
 
             protected override void Act()
@@ -1062,3 +1063,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         }
     }
 }
+#endif

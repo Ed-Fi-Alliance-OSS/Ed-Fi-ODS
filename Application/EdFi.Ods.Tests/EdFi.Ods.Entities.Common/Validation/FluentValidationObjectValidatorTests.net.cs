@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,12 +37,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
             public CatsAndDogsOnlyValidator()
             {
                 RuleFor(x => x.AnimalType)
-                   .Must(
+                    .Must(
                         y => new[]
-                             {
-                                 "Cat", "Dog"
-                             }.Contains(y))
-                   .WithMessage("It can only rain cats and dogs.");
+                        {
+                            "Cat", "Dog"
+                        }.Contains(y))
+                    .WithMessage("It can only rain cats and dogs.");
             }
         }
 
@@ -54,8 +55,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     () =>
                     {
                         RuleFor(x => x.Age)
-                           .Must(y => y % 2 == 0)
-                           .WithMessage("The age is quite odd.");
+                            .Must(y => y % 2 == 0)
+                            .WithMessage("The age is quite odd.");
                     });
             }
         }
@@ -69,7 +70,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     () =>
                     {
                         RuleFor(x => x.FirstName)
-                           .Length(1, 3);
+                            .Length(1, 3);
                     });
             }
         }
@@ -83,7 +84,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     () =>
                     {
                         RuleFor(x => x.LastName)
-                           .Length(1, 5);
+                            .Length(1, 5);
                     });
             }
         }
@@ -103,9 +104,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     });
 
                 var person = new Person
-                             {
-                                 FirstName = "Wolfgang", LastName = "Mozart", Age = 261
-                             };
+                {
+                    FirstName = "Wolfgang", LastName = "Mozart", Age = 261
+                };
 
                 _actualValidationResults = explicitValidator.ValidateObject(person, "ShortNames");
             }
@@ -116,8 +117,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                 Assert.That(
                     _actualValidationResults.GetAllMessages(),
                     Does.Contain("between 1 and 3 characters")
-                      .And.ContainsSubstring("between 1 and 5 characters")
-                      .And.Not.ContainsSubstring("age is quite odd"));
+                        .And.ContainsSubstring("between 1 and 5 characters")
+                        .And.Not.ContainsSubstring("age is quite odd"));
             }
         }
 
@@ -139,9 +140,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     });
 
                 var pet = new Pet
-                          {
-                              Name = "Fido", AnimalType = "Hamster"
-                          };
+                {
+                    Name = "Fido", AnimalType = "Hamster"
+                };
 
                 _actualValidationResults = explicitValidator.ValidateObject(pet, "ShortNames");
             }
@@ -168,9 +169,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                     });
 
                 var pet = new Pet
-                          {
-                              Name = "Fido", AnimalType = "Hamster"
-                          };
+                {
+                    Name = "Fido", AnimalType = "Hamster"
+                };
 
                 _actualValidationResults = explicitValidator.ValidateObject(pet);
             }
@@ -180,9 +181,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
             {
                 Assert.That(
                     _actualValidationResults.GetAllMessages()
-                                            .Trim(),
+                        .Trim(),
                     Is.EqualTo("It can only rain cats and dogs."));
             }
         }
     }
 }
+#endif

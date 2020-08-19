@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,42 +54,42 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 var edOrgs = _expectedEducationOrganizations
-                            .Select(
-                                 edOrgId =>
-                                     new ApplicationEducationOrganization
-                                     {
-                                         EducationOrganizationId = edOrgId
-                                     })
-                            .ToList();
+                    .Select(
+                        edOrgId =>
+                            new ApplicationEducationOrganization
+                            {
+                                EducationOrganizationId = edOrgId
+                            })
+                    .ToList();
 
                 var profiles = _expectedProfiles.Select(
-                                                     profile => new Profile
-                                                                {
-                                                                    ProfileName = profile
-                                                                })
-                                                .ToList();
+                        profile => new Profile
+                        {
+                            ProfileName = profile
+                        })
+                    .ToList();
 
                 var application = new Application
-                                  {
-                                      Profiles = profiles, ClaimSetName = "MyTestClaimSetName", Vendor = new Vendor
-                                                                                                         {
-                                                                                                             VendorNamespacePrefixes =
-                                                                                                                 new List<VendorNamespacePrefix>
-                                                                                                                 {
-                                                                                                                     new VendorNamespacePrefix
-                                                                                                                     {
-                                                                                                                         NamespacePrefix =
-                                                                                                                             "MyTestNamespacePrefix"
-                                                                                                                     }
-                                                                                                                 }
-                                                                                                         },
-                                      OperationalContextUri = "uri://ed-fi-api-host.org"
-                                  };
+                {
+                    Profiles = profiles, ClaimSetName = "MyTestClaimSetName", Vendor = new Vendor
+                    {
+                        VendorNamespacePrefixes =
+                            new List<VendorNamespacePrefix>
+                            {
+                                new VendorNamespacePrefix
+                                {
+                                    NamespacePrefix =
+                                        "MyTestNamespacePrefix"
+                                }
+                            }
+                    },
+                    OperationalContextUri = "uri://ed-fi-api-host.org"
+                };
 
                 _testClient = new ApiClient(true)
-                              {
-                                  Name = $"ClientAppRepoTest{Guid.NewGuid():N}", Application = application, ApplicationEducationOrganizations = edOrgs
-                              };
+                {
+                    Name = $"ClientAppRepoTest{Guid.NewGuid():N}", Application = application, ApplicationEducationOrganizations = edOrgs
+                };
 
                 using (var context = new SqlServerUsersContext())
                 {
@@ -257,9 +258,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _testClient = new ApiClient(true)
-                              {
-                                  Name = $"ClientAppRepoTest{Guid.NewGuid():N}", Secret = "MySecret"
-                              };
+                {
+                    Name = $"ClientAppRepoTest{Guid.NewGuid():N}", Secret = "MySecret"
+                };
 
                 using (var context = new SqlServerUsersContext())
                 {
@@ -401,3 +402,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
         }
     }
 }
+#endif

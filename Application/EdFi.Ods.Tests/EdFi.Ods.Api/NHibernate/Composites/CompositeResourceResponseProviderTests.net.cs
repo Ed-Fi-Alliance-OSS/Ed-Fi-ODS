@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -43,18 +44,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Composites
                 };
 
                 IEnumerable<object> futureQuery = new List<Hashtable>
-                                                  {
-                                                      new Hashtable(
-                                                          new Dictionary<string, string>
-                                                          {
-                                                              {
-                                                                  KeyOne, ValueOne
-                                                              },
-                                                              {
-                                                                  KeyTwo, ValueTwo
-                                                              }
-                                                          })
-                                                  };
+                {
+                    new Hashtable(
+                        new Dictionary<string, string>
+                        {
+                            {
+                                KeyOne, ValueOne
+                            },
+                            {
+                                KeyTwo, ValueTwo
+                            }
+                        })
+                };
 
                 var query = new CompositeQuery(DisplayName, orderedFieldNames, futureQuery, isSingleItemResult: true);
 
@@ -98,27 +99,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Composites
                 };
 
                 IEnumerable<object> futureQuery = new List<Hashtable>
-                                                  {
-                                                      new Hashtable(
-                                                          new Dictionary<string, string>
-                                                          {
-                                                              {
-                                                                  KeyOne, ValueOne1
-                                                              },
-                                                              {
-                                                                  KeyTwo, ValueTwo2
-                                                              },
-                                                              {
-                                                                  KeyStartsWithUnderscores, KeyStartsWithUnderscores
-                                                              },
-                                                              {
-                                                                  KeyEndsWithUnderscoresNamespace, KeyEndsWithUnderscoresNamespace
-                                                              },
-                                                              {
-                                                                  KeyStartsWithHUnderscore, KeyStartsWithHUnderscore
-                                                              }
-                                                          })
-                                                  };
+                {
+                    new Hashtable(
+                        new Dictionary<string, string>
+                        {
+                            {
+                                KeyOne, ValueOne1
+                            },
+                            {
+                                KeyTwo, ValueTwo2
+                            },
+                            {
+                                KeyStartsWithUnderscores, KeyStartsWithUnderscores
+                            },
+                            {
+                                KeyEndsWithUnderscoresNamespace, KeyEndsWithUnderscoresNamespace
+                            },
+                            {
+                                KeyStartsWithHUnderscore, KeyStartsWithHUnderscore
+                            }
+                        })
+                };
 
                 var query = new CompositeQuery(DisplayName, orderedFieldNames, futureQuery, isSingleItemResult: true);
 
@@ -149,18 +150,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Composites
                     () => _actual.ShouldNotBeEmpty(),
                     () => _actual.Count.ShouldBe(1),
                     () => _actual.First()
-                                  .Contains(KeyOne)
-                                  .ShouldBeTrue(),
+                        .Contains(KeyOne)
+                        .ShouldBeTrue(),
 
                     () => _actual.First()[KeyOne]
-                                  .ShouldBe(ValueOne1),
+                        .ShouldBe(ValueOne1),
 
                     () => _actual.First()
-                                  .Contains(KeyTwo)
-                                  .ShouldBeTrue(),
+                        .Contains(KeyTwo)
+                        .ShouldBeTrue(),
 
                     () => _actual.First()[KeyTwo]
-                                  .ShouldBe(ValueTwo2));
+                        .ShouldBe(ValueTwo2));
             }
         }
 
@@ -176,27 +177,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Composites
                 };
 
                 IEnumerable<object> futureQuery = new List<Hashtable>
-                                                  {
-                                                      new Hashtable(
-                                                          new Dictionary<string, string>
-                                                          {
-                                                              {
-                                                                  KeyOne, ValueOne1
-                                                              },
-                                                              {
-                                                                  KeyTwo, ValueTwo2
-                                                              },
-                                                              {
-                                                                  KeyStartsWithUnderscores, KeyStartsWithUnderscores
-                                                              },
-                                                              {
-                                                                  KeyEndsWithUnderscoresNamespace, KeyEndsWithUnderscoresNamespace
-                                                              },
-                                                              {
-                                                                  KeyStartsWithHUnderscore, KeyStartsWithHUnderscore
-                                                              }
-                                                          })
-                                                  };
+                {
+                    new Hashtable(
+                        new Dictionary<string, string>
+                        {
+                            {
+                                KeyOne, ValueOne1
+                            },
+                            {
+                                KeyTwo, ValueTwo2
+                            },
+                            {
+                                KeyStartsWithUnderscores, KeyStartsWithUnderscores
+                            },
+                            {
+                                KeyEndsWithUnderscoresNamespace, KeyEndsWithUnderscoresNamespace
+                            },
+                            {
+                                KeyStartsWithHUnderscore, KeyStartsWithHUnderscore
+                            }
+                        })
+                };
 
                 var query = new CompositeQuery(DisplayName, orderedFieldNames, futureQuery, isSingleItemResult: true);
                 var childQuery = new CompositeQuery(DisplayName, orderedFieldNames, futureQuery, isSingleItemResult: true);
@@ -230,24 +231,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Composites
                     () => _actual.Count.ShouldBe(1),
 
                     () => _actual.First()
-                                 .Contains(KeyOne)
-                                 .ShouldBeTrue(),
+                        .Contains(KeyOne)
+                        .ShouldBeTrue(),
 
                     () => _actual.First()[KeyOne]
-                                 .ShouldBe(ValueOne1),
+                        .ShouldBe(ValueOne1),
 
                     () => _actual.First()
-                                 .Contains(KeyTwo)
-                                 .ShouldBeTrue(),
+                        .Contains(KeyTwo)
+                        .ShouldBeTrue(),
 
                     () => _actual.First()[KeyTwo]
-                                 .ShouldBe(ValueTwo2),
+                        .ShouldBe(ValueTwo2),
 
                     () => _actual.First()
-                                 .Contains("DisplayName")
-                                 .ShouldBeTrue()
+                        .Contains("DisplayName")
+                        .ShouldBeTrue()
                 );
             }
         }
     }
 }
+#endif

@@ -55,7 +55,6 @@ namespace EdFi.Ods.Api._Installers
         private readonly Assembly _apiAssembly;
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly Assembly _standardAssembly;
-        private Assembly _apiCommonAssembly;
 
         public CoreApiInstaller(IAssembliesProvider assembliesProvider, IApiConfigurationProvider apiConfigurationProvider, IConfigValueProvider configValueProvider)
         {
@@ -69,7 +68,6 @@ namespace EdFi.Ods.Api._Installers
 
             // TODO JSM - remove the calls using this once we move to the api assembly in ODS-2152. This makes it easy to find the specific locations in the file for now
             _apiAssembly = installedAssemblies.SingleOrDefault(x => x.GetName().Name.Equals("EdFi.Ods.Api"));
-            _apiCommonAssembly = installedAssemblies.SingleOrDefault(x => x.GetName().Name.Equals("EdFi.Ods.Api.Common"));
         }
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
@@ -331,14 +329,14 @@ namespace EdFi.Ods.Api._Installers
                     .BasedOn(typeof(ICreateOrUpdatePipeline<,>))
                     .WithService.AllInterfaces(),
                 Classes
-                    .FromAssembly(_apiCommonAssembly)
+                    .FromAssembly(_apiAssembly)
                     .BasedOn(typeof(IStep<,>))
                     .WithService
                     .Self(),
 
                 // Register the providers of the core pipeline steps
                 Classes
-                    .FromAssembly(_apiCommonAssembly)
+                    .FromAssembly(_apiAssembly)
                     .BasedOn<IPipelineStepsProvider>()
                     .WithServiceFirstInterface());
         }

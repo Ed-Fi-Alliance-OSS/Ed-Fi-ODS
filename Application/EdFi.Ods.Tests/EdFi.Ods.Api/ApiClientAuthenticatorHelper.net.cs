@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Common.Security;
 using Rhino.Mocks;
 
@@ -16,16 +17,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
             ApiClientIdentity apiClientIdentity;
 
             apiClientAuthenticator
-               .Stub(aca => aca.TryAuthenticate("good_clientId", "good_clientSecret", out apiClientIdentity))
-               .IgnoreArguments()
-               .Do(
+                .Stub(aca => aca.TryAuthenticate("good_clientId", "good_clientSecret", out apiClientIdentity))
+                .IgnoreArguments()
+                .Do(
                     new ApiClientAuthenticatorDelegates.TryAuthenticateDelegate(
                         (string key, string password, out ApiClientIdentity identity) =>
                         {
                             identity = new ApiClientIdentity
-                                       {
-                                           Key = key
-                                       };
+                            {
+                                Key = key
+                            };
 
                             return true;
                         }));
@@ -39,9 +40,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
             ApiClientIdentity apiClientIdentity;
 
             apiClientAuthenticator
-               .Stub(aca => aca.TryAuthenticate("badClientId", "badClientSecret", out apiClientIdentity))
-               .IgnoreArguments()
-               .Do(
+                .Stub(aca => aca.TryAuthenticate("badClientId", "badClientSecret", out apiClientIdentity))
+                .IgnoreArguments()
+                .Do(
                     new ApiClientAuthenticatorDelegates.TryAuthenticateDelegate(
                         (string key, string password, out ApiClientIdentity identity) =>
                         {
@@ -53,3 +54,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -260,7 +261,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryOutgoingAssociation = _entity.OutgoingAssociations
-                                                        .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -269,7 +270,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_outgoing_associations_IS_a_self_referencing_many_to_many_relationships()
             {
                 var secondayOutgoingAssociation = _entity.OutgoingAssociations
-                                                         .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
 
                 Assert.That(secondayOutgoingAssociation.IsSelfReferencingManyToMany, Is.True);
             }
@@ -278,8 +279,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_incoming_association_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                   .Single(
-                                                                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -288,10 +289,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_incoming_associations_IS_a_self_referencing_many_to_many_relationships()
             {
                 var secondayIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                    .Single(
-                                                                         x => x.Association.FullName == new FullName(
-                                                                                  "schema",
-                                                                                  "secondaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName(
+                            "schema",
+                            "secondaryAssociation"));
 
                 Assert.That(secondayIncomingAssociation.IsSelfReferencingManyToMany, Is.True);
             }
@@ -419,7 +420,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryOutgoingAssociation = _entity.OutgoingAssociations
-                                                        .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -428,7 +429,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayOutgoingAssociation = _entity.OutgoingAssociations
-                                                         .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
 
                 Assert.That(secondayOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -437,8 +438,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_incoming_association_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                   .Single(
-                                                                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -447,10 +448,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_incoming_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                    .Single(
-                                                                         x => x.Association.FullName == new FullName(
-                                                                                  "schema",
-                                                                                  "secondaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName(
+                            "schema",
+                            "secondaryAssociation"));
 
                 Assert.That(secondayIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -560,7 +561,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_outgoing_associations_is_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryOutgoingAssociation = _entity.OutgoingAssociations
-                                                        .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -569,7 +570,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_outgoing_associations_is_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayOutgoingAssociation = _entity.OutgoingAssociations
-                                                         .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
 
                 Assert.That(secondayOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -578,8 +579,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_incoming_association_is_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                   .Single(
-                                                                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -588,10 +589,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_incoming_associations_is_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                    .Single(
-                                                                         x => x.Association.FullName == new FullName(
-                                                                                  "schema",
-                                                                                  "secondaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName(
+                            "schema",
+                            "secondaryAssociation"));
 
                 Assert.That(secondayIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -700,7 +701,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryOutgoingAssociation = _entity.OutgoingAssociations
-                                                        .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -709,7 +710,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayOutgoingAssociation = _entity.OutgoingAssociations
-                                                         .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
 
                 Assert.That(secondayOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -718,8 +719,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_incoming_association_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                   .Single(
-                                                                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -728,10 +729,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_incoming_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                    .Single(
-                                                                         x => x.Association.FullName == new FullName(
-                                                                                  "schema",
-                                                                                  "secondaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName(
+                            "schema",
+                            "secondaryAssociation"));
 
                 Assert.That(secondayIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -843,7 +844,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryOutgoingAssociation = _entity.OutgoingAssociations
-                                                        .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -852,7 +853,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_outgoing_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayOutgoingAssociation = _entity.OutgoingAssociations
-                                                         .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
+                    .Single(x => x.Association.FullName == new FullName("schema", "secondaryAssociation"));
 
                 Assert.That(secondayOutgoingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -861,8 +862,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_primary_incoming_association_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var primaryIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                   .Single(
-                                                                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName("schema", "primaryAssociation"));
 
                 Assert.That(primaryIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -871,10 +872,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Should_indicate_that_the_secondary_incoming_associations_IS_NOT_a_self_referencing_many_to_many_relationships()
             {
                 var secondayIncomingAssociation = _associativeEntity.IncomingAssociations
-                                                                    .Single(
-                                                                         x => x.Association.FullName == new FullName(
-                                                                                  "schema",
-                                                                                  "secondaryAssociation"));
+                    .Single(
+                        x => x.Association.FullName == new FullName(
+                            "schema",
+                            "secondaryAssociation"));
 
                 Assert.That(secondayIncomingAssociation.IsSelfReferencingManyToMany, Is.Not.True);
             }
@@ -2000,7 +2001,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var outboundExtension =
                     _parentEntity.OutgoingAssociations
-                                 .Single(a => a.AssociationType == AssociationViewType.ToExtension);
+                        .Single(a => a.AssociationType == AssociationViewType.ToExtension);
 
                 var inboundExtension = _parentEntityExtension.IncomingAssociations.Single();
 
@@ -2028,7 +2029,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var toDerived =
                     _parentEntity.OutgoingAssociations
-                                 .Single(a => a.AssociationType == AssociationViewType.ToDerived);
+                        .Single(a => a.AssociationType == AssociationViewType.ToDerived);
 
                 var fromBase = _derivedEntity.IncomingAssociations.Single();
 
@@ -2045,7 +2046,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var outboundOneToMany =
                     _parentEntity.OutgoingAssociations
-                                 .Single(a => a.AssociationType == AssociationViewType.OneToMany);
+                        .Single(a => a.AssociationType == AssociationViewType.OneToMany);
 
                 var inboundManyToOne = _childEntity.IncomingAssociations.Single();
 
@@ -2073,7 +2074,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var outboundOneToOne =
                     _parentEntity.OutgoingAssociations
-                                 .Single(a => a.AssociationType == AssociationViewType.OneToOneOutgoing);
+                        .Single(a => a.AssociationType == AssociationViewType.OneToOneOutgoing);
 
                 var inboundOneToOne = _parentEntityOneToOne.IncomingAssociations.Single();
 
@@ -2256,17 +2257,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public virtual void Should_apply_role_name_to_association_when_multiple_one_to_many_associations_are_present()
             {
                 var multiChildAssociations = _parentEntity.OutgoingAssociations
-                                                          .Where(a => a.OtherEntity == _multiChildEntity)
-                                                          .OrderBy(a => a.Name);
+                    .Where(a => a.OtherEntity == _multiChildEntity)
+                    .OrderBy(a => a.Name);
 
                 Assert.That(
                     multiChildAssociations.ElementAt(0)
-                                          .Name,
+                        .Name,
                     Is.EqualTo("Role1AMultiChildren"));
 
                 Assert.That(
                     multiChildAssociations.ElementAt(1)
-                                          .Name,
+                        .Name,
                     Is.EqualTo("Role2AMultiChildren"));
             }
 
@@ -2274,7 +2275,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public virtual void Should_not_apply_role_name_to_association_when_a_single_one_to_many_association_is_present()
             {
                 var childAssociation = _parentEntity.OutgoingAssociations
-                                                    .Single(a => a.OtherEntity == _childEntity);
+                    .Single(a => a.OtherEntity == _childEntity);
 
                 Assert.That(childAssociation.Name, Is.EqualTo("AChildren"));
             }
@@ -2283,7 +2284,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public virtual void Should_return_a_null_role_name_when_a_single_one_to_many_association_is_present()
             {
                 var childAssociation = _parentEntity.OutgoingAssociations
-                                                    .Single(a => a.OtherEntity == _childEntity);
+                    .Single(a => a.OtherEntity == _childEntity);
 
                 Assert.That(childAssociation.RoleName, Is.Null);
             }
@@ -2292,17 +2293,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public virtual void Should_return_a_role_name_when_multiple_one_to_many_associations_are_present()
             {
                 var multiChildAssociations = _parentEntity.OutgoingAssociations
-                                                          .Where(a => a.OtherEntity == _multiChildEntity)
-                                                          .OrderBy(a => a.Name);
+                    .Where(a => a.OtherEntity == _multiChildEntity)
+                    .OrderBy(a => a.Name);
 
                 Assert.That(
                     multiChildAssociations.ElementAt(0)
-                                          .RoleName,
+                        .RoleName,
                     Is.EqualTo("Role1"));
 
                 Assert.That(
                     multiChildAssociations.ElementAt(1)
-                                          .RoleName,
+                        .RoleName,
                     Is.EqualTo("Role2"));
             }
         }
@@ -2428,17 +2429,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 Assert.That(
                     _domainModel
-                       .EntityByFullName[new FullName("Schema", "RequiredChild")]
-                       .ParentAssociation
-                       .AssociationType,
+                        .EntityByFullName[new FullName("Schema", "RequiredChild")]
+                        .ParentAssociation
+                        .AssociationType,
                     Is.EqualTo(AssociationViewType.ManyToOne));
 
                 Assert.That(
                     _domainModel
-                       .EntityByFullName[new FullName("Schema", "RequiredChild")]
-                       .ParentAssociation
-                       .Inverse
-                       .AssociationType,
+                        .EntityByFullName[new FullName("Schema", "RequiredChild")]
+                        .ParentAssociation
+                        .Inverse
+                        .AssociationType,
                     Is.EqualTo(AssociationViewType.OneToMany));
             }
 
@@ -2447,17 +2448,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 Assert.That(
                     _domainModel
-                       .EntityByFullName[new FullName("Schema", "OptionalChild")]
-                       .ParentAssociation
-                       .AssociationType,
+                        .EntityByFullName[new FullName("Schema", "OptionalChild")]
+                        .ParentAssociation
+                        .AssociationType,
                     Is.EqualTo(AssociationViewType.ManyToOne));
 
                 Assert.That(
                     _domainModel
-                       .EntityByFullName[new FullName("Schema", "OptionalChild")]
-                       .ParentAssociation
-                       .Inverse
-                       .AssociationType,
+                        .EntityByFullName[new FullName("Schema", "OptionalChild")]
+                        .ParentAssociation
+                        .Inverse
+                        .AssociationType,
                     Is.EqualTo(AssociationViewType.OneToMany));
             }
         }
@@ -2488,54 +2489,54 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .ToList();
 
                 _selfReferencingAssociations = allAssociations.Where(
-                    a => a.AssociationType == AssociationViewType.ManyToOne && a.IsSelfReferencing)
+                        a => a.AssociationType == AssociationViewType.ManyToOne && a.IsSelfReferencing)
                     .ToList();
-                
-                _inheritanceAssociations = allAssociations.Where(a => 
+
+                _inheritanceAssociations = allAssociations.Where(a =>
                         a.AssociationType == AssociationViewType.FromBase
                         || a.AssociationType == AssociationViewType.ToDerived)
                     .ToList();
 
-                _extensionAssociations = allAssociations.Where(a => 
+                _extensionAssociations = allAssociations.Where(a =>
                         a.AssociationType == AssociationViewType.FromCore
                         || a.AssociationType == AssociationViewType.ToExtension)
                     .ToList();
 
-                _navigableAssociations = allAssociations.Where(a => 
+                _navigableAssociations = allAssociations.Where(a =>
                         a.IsNavigable
                         && a.AssociationType != AssociationViewType.ToExtension
                         && a.AssociationType != AssociationViewType.FromCore)
                     .ToList();
 
-                _outgoingRelationships = allAssociations.Where(a => 
-                    !a.IsNavigable
-                    && (a.AssociationType == AssociationViewType.OneToOneOutgoing
-                        || a.AssociationType == AssociationViewType.OneToMany))
+                _outgoingRelationships = allAssociations.Where(a =>
+                        !a.IsNavigable
+                        && (a.AssociationType == AssociationViewType.OneToOneOutgoing
+                            || a.AssociationType == AssociationViewType.OneToMany))
                     .ToList();
 
                 _nonNavigableOptionalManyToOneAssociations = allAssociations.Where(a =>
-                    !a.IsNavigable && !a.IsSelfReferencing && !a.IsRequired
-                    && a.AssociationType == AssociationViewType.ManyToOne)
+                        !a.IsNavigable && !a.IsSelfReferencing && !a.IsRequired
+                        && a.AssociationType == AssociationViewType.ManyToOne)
                     .ToList();
-                
-                _nonNavigableOptionalOneToOneIncomingAssociations = allAssociations.Where(a => 
-                    a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired)
+
+                _nonNavigableOptionalOneToOneIncomingAssociations = allAssociations.Where(a =>
+                        a.AssociationType == AssociationViewType.OneToOneIncoming && !a.IsNavigable && !a.IsRequired)
                     .ToList();
 
                 _topLevelRequiredManyToOneAssociations = allAssociations.Where(
-                    a => a.AssociationType == AssociationViewType.ManyToOne
-                        && !a.IsNavigable
-                        && a.IsRequired
-                        && a.ThisEntity.IsAggregateRoot)
+                        a => a.AssociationType == AssociationViewType.ManyToOne
+                             && !a.IsNavigable
+                             && a.IsRequired
+                             && a.ThisEntity.IsAggregateRoot)
                     .ToList();
 
                 var childRequiredManyToOneAssociations = allAssociations.Where(
                         a => a.AssociationType == AssociationViewType.ManyToOne
-                            && !a.IsNavigable
-                            && a.IsRequired
-                            && !a.ThisEntity.IsAggregateRoot)
+                             && !a.IsNavigable
+                             && a.IsRequired
+                             && !a.ThisEntity.IsAggregateRoot)
                     .ToList();
-                    
+
                 _requiredCollectionChildrenWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType != AssociationViewType.OneToOneIncoming)
                     .Where(a =>
@@ -2547,10 +2548,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _optionalCollectionChildrenWithRequiredAssociations = childRequiredManyToOneAssociations
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType != AssociationViewType.OneToOneIncoming)
-                    .Where(a => 
-                        (!a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection)  
-                            || (a.ThisEntity.Parent?.Parent != null && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
-                            || (a.ThisEntity?.Parent?.Parent?.Parent != null && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection))
+                    .Where(a =>
+                        (!a.ThisEntity.ParentAssociation.Inverse.IsRequiredCollection)
+                        || (a.ThisEntity.Parent?.Parent != null && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
+                        || (a.ThisEntity?.Parent?.Parent?.Parent != null && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection))
                     .ToList();
 
                 _requiredEmbeddedObjectsWithRequiredAssociations = childRequiredManyToOneAssociations
@@ -2558,14 +2559,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .Where(a =>
                         a.ThisEntity.ParentAssociation.Inverse.IsRequired
                         // Check one level up for required child items (if it's in the there)
-                        && (a.ThisEntity.Parent.Parent == null 
-                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne 
-                                && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection) 
-                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming 
+                        && (a.ThisEntity.Parent.Parent == null
+                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
+                                && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
+                            || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
                                 && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired))
                         // Check two levels up for required child items (if it's in the there)
-                        && (a.ThisEntity.Parent.Parent?.Parent == null 
-                            || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne 
+                        && (a.ThisEntity.Parent.Parent?.Parent == null
+                            || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
                                 && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
                                 && a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired)))
@@ -2576,11 +2577,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .Where(a =>
                         !a.ThisEntity.ParentAssociation.Inverse.IsRequired
                         // Check one level up for optional child items (if it's in the there)
-                        || (a.ThisEntity.Parent.Parent != null 
-                            && ((a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection) 
+                        || (a.ThisEntity.Parent.Parent != null
+                            && ((a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                                 || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired)))
                         // Check two levels up for optional child items (if it's in the there)
-                        || (a.ThisEntity.Parent.Parent?.Parent != null 
+                        || (a.ThisEntity.Parent.Parent?.Parent != null
                             && ((a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                                 || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequired))))
                     .ToList();
@@ -2608,10 +2609,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("No associations available to exercise test.");
                 }
-                
+
                 _selfReferencingAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
             }
-            
+
             [Test]
             public void Should_indicate_association_views_that_are_involved_in_inheritance_ARE_NOT_soft_dependencies()
             {
@@ -2619,10 +2620,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("No associations available to exercise test.");
                 }
-                
+
                 _inheritanceAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
             }
-            
+
             [Test]
             public void Should_indicate_all_associations_that_are_involved_in_extensions_ARE_NOT_soft_dependencies()
             {
@@ -2633,7 +2634,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _extensionAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
             }
-            
+
             [Test]
             public void Should_indicate_all_outgoing_associations_ARE_NOT_soft_dependencies()
             {
@@ -2666,7 +2667,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _nonNavigableOptionalManyToOneAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
             }
-            
+
             [Test]
             public void Should_indicate_optional_one_to_one_incoming_associations_ARE_soft_dependencies()
             {
@@ -2674,7 +2675,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("No associations available to exercise test.");
                 }
-                
+
                 _nonNavigableOptionalOneToOneIncomingAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
             }
 
@@ -2685,7 +2686,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("No associations available to exercise test.");
                 }
-                
+
                 _topLevelRequiredManyToOneAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
             }
 
@@ -2699,7 +2700,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _requiredCollectionChildrenWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
             }
-            
+
             [Test]
             public void Should_indicate_optional_child_items_with_required_references_ARE_soft_dependencies()
             {
@@ -2710,7 +2711,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _optionalCollectionChildrenWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
             }
-            
+
             [Test]
             public void Should_indicate_required_embedded_objects_with_required_references_ARE_NOT_soft_dependencies()
             {
@@ -2721,7 +2722,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _requiredEmbeddedObjectsWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == false);
             }
-            
+
             [Test]
             public void Should_indicate_optional_embedded_objects_with_required_references_ARE_soft_dependencies()
             {
@@ -2732,7 +2733,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _optionalEmbeddedObjectsWithRequiredAssociations.ShouldAllBe(av => av.IsSoftDependency == true);
             }
-            
+
             [Test]
             public void All_associations_should_have_been_tested()
             {
@@ -2754,29 +2755,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             [Assert]
             public void Should_indicate_that_a_required_reference_on_a_resource_root_is_NOT_a_soft_dependency()
             {
-                var association = 
+                var association =
                     _resourceModel.GetAllResources()
-                    .SelectMany(res => res.References.Where(r => r.IsRequired))
-                    .Select(r => r.Association)
-                    .FirstOrDefault();
+                        .SelectMany(res => res.References.Where(r => r.IsRequired))
+                        .Select(r => r.Association)
+                        .FirstOrDefault();
 
                 association.ShouldNotBeNull();
                 association.IsSoftDependency.ShouldBe(false);
             }
-            
+
             [Assert]
             public void Should_indicate_that_an_optional_reference_on_a_resource_root_IS_a_soft_dependency()
             {
-                var association = 
+                var association =
                     _resourceModel.GetAllResources()
-                    .SelectMany(res => res.References.Where(r => !r.IsRequired))
-                    .Select(r => r.Association)
-                    .FirstOrDefault();
+                        .SelectMany(res => res.References.Where(r => !r.IsRequired))
+                        .Select(r => r.Association)
+                        .FirstOrDefault();
 
                 association.ShouldNotBeNull();
                 association.IsSoftDependency.ShouldBe(true);
             }
-            
+
             [Assert]
             public void Should_indicate_that_an_optional_reference_on_an_item_in_an_optional_resource_child_collection_IS_a_soft_dependency()
             {
@@ -2795,7 +2796,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 association.ShouldNotBeNull();
                 association.IsSoftDependency.ShouldBe(true);
             }
-            
+
             [Assert]
             public void Should_indicate_that_a_required_reference_on_an_item_in_an_optional_child_collection_IS_a_soft_dependency()
             {
@@ -2805,15 +2806,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .SelectMany(c => c.ItemType.References.Where(r => r.IsRequired))
                     .Select(r => r.Association)
                     .FirstOrDefault();
-                
+
                 if (association == null)
                 {
                     Assert.Inconclusive("Unable to find a required reference on a optional collection for testing.");
                 }
-                
+
                 association.IsSoftDependency.ShouldBe(true);
             }
-            
+
             [Assert]
             public void Should_indicate_that_an_optional_reference_on_an_item_in_a_required_collection_IS_a_soft_dependency()
             {
@@ -2823,7 +2824,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .SelectMany(c => c.ItemType.References.Where(r => !r.IsRequired))
                     .Select(r => r.Association)
                     .FirstOrDefault();
-                
+
                 if (association == null)
                 {
                     Assert.Inconclusive("Unable to find an optional reference on a required collection for testing.");
@@ -2864,7 +2865,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("Unable to find an optional reference on an embedded object for testing.");
                 }
-                
+
                 associations.All(a => a.IsSoftDependency).ShouldBe(true);
             }
 
@@ -2882,7 +2883,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 {
                     Assert.Inconclusive("Unable to find a required reference on a required embedded object for testing.");
                 }
-                
+
                 association.IsSoftDependency.ShouldBe(false);
             }
         }
@@ -2900,15 +2901,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
     static class ListExtensions
     {
-        private static readonly ConcurrentDictionary<IEnumerable, List<Tuple<string, string>>> _itemsRemovedByList 
+        private static readonly ConcurrentDictionary<IEnumerable, List<Tuple<string, string>>> _itemsRemovedByList
             = new ConcurrentDictionary<IEnumerable, List<Tuple<string,string>>>();
-        
+
         static object locker = new object();
-        
+
         public static List<T> Remove<T>(this List<T> list, IEnumerable<T> items, string description)
         {
             lock (locker)
-            {    
+            {
                 var trackingList = _itemsRemovedByList.GetOrAdd(list, x => new List<Tuple<string, string>>());
 
                 foreach (T item in items.ToList())
@@ -2924,7 +2925,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         }
 
                         var trackedItem = trackedItems.Single();
-                        
+
                         Console.WriteLine($"'{description}' is covering '{item}', but it was already covered by '{trackedItem.Item2}'.");
                     }
                     else
@@ -2932,9 +2933,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         trackingList.Add(Tuple.Create(item.ToString(), description));
                     }
                 }
-    
+
                 return list;
             }
         }
     }
 }
+#endif

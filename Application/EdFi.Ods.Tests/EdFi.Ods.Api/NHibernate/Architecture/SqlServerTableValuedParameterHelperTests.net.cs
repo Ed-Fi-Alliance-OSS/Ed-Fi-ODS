@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,9 +36,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 _query = Stub<IQuery>();
 
                 _suppliedIds = new List<Guid>
-                               {
-                                   Guid.NewGuid(), Guid.NewGuid()
-                               };
+                {
+                    Guid.NewGuid(), Guid.NewGuid()
+                };
 
                 _suppliedParameterName = "parameterName";
             }
@@ -55,7 +56,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 _query.AssertWasCalled(
                     x => x.SetParameter(null, null, null),
                     options => options.IgnoreArguments()
-                                      .Repeat.Once());
+                        .Repeat.Once());
             }
 
             [Assert]
@@ -82,8 +83,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
             private bool IdsMatch(object arg)
             {
                 var actualIds = ((DataTable) arg).Rows
-                                                 .Cast<DataRow>()
-                                                 .Select(row => (Guid) row["Id"]);
+                    .Cast<DataRow>()
+                    .Select(row => (Guid) row["Id"]);
 
                 Assert.That(actualIds, Is.EquivalentTo(_suppliedIds));
 
@@ -116,9 +117,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 _query = Stub<IQuery>();
 
                 _suppliedIds = new List<int>
-                               {
-                                   1, 2
-                               };
+                {
+                    1, 2
+                };
 
                 _suppliedParameterName = "parameterName";
             }
@@ -136,7 +137,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 _query.AssertWasCalled(
                     x => x.SetParameter(null, null, null),
                     options => options.IgnoreArguments()
-                                      .Repeat.Once());
+                        .Repeat.Once());
             }
 
             [Assert]
@@ -163,8 +164,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
             private bool IdsMatch(object arg)
             {
                 var actualIds = ((DataTable) arg).Rows
-                                                 .Cast<DataRow>()
-                                                 .Select(row => (int) row["Id"]);
+                    .Cast<DataRow>()
+                    .Select(row => (int) row["Id"]);
 
                 Assert.That(actualIds, Is.EquivalentTo(_suppliedIds));
 
@@ -197,9 +198,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 _query = Stub<IQuery>();
 
                 _suppliedIds = new List<DateTime>
-                               {
-                                   DateTime.Today, DateTime.Today.AddDays(1)
-                               };
+                {
+                    DateTime.Today, DateTime.Today.AddDays(1)
+                };
 
                 _suppliedParameterName = "parameterName";
             }
@@ -227,3 +228,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
         }
     }
 }
+#endif

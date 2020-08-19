@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Web;
 using EdFi.Ods.Api.Context;
 using EdFi.Ods.Common.Context;
@@ -32,9 +33,9 @@ namespace EdFi.Ods.Tests.EdFi.Common.Context
                 var contextStorage = new HttpContextStorage(MockRepository.GenerateStub<IContextStorage>());
 
                 var testObject = new TestObject
-                                 {
-                                     Text = expected
-                                 };
+                {
+                    Text = expected
+                };
 
                 contextStorage.SetValue(key, testObject);
                 var actual = contextStorage.GetValue<TestObject>(key);
@@ -58,3 +59,4 @@ namespace EdFi.Ods.Tests.EdFi.Common.Context
         }
     }
 }
+#endif

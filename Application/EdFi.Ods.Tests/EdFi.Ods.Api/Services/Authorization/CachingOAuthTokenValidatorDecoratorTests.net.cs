@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Authentication;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         {
             // Supplied values
             private readonly string _suppliedApiToken = Guid.NewGuid()
-                                                            .ToString();
+                .ToString();
             private readonly int _suppliedDurationMinutes = 100;
             private ApiClientDetails _suppliedClientDetails;
 
@@ -39,15 +40,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             {
                 // Initialize dependencies
                 _suppliedClientDetails = new ApiClientDetails
-                                         {
-                                             ApiKey = "resolvedApiKey"
-                                         };
+                {
+                    ApiKey = "resolvedApiKey"
+                };
 
                 _decoratedValidator = Stub<IOAuthTokenValidator>();
 
                 _decoratedValidator
-                   .Stub(x => x.GetClientDetailsForTokenAsync(_suppliedApiToken))
-                   .Return(Task.FromResult(_suppliedClientDetails));
+                    .Stub(x => x.GetClientDetailsForTokenAsync(_suppliedApiToken))
+                    .Return(Task.FromResult(_suppliedClientDetails));
 
                 _cacheProvider = Stub<ICacheProvider>();
 
@@ -55,7 +56,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 _configValueProvider = Stub<IConfigValueProvider>();
 
                 _configValueProvider.Stub(x => x.GetValue(Arg<string>.Is.Anything))
-                                    .Return(_suppliedDurationMinutes.ToString());
+                    .Return(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -67,7 +68,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                     _configValueProvider);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
-                                          .GetResultSafely();
+                    .GetResultSafely();
             }
 
             [Assert]
@@ -78,7 +79,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                         x.TryGetCachedObject(
                             Arg<string>.Is.Anything,
                             out Arg<object>.Out(null)
-                                           .Dummy));
+                                .Dummy));
             }
 
             [Assert]
@@ -113,7 +114,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         {
             // Supplied values
             private readonly string _suppliedInvalidApiToken = Guid.NewGuid()
-                                                                   .ToString();
+                .ToString();
             private readonly int _suppliedDurationMinutes = 100;
             private ApiClientDetails _suppliedInvalidClientDetails;
 
@@ -135,8 +136,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 _decoratedValidator = Stub<IOAuthTokenValidator>();
 
                 _decoratedValidator
-                   .Stub(x => x.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken))
-                   .Return(Task.FromResult(_suppliedInvalidClientDetails));
+                    .Stub(x => x.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken))
+                    .Return(Task.FromResult(_suppliedInvalidClientDetails));
 
                 _cacheProvider = Stub<ICacheProvider>();
 
@@ -144,7 +145,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 _configValueProvider = Stub<IConfigValueProvider>();
 
                 _configValueProvider.Stub(x => x.GetValue(Arg<string>.Is.Anything))
-                                    .Return(_suppliedDurationMinutes.ToString());
+                    .Return(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -156,7 +157,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                     _configValueProvider);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken)
-                                          .GetResultSafely();
+                    .GetResultSafely();
             }
 
             [Assert]
@@ -167,7 +168,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                         x.TryGetCachedObject(
                             Arg<string>.Is.Anything,
                             out Arg<object>.Out(null)
-                                           .Dummy));
+                                .Dummy));
             }
 
             [Assert]
@@ -201,7 +202,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         {
             // Supplied values
             private readonly string _suppliedApiToken = Guid.NewGuid()
-                                                            .ToString();
+                .ToString();
             private readonly int _suppliedDurationMinutes = 100;
             private ApiClientDetails _suppliedCachedClientDetails;
 
@@ -224,18 +225,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 _cacheProvider = Stub<ICacheProvider>();
 
                 _cacheProvider.Stub(
-                                   x =>
-                                       x.TryGetCachedObject(
-                                           Arg<string>.Is.Anything,
-                                           out Arg<object>.Out(_suppliedCachedClientDetails)
-                                                          .Dummy))
-                              .Return(true);
+                        x =>
+                            x.TryGetCachedObject(
+                                Arg<string>.Is.Anything,
+                                out Arg<object>.Out(_suppliedCachedClientDetails)
+                                    .Dummy))
+                    .Return(true);
 
                 // Mock config file to return duration
                 _configValueProvider = Stub<IConfigValueProvider>();
 
                 _configValueProvider.Stub(x => x.GetValue(Arg<string>.Is.Anything))
-                                    .Return(_suppliedDurationMinutes.ToString());
+                    .Return(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -247,7 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                     _configValueProvider);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
-                                          .GetResultSafely();
+                    .GetResultSafely();
             }
 
             [Assert]
@@ -258,7 +259,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                         x.TryGetCachedObject(
                             Arg<string>.Is.Anything,
                             out Arg<object>.Out(null)
-                                           .Dummy));
+                                .Dummy));
             }
 
             [Assert]
@@ -289,3 +290,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
         }
     }
 }
+#endif

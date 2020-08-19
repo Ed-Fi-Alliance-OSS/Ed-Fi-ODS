@@ -85,6 +85,7 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <ProjectReference Include="..\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
@@ -97,7 +98,6 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\EdFi.TestObjects\EdFi.TestObjects.csproj" />
     <ProjectReference Include="..\Test.Common\Test.Common.csproj" />

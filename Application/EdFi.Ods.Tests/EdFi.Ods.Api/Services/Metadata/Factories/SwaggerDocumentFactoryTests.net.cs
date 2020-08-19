@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
@@ -38,19 +39,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 _swaggerDocumentContext = DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext;
 
                 var swaggerResources = _swaggerDocumentContext.ResourceModel.GetAllResources()
-                                                              .Select(r => new SwaggerResource(r))
-                                                              .ToList();
+                    .Select(r => new SwaggerResource(r))
+                    .ToList();
 
                 _stubbedOpenApiMetadataResourceStrategy = Stub<IOpenApiMetadataResourceStrategy>();
 
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<SwaggerDocumentContext>._))
-                 .Returns(swaggerResources);
+                    .Returns(swaggerResources);
             }
 
             protected override void Act()
             {
                 _actualJson = new SwaggerDocumentFactory(_swaggerDocumentContext)
-                   .Create(_stubbedOpenApiMetadataResourceStrategy);
+                    .Create(_stubbedOpenApiMetadataResourceStrategy);
 
                 _swaggerDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
@@ -145,13 +146,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 _swaggerDocumentContext = DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext;
 
                 var swaggerResources = _swaggerDocumentContext.ResourceModel.GetAllResources()
-                                                              .Select(r => new SwaggerResource(r))
-                                                              .ToList();
+                    .Select(r => new SwaggerResource(r))
+                    .ToList();
 
                 _stubbedOpenApiMetadataResourceStrategy = Stub<IOpenApiMetadataResourceStrategy>();
 
                 _stubbedOpenApiMetadataResourceStrategy.Stub(x => x.GetFilteredResources(Arg<SwaggerDocumentContext>.Is.Anything))
-                                                       .Return(swaggerResources);
+                    .Return(swaggerResources);
             }
 
             protected override void Act()
@@ -242,3 +243,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         }
     }
 }
+#endif

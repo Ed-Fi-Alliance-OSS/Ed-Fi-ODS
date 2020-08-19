@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Linq;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
@@ -64,42 +65,42 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Utilities.CastleWindsor
 
                 testContainer.Register(
                     Component
-                       .For<IConfigValueProvider>()
-                       .ImplementedBy<NameValueCollectionConfigValueProvider>());
+                        .For<IConfigValueProvider>()
+                        .ImplementedBy<NameValueCollectionConfigValueProvider>());
 
                 testContainer.Register(
                     Component
-                       .For<ICacheProvider>()
-                       .ImplementedBy<MemoryCacheProvider>());
+                        .For<ICacheProvider>()
+                        .ImplementedBy<MemoryCacheProvider>());
 
                 testContainer.Register(
                     Component
-                       .For<IDatabaseConnectionStringProvider>()
-                       .ImplementedBy<NullDatabaseConnectionStringProvider>());
+                        .For<IDatabaseConnectionStringProvider>()
+                        .ImplementedBy<NullDatabaseConnectionStringProvider>());
 
                 testContainer.Register(
                     Component
-                       .For<IContextStorage>()
-                       .ImplementedBy<HashtableContextStorage>());
+                        .For<IContextStorage>()
+                        .ImplementedBy<HashtableContextStorage>());
 
                 testContainer.Register(
                     Component
-                       .For<IApiKeyContextProvider>()
-                       .ImplementedBy<ApiKeyContextProvider>());
+                        .For<IApiKeyContextProvider>()
+                        .ImplementedBy<ApiKeyContextProvider>());
 
                 testContainer.Register(
                     Component
-                       .For<ISecurityRepository>()
-                       .ImplementedBy<StubSecurityRepository>());
+                        .For<ISecurityRepository>()
+                        .ImplementedBy<StubSecurityRepository>());
 
                 testContainer.Register(
                     Component
-                       .For<ISessionFactory>()
-                       .Instance(MockRepository.GenerateStub<ISessionFactory>()));
+                        .For<ISessionFactory>()
+                        .Instance(MockRepository.GenerateStub<ISessionFactory>()));
 
                 testContainer.Register(
                     Component.For<IEdFiOdsInstanceIdentificationProvider>()
-                             .Instance(MockRepository.GenerateStub<IEdFiOdsInstanceIdentificationProvider>()));
+                        .Instance(MockRepository.GenerateStub<IEdFiOdsInstanceIdentificationProvider>()));
 
                 testContainer.Install(new SecurityComponentsInstaller());
             }
@@ -116,20 +117,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Utilities.CastleWindsor
             {
                 var expectedTypes =
                     (from t in typeof(SecurityComponentsInstaller).Assembly.GetTypes()
-                     where !t.IsAbstract
-                           && typeof(IEdFiAuthorizationStrategy).IsAssignableFrom(t)
-                     orderby t.FullName
-                     select t.FullName.TrimAt('`'))
-                   .ToList();
+                        where !t.IsAbstract
+                              && typeof(IEdFiAuthorizationStrategy).IsAssignableFrom(t)
+                        orderby t.FullName
+                        select t.FullName.TrimAt('`'))
+                    .ToList();
 
                 var edFiAuthorizationStrategies = testContainer.ResolveAll<IEdFiAuthorizationStrategy>();
 
                 var actualTypes = edFiAuthorizationStrategies
-                                 .Select(
-                                      x => x.GetType()
-                                            .FullName.TrimAt('`'))
-                                 .OrderBy(x => x)
-                                 .ToList();
+                    .Select(
+                        x => x.GetType()
+                            .FullName.TrimAt('`'))
+                    .OrderBy(x => x)
+                    .ToList();
 
                 Assert.That(actualTypes, Is.EquivalentTo(expectedTypes));
             }
@@ -141,8 +142,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Utilities.CastleWindsor
                     testContainer.Resolve<IRelationshipsAuthorizationContextDataProvider<IStudent, RelationshipsAuthorizationContextData>>();
 
                 provider.GetType()
-                        .ShouldBe(typeof(StudentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>));
+                    .ShouldBe(typeof(StudentRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>));
             }
         }
     }
 }
+#endif

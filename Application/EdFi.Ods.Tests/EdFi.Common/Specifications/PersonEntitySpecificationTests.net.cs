@@ -3,10 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
 using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Entities.NHibernate.ParentAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StaffAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
@@ -26,10 +30,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(NHibernateEntities.StaffAggregate.EdFi.Staff)), Is.True),
+                            typeof(Staff)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(NHibernateEntities.StaffAggregate.EdFi.Staff)), Is.True)
+                            nameof(Staff)), Is.True)
                 );
             }
 
@@ -39,10 +43,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(ModelResources.Staff.EdFi.Staff)), Is.True),
+                            typeof(Api.Common.Models.Resources.Staff.EdFi.Staff)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(ModelResources.Staff.EdFi.Staff)), Is.True)
+                            nameof(Api.Common.Models.Resources.Staff.EdFi.Staff)), Is.True)
                 );
             }
 
@@ -53,10 +57,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(NHibernateEntities.StudentAggregate.EdFi.Student)), Is.True),
+                            typeof(Student)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(NHibernateEntities.StudentAggregate.EdFi.Student)), Is.True)
+                            nameof(Student)), Is.True)
                 );
             }
 
@@ -66,23 +70,23 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(ModelResources.Student.EdFi.Student)), Is.True),
+                            typeof(Api.Common.Models.Resources.Student.EdFi.Student)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(ModelResources.Student.EdFi.Student)), Is.True)
+                            nameof(Api.Common.Models.Resources.Student.EdFi.Student)), Is.True)
                 );
             }
-           
+
             [Assert]
             public void Should_return_true_for_parent_entity()
             {
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(NHibernateEntities.ParentAggregate.EdFi.Parent)), Is.True),
+                            typeof(Parent)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(NHibernateEntities.ParentAggregate.EdFi.Parent)), Is.True)
+                            nameof(Parent)), Is.True)
                 );
             }
 
@@ -92,10 +96,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            typeof(ModelResources.Parent.EdFi.Parent)), Is.True),
+                            typeof(Api.Common.Models.Resources.Parent.EdFi.Parent)), Is.True),
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonEntity(
-                            nameof(ModelResources.Parent.EdFi.Parent)), Is.True)
+                            nameof(Api.Common.Models.Resources.Parent.EdFi.Parent)), Is.True)
                 );
             }
 
@@ -105,14 +109,15 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonIdentifier(
-                            nameof(NHibernateEntities.ParentAggregate.EdFi.Parent.ParentUniqueId)), Is.True)
+                            nameof(Parent.ParentUniqueId)), Is.True)
                 );
                 AssertHelper.All(
                     () => Assert.That(
                         PersonEntitySpecification.IsPersonIdentifier(
-                            nameof(NHibernateEntities.ParentAggregate.EdFi.Parent.ParentUSI)), Is.True)
+                            nameof(Parent.ParentUSI)), Is.True)
                 );
             }
         }
     }
 }
+#endif

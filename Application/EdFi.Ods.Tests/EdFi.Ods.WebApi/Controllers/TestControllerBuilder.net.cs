@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -55,12 +56,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         public IndexDetails GetIndexDetails(string indexName)
         {
             return new IndexDetails
-                   {
-                       IndexName = "FK_TableName_IndexId", TableName = "TableName", ColumnNames = new List<string>
-                                                                                                  {
-                                                                                                      "TableNameId"
-                                                                                                  }
-                   };
+            {
+                IndexName = "FK_TableName_IndexId", TableName = "TableName", ColumnNames = new List<string>
+                {
+                    "TableNameId"
+                }
+            };
         }
     }
 
@@ -70,21 +71,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             where T : ApiController
         {
             var translators = new IExceptionTranslator[]
-                              {
-                                  new TypeBasedBadRequestExceptionTranslator(),
-                                  new SqlServerConstraintExceptionTranslator(),
-                                  new SqlServerUniqueIndexExceptionTranslator(new StubDatabaseMetadataProvider()),
-                                  new EdFiSecurityExceptionTranslator(),
-                                  new NotFoundExceptionTranslator(),
-                                  new NotModifiedExceptionTranslator(),
-                                  new ConcurrencyExceptionTranslator(),
-                                  new DuplicateNaturalKeyCreateExceptionTranslator(new StubDatabaseMetadataProvider())
-                              };
+            {
+                new TypeBasedBadRequestExceptionTranslator(),
+                new SqlServerConstraintExceptionTranslator(),
+                new SqlServerUniqueIndexExceptionTranslator(new StubDatabaseMetadataProvider()),
+                new EdFiSecurityExceptionTranslator(),
+                new NotFoundExceptionTranslator(),
+                new NotModifiedExceptionTranslator(),
+                new ConcurrencyExceptionTranslator(),
+                new DuplicateNaturalKeyCreateExceptionTranslator(new StubDatabaseMetadataProvider())
+            };
 
             var schoolYearContextProvider = MockRepository.GenerateStub<ISchoolYearContextProvider>();
 
             schoolYearContextProvider.Stub(x => x.GetSchoolYear())
-                                     .Return(DateTime.Now.Year);
+                .Return(DateTime.Now.Year);
 
             var controller =
                 (T)
@@ -99,9 +100,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             var uri = $@"http://localhost/api/ods/v3/ed-fi/Students/{id}";
 
             controller.Request = new HttpRequestMessage
-                                 {
-                                     RequestUri = new Uri(uri)
-                                 };
+            {
+                RequestUri = new Uri(uri)
+            };
 
             return controller;
         }
@@ -113,19 +114,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 
             container.Register(
                 Component
-                   .For<ISchoolYearContextProvider>()
-                   .ImplementedBy<StubCurrentSchoolYearContextProvider>());
+                    .For<ISchoolYearContextProvider>()
+                    .ImplementedBy<StubCurrentSchoolYearContextProvider>());
 
             container.Register(
                 Component
-                   .For<IETagProvider>()
-                   .ImplementedBy<StubEtagProviderSinceWeReallyDontCareWhatTheValueIs>());
+                    .For<IETagProvider>()
+                    .ImplementedBy<StubEtagProviderSinceWeReallyDontCareWhatTheValueIs>());
 
             container.Register(
                 Classes.FromThisAssembly()
-                       .BasedOn(typeof(IStep<,>)));
+                    .BasedOn(typeof(IStep<,>)));
 
             return container;
         }
     }
 }
+#endif

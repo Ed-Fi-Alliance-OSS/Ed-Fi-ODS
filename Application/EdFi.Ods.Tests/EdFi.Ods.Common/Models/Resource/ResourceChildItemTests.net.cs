@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
@@ -35,20 +36,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             protected override void Act()
             {
                 _educationOrganizationAddresses = _resourceModel
-                                                 .GetResourceByFullName(new FullName("edfi", "EducationOrganizationNetwork"))
-                                                 .CollectionByName["EducationOrganizationAddresses"]
-                                                 .ItemType;
+                    .GetResourceByFullName(new FullName("edfi", "EducationOrganizationNetwork"))
+                    .CollectionByName["EducationOrganizationAddresses"]
+                    .ItemType;
 
                 _student = _resourceModel.GetResourceByFullName(new FullName("edfi", "Student"));
 
                 _studentExtension = _student.ExtensionByName["Sample"]
-                                            .ObjectType;
+                    .ObjectType;
 
                 _studentPetPreference = _studentExtension.EmbeddedObjectByName["StudentPetPreference"]
-                                                         .ObjectType;
+                    .ObjectType;
 
                 _studentPet = _studentExtension.CollectionByName["StudentPets"]
-                                               .ItemType;
+                    .ItemType;
             }
 
             [Assert]
@@ -100,18 +101,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 AssertHelper.All(
                     () => Assert.That(
                         _studentExtension.GetLineage()
-                                         .Count(),
+                            .Count(),
                         Is.EqualTo(2)),
                     () => Assert.That(
                         _studentPet.GetLineage()
-                                   .Count(),
+                            .Count(),
                         Is.EqualTo(3)),
                     () => Assert.That(
                         _studentPetPreference.GetLineage()
-                                             .Count(),
+                            .Count(),
                         Is.EqualTo(3))
                 );
             }
         }
     }
 }
+#endif

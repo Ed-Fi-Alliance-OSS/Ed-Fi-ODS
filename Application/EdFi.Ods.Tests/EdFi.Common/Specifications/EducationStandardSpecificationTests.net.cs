@@ -3,10 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
 using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Entities.NHibernate.CredentialAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LearningObjectiveAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LearningStandardAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
@@ -25,10 +29,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(NHibernateEntities.LearningStandardAggregate.EdFi.LearningStandard)), Is.True),
+                            typeof(LearningStandard)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(NHibernateEntities.LearningStandardAggregate.EdFi.LearningStandard)), Is.True)
+                            nameof(LearningStandard)), Is.True)
                 );
             }
 
@@ -38,10 +42,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(ModelResources.LearningStandard.EdFi.LearningStandard)), Is.True),
+                            typeof(Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(ModelResources.LearningStandard.EdFi.LearningStandard)), Is.True)
+                            nameof(Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard)), Is.True)
                 );
             }
 
@@ -51,10 +55,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(NHibernateEntities.LearningObjectiveAggregate.EdFi.LearningObjective)), Is.True),
+                            typeof(LearningObjective)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(NHibernateEntities.LearningObjectiveAggregate.EdFi.LearningObjective)), Is.True)
+                            nameof(LearningObjective)), Is.True)
                 );
             }
 
@@ -64,10 +68,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(ModelResources.LearningObjective.EdFi.LearningObjective)), Is.True),
+                            typeof(Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(ModelResources.LearningObjective.EdFi.LearningObjective)), Is.True)
+                            nameof(Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective)), Is.True)
                 );
             }
 
@@ -78,10 +82,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(NHibernateEntities.CredentialAggregate.EdFi.Credential)), Is.True),
+                            typeof(Credential)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(NHibernateEntities.CredentialAggregate.EdFi.Credential)), Is.True)
+                            nameof(Credential)), Is.True)
                 );
             }
 
@@ -91,12 +95,13 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            typeof(ModelResources.Credential.EdFi.Credential)), Is.True),
+                            typeof(Api.Common.Models.Resources.Credential.EdFi.Credential)), Is.True),
                     () => Assert.That(
                         EducationStandardSpecification.IsEducationStandardEntity(
-                            nameof(ModelResources.Credential.EdFi.Credential)), Is.True)
+                            nameof(Api.Common.Models.Resources.Credential.EdFi.Credential)), Is.True)
                 );
             }
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,13 +40,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 var swaggerResources = ResourceModelProvider.GetResourceModel()
-                                                            .GetAllResources()
-                                                            .Select(r => new SwaggerResource(r))
-                                                            .ToList();
+                    .GetAllResources()
+                    .Select(r => new SwaggerResource(r))
+                    .ToList();
 
                 _actualPaths = SwaggerDocumentFactoryHelper.CreateSwaggerPathsFactory(
-                                                                DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                                                           .Create(swaggerResources, false);
+                        DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
+                    .Create(swaggerResources, false);
             }
 
             [Assert]
@@ -157,9 +158,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                         ResourceModelProvider.GetResourceModel())
                     {
                         ProfileContext = new SwaggerProfileContext
-                                         {
-                                             ProfileName = "Test-ParentNonAbstractBaseClass-ExcludeOnly"
-                                         },
+                        {
+                            ProfileName = "Test-ParentNonAbstractBaseClass-ExcludeOnly"
+                        },
                         RenderType = RenderType.GeneralizedExtensions
                     };
 
@@ -187,32 +188,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     profileResourceModel.ResourceByName.Values.Where(r => r.Writable != null);
 
                 _swaggerResources = readableResourceModel
-                                   .Select(
-                                        r => new SwaggerResource(r.Readable)
-                                             {
-                                                 Name =
-                                                     $"{CompositeTermInflector.MakeSingular(r.Readable.Name)}_{ContentTypeUsage.Readable}"
-                                                        .ToCamelCase(),
-                                                 Readable = true, IsProfileResource = true
-                                             })
-                                   .Concat(
-                                        writableResourceModel.Select(
-                                            r => new SwaggerResource(r.Writable)
-                                                 {
-                                                     Name =
-                                                         $"{CompositeTermInflector.MakeSingular(r.Writable.Name)}_{ContentTypeUsage.Writable}"
-                                                            .ToCamelCase(),
-                                                     Writable = true, IsProfileResource = true
-                                                 }
-                                        ))
-                                   .ToList();
+                    .Select(
+                        r => new SwaggerResource(r.Readable)
+                        {
+                            Name =
+                                $"{CompositeTermInflector.MakeSingular(r.Readable.Name)}_{ContentTypeUsage.Readable}"
+                                    .ToCamelCase(),
+                            Readable = true, IsProfileResource = true
+                        })
+                    .Concat(
+                        writableResourceModel.Select(
+                            r => new SwaggerResource(r.Writable)
+                            {
+                                Name =
+                                    $"{CompositeTermInflector.MakeSingular(r.Writable.Name)}_{ContentTypeUsage.Writable}"
+                                        .ToCamelCase(),
+                                Writable = true, IsProfileResource = true
+                            }
+                        ))
+                    .ToList();
             }
 
             protected override void Act()
             {
                 _actualPaths = SwaggerDocumentFactoryHelper
-                              .CreateSwaggerPathsFactory(_swaggerDocumentContext)
-                              .Create(_swaggerResources, false);
+                    .CreateSwaggerPathsFactory(_swaggerDocumentContext)
+                    .Create(_swaggerResources, false);
             }
 
             [Assert]
@@ -227,34 +228,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 var paths = _actualPaths.Values;
 
                 var pathOperationContentTypes = paths.SelectMany(p => p.get?.produces ?? Enumerable.Empty<string>())
-                                                     .Concat(
-                                                          paths.SelectMany(
-                                                              p => p.put?.consumes ?? Enumerable.Empty<string>()))
-                                                     .Concat(
-                                                          paths.SelectMany(
-                                                              p => p.post?.consumes ?? Enumerable.Empty<string>()))
-                                                     .Concat(
-                                                          paths.SelectMany(
-                                                              p => p.delete?.consumes ?? Enumerable.Empty<string>()));
+                    .Concat(
+                        paths.SelectMany(
+                            p => p.put?.consumes ?? Enumerable.Empty<string>()))
+                    .Concat(
+                        paths.SelectMany(
+                            p => p.post?.consumes ?? Enumerable.Empty<string>()))
+                    .Concat(
+                        paths.SelectMany(
+                            p => p.delete?.consumes ?? Enumerable.Empty<string>()));
 
                 var operationContentTypeRegex = new Regex(
                     "application\\/vnd.ed-fi.(\\w+).test-parentnonabstractbaseclass-excludeonly.(readable|writable)\\+json");
 
                 AssertHelper.All(
                     pathOperationContentTypes
-                       .Select(
+                        .Select(
                             c =>
                                 (Action)
                                 (() =>
-                                     Assert.That(
-                                         operationContentTypeRegex.IsMatch(c),
-                                         Is.True,
-                                         $@"Path operation content type 
+                                    Assert.That(
+                                        operationContentTypeRegex.IsMatch(c),
+                                        Is.True,
+                                        $@"Path operation content type 
                                         {c} does not match expected pattern 
                                         {
-                                                 "application/vnd.ed-fi.(\\w+).Test-parentnonabstractbaseclass-excludeonly.(readable|writable)+json"
-                                             }.")))
-                       .ToArray());
+                                                "application/vnd.ed-fi.(\\w+).Test-parentnonabstractbaseclass-excludeonly.(readable|writable)+json"
+                                            }.")))
+                        .ToArray());
             }
 
             [Assert]
@@ -263,25 +264,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 var paths = _actualPaths.Values;
 
                 var postOperationReference = paths.Select(
-                                                       p => p.post?.parameters[0]
-                                                            ?.schema?.@ref)
-                                                  .Where(r => r != null);
+                        p => p.post?.parameters[0]
+                            ?.schema?.@ref)
+                    .Where(r => r != null);
 
                 var refContentTypeRegex = new Regex("(\\w+)_(readable|writable)");
 
                 AssertHelper.All(
                     postOperationReference
-                       .Select(
+                        .Select(
                             c =>
                                 (Action)
                                 (() =>
-                                     Assert.That(
-                                         refContentTypeRegex.IsMatch(c),
-                                         Is.True,
-                                         $@"Path reference content type
+                                    Assert.That(
+                                        refContentTypeRegex.IsMatch(c),
+                                        Is.True,
+                                        $@"Path reference content type
                                         {c} does not match expected pattern 
                                         {"(\\w+)_(readable|writable)"}")))
-                       .ToArray());
+                        .ToArray());
             }
 
             [Assert]
@@ -301,3 +302,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Common.ExceptionHandling;
@@ -119,14 +120,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 suppliedMetadataProvider = mocks.StrictMock<IDatabaseMetadataProvider>();
 
                 SetupResult.For(suppliedMetadataProvider.GetIndexDetails("PK_Session"))
-                           .Return(
-                                new IndexDetails
-                                {
-                                    IndexName = "SomeIndexName", TableName = "Session", ColumnNames = new List<string>
-                                                                                                      {
-                                                                                                          "Column1", "Column2", "Column3"
-                                                                                                      }
-                                });
+                    .Return(
+                        new IndexDetails
+                        {
+                            IndexName = "SomeIndexName", TableName = "Session", ColumnNames = new List<string>
+                            {
+                                "Column1", "Column2", "Column3"
+                            }
+                        });
             }
 
             protected override void ExecuteBehavior()
@@ -178,7 +179,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 suppliedMetadataProvider = mocks.StrictMock<IDatabaseMetadataProvider>();
 
                 SetupResult.For(suppliedMetadataProvider.GetIndexDetails("PK_Session"))
-                           .Return(null);
+                    .Return(null);
             }
 
             protected override void ExecuteBehavior()
@@ -219,7 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 suppliedMetadataProvider = mocks.StrictMock<IDatabaseMetadataProvider>();
 
                 SetupResult.For(suppliedMetadataProvider.GetIndexDetails("BackwardsPkName_PK"))
-                           .Return(null);
+                    .Return(null);
             }
 
             protected override void ExecuteBehavior()
@@ -265,3 +266,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         }
     }
 }
+#endif

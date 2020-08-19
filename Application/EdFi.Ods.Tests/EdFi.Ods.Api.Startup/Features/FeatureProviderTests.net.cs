@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Api.Features;
 using EdFi.Ods.Common.Extensibility;
@@ -80,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
 
             [Test]
             public void Should_check_if_the_enabled_feature_is_enabled() => A.CallTo(() => _enabledFeature.IsEnabled()).MustHaveHappened();
-            
+
             [Test]
             public void Should_check_if_the_disabled_feature_is_enabled() => A.CallTo(() => _disabledFeature.IsEnabled()).MustHaveHappened();
 
@@ -89,3 +90,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
         }
     }
 }
+#endif

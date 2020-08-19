@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Common.Security;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -21,34 +22,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 var packedHash = new PackedHash
-                                 {
-                                     Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
-                                                                                  {
-                                                                                      111, 222, 200
-                                                                                  },
-                                     Iterations = 321, Salt = new byte[]
-                                                              {
-                                                                  100, 200, 201
-                                                              }
-                                 };
+                {
+                    Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                    {
+                        111, 222, 200
+                    },
+                    Iterations = 321, Salt = new byte[]
+                    {
+                        100, 200, 201
+                    }
+                };
 
                 var packedHashConverter = mocks.Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(phc => phc.GetPackedHash("MyHashedSecret"))
-                                   .Return(packedHash);
+                    .Return(packedHash);
 
                 var secureHasher = mocks.Stub<ISecureHasher>();
 
                 secureHasher.Stub(
-                                 sh => sh.ComputeHash(
-                                     "MySecret",
-                                     123,
-                                     321,
-                                     new byte[]
-                                     {
-                                         100, 200, 201
-                                     }))
-                            .Return(packedHash);
+                        sh => sh.ComputeHash(
+                            "MySecret",
+                            123,
+                            321,
+                            new byte[]
+                            {
+                                100, 200, 201
+                            }))
+                    .Return(packedHash);
 
                 _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
             }
@@ -82,42 +83,42 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = mocks.Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(phc => phc.GetPackedHash("MyHashedSecret"))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
-                                                                                         {
-                                                                                             100, 100, 100
-                                                                                         },
-                                            Iterations = 321, Salt = new byte[]
-                                                                     {
-                                                                         100, 200, 201
-                                                                     }
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                            {
+                                100, 100, 100
+                            },
+                            Iterations = 321, Salt = new byte[]
+                            {
+                                100, 200, 201
+                            }
+                        });
 
                 var secureHasher = mocks.Stub<ISecureHasher>();
 
                 secureHasher.Stub(
-                                 sh => sh.ComputeHash(
-                                     "MyDifferentSecret",
-                                     123,
-                                     321,
-                                     new byte[]
-                                     {
-                                         100, 200, 201
-                                     }))
-                            .Return(
-                                 new PackedHash
-                                 {
-                                     Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
-                                                                                  {
-                                                                                      200, 200, 200
-                                                                                  },
-                                     Iterations = 321, Salt = new byte[]
-                                                              {
-                                                                  100, 200, 201
-                                                              }
-                                 });
+                        sh => sh.ComputeHash(
+                            "MyDifferentSecret",
+                            123,
+                            321,
+                            new byte[]
+                            {
+                                100, 200, 201
+                            }))
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                            {
+                                200, 200, 200
+                            },
+                            Iterations = 321, Salt = new byte[]
+                            {
+                                100, 200, 201
+                            }
+                        });
 
                 _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
             }
@@ -205,3 +206,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
         }
     }
 }
+#endif

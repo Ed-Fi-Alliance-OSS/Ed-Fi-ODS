@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using EdFi.Ods.Common.Caching;
@@ -25,7 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var cache = MockRepository.GenerateStub<IEducationOrganizationCache>();
 
             cache.Stub(x => x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
-                 .Return(new EducationOrganizationIdentifiers(0, educationOrganizationType));
+                .Return(new EducationOrganizationIdentifiers(0, educationOrganizationType));
 
             return cache;
         }
@@ -164,7 +165,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 object concreteValue;
 
                 values.TryGetValue(ConcreteEducationOrganizationType + "Id", out concreteValue)
-                      .ShouldBeTrue(string.Format("Unable to find property '{0}'Id.", ConcreteEducationOrganizationType));
+                    .ShouldBeTrue(string.Format("Unable to find property '{0}'Id.", ConcreteEducationOrganizationType));
 
                 concreteValue.ShouldBe(999);
             }
@@ -173,12 +174,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             public void Should_not_set_any_other_values_on_the_context()
             {
                 (from p in _actualContextData.GetType()
-                                             .GetProperties()
-                 where p.Name != ConcreteEducationOrganizationType + "Id"
-                       && p.Name != "ConcreteEducationOrganizationIdPropertyName"
-                 select p.GetValue(_actualContextData))
-                   .All(x => x == null)
-                   .ShouldBeTrue("One or more properties on the context data was set.  They should be null.");
+                            .GetProperties()
+                        where p.Name != ConcreteEducationOrganizationType + "Id"
+                              && p.Name != "ConcreteEducationOrganizationIdPropertyName"
+                        select p.GetValue(_actualContextData))
+                    .All(x => x == null)
+                    .ShouldBeTrue("One or more properties on the context data was set.  They should be null.");
             }
         }
 
@@ -228,3 +229,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         }
     }
 }
+#endif

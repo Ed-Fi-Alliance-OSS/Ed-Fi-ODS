@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -68,12 +69,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    new EdFiAuthorizationContext(
-                        new ClaimsPrincipal(), 
-                        new[] {" "}, 
-                        "action", 
-                        new object()),
-                    CancellationToken.None)
+                        new EdFiAuthorizationContext(
+                            new ClaimsPrincipal(),
+                            new[] {" "},
+                            "action",
+                            new object()),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -97,12 +98,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    new EdFiAuthorizationContext(
-                        new ClaimsPrincipal(), 
-                        null, 
-                        "action", 
-                        new object()),
-                    CancellationToken.None)
+                        new EdFiAuthorizationContext(
+                            new ClaimsPrincipal(),
+                            null,
+                            "action",
+                            new object()),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -126,12 +127,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    new EdFiAuthorizationContext(
-                        new ClaimsPrincipal(), 
-                        new[] {"resource"}, 
-                        " ", 
-                        new object()),
-                    CancellationToken.None)
+                        new EdFiAuthorizationContext(
+                            new ClaimsPrincipal(),
+                            new[] {"resource"},
+                            " ",
+                            new object()),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -155,12 +156,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    new EdFiAuthorizationContext(
-                        new ClaimsPrincipal(), 
-                        new[] {"resource"}, 
-                        null, 
-                        new object()),
-                    CancellationToken.None)
+                        new EdFiAuthorizationContext(
+                            new ClaimsPrincipal(),
+                            new[] {"resource"},
+                            null,
+                            new object()),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -184,12 +185,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    new EdFiAuthorizationContext(
-                        new ClaimsPrincipal(),
-                        new []{ "resourceUri1", "resourceUri2", "resourceUri3"},
-                        "actionUri",
-                        new object()),
-                    CancellationToken.None)
+                        new EdFiAuthorizationContext(
+                            new ClaimsPrincipal(),
+                            new []{ "resourceUri1", "resourceUri2", "resourceUri3"},
+                            "actionUri",
+                            new object()),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -247,9 +248,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 // Execute code under test
                 var authorizationStrategies = new IEdFiAuthorizationStrategy[]
-                                              {
-                                                  new ConventionFollowingAuthorizationStrategy(), new ConventionFollowing2AuthorizationStrategy()
-                                              };
+                {
+                    new ConventionFollowingAuthorizationStrategy(), new ConventionFollowing2AuthorizationStrategy()
+                };
 
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
@@ -272,9 +273,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 // Execute code under test
                 var authorizationStrategies = new IEdFiAuthorizationStrategy[]
-                                              {
-                                                  new ConventionFollowingAuthorizationStrategy(), new AuthorizationStrategyNotFollowingConventions()
-                                              };
+                {
+                    new ConventionFollowingAuthorizationStrategy(), new AuthorizationStrategyNotFollowingConventions()
+                };
 
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
@@ -312,7 +313,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
-                
+
                 return new AuthorizationFilterDetails[0];
             }
         }
@@ -348,9 +349,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 SecurityRepository = Given_a_security_repository_returning_all_actions_and_appropriate_claim_name_lineage();
 
                 AuthorizationStrategies = new IEdFiAuthorizationStrategy[]
-                                          {
-                                              SecondAuthorizationStrategy, FourthAuthorizationStrategy, OverrideAuthorizationStrategy
-                                          };
+                {
+                    SecondAuthorizationStrategy, FourthAuthorizationStrategy, OverrideAuthorizationStrategy
+                };
             }
 
             protected ClaimsPrincipal Given_a_principal_with_a_single_resource_claim(string resourceClaimUri, string actionUri)
@@ -371,60 +372,60 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var securityRepository = Stub<ISecurityRepository>();
 
                 A.CallTo(() => securityRepository.GetActionByName("Create"))
-                                  .Returns(
-                                       new Action
-                                       {
-                                           ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
-                                       });
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
+                        });
 
                 A.CallTo(() => securityRepository.GetActionByName("Read"))
-                                  .Returns(
-                                       new Action
-                                       {
-                                           ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
-                                       });
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
+                        });
 
                 A.CallTo(() => securityRepository.GetActionByName("Update"))
-                                  .Returns(
-                                       new Action
-                                       {
-                                           ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
-                                       });
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
+                        });
 
                 A.CallTo(() => securityRepository.GetActionByName("Delete"))
-                                  .Returns(
-                                       new Action
-                                       {
-                                           ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
-                                       });
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
+                        });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource1ClaimUri))
-                                  .Returns(
-                                       new[]
-                                       {
-                                           Resource1ClaimUri, Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
-                                       });
+                    .Returns(
+                        new[]
+                        {
+                            Resource1ClaimUri, Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
+                        });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource2ClaimUri))
-                                  .Returns(
-                                       new[]
-                                       {
-                                           Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
-                                       });
+                    .Returns(
+                        new[]
+                        {
+                            Resource2ClaimUri, Resource3ClaimUri, Resource4ClaimUri
+                        });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource3ClaimUri))
-                                  .Returns(
-                                       new[]
-                                       {
-                                           Resource3ClaimUri, Resource4ClaimUri
-                                       });
+                    .Returns(
+                        new[]
+                        {
+                            Resource3ClaimUri, Resource4ClaimUri
+                        });
 
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource4ClaimUri))
-                                  .Returns(
-                                       new[]
-                                       {
-                                           Resource4ClaimUri
-                                       });
+                    .Returns(
+                        new[]
+                        {
+                            Resource4ClaimUri
+                        });
 
                 return securityRepository;
             }
@@ -462,31 +463,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var authorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
                 A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
-                                             .Returns(
-                                                  new List<ResourceClaimAuthorizationMetadata>
-                                                      {
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource1ClaimUri, AuthorizationStrategy = null //"First"
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource2ClaimUri, AuthorizationStrategy = "Second"
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource3ClaimUri, AuthorizationStrategy = null
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource4ClaimUri, AuthorizationStrategy = "Fourth"
-                                                          }
-                                                      }
+                    .Returns(
+                        new List<ResourceClaimAuthorizationMetadata>
+                            {
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource1ClaimUri, AuthorizationStrategy = null //"First"
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource2ClaimUri, AuthorizationStrategy = "Second"
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource3ClaimUri, AuthorizationStrategy = null
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource4ClaimUri, AuthorizationStrategy = "Fourth"
+                                }
+                            }
 
-                                                      // Trim out lineage from bottom up to incoming claim name
-                                                     .SkipWhile(
-                                                          rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
-                                                     .ToList());
+                            // Trim out lineage from bottom up to incoming claim name
+                            .SkipWhile(
+                                rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
+                            .ToList());
 
                 return authorizationMetadataProvider;
             }
@@ -510,9 +511,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -559,9 +560,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -595,14 +596,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Caller has claims for Resources 1 and 3 (out of order)
                 Claim[] claims =
                 {
-                    // The "out of order" of these claims is intentional and is testing that the match is 
+                    // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
                     JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(ReadActionUri)),
                     JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(ReadActionUri, "Override"))
 
-                    // This claim is "below" requested resource, so it should be ignored 
+                    // This claim is "below" requested resource, so it should be ignored
                     // (NOTE: This will not happen with the current implementation of the API, but has been added for full coverage/definition of expected behavior)
                 };
 
@@ -621,9 +622,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -668,9 +669,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -714,9 +715,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -764,9 +765,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -814,9 +815,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -849,7 +850,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Caller has claims for Resources 2 and 3 (out of order)
                 Claim[] claims =
                 {
-                    // The "out of order" of these claims is intentional and is testing that the match is 
+                    // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
@@ -871,9 +872,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -908,7 +909,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 get
                 {
                     return Invocations.Select(x => x.RuleSetName)
-                                      .ToArray();
+                        .ToArray();
                 }
             }
 
@@ -970,33 +971,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var authorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
                 A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
-                                             .Returns(
-                                                  new List<ResourceClaimAuthorizationMetadata>
-                                                      {
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource1ClaimUri, ValidationRuleSetName = null
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource2ClaimUri, ValidationRuleSetName = "RuleSetFor2"
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource3ClaimUri, ValidationRuleSetName = null
-                                                          },
-                                                          new ResourceClaimAuthorizationMetadata
-                                                          {
-                                                              ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
-                                                              AuthorizationStrategy =
-                                                                  "Fourth" // We need an authorization strategy defined somewhere in the lineage
-                                                          }
-                                                      }
+                    .Returns(
+                        new List<ResourceClaimAuthorizationMetadata>
+                            {
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource1ClaimUri, ValidationRuleSetName = null
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource2ClaimUri, ValidationRuleSetName = "RuleSetFor2"
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource3ClaimUri, ValidationRuleSetName = null
+                                },
+                                new ResourceClaimAuthorizationMetadata
+                                {
+                                    ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
+                                    AuthorizationStrategy =
+                                        "Fourth" // We need an authorization strategy defined somewhere in the lineage
+                                }
+                            }
 
-                                                      // Trim out lineage from bottom up to incoming claim name
-                                                     .SkipWhile(
-                                                          rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
-                                                     .ToList());
+                            // Trim out lineage from bottom up to incoming claim name
+                            .SkipWhile(
+                                rcas => !rcas.ClaimName.Equals(resourceClaim, StringComparison.InvariantCultureIgnoreCase))
+                            .ToList());
 
                 return authorizationMetadataProvider;
             }
@@ -1020,9 +1021,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1062,9 +1063,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1103,9 +1104,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1144,9 +1145,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1172,14 +1173,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Caller has claims for Resources 1 and 3 (out of order)
                 Claim[] claims =
                 {
-                    // The "out of order" of these claims is intentional and is testing that the match is 
+                    // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
                     JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(CreateActionUri)),
                     JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(CreateActionUri, null, null, "OverrideRuleSet"))
 
-                    // This claim is "below" requested resource, so it should be ignored 
+                    // This claim is "below" requested resource, so it should be ignored
                     // (NOTE: This will not happen with the current implementation of the API, but has been added for full coverage/definition of expected behavior)
                 };
 
@@ -1198,9 +1199,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1240,9 +1241,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1278,9 +1279,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1320,9 +1321,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1358,9 +1359,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1400,9 +1401,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1441,9 +1442,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1482,9 +1483,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1523,9 +1524,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1564,9 +1565,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             {
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1591,7 +1592,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Caller has claims for Resources 2 and 3 (out of order)
                 Claim[] claims =
                 {
-                    // The "out of order" of these claims is intentional and is testing that the match is 
+                    // The "out of order" of these claims is intentional and is testing that the match is
                     // made on the first matching claim based on the authorization metadata hierarchy
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
@@ -1613,9 +1614,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 // Get the strategy metadata provider, using the authorization context values
                 var authorizationMetadataProvider = CreateResourceAuthorizationMetadataProvider(
                     authorizationContext.Resource.Single()
-                                        .Value,
+                        .Value,
                     authorizationContext.Action.Single()
-                                        .Value);
+                        .Value);
 
                 var provider = new EdFiAuthorizationProvider(
                     authorizationMetadataProvider,
@@ -1651,9 +1652,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 Assert.That(
                     FakeExplicitObjectValidator2.InvokedRuleSets
-                                                .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
-                                                .Distinct()
-                                                .ToArray(),
+                        .Concat(FakeExplicitObjectValidator2.InvokedRuleSets)
+                        .Distinct()
+                        .ToArray(),
                     Is.EqualTo(
                         new[]
                         {
@@ -1701,12 +1702,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 _resourceAuthorizationMetadataProvider = Stub<IResourceAuthorizationMetadataProvider>();
 
                 A.CallTo(() => _resourceAuthorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(A<string>.Ignored, A<string>.Ignored))
-                                                      .Returns(suppliedResourceClaimsAuthorizationStrategyMetadata);
+                    .Returns(suppliedResourceClaimsAuthorizationStrategyMetadata);
 
                 var edOrgCache = Stub<IEducationOrganizationCache>();
 
                 A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                          .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
+                    .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
 
                 _securityRepository = new StubSecurityRepository();
             }
@@ -1739,12 +1740,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 string claim)
             {
                 return new List<ResourceClaimAuthorizationMetadata>
-                       {
-                           new ResourceClaimAuthorizationMetadata
-                           {
-                               ClaimName = claim, AuthorizationStrategy = strategy
-                           }
-                       };
+                {
+                    new ResourceClaimAuthorizationMetadata
+                    {
+                        ClaimName = claim, AuthorizationStrategy = strategy
+                    }
+                };
             }
 
             //The context to authorize.
@@ -1773,12 +1774,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var claimsPrincipal = Stub<ClaimsPrincipal>();
 
                 var claims = new List<Claim>
-                             {
-                                 JsonClaimHelper.CreateClaim(claim, new EdFiResourceClaimValue(action))
-                             };
+                {
+                    JsonClaimHelper.CreateClaim(claim, new EdFiResourceClaimValue(action))
+                };
 
                 A.CallTo(() => claimsPrincipal.Claims)
-                               .Returns(claims);
+                    .Returns(claims);
 
                 return claimsPrincipal;
             }
@@ -1788,27 +1789,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 _educationOrganizationHierarchyProvider = Stub<IEducationOrganizationHierarchyProvider>();
 
                 A.CallTo(() => _educationOrganizationHierarchyProvider.GetEducationOrganizationHierarchy())
-                                                       .Returns(new AdjacencyGraph<string, Edge<string>>());
+                    .Returns(new AdjacencyGraph<string, Edge<string>>());
 
                 var edOrgCache = Stub<IEducationOrganizationCache>();
 
                 A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                          .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
+                    .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
 
                 return new IEdFiAuthorizationStrategy[]
-                       {
-                           new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
-                               new ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>(edOrgCache))
-                           {
-                               AuthorizationSegmentsToFiltersConverter = Stub<IAuthorizationSegmentsToFiltersConverter>(),
-                               AuthorizationSegmentsVerifier = Stub<IAuthorizationSegmentsVerifier>(),
-                               EducationOrganizationCache = Stub<IEducationOrganizationCache>(),
-                               EducationOrganizationHierarchyProvider = _educationOrganizationHierarchyProvider,
-                               RelationshipsAuthorizationContextDataProviderFactory =
-                                   Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
-                           },
-                           new NoFurtherAuthorizationRequiredAuthorizationStrategy()
-                       };
+                {
+                    new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
+                        new ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>(edOrgCache))
+                    {
+                        AuthorizationSegmentsToFiltersConverter = Stub<IAuthorizationSegmentsToFiltersConverter>(),
+                        AuthorizationSegmentsVerifier = Stub<IAuthorizationSegmentsVerifier>(),
+                        EducationOrganizationCache = Stub<IEducationOrganizationCache>(),
+                        EducationOrganizationHierarchyProvider = _educationOrganizationHierarchyProvider,
+                        RelationshipsAuthorizationContextDataProviderFactory =
+                            Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
+                    },
+                    new NoFurtherAuthorizationRequiredAuthorizationStrategy()
+                };
             }
         }
 
@@ -1903,7 +1904,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 CancellationToken cancellationToken)
             {
                 SingleItemWasCalled = true;
-                
+
                 return Task.CompletedTask;
             }
 
@@ -1912,7 +1913,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
-                
+
                 return new AuthorizationFilterDetails[0];
             }
         }
@@ -1938,10 +1939,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 
                 // Request is for Resource Claim 1
                 provider.AuthorizeSingleItemAsync(
-                    Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-                        Resource1ClaimUri,
-                        Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource1ClaimUri)),
-                    CancellationToken.None)
+                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
+                            Resource1ClaimUri,
+                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource1ClaimUri)),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -1974,10 +1975,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     new IExplicitObjectValidator[0]);
 
                 provider.AuthorizeSingleItemAsync(
-                    Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
-                        Resource2ClaimUri,
-                        Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource2ClaimUri)),
-                    CancellationToken.None)
+                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
+                            Resource2ClaimUri,
+                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource2ClaimUri)),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -2012,7 +2013,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var authorizationMetadataProvider = A.Fake<IResourceAuthorizationMetadataProvider>();
 
             A.CallTo(() => authorizationMetadataProvider.GetResourceClaimAuthorizationMetadata(resourceClaim, actionUri))
-               .Returns(
+                .Returns(
                     new List<ResourceClaimAuthorizationMetadata>
                         {
                             new ResourceClaimAuthorizationMetadata
@@ -2020,7 +2021,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                                 ClaimName = resourceClaim, AuthorizationStrategy = authorizationStrategyName
                             }
                         }
-                       .ToList());
+                        .ToList());
 
             return authorizationMetadataProvider;
         }
@@ -2030,32 +2031,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var securityRepository = A.Fake<ISecurityRepository>();
 
             A.CallTo(() => securityRepository.GetActionByName("Create"))
-                              .Returns(
-                                   new Action
-                                   {
-                                       ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
-                                   });
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "Create", ActionUri = "http://ACTIONS/create"
+                    });
 
             A.CallTo(() => securityRepository.GetActionByName("Read"))
-                              .Returns(
-                                   new Action
-                                   {
-                                       ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
-                                   });
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "Read", ActionUri = "http://ACTIONS/read"
+                    });
 
             A.CallTo(() => securityRepository.GetActionByName("Update"))
-                              .Returns(
-                                   new Action
-                                   {
-                                       ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
-                                   });
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "Update", ActionUri = "http://ACTIONS/update"
+                    });
 
             A.CallTo(() => securityRepository.GetActionByName("Delete"))
-                              .Returns(
-                                   new Action
-                                   {
-                                       ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
-                                   });
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
+                    });
 
             return securityRepository;
         }
@@ -2063,9 +2064,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         private static IEdFiAuthorizationStrategy[] Given_a_collection_of_unused_authorization_strategies()
         {
             return new IEdFiAuthorizationStrategy[]
-                   {
-                       new UnusedAuthorizationStrategy()
-                   };
+            {
+                new UnusedAuthorizationStrategy()
+            };
         }
 
         private static ClaimsPrincipal Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(
@@ -2087,3 +2088,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 #endregion
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -55,17 +56,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         public void When_validating_object_with_validateEnumerableAttribute_should_validate_items_in_enumeration_and_raise_error()
         {
             var list = new List<DataAnnotatedClass>
-                       {
-                           new DataAnnotatedClass
-                           {
-                               Property = new DataAnnotatedProperty()
-                           }
-                       };
+            {
+                new DataAnnotatedClass
+                {
+                    Property = new DataAnnotatedProperty()
+                }
+            };
 
             var objectToValidate = new DataAnnotatedCollectionClass
-                                   {
-                                       PropertyList = list
-                                   };
+            {
+                PropertyList = list
+            };
 
             validationResults = validator.ValidateObject(objectToValidate);
 
@@ -76,9 +77,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         public void When_validating_object_with_validationObjectAttribute_should_validate_recursively_and_raise_error()
         {
             var objectToValidate = new DataAnnotatedClass
-                                   {
-                                       Property = new DataAnnotatedProperty()
-                                   };
+            {
+                Property = new DataAnnotatedProperty()
+            };
 
             validationResults = validator.ValidateObject(objectToValidate);
 
@@ -101,8 +102,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 });
 
             validationResults.Select(r => r.ErrorMessage)
-                             .ShouldContain(
-                                  "StudentUniqueId property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.");
+                .ShouldContain(
+                    "StudentUniqueId property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.");
         }
     }
 }
+#endif

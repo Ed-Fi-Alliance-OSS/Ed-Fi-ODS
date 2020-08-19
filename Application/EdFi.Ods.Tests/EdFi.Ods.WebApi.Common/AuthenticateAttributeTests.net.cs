@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -51,28 +52,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
 
             _container.Register(
                 Component.For<IOAuthTokenValidator>()
-                         .Instance(tokenValidator));
+                    .Instance(tokenValidator));
 
             _container.Register(
                 Component.For<IApiKeyContextProvider>()
-                         .Instance(contextProvider));
+                    .Instance(contextProvider));
 
             _container.Register(
                 Component.For<IClaimsIdentityProvider>()
-                         .Instance(identityProvider));
+                    .Instance(identityProvider));
 
             _container.Register(
                 Component.For<IConfigValueProvider>()
-                         .Instance(configProvider));
+                    .Instance(configProvider));
 
             _container.Register(
                 Component.For<IAuthenticationProvider>()
-                         .ImplementedBy<OAuthAuthenticationProvider>());
+                    .ImplementedBy<OAuthAuthenticationProvider>());
 
             // Web API Dependency Injection
             _container.Register(
                 Component.For<IDependencyResolver>()
-                         .Instance(new WindsorDependencyResolver(_container)));
+                    .Instance(new WindsorDependencyResolver(_container)));
         }
 
         public static HttpAuthenticationContext GetBaseAuthenticationContext()
@@ -82,9 +83,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             request.Properties.Add(HttpPropertyKeys.DependencyScope, new WindsorDependencyResolver(_container));
 
             var controllerContext = new HttpControllerContext
-                                    {
-                                        Request = request
-                                    };
+            {
+                Request = request
+            };
 
             var actionDescriptor = MockRepository.GenerateStub<HttpActionDescriptor>();
 
@@ -115,7 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -125,7 +126,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                     () => Assert.That(_context.ErrorResult.GetType(), Is.EqualTo(typeof(AuthenticationFailureResult))),
                     () => Assert.That(
                         _context.ErrorResult.ExecuteAsync(new CancellationToken())
-                                .Result.ReasonPhrase,
+                            .Result.ReasonPhrase,
                         Is.EqualTo("Missing credentials")));
             }
 
@@ -152,7 +153,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -184,7 +185,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -194,7 +195,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                     () => Assert.That(_context.ErrorResult.GetType(), Is.EqualTo(typeof(AuthenticationFailureResult))),
                     () => Assert.That(
                         _context.ErrorResult.ExecuteAsync(new CancellationToken())
-                                .Result.ReasonPhrase,
+                            .Result.ReasonPhrase,
                         Is.EqualTo("Missing parameter")));
             }
 
@@ -215,7 +216,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(Task.FromResult(new ApiClientDetails()));
+                    .Return(Task.FromResult(new ApiClientDetails()));
 
                 Initialize(tokenValidator);
                 _filter = new AuthenticateAttribute();
@@ -231,7 +232,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -241,7 +242,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                     () => Assert.That(_context.ErrorResult.GetType(), Is.EqualTo(typeof(AuthenticationFailureResult))),
                     () => Assert.That(
                         _context.ErrorResult.ExecuteAsync(new CancellationToken())
-                                .Result.ReasonPhrase,
+                            .Result.ReasonPhrase,
                         Is.EqualTo("Invalid token")));
             }
 
@@ -262,33 +263,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(
-                                   Task.FromResult(
-                                       new ApiClientDetails
-                                       {
-                                           ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
-                                                                                                              {
-                                                                                                                  "namespacePrefix"
-                                                                                                              },
-                                           EducationOrganizationIds = new List<int>(), IsSandboxClient = true
-                                       }));
+                    .Return(
+                        Task.FromResult(
+                            new ApiClientDetails
+                            {
+                                ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
+                                {
+                                    "namespacePrefix"
+                                },
+                                EducationOrganizationIds = new List<int>(), IsSandboxClient = true
+                            }));
 
                 var contextProvider = MockRepository.GenerateStub<IApiKeyContextProvider>();
 
                 var identityProvider = MockRepository.GenerateStub<IClaimsIdentityProvider>();
 
                 identityProvider.Stub(
-                                     i => i.GetClaimsIdentity(
-                                         Arg<IEnumerable<int>>.Is.Anything,
-                                         Arg<string>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything))
-                                .Return(new ClaimsIdentity());
+                        i => i.GetClaimsIdentity(
+                            Arg<IEnumerable<int>>.Is.Anything,
+                            Arg<string>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything))
+                    .Return(new ClaimsIdentity());
 
                 var configProvider = MockRepository.GenerateStub<IConfigValueProvider>();
 
                 configProvider.Stub(i => i.GetValue("ExpectedUseSandboxValue"))
-                              .Return("false");
+                    .Return("false");
 
                 Initialize(tokenValidator, contextProvider, identityProvider, configProvider);
                 _filter = new AuthenticateAttribute();
@@ -304,7 +305,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -314,7 +315,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                     () => Assert.That(_context.ErrorResult.GetType(), Is.EqualTo(typeof(AuthenticationFailureResult))),
                     () => Assert.That(
                         _context.ErrorResult.ExecuteAsync(new CancellationToken())
-                                .Result.ReasonPhrase,
+                            .Result.ReasonPhrase,
                         Is.EqualTo("Sandbox credentials used in call to Production API")));
             }
 
@@ -335,33 +336,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(
-                                   Task.FromResult(
-                                       new ApiClientDetails
-                                       {
-                                           ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
-                                                                                                              {
-                                                                                                                  "namespacePrefix"
-                                                                                                              },
-                                           EducationOrganizationIds = new List<int>(), IsSandboxClient = false
-                                       }));
+                    .Return(
+                        Task.FromResult(
+                            new ApiClientDetails
+                            {
+                                ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
+                                {
+                                    "namespacePrefix"
+                                },
+                                EducationOrganizationIds = new List<int>(), IsSandboxClient = false
+                            }));
 
                 var contextProvider = MockRepository.GenerateStub<IApiKeyContextProvider>();
 
                 var identityProvider = MockRepository.GenerateStub<IClaimsIdentityProvider>();
 
                 identityProvider.Stub(
-                                     i => i.GetClaimsIdentity(
-                                         Arg<IEnumerable<int>>.Is.Anything,
-                                         Arg<string>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything))
-                                .Return(new ClaimsIdentity());
+                        i => i.GetClaimsIdentity(
+                            Arg<IEnumerable<int>>.Is.Anything,
+                            Arg<string>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything))
+                    .Return(new ClaimsIdentity());
 
                 var configProvider = MockRepository.GenerateStub<IConfigValueProvider>();
 
                 configProvider.Stub(i => i.GetValue("ExpectedUseSandboxValue"))
-                              .Return("true");
+                    .Return("true");
 
                 Initialize(tokenValidator, contextProvider, identityProvider, configProvider);
                 _filter = new AuthenticateAttribute();
@@ -377,7 +378,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -387,7 +388,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                     () => Assert.That(_context.ErrorResult.GetType(), Is.EqualTo(typeof(AuthenticationFailureResult))),
                     () => Assert.That(
                         _context.ErrorResult.ExecuteAsync(new CancellationToken())
-                                .Result.ReasonPhrase,
+                            .Result.ReasonPhrase,
                         Is.EqualTo("Production credentials used in call to Sandbox API")));
             }
 
@@ -411,36 +412,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(
-                                   Task.FromResult(
-                                       new ApiClientDetails
-                                       {
-                                           ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
-                                                                                                              {
-                                                                                                                  "namespacePrefix"
-                                                                                                              },
-                                           EducationOrganizationIds = new List<int>()
-                                       }));
+                    .Return(
+                        Task.FromResult(
+                            new ApiClientDetails
+                            {
+                                ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
+                                {
+                                    "namespacePrefix"
+                                },
+                                EducationOrganizationIds = new List<int>()
+                            }));
 
                 var contextProvider = MockRepository.GenerateStub<IApiKeyContextProvider>();
 
                 contextProvider.Stub(c => c.SetApiKeyContext(Arg<ApiKeyContext>.Is.Anything))
-                               .WhenCalled(call => { _setContextCalled = true; });
+                    .WhenCalled(call => { _setContextCalled = true; });
 
                 var identityProvider = MockRepository.GenerateStub<IClaimsIdentityProvider>();
 
                 identityProvider.Stub(
-                                     i => i.GetClaimsIdentity(
-                                         Arg<IEnumerable<int>>.Is.Anything,
-                                         Arg<string>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything))
-                                .Return(new ClaimsIdentity());
+                        i => i.GetClaimsIdentity(
+                            Arg<IEnumerable<int>>.Is.Anything,
+                            Arg<string>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything))
+                    .Return(new ClaimsIdentity());
 
                 var configProvider = MockRepository.GenerateStub<IConfigValueProvider>();
 
                 configProvider.Stub(i => i.GetValue("ExpectedUseSandboxValue"))
-                              .Return(null);
+                    .Return(null);
 
                 Initialize(tokenValidator, contextProvider, identityProvider, configProvider);
                 _filter = new AuthenticateAttribute();
@@ -456,7 +457,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -485,36 +486,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(
-                                   Task.FromResult(
-                                       new ApiClientDetails
-                                       {
-                                           ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
-                                                                                                              {
-                                                                                                                  "namespacePrefix"
-                                                                                                              },
-                                           EducationOrganizationIds = new List<int>(), IsSandboxClient = true
-                                       }));
+                    .Return(
+                        Task.FromResult(
+                            new ApiClientDetails
+                            {
+                                ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
+                                {
+                                    "namespacePrefix"
+                                },
+                                EducationOrganizationIds = new List<int>(), IsSandboxClient = true
+                            }));
 
                 var contextProvider = MockRepository.GenerateStub<IApiKeyContextProvider>();
 
                 contextProvider.Stub(c => c.SetApiKeyContext(Arg<ApiKeyContext>.Is.Anything))
-                               .WhenCalled(call => { _setContextCalled = true; });
+                    .WhenCalled(call => { _setContextCalled = true; });
 
                 var identityProvider = MockRepository.GenerateStub<IClaimsIdentityProvider>();
 
                 identityProvider.Stub(
-                                     i => i.GetClaimsIdentity(
-                                         Arg<IEnumerable<int>>.Is.Anything,
-                                         Arg<string>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything))
-                                .Return(new ClaimsIdentity());
+                        i => i.GetClaimsIdentity(
+                            Arg<IEnumerable<int>>.Is.Anything,
+                            Arg<string>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything))
+                    .Return(new ClaimsIdentity());
 
                 var configProvider = MockRepository.GenerateStub<IConfigValueProvider>();
 
                 configProvider.Stub(i => i.GetValue("ExpectedUseSandboxValue"))
-                              .Return("true");
+                    .Return("true");
 
                 Initialize(tokenValidator, contextProvider, identityProvider, configProvider);
                 _filter = new AuthenticateAttribute();
@@ -530,7 +531,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -559,36 +560,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 var tokenValidator = MockRepository.GenerateStub<IOAuthTokenValidator>();
 
                 tokenValidator.Stub(t => t.GetClientDetailsForTokenAsync(Arg<string>.Is.Anything))
-                              .Return(
-                                   Task.FromResult(
-                                       new ApiClientDetails
-                                       {
-                                           ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
-                                                                                                              {
-                                                                                                                  "namespacePrefix"
-                                                                                                              },
-                                           EducationOrganizationIds = new List<int>(), IsSandboxClient = false
-                                       }));
+                    .Return(
+                        Task.FromResult(
+                            new ApiClientDetails
+                            {
+                                ApiKey = "key", ClaimSetName = "claimSetName", NamespacePrefixes = new List<string>
+                                {
+                                    "namespacePrefix"
+                                },
+                                EducationOrganizationIds = new List<int>(), IsSandboxClient = false
+                            }));
 
                 var contextProvider = MockRepository.GenerateStub<IApiKeyContextProvider>();
 
                 contextProvider.Stub(c => c.SetApiKeyContext(Arg<ApiKeyContext>.Is.Anything))
-                               .WhenCalled(call => { _setContextCalled = true; });
+                    .WhenCalled(call => { _setContextCalled = true; });
 
                 var identityProvider = MockRepository.GenerateStub<IClaimsIdentityProvider>();
 
                 identityProvider.Stub(
-                                     i => i.GetClaimsIdentity(
-                                         Arg<IEnumerable<int>>.Is.Anything,
-                                         Arg<string>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything,
-                                         Arg<IReadOnlyList<string>>.Is.Anything))
-                                .Return(new ClaimsIdentity());
+                        i => i.GetClaimsIdentity(
+                            Arg<IEnumerable<int>>.Is.Anything,
+                            Arg<string>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything,
+                            Arg<IReadOnlyList<string>>.Is.Anything))
+                    .Return(new ClaimsIdentity());
 
                 var configProvider = MockRepository.GenerateStub<IConfigValueProvider>();
 
                 configProvider.Stub(i => i.GetValue("ExpectedUseSandboxValue"))
-                              .Return("false");
+                    .Return("false");
 
                 Initialize(tokenValidator, contextProvider, identityProvider, configProvider);
                 _filter = new AuthenticateAttribute();
@@ -604,7 +605,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
             protected override void Act()
             {
                 _filter.AuthenticateAsync(_context, new CancellationToken())
-                       .Wait();
+                    .Wait();
             }
 
             [Assert]
@@ -621,3 +622,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
         }
     }
 }
+#endif

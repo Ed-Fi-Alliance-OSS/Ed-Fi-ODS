@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Common.Security;
 using NUnit.Framework;
@@ -22,29 +23,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 _apiClientIdentity = new ApiClientIdentity
-                                     {
-                                         Key = "MyKey"
-                                     };
+                {
+                    Key = "MyKey"
+                };
 
                 var apiClientIdentityProvider = mocks.Stub<IApiClientIdentityProvider>();
 
                 apiClientIdentityProvider.Stub(x => x.GetApiClientIdentity("MyKey"))
-                                         .Return(_apiClientIdentity);
+                    .Return(_apiClientIdentity);
 
                 var apiClientSecret = new ApiClientSecret
-                                      {
-                                          Secret = "MySecret"
-                                      };
+                {
+                    Secret = "MySecret"
+                };
 
                 var apiClientSecretProvider = mocks.Stub<IApiClientSecretProvider>();
 
                 apiClientSecretProvider.Expect(x => x.GetSecret("MyKey"))
-                                       .Return(apiClientSecret);
+                    .Return(apiClientSecret);
 
                 var secretVerifier = mocks.Stub<ISecretVerifier>();
 
                 secretVerifier.Expect(x => x.VerifySecret("MyKey", "MySecret", apiClientSecret))
-                              .Return(true);
+                    .Return(true);
 
                 _apiClientAuthenticator = new ApiClientAuthenticator(apiClientIdentityProvider, apiClientSecretProvider, secretVerifier);
             }
@@ -81,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var apiClientSecretProvider = mocks.Stub<IApiClientSecretProvider>();
 
                 apiClientSecretProvider.Expect(x => x.GetSecret("MyInvalidKey"))
-                                       .Throw(new ArgumentException());
+                    .Throw(new ArgumentException());
 
                 var secretVerifier = mocks.Stub<ISecretVerifier>();
 
@@ -115,19 +116,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 var apiClientSecret = new ApiClientSecret
-                                      {
-                                          Secret = "MySecret"
-                                      };
+                {
+                    Secret = "MySecret"
+                };
 
                 var apiClientSecretProvider = mocks.Stub<IApiClientSecretProvider>();
 
                 apiClientSecretProvider.Stub(x => x.GetSecret("MyKey"))
-                                       .Return(apiClientSecret);
+                    .Return(apiClientSecret);
 
                 var secretVerifier = mocks.Stub<ISecretVerifier>();
 
                 secretVerifier.Expect(x => x.VerifySecret("MyKey", "MyInvalidSecret", apiClientSecret))
-                              .Return(false);
+                    .Return(false);
 
                 var apiClientIdentityProvider = mocks.Stub<IApiClientIdentityProvider>();
 
@@ -153,3 +154,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
         }
     }
 }
+#endif

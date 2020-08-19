@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -264,8 +265,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 </Profile>");
 
                 _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders)
-                                .GetDomainModel()
-                                .ResourceModel;
+                    .GetDomainModel()
+                    .ResourceModel;
             }
 
             protected override void Act()
@@ -284,7 +285,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_preference_embedded_object()
             {
                 var extension = _student.ExtensionByName["Sample"]
-                                        .ObjectType;
+                    .ObjectType;
 
                 Assert.That(extension.EmbeddedObjectByName.Keys, Has.Member("StudentPetPreference"));
             }
@@ -293,11 +294,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_preference_embedded_object_without_a_minimum_weight_property()
             {
                 var minimumWeightProperty = _student
-                                           .ExtensionByName["Sample"]
-                                           .ObjectType
-                                           .EmbeddedObjectByName["StudentPetPreference"]
-                                           .ObjectType
-                                           .Properties.All(p => p.PropertyName == "MinimumWeight");
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .EmbeddedObjectByName["StudentPetPreference"]
+                    .ObjectType
+                    .Properties.All(p => p.PropertyName == "MinimumWeight");
 
                 Assert.That(minimumWeightProperty, Is.False);
             }
@@ -306,7 +307,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_collection()
             {
                 var extension = _student.ExtensionByName["Sample"]
-                                        .ObjectType;
+                    .ObjectType;
 
                 Assert.That(extension.CollectionByName.Keys, Has.Member("StudentPets"));
             }
@@ -315,11 +316,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_collection_without_an_is_fixed_property()
             {
                 var isFixedProperties = _student
-                                       .ExtensionByName["Sample"]
-                                       .ObjectType
-                                       .CollectionByName["StudentPets"]
-                                       .ItemType
-                                       .Properties.All(p => p.PropertyName == "IsFixed");
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .CollectionByName["StudentPets"]
+                    .ItemType
+                    .Properties.All(p => p.PropertyName == "IsFixed");
 
                 Assert.That(isFixedProperties, Is.False);
             }
@@ -354,8 +355,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 </Profile>");
 
                 _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders)
-                                .GetDomainModel()
-                                .ResourceModel;
+                    .GetDomainModel()
+                    .ResourceModel;
             }
 
             protected override void Act()
@@ -374,7 +375,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_preference_embedded_object()
             {
                 var extension = _student.ExtensionByName["Sample"]
-                                        .ObjectType;
+                    .ObjectType;
 
                 Assert.That(extension.EmbeddedObjectByName.Keys, Has.Member("StudentPetPreference"));
             }
@@ -383,10 +384,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_preference_embedded_object_with_1_property()
             {
                 var embeddedObject = _student
-                                    .ExtensionByName["Sample"]
-                                    .ObjectType
-                                    .EmbeddedObjectByName["StudentPetPreference"]
-                                    .ObjectType;
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .EmbeddedObjectByName["StudentPetPreference"]
+                    .ObjectType;
 
                 Assert.That(embeddedObject.Properties, Has.Count.EqualTo(1));
             }
@@ -395,11 +396,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_preference_embedded_object_with_a_minimum_weight_property()
             {
                 var minimumWeightProperties = _student
-                                             .ExtensionByName["Sample"]
-                                             .ObjectType
-                                             .EmbeddedObjectByName["StudentPetPreference"]
-                                             .ObjectType
-                                             .Properties.Any(p => p.PropertyName == "MinimumWeight");
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .EmbeddedObjectByName["StudentPetPreference"]
+                    .ObjectType
+                    .Properties.Any(p => p.PropertyName == "MinimumWeight");
 
                 Assert.That(minimumWeightProperties, Is.True);
             }
@@ -408,7 +409,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_collection()
             {
                 var extension = _student.ExtensionByName["Sample"]
-                                        .ObjectType;
+                    .ObjectType;
 
                 Assert.That(extension.CollectionByName.Keys, Has.Member("StudentPets"));
             }
@@ -417,10 +418,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_collection_with_2_properties()
             {
                 var collection = _student
-                                .ExtensionByName["Sample"]
-                                .ObjectType
-                                .CollectionByName["StudentPets"]
-                                .ItemType;
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .CollectionByName["StudentPets"]
+                    .ItemType;
 
                 // There should be 2 properties, IsFixed as it is defined in the profile
                 // and PetName as it is part of the identifier for the StudentPet
@@ -430,14 +431,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Should_have_a_student_pet_collection_with_an_is_fixed_property()
             {
                 var isFixedProperties = _student
-                                       .ExtensionByName["Sample"]
-                                       .ObjectType
-                                       .CollectionByName["StudentPets"]
-                                       .ItemType
-                                       .Properties.Any(p => p.PropertyName == "IsFixed");
+                    .ExtensionByName["Sample"]
+                    .ObjectType
+                    .CollectionByName["StudentPets"]
+                    .ItemType
+                    .Properties.Any(p => p.PropertyName == "IsFixed");
 
                 Assert.That(isFixedProperties, Is.True);
             }
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
             // turn into dynamic
             dynamic exd = ex;
 
-            // Dynamic can access 
+            // Dynamic can access
             Assert.AreEqual(ex.Name, exd.Name);
             Assert.AreEqual(ex.Entered, exd.Entered);
         }
@@ -81,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
         /// <summary>
         /// Summary method that demonstrates some
         /// of the basic behaviors.
-        /// 
+        ///
         /// More specific tests are provided below
         /// </summary>
         [Test]
@@ -114,7 +115,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
             // You can access dynamic properties either as dynamic or via IDictionary
             Assert.AreEqual(exd.Company, ex["Company"] as string, "Company doesn't match");
             Assert.AreEqual(exd.Address, ex["Address"] as string, "Address doesn't match");
-            
+
             // Accessing dynamic properties is case insensitive
             Assert.AreEqual(exd.COMPANY, ex["company"] as string, "Company doesn't match");
             Assert.AreEqual(exd.address, ex["ADDRESS"] as string, "Address doesn't match");
@@ -293,14 +294,14 @@ namespace EdFi.Ods.Tests.EdFi.Common
             duser.Entered = DateTime.Now;
             duser.Accesses = 1;
 
-            // you can also add dynamic props via indexer 
+            // you can also add dynamic props via indexer
             user["NickName"] = "AntiSocialX";
             duser["WebSite"] = "http://www.west-wind.com/weblog";
 
             // Access strong type through dynamic ref
             Assert.AreEqual(user.Name, duser.Name);
 
-            // Access strong type through indexer 
+            // Access strong type through indexer
             Assert.AreEqual(user.Password, user["Password"]);
 
             // access dynamically added value through indexer
@@ -363,7 +364,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
         // [ClassCleanup()]
         // public static void MyClassCleanup() { }
         //
-        // Use TestInitialize to run code before running each test 
+        // Use TestInitialize to run code before running each test
         // [TestInitialize()]
         // public void MyTestInitialize() { }
         //
@@ -426,3 +427,4 @@ namespace EdFi.Ods.Tests.EdFi.Common
         public DateTime? ExpiresOn { get; set; }
     }
 }
+#endif

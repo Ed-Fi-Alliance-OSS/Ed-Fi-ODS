@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Castle.Windsor;
@@ -36,8 +37,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.InstallerTests
                     .Returns(
                         new []
                         {
-                            // Possible assembly from a nuget 
-                            Assembly.GetAssembly(typeof(IWindsorContainer)), 
+                            // Possible assembly from a nuget
+                            Assembly.GetAssembly(typeof(IWindsorContainer)),
 
                             // Profile Assembly we are looking for.
                             Assembly.GetAssembly(typeof(Marker_EdFi_Ods_Profiles_Test)),
@@ -64,3 +65,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.InstallerTests
         }
     }
 }
+#endif

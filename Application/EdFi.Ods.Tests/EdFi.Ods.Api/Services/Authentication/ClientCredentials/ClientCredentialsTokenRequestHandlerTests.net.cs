@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Net.Http;
 using System.Web.Http;
 using EdFi.Admin.DataAccess.Models;
@@ -38,22 +39,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Arrange()
             {
                 var apiClient = new ApiClient
-                                {
-                                    ApiClientId = 0
-                                };
+                {
+                    ApiClientId = 0
+                };
 
                 _clientAppRepo = mocks.Stub<IClientAppRepo>();
 
                 _clientAppRepo.Expect(c => c.GetClient(Arg<string>.Is.Anything))
-                              .Return(apiClient);
+                    .Return(apiClient);
 
                 _clientAppRepo.Expect(c => c.AddClientAccessToken(0))
-                              .Return(new ClientAccessToken());
+                    .Return(new ClientAccessToken());
 
                 _tokenRequest = new TokenRequest
-                                {
-                                    Client_id = ClientId, Client_secret = ClientSecret
-                                };
+                {
+                    Client_id = ClientId, Client_secret = ClientSecret
+                };
 
                 _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
 
@@ -117,17 +118,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                 _clientAppRepo = MockRepository.GenerateStub<IClientAppRepo>();
 
                 _tokenRequest = new TokenRequest
-                                {
-                                    Client_id = ClientId, Client_secret = ClientSecret
-                                };
+                {
+                    Client_id = ClientId, Client_secret = ClientSecret
+                };
 
                 _apiClientAuthenticator = MockRepository.GenerateStub<IApiClientAuthenticator>();
                 ApiClientIdentity apiClientIdentity;
 
                 _apiClientAuthenticator
-                   .Expect(aca => aca.TryAuthenticate(null, null, out apiClientIdentity))
-                   .IgnoreArguments()
-                   .Do(
+                    .Expect(aca => aca.TryAuthenticate(null, null, out apiClientIdentity))
+                    .IgnoreArguments()
+                    .Do(
                         new ApiClientAuthenticatorDelegates.TryAuthenticateDelegate(
                             (string key, string password, out ApiClientIdentity identity) =>
                             {
@@ -173,3 +174,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -54,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Conventions
                 _actualSchemaName.ShouldBe("GrandBend");
             }
         }
-        
+
         public class When_parsing_schema_name_from_a_namespace_for_a_standard_resource_in_a_profile : TestFixtureBase
         {
             private string _actualSchemaName;
@@ -73,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Conventions
                 _actualSchemaName.ShouldBe("EdFi");
             }
         }
-        
+
         public class When_parsing_schema_name_from_a_namespace_for_an_extension_resource_in_a_profile : TestFixtureBase
         {
             private string _actualSchemaName;
@@ -92,7 +93,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Conventions
                 _actualSchemaName.ShouldBe("GrandBend");
             }
         }
-        
+
         public class When_parsing_schema_name_from_a_namespace_for_a_resource_extension_class : TestFixtureBase
         {
             private string _actualSchemaName;
@@ -134,3 +135,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Conventions
         }
     }
 }
+#endif

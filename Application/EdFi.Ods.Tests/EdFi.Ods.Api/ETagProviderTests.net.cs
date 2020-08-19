@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.ETag;
@@ -57,9 +58,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
         public void When_entity_IDateVersionedEntity_value_default_Should_return_null()
         {
             var dateversionedEntity = new DateVersionedEntity
-                                      {
-                                          LastModifiedDate = default(DateTime)
-                                      };
+            {
+                LastModifiedDate = default(DateTime)
+            };
 
             var result = _eTagProvider.GetETag(dateversionedEntity);
             Assert.AreEqual(null, result);
@@ -87,19 +88,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
         public void When_entity_Is_IDateVersionedEntity()
         {
             var localTimeDateVersionedEntity = new DateVersionedEntity
-                                               {
-                                                   LastModifiedDate = _localDateTime
-                                               };
+            {
+                LastModifiedDate = _localDateTime
+            };
 
             var utcTimedateversionedEntity = new DateVersionedEntity
-                                             {
-                                                 LastModifiedDate = _utcDateTime
-                                             };
+            {
+                LastModifiedDate = _utcDateTime
+            };
 
             var unspecifiedTimeDateVersionedEntity = new DateVersionedEntity
-                                                     {
-                                                         LastModifiedDate = _unspecifiedDateTime
-                                                     };
+            {
+                LastModifiedDate = _unspecifiedDateTime
+            };
 
             var expectedEtagValue1 = _eTagProvider.GetETag(localTimeDateVersionedEntity);
             var expectedEtagValue2 = _eTagProvider.GetETag(utcTimedateversionedEntity);
@@ -146,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
             var expectedEtagValue = DateTime.Now;
 
             var etag = expectedEtagValue.ToBinary()
-                                        .ToString();
+                .ToString();
 
             var result = _eTagProvider.GetDateTime(etag);
             Assert.AreEqual(expectedEtagValue, result);
@@ -168,3 +169,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api
         }
     }
 }
+#endif

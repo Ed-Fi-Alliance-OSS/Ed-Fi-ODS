@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -102,8 +103,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 _actualSegments.Count.ShouldBe(1);
 
                 _actualSegments.First()
-                               .ClaimsEndpoints.Single()
-                               .Value.ShouldBe(888);
+                    .ClaimsEndpoints.Single()
+                    .Value.ShouldBe(888);
             }
         }
 
@@ -141,22 +142,22 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name()
             {
                 _actualSegments.ElementAt(1)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
 
@@ -191,22 +192,22 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StudentUSI");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name()
             {
                 _actualSegments.ElementAt(1)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StaffUSI");
             }
         }
 
@@ -242,32 +243,32 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 Should_create_first_segment_as_a_school_to_the_first_supplied_property_name_with_the_supplied_authorization_path_modifer_intact()
             {
                 _actualSegments.ElementAt(0)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
-                               .SubjectEndpoint.Name.ShouldBe("StudentUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StudentUSI");
 
                 _actualSegments.ElementAt(0)
-                               .AuthorizationPathModifier.ShouldBe("OverTheRiverAndThroughTheWoods");
+                    .AuthorizationPathModifier.ShouldBe("OverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
             public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name_with_no_authorization_path_modifier()
             {
                 _actualSegments.ElementAt(1)
-                               .ClaimsEndpoints.All(x => x.Name == "SchoolId")
-                               .ShouldBeTrue();
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ShouldBeTrue();
 
                 _actualSegments.ElementAt(1)
-                               .SubjectEndpoint.Name.ShouldBe("StaffUSI");
+                    .SubjectEndpoint.Name.ShouldBe("StaffUSI");
 
                 _actualSegments.ElementAt(1)
-                               .AuthorizationPathModifier.ShouldBeNull();
+                    .AuthorizationPathModifier.ShouldBeNull();
             }
         }
 
-        #region Givens
+#region Givens
 
         private static IEducationOrganizationCache Given_a_cache_that_indicates_no_organizations_exist()
         {
@@ -279,7 +280,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             var educationOrganizationCache = MockRepository.GenerateStub<IEducationOrganizationCache>();
 
             educationOrganizationCache.Stub(x => x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
-                                      .Return(new EducationOrganizationIdentifiers(0, "School"));
+                .Return(new EducationOrganizationIdentifiers(0, "School"));
 
             return educationOrganizationCache;
         }
@@ -287,16 +288,16 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private static IEnumerable<Claim> Given_a_claimset_with_a_claim_for_some_LocalEducationAgency()
         {
             return new[]
-                   {
-                       JsonClaimHelper.CreateClaim(
-                           "someResource",
-                           new EdFiResourceClaimValue(
-                               "something",
-                               new List<int>
-                               {
-                                   999
-                               }))
-                   };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "someResource",
+                    new EdFiResourceClaimValue(
+                        "something",
+                        new List<int>
+                        {
+                            999
+                        }))
+            };
         }
 
         private static IEducationOrganizationCache Given_a_cache_that_indicates_the_only_EducationOrganizationId_that_exists_is(
@@ -305,8 +306,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             var educationOrganizationCache = MockRepository.GenerateStub<IEducationOrganizationCache>();
 
             educationOrganizationCache.Stub(x => x.GetEducationOrganizationIdentifiers(educationOrganizationId))
-                                      .Return(
-                                           new EducationOrganizationIdentifiers(educationOrganizationId, "LocalEducationAgency"));
+                .Return(
+                    new EducationOrganizationIdentifiers(educationOrganizationId, "LocalEducationAgency"));
 
             return educationOrganizationCache;
         }
@@ -314,21 +315,21 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private static IEnumerable<Claim> Given_a_claimset_with_a_claim_for_LocalEducationAgencies(params int[] localEducationAgencyIds)
         {
             return new[]
-                   {
-                       JsonClaimHelper.CreateClaim(
-                           "someResource",
-                           new EdFiResourceClaimValue("something", new List<int>(localEducationAgencyIds)))
-                   };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "someResource",
+                    new EdFiResourceClaimValue("something", new List<int>(localEducationAgencyIds)))
+            };
         }
 
         private static IEnumerable<Claim> Given_a_claimset_with_a_claim_that_has_no_educationOrganizations()
         {
             return new[]
-                   {
-                       JsonClaimHelper.CreateClaim(
-                           "someResource",
-                           new EdFiResourceClaimValue("something", null as List<int>))
-                   };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "someResource",
+                    new EdFiResourceClaimValue("something", null as List<int>))
+            };
         }
 
         private static RelationshipsAuthorizationContextData
@@ -340,7 +341,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             };
         }
 
-        #endregion
+#endregion
     }
 
     public class
@@ -362,7 +363,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
         protected override void EstablishContext()
         {
-            #region Commented out code for integration testing against SQL Server
+#region Commented out code for integration testing against SQL Server
 
             //private IDatabaseConnectionStringProvider connectionStringProvider;
 
@@ -373,7 +374,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
             //executor.Execute(actualAuthorizationRules);
 
-            #endregion
+#endregion
 
             _suppliedContextData = new RelationshipsAuthorizationContextData
             {
@@ -389,18 +390,18 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 });
 
             _suppliedClaims = new List<Claim>
-                             {
-                                 JsonClaimHelper.CreateClaim(
-                                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                                     _suppliedEdFiResourceClaimValue)
-                             };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
+                    _suppliedEdFiResourceClaimValue)
+            };
 
             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
 
             _educationOrganizationCache.Stub(
-                                            x =>
-                                                x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
-                                       .Return(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
+                    x =>
+                        x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
+                .Return(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
         }
 
         protected override void ExecuteBehavior()
@@ -411,8 +412,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 _suppliedContextData);
 
             _actualAuthorizationSegments = builder
-                                         .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
-                                         .GetSegments();
+                .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
+                .GetSegments();
 
             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.SingleOrDefault(
                 s =>
@@ -441,16 +442,16 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             // Make sure the counts are the same
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
-                                              .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
+                .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
-                                              .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
-                                              .ShouldBeTrue();
+                .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
+                .ShouldBeTrue();
 
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                                              .All(n => n == "LocalEducationAgencyId")
-                                              .ShouldBeTrue();
+                .All(n => n == "LocalEducationAgencyId")
+                .ShouldBeTrue();
         }
 
         [Test]
@@ -504,18 +505,18 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 });
 
             suppliedClaims = new List<Claim>
-                             {
-                                 JsonClaimHelper.CreateClaim(
-                                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                                     _suppliedEdFiResourceClaimValue)
-                             };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
+                    _suppliedEdFiResourceClaimValue)
+            };
 
             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
 
             _educationOrganizationCache.Stub(
-                                            x =>
-                                                x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
-                                       .Return(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
+                    x =>
+                        x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
+                .Return(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
         }
 
         protected override void ExecuteBehavior()
@@ -526,8 +527,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 suppliedContextData);
 
             _actualAuthorizationSegments = builder
-                                          .ClaimsMustBeAssociatedWith(x => x.StudentUSI, "OverTheRiverAndThroughTheWoods")
-                                          .GetSegments();
+                .ClaimsMustBeAssociatedWith(x => x.StudentUSI, "OverTheRiverAndThroughTheWoods")
+                .GetSegments();
 
             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
                 s =>
@@ -564,16 +565,16 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             // Make sure the counts are the same
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
-                                              .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
+                .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
-                                              .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
-                                              .ShouldBeTrue();
+                .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
+                .ShouldBeTrue();
 
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                                              .All(n => n == "LocalEducationAgencyId")
-                                              .ShouldBeTrue();
+                .All(n => n == "LocalEducationAgencyId")
+                .ShouldBeTrue();
         }
 
         [Test]
@@ -595,3 +596,4 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -91,10 +92,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.InversionOfControl
         public static IHandler[] GetHandlers()
         {
             var handlers = new List<IHandler>
-                           {
-                               GetHandler(typeof(TestServiceA)), GetHandler(typeof(TestServiceB)), GetHandler(typeof(TestServiceC)),
-                               GetHandler(typeof(TestServiceD))
-                           };
+            {
+                GetHandler(typeof(TestServiceA)), GetHandler(typeof(TestServiceB)), GetHandler(typeof(TestServiceC)),
+                GetHandler(typeof(TestServiceD))
+            };
 
             return handlers.ToArray();
         }
@@ -150,7 +151,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.InversionOfControl
         {
             Assert.That(
                 _orderedHandlers[0]
-                   .ComponentModel.ComponentName.ToString(),
+                    .ComponentModel.ComponentName.ToString(),
                 Does.Contain(typeof(TestServiceD).ToString()));
 
             Assert.That(
@@ -159,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.InversionOfControl
                     typeof(TestServiceA).ToString(), typeof(TestServiceB).ToString()
                 }.Contains(
                     _orderedHandlers[1]
-                       .ComponentModel.ComponentName.ToString()));
+                        .ComponentModel.ComponentName.ToString()));
 
             Assert.That(
                 new[]
@@ -167,12 +168,13 @@ namespace EdFi.Ods.Tests.EdFi.Common.InversionOfControl
                     typeof(TestServiceA).ToString(), typeof(TestServiceB).ToString()
                 }.Contains(
                     _orderedHandlers[2]
-                       .ComponentModel.ComponentName.ToString()));
+                        .ComponentModel.ComponentName.ToString()));
 
             Assert.That(
                 _orderedHandlers[3]
-                   .ComponentModel.ComponentName.ToString(),
+                    .ComponentModel.ComponentName.ToString(),
                 Does.Contain(typeof(TestServiceC).ToString()));
         }
     }
 }
+#endif

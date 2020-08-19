@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,50 +80,50 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                 _testProfileResourceNamesProvider = new TestProfileResourceNamesProvider();
 
                 var studentProgramAssociation = _resourceModelProvider.GetResourceModel()
-                                                                     .GetResourceByFullName(
-                                                                          new FullName(
-                                                                              EdFiConventions
-                                                                                 .PhysicalSchemaName,
-                                                                              "GeneralStudentProgramAssociation"));
+                    .GetResourceByFullName(
+                        new FullName(
+                            EdFiConventions
+                                .PhysicalSchemaName,
+                            "GeneralStudentProgramAssociation"));
 
                 var studentSpecialEducationProgramAssociation = _resourceModelProvider
-                                                               .GetResourceModel()
-                                                               .GetResourceByFullName(
-                                                                    new FullName(
-                                                                        EdFiConventions
-                                                                           .PhysicalSchemaName,
-                                                                        "StudentSpecialEducationProgramAssociation"));
+                    .GetResourceModel()
+                    .GetResourceByFullName(
+                        new FullName(
+                            EdFiConventions
+                                .PhysicalSchemaName,
+                            "StudentSpecialEducationProgramAssociation"));
 
                 _expectedFilteredResources = new[]
-                                             {
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "generalStudentProgramAssociation_Readable", Readable = true
-                                                 },
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "generalStudentProgramAssociation_Readable", Readable = true,
-                                                     ContextualResource = studentSpecialEducationProgramAssociation
-                                                 },
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable",
-                                                     Readable = true
-                                                 },
-                                                 new SwaggerResource(studentProgramAssociation)
-                                                 {
-                                                     Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Writable",
-                                                     Writable = true
-                                                 },
-                                                 new SwaggerResource(studentSpecialEducationProgramAssociation)
-                                                 {
-                                                     Name = "studentSpecialEducationProgramAssociation_Readable", Readable = true
-                                                 },
-                                                 new SwaggerResource(studentSpecialEducationProgramAssociation)
-                                                 {
-                                                     Name = "studentSpecialEducationProgramAssociation_Writable", Writable = true
-                                                 }
-                                             };
+                {
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "generalStudentProgramAssociation_Readable", Readable = true
+                    },
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "generalStudentProgramAssociation_Readable", Readable = true,
+                        ContextualResource = studentSpecialEducationProgramAssociation
+                    },
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable",
+                        Readable = true
+                    },
+                    new SwaggerResource(studentProgramAssociation)
+                    {
+                        Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Writable",
+                        Writable = true
+                    },
+                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    {
+                        Name = "studentSpecialEducationProgramAssociation_Readable", Readable = true
+                    },
+                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    {
+                        Name = "studentSpecialEducationProgramAssociation_Writable", Writable = true
+                    }
+                };
 
                 _schemaNameMapProvider = Stub<ISchemaNameMapProvider>();
 
@@ -147,11 +148,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             {
                 _actualFilteredResources =
                     new OpenApiProfileStrategy().GetFilteredResources(_swaggerDocumentContext)
-                                                .ToList();
+                        .ToList();
             }
 
             [Assert]
-            public void Should_not_return_empty_list_of_filtered_resources() 
+            public void Should_not_return_empty_list_of_filtered_resources()
             {
                 _actualFilteredResources.ShouldNotBeEmpty();
             }
@@ -173,12 +174,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             {
                 AssertHelper.All(
                     _actualFilteredResources
-                       .Select(
+                        .Select(
                             r =>
                                 (Action)
                                 (() => _expectedFilteredResources.Contains(r, new SwaggerResourceProfileComparer())
-                                                                 .ShouldBeTrue()))
-                       .ToArray());
+                                    .ShouldBeTrue()))
+                        .ToArray());
             }
 
             [Assert]
@@ -191,7 +192,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             public void Should_contain_correctly_named_derived_resource_if_profile_contains_corresponding_base_resource()
             {
                 _actualFilteredResources.ShouldContain(
-                        r => r.Name.EqualsIgnoreCase("generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable"));
+                    r => r.Name.EqualsIgnoreCase("generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable"));
             }
 
             [Assert]
@@ -208,3 +209,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Common;
 using NUnit.Framework;
 using Shouldly;
@@ -60,14 +61,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Enumerations
             public void Should_retrieve_value_by_id()
             {
                 TestEnumeration.GetById("1")
-                               .ShouldBe(TestEnumeration.One);
+                    .ShouldBe(TestEnumeration.One);
             }
 
             [Test]
             public void Should_return_null_when_searching_by_nonexistent_id()
             {
                 TestEnumeration.GetById("foo")
-                               .ShouldBeNull();
+                    .ShouldBeNull();
             }
         }
 
@@ -121,21 +122,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Enumerations
             public void Should_retrieve_value_by_id()
             {
                 TestEnumeration.GetById("1")
-                               .ShouldBe(TestEnumeration.One);
+                    .ShouldBe(TestEnumeration.One);
             }
 
             [Test]
             public void Should_retrive_value_with_null_id()
             {
                 TestEnumeration.GetById(null)
-                               .ShouldBe(TestEnumeration.Null);
+                    .ShouldBe(TestEnumeration.Null);
             }
 
             [Test]
             public void Should_return_null_when_searching_by_nonexistent_id()
             {
                 TestEnumeration.GetById("foo")
-                               .ShouldBeNull();
+                    .ShouldBeNull();
             }
         }
 
@@ -217,3 +218,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Enumerations
         }
     }
 }
+#endif

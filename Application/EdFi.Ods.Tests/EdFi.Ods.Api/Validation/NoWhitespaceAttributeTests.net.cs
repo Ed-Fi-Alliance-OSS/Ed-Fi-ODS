@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
@@ -31,14 +32,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
             public OrderedDictionary GetPrimaryKeyValues()
             {
                 return new OrderedDictionary
-                       {
-                           {
-                               "PrimaryKeyProperty1", PrimaryKeyProperty1
-                           },
-                           {
-                               "PrimaryKeyProperty2", PrimaryKeyProperty2
-                           }
-                       };
+                {
+                    {
+                        "PrimaryKeyProperty1", PrimaryKeyProperty1
+                    },
+                    {
+                        "PrimaryKeyProperty2", PrimaryKeyProperty2
+                    }
+                };
             }
         }
 
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
                     () => Assert.That(_validationResults.Count, Is.EqualTo(1)),
                     () => Assert.That(
                         _validationResults.First()
-                                          .ErrorMessage,
+                            .ErrorMessage,
                         Is.EqualTo(
                             "PrimaryKeyProperty1 property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.")));
             }
@@ -112,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
                     () => Assert.That(_validationResults.Count, Is.EqualTo(1)),
                     () => Assert.That(
                         _validationResults.First()
-                                          .ErrorMessage,
+                            .ErrorMessage,
                         Is.EqualTo(
                             "PrimaryKeyProperty1 property is part of the primary key and therefore its value cannot contain leading or trailing whitespace.")));
             }
@@ -146,3 +147,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Validation
         }
     }
 }
+#endif

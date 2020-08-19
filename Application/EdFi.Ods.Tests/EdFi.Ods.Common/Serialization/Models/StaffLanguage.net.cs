@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
         /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
         /// </summary>
 
-        // NOT in a reference, IS a lookup column 
+        // NOT in a reference, IS a lookup column
         [DataMember(Name = "languageDescriptor")]
         [NaturalKeyMember]
         public string LanguageDescriptor { get; set; }
@@ -80,3 +81,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi
         // -------------------------------------------------------------
     }
 }
+#endif

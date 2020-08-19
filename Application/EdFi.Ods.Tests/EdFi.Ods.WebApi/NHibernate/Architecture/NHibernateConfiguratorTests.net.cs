@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,12 +51,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.NHibernate.Architecture
 
                 _container.Register(
                     Component
-                       .For<IResourceModelProvider>()
-                       .ImplementedBy<ResourceModelProvider>());
+                        .For<IResourceModelProvider>()
+                        .ImplementedBy<ResourceModelProvider>());
 
                 _container.Register(
                     Component.For<IExtensionNHibernateConfigurationProvider>()
-                             .ImplementedBy<ExtensionNHibernateConfigurationProvider>());
+                        .ImplementedBy<ExtensionNHibernateConfigurationProvider>());
 
                 _container.Register(
                     Component.For<IFilterCriteriaApplicatorProvider>()
@@ -83,11 +84,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.NHibernate.Architecture
                 _configuration = _container.Resolve<Configuration>();
 
                 _persistentClasses = _configuration.ClassMappings
-                                                   .Where(
-                                                        m => m.Table.Name.Equals(
-                                                            CoreTableName,
-                                                            StringComparison.InvariantCultureIgnoreCase))
-                                                   .ToList();
+                    .Where(
+                        m => m.Table.Name.Equals(
+                            CoreTableName,
+                            StringComparison.InvariantCultureIgnoreCase))
+                    .ToList();
             }
 
             [Test]
@@ -108,13 +109,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.NHibernate.Architecture
             public void Should_have_the_aggregate_extension_mapped_to_the_core_entity()
             {
                 var extensionProperty = _persistentClasses
-                   .FirstOrDefault(
+                    .FirstOrDefault(
                         x => x.UnjoinedPropertyIterator
-                              .Any(
-                                   y =>
-                                       y.Name.Equals(
-                                           MappedAggregateExtensionProperty,
-                                           StringComparison.InvariantCultureIgnoreCase)));
+                            .Any(
+                                y =>
+                                    y.Name.Equals(
+                                        MappedAggregateExtensionProperty,
+                                        StringComparison.InvariantCultureIgnoreCase)));
 
                 Assert.That(extensionProperty, Is.Not.Null, "Aggregate Extension property does not exist on the core entity");
             }
@@ -123,16 +124,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.NHibernate.Architecture
             public void Should_have_the_extension_property_mapped_to_the_core_entity()
             {
                 var extensionProperty = _persistentClasses
-                   .FirstOrDefault(
+                    .FirstOrDefault(
                         x => x.UnjoinedPropertyIterator
-                              .Any(
-                                   y =>
-                                       y.Name.Equals(
-                                           MappedExtensionProperty,
-                                           StringComparison.InvariantCultureIgnoreCase)));
+                            .Any(
+                                y =>
+                                    y.Name.Equals(
+                                        MappedExtensionProperty,
+                                        StringComparison.InvariantCultureIgnoreCase)));
 
                 Assert.That(extensionProperty, Is.Not.Null, "Extension property does not exist on the core entity");
             }
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Data;
 using EdFi.Ods.Common.Models;
@@ -33,76 +34,76 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             private static DomainModelBuilder CreateFaultyDomainModel()
             {
                 var entityDefinitions = new[]
-                                        {
-                                            new EntityDefinition(
-                                                "schema1",
-                                                "CoreEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true),
-                                            new EntityDefinition(
-                                                "schema1",
-                                                "Collection1Item",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
-                                                    new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true)
-                                        };
+                {
+                    new EntityDefinition(
+                        "schema1",
+                        "CoreEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true),
+                    new EntityDefinition(
+                        "schema1",
+                        "Collection1Item",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                            new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true)
+                };
 
                 var associationDefinitions = new[]
-                                             {
-                                                 new AssociationDefinition(
+                {
+                    new AssociationDefinition(
 
-                                                     //  The line that follows contains bad data
-                                                     new FullName("UndefinedSchemaName", "FK_CoreEntityCollection"),
-                                                     Cardinality.OneToZeroOrMore,
-                                                     new FullName("schema1", "CoreEntity"),
-                                                     new[]
-                                                     {
-                                                         new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                     },
-                                                     new FullName("schema1", "Collection1Item"),
-                                                     new[]
-                                                     {
-                                                         new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                     },
-                                                     isIdentifying: true,
-                                                     isRequired: true)
-                                             };
+                        //  The line that follows contains bad data
+                        new FullName("UndefinedSchemaName", "FK_CoreEntityCollection"),
+                        Cardinality.OneToZeroOrMore,
+                        new FullName("schema1", "CoreEntity"),
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new FullName("schema1", "Collection1Item"),
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        isIdentifying: true,
+                        isRequired: true)
+                };
 
                 var aggredateDefinitions = new[]
-                                           {
-                                               new AggregateDefinition(
-                                                   new FullName("schema1", "CoreEntity"),
-                                                   new[]
-                                                   {
-                                                       new FullName("schema1", "Collection1Item")
-                                                   })
-                                           };
+                {
+                    new AggregateDefinition(
+                        new FullName("schema1", "CoreEntity"),
+                        new[]
+                        {
+                            new FullName("schema1", "Collection1Item")
+                        })
+                };
 
                 //  schema names do not match the names on the AggregateDefinition
                 var schemaDefinition = new SchemaDefinition("logicalName", "schema1");
@@ -116,7 +117,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                 var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
                 domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                              .Return(modelDefinitions);
+                    .Return(modelDefinitions);
 
                 DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -155,74 +156,74 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             private static DomainModelBuilder CreateValidDomainModel()
             {
                 var entityDefinitions = new[]
-                                        {
-                                            new EntityDefinition(
-                                                "schema1",
-                                                "CoreEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true),
-                                            new EntityDefinition(
-                                                "schema1",
-                                                "Collection1Item",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
-                                                    new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true)
-                                        };
+                {
+                    new EntityDefinition(
+                        "schema1",
+                        "CoreEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true),
+                    new EntityDefinition(
+                        "schema1",
+                        "Collection1Item",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                            new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true)
+                };
 
                 var associationDefinitions = new[]
-                                             {
-                                                 new AssociationDefinition(
-                                                     new FullName("schema1", "FK_CoreEntityCollection"),
-                                                     Cardinality.OneToZeroOrMore,
-                                                     new FullName("schema1", "CoreEntity"),
-                                                     new[]
-                                                     {
-                                                         new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                     },
-                                                     new FullName("schema1", "Collection1Item"),
-                                                     new[]
-                                                     {
-                                                         new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                     },
-                                                     isIdentifying: true,
-                                                     isRequired: true)
-                                             };
+                {
+                    new AssociationDefinition(
+                        new FullName("schema1", "FK_CoreEntityCollection"),
+                        Cardinality.OneToZeroOrMore,
+                        new FullName("schema1", "CoreEntity"),
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new FullName("schema1", "Collection1Item"),
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        isIdentifying: true,
+                        isRequired: true)
+                };
 
                 var aggredateDefinitions = new[]
-                                           {
-                                               new AggregateDefinition(
-                                                   new FullName("schema1", "CoreEntity"),
-                                                   new[]
-                                                   {
-                                                       new FullName("schema1", "Collection1Item")
-                                                   })
-                                           };
+                {
+                    new AggregateDefinition(
+                        new FullName("schema1", "CoreEntity"),
+                        new[]
+                        {
+                            new FullName("schema1", "Collection1Item")
+                        })
+                };
 
                 //  schema names do not match the names on the AggregateDefinition
                 var schemaDefinition = new SchemaDefinition("logicalName", "schema1");
@@ -236,7 +237,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                 var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
                 domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                              .Return(modelDefinitions);
+                    .Return(modelDefinitions);
 
                 DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -263,3 +264,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         }
     }
 }
+#endif

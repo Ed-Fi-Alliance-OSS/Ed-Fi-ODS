@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
@@ -25,23 +26,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
             domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(
-                                               new DomainModelDefinitions(
-                                                   new SchemaDefinition(logicalSchemaName, physicalSchemaName),
-                                                   new AggregateDefinition[0],
-                                                   new EntityDefinition[0],
-                                                   new AssociationDefinition[0]));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(logicalSchemaName, physicalSchemaName),
+                        new AggregateDefinition[0],
+                        new EntityDefinition[0],
+                        new AssociationDefinition[0]));
 
             // Add a second schema to demonstrate correct matching with multiple schema entries
             var domainModelDefinitionsProvider2 = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
             domainModelDefinitionsProvider2.Stub(x => x.GetDomainModelDefinitions())
-                                           .Return(
-                                                new DomainModelDefinitions(
-                                                    new SchemaDefinition("AnotherSchema", "another"),
-                                                    new AggregateDefinition[0],
-                                                    new EntityDefinition[0],
-                                                    new AssociationDefinition[0]));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("AnotherSchema", "another"),
+                        new AggregateDefinition[0],
+                        new EntityDefinition[0],
+                        new AssociationDefinition[0]));
 
             var schemaDefinitions =
                 new DomainModelProvider(
@@ -49,8 +50,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                         {
                             domainModelDefinitionsProvider, domainModelDefinitionsProvider2
                         })
-                   .GetDomainModel()
-                   .Schemas;
+                    .GetDomainModel()
+                    .Schemas;
 
             return new SchemaNameMapProvider(schemaDefinitions);
         }
@@ -288,3 +289,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
     }
 }
+#endif

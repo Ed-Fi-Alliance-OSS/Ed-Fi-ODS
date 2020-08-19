@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using EdFi.Ods.Api.Common.Models.Resources.BellSchedule.EdFi;
@@ -94,7 +95,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
                 // This property is "unified" with other references
                 _modelInterface.StaffUniqueId = "ABC123";
 
-                // Because it's shared by multiple references, this property should return its value 
+                // Because it's shared by multiple references, this property should return its value
                 // immediately (it's not **specific** to the optional reference)
                 _modelInterface.StaffUniqueId.ShouldBe("ABC123");
 
@@ -303,15 +304,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             public void Should_return_a_reference()
             {
                 _model.BellScheduleClassPeriods.First()
-                      .ClassPeriodReference.ShouldNotBeNull();
+                    .ClassPeriodReference.ShouldNotBeNull();
             }
 
             [Assert]
             public void Reference_should_return_the_non_default_values()
             {
                 _model.BellScheduleClassPeriods.First()
-                      .ClassPeriodReference.ClassPeriodName.ShouldBe("ABC");
+                    .ClassPeriodReference.ClassPeriodName.ShouldBe("ABC");
             }
         }
     }
 }
+#endif

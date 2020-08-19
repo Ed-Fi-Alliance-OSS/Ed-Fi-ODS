@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Authorization;
@@ -36,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Filtering
             public void Should_save_the_parameters_into_context_storage()
             {
                 Assert.That(
-                    Given<IContextStorage>().GetValue<IReadOnlyList<AuthorizationFilterDetails>>("FilterContextProvider.FilterContext"), 
+                    Given<IContextStorage>().GetValue<IReadOnlyList<AuthorizationFilterDetails>>("FilterContextProvider.FilterContext"),
                     Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
             }
 
@@ -67,3 +68,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Filtering
         }
     }
 }
+#endif

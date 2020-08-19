@@ -3,8 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Entities.NHibernate.CommunityOrganizationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.CommunityProviderAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.EducationOrganizationNetworkAssociationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.EducationServiceCenterAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.SchoolAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StateEducationAgencyAggregate.EdFi;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
@@ -25,10 +36,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.StateEducationAgencyAggregate.EdFi.StateEducationAgency)), Is.True),
+                            typeof(StateEducationAgency)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.StateEducationAgencyAggregate.EdFi.StateEducationAgency)), Is.True)
+                            nameof(StateEducationAgency)), Is.True)
                 );
             }
 
@@ -38,10 +49,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True),
+                            typeof(Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True)
+                            nameof(Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency)), Is.True)
                 );
             }
 
@@ -51,10 +62,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.EducationServiceCenterAggregate.EdFi.EducationServiceCenter)), Is.True),
+                            typeof(EducationServiceCenter)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.EducationServiceCenterAggregate.EdFi.EducationServiceCenter)), Is.True)
+                            nameof(EducationServiceCenter)), Is.True)
                 );
             }
 
@@ -64,10 +75,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True),
+                            typeof(Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True)
+                            nameof(Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter)), Is.True)
                 );
             }
 
@@ -77,10 +88,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetwork)), Is.True),
+                            typeof(EducationOrganizationNetwork)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.EducationOrganizationNetworkAggregate.EdFi.EducationOrganizationNetwork)), Is.True)
+                            nameof(EducationOrganizationNetwork)), Is.True)
                 );
             }
 
@@ -90,10 +101,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True),
+                            typeof(Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True)
+                            nameof(Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork)), Is.True)
                 );
             }
 
@@ -103,10 +114,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.LocalEducationAgencyAggregate.EdFi.LocalEducationAgency)), Is.True),
+                            typeof(LocalEducationAgency)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.LocalEducationAgencyAggregate.EdFi.LocalEducationAgency)), Is.True)
+                            nameof(LocalEducationAgency)), Is.True)
                 );
             }
 
@@ -116,10 +127,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True),
+                            typeof(Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True)
+                            nameof(Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency)), Is.True)
                 );
             }
 
@@ -129,10 +140,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.SchoolAggregate.EdFi.School)), Is.True),
+                            typeof(School)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.SchoolAggregate.EdFi.School)), Is.True)
+                            nameof(School)), Is.True)
                 );
             }
 
@@ -142,10 +153,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.School.EdFi.School)), Is.True),
+                            typeof(Api.Common.Models.Resources.School.EdFi.School)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.School.EdFi.School)), Is.True)
+                            nameof(Api.Common.Models.Resources.School.EdFi.School)), Is.True)
                 );
             }
 
@@ -155,10 +166,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.CommunityOrganizationAggregate.EdFi.CommunityOrganization)), Is.True),
+                            typeof(CommunityOrganization)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.CommunityOrganizationAggregate.EdFi.CommunityOrganization)), Is.True)
+                            nameof(CommunityOrganization)), Is.True)
                 );
             }
 
@@ -168,10 +179,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True),
+                            typeof(Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True)
+                            nameof(Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization)), Is.True)
                 );
             }
 
@@ -181,10 +192,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.CommunityProviderAggregate.EdFi.CommunityProvider)), Is.True),
+                            typeof(CommunityProvider)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.CommunityProviderAggregate.EdFi.CommunityProvider)), Is.True)
+                            nameof(CommunityProvider)), Is.True)
                 );
             }
 
@@ -194,10 +205,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.CommunityProvider.EdFi.CommunityProvider)), Is.True),
+                            typeof(Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.CommunityProvider.EdFi.CommunityProvider)), Is.True)
+                            nameof(Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider)), Is.True)
                 );
             }
 
@@ -207,10 +218,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitution)), Is.True),
+                            typeof(PostSecondaryInstitution)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitution)), Is.True)
+                            nameof(PostSecondaryInstitution)), Is.True)
                 );
             }
 
@@ -220,10 +231,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True),
+                            typeof(Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True)
+                            nameof(Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution)), Is.True)
                 );
             }
 
@@ -233,11 +244,11 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(NHibernateEntities.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociation)),
+                            typeof(EducationOrganizationNetworkAssociation)),
                         Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(NHibernateEntities.EducationOrganizationNetworkAssociationAggregate.EdFi.EducationOrganizationNetworkAssociation)),
+                            nameof(EducationOrganizationNetworkAssociation)),
                         Is.True)
                 );
             }
@@ -248,10 +259,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            typeof(ModelResources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True),
+                            typeof(Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True),
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationEntity(
-                            nameof(ModelResources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True)
+                            nameof(Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation)), Is.True)
                 );
             }
 
@@ -261,7 +272,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationBaseEntity(
-                            nameof(NHibernateEntities.EducationOrganizationAggregate.EdFi.EducationOrganization)), Is.True)
+                            nameof(EducationOrganization)), Is.True)
                 );
             }
 
@@ -271,9 +282,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(
-                            nameof(NHibernateEntities.EducationOrganizationAggregate.EdFi.EducationOrganization.EducationOrganizationId)), Is.True)
+                            nameof(EducationOrganization.EducationOrganizationId)), Is.True)
                 );
             }
         }
     }
 }
+#endif

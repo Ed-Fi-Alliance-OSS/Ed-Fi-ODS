@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 new object(),
                 new object(),
             };
-            
+
             private readonly List<bool> _actualGetResultsForCacheHit = new List<bool>();
             private readonly List<object> _actualEntriesForCacheHit = new List<object>();
 
@@ -36,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
                 const int TestExpirationPeriod = 250;
 
                 var cache = new ExpiringConcurrentDictionaryCacheProvider(TimeSpan.FromMilliseconds(TestExpirationPeriod));
-                
+
                 // Wait for midpoint of the first expiration period
                 Thread.Sleep(TestExpirationPeriod / 2);
 
@@ -84,3 +85,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
         }
     }
 }
+#endif

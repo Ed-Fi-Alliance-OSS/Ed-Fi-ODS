@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
@@ -31,16 +32,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 var swaggerResources = ResourceModelProvider.GetResourceModel()
-                                                            .GetAllResources()
-                                                            .Select(r => new SwaggerResource(r))
-                                                            .ToList();
+                    .GetAllResources()
+                    .Select(r => new SwaggerResource(r))
+                    .ToList();
 
                 _actualTags = SwaggerDocumentFactoryHelper.CreateSwaggerTagsFactory(
-                                                               DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                                                          .Create(swaggerResources);
+                        DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
+                    .Create(swaggerResources);
 
                 _actualTagNames = _actualTags.Select(x => x.name)
-                                             .ToArray();
+                    .ToArray();
             }
 
             [Assert]
@@ -75,3 +76,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +44,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
             HttpMethod method = null)
         {
             var handlers = new ITokenRequestHandler[]
-                           {
-                               new ClientCredentialsTokenRequestHandler(clientAppRepo, apiClientAuthenticator)
-                           };
+            {
+                new ClientCredentialsTokenRequestHandler(clientAppRepo, apiClientAuthenticator)
+            };
 
             var controller = new TokenController(handlers.First());
 
@@ -95,9 +96,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1
-                                      };
+                    {
+                        ApiClientId = 1
+                    };
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -106,14 +107,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _clientAppRepo.Expect(x => x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything))
-                                  .Return(
-                                       new ClientAccessToken(_suppliedTTL)
-                                       {
-                                           ApiClient = _suppliedClient, Id = _suppliedAccessToken
-                                       });
+                        .Return(
+                            new ClientAccessToken(_suppliedTTL)
+                            {
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
+                            });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
 
@@ -123,16 +124,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Act()
                 {
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "clientId", Client_secret = "clientSecret",
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "clientId", Client_secret = "clientSecret",
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -164,7 +165,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["access_token"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo(_suppliedAccessToken.ToString("N")));
                 }
 
@@ -173,7 +174,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["token_type"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("bearer"));
                 }
 
@@ -233,9 +234,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1
-                                      };
+                    {
+                        ApiClientId = 1
+                    };
 
                     _suppliedAccessToken = Guid.NewGuid();
 
@@ -243,14 +244,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _clientAppRepo.Expect(x => x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything))
-                                  .Return(
-                                       new ClientAccessToken(new TimeSpan(0, 10, 0))
-                                       {
-                                           ApiClient = _suppliedClient, Id = _suppliedAccessToken
-                                       });
+                        .Return(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
+                            });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -262,12 +263,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             GetTokenRequest())
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            GetTokenRequest())
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -304,7 +305,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["access_token"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo(_suppliedAccessToken.ToString("N")));
                 }
 
@@ -313,7 +314,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["token_type"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("bearer"));
                 }
 
@@ -384,15 +385,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1,
-                                          ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                                          {
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                                          }
-                                      };
+                    {
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization { EducationOrganizationId = 997 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 998 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 999 },
+                        }
+                    };
 
                     // Scope the request to the first associated EdOrg
                     _requestedScope = _suppliedClient.ApplicationEducationOrganizations
@@ -406,15 +407,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _clientAppRepo.Expect(x => x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything))
-                                  .Return(
-                                       new ClientAccessToken(new TimeSpan(0, 10, 0))
-                                       {
-                                           ApiClient = _suppliedClient,
-                                           Id = _suppliedAccessToken
-                                       });
+                        .Return(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient,
+                                Id = _suppliedAccessToken
+                            });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -426,16 +427,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials",
-                                                                 Scope = _requestedScope
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials",
+                                Scope = _requestedScope
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -467,7 +468,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["access_token"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo(_suppliedAccessToken.ToString("N")));
                 }
 
@@ -476,7 +477,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["token_type"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("bearer"));
                 }
 
@@ -511,7 +512,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId_and_scope()
                 {
                     _clientAppRepo.AssertWasCalled(x =>
-                            x.AddClientAccessToken(_suppliedClient.ApiClientId, _requestedScope));
+                        x.AddClientAccessToken(_suppliedClient.ApiClientId, _requestedScope));
                 }
 
                 public override void RunOnceAfterAll()
@@ -538,15 +539,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1,
-                                          ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                                          {
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                                          }
-                                      };
+                    {
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization { EducationOrganizationId = 997 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 998 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 999 },
+                        }
+                    };
 
                     // Scope the request to something not in list above
                     _requestedScope = "1000";
@@ -557,7 +558,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -569,16 +570,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials",
-                                                                 Scope = _requestedScope
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials",
+                                Scope = _requestedScope
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -635,7 +636,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 public void Should_NOT_use_ClientAppRepo_to_create_token()
                 {
                     _clientAppRepo.AssertWasNotCalled(x =>
-                            x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything));
+                        x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything));
                 }
 
                 public override void RunOnceAfterAll()
@@ -662,15 +663,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1,
-                                          ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                                          {
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                                              new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                                          }
-                                      };
+                    {
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization { EducationOrganizationId = 997 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 998 },
+                            new ApplicationEducationOrganization { EducationOrganizationId = 999 },
+                        }
+                    };
 
                     // Scope the request to something not in list above
                     _requestedScope = "9a9";
@@ -681,7 +682,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -693,16 +694,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials",
-                                                                 Scope = _requestedScope
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials",
+                                Scope = _requestedScope
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -759,7 +760,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 public void Should_NOT_use_ClientAppRepo_to_create_token()
                 {
                     _clientAppRepo.AssertWasNotCalled(x =>
-                            x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything));
+                        x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything));
                 }
 
                 public override void RunOnceAfterAll()
@@ -786,9 +787,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1
-                                      };
+                    {
+                        ApiClientId = 1
+                    };
 
                     _suppliedAccessToken = Guid.NewGuid();
 
@@ -796,14 +797,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _clientAppRepo.Expect(x => x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything))
-                                  .Return(
-                                       new ClientAccessToken(new TimeSpan(0, 10, 0))
-                                       {
-                                           ApiClient = _suppliedClient, Id = _suppliedAccessToken
-                                       });
+                        .Return(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
+                            });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -815,15 +816,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "clientId", Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "clientId", Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -855,7 +856,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["access_token"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo(_suppliedAccessToken.ToString("N")));
                 }
 
@@ -864,7 +865,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["token_type"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("bearer"));
                 }
 
@@ -925,9 +926,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Arrange()
                 {
                     _suppliedClient = new ApiClient
-                                      {
-                                          ApiClientId = 1
-                                      };
+                    {
+                        ApiClientId = 1
+                    };
 
                     _suppliedAccessToken = Guid.NewGuid();
 
@@ -935,14 +936,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     _clientAppRepo.Expect(x => x.GetClient(Arg<string>.Is.Anything))
-                                  .Return(_suppliedClient);
+                        .Return(_suppliedClient);
 
                     _clientAppRepo.Expect(x => x.AddClientAccessToken(Arg<int>.Is.Anything, Arg<string>.Is.Anything))
-                                  .Return(
-                                       new ClientAccessToken(new TimeSpan(0, 10, 0))
-                                       {
-                                           ApiClient = _suppliedClient, Id = _suppliedAccessToken
-                                       });
+                        .Return(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
+                            });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
                     _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -954,15 +955,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_secret = "clientSecret", Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_secret = "clientSecret", Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -994,7 +995,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["access_token"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo(_suppliedAccessToken.ToString("N")));
                 }
 
@@ -1003,7 +1004,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent["token_type"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("bearer"));
                 }
 
@@ -1070,15 +1071,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "invalidClientId", Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "invalidClientId", Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1094,13 +1095,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_request"));
                 }
 
@@ -1135,15 +1136,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("basic", "Y2xpZW50SWQ6Y2xpZW50U2VjcmV0");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_secret = "invalidClientSecret", Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_secret = "invalidClientSecret", Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1159,13 +1160,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_request"));
                 }
 
@@ -1199,15 +1200,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("Digest", "some-value");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1231,13 +1232,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_client"));
                 }
 
@@ -1271,15 +1272,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("Basic"); // No value provided
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1295,13 +1296,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_request"));
                 }
 
@@ -1335,15 +1336,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("Basic", "Tm9Db2xvbkhlcmU="); // "NoColonHere"
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1359,13 +1360,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_request"));
                 }
 
@@ -1399,15 +1400,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         = new AuthenticationHeaderValue("Basic", "ThisIsNotBase64Encoded");
 
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1423,13 +1424,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_request"));
                 }
 
@@ -1460,16 +1461,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Act()
                 {
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "badClientId", Client_secret = "badClientSecret",
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "badClientId", Client_secret = "badClientSecret",
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1485,13 +1486,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_client"));
                 }
 
@@ -1529,16 +1530,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Act()
                 {
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "clientId", Client_secret = string.Empty,
-                                                                 Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "clientId", Client_secret = string.Empty,
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1554,13 +1555,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_client"));
                 }
 
@@ -1598,15 +1599,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 protected override void Act()
                 {
                     _actualResponseMessage = _controller.Post(
-                                                             new TokenRequest
-                                                             {
-                                                                 Client_id = "clientId", Grant_type = "client_credentials"
-                                                             })
-                                                        .ExecuteAsync(new CancellationToken())
-                                                        .Result;
+                            new TokenRequest
+                            {
+                                Client_id = "clientId", Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
                     string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-                                                                 .Result;
+                        .Result;
 
                     _actualJsonContent = JObject.Parse(actualContent);
                 }
@@ -1622,13 +1623,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 {
                     Assert.That(
                         _actualJsonContent.Properties()
-                                          .Count(),
+                            .Count(),
                         Is.EqualTo(1),
                         _actualJsonContent.ToString());
 
                     Assert.That(
                         _actualJsonContent["error"]
-                           .Value<string>(),
+                            .Value<string>(),
                         Is.EqualTo("invalid_client"));
                 }
 
@@ -1647,3 +1648,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
         }
     }
 }
+#endif

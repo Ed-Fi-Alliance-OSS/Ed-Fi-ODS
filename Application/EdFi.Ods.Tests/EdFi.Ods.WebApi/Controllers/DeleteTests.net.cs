@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Net;
 using System.Net.Http;
@@ -119,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Should_return_message()
             {
                 var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .GetResultSafely();
+                    .GetResultSafely();
 
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldContain("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency");
@@ -181,7 +182,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Should_return_message()
             {
                 var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .GetResultSafely();
+                    .GetResultSafely();
 
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldBe("An unexpected error occurred on the server.");
@@ -216,7 +217,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Should_return_message()
             {
                 var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .GetResultSafely();
+                    .GetResultSafely();
 
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldBe("Resource was modified by another consumer.");
@@ -230,3 +231,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
         }
     }
 }
+#endif

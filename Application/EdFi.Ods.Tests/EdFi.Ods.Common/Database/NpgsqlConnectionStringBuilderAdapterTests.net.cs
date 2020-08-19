@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Common.Database;
 using EdFi.TestFixture;
@@ -15,7 +16,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     [TestFixture]
     public class NpgqlConnectionStringBuilderAdapterTests
     {
-        public class When_getting_and_setting_the_database_name_in_a_Postgres_connection_string 
+        public class When_getting_and_setting_the_database_name_in_a_Postgres_connection_string
             : TestFixtureBase
         {
             private string _actualInitialDatabaseName;
@@ -23,14 +24,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             private string _actualFinalConnectionString;
 
             private const string PostgresConnectionStringFormat = @"Host=localhost; Port=5432; Database={0}; username=postgres; Application Name=EdFi.Ods.WebApi;";
-            
+
             protected override void Act()
             {
                 var adapter = new NpgsqlConnectionStringBuilderAdapter();
 
                 adapter.ConnectionString = string.Format(PostgresConnectionStringFormat, "OriginalDatabaseName");
                 _actualInitialDatabaseName = adapter.DatabaseName;
-             
+
                 adapter.DatabaseName = "ModifiedDatabaseName";
                 _actualModifiedDatabaseName = adapter.DatabaseName;
 
@@ -42,7 +43,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 _actualInitialDatabaseName.ShouldBe("OriginalDatabaseName");
             }
-            
+
             [Test]
             public void Should_return_the_modified_database_name_after_it_has_been_changed()
             {
@@ -54,14 +55,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 string formattedConnectionString = string.Format(
                     PostgresConnectionStringFormat, "ModifiedDatabaseName");
-                
+
                 var builder = new NpgsqlConnectionStringBuilder(formattedConnectionString);
                 string expectedConnectionString = builder.ConnectionString;
-                
+
                 _actualFinalConnectionString.ShouldBe(expectedConnectionString);
             }
         }
-        
+
         public class When_setting_the_database_name_before_setting_the_connection_string : TestFixtureBase
         {
             protected override void Act()
@@ -78,3 +79,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 }
+#endif

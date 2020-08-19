@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -39,33 +40,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                 var definitions = new List<XElement>(OpenApiCompositeHelper.CompositeDefinitions).ToReadOnlyList();
 
                 A.CallTo(() => _compositesMetadataProvider.TryGetRoutes(
-                             A<string>._, 
-                             A<string>._, 
-                             out routes))
-                 .Returns(true);
+                        A<string>._,
+                        A<string>._,
+                        out routes))
+                    .Returns(true);
 
                 A.CallTo(() => _compositesMetadataProvider.TryGetCompositeDefinitions(
-                             A<string>._, 
-                             A<string>._, 
-                             out definitions))
-                 .Returns(true);
+                        A<string>._,
+                        A<string>._,
+                        out definitions))
+                    .Returns(true);
 
                 _swaggerDocumentContext = new SwaggerDocumentContext(
-                                              _resourceModelProvider.GetResourceModel())
-                                          {
-                                              CompositeContext = new SwaggerCompositeContext
-                                                                 {
-                                                                     CategoryName = OpenApiCompositeHelper.CategoryName
-                                                                 }
-                                          };
+                    _resourceModelProvider.GetResourceModel())
+                {
+                    CompositeContext = new SwaggerCompositeContext
+                    {
+                        CategoryName = OpenApiCompositeHelper.CategoryName
+                    }
+                };
             }
 
             protected override void Act()
             {
                 _compositeResource =
                     new OpenApiCompositeStrategy(_compositesMetadataProvider).GetFilteredResources(
-                                                                                  _swaggerDocumentContext)
-                                                                             .FirstOrDefault();
+                            _swaggerDocumentContext)
+                        .FirstOrDefault();
             }
 
             [Assert]
@@ -88,3 +89,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
         }
     }
 }
+#endif

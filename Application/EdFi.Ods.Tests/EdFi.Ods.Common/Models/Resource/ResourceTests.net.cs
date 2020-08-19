@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -264,7 +265,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             domainModelBuilder.AddSchema(new SchemaDefinition("schema", "schema"));
 
             _actualResourceModel = domainModelBuilder.Build()
-                                                     .ResourceModel;
+                .ResourceModel;
         }
 
         [Assert]
@@ -638,7 +639,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             domainModelBuilder.AddSchema(new SchemaDefinition("schema", "schema"));
 
             _actualResourceModel = domainModelBuilder.Build()
-                                                     .ResourceModel;
+                .ResourceModel;
         }
 
         [Assert]
@@ -699,25 +700,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var definitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             definitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                               .Return(
-                                    new DomainModelDefinitions(
-                                        new SchemaDefinition("schema1", "schema1"),
-                                        new[]
-                                        {
-                                            new AggregateDefinition(new FullName("schema1", "Entity1"), new FullName[0])
-                                        },
-                                        new[]
-                                        {
-                                            new EntityDefinition(
-                                                "schema1",
-                                                "Entity1",
-                                                new EntityPropertyDefinition[0],
-                                                new EntityIdentifierDefinition[0])
-                                        },
-                                        new AssociationDefinition[]
-                                        { },
-                                        new AggregateExtensionDefinition[]
-                                        { }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("schema1", "schema1"),
+                        new[]
+                        {
+                            new AggregateDefinition(new FullName("schema1", "Entity1"), new FullName[0])
+                        },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                "schema1",
+                                "Entity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new AssociationDefinition[]
+                            { },
+                        new AggregateExtensionDefinition[]
+                            { }));
 
             _domainModelProvider = new DomainModelProvider(
                 new[]
@@ -778,77 +779,77 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var definitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             definitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                               .Return(
-                                    new DomainModelDefinitions(
-                                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
-                                        new[]
-                                        {
-                                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
-                                        },
-                                        new[]
-                                        {
-                                            new EntityDefinition(
-                                                _edfiSchema,
-                                                "Entity1",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition(
-                                                        "StudentUSI",
-                                                        new PropertyType(DbType.Int32, 0, 10, 0, false),
-                                                        null,
-                                                        true,
-                                                        true)
-                                                },
-                                                new EntityIdentifierDefinition[0])
-                                        },
-                                        new AssociationDefinition[]
-                                        { },
-                                        new AggregateExtensionDefinition[]
-                                        { }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
+                        new[]
+                        {
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                        },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                _edfiSchema,
+                                "Entity1",
+                                new[]
+                                {
+                                    new EntityPropertyDefinition(
+                                        "StudentUSI",
+                                        new PropertyType(DbType.Int32, 0, 10, 0, false),
+                                        null,
+                                        true,
+                                        true)
+                                },
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new AssociationDefinition[]
+                            { },
+                        new AggregateExtensionDefinition[]
+                            { }));
 
             var extensionDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             extensionDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                        .Return(
-                                             new DomainModelDefinitions(
-                                                 new SchemaDefinition("schemaX", "schemaX"),
-                                                 new AggregateDefinition[]
-                                                 { },
-                                                 new[]
-                                                 {
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "Extension1Entity1",
-                                                         new[]
-                                                         {
-                                                             new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
-                                                         },
-                                                         new EntityIdentifierDefinition[0])
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToOne,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "Extension1Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true)
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AggregateExtensionDefinition(
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new[]
-                                                         {
-                                                             new FullName("schemaX", "Extension1Entity1")
-                                                         })
-                                                 }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("schemaX", "schemaX"),
+                        new AggregateDefinition[]
+                            { },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                "schemaX",
+                                "Extension1Entity1",
+                                new[]
+                                {
+                                    new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
+                                },
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new[]
+                        {
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToOne,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "Extension1Entity1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true)
+                        },
+                        new[]
+                        {
+                            new AggregateExtensionDefinition(
+                                new FullName(_edfiSchema, "Entity1"),
+                                new[]
+                                {
+                                    new FullName("schemaX", "Extension1Entity1")
+                                })
+                        }));
 
             _domainModelProvider = new DomainModelProvider(
                 new[]
@@ -936,7 +937,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         {
             Assert.That(
                 _actualExtension.ObjectType.EmbeddedObjectByName["Extension1Entity1"]
-                                .ObjectType.Properties,
+                    .ObjectType.Properties,
                 Has.Count.EqualTo(1));
         }
     }
@@ -960,69 +961,69 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var definitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             definitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                               .Return(
-                                    new DomainModelDefinitions(
-                                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
-                                        new[]
-                                        {
-                                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
-                                        },
-                                        new[]
-                                        {
-                                            new EntityDefinition(
-                                                _edfiSchema,
-                                                "Entity1",
-                                                new EntityPropertyDefinition[0],
-                                                new EntityIdentifierDefinition[0])
-                                        },
-                                        new AssociationDefinition[]
-                                        { },
-                                        new AggregateExtensionDefinition[]
-                                        { }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
+                        new[]
+                        {
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                        },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                _edfiSchema,
+                                "Entity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new AssociationDefinition[]
+                            { },
+                        new AggregateExtensionDefinition[]
+                            { }));
 
             var extensionDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             extensionDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                        .Return(
-                                             new DomainModelDefinitions(
-                                                 new SchemaDefinition("schemaX", "schemaX"),
-                                                 new AggregateDefinition[0]
-                                                 { },
-                                                 new[]
-                                                 {
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "Extension1Entity1",
-                                                         new[]
-                                                         {
-                                                             new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
-                                                         },
-                                                         new EntityIdentifierDefinition[0])
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToZeroOrMore,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "Extension1Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true)
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AggregateExtensionDefinition(
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new[]
-                                                         {
-                                                             new FullName("schemaX", "Extension1Entity1")
-                                                         })
-                                                 }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("schemaX", "schemaX"),
+                        new AggregateDefinition[0]
+                            { },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                "schemaX",
+                                "Extension1Entity1",
+                                new[]
+                                {
+                                    new EntityPropertyDefinition("Name", new PropertyType(DbType.Int32), null, true)
+                                },
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new[]
+                        {
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToZeroOrMore,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "Extension1Entity1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true)
+                        },
+                        new[]
+                        {
+                            new AggregateExtensionDefinition(
+                                new FullName(_edfiSchema, "Entity1"),
+                                new[]
+                                {
+                                    new FullName("schemaX", "Extension1Entity1")
+                                })
+                        }));
 
             _domainModelProvider = new DomainModelProvider(
                 new[]
@@ -1110,7 +1111,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             Should_reassign_the_extension_collections_parent_to_be_the_implicitly_added_extension_class_rather_than_the_main_resource_being_extended()
         {
             var resourceClassExtension = _actualResource.ExtensionByName["SchemaX"]
-                                                        .ObjectType;
+                .ObjectType;
 
             var collection = resourceClassExtension.CollectionByName["Extension1Entity1s"];
 
@@ -1152,84 +1153,84 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var definitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             definitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                               .Return(
-                                    new DomainModelDefinitions(
-                                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
-                                        new[]
-                                        {
-                                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
-                                        },
-                                        new[]
-                                        {
-                                            new EntityDefinition(
-                                                _edfiSchema,
-                                                "Entity1",
-                                                new EntityPropertyDefinition[0],
-                                                new EntityIdentifierDefinition[0])
-                                        },
-                                        new AssociationDefinition[]
-                                        { },
-                                        new AggregateExtensionDefinition[]
-                                        { }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
+                        new[]
+                        {
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                        },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                _edfiSchema,
+                                "Entity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new AssociationDefinition[]
+                            { },
+                        new AggregateExtensionDefinition[]
+                            { }));
 
             var extensionDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             extensionDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                        .Return(
-                                             new DomainModelDefinitions(
-                                                 new SchemaDefinition("schemaX", "schemaX"),
-                                                 new AggregateDefinition[0]
-                                                 { },
-                                                 new[]
-                                                 {
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "ExtensionEntity1",
-                                                         new EntityPropertyDefinition[0],
-                                                         new EntityIdentifierDefinition[0]),
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "ExtensionEmbeddedObject1",
-                                                         new EntityPropertyDefinition[0],
-                                                         new EntityIdentifierDefinition[0])
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToZeroOrMore,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "ExtensionEntity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true),
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToOne,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "ExtensionEmbeddedObject1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true)
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AggregateExtensionDefinition(
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new[]
-                                                         {
-                                                             new FullName("schemaX", "ExtensionEntity1"),
-                                                             new FullName("schemaX", "ExtensionEmbeddedObject1")
-                                                         })
-                                                 }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("schemaX", "schemaX"),
+                        new AggregateDefinition[0]
+                            { },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                "schemaX",
+                                "ExtensionEntity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0]),
+                            new EntityDefinition(
+                                "schemaX",
+                                "ExtensionEmbeddedObject1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new[]
+                        {
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToZeroOrMore,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "ExtensionEntity1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true),
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToOne,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "ExtensionEmbeddedObject1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true)
+                        },
+                        new[]
+                        {
+                            new AggregateExtensionDefinition(
+                                new FullName(_edfiSchema, "Entity1"),
+                                new[]
+                                {
+                                    new FullName("schemaX", "ExtensionEntity1"),
+                                    new FullName("schemaX", "ExtensionEmbeddedObject1")
+                                })
+                        }));
 
             _domainModelProvider = new DomainModelProvider(
                 new[]
@@ -1319,7 +1320,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             Should_reassign_the_extension_collections_parent_to_be_the_implicitly_added_extension_class_rather_than_the_main_resource_being_extended()
         {
             var resourceClassExtension = _actualResource.ExtensionByName["SchemaX"]
-                                                        .ObjectType;
+                .ObjectType;
 
             var collection = resourceClassExtension.CollectionByName["ExtensionEntity1s"];
 
@@ -1360,111 +1361,111 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var definitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             definitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                               .Return(
-                                    new DomainModelDefinitions(
-                                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
-                                        new[]
-                                        {
-                                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
-                                        },
-                                        new[]
-                                        {
-                                            new EntityDefinition(
-                                                _edfiSchema,
-                                                "Entity1",
-                                                new EntityPropertyDefinition[0],
-                                                new EntityIdentifierDefinition[0])
-                                        },
-                                        new AssociationDefinition[]
-                                        { },
-                                        new AggregateExtensionDefinition[]
-                                        { }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(_edfiLogicalName, _edfiSchema),
+                        new[]
+                        {
+                            new AggregateDefinition(new FullName(_edfiSchema, "Entity1"), new FullName[0])
+                        },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                _edfiSchema,
+                                "Entity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new AssociationDefinition[]
+                            { },
+                        new AggregateExtensionDefinition[]
+                            { }));
 
             var extensionDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
             extensionDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                        .Return(
-                                             new DomainModelDefinitions(
-                                                 new SchemaDefinition("schemaX", "schemaX"),
-                                                 new AggregateDefinition[0]
-                                                 { },
-                                                 new[]
-                                                 {
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "Entity1Extension",
-                                                         new[]
-                                                         {
-                                                             new EntityPropertyDefinition
-                                                             {
-                                                                 PropertyName = "Property1", PropertyType = new PropertyType(DbType.Int32)
-                                                             },
-                                                             new EntityPropertyDefinition
-                                                             {
-                                                                 PropertyName = "Property2", PropertyType = new PropertyType(DbType.String)
-                                                             }
-                                                         },
-                                                         new EntityIdentifierDefinition[0]),
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "ExtensionEntity1",
-                                                         new EntityPropertyDefinition[0],
-                                                         new EntityIdentifierDefinition[0]),
-                                                     new EntityDefinition(
-                                                         "schemaX",
-                                                         "ExtensionEmbeddedObject1",
-                                                         new EntityPropertyDefinition[0],
-                                                         new EntityIdentifierDefinition[0])
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToOneExtension,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "Entity1Extension"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true),
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToZeroOrMore,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "ExtensionEntity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true),
-                                                     new AssociationDefinition(
-                                                         new FullName(
-                                                             "schemaX",
-                                                             Guid.NewGuid()
-                                                                 .ToString()),
-                                                         Cardinality.OneToOne,
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         new FullName("schemaX", "ExtensionEmbeddedObject1"),
-                                                         new EntityPropertyDefinition[0],
-                                                         true,
-                                                         true)
-                                                 },
-                                                 new[]
-                                                 {
-                                                     new AggregateExtensionDefinition(
-                                                         new FullName(_edfiSchema, "Entity1"),
-                                                         new[]
-                                                         {
-                                                             new FullName("schemaX", "ExtensionEntity1"),
-                                                             new FullName("schemaX", "ExtensionEmbeddedObject1")
-                                                         })
-                                                 }));
+                .Return(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("schemaX", "schemaX"),
+                        new AggregateDefinition[0]
+                            { },
+                        new[]
+                        {
+                            new EntityDefinition(
+                                "schemaX",
+                                "Entity1Extension",
+                                new[]
+                                {
+                                    new EntityPropertyDefinition
+                                    {
+                                        PropertyName = "Property1", PropertyType = new PropertyType(DbType.Int32)
+                                    },
+                                    new EntityPropertyDefinition
+                                    {
+                                        PropertyName = "Property2", PropertyType = new PropertyType(DbType.String)
+                                    }
+                                },
+                                new EntityIdentifierDefinition[0]),
+                            new EntityDefinition(
+                                "schemaX",
+                                "ExtensionEntity1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0]),
+                            new EntityDefinition(
+                                "schemaX",
+                                "ExtensionEmbeddedObject1",
+                                new EntityPropertyDefinition[0],
+                                new EntityIdentifierDefinition[0])
+                        },
+                        new[]
+                        {
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToOneExtension,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "Entity1Extension"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true),
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToZeroOrMore,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "ExtensionEntity1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true),
+                            new AssociationDefinition(
+                                new FullName(
+                                    "schemaX",
+                                    Guid.NewGuid()
+                                        .ToString()),
+                                Cardinality.OneToOne,
+                                new FullName(_edfiSchema, "Entity1"),
+                                new EntityPropertyDefinition[0],
+                                new FullName("schemaX", "ExtensionEmbeddedObject1"),
+                                new EntityPropertyDefinition[0],
+                                true,
+                                true)
+                        },
+                        new[]
+                        {
+                            new AggregateExtensionDefinition(
+                                new FullName(_edfiSchema, "Entity1"),
+                                new[]
+                                {
+                                    new FullName("schemaX", "ExtensionEntity1"),
+                                    new FullName("schemaX", "ExtensionEmbeddedObject1")
+                                })
+                        }));
 
             _domainModelProvider = new DomainModelProvider(
                 new[]
@@ -1549,10 +1550,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         public void Should_assign_the_entity_extensions_EdFi_Standard_association_to_reference_the_entity_that_is_being_extended()
         {
             var entityExtension = _domainModelProvider.GetDomainModel()
-                                                      .EntityByFullName[new FullName("schemaX", "Entity1Extension")];
+                .EntityByFullName[new FullName("schemaX", "Entity1Extension")];
 
             var extendedEntity = _domainModelProvider.GetDomainModel()
-                                                     .EntityByFullName[new FullName(_edfiSchema, "Entity1")];
+                .EntityByFullName[new FullName(_edfiSchema, "Entity1")];
 
             Assert.That(entityExtension.EdFiStandardEntityAssociation.OtherEntity, Is.SameAs(extendedEntity));
             Assert.That(entityExtension.EdFiStandardEntity, Is.SameAs(extendedEntity));
@@ -1562,16 +1563,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         public void Should_make_the_extension_entity_a_navigable_child_of_the_standard_entity()
         {
             var extendedEntity = _domainModelProvider.GetDomainModel()
-                                                     .EntityByFullName[new FullName(_edfiSchema, "Entity1")];
+                .EntityByFullName[new FullName(_edfiSchema, "Entity1")];
 
             var extensionEntity = _domainModelProvider.GetDomainModel()
-                                                      .EntityByFullName[new FullName("schemaX", "ExtensionEntity1")];
+                .EntityByFullName[new FullName("schemaX", "ExtensionEntity1")];
 
             Assert.That(
                 extendedEntity.NavigableChildren
-                              .Where(x => x.OtherEntity.Schema == "schemaX")
-                              .Select(x => x.OtherEntity)
-                              .Single(),
+                    .Where(x => x.OtherEntity.Schema == "schemaX")
+                    .Select(x => x.OtherEntity)
+                    .Single(),
                 Is.SameAs(extensionEntity));
         }
 
@@ -1615,14 +1616,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         public void Should_not_include_any_other_item_types_in_the_resources_contained_item_types()
         {
             var expectedItemTypes = new[]
-                                    {
-                                        "Entity1Extension", "ExtensionEntity1", "ExtensionEmbeddedObject1"
-                                    };
+            {
+                "Entity1Extension", "ExtensionEntity1", "ExtensionEmbeddedObject1"
+            };
 
             Assert.That(
                 _actualContainedItemTypes.Select(x => x.Name)
-                                         .Except(expectedItemTypes)
-                                         .Count(),
+                    .Except(expectedItemTypes)
+                    .Count(),
                 Is.EqualTo(0));
         }
 
@@ -1630,7 +1631,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         public void Should_reassign_the_extension_collections_parent_to_be_the_extension_class_rather_than_the_main_resource_being_extended()
         {
             var extensionResourceClass = _actualResource.ExtensionByName["SchemaX"]
-                                                        .ObjectType;
+                .ObjectType;
 
             var collection = extensionResourceClass.CollectionByName["ExtensionEntity1s"];
 
@@ -1639,3 +1640,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
     }
 }
+#endif

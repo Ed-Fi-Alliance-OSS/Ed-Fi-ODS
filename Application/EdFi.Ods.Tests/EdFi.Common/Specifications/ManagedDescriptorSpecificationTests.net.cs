@@ -3,8 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Entities.NHibernate.AccommodationDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.CompetencyLevelDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.DiagnosisDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.PerformanceLevelDescriptorAggregate.EdFi;
 using EdFi.TestFixture;
 using NHibernateEntities = EdFi.Ods.Entities.NHibernate;
 using ModelResources = EdFi.Ods.Api.Common.Models.Resources;
@@ -25,10 +31,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(NHibernateEntities.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptor)), Is.True),
+                            typeof(AccommodationDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(NHibernateEntities.AccommodationDescriptorAggregate.EdFi.AccommodationDescriptor)), Is.True)
+                            nameof(AccommodationDescriptor)), Is.True)
                 );
             }
 
@@ -38,10 +44,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(ModelResources.AccommodationDescriptor.EdFi.AccommodationDescriptor)), Is.True),
+                            typeof(Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(ModelResources.AccommodationDescriptor.EdFi.AccommodationDescriptor)), Is.True)
+                            nameof(Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor)), Is.True)
                 );
             }
 
@@ -51,10 +57,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(NHibernateEntities.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptor)), Is.True),
+                            typeof(AssessmentPeriodDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(NHibernateEntities.AssessmentPeriodDescriptorAggregate.EdFi.AssessmentPeriodDescriptor)), Is.True)
+                            nameof(AssessmentPeriodDescriptor)), Is.True)
                 );
             }
 
@@ -64,10 +70,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(ModelResources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor)), Is.True),
+                            typeof(Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(ModelResources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor)), Is.True)
+                            nameof(Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor)), Is.True)
                 );
             }
 
@@ -77,10 +83,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(NHibernateEntities.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptor)), Is.False),
+                            typeof(CompetencyLevelDescriptor)), Is.False),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(NHibernateEntities.CompetencyLevelDescriptorAggregate.EdFi.CompetencyLevelDescriptor)), Is.False)
+                            nameof(CompetencyLevelDescriptor)), Is.False)
                 );
             }
 
@@ -90,10 +96,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(ModelResources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor)), Is.False),
+                            typeof(Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor)), Is.False),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(ModelResources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor)), Is.False)
+                            nameof(Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor)), Is.False)
                 );
             }
 
@@ -103,10 +109,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(NHibernateEntities.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptor)), Is.False),
+                            typeof(DiagnosisDescriptor)), Is.False),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(NHibernateEntities.DiagnosisDescriptorAggregate.EdFi.DiagnosisDescriptor)), Is.False)
+                            nameof(DiagnosisDescriptor)), Is.False)
                 );
             }
 
@@ -116,11 +122,11 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(ModelResources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor)),
+                            typeof(Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor)),
                         Is.False),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(ModelResources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor)),
+                            nameof(Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor)),
                         Is.False)
                 );
             }
@@ -131,10 +137,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(NHibernateEntities.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptor)), Is.True),
+                            typeof(PerformanceLevelDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(NHibernateEntities.PerformanceLevelDescriptorAggregate.EdFi.PerformanceLevelDescriptor)), Is.True)
+                            nameof(PerformanceLevelDescriptor)), Is.True)
                 );
             }
 
@@ -144,12 +150,13 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            typeof(ModelResources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor)), Is.True),
+                            typeof(Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor)), Is.True),
                     () => Assert.That(
                         ManagedDescriptorSpecification.IsEdFiManagedDescriptor(
-                            nameof(ModelResources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor)), Is.True)
+                            nameof(Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor)), Is.True)
                 );
             }
         }
     }
 }
+#endif

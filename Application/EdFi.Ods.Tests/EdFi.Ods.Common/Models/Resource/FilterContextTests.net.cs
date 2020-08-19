@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -28,107 +29,107 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var edfiLogicalName = EdFiConventions.LogicalName;
 
             var entityDefinitions = new[]
-                                    {
-                                        new EntityDefinition(
-                                            edfiSchema,
-                                            "CoreEntity",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true),
-                                        new EntityDefinition(
-                                            edfiSchema,
-                                            "Collection1Item",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
-                                                new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true),
-                                        new EntityDefinition(
-                                            edfiSchema,
-                                            "EmbeddedObject1",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true)
-                                    };
+            {
+                new EntityDefinition(
+                    edfiSchema,
+                    "CoreEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    edfiSchema,
+                    "Collection1Item",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    edfiSchema,
+                    "EmbeddedObject1",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions = new[]
-                                         {
-                                             new AssociationDefinition(
-                                                 new FullName(edfiSchema, "FK_CoreEntityEmbeddedObject"),
-                                                 Cardinality.OneToOne,
-                                                 new FullName(edfiSchema, "CoreEntity"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 new FullName(edfiSchema, "EmbeddedObject1"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 isIdentifying: true,
-                                                 isRequired: true),
-                                             new AssociationDefinition(
-                                                 new FullName(edfiSchema, "FK_CoreEntityCollection"),
-                                                 Cardinality.OneToZeroOrMore,
-                                                 new FullName(edfiSchema, "CoreEntity"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 new FullName(edfiSchema, "Collection1Item"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 isIdentifying: true,
-                                                 isRequired: true)
-                                         };
+            {
+                new AssociationDefinition(
+                    new FullName(edfiSchema, "FK_CoreEntityEmbeddedObject"),
+                    Cardinality.OneToOne,
+                    new FullName(edfiSchema, "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName(edfiSchema, "EmbeddedObject1"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true),
+                new AssociationDefinition(
+                    new FullName(edfiSchema, "FK_CoreEntityCollection"),
+                    Cardinality.OneToZeroOrMore,
+                    new FullName(edfiSchema, "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName(edfiSchema, "Collection1Item"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true)
+            };
 
             var aggredateDefinitions = new[]
-                                       {
-                                           new AggregateDefinition(
-                                               new FullName(edfiSchema, "CoreEntity"),
-                                               new[]
-                                               {
-                                                   new FullName(edfiSchema, "Collection1Item"), new FullName(edfiSchema, "EmbeddedObject1")
-                                               })
-                                       };
+            {
+                new AggregateDefinition(
+                    new FullName(edfiSchema, "CoreEntity"),
+                    new[]
+                    {
+                        new FullName(edfiSchema, "Collection1Item"), new FullName(edfiSchema, "EmbeddedObject1")
+                    })
+            };
 
             var schemaDefinition = new SchemaDefinition(edfiLogicalName, edfiSchema);
 
@@ -141,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
             domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions);
+                .Return(modelDefinitions);
 
             return domainModelDefinitionsProvider;
         }
@@ -149,73 +150,73 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         internal static IDomainModelDefinitionsProvider BuildTestExtensionDefinitionsProvider()
         {
             var aggredateDefinitions2 = new[]
-                                        {
-                                            new AggregateDefinition(
-                                                new FullName("ExtensionPhysical", "ExtensionAggregate"),
-                                                new[]
-                                                {
-                                                    new FullName("ExtensionPhysical", "ExtensionEntity")
-                                                })
-                                        };
+            {
+                new AggregateDefinition(
+                    new FullName("ExtensionPhysical", "ExtensionAggregate"),
+                    new[]
+                    {
+                        new FullName("ExtensionPhysical", "ExtensionEntity")
+                    })
+            };
 
             var entityDefinitions2 = new[]
-                                     {
-                                         new EntityDefinition(
-                                             "ExtensionPhysical",
-                                             "ExtensionAggregate",
-                                             new[]
-                                             {
-                                                 new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                             },
-                                             new[]
-                                             {
-                                                 new EntityIdentifierDefinition(
-                                                     "PK",
-                                                     new[]
-                                                     {
-                                                         "KeyProperty1", "KeyProperty2"
-                                                     },
-                                                     isPrimary: true)
-                                             },
-                                             true),
-                                         new EntityDefinition(
-                                             "ExtensionPhysical",
-                                             "ExtensionEntity",
-                                             new[]
-                                             {
-                                                 new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                             },
-                                             new[]
-                                             {
-                                                 new EntityIdentifierDefinition(
-                                                     "PK",
-                                                     new[]
-                                                     {
-                                                         "KeyProperty1", "KeyProperty2"
-                                                     },
-                                                     isPrimary: true)
-                                             },
-                                             true)
-                                     };
+            {
+                new EntityDefinition(
+                    "ExtensionPhysical",
+                    "ExtensionAggregate",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    "ExtensionPhysical",
+                    "ExtensionEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions2 = new[]
-                                          {
-                                              new AssociationDefinition(
-                                                  new FullName("ExtensionPhysical", "FK_ExtensionEntity"),
-                                                  Cardinality.OneToOneExtension,
-                                                  new FullName(EdFiConventions.PhysicalSchemaName, "CoreEntity"),
-                                                  new[]
-                                                  {
-                                                      new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                  },
-                                                  new FullName("ExtensionPhysical", "ExtensionEntity"),
-                                                  new[]
-                                                  {
-                                                      new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                  },
-                                                  isIdentifying: true,
-                                                  isRequired: true)
-                                          };
+            {
+                new AssociationDefinition(
+                    new FullName("ExtensionPhysical", "FK_ExtensionEntity"),
+                    Cardinality.OneToOneExtension,
+                    new FullName(EdFiConventions.PhysicalSchemaName, "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName("ExtensionPhysical", "ExtensionEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true)
+            };
 
             var schemaDefinition2 = new SchemaDefinition("Extension-Logical", "ExtensionPhysical");
 
@@ -228,7 +229,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
             domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions2);
+                .Return(modelDefinitions2);
 
             return domainModelDefinitionsProvider;
         }
@@ -239,9 +240,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             IDomainModelDefinitionsProvider extensionDefinitionProvider = BuildTestExtensionDefinitionsProvider();
 
             List<IDomainModelDefinitionsProvider> providerList = new List<IDomainModelDefinitionsProvider>
-                                                                 {
-                                                                     domainCoreDefinitionProvider, extensionDefinitionProvider
-                                                                 };
+            {
+                domainCoreDefinitionProvider, extensionDefinitionProvider
+            };
 
             DomainModelProvider ddm = new DomainModelProvider(providerList);
 
@@ -279,13 +280,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given<IMemberFilter>();
 
                 Given<IResourceMembersFilterProvider>()
-                   .Stub(
+                    .Stub(
                         x =>
                             x.GetMemberFilter(
                                 Arg<ResourceClassBase>.Is.Anything,
                                 Arg<XElement>.Is.Anything
                             ))
-                   .Return(The<IMemberFilter>());
+                    .Return(The<IMemberFilter>());
             }
 
             protected override void Act()
@@ -339,13 +340,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given<IMemberFilter>();
 
                 Given<IResourceMembersFilterProvider>()
-                   .Stub(
+                    .Stub(
                         x =>
                             x.GetMemberFilter(
                                 Arg<ResourceClassBase>.Is.Anything,
                                 Arg<XElement>.Is.Anything
                             ))
-                   .Return(The<IMemberFilter>());
+                    .Return(The<IMemberFilter>());
             }
 
             protected override void Act()
@@ -403,13 +404,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given<IMemberFilter>();
 
                 Given<IResourceMembersFilterProvider>()
-                   .Stub(
+                    .Stub(
                         x =>
                             x.GetMemberFilter(
                                 Arg<ResourceClassBase>.Is.Anything,
                                 Arg<XElement>.Is.Anything
                             ))
-                   .Return(The<IMemberFilter>());
+                    .Return(The<IMemberFilter>());
             }
 
             protected override void Act()
@@ -453,13 +454,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given<IMemberFilter>();
 
                 Given<IResourceMembersFilterProvider>()
-                   .Stub(
+                    .Stub(
                         x =>
                             x.GetMemberFilter(
                                 Arg<ResourceClassBase>.Is.Anything,
                                 Arg<XElement>.Is.Anything
                             ))
-                   .Return(The<IMemberFilter>());
+                    .Return(The<IMemberFilter>());
             }
 
             protected override void Act()
@@ -489,12 +490,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 Assert.That(
                     _actualFilterContext.Definition.Attribute("name")
-                                       ?.Value,
+                        ?.Value,
                     Is.EqualTo("Extension-Logical"));
 
                 Assert.That(
                     _actualFilterContext.Definition.DescendantNodes()
-                                        .Count(),
+                        .Count(),
                     Is.EqualTo(1));
             }
 
@@ -506,3 +507,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
     }
 }
+#endif

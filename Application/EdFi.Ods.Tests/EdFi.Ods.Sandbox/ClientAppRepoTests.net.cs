@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
@@ -40,10 +41,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
                 _clientAppRepo = new ClientAppRepo(usersContextFactory, configValueProviderStub);
 
                 _testClient = new ApiClient(true)
-                              {
-                                  Name = "ClientAppRepoTest" + Guid.NewGuid()
-                                                                   .ToString("N")
-                              };
+                {
+                    Name = "ClientAppRepoTest" + Guid.NewGuid()
+                        .ToString("N")
+                };
 
                 var dbSet = new TestDbSet<ApiClient> {_testClient};
 
@@ -84,3 +85,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
         }
     }
 }
+#endif

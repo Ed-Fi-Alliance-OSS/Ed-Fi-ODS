@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -33,9 +34,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override void Act()
             {
                 var testObject = new RequiredCollectionTestObject
-                                 {
-                                     TestCollection = new List<CollectionTestObject>()
-                                 };
+                {
+                    TestCollection = new List<CollectionTestObject>()
+                };
 
                 testObject.TestCollection.Add(new CollectionTestObject());
 
@@ -60,9 +61,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override void Act()
             {
                 var testObject = new RequiredCollectionTestObject
-                                 {
-                                     TestCollection = new List<CollectionTestObject>()
-                                 };
+                {
+                    TestCollection = new List<CollectionTestObject>()
+                };
 
                 testObject.TestCollection.Add(new CollectionTestObject());
                 testObject.TestCollection.Add(new CollectionTestObject());
@@ -89,9 +90,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override void Act()
             {
                 var testObject = new RequiredCollectionTestObject
-                                 {
-                                     TestCollection = null
-                                 };
+                {
+                    TestCollection = null
+                };
 
                 var validator = new DataAnnotationsEntityValidator();
                 _actualResults = validator.ValidateObject(testObject);
@@ -103,7 +104,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 Assert.That(_actualResults, Has.Count.EqualTo(1));
 
                 var errorMessage = _actualResults.Single()
-                                                 .ErrorMessage;
+                    .ErrorMessage;
 
                 Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
             }
@@ -119,9 +120,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override void Act()
             {
                 var testObject = new RequiredCollectionTestObject
-                                 {
-                                     TestCollection = new List<CollectionTestObject>()
-                                 };
+                {
+                    TestCollection = new List<CollectionTestObject>()
+                };
 
                 var validator = new DataAnnotationsEntityValidator();
                 _actualResults = validator.ValidateObject(testObject);
@@ -133,10 +134,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 Assert.That(_actualResults, Has.Count.EqualTo(1));
 
                 var errorMessage = _actualResults.Single()
-                                                 .ErrorMessage;
+                    .ErrorMessage;
 
                 Assert.That(errorMessage, Does.Contain("requires at least one object in the collection"));
             }
         }
     }
 }
+#endif

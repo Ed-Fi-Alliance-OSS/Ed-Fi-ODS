@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Diagnostics.CodeAnalysis;
 using Castle.MicroKernel.Registration;
@@ -28,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
             protected override void Act()
             {
                 SystemUnderTest.SuppliedActivationResult = true;
-                
+
                 _actualEnabled = SystemUnderTest.IsEnabled();
             }
 
@@ -56,7 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
                 _actualEnabled.ShouldBeFalse();
             }
         }
-        
+
         public class FakeConditionalFeature : ConfigurationBasedFeatureBase
         {
             public FakeConditionalFeature(
@@ -65,10 +66,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
                 : base(configValueProvider, apiConfigurationProvider) { }
 
             public bool SuppliedActivationResult { get; set; }
-            
+
             public override IWindsorInstaller Installer => new FakeInstaller();
 
-            protected override Func<IApiConfigurationProvider, IConfigValueProvider, bool> ActivationPredicate 
+            protected override Func<IApiConfigurationProvider, IConfigValueProvider, bool> ActivationPredicate
                 => (x, y) => SuppliedActivationResult;
         }
 
@@ -78,3 +79,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
         }
     }
 }
+#endif

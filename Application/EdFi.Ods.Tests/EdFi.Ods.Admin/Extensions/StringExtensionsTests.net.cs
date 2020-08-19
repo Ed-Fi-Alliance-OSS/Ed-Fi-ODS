@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Admin.Extensions;
 using NUnit.Framework;
 using Shouldly;
@@ -20,7 +21,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Extensions
                 var address = "foo.bar@example.com";
 
                 address.IsValidEmailAddress()
-                       .ShouldBeTrue();
+                    .ShouldBeTrue();
             }
         }
 
@@ -31,14 +32,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Extensions
             public void Should_indicate_address_is_invalid()
             {
                 "missingdomain".IsValidEmailAddress()
-                               .ShouldBeFalse();
+                    .ShouldBeFalse();
 
                 "missingdomain@".IsValidEmailAddress()
-                                .ShouldBeFalse();
+                    .ShouldBeFalse();
 
                 "@example.com".IsValidEmailAddress()
-                              .ShouldBeFalse();
+                    .ShouldBeFalse();
             }
         }
     }
 }
+#endif

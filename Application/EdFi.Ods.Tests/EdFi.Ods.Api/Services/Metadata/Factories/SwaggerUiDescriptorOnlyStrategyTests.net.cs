@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
@@ -32,10 +33,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Arrange()
             {
                 _expectedDescriptors = ResourceModelProvider.GetResourceModel()
-                                                            .GetAllResources()
-                                                            .Where(x => x.IsDescriptorEntity())
-                                                            .Select(x => x.Name)
-                                                            .ToArray();
+                    .GetAllResources()
+                    .Where(x => x.IsDescriptorEntity())
+                    .Select(x => x.Name)
+                    .ToArray();
 
                 _swaggerUiDescriptorOnlyStrategy = new SwaggerUiDescriptorOnlyStrategy();
             }
@@ -43,9 +44,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 _actualDescriptors = _swaggerUiDescriptorOnlyStrategy.GetFilteredResources(
-                                                                          DomainModelDefinitionsProviderHelper
-                                                                             .DefaultSwaggerDocumentContext)
-                                                                     .Select(x => x.Resource);
+                        DomainModelDefinitionsProviderHelper
+                            .DefaultSwaggerDocumentContext)
+                    .Select(x => x.Resource);
             }
 
             [Assert]
@@ -53,9 +54,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 Assert.That(
                     _actualDescriptors.Select(x => x.Name)
-                                      .ToArray(),
+                        .ToArray(),
                     Is.EquivalentTo(_expectedDescriptors));
             }
         }
     }
 }
+#endif

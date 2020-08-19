@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Sandbox.Security;
 using EdFi.Ods.Common.Extensions;
@@ -32,9 +33,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 _apiClientSecret = new ApiClientSecret
-                                   {
-                                       IsHashed = true, Secret = Secret
-                                   };
+                {
+                    IsHashed = true, Secret = Secret
+                };
 
                 _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
 
@@ -46,28 +47,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
-                                                                                                                                   {
-                                                                                                                                       1, 5, 3
-                                                                                                                                   },
-                                            Salt = new byte[]
-                                                   {
-                                                       6, 5, 8, 94, 34
-                                                   },
-                                            Iterations = 321
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
+                            {
+                                1, 5, 3
+                            },
+                            Salt = new byte[]
+                            {
+                                6, 5, 8, 94, 34
+                            },
+                            Iterations = 321
+                        });
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = Algorithm, Iterations = 321, SaltSize = 40
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = Algorithm, Iterations = 321, SaltSize = 40
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator =
                     new AutoUpgradingHashedSecretVerifierDecorator(
@@ -114,33 +115,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
-                                                                                                                                   {
-                                                                                                                                       1, 5, 3
-                                                                                                                                   },
-                                            Salt = new byte[]
-                                                   {
-                                                       6, 5, 8, 94, 34
-                                                   },
-                                            Iterations = 321
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
+                            {
+                                1, 5, 3
+                            },
+                            Salt = new byte[]
+                            {
+                                6, 5, 8, 94, 34
+                            },
+                            Iterations = 321
+                        });
 
                 var securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 securePackedHashProvider.Stub(x => x.ComputePackedHashString(Secret, 123, 321, 12))
-                                        .Return("");
+                    .Return("");
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = Algorithm, Iterations = 321, SaltSize = 5
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = Algorithm, Iterations = 321, SaltSize = 5
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
                     _apiClientSecretProvider,
@@ -188,21 +189,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Throw(new FormatException());
+                    .Throw(new FormatException());
 
                 var securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 securePackedHashProvider.Stub(x => x.ComputePackedHashString(Secret, 123, 321, 12))
-                                        .Return("");
+                    .Return("");
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = Algorithm, Iterations = 321, SaltSize = 5
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = Algorithm, Iterations = 321, SaltSize = 5
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
                     _apiClientSecretProvider,
@@ -251,33 +252,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
-                                                                                                                                   {
-                                                                                                                                       1, 5, 3
-                                                                                                                                   },
-                                            Salt = new byte[]
-                                                   {
-                                                       6, 5, 8, 94, 34
-                                                   },
-                                            Iterations = 333
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
+                            {
+                                1, 5, 3
+                            },
+                            Salt = new byte[]
+                            {
+                                6, 5, 8, 94, 34
+                            },
+                            Iterations = 333
+                        });
 
                 var securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 securePackedHashProvider.Stub(x => x.ComputePackedHashString(Secret, 123, 321, 12))
-                                        .Return("");
+                    .Return("");
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = Algorithm, Iterations = 321, SaltSize = 5
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = Algorithm, Iterations = 321, SaltSize = 5
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
                     _apiClientSecretProvider,
@@ -326,33 +327,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
-                                                                                                                                   {
-                                                                                                                                       1, 5, 3
-                                                                                                                                   },
-                                            Salt = new byte[]
-                                                   {
-                                                       6, 5, 8, 94, 34
-                                                   },
-                                            Iterations = 321
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
+                            {
+                                1, 5, 3
+                            },
+                            Salt = new byte[]
+                            {
+                                6, 5, 8, 94, 34
+                            },
+                            Iterations = 321
+                        });
 
                 var securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 securePackedHashProvider.Stub(x => x.ComputePackedHashString(Secret, 123, 321, 12))
-                                        .Return("");
+                    .Return("");
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = "MyNEWSuperSecretAlgorithm", Iterations = 321, SaltSize = 40
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = "MyNEWSuperSecretAlgorithm", Iterations = 321, SaltSize = 40
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
                     _apiClientSecretProvider,
@@ -401,33 +402,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
 
                 packedHashConverter.Stub(x => x.GetPackedHash(Secret))
-                                   .Return(
-                                        new PackedHash
-                                        {
-                                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
-                                                                                                                                   {
-                                                                                                                                       1, 5, 3
-                                                                                                                                   },
-                                            Salt = new byte[]
-                                                   {
-                                                       6, 5, 8, 94, 34
-                                                   },
-                                            Iterations = 321
-                                        });
+                    .Return(
+                        new PackedHash
+                        {
+                            Format = 0, HashAlgorithm = HashHelper.GetSha256Hash(Algorithm).ToInt32(), HashBytes = new byte[]
+                            {
+                                1, 5, 3
+                            },
+                            Salt = new byte[]
+                            {
+                                6, 5, 8, 94, 34
+                            },
+                            Iterations = 321
+                        });
 
                 var securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 
                 securePackedHashProvider.Stub(x => x.ComputePackedHashString(Secret, 123, 321, 12))
-                                        .Return("");
+                    .Return("");
 
                 var configProvider = Stub<IHashConfigurationProvider>();
 
                 configProvider.Stub(x => x.GetHashConfiguration())
-                              .Return(
-                                   new HashConfiguration
-                                   {
-                                       Algorithm = Algorithm, Iterations = 321, SaltSize = 48
-                                   });
+                    .Return(
+                        new HashConfiguration
+                        {
+                            Algorithm = Algorithm, Iterations = 321, SaltSize = 48
+                        });
 
                 _autoUpgradingHashedSecretVerifierDecorator = new AutoUpgradingHashedSecretVerifierDecorator(
                     _apiClientSecretProvider,
@@ -494,7 +495,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 };
 
                 _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
-                
+
                 var secureHasher = new Pbkdf2HmacSha1SecureHasher(null);
                 var next = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
 
@@ -532,3 +533,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
         }
     }
 }
+#endif

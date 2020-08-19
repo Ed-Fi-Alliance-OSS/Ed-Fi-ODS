@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using System.Reflection;
@@ -52,11 +53,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
                 _configValueProviderStub = Stub<IConfigValueProvider>();
 
                 _assembliesProviderStub.Stub(x => x.GetAssemblies())
-                                       .Return(
-                                            new Assembly[]
-                                            {
-                                                new FakeExtensionAssembly(typeof(Marker_EdFi_Ods_Test_TestExtension))
-                                            });
+                    .Return(
+                        new Assembly[]
+                        {
+                            new FakeExtensionAssembly(typeof(Marker_EdFi_Ods_Test_TestExtension))
+                        });
 
                 _container = new WindsorContainer();
 
@@ -68,16 +69,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
 
                 _container.Register(
                     Component.For<IDomainModelProvider>()
-                             .Instance(_domainModelProvider));
+                        .Instance(_domainModelProvider));
 
                 _configValueStub = Stub<IConfigValueProvider>();
 
                 _configValueStub.Stub(x => x.GetValue(ExcludedExtensionSources))
-                                .Return(default(string));
+                    .Return(default(string));
 
                 _container.Register(
                     Component.For<IConfigValueProvider>()
-                             .Instance(_configValueStub));
+                        .Instance(_configValueStub));
             }
 
             /// <summary>
@@ -86,7 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
             protected override void Act()
             {
                 new EdFiExtensionsInstaller(_assembliesProviderStub, _configValueProviderStub)
-                   .Install(_container, mocks.Stub<IConfigurationStore>());
+                    .Install(_container, mocks.Stub<IConfigurationStore>());
             }
 
             [Test]
@@ -162,11 +163,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
                 _assembliesProviderStub = Stub<IAssembliesProvider>();
 
                 _assembliesProviderStub.Stub(x => x.GetAssemblies())
-                                       .Return(
-                                            new Assembly[]
-                                            {
-                                                new FakeExtensionAssembly(typeof(Marker_EdFi_Ods_Test_TestExtension))
-                                            });
+                    .Return(
+                        new Assembly[]
+                        {
+                            new FakeExtensionAssembly(typeof(Marker_EdFi_Ods_Test_TestExtension))
+                        });
 
                 _container = new WindsorContainer();
 
@@ -178,16 +179,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
 
                 _container.Register(
                     Component.For<IDomainModelProvider>()
-                             .Instance(_domainModelProvider));
+                        .Instance(_domainModelProvider));
 
                 _configValueStub = Stub<IConfigValueProvider>();
 
                 _configValueStub.Stub(x => x.GetValue(ExcludedExtensionSources))
-                                .Return("TestExtension");
+                    .Return("TestExtension");
 
                 _container.Register(
                     Component.For<IConfigValueProvider>()
-                             .Instance(_configValueStub));
+                        .Instance(_configValueStub));
             }
 
             /// <summary>
@@ -196,7 +197,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
             protected override void Act()
             {
                 new EdFiExtensionsInstaller(_assembliesProviderStub, _configValueStub)
-                   .Install(_container, mocks.Stub<IConfigurationStore>());
+                    .Install(_container, mocks.Stub<IConfigurationStore>());
             }
 
             [Test]
@@ -273,10 +274,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensibility
             public override Type[] GetExportedTypes()
             {
                 return new[]
-                       {
-                           typeof(TestController)
-                       };
+                {
+                    typeof(TestController)
+                };
             }
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -88,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _actualResults.ShouldNotBeEmpty();
 
                 _actualResults.Single()
-                              .ErrorMessage.ShouldContain("was not resolved");
+                    .ErrorMessage.ShouldContain("was not resolved");
             }
         }
 
@@ -164,3 +165,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
         }
     }
 }
+#endif

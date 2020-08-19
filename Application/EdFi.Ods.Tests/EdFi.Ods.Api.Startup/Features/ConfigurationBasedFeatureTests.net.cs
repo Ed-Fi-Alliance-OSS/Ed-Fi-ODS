@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -46,7 +47,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
                             .GetValue(SystemUnderTest.ConfigKey))
                     .MustHaveHappened();
             }
-        
+
             [Assert]
             public void Should_indicate_the_feature_is_enabled()
             {
@@ -79,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
                             .GetValue(SystemUnderTest.ConfigKey))
                     .MustHaveHappened();
             }
-        
+
             [Assert]
             public void Should_indicate_the_feature_is_NOT_enabled()
             {
@@ -112,7 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
                             .GetValue(SystemUnderTest.ConfigKey))
                     .MustHaveHappened();
             }
-        
+
             [Assert]
             public void Should_indicate_the_feature_is_NOT_enabled()
             {
@@ -132,8 +133,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Startup.Features
         {
             public void Install(IWindsorContainer container, IConfigurationStore store)
             {
-                
+
             }
         }
     }
 }
+#endif

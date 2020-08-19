@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,9 +85,9 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
             private const string ExpectedClaimType = "claimType";
             private const string ExpectedAction = "action";
             private readonly List<int> expectedLocalEducationAgencyIds = new List<int>
-                                                                         {
-                                                                             1, 2
-                                                                         };
+            {
+                1, 2
+            };
 
             [Test]
             public void Should_create_a_EdFiClaimValue()
@@ -96,8 +97,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
                 var actual = claim.ToEdFiResourceClaimValue();
 
                 actual.Actions.Select(x => x.Name)
-                      .Single()
-                      .ShouldBe(ExpectedAction);
+                    .Single()
+                    .ShouldBe(ExpectedAction);
 
                 actual.EducationOrganizationIds.ShouldBe(expectedLocalEducationAgencyIds);
             }
@@ -110,8 +111,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
                 var actual = claim.ToEdFiResourceClaimValue();
 
                 actual.Actions.Select(x => x.Name)
-                      .Single()
-                      .ShouldBe(ExpectedAction);
+                    .Single()
+                    .ShouldBe(ExpectedAction);
 
                 actual.EducationOrganizationIds.ShouldBeEmpty();
             }
@@ -127,3 +128,4 @@ namespace EdFi.Ods.Tests.EdFi.Security.Claims
         }
     }
 }
+#endif

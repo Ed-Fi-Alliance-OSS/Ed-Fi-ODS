@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Admin.Models.Results;
 using NUnit.Framework;
 using Shouldly;
@@ -20,10 +21,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Models
             public void Setup()
             {
                 var result = new CreateLoginResult()
-                            .AddFailingField(x => x.Email)
-                            .AddFailingField(x => x.Name)
-                            .AddFailingField(x => x.Name) //duplicate
-                            .AddFailingField(x => x.Name); //duplicate
+                    .AddFailingField(x => x.Email)
+                    .AddFailingField(x => x.Name)
+                    .AddFailingField(x => x.Name) //duplicate
+                    .AddFailingField(x => x.Name); //duplicate
 
                 _failingFields = result.FailingFields;
             }
@@ -58,3 +59,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Admin.Models
         }
     }
 }
+#endif

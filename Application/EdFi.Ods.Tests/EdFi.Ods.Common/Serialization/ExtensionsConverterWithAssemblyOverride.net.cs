@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Reflection;
 using EdFi.Ods.Common.Serialization;
 
@@ -23,8 +24,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
 
             // Redirect the assembly qualified name to the tests assembly, and add a prefix to the namespace (to differentiate from the real type)
             string assemblyName = Assembly.GetExecutingAssembly()
-                                          .GetName()
-                                          .Name;
+                .GetName()
+                .Name;
 
             return $"{assemblyName}.{parts[0]}, {assemblyName}";
         }
@@ -32,9 +33,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         protected override string[] GetExtensionSchemas()
         {
             return new[]
-                   {
-                       "Test1", "TestArbitraryCasing"
-                   };
+            {
+                "Test1", "TestArbitraryCasing"
+            };
         }
     }
 }
+#endif

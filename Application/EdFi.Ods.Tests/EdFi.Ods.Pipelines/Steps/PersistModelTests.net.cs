@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Threading;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
@@ -56,14 +57,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 var persistentModel = new AccountEntity();
 
                 var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-                              {
-                                  PersistentModel = persistentModel
-                              };
+                {
+                    PersistentModel = persistentModel
+                };
 
                 var eTagProvider = Stub<IETagProvider>();
 
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-                                                              .ResourceIsNeverCreatedOrModified;
+                    .ResourceIsNeverCreatedOrModified;
 
                 var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
                     repository,
@@ -103,14 +104,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 var persistentModel = new AccountEntity();
 
                 var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-                              {
-                                  PersistentModel = persistentModel
-                              };
+                {
+                    PersistentModel = persistentModel
+                };
 
                 var eTagProvider = Stub<IETagProvider>();
 
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-                                                              .ResourceIsAlwaysCreated;
+                    .ResourceIsAlwaysCreated;
 
                 var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
                     repository,
@@ -150,14 +151,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 var persistentModel = new AccountEntity();
 
                 var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-                              {
-                                  PersistentModel = persistentModel
-                              };
+                {
+                    PersistentModel = persistentModel
+                };
 
                 var eTagProvider = Stub<IETagProvider>();
 
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-                                                              .ResourceIsAlwaysModified;
+                    .ResourceIsAlwaysModified;
 
                 var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
                     repository,
@@ -197,14 +198,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 var persistentModel = new AccountEntity();
 
                 var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-                              {
-                                  PersistentModel = persistentModel
-                              };
+                {
+                    PersistentModel = persistentModel
+                };
 
                 var eTagProvider = Stub<IETagProvider>();
 
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-                                                              .OnUpsertThrow(new Exception());
+                    .OnUpsertThrow(new Exception());
 
                 var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
                     repository,
@@ -232,18 +233,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 var persistentModel = new AccountEntity();
 
                 var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-                              {
-                                  PersistentModel = persistentModel
-                              };
+                {
+                    PersistentModel = persistentModel
+                };
 
                 var eTagProvider = Stub<IETagProvider>();
 
                 eTagProvider.Stub(x => x.GetETag(null))
-                            .IgnoreArguments()
-                            .Throw(new Exception("Some Fun Exception"));
+                    .IgnoreArguments()
+                    .Throw(new Exception("Some Fun Exception"));
 
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-                                                              .ResourceIsNeverCreatedOrModified;
+                    .ResourceIsNeverCreatedOrModified;
 
                 var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
                     repository,
@@ -266,3 +267,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
         }
     }
 }
+#endif

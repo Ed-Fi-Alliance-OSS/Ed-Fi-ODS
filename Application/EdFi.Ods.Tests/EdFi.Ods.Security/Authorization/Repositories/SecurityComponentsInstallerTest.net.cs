@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,14 +36,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 container.Register(
                     Component
-                       .For(typeof(IGetEntityByKey<>))
-                       .ImplementedBy(typeof(DecoratedGetEntityByKey<>))
-                       .OnCreate((kernel, item) => DecoratedGetEntityByKeyInstance = (DecoratedGetEntityByKey<Student>) item));
+                        .For(typeof(IGetEntityByKey<>))
+                        .ImplementedBy(typeof(DecoratedGetEntityByKey<>))
+                        .OnCreate((kernel, item) => DecoratedGetEntityByKeyInstance = (DecoratedGetEntityByKey<Student>) item));
 
                 container.Register(
                     Component
-                       .For(typeof(IRelationshipsAuthorizationContextDataProvider<>))
-                       .ImplementedBy(typeof(RelationshipsAuthorizationContextDataProviderStub<>)) //,
+                        .For(typeof(IRelationshipsAuthorizationContextDataProvider<>))
+                        .ImplementedBy(typeof(RelationshipsAuthorizationContextDataProviderStub<>)) //,
                 );
 
                 resolvedIGetEntityByKey = container.Resolve<IGetEntityByKey<Student>>();
@@ -74,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
         public Task<T> GetByKeyAsync(T specification, CancellationToken cancellationToken)
         {
             WasCalled = true;
-            
+
             return Task.FromResult(specification);
         }
     }
@@ -102,3 +103,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
         }
     }
 }
+#endif

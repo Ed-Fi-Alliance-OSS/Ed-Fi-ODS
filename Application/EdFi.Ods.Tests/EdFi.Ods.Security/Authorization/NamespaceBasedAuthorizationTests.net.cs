@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -25,10 +26,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
-                         {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
-                         };
+            {
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty),
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, string.Empty)
+            };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
@@ -36,15 +37,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             string action = @"http://ed-fi.org/ods/actions/manage";
 
             var data = new NamespaceBasedAuthorizationContextData
-                       {
-                           Namespace = @"uri://ed-fi.org/"
-                       };
+            {
+                Namespace = @"uri://ed-fi.org/"
+            };
 
             //Act
 
             var exception = Assert.Throws<EdFiSecurityException>(
                 () => strategy.AuthorizeSingleItemAsync(
-                    new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
+                        new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
                     .WaitSafely());
 
             exception.Message.ShouldBe(
@@ -61,10 +62,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
-                         {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-                         };
+            {
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+            };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
@@ -72,15 +73,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             string action = @"http://ed-fi.org/ods/actions/manage";
 
             var data = new NamespaceBasedAuthorizationContextData
-                       {
-                           Namespace = @""
-                       };
+            {
+                Namespace = @""
+            };
 
             //Act
 
             var exception = Assert.Throws<EdFiSecurityException>(
                 () => strategy.AuthorizeSingleItemAsync(
-                    new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
+                        new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
                     .WaitSafely());
 
             exception.Message.ShouldBe("Access to the resource item could not be authorized because the Namespace of the resource is empty.");
@@ -95,10 +96,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
-                         {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-                         };
+            {
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+            };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
@@ -106,9 +107,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             string action = @"http://ed-fi.org/ods/actions/manage";
 
             var data = new NamespaceBasedAuthorizationContextData
-                       {
-                           Namespace = @"uri://ed-fi.org/"
-                       };
+            {
+                Namespace = @"uri://ed-fi.org/"
+            };
 
             //Act
             strategy.AuthorizeSingleItemAsync(new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
@@ -124,10 +125,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
-                         {
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
-                             new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
-                         };
+            {
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi.org/"),
+                new Claim(EdFiOdsApiClaimTypes.NamespacePrefix, @"uri://ed-fi-2.org/")
+            };
 
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
 
@@ -135,15 +136,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             string action = @"http://ed-fi.org/ods/actions/manage";
 
             var data = new NamespaceBasedAuthorizationContextData
-                       {
-                           Namespace = @"uri://www.TEST.org/"
-                       };
+            {
+                Namespace = @"uri://www.TEST.org/"
+            };
 
             //Act
             var exception = Assert.Throws<EdFiSecurityException>(
                 () =>
                     strategy.AuthorizeSingleItemAsync(
-                        new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
+                            new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
                         .WaitSafely());
 
             exception.Message.ShouldBe("Access to the resource item with namespace 'uri://www.TEST.org/' could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
@@ -163,16 +164,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             string action = @"http://ed-fi.org/ods/actions/manage";
 
             var data = new NamespaceBasedAuthorizationContextData
-                       {
-                           Namespace = @"uri://ed-fi.org/"
-                       };
+            {
+                Namespace = @"uri://ed-fi.org/"
+            };
 
             //Act
 
             var exception = Assert.Throws<EdFiSecurityException>(
                 () =>
                     strategy.AuthorizeSingleItemAsync(
-                        new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
+                            new List<Claim>(), new EdFiAuthorizationContext(principal, new[] {resource}, action, data), CancellationToken.None)
                         .WaitSafely());
 
             exception.Message.ShouldBe(
@@ -183,3 +184,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         }
     }
 }
+#endif

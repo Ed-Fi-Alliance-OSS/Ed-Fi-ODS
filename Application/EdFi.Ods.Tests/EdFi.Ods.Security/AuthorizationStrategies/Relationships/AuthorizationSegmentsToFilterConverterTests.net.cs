@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             string[] propertyNames)
         {
             dependency.Stub(x => x.PropertyNames)
-                      .Return(propertyNames);
+                .Return(propertyNames);
 
             return dependency;
         }
@@ -48,7 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             string educationOrganizationType)
         {
             dependency.Stub(x => x.GetEducationOrganizationIdentifiers(999))
-                      .Return(new EducationOrganizationIdentifiers(999, educationOrganizationType));
+                .Return(new EducationOrganizationIdentifiers(999, educationOrganizationType));
 
             return dependency;
         }
@@ -106,14 +107,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IClassMetadata>()
-                   .that_returns_property_names(new string[0]);
+                    .that_returns_property_names(new string[0]);
 
                 Given<ISessionFactory>()
-                   .that_given_entity_type(Supplied("entityType", typeof(TestEntityType)))
-                   .returns(The<IClassMetadata>());
+                    .that_given_entity_type(Supplied("entityType", typeof(TestEntityType)))
+                    .returns(The<IClassMetadata>());
 
                 Given<IEducationOrganizationCache>()
-                   .that_returns_everything_as_an_education_organization_type_of("LocalEducationAgency");
+                    .that_returns_everything_as_an_education_organization_type_of("LocalEducationAgency");
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -147,9 +148,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 parameterValues.Count().ShouldBe(1);
 
                 actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
-                
+
                 parameterValues
-                   .ShouldBe(
+                    .ShouldBe(
                         new object[]
                         {
                             999
@@ -167,14 +168,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IClassMetadata>()
-                   .that_returns_property_names(new string[0]);
+                    .that_returns_property_names(new string[0]);
 
                 Given<ISessionFactory>()
-                   .that_given_entity_type(Supplied("entityType", typeof(TestEntityType)))
-                   .returns(The<IClassMetadata>());
+                    .that_given_entity_type(Supplied("entityType", typeof(TestEntityType)))
+                    .returns(The<IClassMetadata>());
 
                 Given<IEducationOrganizationCache>()
-                   .that_returns_everything_as_an_education_organization_type_of("LocalEducationAgency");
+                    .that_returns_everything_as_an_education_organization_type_of("LocalEducationAgency");
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -197,7 +198,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                              .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
+                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
@@ -209,7 +210,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 parameterValues.Count().ShouldBe(1);
 
                 actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
-                
+
                 parameterValues
                     .ShouldBe(
                         new object[]
@@ -232,12 +233,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IEducationOrganizationCache>()
-                   .that_given_education_organization_id(999)
-                   .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
+                    .that_given_education_organization_id(999)
+                    .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
 
                 Given<IEducationOrganizationCache>()
-                   .that_given_education_organization_id(1000)
-                   .returns(new EducationOrganizationIdentifiers(1000, "School"));
+                    .that_given_education_organization_id(1000)
+                    .returns(new EducationOrganizationIdentifiers(1000, "School"));
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -268,7 +269,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 _actualFilters[0].ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
                 _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId");
                 _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999 });
-                
+
                 _actualFilters[1].FilterName.ShouldBe("SchoolIdToSchoolId");
                 _actualFilters[1].ClaimEndpointName.ShouldBe("SchoolId");
                 _actualFilters[1].SubjectEndpointName.ShouldBe("SchoolId");
@@ -284,8 +285,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IEducationOrganizationCache>()
-                   .that_given_education_organization_id(999)
-                   .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
+                    .that_given_education_organization_id(999)
+                    .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -308,7 +309,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                              .ShouldBe("LocalEducationAgencyIdToLocalEducationAgencyId");
+                    .ShouldBe("LocalEducationAgencyIdToLocalEducationAgencyId");
             }
 
             [Assert]
@@ -320,7 +321,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 parameterValues.Count().ShouldBe(1);
 
                 actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
-                
+
                 parameterValues
                     .ShouldBe(
                         new object[]
@@ -338,8 +339,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IEducationOrganizationCache>()
-                   .that_given_education_organization_id(999)
-                   .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
+                    .that_given_education_organization_id(999)
+                    .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -366,9 +367,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 parameterValues.Count().ShouldBe(1);
 
                 actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
-                
+
                 parameterValues
-                   .ShouldBe(
+                    .ShouldBe(
                         new object[]
                         {
                             999
@@ -384,8 +385,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<IEducationOrganizationCache>()
-                   .that_given_education_organization_id(999)
-                   .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
+                    .that_given_education_organization_id(999)
+                    .returns(new EducationOrganizationIdentifiers(999, "LocalEducationAgency"));
 
                 var builder = Given_an_authorization_builder_with_claim_assigned_education_organization_ids(
                     The<IEducationOrganizationCache>(),
@@ -414,3 +415,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
         }
     }
 }
+#endif

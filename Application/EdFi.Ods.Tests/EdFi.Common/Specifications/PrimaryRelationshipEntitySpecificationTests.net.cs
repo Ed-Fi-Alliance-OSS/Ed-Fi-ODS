@@ -3,7 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi;
 using NUnit.Framework;
 using Test.Common;
 
@@ -21,12 +25,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi.
-                                StaffEducationOrganizationAssignmentAssociation)), Is.True),
+                            typeof(StaffEducationOrganizationAssignmentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Entities.NHibernate.StaffEducationOrganizationAssignmentAssociationAggregate.EdFi
-                                           .StaffEducationOrganizationAssignmentAssociation)), Is.True)
+                            nameof(StaffEducationOrganizationAssignmentAssociation)), Is.True)
                 );
             }
 
@@ -36,12 +38,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.
-                                StaffEducationOrganizationAssignmentAssociation)), Is.True),
+                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi
-                                      .StaffEducationOrganizationAssignmentAssociation)), Is.True)
+                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation)), Is.True)
                 );
             }
 
@@ -51,12 +51,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi.
-                                StaffEducationOrganizationEmploymentAssociation)), Is.True),
+                            typeof(StaffEducationOrganizationEmploymentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Entities.NHibernate.StaffEducationOrganizationEmploymentAssociationAggregate.EdFi
-                                           .StaffEducationOrganizationEmploymentAssociation)), Is.True)
+                            nameof(StaffEducationOrganizationEmploymentAssociation)), Is.True)
                 );
             }
 
@@ -66,12 +64,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.
-                                StaffEducationOrganizationEmploymentAssociation)), Is.True),
+                            typeof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi
-                                      .StaffEducationOrganizationEmploymentAssociation)), Is.True)
+                            nameof(Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation)), Is.True)
                 );
             }
 
@@ -81,10 +77,10 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
                 AssertHelper.All(
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            typeof(Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation)), Is.True),
+                            typeof(StudentSchoolAssociation)), Is.True),
                     () => Assert.That(
                         PrimaryRelationshipEntitySpecification.IsPrimaryRelationshipEntity(
-                            nameof(Entities.NHibernate.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociation)), Is.True)
+                            nameof(StudentSchoolAssociation)), Is.True)
                 );
             }
 
@@ -103,3 +99,4 @@ namespace EdFi.Ods.Tests.EdFi.Common.Specifications
         }
     }
 }
+#endif

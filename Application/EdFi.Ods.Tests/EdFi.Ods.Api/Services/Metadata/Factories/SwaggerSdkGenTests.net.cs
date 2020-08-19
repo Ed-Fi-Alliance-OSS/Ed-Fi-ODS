@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,16 +37,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Arrange()
             {
                 var schemaDefinition = DomainModelDefinitionsProviderHelper
-                                      .DefinitionProviders
-                                      .Select(
-                                           x => x.GetDomainModelDefinitions()
-                                                 .SchemaDefinition)
-                                      .Where(s => s.PhysicalName == requestedExtensionPhysicalName)
-                                      .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
-                                      .First();
+                    .DefinitionProviders
+                    .Select(
+                        x => x.GetDomainModelDefinitions()
+                            .SchemaDefinition)
+                    .Where(s => s.PhysicalName == requestedExtensionPhysicalName)
+                    .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
+                    .First();
 
                 _extensionOnlySwaggerDocumentFactory = SwaggerDocumentFactoryHelper
-                   .GetExtensionOnlySwaggerDocumentFactory(
+                    .GetExtensionOnlySwaggerDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
 
@@ -62,22 +63,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             public void Should_Only_Contain_Paths_For_The_Requested_Extension()
             {
                 var pathsWithErrantNames = DomainModelDefinitionsProviderHelper
-                                          .ResourceModelProvider
-                                          .GetResourceModel()
-                                          .GetAllResources()
-                                          .SelectMany(r => r.AllContainedItemTypes)
-                                          .Where(r => r.SchemaProperCaseName.ToLowerInvariant() == requestedExtensionPhysicalName)
-                                          .SelectMany(
-                                               d =>
-                                               {
-                                                   var schemaPath = "/" +
-                                                                    DomainModelDefinitionsProviderHelper
-                                                                       .SchemaNameMapProvider
-                                                                       .GetSchemaMapByPhysicalName(d.SchemaProperCaseName)
-                                                                       .UriSegment + "/";
+                    .ResourceModelProvider
+                    .GetResourceModel()
+                    .GetAllResources()
+                    .SelectMany(r => r.AllContainedItemTypes)
+                    .Where(r => r.SchemaProperCaseName.ToLowerInvariant() == requestedExtensionPhysicalName)
+                    .SelectMany(
+                        d =>
+                        {
+                            var schemaPath = "/" +
+                                             DomainModelDefinitionsProviderHelper
+                                                 .SchemaNameMapProvider
+                                                 .GetSchemaMapByPhysicalName(d.SchemaProperCaseName)
+                                                 .UriSegment + "/";
 
-                                                   return _actualMetadataObject.paths.Keys.Where(x => x.StartsWith(schemaPath));
-                                               });
+                            return _actualMetadataObject.paths.Keys.Where(x => x.StartsWith(schemaPath));
+                        });
 
                 AssertHelper.All(
                     () => Assert.That(_actualMetadataObject.paths.Keys, Is.Not.Empty),
@@ -89,43 +90,43 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 var entityDefinitions =
                     DomainModelDefinitionsProviderHelper
-                       .DefinitionProviders
-                       .Select(y => y.GetDomainModelDefinitions())
-                       .Single(x => x.SchemaDefinition.PhysicalName == requestedExtensionPhysicalName)
-                       .EntityDefinitions;
+                        .DefinitionProviders
+                        .Select(y => y.GetDomainModelDefinitions())
+                        .Single(x => x.SchemaDefinition.PhysicalName == requestedExtensionPhysicalName)
+                        .EntityDefinitions;
 
                 Assert.That(_actualMetadataObject.definitions.Keys, Is.Not.Empty);
 
                 _actualMetadataObject.definitions.Keys
-                                     .Select(x => x.ToUpperInvariant())
-                                     .Except(
-                                          entityDefinitions
-                                             .Select(
-                                                  x =>
-                                                      string.Format(
-                                                                 "{0}_{1}",
-                                                                 DomainModelDefinitionsProviderHelper
-                                                                    .SchemaNameMapProvider
-                                                                    .GetSchemaMapByPhysicalName(x.Schema)
-                                                                    .ProperCaseName,
-                                                                 x.Name)
-                                                            .ToUpperInvariant())
-                                             .Concat(
-                                                  new[]
-                                                  {
-                                                      "LINK"
-                                                  }));
+                    .Select(x => x.ToUpperInvariant())
+                    .Except(
+                        entityDefinitions
+                            .Select(
+                                x =>
+                                    string.Format(
+                                            "{0}_{1}",
+                                            DomainModelDefinitionsProviderHelper
+                                                .SchemaNameMapProvider
+                                                .GetSchemaMapByPhysicalName(x.Schema)
+                                                .ProperCaseName,
+                                            x.Name)
+                                        .ToUpperInvariant())
+                            .Concat(
+                                new[]
+                                {
+                                    "LINK"
+                                }));
 
                 Assert.That(
                     entityDefinitions.Select(
                         x =>
                             string.Format(
-                                       "{0}_{1}",
-                                       DomainModelDefinitionsProviderHelper
-                                          .SchemaNameMapProvider.GetSchemaMapByPhysicalName(x.Schema)
-                                          .ProperCaseName,
-                                       x.Name)
-                                  .ToUpperInvariant()),
+                                    "{0}_{1}",
+                                    DomainModelDefinitionsProviderHelper
+                                        .SchemaNameMapProvider.GetSchemaMapByPhysicalName(x.Schema)
+                                        .ProperCaseName,
+                                    x.Name)
+                                .ToUpperInvariant()),
                     Is.SubsetOf(_actualMetadataObject.definitions.Keys.Select(x => x.ToUpperInvariant())));
             }
         }
@@ -141,16 +142,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Arrange()
             {
                 var schemaDefinition = DomainModelDefinitionsProviderHelper
-                                      .DefinitionProviders
-                                      .Select(
-                                           x => x.GetDomainModelDefinitions()
-                                                 .SchemaDefinition)
-                                      .Where(s => s.PhysicalName == requestedExtensionPhysicalName)
-                                      .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
-                                      .First();
+                    .DefinitionProviders
+                    .Select(
+                        x => x.GetDomainModelDefinitions()
+                            .SchemaDefinition)
+                    .Where(s => s.PhysicalName == requestedExtensionPhysicalName)
+                    .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
+                    .First();
 
                 _extensionOnlySwaggerDocumentFactory = SwaggerDocumentFactoryHelper
-                   .GetExtensionOnlySwaggerDocumentFactory(
+                    .GetExtensionOnlySwaggerDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
 
@@ -168,41 +169,41 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 var entityDefinitions =
                     DomainModelDefinitionsProviderHelper
-                       .DefinitionProviders
-                       .Select(y => y.GetDomainModelDefinitions())
-                       .Single(x => x.SchemaDefinition.PhysicalName == requestedExtensionPhysicalName)
-                       .EntityDefinitions;
+                        .DefinitionProviders
+                        .Select(y => y.GetDomainModelDefinitions())
+                        .Single(x => x.SchemaDefinition.PhysicalName == requestedExtensionPhysicalName)
+                        .EntityDefinitions;
 
                 _actualMetadataObject.definitions.Keys
-                                     .Select(x => x.ToUpperInvariant())
-                                     .Except(
-                                          entityDefinitions
-                                             .Select(
-                                                  x =>
-                                                      string.Format(
-                                                                 "{0}_{1}",
-                                                                 DomainModelDefinitionsProviderHelper
-                                                                    .SchemaNameMapProvider
-                                                                    .GetSchemaMapByPhysicalName(x.Schema)
-                                                                    .ProperCaseName,
-                                                                 x.Name)
-                                                            .ToUpperInvariant())
-                                             .Concat(
-                                                  new[]
-                                                  {
-                                                      "LINK"
-                                                  }));
+                    .Select(x => x.ToUpperInvariant())
+                    .Except(
+                        entityDefinitions
+                            .Select(
+                                x =>
+                                    string.Format(
+                                            "{0}_{1}",
+                                            DomainModelDefinitionsProviderHelper
+                                                .SchemaNameMapProvider
+                                                .GetSchemaMapByPhysicalName(x.Schema)
+                                                .ProperCaseName,
+                                            x.Name)
+                                        .ToUpperInvariant())
+                            .Concat(
+                                new[]
+                                {
+                                    "LINK"
+                                }));
 
                 Assert.That(
                     entityDefinitions.Select(
                         x =>
                             string.Format(
-                                       "{0}_{1}",
-                                       DomainModelDefinitionsProviderHelper
-                                          .SchemaNameMapProvider.GetSchemaMapByPhysicalName(x.Schema)
-                                          .ProperCaseName,
-                                       x.Name)
-                                  .ToUpperInvariant()),
+                                    "{0}_{1}",
+                                    DomainModelDefinitionsProviderHelper
+                                        .SchemaNameMapProvider.GetSchemaMapByPhysicalName(x.Schema)
+                                        .ProperCaseName,
+                                    x.Name)
+                                .ToUpperInvariant()),
                     Is.SubsetOf(_actualMetadataObject.definitions.Keys.Select(x => x.ToUpperInvariant())));
             }
 
@@ -211,33 +212,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 var entityDefinitions =
                     DomainModelDefinitionsProviderHelper
-                       .ResourceModelProvider
-                       .GetResourceModel()
-                       .GetAllResources()
-                       .SelectMany(r => r.AllContainedItemTypes)
-                       .Where(r => r.SchemaProperCaseName.ToLowerInvariant() == requestedExtensionPhysicalName);
+                        .ResourceModelProvider
+                        .GetResourceModel()
+                        .GetAllResources()
+                        .SelectMany(r => r.AllContainedItemTypes)
+                        .Where(r => r.SchemaProperCaseName.ToLowerInvariant() == requestedExtensionPhysicalName);
 
                 var nonBelongingDefinitions = _actualMetadataObject
-                                             .definitions
-                                             .Keys
-                                             .Where(x => !x.EndsWith("Reference"))
-                                             .Select(x => x.ToUpperInvariant())
-                                             .Except(
-                                                  entityDefinitions
-                                                     .Select(
-                                                          x => string.Format(
-                                                                          @"{0}_{1}",
-                                                                          DomainModelDefinitionsProviderHelper
-                                                                             .SchemaNameMapProvider
-                                                                             .GetSchemaMapByPhysicalName(x.SchemaProperCaseName)
-                                                                             .ProperCaseName,
-                                                                          x.Name)
-                                                                     .ToUpperInvariant())
-                                                     .Concat(
-                                                          new[]
-                                                          {
-                                                              "LINK"
-                                                          }));
+                    .definitions
+                    .Keys
+                    .Where(x => !x.EndsWith("Reference"))
+                    .Select(x => x.ToUpperInvariant())
+                    .Except(
+                        entityDefinitions
+                            .Select(
+                                x => string.Format(
+                                        @"{0}_{1}",
+                                        DomainModelDefinitionsProviderHelper
+                                            .SchemaNameMapProvider
+                                            .GetSchemaMapByPhysicalName(x.SchemaProperCaseName)
+                                            .ProperCaseName,
+                                        x.Name)
+                                    .ToUpperInvariant())
+                            .Concat(
+                                new[]
+                                {
+                                    "LINK"
+                                }));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
@@ -252,13 +253,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Arrange()
             {
                 _swaggerDocumentContext = new SwaggerDocumentContext(
-                                              DomainModelDefinitionsProviderHelper
-                                                 .ResourceModelProvider
-                                                 .GetResourceModel())
-                                          {
-                                              RenderType = RenderType.GeneralizedExtensions,
-                                              IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
-                                          };
+                    DomainModelDefinitionsProviderHelper
+                        .ResourceModelProvider
+                        .GetResourceModel())
+                {
+                    RenderType = RenderType.GeneralizedExtensions,
+                    IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
+                };
 
                 _genericSwaggerDefinitionFactory =
                     SwaggerDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
@@ -268,15 +269,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 var d1 = new SdkGenAllEdFiResourceStrategy()
-                        .GetFilteredResources(_swaggerDocumentContext)
-                        .Select(d => d.Resource.Entity)
-                        .ToList();
+                    .GetFilteredResources(_swaggerDocumentContext)
+                    .Select(d => d.Resource.Entity)
+                    .ToList();
 
                 _actualDefinitions = _genericSwaggerDefinitionFactory
-                   .Create(
+                    .Create(
                         new SdkGenAllEdFiResourceStrategy()
-                           .GetFilteredResources(_swaggerDocumentContext)
-                           .ToList());
+                            .GetFilteredResources(_swaggerDocumentContext)
+                            .ToList());
             }
 
             [Assert]
@@ -286,20 +287,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
                 AssertHelper.All(
                     _actualDefinitions.Keys
-                                      .Except(
-                                           new[]
-                                           {
-                                               "link"
-                                           })
-                                      .Select(
-                                           d =>
-                                               (Action)
-                                               (() =>
-                                                    Assert.That(
-                                                        d.StartsWith(edFiSchemaPrefix),
-                                                        Is.True,
-                                                        $@"Definition name {d} does not belong with '{edFiSchemaPrefix}' schema prefix.")))
-                                      .ToArray());
+                        .Except(
+                            new[]
+                            {
+                                "link"
+                            })
+                        .Select(
+                            d =>
+                                (Action)
+                                (() =>
+                                    Assert.That(
+                                        d.StartsWith(edFiSchemaPrefix),
+                                        Is.True,
+                                        $@"Definition name {d} does not belong with '{edFiSchemaPrefix}' schema prefix.")))
+                        .ToArray());
             }
 
             [Assert]
@@ -322,7 +323,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     () =>
                         Assert.That(
                             extendedEdFiResourceProperties["_ext"]
-                               .@ref,
+                                .@ref,
                             Is.Null,
                             "Extension collection property '_ext' @ref was not null"));
             }
@@ -340,8 +341,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             {
                 _swaggerDocumentContext = new SwaggerDocumentContext(
                     DomainModelDefinitionsProviderHelper
-                       .ResourceModelProvider
-                       .GetResourceModel());
+                        .ResourceModelProvider
+                        .GetResourceModel());
 
                 _genericSwaggerDefinitionFactory =
                     SwaggerDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
@@ -350,46 +351,46 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
 
                 _schemaNameMapProvider = _domainModelProvider.GetDomainModel()
-                                                             .SchemaNameMapProvider;
+                    .SchemaNameMapProvider;
             }
 
             protected override void Act()
             {
                 _actualDefinitions = _genericSwaggerDefinitionFactory
-                   .Create(
+                    .Create(
                         new SdkGenAllResourceStrategy()
-                           .GetFilteredResources(_swaggerDocumentContext)
-                           .ToList());
+                            .GetFilteredResources(_swaggerDocumentContext)
+                            .ToList());
             }
 
             [Assert]
             public void Should_Contain_Resource_Definitions_For_All_Schemas()
             {
                 var expectedSchemaPrefixes = DomainModelDefinitionsProviderHelper
-                                            .DomainModelProvider
-                                            .GetDomainModel()
-                                            .Schemas
-                                            .Select(
-                                                 d => _schemaNameMapProvider.GetSchemaMapByLogicalName(d.LogicalName)
-                                                                            .ProperCaseName)
-                                            .Select(p => $"{p}".ToCamelCase())
-                                            .ToList();
+                    .DomainModelProvider
+                    .GetDomainModel()
+                    .Schemas
+                    .Select(
+                        d => _schemaNameMapProvider.GetSchemaMapByLogicalName(d.LogicalName)
+                            .ProperCaseName)
+                    .Select(p => $"{p}".ToCamelCase())
+                    .ToList();
 
                 var actualSchemaPrefixes = _actualDefinitions.Select(d => d.Key)
-                                                             .Where(
-                                                                  d =>
-                                                                      !d.EndsWithIgnoreCase(
-                                                                          "Extensions"))
-                                                             .Except(
-                                                                  new[]
-                                                                  {
-                                                                      "link"
-                                                                  })
-                                                             .Select(
-                                                                  d => d.Split('_')
-                                                                        .First())
-                                                             .Distinct()
-                                                             .ToList();
+                    .Where(
+                        d =>
+                            !d.EndsWithIgnoreCase(
+                                "Extensions"))
+                    .Except(
+                        new[]
+                        {
+                            "link"
+                        })
+                    .Select(
+                        d => d.Split('_')
+                            .First())
+                    .Distinct()
+                    .ToList();
 
                 var missingSchemaPrefixes = expectedSchemaPrefixes.Except(actualSchemaPrefixes);
                 var extraSchemaPrefixes = actualSchemaPrefixes.Except(expectedSchemaPrefixes);
@@ -421,7 +422,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     () =>
                         Assert.That(
                             extendedEdFiResourceProperties["_ext"]
-                               .@ref,
+                                .@ref,
                             Is.EqualTo(expectedExtensionCollectionReference),
                             $"Extension collection property '_ext' @ref was not equal to expected: {expectedExtensionCollectionReference}"));
             }
@@ -439,24 +440,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             public void Should_Contain_Extended_EdFi_Resource_Bridge_Definition_With_A_Definition_Reference_For_Each_Extension()
             {
                 var expectedExtensions = DomainModelDefinitionsProviderHelper
-                                        .DomainModelProvider
-                                        .GetDomainModel()
-                                        .Entities
-                                        .Where(e => e.IsEntityExtension && e.EdFiStandardEntityAssociation.OtherEntity.Name == "Staff")
-                                        .ToList();
+                    .DomainModelProvider
+                    .GetDomainModel()
+                    .Entities
+                    .Where(e => e.IsEntityExtension && e.EdFiStandardEntityAssociation.OtherEntity.Name == "Staff")
+                    .ToList();
 
                 var expectedBridgeSchemaExtensions = expectedExtensions
-                                                    .Select(e => e.Schema)
-                                                    .Select(
-                                                         l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
-                                                                                    .ProperCaseName);
+                    .Select(e => e.Schema)
+                    .Select(
+                        l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
+                            .ProperCaseName);
 
                 var expectedBridgeSchemaExtensionReferences = expectedExtensions
-                                                             .Select(e => e.Schema)
-                                                             .Select(
-                                                                  l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
-                                                                                             .ProperCaseName)
-                                                             .Select(p => $"#/definitions/{p.ToCamelCase()}_staffExtension");
+                    .Select(e => e.Schema)
+                    .Select(
+                        l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
+                            .ProperCaseName)
+                    .Select(p => $"#/definitions/{p.ToCamelCase()}_staffExtension");
 
                 var extendedEdFiResource = _actualDefinitions["staffExtensions"];
 
@@ -480,24 +481,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             public void Should_Contain_Extended_EdFi_Resource_Extension_Definition_For_Each_Extension()
             {
                 var expectedExtensions = DomainModelDefinitionsProviderHelper
-                                        .DomainModelProvider
-                                        .GetDomainModel()
-                                        .Entities
-                                        .Where(e => e.IsEntityExtension && e.EdFiStandardEntityAssociation.OtherEntity.Name == "Staff")
-                                        .ToList();
+                    .DomainModelProvider
+                    .GetDomainModel()
+                    .Entities
+                    .Where(e => e.IsEntityExtension && e.EdFiStandardEntityAssociation.OtherEntity.Name == "Staff")
+                    .ToList();
 
                 var expectedExtensionDefinitions = expectedExtensions
-                                                  .Select(e => e.Schema)
-                                                  .Select(
-                                                       l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
-                                                                                  .ProperCaseName)
-                                                  .Select(p => $"{p.ToCamelCase()}_staffExtension");
+                    .Select(e => e.Schema)
+                    .Select(
+                        l => _schemaNameMapProvider.GetSchemaMapByPhysicalName(l)
+                            .ProperCaseName)
+                    .Select(p => $"{p.ToCamelCase()}_staffExtension");
 
                 var actualExtensionDefitions = _actualDefinitions.Where(
-                                                                      d =>
-                                                                          d.Key.EndsWith(
-                                                                              "_staffExtension"))
-                                                                 .Select(d => d.Key);
+                        d =>
+                            d.Key.EndsWith(
+                                "_staffExtension"))
+                    .Select(d => d.Key);
 
                 AssertHelper.All(
                     () =>
@@ -509,3 +510,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         }
     }
 }
+#endif

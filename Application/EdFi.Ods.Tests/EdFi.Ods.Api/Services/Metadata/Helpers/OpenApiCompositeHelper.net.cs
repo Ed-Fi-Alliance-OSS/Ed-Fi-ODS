@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -11,19 +12,19 @@ using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
 {
-    public static class OpenApiCompositeHelper
-    {
-        public static string CategoryName => CompositeDefinition.XPathSelectElement("/Category")
-                                                                .AttributeValue("name");
+  public static class OpenApiCompositeHelper
+  {
+    public static string CategoryName => CompositeDefinition.XPathSelectElement("/Category")
+      .AttributeValue("name");
 
-        public static IReadOnlyList<XElement> Routes => CompositeDefinition.XPathSelectElements("/Category/Routes/Route")
-                                                                           .ToList();
+    public static IReadOnlyList<XElement> Routes => CompositeDefinition.XPathSelectElements("/Category/Routes/Route")
+      .ToList();
 
-        public static IReadOnlyList<XElement> CompositeDefinitions => CompositeDefinition.XPathSelectElements("/Category/Composites/Composite")
-                                                                                         .ToList();
+    public static IReadOnlyList<XElement> CompositeDefinitions => CompositeDefinition.XPathSelectElements("/Category/Composites/Composite")
+      .ToList();
 
-        public static XElement CompositeDefinition => XElement.Parse(
-            @"<?xml version='1.0' encoding='utf-8' ?>
+    public static XElement CompositeDefinition => XElement.Parse(
+      @"<?xml version='1.0' encoding='utf-8' ?>
                         <CompositeMetadata>
                           <Category displayName='Ed-Fi Assessment' name='assessment'>
                             <Routes>
@@ -110,5 +111,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                             </Composites>
                           </Category>
                         </CompositeMetadata>");
-    }
+  }
 }
+#endif

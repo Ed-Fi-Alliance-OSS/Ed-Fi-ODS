@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 const string suppliedConnectionStringName = "TestStandardConnectionString";
 
                 var expected = ConfigurationManager.ConnectionStrings[suppliedConnectionStringName]
-                                                   .ToString();
+                    .ToString();
 
                 var provider = new NamedDatabaseConnectionStringProvider(suppliedConnectionStringName);
                 var actual = provider.GetConnectionString();
@@ -43,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 const string suppliedConnectionStringName = "TestIntegratedConnectionString";
 
                 var expected = ConfigurationManager.ConnectionStrings[suppliedConnectionStringName]
-                                                   .ToString();
+                    .ToString();
 
                 var provider = new NamedDatabaseConnectionStringProvider(suppliedConnectionStringName);
                 var actual = provider.GetConnectionString();
@@ -112,3 +113,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 }
+#endif

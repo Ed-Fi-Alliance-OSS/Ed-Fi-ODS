@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -44,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 A.CallTo(() =>
                         Given<IGetEntityById<Student>>().GetByIdAsync(A<Guid>.Ignored, A<CancellationToken>._))
-                        .Returns(Task.FromResult<Student>(null));
+                    .Returns(Task.FromResult<Student>(null));
             }
 
             /// <summary>
@@ -81,15 +82,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
                 Supplied(Guid.NewGuid());
 
                 A.CallTo(() =>
-                    Given<IGetEntityById<Student>>().GetByIdAsync(Supplied<Guid>(), A<CancellationToken>._))
+                        Given<IGetEntityById<Student>>().GetByIdAsync(Supplied<Guid>(), A<CancellationToken>._))
                     .Returns(Task.FromResult(Supplied(new Student())));
 
                 A.CallTo(() =>
-                    Given<IAuthorizationContextProvider>().GetAction())
+                        Given<IAuthorizationContextProvider>().GetAction())
                     .Returns("Action");
 
                 A.CallTo(() =>
-                    Given<IAuthorizationContextProvider>().GetResourceUris())
+                        Given<IAuthorizationContextProvider>().GetResourceUris())
                     .Returns(new[] {"Resource"});
 
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
@@ -131,8 +132,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             public void Should_invoke_authorization_on_the_item()
             {
                 A.CallTo(() =>
-                    Given<IEdFiAuthorizationProvider>()
-                        .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
+                        Given<IEdFiAuthorizationProvider>()
+                            .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
                     .MustHaveHappened();
             }
 
@@ -158,3 +159,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
         }
     }
 }
+#endif

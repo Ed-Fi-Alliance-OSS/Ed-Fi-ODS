@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Security.AuthorizationStrategies;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
@@ -27,9 +28,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
                 var factory = new AuthorizationContextDataFactory();
 
                 _suppliedEntity = new EntityWithRoleNamedProperties
-                                  {
-                                      Name = "Bob", SchoolId = 1, FirstEducationOrganizationId = 10, SecondEducationOrganizationId = 20
-                                  };
+                {
+                    Name = "Bob", SchoolId = 1, FirstEducationOrganizationId = 10, SecondEducationOrganizationId = 20
+                };
 
                 _actualContextData = factory.CreateContextData<RelationshipsAuthorizationContextData>(_suppliedEntity);
             }
@@ -83,9 +84,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
                 var factory = new AuthorizationContextDataFactory();
 
                 _suppliedEntity = new EntityWithRoleNamedProperties
-                                  {
-                                      Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
-                                  };
+                {
+                    Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
+                };
 
                 _actualContextData = factory.CreateContextData<RelationshipsAuthorizationContextData>(
                     _suppliedEntity,
@@ -140,9 +141,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
                 var factory = new AuthorizationContextDataFactory();
 
                 _suppliedEntity = new EntityWithRoleNamedProperties
-                                  {
-                                      Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
-                                  };
+                {
+                    Name = "Bob", SchoolId = 1, UnmappedEducationOrganizationId = 10, MappedEducationOrganizationId = 20
+                };
 
                 factory.CreateContextData<RelationshipsAuthorizationContextData>(
                     _suppliedEntity,
@@ -176,3 +177,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
         }
     }
 }
+#endif

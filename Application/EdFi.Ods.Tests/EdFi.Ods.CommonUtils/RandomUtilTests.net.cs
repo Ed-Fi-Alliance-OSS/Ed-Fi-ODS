@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using EdFi.Ods.Common.Utils;
 using NUnit.Framework;
 using Shouldly;
@@ -20,7 +21,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils
                 for (int i = 1; i < 32; i++)
                 {
                     RandomUtil.GenerateRandomBase64String(i)
-                              .Length.ShouldBe(i);
+                        .Length.ShouldBe(i);
                 }
             }
 
@@ -30,9 +31,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils
                 for (int i = 1; i < 32; i++)
                 {
                     RandomUtil.GenerateRandomBase64String(i)
-                              .ShouldNotContain("=");
+                        .ShouldNotContain("=");
                 }
             }
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
@@ -85,7 +86,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
             {
                 request.G.Add(
                     GetType()
-                       .Name);
+                        .Name);
 
                 return 1;
             }
@@ -125,7 +126,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
             {
                 request.G.Add(
                     GetType()
-                       .Name);
+                        .Name);
 
                 return 2;
             }
@@ -157,9 +158,9 @@ namespace EdFi.Ods.Tests.EdFi.Common
                 // Perform all registrations of links in the chain using the standard approach
                 container.Register(
                     Classes.FromThisAssembly()
-                           .BasedOn<ISomethingProvider>()
-                           .WithService
-                           .FromInterface());
+                        .BasedOn<ISomethingProvider>()
+                        .WithService
+                        .FromInterface());
 
                 // Finalize all Chain of Responsibility chains (registering the proxy last, required prior to Castle 3.x)
                 facility.FinalizeChains();
@@ -168,7 +169,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
                 container.Register(
                     Component.For<IAnotherProvider>()
-                             .Instance(anotherProvider));
+                        .Instance(anotherProvider));
             }
 
             protected override void Act()
@@ -227,7 +228,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
             }
         }
 
-        //For Chain of responsibilities with base abstract class 
+        //For Chain of responsibilities with base abstract class
         public class TestRequestBase { }
 
         public class TestRequest : TestRequestBase { }
@@ -296,9 +297,9 @@ namespace EdFi.Ods.Tests.EdFi.Common
                 // Perform all registrations of links in the chain using the standard approach
                 container.Register(
                     Classes.FromThisAssembly()
-                           .BasedOn<ITestProvider>()
-                           .WithService
-                           .FromInterface());
+                        .BasedOn<ITestProvider>()
+                        .WithService
+                        .FromInterface());
 
                 // Finalize all Chain of Responsibility chains (registering the proxy last, required prior to Castle 3.x)
                 facility.FinalizeChains();
@@ -342,7 +343,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
             public class FirstSomethingElseProvider
                 : ChainOfResponsibilityBase<ISomethingElseProvider, GetSomethingElseRequest, int>,
-                  ISomethingElseProvider
+                    ISomethingElseProvider
             {
                 public FirstSomethingElseProvider(ISomethingElseProvider next)
                     : base(next) { }
@@ -354,7 +355,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
                 protected override bool CanHandleRequest(GetSomethingElseRequest request)
                 {
-                    // Because the ProcessRequest method is not invoked by the link implementations 
+                    // Because the ProcessRequest method is not invoked by the link implementations
                     // in this test, the only way this method would be called is if the the facility's
                     // interceptor has handled the GetSomethingElse call (and thus would throw this exception
                     // and fail the test).
@@ -371,7 +372,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
             public class SecondSomethingElseProvider
                 : ChainOfResponsibilityBase<ISomethingElseProvider, GetSomethingElseRequest, int>,
-                  ISomethingElseProvider
+                    ISomethingElseProvider
             {
                 public SecondSomethingElseProvider(ISomethingElseProvider next)
                     : base(next) { }
@@ -383,7 +384,7 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
                 protected override bool CanHandleRequest(GetSomethingElseRequest request)
                 {
-                    // Because the ProcessRequest method is not invoked by the link implementations 
+                    // Because the ProcessRequest method is not invoked by the link implementations
                     // in this test, the only way this method would be called is if the the facility's
                     // interceptor has handled the GetSomethingElse call (and thus would throw this exception
                     // and fail the test).
@@ -567,9 +568,9 @@ namespace EdFi.Ods.Tests.EdFi.Common
 
                     _container.Register(
                         Classes.FromThisAssembly()
-                               .BasedOn<ISomethingWithMethodOverLoads>()
-                               .WithService
-                               .FromInterface());
+                            .BasedOn<ISomethingWithMethodOverLoads>()
+                            .WithService
+                            .FromInterface());
 
                     // Finalize all Chain of Responsibility chains (registering the proxy last, required prior to Castle 3.x)
                     facility.FinalizeChains();
@@ -618,3 +619,4 @@ namespace EdFi.Ods.Tests.EdFi.Common
         // TODO: Modify support for Request object instantiation to match what is produced by Resharper refactoring "Extract class from parameters"?
     }
 }
+#endif

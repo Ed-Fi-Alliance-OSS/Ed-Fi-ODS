@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Data.SqlClient;
 using EdFi.Ods.Common.Database;
@@ -15,7 +16,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     [TestFixture]
     public class SqlConnectionStringBuilderAdapterTests
     {
-        public class When_getting_and_setting_the_database_name_in_a_SQL_Server_connection_string 
+        public class When_getting_and_setting_the_database_name_in_a_SQL_Server_connection_string
             : TestFixtureBase
         {
             private string _actualInitialDatabaseName;
@@ -23,14 +24,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             private string _actualFinalConnectionString;
 
             private const string SqlServerConnectionStringFormat = @"Server=(local);Database={0};Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;";
-            
+
             protected override void Act()
             {
                 var adapter = new SqlConnectionStringBuilderAdapter();
 
                 adapter.ConnectionString = string.Format(SqlServerConnectionStringFormat, "OriginalDatabaseName");
                 _actualInitialDatabaseName = adapter.DatabaseName;
-             
+
                 adapter.DatabaseName = "ModifiedDatabaseName";
                 _actualModifiedDatabaseName = adapter.DatabaseName;
 
@@ -42,7 +43,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 _actualInitialDatabaseName.ShouldBe("OriginalDatabaseName");
             }
-            
+
             [Test]
             public void Should_return_the_modified_database_name_after_it_has_been_changed()
             {
@@ -54,10 +55,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 string formattedConnectionString = string.Format(
                     SqlServerConnectionStringFormat, "ModifiedDatabaseName");
-                
+
                 var builder = new SqlConnectionStringBuilder(formattedConnectionString);
                 string expectedConnectionString = builder.ConnectionString;
-                
+
                 _actualFinalConnectionString.ShouldBe(expectedConnectionString);
             }
         }
@@ -78,3 +79,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 }
+#endif

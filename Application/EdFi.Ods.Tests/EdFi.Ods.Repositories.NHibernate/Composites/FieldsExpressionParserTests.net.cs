@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using EdFi.Ods.Features.Composites.Infrastructure;
@@ -24,22 +25,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty2"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
         }
 
@@ -52,22 +53,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty2"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
         }
 
@@ -80,22 +81,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someReference"));
 
             Assert.That(
                 result[1]
-                   .Children,
+                    .Children,
                 Is.EqualTo(
                     new[]
                     {
@@ -112,22 +113,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someReference"));
 
             Assert.That(
                 result[1]
-                   .Children.Select(x => x.MemberName),
+                    .Children.Select(x => x.MemberName),
                 Is.EqualTo(
                     new[]
                     {
@@ -144,22 +145,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someReference"));
 
             Assert.That(
                 result[1]
-                   .Children.Select(x => x.MemberName),
+                    .Children.Select(x => x.MemberName),
                 Is.EqualTo(
                     new[]
                     {
@@ -178,23 +179,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
             // First item
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty1"));
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
 
             // Second item, with children
             Assert.That(
                 result[1]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someCollection"));
 
             Assert.That(
                 result[1]
-                   .Children.Select(x => x.MemberName),
+                    .Children.Select(x => x.MemberName),
                 Is.EqualTo(
                     new[]
                     {
@@ -204,8 +205,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
             // Second item's grandchildren
             Assert.That(
                 result[1]
-                   .Children.Single(x => x.MemberName == "someCollRef1")
-                   .Children.Select(y => y.MemberName),
+                    .Children.Single(x => x.MemberName == "someCollRef1")
+                    .Children.Select(y => y.MemberName),
                 Is.EqualTo(
                     new[]
                     {
@@ -215,12 +216,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
             // Third item
             Assert.That(
                 result[2]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("someProperty2"));
 
             Assert.That(
                 result[2]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(0));
         }
 
@@ -261,7 +262,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .MemberName,
+                    .MemberName,
                 Is.EqualTo("abc12_3_"));
         }
 
@@ -274,13 +275,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
 
             Assert.That(
                 result[0]
-                   .Children,
+                    .Children,
                 Has.Count.EqualTo(1));
 
             Assert.That(
                 result[0]
-                   .Children[0]
-                   .MemberName,
+                    .Children[0]
+                    .MemberName,
                 Is.EqualTo("b"));
         }
 
@@ -325,3 +326,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Repositories.NHibernate.Composites
         }
     }
 }
+#endif

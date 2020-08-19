@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,9 +87,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override List<SynchronizableTestObject> GetTargetList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object1
-                       };
+                {
+                    Object1
+                };
             }
 
             [Test]
@@ -110,9 +111,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override List<SynchronizableTestObject> GetSourceList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object1
-                       };
+                {
+                    Object1
+                };
             }
 
             protected override List<SynchronizableTestObject> GetTargetList()
@@ -140,17 +141,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override List<SynchronizableTestObject> GetSourceList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object1
-                       };
+                {
+                    Object1
+                };
             }
 
             protected override List<SynchronizableTestObject> GetTargetList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object2
-                       };
+                {
+                    Object2
+                };
             }
 
             [Test]
@@ -173,9 +174,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override List<SynchronizableTestObject> GetSourceList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object1, Object1
-                       };
+                {
+                    Object1, Object1
+                };
             }
 
             protected override List<SynchronizableTestObject> GetTargetList()
@@ -197,7 +198,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                 TargetList.Count.ShouldBe(1);
 
                 TargetList.All(ti => ti == Object1)
-                          .ShouldBeTrue();
+                    .ShouldBeTrue();
             }
         }
 
@@ -207,17 +208,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
             protected override List<SynchronizableTestObject> GetSourceList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object1
-                       };
+                {
+                    Object1
+                };
             }
 
             protected override List<SynchronizableTestObject> GetTargetList()
             {
                 return new List<SynchronizableTestObject>
-                       {
-                           Object2, Object2
-                       };
+                {
+                    Object2, Object2
+                };
             }
 
             [Test]
@@ -235,3 +236,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
         }
     }
 }
+#endif

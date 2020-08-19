@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -44,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
                 var exceptionHandlingFilter = new ExceptionHandlingFilter(true);
 
                 exceptionHandlingFilter.ExecuteExceptionFilterAsync(actionExecutedContext, new CancellationToken())
-                                       .Wait();
+                    .Wait();
 
                 response = actionExecutedContext.Response;
             }
@@ -121,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
             public void Should_be_generic_error_message()
             {
                 var resultMessage = result.Content.ReadAsStringAsync()
-                                          .Result;
+                    .Result;
 
                 resultMessage.ShouldBe(ErrorMessage);
             }
@@ -180,7 +181,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
             public void Should_not_be_generic_error_message()
             {
                 var resultMessage = result.Content.ReadAsStringAsync()
-                                          .Result;
+                    .Result;
 
                 resultMessage.ShouldNotBe(ErrorMessage);
             }
@@ -189,3 +190,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
 
 #endregion exception handling tests using Owin Test libraries
 }
+#endif

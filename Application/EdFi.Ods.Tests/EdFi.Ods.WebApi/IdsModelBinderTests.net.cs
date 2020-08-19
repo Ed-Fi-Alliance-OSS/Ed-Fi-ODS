@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Web.Http.Controllers;
@@ -37,19 +38,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
             controllerContext.RouteData = new HttpRouteData(new HttpRoute(), routeDictionary);
 
             var actionContext = new HttpActionContext
-                                {
-                                    ControllerContext = controllerContext
-                                };
+            {
+                ControllerContext = controllerContext
+            };
 
             var bindingContext = new ModelBindingContext
-                                 {
-                                     ModelMetadata = new ModelMetadata(
-                                         new EmptyModelMetadataProvider(),
-                                         typeof(object),
-                                         () => new object(),
-                                         typeof(StudentGetByIds),
-                                         "foo")
-                                 };
+            {
+                ModelMetadata = new ModelMetadata(
+                    new EmptyModelMetadataProvider(),
+                    typeof(object),
+                    () => new object(),
+                    typeof(StudentGetByIds),
+                    "foo")
+            };
 
             var sut = new IdsModelBinder();
             var result = sut.BindModel(actionContext, bindingContext);
@@ -64,19 +65,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
             controllerContext.RouteData = new HttpRouteData(new HttpRoute(), routeDictionary);
 
             var actionContext = new HttpActionContext
-                                {
-                                    ControllerContext = controllerContext
-                                };
+            {
+                ControllerContext = controllerContext
+            };
 
             var bindingContext = new ModelBindingContext
-                                 {
-                                     ModelMetadata = new ModelMetadata(
-                                         new EmptyModelMetadataProvider(),
-                                         typeof(object),
-                                         () => new object(),
-                                         typeof(StudentGetByIds),
-                                         "foo")
-                                 };
+            {
+                ModelMetadata = new ModelMetadata(
+                    new EmptyModelMetadataProvider(),
+                    typeof(object),
+                    () => new object(),
+                    typeof(StudentGetByIds),
+                    "foo")
+            };
 
             var sut = new IdsModelBinder();
             var result = sut.BindModel(actionContext, bindingContext);
@@ -84,3 +85,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi
         }
     }
 }
+#endif

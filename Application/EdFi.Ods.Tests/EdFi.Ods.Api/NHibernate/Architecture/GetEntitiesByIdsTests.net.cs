@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,11 +62,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                     _parameterListSetter);
 
                 getEntitiesByIds.GetByIdsAsync(
-                    new[]
-                    {
-                        Guid.NewGuid()
-                    },
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Guid.NewGuid()
+                        },
+                        CancellationToken.None)
                     .GetResultSafely();
             }
 
@@ -75,9 +76,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 Assert.That(
                     _actualHqlQueries.First(),
                     Is.EqualTo($"from {typeof(School).FullName} a" +
-                        $" left join fetch a.LocalEducationAgencyReferenceData b" +
-                        $" left join fetch a.CharterApprovalSchoolYearTypeReferenceData c" +
-                        $" where a.Id = :id"));
+                               $" left join fetch a.LocalEducationAgencyReferenceData b" +
+                               $" left join fetch a.CharterApprovalSchoolYearTypeReferenceData c" +
+                               $" where a.Id = :id"));
             }
 
             [Assert]
@@ -87,14 +88,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.NHibernate.Architecture
                 var entity = domainModel.GetEntity<School>();
 
                 var aggregateChildEntities = entity.Aggregate.Members
-                                                   .Concat(entity.BaseEntity.Aggregate.Members)
-                                                   .Where(e => !e.IsAggregateRoot)
-                                                   .ToList();
+                    .Concat(entity.BaseEntity.Aggregate.Members)
+                    .Where(e => !e.IsAggregateRoot)
+                    .ToList();
 
                 var expectedQueries = aggregateChildEntities
-                                     .Select(e => GetExpectedQuery(e, entity.Aggregate))
-                                     .OrderBy(x => x)
-                                     .ToList();
+                    .Select(e => GetExpectedQuery(e, entity.Aggregate))
+                    .OrderBy(x => x)
+                    .ToList();
 
                 var expectedHqlQueriesText = string.Join("\r\n", expectedQueries);
                 var actualHqlQueriesText = string.Join("\r\n", _actualHqlQueries.Skip(1).OrderBy(x => x));
@@ -117,9 +118,9 @@ Actual:
                 var inheritedAggregateEntities = entity.BaseEntity.Aggregate.Members.Where(e => !e.IsAggregateRoot);
 
                 var assertions = inheritedAggregateEntities
-                                .Select<Entity, Action>(
-                                     e => () => Assert.That(_actualHqlQueries.Any(hql => hql.Contains("." + e.ParentAssociation.Name))))
-                                .ToArray();
+                    .Select<Entity, Action>(
+                        e => () => Assert.That(_actualHqlQueries.Any(hql => hql.Contains("." + e.ParentAssociation.Name))))
+                    .ToArray();
 
                 AssertHelper.All(assertions);
             }
@@ -150,11 +151,11 @@ Actual:
                     _parameterListSetter);
 
                 getEntitiesByIds.GetByIdsAsync(
-                    new[]
-                    {
-                        Guid.NewGuid()
-                    },
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Guid.NewGuid()
+                        },
+                        CancellationToken.None)
                     .GetResultSafely();
             }
 
@@ -173,14 +174,14 @@ Actual:
                 var entity = domainModel.GetEntity<Student>();
 
                 var aggregateChildEntities = entity.Aggregate
-                                                   .Members
-                                                   .Where(e => !e.IsAggregateRoot)
-                                                   .ToList();
+                    .Members
+                    .Where(e => !e.IsAggregateRoot)
+                    .ToList();
 
                 var expectedQueries = aggregateChildEntities
-                                     .Select(GetExpectedQuery)
-                                     .OrderBy(x => x)
-                                     .ToList();
+                    .Select(GetExpectedQuery)
+                    .OrderBy(x => x)
+                    .ToList();
 
                 var expectedHqlQueriesText = string.Join("\r\n", expectedQueries);
                 var actualHqlQueriesText = string.Join("\r\n", _actualHqlQueries.Skip(1).OrderBy(x => x));
@@ -226,11 +227,11 @@ Actual:
                     _parameterListSetter);
 
                 getEntitiesByIds.GetByIdsAsync(
-                    new[]
-                    {
-                        Guid.NewGuid()
-                    },
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Guid.NewGuid()
+                        },
+                        CancellationToken.None)
                     .GetResultSafely();
             }
 
@@ -241,12 +242,12 @@ Actual:
                 var entity = domainModel.GetEntity<StudentEducationOrganizationAssociation>();
 
                 var aggregateChildEntities = entity.Aggregate
-                                                   .Members
-                                                   .ToList();
+                    .Members
+                    .ToList();
 
                 var expectedQueries = aggregateChildEntities
-                                     .Select(GetExpectedQuery)
-                                     .ToList();
+                    .Select(GetExpectedQuery)
+                    .ToList();
 
                 Assert.That(
                     _actualHqlQueries.OrderBy(x => x.Length),
@@ -258,7 +259,7 @@ Actual:
             {
                 Assert.That(
                     _actualHqlQueries.Any(hql =>
-                    Regex.IsMatch(hql, "left join fetch [a-z]{1,2}\\.\\w+ReferenceData")),
+                        Regex.IsMatch(hql, "left join fetch [a-z]{1,2}\\.\\w+ReferenceData")),
                     "No joins for reference data were found in the aggregate's HQL statements.");
             }
 
@@ -283,24 +284,24 @@ Actual:
                     .Skip(1)
                     // Use Regex to match the child entity collection names from the HQL
                     .Select(
-                         (hql, i) =>
-                             new
-                             {
-                                 Index = i,
-                                 Matches = Regex.Matches(
-                                     hql, "left join fetch [a-z]{1,2}\\.(?<EntityCollection>\\w+(?<!ReferenceData)) ")
-                             })
+                        (hql, i) =>
+                            new
+                            {
+                                Index = i,
+                                Matches = Regex.Matches(
+                                    hql, "left join fetch [a-z]{1,2}\\.(?<EntityCollection>\\w+(?<!ReferenceData)) ")
+                            })
                     // Extract the child entity name from the HQL
                     .Select(
-                         x =>
-                             new
-                             {
-                                 Index = x.Index,
-                                 EntityName = CompositeTermInflector.MakeSingular(
-                                     x.Matches[x.Matches.Count - 1]
-                                      .Groups["EntityCollection"]
-                                      .Value),
-                             }
+                        x =>
+                            new
+                            {
+                                Index = x.Index,
+                                EntityName = CompositeTermInflector.MakeSingular(
+                                    x.Matches[x.Matches.Count - 1]
+                                        .Groups["EntityCollection"]
+                                        .Value),
+                            }
                     )
                     // Create a map of query indices by child entity name
                     .ToDictionary(x => x.EntityName, x => x.Index);
@@ -318,8 +319,8 @@ Actual:
                 // This prevents N+1 behavior where NHibernate performs lazy loading on child records
                 Assert.That(
                     aggregateChildEntities
-                       .Where(childEntity => queryIndexByChildEntityName[childEntity.Name] < queryIndexByChildEntityName[childEntity.Parent.Name])
-                       .Select(childEntity => childEntity.FullName),
+                        .Where(childEntity => queryIndexByChildEntityName[childEntity.Name] < queryIndexByChildEntityName[childEntity.Parent.Name])
+                        .Select(childEntity => childEntity.FullName),
                     Is.Empty,
                     "Queries for some child entities in the aggregate appeared before their parents in the batch. This will cause NHibernate to perform lazy loading (i.e. the ORM \"n+1\" issue), breaking the optimized query batch behavior.");
             }
@@ -340,19 +341,19 @@ Actual:
             IEnumerator<TEntity> IFutureEnumerable<TEntity>.GetEnumerator()
             {
                 return Enumerable.Empty<TEntity>()
-                                 .GetEnumerator();
+                    .GetEnumerator();
             }
 
             IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
             {
                 return Enumerable.Empty<TEntity>()
-                                 .GetEnumerator();
+                    .GetEnumerator();
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
                 return Enumerable.Empty<TEntity>()
-                                 .GetEnumerator();
+                    .GetEnumerator();
             }
         }
 
@@ -365,29 +366,29 @@ Actual:
             var queryStub = A.Fake<IQuery>();
 
             A.CallTo(() => sessionStub.SessionFactory)
-                       .Returns(sessionFactoryStub);
+                .Returns(sessionFactoryStub);
 
             A.CallTo(() => sessionStub.CreateQuery(A<string>._))
                 .Invokes((string query) => { queries.Add(query); })
-                       .Returns(queryStub);
+                .Returns(queryStub);
 
 
             A.CallTo(() => sessionStub.IsOpen).Returns(true);
 
             A.CallTo(() => queryStub.SetParameter(A<string>._, A<Guid>._))
-                     .Returns(queryStub);
+                .Returns(queryStub);
 
             A.CallTo(() => queryStub.Future<TEntity>())
-                     .Returns(new FakeFutureEnumerable<TEntity>());
+                .Returns(new FakeFutureEnumerable<TEntity>());
 
             A.CallTo(() => sessionFactoryStub.OpenSession())
-                              .Returns(sessionStub);
+                .Returns(sessionStub);
 
             A.CallTo(() => sessionFactoryStub.CurrentSessionContext)
-                              .Returns(new ThreadStaticSessionContext(sessionFactoryStub));
+                .Returns(new ThreadStaticSessionContext(sessionFactoryStub));
 
             A.CallTo(() => sessionFactoryStub.GetCurrentSession())
-                              .Returns(sessionStub);
+                .Returns(sessionStub);
 
             return sessionFactoryStub;
         }
@@ -412,14 +413,14 @@ Actual:
                         .Select((a2, i) => $" left join fetch a.{a2.OtherEntity.TypeHierarchyRootEntity.Name}ReferenceData {aliases[i+1]}"))
                     : string.Empty)
                 + string.Join("", associations.Select(a =>
-                                                           a.OtherEntity.IsAggregateExtension
-                                                               ? $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.AggregateExtensions.{a.GetAggregateExtensionBagName()} {aliases[GetDepth(a.OtherEntity)]}"
-                                                               : $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.{a.Name} {aliases[GetDepth(a.OtherEntity)]}"
-                                                                // Add joins for reference data
-                                                               + string.Join("", a.OtherEntity.NonNavigableParents
-                                                                   .Where(a2 => a2.OtherEntity.IsReferenceable())
-                                                                   .Select((a2, i) => $" left join fetch {aliases[GetDepth(a.OtherEntity)]}.{a2.OtherEntity.TypeHierarchyRootEntity.Name}ReferenceData {aliases[GetDepth(a.OtherEntity) + i + 1]}"))
-                        ))
+                    a.OtherEntity.IsAggregateExtension
+                        ? $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.AggregateExtensions.{a.GetAggregateExtensionBagName()} {aliases[GetDepth(a.OtherEntity)]}"
+                        : $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.{a.Name} {aliases[GetDepth(a.OtherEntity)]}"
+                          // Add joins for reference data
+                          + string.Join("", a.OtherEntity.NonNavigableParents
+                              .Where(a2 => a2.OtherEntity.IsReferenceable())
+                              .Select((a2, i) => $" left join fetch {aliases[GetDepth(a.OtherEntity)]}.{a2.OtherEntity.TypeHierarchyRootEntity.Name}ReferenceData {aliases[GetDepth(a.OtherEntity) + i + 1]}"))
+                ))
                 + " where a.Id = :id";
 
             return query;
@@ -445,3 +446,4 @@ Actual:
                 entity.SchemaProperCaseName()) + "." + entity.Name;
     }
 }
+#endif
