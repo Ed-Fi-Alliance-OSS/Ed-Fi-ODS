@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             _systemDateProvider = systemDateProvider;
         }
 
-       // [Route("")]
+       [Route("")]
         public IHttpActionResult Get()
         {
             var dataModels = _domainModelProvider
@@ -70,8 +70,15 @@ namespace EdFi.Ods.Api.Services.Controllers
                     oauth = exposedUrls.OauthUrl,
                     dataManagementApi = exposedUrls.ApiUrl,
                     Url.Request.RequestUri.AbsolutePath,
-                    Url.Request.RequestUri.AbsoluteUri
-                }
+                    Url.Request.RequestUri.AbsoluteUri,
+                    TestUri = new Uri(Url.Request.RequestUri.AbsoluteUri).ToString(),
+                    TestUrl = new Uri(
+                        new Uri(Url.Request.RequestUri.AbsoluteUri),
+                        $"/data/v{ApiVersionConstants.Ods}/" +
+                        (_apiConfigurationProvider.IsYearSpecific()
+                            ? _systemDateProvider.GetDate().Year.ToString()
+                            : string.Empty)).ToString()
+        }
             };
 
             return Ok(content);

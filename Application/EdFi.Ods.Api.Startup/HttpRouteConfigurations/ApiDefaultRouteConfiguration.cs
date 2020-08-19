@@ -78,15 +78,6 @@ namespace EdFi.Ods.Api.Startup.HttpRouteConfigurations
                     : RouteConfigurationHelper.CreateIdRouteConstraints());
 
             config.Routes.MapHttpRoute(
-                name: "VersionGet",
-                routeTemplate: "",
-                defaults: new
-                {
-                    controller = "Version",
-                    action = "get"
-                });
-
-            config.Routes.MapHttpRoute(
                 name: "Root",
                 routeTemplate: "",
                 defaults: new
