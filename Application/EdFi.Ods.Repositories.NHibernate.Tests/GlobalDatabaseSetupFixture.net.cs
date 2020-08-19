@@ -18,7 +18,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
         static GlobalDatabaseSetupFixture()
         {
-            PopulatedDatabaseName = ConfigurationManager.AppSettings["GlobalDatabaseSetupFixture.TestDatabaseTemplateName"];
+            PopulatedDatabaseName = ConfigurationManager.AppSettings["GlobalDatabaseSetupFixture.TestDatabaseTemplateName"] ?? "EdFi_Ods_Populated_Template_Test";
 
             TestPopulatedDatabaseName = DatabasePrefix + Guid.NewGuid()
                                                              .ToString("N");
