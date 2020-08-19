@@ -68,17 +68,8 @@ namespace EdFi.Ods.Api.Services.Controllers
                     openApiMetadata = exposedUrls.MetaDataUrl,
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
-                    dataManagementApi = exposedUrls.ApiUrl,
-                    Url.Request.RequestUri.AbsolutePath,
-                    Url.Request.RequestUri.AbsoluteUri,
-                    TestUri = new Uri(Url.Request.RequestUri.AbsoluteUri).ToString(),
-                    TestUrl = new Uri(
-                        new Uri(Url.Request.RequestUri.AbsoluteUri),
-                        $"/data/v{ApiVersionConstants.Ods}/" +
-                        (_apiConfigurationProvider.IsYearSpecific()
-                            ? _systemDateProvider.GetDate().Year.ToString()
-                            : string.Empty)).ToString()
-        }
+                    dataManagementApi = exposedUrls.ApiUrl
+                }
             };
 
             return Ok(content);
@@ -102,21 +93,10 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
-            exposedUrls.ApiUrl = new Uri(
-                new Uri(Url.Request.RequestUri.AbsoluteUri),
-                  $"/data/v{ApiVersionConstants.Ods}/" +
-                (_apiConfigurationProvider.IsYearSpecific()
-                    ? _systemDateProvider.GetDate().Year.ToString()
-                    : string.Empty)).ToString();
-
-
-
-            //exposedUrls.ApiUrl = new Uri(
-            //    new Uri(Url.Request.RequestUri.AbsoluteUri),
-            //     $"/data/v{ApiVersionConstants.Ods}/" +
-            //    (_apiConfigurationProvider.IsYearSpecific()
-            //        ? _systemDateProvider.GetDate().Year.ToString()
-            //        : string.Empty)).ToString();
+            exposedUrls.ApiUrl = Url.Request.RequestUri.AbsoluteUri + $"data/v{ApiVersionConstants.Ods}/" +
+                                 (_apiConfigurationProvider.IsYearSpecific()
+                                     ? _systemDateProvider.GetDate().Year.ToString()
+                                     : string.Empty);
 
             return exposedUrls;
         }
