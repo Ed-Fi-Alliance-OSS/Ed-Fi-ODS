@@ -86,6 +86,15 @@
     <ProjectReference Include="..\EdFi.Ods.Admin\EdFi.Ods.Admin.csproj" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Web.Extensions" />
+    <None Update="NoAppSettings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleExternal.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
@@ -102,13 +111,5 @@
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Tests.TestExtension\EdFi.Ods.Tests.TestExtension.csproj" />
     <ProjectReference Include="..\Test.Common\Test.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="NoAppSettings.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SampleExternal.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>

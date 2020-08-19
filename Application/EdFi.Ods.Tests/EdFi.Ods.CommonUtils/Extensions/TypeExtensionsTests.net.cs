@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using EdFi.Ods.Common.Utils.Extensions;
 using NUnit.Framework;
@@ -19,14 +20,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
             public void Should_not_report_that_the_type_cannot_be_cast_to_the_other_type()
             {
                 typeof(List<string>).CannotBeCastTo<IEnumerable<string>>()
-                                    .ShouldBeFalse();
+                    .ShouldBeFalse();
             }
 
             [Test]
             public void Should_report_that_it_can_be_cast()
             {
                 typeof(List<string>).CanBeCastTo<IEnumerable<string>>()
-                                    .ShouldBeTrue();
+                    .ShouldBeTrue();
             }
         }
 
@@ -37,15 +38,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
             public void Should_not_report_that_the_type_can_be_cast_to_the_other_type()
             {
                 typeof(List<string>).CanBeCastTo<IEnumerable<int>>()
-                                    .ShouldBeFalse();
+                    .ShouldBeFalse();
             }
 
             [Test]
             public void Should_report_that_it_cannot_be_cast()
             {
                 typeof(List<string>).CannotBeCastTo<IEnumerable<int>>()
-                                    .ShouldBeTrue();
+                    .ShouldBeTrue();
             }
         }
     }
 }
+#endif

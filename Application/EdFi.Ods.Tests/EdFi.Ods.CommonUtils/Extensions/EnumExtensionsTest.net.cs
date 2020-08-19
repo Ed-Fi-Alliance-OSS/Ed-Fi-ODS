@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using EdFi.Ods.Common.Utils.Extensions;
 using NUnit.Framework;
@@ -86,7 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
         }
 
         /// <summary>
-        ///In should give true when a value is among a set of 1 values 
+        ///In should give true when a value is among a set of 1 values
         ///</summary>
         [Test]
         public void InShouldGiveTrueWhen1Among1()
@@ -255,7 +256,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
         public void Should_return_enum_name_when_calling_GetName()
         {
             StringComparison.InvariantCulture.GetName()
-                            .ShouldBe("InvariantCulture");
+                .ShouldBe("InvariantCulture");
         }
 
         /// <summary>
@@ -292,3 +293,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
         }
     }
 }
+#endif

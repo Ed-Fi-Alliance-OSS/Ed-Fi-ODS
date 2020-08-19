@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq.Expressions;
 using EdFi.Ods.Common.Utils.Extensions;
@@ -34,7 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
                 Expression<Func<ExampleClass, object>> expression = x => x.SomeProperty;
 
                 expression.MemberName()
-                          .ShouldBe("SomeProperty");
+                    .ShouldBe("SomeProperty");
             }
         }
 
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
                 Expression<Func<ExampleClass, object>> expression = x => x.SomeMethod();
 
                 expression.MemberName()
-                          .ShouldBe("SomeMethod");
+                    .ShouldBe("SomeMethod");
             }
         }
 
@@ -60,8 +61,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
                 Expression<Func<ExampleClass, object>> expression = x => x.SomeUnary;
 
                 expression.MemberName()
-                          .ShouldBe("SomeUnary");
+                    .ShouldBe("SomeUnary");
             }
         }
     }
 }
+#endif
