@@ -20,7 +20,6 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IApiVersionProvider _apiVersionProvider;
         private readonly ISystemDateProvider _systemDateProvider;
-        
 
         public VersionController(
             IApiConfigurationProvider apiConfigurationProvider,
