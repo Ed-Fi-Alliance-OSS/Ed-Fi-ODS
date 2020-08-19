@@ -105,8 +105,8 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         private void RegisterSystemDateProvider(IWindsorContainer container)
         {
             container.Register(Component.For<ISystemDateProvider>().ImplementedBy<SystemDateProvider>());
-
         }
+
         private void RegisterDefaultPageSizeLimitProvider(IWindsorContainer container)
         {
             container.Register(Component.For<IDefaultPageSizeLimitProvider>().ImplementedBy<DefaultPageSizeLimitProvider>());
