@@ -78,8 +78,10 @@ namespace EdFi.Ods.Api.Services.Controllers
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
                     dataManagementApi = exposedUrls.ApiUrl,
-                    testUrl = $"{Request.RootUrl(_useProxyHeaders)}/oauth/token"
-        }
+                    testUrl = $"{Request.RootUrl(_useProxyHeaders)}/oauth/token",
+                    useProxyHeaders = _useProxyHeaders,
+                    rootUrl = Request.RootUrl(_useProxyHeaders)
+                }
             };
 
             return Ok(content);
