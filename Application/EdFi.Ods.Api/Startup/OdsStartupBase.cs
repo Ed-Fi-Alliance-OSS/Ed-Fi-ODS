@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Helpers;
@@ -33,6 +34,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -103,6 +105,18 @@ namespace EdFi.Ods.Api.Startup
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     })
                 .AddControllersAsServices();
+
+            services.AddMvc()
+                .ConfigureApiBehaviorOptions(
+                    options =>
+                    {
+                        //options.SuppressModelStateInvalidFilter = true;
+                        options.InvalidModelStateResponseFactory = actionContext =>
+                        {
+                             return new BadRequestObjectResult(BadRequestTranslator.GetErrorMessage(actionContext.ModelState));
+                        };
+                    });
+            //.AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<OdsStartupBase>());
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);

@@ -27,6 +27,7 @@ using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -140,7 +141,7 @@ namespace EdFi.Ods.Api.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return BadRequest("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
+                return  new BadRequestObjectResult(BadRequestTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
             }
 
             var internalRequestAsResource = new TResourceReadModel();
@@ -213,11 +214,6 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, [FromQuery] Guid id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             // Manual binding of Id to main request model
             request.Id = id;
 
@@ -256,21 +252,13 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Post([FromBody] TPostRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var validationState = new ValidationState();
             PutResult result;
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                result = new PutResult
-                {
-                    Exception = new BadRequestException("Resource identifiers cannot be assigned by the client.")
-                };
+                return new BadRequestObjectResult(BadRequestTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
             }
             else
             {
