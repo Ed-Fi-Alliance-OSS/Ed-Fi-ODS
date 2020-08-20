@@ -10,6 +10,7 @@ using System.Web.Http;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Http.Extensions;
 using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Services.Controllers
@@ -20,12 +21,15 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IApiVersionProvider _apiVersionProvider;
         private readonly ISystemDateProvider _systemDateProvider;
+        private const string UseReverseProxyHeadersConfigKey = "UseReverseProxyHeaders";
+        private readonly bool _useProxyHeaders;
 
         public VersionController(
             IApiConfigurationProvider apiConfigurationProvider,
             IDomainModelProvider domainModelProvider,
             IApiVersionProvider apiVersionProvider,
-            ISystemDateProvider systemDateProvider)
+            ISystemDateProvider systemDateProvider,
+            IConfigValueProvider configValueProvider)
         {
             Preconditions.ThrowIfNull(apiConfigurationProvider, nameof(apiConfigurationProvider));
             Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
@@ -36,6 +40,12 @@ namespace EdFi.Ods.Api.Services.Controllers
             _domainModelProvider = domainModelProvider;
             _apiVersionProvider = apiVersionProvider;
             _systemDateProvider = systemDateProvider;
+
+            bool tempConfigValue;
+
+            _useProxyHeaders = bool.TryParse(
+                configValueProvider.GetValue(UseReverseProxyHeadersConfigKey),
+                out tempConfigValue) && tempConfigValue;
         }
 
         [Route("")]
@@ -67,8 +77,9 @@ namespace EdFi.Ods.Api.Services.Controllers
                     openApiMetadata = exposedUrls.MetaDataUrl,
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
-                    dataManagementApi = exposedUrls.ApiUrl
-                }
+                    dataManagementApi = exposedUrls.ApiUrl,
+                    testUrl = $"{Request.RootUrl(_useProxyHeaders)}/oauth/token"
+        }
             };
 
             return Ok(content);
@@ -92,10 +103,12 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
 
-            exposedUrls.ApiUrl = Url.Request.RequestUri.AbsoluteUri + $"data/v{ApiVersionConstants.Ods}/" +
-                                 (_apiConfigurationProvider.IsYearSpecific()
-                                     ? _systemDateProvider.GetDate().Year.ToString()
-                                     : string.Empty);
+            exposedUrls.ApiUrl = new Uri(Request.RootUrl(_useProxyHeaders)) + $"data/v{ApiVersionConstants.Ods}/" +
+                                         (_apiConfigurationProvider.IsYearSpecific()
+                                             ? _systemDateProvider.GetDate().Year.ToString()
+                                             : string.Empty);
+
+
 
             return exposedUrls;
         }
