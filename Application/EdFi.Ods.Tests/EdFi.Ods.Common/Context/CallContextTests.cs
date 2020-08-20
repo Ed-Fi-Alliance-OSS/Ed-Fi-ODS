@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
@@ -78,27 +79,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
                 );
             }
 
-            // TODO ODS-4043 need to sort how to do call context in the future.
-            // [Test]
-            // public void Should_pass_data_between_treads_for_d2()
-            // {
-            //     AssertHelper.All(
-            //         () => Assert.AreSame(_d2, _t2),
-            //         () => Assert.AreSame(_d2, _t20),
-            //         () => Assert.AreSame(_d2, _t21),
-            //         () => Assert.AreSame(_d2, _t22),
-            //         () => Assert.AreSame(_d2, _t23)
-            //     );
-            // }
+            [Test]
+            public void Should_pass_data_between_treads_for_d2()
+            {
+                AssertHelper.All(
+                    () => Assert.AreSame(_d2, _t2),
+                    () => Assert.AreSame(_d2, _t20),
+                    () => Assert.AreSame(_d2, _t21),
+                    () => Assert.AreSame(_d2, _t22),
+                    () => Assert.AreSame(_d2, _t23)
+                );
+            }
 
-            // TODO ODS-4043 need to sort how to do call context in the future.
-            // [Test]
-            // public void Should_return_null_when_getting_data_for_d1() => Assert.IsNull(CallContext.GetData("d1"));
+            [Test]
+            public void Should_return_null_when_getting_data_for_d1() => Assert.IsNull(CallContext.GetData("d1"));
 
-            // TODO ODS-4043 need to sort how to do call context in the future.
-            // [Test]
-            // public void Should_return_null_when_getting_data_for_d2() => Assert.IsNull(CallContext.GetData("d2"));
+            [Test]
+            public void Should_return_null_when_getting_data_for_d2() => Assert.IsNull(CallContext.GetData("d2"));
         }
     }
 }
-
+#endif
