@@ -517,7 +517,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 A.CallTo(
                     () => _suppliedSourceExtension2Object.Map(A<object>.That.Equals(expectedTarget)));
-
             }
 
             [Assert]
