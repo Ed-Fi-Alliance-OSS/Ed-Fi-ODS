@@ -856,9 +856,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
                     {
                         "Extension1", _suppliedSourceExtension1Object
                     },
+
+                    // Not supported
                     {
                         "Extension2", _suppliedSourceExtension2Object
-                    } // Not supported
+                    }
                 };
 
                 // Source resource doesn't support Extension2
