@@ -81,8 +81,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
                     dataManagementApi = exposedUrls.ApiUrl,
-                },
-                schema = request.Scheme(_useProxyHeaders)
+                }
             };
 
             return Ok(content);
@@ -103,9 +102,9 @@ namespace EdFi.Ods.Api.Services.Controllers
                                           ? currentYear
                                           : string.Empty);
 
-            exposedUrls.OauthUrl = Request.RootUrl(_useProxyHeaders) + "oauth/token";
+            exposedUrls.OauthUrl = Request.RootUrl(_useProxyHeaders) + "/oauth/token";
 
-            exposedUrls.ApiUrl = Request.RootUrl(_useProxyHeaders) + $"data/v{ApiVersionConstants.Ods}/" +
+            exposedUrls.ApiUrl = Request.RootUrl(_useProxyHeaders) + $"/data/v{ApiVersionConstants.Ods}/" +
                                  (_apiConfigurationProvider.IsYearSpecific()
                                      ? _systemDateProvider.GetDate().Year.ToString()
                                      : string.Empty);
