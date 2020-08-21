@@ -13,10 +13,15 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {
-    public class ErrorTranslator
+    public static class ErrorTranslator
     {
         public static object GetErrorMessage(ModelStateDictionary modelState)
         {
+            if (modelState.Keys.All(string.IsNullOrEmpty) && modelState.Values.Any())
+            {
+                return new {Message = string.Join(",", modelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)))};
+            }
+
             var modelStateMessage = modelState
                 .ToDictionary(
                     kvp => "request." + kvp.Key,
@@ -32,10 +37,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
         public static object GetErrorMessage(string message)
         {
-            return new
-            {
-                Message = message,
-            };
+            return new {Message = message};
         }
     }
 }

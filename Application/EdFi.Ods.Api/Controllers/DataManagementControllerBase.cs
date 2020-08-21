@@ -323,9 +323,14 @@ namespace EdFi.Ods.Api.Controllers
                     var urlBuilder = new UriBuilder
                     {
                         Scheme = Request.Scheme,
-                        Host = Request.Host.ToString(),
+                        Host = Request.Host.Host,
                         Path = Request.Path
                     };
+
+                    if (Request.Host.Port.HasValue)
+                    {
+                        urlBuilder.Port = Request.Host.Port.Value;
+                    }
 
                     _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
                 }
