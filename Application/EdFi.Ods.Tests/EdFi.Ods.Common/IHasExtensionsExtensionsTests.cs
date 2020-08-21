@@ -645,7 +645,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common
 
                 A.CallTo(() => _suppliedNonEmptyImplicitSourceExtensionObject.Map(A<object>.That
                     .IsSameAs(expectedTarget))).MustHaveHappenedOnceExactly();
-
             }
 
             [Assert]
