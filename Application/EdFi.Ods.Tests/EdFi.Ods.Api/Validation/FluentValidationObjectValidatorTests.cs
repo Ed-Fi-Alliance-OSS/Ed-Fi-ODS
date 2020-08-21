@@ -162,7 +162,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
 
             protected override void Act()
             {
-                // Execute code under test
                 var explicitValidator = new FluentValidationObjectValidator(
                     new IValidator[]
                     {
