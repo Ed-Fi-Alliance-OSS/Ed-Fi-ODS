@@ -315,10 +315,11 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
+                        // Multiple types of EdOrgIds
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds
+                    },
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
