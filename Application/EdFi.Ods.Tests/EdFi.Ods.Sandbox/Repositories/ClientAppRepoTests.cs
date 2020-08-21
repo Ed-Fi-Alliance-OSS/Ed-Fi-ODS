@@ -28,7 +28,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
             [OneTimeSetUp]
             public void Setup()
             {
-
                 var configValueProviderStub = A.Fake<IConfigurationRoot>();
                 var usersContext = A.Fake<IUsersContext>();
 
