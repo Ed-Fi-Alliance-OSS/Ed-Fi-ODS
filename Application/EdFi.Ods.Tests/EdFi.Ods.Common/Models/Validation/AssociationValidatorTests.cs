@@ -105,7 +105,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                         })
                 };
 
-                //  schema names do not match the names on the AggregateDefinition
+                // schema names do not match the names on the AggregateDefinition
                 var schemaDefinition = new SchemaDefinition("logicalName", "schema1");
 
                 var modelDefinitions = new DomainModelDefinitions(
@@ -224,7 +224,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                         })
                 };
 
-                //  schema names do not match the names on the AggregateDefinition
+                // schema names do not match the names on the AggregateDefinition
                 var schemaDefinition = new SchemaDefinition("logicalName", "schema1");
 
                 var modelDefinitions = new DomainModelDefinitions(

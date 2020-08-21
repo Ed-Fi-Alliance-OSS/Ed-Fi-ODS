@@ -285,7 +285,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected void Act()
             {
-                // Execute code under test
                 _actualFilterContext = _actualFilterContext.GetChildContext("Collection1Items");
             }
 
@@ -353,7 +352,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected void Act()
             {
-                // Execute code under test
                 _actualFilterContext = _actualFilterContext.GetChildContext("EmbeddedObject1");
             }
 
@@ -420,7 +418,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected void Act()
             {
-                // Execute code under test
                 _actualFilterContext = _actualFilterContext.GetChildContext("ExtensionEntity");
             }
 

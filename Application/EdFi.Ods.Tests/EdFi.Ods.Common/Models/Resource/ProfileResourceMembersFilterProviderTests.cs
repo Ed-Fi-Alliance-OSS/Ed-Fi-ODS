@@ -357,7 +357,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = new Resource_Resource("TestResource");
 
-                // Execute code under test
                 var filterProvider = new ProfileResourceMembersFilterProvider();
 
                 var definition = XElement.Parse(
@@ -475,7 +474,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected override void Act()
             {
-                // Execute code under test
                 _suppliedResource = GetTestResource();
 
                 var filterProvider = new ProfileResourceMembersFilterProvider();
@@ -553,7 +551,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = GetTestResourceForWithAnExtension();
 
-                // Execute code under test
                 var filterProvider = new ProfileResourceMembersFilterProvider();
 
                 var definition = XElement.Parse(

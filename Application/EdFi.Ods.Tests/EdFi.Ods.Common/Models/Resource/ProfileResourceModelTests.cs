@@ -135,7 +135,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </Resource>
 </Profile>");
 
-                // Execute code under test
                 _actualProfileResourceModel = new ProfileResourceModel(GetTestResourceModel(), profileDefinition);
             }
 

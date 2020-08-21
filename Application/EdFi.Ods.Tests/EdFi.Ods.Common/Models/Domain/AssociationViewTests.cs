@@ -246,8 +246,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -387,8 +388,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -405,8 +407,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedTooProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -546,8 +549,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: false,
                         isRequired: true));
 
@@ -686,8 +690,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedTooProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -811,8 +816,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -968,8 +974,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -1238,8 +1245,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new FullName("schema", "RelatedThing"),
                         new[]
                         {
+                            // Role-named secondary association
                             CreateIdentifyingInt32Property("RelatedProperty1")
-                        }, // Role-named secondary association
+                        },
                         isIdentifying: true,
                         isRequired: true));
 
@@ -1477,7 +1485,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new[]
                         {
                             new FullName("edfi", "OpenStaffPosition")
-                        })); //, new FullName("edfi", "OpenStaffPositionAcademicSubject"), new FullName("edfi", "OpenStaffPositionInstructionalGradeLevel") });
+                        }));
 
                 bldr.AddEntity(
                     new EntityDefinition(
@@ -2558,12 +2566,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
                     .Where(a =>
                         a.ThisEntity.ParentAssociation.Inverse.IsRequired
+
                         // Check one level up for required child items (if it's in the there)
                         && (a.ThisEntity.Parent.Parent == null
                             || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
                                 && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                             || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming
                                 && a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired))
+
                         // Check two levels up for required child items (if it's in the there)
                         && (a.ThisEntity.Parent.Parent?.Parent == null
                             || (a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne
@@ -2576,10 +2586,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                     .Where(a => a.ThisEntity.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming)
                     .Where(a =>
                         !a.ThisEntity.ParentAssociation.Inverse.IsRequired
+
                         // Check one level up for optional child items (if it's in the there)
                         || (a.ThisEntity.Parent.Parent != null
                             && ((a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequiredCollection)
                                 || (a.ThisEntity.Parent.ParentAssociation.AssociationType == AssociationViewType.OneToOneIncoming && !a.ThisEntity.Parent.ParentAssociation.Inverse.IsRequired)))
+
                         // Check two levels up for optional child items (if it's in the there)
                         || (a.ThisEntity.Parent.Parent?.Parent != null
                             && ((a.ThisEntity.Parent.Parent.ParentAssociation.AssociationType == AssociationViewType.ManyToOne && !a.ThisEntity.Parent.Parent.ParentAssociation.Inverse.IsRequiredCollection)
@@ -2856,7 +2868,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             {
                 var associations = _resourceModel.GetAllResources()
                     .SelectMany(res => res.EmbeddedObjects)
-                    // .Where(eo => eo.Association.IsRequired)
                     .SelectMany(eo => eo.ObjectType.References.Where(r => !r.IsRequired))
                     .Select(r => r.Association)
                     .ToList();

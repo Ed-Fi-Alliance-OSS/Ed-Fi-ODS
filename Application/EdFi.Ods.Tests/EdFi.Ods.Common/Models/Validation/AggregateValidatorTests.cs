@@ -64,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                     new FullName[0])
             };
 
-            //  schema names do not match the names on the AggregateDefinition
+            // schema names do not match the names on the AggregateDefinition
             var schemaDefinition = new SchemaDefinition("logicalName", "DefinedSchema");
 
             var modelDefinitions = new DomainModelDefinitions(

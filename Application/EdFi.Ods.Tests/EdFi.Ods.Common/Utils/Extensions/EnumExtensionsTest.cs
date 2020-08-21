@@ -12,9 +12,9 @@ using Shouldly;
 namespace EdFi.Ods.Tests.EdFi.Ods.CommonUtils.Extensions
 {
     /// <summary>
-    ///This is a test class for EnumExtensionsTest and is intended
-    ///to contain all EnumExtensionsTest Unit Tests
-    ///</summary>
+    /// This is a test class for EnumExtensionsTest and is intended
+    /// to contain all EnumExtensionsTest Unit Tests
+    /// </summary>
     [TestFixture]
     public class EnumExtensionsTest
     {
