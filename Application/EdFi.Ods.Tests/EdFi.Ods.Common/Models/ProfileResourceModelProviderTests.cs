@@ -152,7 +152,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Models
                     .Returns(GetTestResourceModel());
 
                 profileresourceModelProvider = new ProfileResourceModelProvider(resourceModelProvider, profileMetadaProvider);
-
             }
 
             protected override void Act()
