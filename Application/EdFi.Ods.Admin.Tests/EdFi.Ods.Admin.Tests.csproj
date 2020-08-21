@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>net48</TargetFrameworks>
     <AssemblyName>EdFi.Ods.Admin.Tests</AssemblyName>
     <RootNamespace>EdFi.Ods.Admin.Tests</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.22" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>

@@ -30,6 +30,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Shouldly" Version="3.0.2" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.22" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
