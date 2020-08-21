@@ -50,7 +50,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox
                     .Returns(dbSet);
             }
 
-
             [Test]
             public void Should_get_client_with_key_and_secret()
             {
