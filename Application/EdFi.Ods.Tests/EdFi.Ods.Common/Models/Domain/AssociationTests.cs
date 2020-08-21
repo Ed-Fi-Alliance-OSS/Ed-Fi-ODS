@@ -23,8 +23,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         protected override void Act()
         {
             var domainModelBuilder = new DomainModelBuilder();
-
-            // Perform the action to be tested
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
                     new FullName("schema", "Parent"),
