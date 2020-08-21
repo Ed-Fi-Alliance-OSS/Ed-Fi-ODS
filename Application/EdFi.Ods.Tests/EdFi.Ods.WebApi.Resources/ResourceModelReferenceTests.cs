@@ -46,8 +46,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
                 _modelInterface = _model;
 
                 // Set only the required "key" properties on the main model
-                _modelInterface.StaffUniqueId =
-                    "ABC123"; // This also serves as part of the optional reference, but is "unified" (or shared) from other references.
+                // This also serves as part of the optional reference, but is "unified" (or shared) from other references.
+                _modelInterface.StaffUniqueId = "ABC123";
 
                 _modelInterface.EducationOrganizationId = 123;
                 _modelInterface.StaffClassificationDescriptor = "Hello";
