@@ -67,7 +67,7 @@ namespace EdFi.Ods.Tests.EdFi.Common.Context
             {
                 new CallContextStorage().SetValue("MyReallyAwesomeKey", "My Cool Value");
 
-                //Sanity Check
+                // Sanity Check
                 var sameThreadValue = new CallContextStorage().GetValue<string>("MyReallyAwesomeKey");
                 sameThreadValue.ShouldBe("My Cool Value");
                 Console.WriteLine("Same thread value works fine");
