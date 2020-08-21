@@ -134,10 +134,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.Common.Validation
                 var explicitValidator = new FluentValidationObjectValidator(
                     new IValidator[]
                     {
-                        new EvenAgeValidator(), // Does not apply to Pets or define validations for the "ShortNames" ruleset
-                        new ShortFirstNameValidator(), // Has a "ShortNames" ruleset, but does not apply to Pets
-                        new ShortLastNameValidator(), // Has a "ShortNames" ruleset, but does not apply to Pets
-                        new CatsAndDogsOnlyValidator() // Applies to Pets, but does not have a "ShortNames" ruleset
+
+                        // Does not apply to Pets or define validations for the "ShortNames" ruleset
+                        new EvenAgeValidator(),
+
+                        // Has a "ShortNames" ruleset, but does not apply to Pets
+                        new ShortFirstNameValidator(),
+
+                        // Has a "ShortNames" ruleset, but does not apply to Pets
+                        new ShortLastNameValidator(),
+
+                        // Applies to Pets, but does not have a "ShortNames" ruleset
+                        new CatsAndDogsOnlyValidator() 
                     });
 
                 var pet = new Pet
