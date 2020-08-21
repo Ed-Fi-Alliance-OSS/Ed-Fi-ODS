@@ -75,7 +75,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
             [Assert]
             public void Multiple_null_arguments_should_trigger_filter()
             {
-
                 var actionFilter = new CheckModelForNullAttribute();
                 actioncontext = new ActionContext();
                 actioncontext.HttpContext = A.Fake<HttpContext>();
