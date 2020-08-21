@@ -289,6 +289,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                     {
                         ContextSpecificResourceReference = new
                         {
+                            NamespacePrefix = resource.GetNamespacePrefix(),
                             ReferenceName = string.Format(
                                 "{0}To{1}",
                                 av.ThisEntity.Name,

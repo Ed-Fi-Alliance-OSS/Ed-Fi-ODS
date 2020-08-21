@@ -133,19 +133,19 @@ namespace {{ResourceClassesNamespace}}
     [ExcludeFromCodeCoverage]
     public class {{ReferenceName}}Reference
     {
-        private I{{ThisEntityName}} backReference;
+        private {{NamespacePrefix}}I{{ThisEntityName}} backReference;
 
         // Parameterless constructor for deserialization
         public {{ReferenceName}}Reference() { }
 
         // Constructor for inline initialization in parent
-        public {{ReferenceName}}Reference(I{{ThisEntityName}} backReference)
+        public {{ReferenceName}}Reference({{NamespacePrefix}}I{{ThisEntityName}} backReference)
         {
             this.backReference = backReference;
         }
 
         // Expose back reference internally for access after JSON deserialization to enable link generation
-        internal I{{ThisEntityName}} BackReference
+        internal {{NamespacePrefix}}I{{ThisEntityName}} BackReference
         {
             get { return backReference; }
             set { backReference = value; }
@@ -1322,7 +1322,7 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#UnifiedPropertyIsFromParent}}
                 // Obtain value from the parent
-                yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as I{{ResourceClassName}}).{{ParentResourceClassName}}.{{UnifiedPropertyName}});
+                yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as {{NamespacePrefix}}I{{ResourceClassName}}).{{ParentResourceClassName}}.{{UnifiedPropertyName}});
                     
                 {{/UnifiedPropertyIsFromParent}}
                 {{#References}}
