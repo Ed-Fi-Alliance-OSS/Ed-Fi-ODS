@@ -66,7 +66,6 @@ namespace EdFi.Ods.Tests.EdFi.Common.Context
 
             var actual = httpContextStorage.GetValue<TestObject>(key);
             actual.Text.ShouldBe(expected);
-
         }
     }
 }
