@@ -1863,7 +1863,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         {
             protected override void SetPrincipalAndStrategyAndContextValues()
             {
-                //If the principal doesnt have the right claim for the resource it should fail.
+                // If the principal doesn't have the right claim for the resource it should fail.
                 SuppliedPrincipalClaim = "http://ed-fi.org/ods/identity/claims/domains/edFiTypes";
                 SuppliedResourceAuthorizationClaim = "http://ed-fi.org/ods/identity/claims/domains/edFiTypes";
 
