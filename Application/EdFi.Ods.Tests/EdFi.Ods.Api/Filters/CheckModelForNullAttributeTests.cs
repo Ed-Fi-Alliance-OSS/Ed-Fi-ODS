@@ -92,7 +92,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
 
                 var responseMessage = response.Value;
                 responseMessage.ShouldBe("The request is invalid because it is missing request', 'classParameter ");
-
             }
         }
     }
