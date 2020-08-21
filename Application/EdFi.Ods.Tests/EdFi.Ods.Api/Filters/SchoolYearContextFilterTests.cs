@@ -43,7 +43,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Filters
             ActionExecutingContext context = new ActionExecutingContext(actioncontext, filtermetadata, actionArguments, controller);
             context.HttpContext.Request.RouteValues = keyValuePairs;
             return context;
-
         }
 
         protected override void Arrange()
