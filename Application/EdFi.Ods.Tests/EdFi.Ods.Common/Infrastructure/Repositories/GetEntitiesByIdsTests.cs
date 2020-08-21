@@ -410,6 +410,7 @@ Actual:
 
             string query =
                 $"from {GetEntityFullTypeName(aggregate.AggregateRoot)} a"
+
                 // Add joins for aggregate root reference data
                 + (entity == aggregate.AggregateRoot
                     ? string.Join("", aggregate.AggregateRoot.NonNavigableParents
