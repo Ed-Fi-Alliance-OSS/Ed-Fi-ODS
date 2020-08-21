@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Common.Attributes
@@ -56,11 +55,8 @@ namespace EdFi.Ods.Common.Attributes
                     }
                     else
                     {
-                        var extensionBagNameParts = SystemConventions.GetExtensionBagNameParts((string) entry.Key);
-
-                        compositeResults.AddResult(
-                            new ValidationResult(
-                                $"{context.DisplayName} ({extensionBagNameParts.SchemaProperCaseName}): {itemResult}"));
+                        var schemaProperCaseName = entry.Key;
+                        compositeResults.AddResult(new ValidationResult($"{context.DisplayName} ({schemaProperCaseName}): {itemResult}"));
                     }
                 }
             }
