@@ -111,7 +111,7 @@ namespace EdFi.Ods.Features.Controllers
                     if (int.TryParse(limitAsObject.ToString(), out int limit)
                         && (limit <= 0 || limit > 100))
                     {
-                        return BadRequest("Limit must be omitted or set to a value between 1 and 100.");
+                        return BadRequest(ErrorTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and 100."));
                     }
                 }
 

@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Security;
@@ -57,7 +58,7 @@ namespace EdFi.Ods.Features.Controllers
             if (tokenInfoRequest == null || tokenInfoRequest.Token == null ||
                 !Guid.TryParse(tokenInfoRequest.Token, out Guid accessToken))
             {
-                return BadRequest("Invalid token");
+                return BadRequest(ErrorTranslator.GetErrorMessage("Invalid token"));
             }
 
             var oAuthTokenClient = (await _tokenClientRepo.GetClientForTokenAsync(accessToken)).FirstOrDefault();

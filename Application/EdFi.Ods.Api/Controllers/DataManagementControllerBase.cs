@@ -27,7 +27,6 @@ using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -127,7 +126,7 @@ namespace EdFi.Ods.Api.Controllers
 
             return string.IsNullOrWhiteSpace(restError.Message)
                 ? (IActionResult) StatusCode(restError.Code)
-                : StatusCode(restError.Code, restError.Message);
+                : StatusCode(restError.Code, ErrorTranslator.GetErrorMessage(restError.Message));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -141,7 +140,7 @@ namespace EdFi.Ods.Api.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return  new BadRequestObjectResult(BadRequestTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
+                return  BadRequest(ErrorTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
             }
 
             var internalRequestAsResource = new TResourceReadModel();
@@ -258,7 +257,7 @@ namespace EdFi.Ods.Api.Controllers
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                return new BadRequestObjectResult(BadRequestTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
+                return BadRequest(ErrorTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
             }
             else
             {

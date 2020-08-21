@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {
-    public class BadRequestTranslator
+    public class ErrorTranslator
     {
         public static object GetErrorMessage(ModelStateDictionary modelState)
         {

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models.GraphML;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -57,7 +58,7 @@ namespace EdFi.Ods.Features.Controllers
                 string message = e.Message.Replace($"{Environment.NewLine}    is used by ", " -> ")
                     .Replace(Environment.NewLine, " ");
 
-                return BadRequest(message);
+                return BadRequest(ErrorTranslator.GetErrorMessage(message));
             }
         }
 

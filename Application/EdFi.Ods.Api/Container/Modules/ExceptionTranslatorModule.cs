@@ -13,8 +13,8 @@ namespace EdFi.Ods.Api.Container.Modules {
         protected override void Load(ContainerBuilder builder)
         {
             // All exception translators
-            builder.RegisterTypes()
-                .Where(t => t == typeof(IExceptionTranslator))
+            builder.RegisterAssemblyTypes(ThisAssembly)
+                .Where(t => typeof(IExceptionTranslator).IsAssignableFrom(t))
                 .As<IExceptionTranslator>()
                 .AsSelf();
         }
