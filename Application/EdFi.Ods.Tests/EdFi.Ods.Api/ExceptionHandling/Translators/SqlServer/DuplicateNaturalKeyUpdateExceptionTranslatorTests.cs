@@ -100,49 +100,49 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             }
         }
 
-        [TestFixture]
-        public class When_an_nHibernate_StaleObjectState_exception_is_thrown : TestFixtureBase
-        {
-            private Exception exception;
-            private bool result;
-            private RESTError actualError;
-
-            protected void EstablishContext()
-            {
-                exception = new StaleObjectStateException("Some entity", "some object key");
-            }
-
-            protected void ExecuteBehavior()
-            {
-                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-                result = translator.TryTranslateMessage(exception, out actualError);
-            }
-
-            [Test]
-            public void Should_handle_this_exception()
-            {
-                result.ShouldBeTrue();
-            }
-
-            [Test]
-            public void Should_set_a_reasonable_message()
-            {
-                actualError.Message.ShouldBe(
-                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
-            }
-
-            [Test]
-            public void Should_set_the_exception_type_to_conflict()
-            {
-                actualError.Type.ShouldBe("Conflict");
-            }
-
-            [Test]
-            public void Should_translate_the_exception_to_a_409_error()
-            {
-                actualError.Code.ShouldBe(409);
-            }
-        }
+        // [TestFixture]
+        // public class When_an_nHibernate_StaleObjectState_exception_is_thrown : TestFixtureBase
+        // {
+        //     private Exception exception;
+        //     private bool result;
+        //     private RESTError actualError;
+        //
+        //     protected void EstablishContext()
+        //     {
+        //         exception = new StaleObjectStateException("Some entity", "some object key");
+        //     }
+        //
+        //     protected void ExecuteBehavior()
+        //     {
+        //         var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
+        //         result = translator.TryTranslateMessage(exception, out actualError);
+        //     }
+        //
+        //     [Test]
+        //     public void Should_handle_this_exception()
+        //     {
+        //         result.ShouldBeTrue();
+        //     }
+        //
+        //     [Test]
+        //     public void Should_set_a_reasonable_message()
+        //     {
+        //         actualError.Message.ShouldBe(
+        //             "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
+        //     }
+        //
+        //     [Test]
+        //     public void Should_set_the_exception_type_to_conflict()
+        //     {
+        //         actualError.Type.ShouldBe("Conflict");
+        //     }
+        //
+        //     [Test]
+        //     public void Should_translate_the_exception_to_a_409_error()
+        //     {
+        //         actualError.Code.ShouldBe(409);
+        //     }
+        // }
 
         [TestFixture]
         public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_exception_of_the_wrong_type : TestFixtureBase

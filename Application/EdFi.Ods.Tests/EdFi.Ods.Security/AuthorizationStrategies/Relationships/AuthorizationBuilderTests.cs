@@ -345,256 +345,256 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 #endregion
     }
 
-    public class
-        When_building_authorization_segments_for_LocalEducationAgency_claims_to_be_associated_with_a_StaffUniqueId_and_a_simple_value_association_rule_for_the_contextual_School_to_be_associated_with_the_StaffUniqueId
-        : TestFixtureBase
-    {
-        private ClaimsAuthorizationSegment _actualLocalEducationAgencySegment;
-
-        // Dependencies
-        private IEducationOrganizationCache _educationOrganizationCache;
-        private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
-
-        // Actual values
-        private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
-        private List<Claim> _suppliedClaims;
-
-        // Supplied values
-        private RelationshipsAuthorizationContextData _suppliedContextData;
-
-        protected override void Act()
-        {
-#region Commented out code for integration testing against SQL Server
-
-            //private IDatabaseConnectionStringProvider connectionStringProvider;
-
-            //connectionStringProvider = mocks.Stub<IDatabaseConnectionStringProvider>();
-            //connectionStringProvider.Stub(x => x.GetConnectionString())
-            //    .Return(@"Server=(local);Database=database;User Id=user;Password=xxxxx");
-
-            //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
-            //executor.Execute(actualAuthorizationRules);
-
-#endregion
-
-            _suppliedContextData = new RelationshipsAuthorizationContextData
-            {
-                SchoolId = 880001,
-                StaffUSI = 738953 //340DFAFA-D39B-4A38-BEA4-AD705CC7EB7C
-            };
-
-            _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
-                "manage",
-                new List<int>
-                {
-                    780, 880, 980
-                });
-
-            _suppliedClaims = new List<Claim>
-            {
-                JsonClaimHelper.CreateClaim(
-                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                    _suppliedEdFiResourceClaimValue)
-            };
-
-            _educationOrganizationCache = Stub<IEducationOrganizationCache>();
-
-            A.CallTo(
-                    () =>
-                        _educationOrganizationCache.GetEducationOrganizationIdentifiers(A<int>._))
-                .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
-        }
-
-        protected void ExecuteBehavior()
-        {
-            var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
-                _suppliedClaims,
-                _educationOrganizationCache,
-                _suppliedContextData);
-
-            _actualAuthorizationSegments = builder
-                .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
-                .GetSegments();
-
-            _actualLocalEducationAgencySegment = _actualAuthorizationSegments.SingleOrDefault(
-                s =>
-                    s.SubjectEndpoint.Name == "LocalEducationAgencyId"
-                    || s.ClaimsEndpoints.All(
-                        x => x.Name == "LocalEducationAgencyId"));
-        }
-
-        [Test]
-        public void Should_create_1_claims_authorization_segment()
-        {
-            _actualAuthorizationSegments.Count().ShouldBe(1);
-        }
-
-        [Test]
-        public void Should_require_the_StaffUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
-        {
-            var staffUniqueIdEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
-                as AuthorizationSegmentEndpointWithValue;
-
-            staffUniqueIdEndpointWithValue.ShouldNotBeNull(
-                "The staffUSI endpoint in the claims based authorization segment did not have a contextual value.");
-
-            staffUniqueIdEndpointWithValue.Name.ShouldBe("StaffUSI");
-            staffUniqueIdEndpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
-
-            // Make sure the counts are the same
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
-                .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
-
-            // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
-                .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
-                .ShouldBeTrue();
-
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                .All(n => n == "LocalEducationAgencyId")
-                .ShouldBeTrue();
-        }
-
-        [Test]
-        public void Should_return_a_LocalEducationAgency_segment()
-        {
-            _actualLocalEducationAgencySegment.ShouldNotBeNull();
-        }
-
-        [Test]
-        public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
-        {
-            _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StaffUSI");
-            var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
-
-            endpointWithValue.ShouldNotBeNull(
-                "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
-
-            endpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
-        }
-    }
-
-    public class
-        When_building_authorization_segments_for_LocalEducationAgency_claims_to_be_associated_with_a_Student_with_an_alternative_authorization_path
-        : TestFixtureBase
-    {
-        private ClaimsAuthorizationSegment _actualLocalEducationAgencySegment;
-
-        // Dependencies
-        private IEducationOrganizationCache _educationOrganizationCache;
-        private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
-
-        // Actual values
-        private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
-        private List<Claim> suppliedClaims;
-
-        // Supplied values
-        private RelationshipsAuthorizationContextData suppliedContextData;
-
-        protected void EstablishContext()
-        {
-            suppliedContextData = new RelationshipsAuthorizationContextData
-            {
-                StudentUSI = 11111
-            };
-
-            _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
-                "manage",
-                new List<int>
-                {
-                    1, 2, 3
-                });
-
-            suppliedClaims = new List<Claim>
-            {
-                JsonClaimHelper.CreateClaim(
-                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                    _suppliedEdFiResourceClaimValue)
-            };
-
-            _educationOrganizationCache = Stub<IEducationOrganizationCache>();
-
-            A.CallTo(
-                    () =>
-                        _educationOrganizationCache.GetEducationOrganizationIdentifiers(A<int>._))
-                .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
-        }
-
-        protected void ExecuteBehavior()
-        {
-            var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
-                suppliedClaims,
-                _educationOrganizationCache,
-                suppliedContextData);
-
-            _actualAuthorizationSegments = builder
-                .ClaimsMustBeAssociatedWith(x => x.StudentUSI, "OverTheRiverAndThroughTheWoods")
-                .GetSegments();
-
-            _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
-                s =>
-                    s.SubjectEndpoint.Name == "LocalEducationAgencyId"
-                    || s.ClaimsEndpoints.All(
-                        x => x.Name == "LocalEducationAgencyId"));
-        }
-
-        [Assert]
-        public void Should_use_authorization_path_modifier_for_authorizing_the_segment()
-        {
-            Assert.That(
-                _actualLocalEducationAgencySegment.AuthorizationPathModifier,
-                Is.EqualTo("OverTheRiverAndThroughTheWoods"));
-        }
-
-        [Test]
-        public void Should_create_a_single_claims_authorization_segment()
-        {
-            _actualAuthorizationSegments.Count().ShouldBe(1);
-        }
-
-        [Test]
-        public void Should_require_the_StudentUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
-        {
-            var studentUSIEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
-                as AuthorizationSegmentEndpointWithValue;
-
-            studentUSIEndpointWithValue.ShouldNotBeNull(
-                "The StudentUSI endpoint in the claims based authorization segment did not have a contextual value.");
-
-            studentUSIEndpointWithValue.Name.ShouldBe("StudentUSI");
-            studentUSIEndpointWithValue.Value.ShouldBe(suppliedContextData.StudentUSI);
-
-            // Make sure the counts are the same
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
-                .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
-
-            // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
-                .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
-                .ShouldBeTrue();
-
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                .All(n => n == "LocalEducationAgencyId")
-                .ShouldBeTrue();
-        }
-
-        [Test]
-        public void Should_return_a_LocalEducationAgency_segment()
-        {
-            _actualLocalEducationAgencySegment.ShouldNotBeNull();
-        }
-
-        [Test]
-        public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
-        {
-            _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StudentUSI");
-            var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
-
-            endpointWithValue.ShouldNotBeNull(
-                "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
-
-            endpointWithValue.Value.ShouldBe(suppliedContextData.StudentUSI);
-        }
-    }
+//     public class
+//         When_building_authorization_segments_for_LocalEducationAgency_claims_to_be_associated_with_a_StaffUniqueId_and_a_simple_value_association_rule_for_the_contextual_School_to_be_associated_with_the_StaffUniqueId
+//         : TestFixtureBase
+//     {
+//         private ClaimsAuthorizationSegment _actualLocalEducationAgencySegment;
+//
+//         // Dependencies
+//         private IEducationOrganizationCache _educationOrganizationCache;
+//         private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
+//
+//         // Actual values
+//         private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
+//         private List<Claim> _suppliedClaims;
+//
+//         // Supplied values
+//         private RelationshipsAuthorizationContextData _suppliedContextData;
+//
+//         protected override void Act()
+//         {
+// #region Commented out code for integration testing against SQL Server
+//
+//             //private IDatabaseConnectionStringProvider connectionStringProvider;
+//
+//             //connectionStringProvider = mocks.Stub<IDatabaseConnectionStringProvider>();
+//             //connectionStringProvider.Stub(x => x.GetConnectionString())
+//             //    .Return(@"Server=(local);Database=database;User Id=user;Password=xxxxx");
+//
+//             //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
+//             //executor.Execute(actualAuthorizationRules);
+//
+// #endregion
+//
+//             _suppliedContextData = new RelationshipsAuthorizationContextData
+//             {
+//                 SchoolId = 880001,
+//                 StaffUSI = 738953 //340DFAFA-D39B-4A38-BEA4-AD705CC7EB7C
+//             };
+//
+//             _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
+//                 "manage",
+//                 new List<int>
+//                 {
+//                     780, 880, 980
+//                 });
+//
+//             _suppliedClaims = new List<Claim>
+//             {
+//                 JsonClaimHelper.CreateClaim(
+//                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
+//                     _suppliedEdFiResourceClaimValue)
+//             };
+//
+//             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
+//
+//             A.CallTo(
+//                     () =>
+//                         _educationOrganizationCache.GetEducationOrganizationIdentifiers(A<int>._))
+//                 .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
+//         }
+//
+//         protected override void Arrange()
+//         {
+//             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
+//                 _suppliedClaims,
+//                 _educationOrganizationCache,
+//                 _suppliedContextData);
+//
+//             _actualAuthorizationSegments = builder
+//                 .ClaimsMustBeAssociatedWith(x => x.StaffUSI)
+//                 .GetSegments();
+//
+//             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.SingleOrDefault(
+//                 s =>
+//                     s.SubjectEndpoint.Name == "LocalEducationAgencyId"
+//                     || s.ClaimsEndpoints.All(
+//                         x => x.Name == "LocalEducationAgencyId"));
+//         }
+//
+//         [Test]
+//         public void Should_create_1_claims_authorization_segment()
+//         {
+//             _actualAuthorizationSegments.Count().ShouldBe(1);
+//         }
+//
+//         [Test]
+//         public void Should_require_the_StaffUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
+//         {
+//             var staffUniqueIdEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
+//                 as AuthorizationSegmentEndpointWithValue;
+//
+//             staffUniqueIdEndpointWithValue.ShouldNotBeNull(
+//                 "The staffUSI endpoint in the claims based authorization segment did not have a contextual value.");
+//
+//             staffUniqueIdEndpointWithValue.Name.ShouldBe("StaffUSI");
+//             staffUniqueIdEndpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
+//
+//             // Make sure the counts are the same
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
+//                 .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
+//
+//             // Make sure all the LEA Ids are present
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
+//                 .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
+//                 .ShouldBeTrue();
+//
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
+//                 .All(n => n == "LocalEducationAgencyId")
+//                 .ShouldBeTrue();
+//         }
+//
+//         [Test]
+//         public void Should_return_a_LocalEducationAgency_segment()
+//         {
+//             _actualLocalEducationAgencySegment.ShouldNotBeNull();
+//         }
+//
+//         [Test]
+//         public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
+//         {
+//             _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StaffUSI");
+//             var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+//
+//             endpointWithValue.ShouldNotBeNull(
+//                 "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
+//
+//             endpointWithValue.Value.ShouldBe(_suppliedContextData.StaffUSI);
+//         }
+//     }
+//
+//     public class
+//         When_building_authorization_segments_for_LocalEducationAgency_claims_to_be_associated_with_a_Student_with_an_alternative_authorization_path
+//         : TestFixtureBase
+//     {
+//         private ClaimsAuthorizationSegment _actualLocalEducationAgencySegment;
+//
+//         // Dependencies
+//         private IEducationOrganizationCache _educationOrganizationCache;
+//         private EdFiResourceClaimValue _suppliedEdFiResourceClaimValue;
+//
+//         // Actual values
+//         private IReadOnlyList<ClaimsAuthorizationSegment> _actualAuthorizationSegments;
+//         private List<Claim> suppliedClaims;
+//
+//         // Supplied values
+//         private RelationshipsAuthorizationContextData suppliedContextData;
+//
+//         protected void EstablishContext()
+//         {
+//             suppliedContextData = new RelationshipsAuthorizationContextData
+//             {
+//                 StudentUSI = 11111
+//             };
+//
+//             _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
+//                 "manage",
+//                 new List<int>
+//                 {
+//                     1, 2, 3
+//                 });
+//
+//             suppliedClaims = new List<Claim>
+//             {
+//                 JsonClaimHelper.CreateClaim(
+//                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
+//                     _suppliedEdFiResourceClaimValue)
+//             };
+//
+//             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
+//
+//             A.CallTo(
+//                     () =>
+//                         _educationOrganizationCache.GetEducationOrganizationIdentifiers(A<int>._))
+//                 .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
+//         }
+//
+//         protected void ExecuteBehavior()
+//         {
+//             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
+//                 suppliedClaims,
+//                 _educationOrganizationCache,
+//                 suppliedContextData);
+//
+//             _actualAuthorizationSegments = builder
+//                 .ClaimsMustBeAssociatedWith(x => x.StudentUSI, "OverTheRiverAndThroughTheWoods")
+//                 .GetSegments();
+//
+//             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
+//                 s =>
+//                     s.SubjectEndpoint.Name == "LocalEducationAgencyId"
+//                     || s.ClaimsEndpoints.All(
+//                         x => x.Name == "LocalEducationAgencyId"));
+//         }
+//
+//         [Assert]
+//         public void Should_use_authorization_path_modifier_for_authorizing_the_segment()
+//         {
+//             Assert.That(
+//                 _actualLocalEducationAgencySegment.AuthorizationPathModifier,
+//                 Is.EqualTo("OverTheRiverAndThroughTheWoods"));
+//         }
+//
+//         [Test]
+//         public void Should_create_a_single_claims_authorization_segment()
+//         {
+//             _actualAuthorizationSegments.Count().ShouldBe(1);
+//         }
+//
+//         [Test]
+//         public void Should_require_the_StudentUSI_to_be_associated_with_one_of_the_claims_LocalEducationAgencyIds()
+//         {
+//             var studentUSIEndpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint
+//                 as AuthorizationSegmentEndpointWithValue;
+//
+//             studentUSIEndpointWithValue.ShouldNotBeNull(
+//                 "The StudentUSI endpoint in the claims based authorization segment did not have a contextual value.");
+//
+//             studentUSIEndpointWithValue.Name.ShouldBe("StudentUSI");
+//             studentUSIEndpointWithValue.Value.ShouldBe(suppliedContextData.StudentUSI);
+//
+//             // Make sure the counts are the same
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Count()
+//                 .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
+//
+//             // Make sure all the LEA Ids are present
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
+//                 .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
+//                 .ShouldBeTrue();
+//
+//             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
+//                 .All(n => n == "LocalEducationAgencyId")
+//                 .ShouldBeTrue();
+//         }
+//
+//         [Test]
+//         public void Should_return_a_LocalEducationAgency_segment()
+//         {
+//             _actualLocalEducationAgencySegment.ShouldNotBeNull();
+//         }
+//
+//         [Test]
+//         public void Should_target_the_StaffUniqueId_by_name_and_contextual_value_in_the_LocalEducationAgency_segment()
+//         {
+//             _actualLocalEducationAgencySegment.SubjectEndpoint.Name.ShouldBe("StudentUSI");
+//             var endpointWithValue = _actualLocalEducationAgencySegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+//
+//             endpointWithValue.ShouldNotBeNull(
+//                 "The target endpoint of the claim authorization segment endpoint did not contain a value from the supplied context.");
+//
+//             endpointWithValue.Value.ShouldBe(suppliedContextData.StudentUSI);
+//         }
+//     }
 }
 #endif
