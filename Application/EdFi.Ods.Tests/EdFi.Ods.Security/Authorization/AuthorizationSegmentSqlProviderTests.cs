@@ -488,7 +488,9 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 result.ShouldSatisfyAllConditions(
                     () => result.ShouldNotBeNull(),
                     () => result.Parameters.Length.ShouldBe(
-                        _suppliedClaim.EducationOrganizationIds.Count + 1), // + 1 is for StaffUSI segment
+                    
+                        // + 1 is for StaffUSI segment
+                        _suppliedClaim.EducationOrganizationIds.Count + 1),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(NpgsqlParameter))
                         .ShouldBeFalse(),
