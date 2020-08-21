@@ -64,7 +64,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     UniqueId = Guid.NewGuid()
                         .ToString(),
                     Usi = 10,
-                    Id = Guid.NewGuid() // Id is also provided by the USI value mapper
+                    
+                    // Id is also provided by the USI value mapper
+                    Id = Guid.NewGuid()
                 };
 
                 _suppliedPersonIdentifiers = new List<PersonIdentifiersValueMap>
