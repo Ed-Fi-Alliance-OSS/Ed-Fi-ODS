@@ -30,7 +30,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Filtering
                 contextstorage = new HashtableContextStorage();
                 Supplied<IReadOnlyList<AuthorizationFilterDetails>>(CreateTestParameters());
                 authProvider = new AuthorizationFilterContextProvider(contextstorage);
-
             }
 
             protected override void Act()
