@@ -989,8 +989,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                                 new ResourceClaimAuthorizationMetadata
                                 {
                                     ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
-                                    AuthorizationStrategy =
-                                        "Fourth" // We need an authorization strategy defined somewhere in the lineage
+
+                                    // We need an authorization strategy defined somewhere in the lineage
+                                    AuthorizationStrategy = "Fourth" 
                                 }
                             }
 
