@@ -421,6 +421,7 @@ Actual:
                                                            a.OtherEntity.IsAggregateExtension
                                                                ? $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.AggregateExtensions.{a.GetAggregateExtensionBagName()} {aliases[GetDepth(a.OtherEntity)]}"
                                                                : $" left join fetch {aliases[GetDepth(a.ThisEntity)]}.{a.Name} {aliases[GetDepth(a.OtherEntity)]}"
+
                                                                 // Add joins for reference data
                                                                + string.Join("", a.OtherEntity.NonNavigableParents
                                                                    .Where(a2 => a2.OtherEntity.IsReferenceable())
