@@ -107,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common._Stubs.Repositories
             return Task.FromResult(new UpsertEntityResult<TEntity>
             {
                 Entity = entity,
-                IsModified =  _stubIsModified,
+                IsModified = _stubIsModified,
                 IsCreated = _stubIsCreated
             });
         }
