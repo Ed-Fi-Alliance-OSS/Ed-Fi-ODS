@@ -78,9 +78,6 @@ namespace EdFi.Ods.Api.Services.Controllers
                     dependencies = exposedUrls.DependenciesUrl,
                     oauth = exposedUrls.OauthUrl,
                     dataManagementApi = exposedUrls.ApiUrl,
-                    testUrl = $"{Request.RootUrl(_useProxyHeaders)}/oauth/token",
-                    useProxyHeaders = _useProxyHeaders,
-                    rootUrl = Request.RootUrl(_useProxyHeaders)
                 }
             };
 
@@ -89,30 +86,27 @@ namespace EdFi.Ods.Api.Services.Controllers
 
         private ExposedUrls GetUrls()
         {
+            var currentYear = _systemDateProvider.GetDate().Year.ToString();
+
             var exposedUrls = new ExposedUrls();
 
-            if (_apiConfigurationProvider.IsYearSpecific())
-            {
-                var currentSchoolYear = _systemDateProvider.GetDate().Year.ToString();
-                exposedUrls.MetaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections", schoolYearFromRoute = currentSchoolYear });
-                exposedUrls.DependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get", schoolYearFromRoute = currentSchoolYear });
-            }
-            else
-            {
-                exposedUrls.MetaDataUrl = Url.Link("MetadataSections", new { controller = "openapimetadata", action = "getsections" });
-                exposedUrls.DependenciesUrl = Url.Link("AggregateDependencies", new { controller = "aggregatedependency", action = "get" });
-            }
+            exposedUrls.DependenciesUrl = new Uri(new Uri(Request.RootUrl(_useProxyHeaders)), 
+                _apiConfigurationProvider.IsYearSpecific() ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
+                : $"/metadata/data/v{ApiVersionConstants.Ods}/").ToString();
 
-            exposedUrls.OauthUrl = Url.Link("OAuthToken", new { controller = "Token" });
+            exposedUrls.MetaDataUrl = new Uri(new Uri(Request.RootUrl(_useProxyHeaders)), 
+                "metadata/" + (_apiConfigurationProvider.IsYearSpecific()
+                            ? currentYear : string.Empty)).ToString();
 
-            exposedUrls.ApiUrl = new Uri(Request.RootUrl(_useProxyHeaders)) + $"data/v{ApiVersionConstants.Ods}/" +
+            exposedUrls.OauthUrl = new Uri(new Uri(Request.RootUrl(_useProxyHeaders)), "oauth/token").ToString();
+
+            exposedUrls.ApiUrl = new Uri(new Uri(Request.RootUrl(_useProxyHeaders)), $"data/v{ApiVersionConstants.Ods}/" +
                                          (_apiConfigurationProvider.IsYearSpecific()
                                              ? _systemDateProvider.GetDate().Year.ToString()
-                                             : string.Empty);
-
-
+                                             : string.Empty)).ToString();
 
             return exposedUrls;
+
         }
     }
 }
