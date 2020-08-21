@@ -31,9 +31,9 @@ namespace EdFi.Ods.Tests.EdFi.Common.Context
                 var contextStorage = new CallContextStorage();
 
                 var testObject = new TestObject
-                                 {
-                                     Text = expected
-                                 };
+                {
+                    Text = expected
+                };
 
                 contextStorage.SetValue(key, testObject);
                 var actual = contextStorage.GetValue<TestObject>(key);
