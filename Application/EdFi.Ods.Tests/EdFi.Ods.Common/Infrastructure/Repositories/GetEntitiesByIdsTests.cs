@@ -280,8 +280,10 @@ Actual:
                 var domainModel = _domainModelProvider.GetDomainModel();
 
                 var queryIndexByChildEntityName = _actualHqlQueries
+
                     // Skip the aggregate root query
                     .Skip(1)
+
                     // Use Regex to match the child entity collection names from the HQL
                     .Select(
                          (hql, i) =>
@@ -291,6 +293,7 @@ Actual:
                                  Matches = Regex.Matches(
                                      hql, "left join fetch [a-z]{1,2}\\.(?<EntityCollection>\\w+(?<!ReferenceData)) ")
                              })
+
                     // Extract the child entity name from the HQL
                     .Select(
                          x =>
@@ -303,6 +306,7 @@ Actual:
                                       .Value),
                              }
                     )
+
                     // Create a map of query indices by child entity name
                     .ToDictionary(x => x.EntityName, x => x.Index);
 
