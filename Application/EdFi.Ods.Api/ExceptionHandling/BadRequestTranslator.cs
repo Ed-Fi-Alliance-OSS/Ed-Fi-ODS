@@ -15,6 +15,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
 {
     public static class ErrorTranslator
     {
+        // Attempts to translate the API error response to ASP.NET MVC error response format to maintain compatibility for the consumers. 
         public static object GetErrorMessage(ModelStateDictionary modelState)
         {
             if (modelState.Keys.All(string.IsNullOrEmpty) && modelState.Values.Any())

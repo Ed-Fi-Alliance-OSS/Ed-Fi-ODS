@@ -112,7 +112,6 @@ namespace EdFi.Ods.Api.Startup
                     {
                         options.InvalidModelStateResponseFactory = actionContext
                             => new BadRequestObjectResult(ErrorTranslator.GetErrorMessage(actionContext.ModelState));
-
                     });
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)

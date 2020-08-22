@@ -140,7 +140,9 @@ namespace EdFi.Ods.Api.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return  BadRequest(ErrorTranslator.GetErrorMessage("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
+                return BadRequest(
+                    ErrorTranslator.GetErrorMessage(
+                        "Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
             }
 
             var internalRequestAsResource = new TResourceReadModel();
