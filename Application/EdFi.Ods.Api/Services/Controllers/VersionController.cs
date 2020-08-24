@@ -65,8 +65,6 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             var exposedUrls = GetUrls();
 
-            var request = HttpContext.Current.Request;
-
             var content = new
             {
                 version = _apiVersionProvider.Version,
