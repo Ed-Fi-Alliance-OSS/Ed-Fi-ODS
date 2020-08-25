@@ -96,7 +96,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
 
                 return
-                    (Parent.Entity.InheritedNavigableOneToOnes.Contains(Association, ModelComparers.AssociationView));
+                    (Parent.Entity.InheritedNonNavigableParents.Contains(Association, ModelComparers.AssociationView));
             }
         }
 
