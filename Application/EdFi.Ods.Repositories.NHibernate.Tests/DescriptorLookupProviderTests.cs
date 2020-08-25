@@ -40,8 +40,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             CountryTestDescriptor1 = new CountryDescriptor
             {
                 Namespace = "uri://namespace1/CountryDescriptor",
-                CodeValue = "Test Country Descriptor 1", // GUID
-                ShortDescription = "Test Country Descriptor 1", // GUID
+                CodeValue = "Test Country Descriptor 1",
+                ShortDescription = "Test Country Descriptor 1",
                 Description = "Test Country Descriptor 1",
                 EffectiveBeginDate = DateTime.Now
             };

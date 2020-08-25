@@ -11,16 +11,16 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
-    public class SharedInstanceDatabaseNameReplacementTokenProviderModule : ConditionalModule
+    public class SandboxDatabaseNameReplacementTokenProviderModule : ConditionalModule
     {
-        public SharedInstanceDatabaseNameReplacementTokenProviderModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(SharedInstanceDatabaseNameReplacementTokenProviderModule)) { }
+        public SandboxDatabaseNameReplacementTokenProviderModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(SandboxDatabaseNameReplacementTokenProviderModule)) { }
 
-        public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.SharedInstance;
+        public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.Sandbox;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<SharedInstanceDatabaseNameReplacementTokenProvider>()
+            builder.RegisterType<SandboxDatabaseNameReplacementTokenProvider>()
                 .As<IDatabaseNameReplacementTokenProvider>()
                 .SingleInstance();
         }

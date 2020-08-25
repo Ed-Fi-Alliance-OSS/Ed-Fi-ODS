@@ -5,17 +5,12 @@
 
 #if NETCOREAPP
 using Autofac;
-using Castle.Windsor;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
 using NUnit.Framework;
-using EdFi.Ods.Standard;
 using System.Reflection;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
@@ -24,9 +19,19 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
     public abstract class BaseDatabaseTest
     {
-        protected IContainer container;
+        protected IContainer Container;
 
         protected ISessionFactory SessionFactory { get; set; }
+
+        public string BaseDatabase
+        {
+            get => GlobalDatabaseSetupFixture.PopulatedDatabaseName;
+        }
+
+        public string DatabaseName
+        {
+            get => GlobalDatabaseSetupFixture.TestPopulatedDatabaseName;
+        }
 
         [SetUp]
         public void BaseSetUp()
@@ -36,9 +41,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
 
             PersonUniqueIdToUsiCache.GetCache = ()
-                    => personUniqueIdToUsiCache ??= container.Resolve<IPersonUniqueIdToUsiCache>();
+                    => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
 
-            SessionFactory = container.Resolve<ISessionFactory>();
+            SessionFactory = Container.Resolve<ISessionFactory>();
         }
 
         private void RegisterDependencies()
@@ -51,9 +56,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
                    .AddJsonFile("appsettings.json", optional: true)
                    .Build();
+
+            config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value = 
+                config.GetConnectionString("EdFi_Ods")
+                    .Replace(GlobalDatabaseSetupFixture.PopulatedDatabaseName, GlobalDatabaseSetupFixture.TestPopulatedDatabaseName);
             builder.RegisterInstance(config).As<IConfiguration>();
 
-            var apiSettings = new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.SharedInstance };
+            var apiSettings = new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
             builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 .SingleInstance();
 
@@ -75,29 +84,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
-            builder.RegisterModule(new SharedInstanceDatabaseNameReplacementTokenProviderModule(apiSettings));
+            builder.RegisterModule(new SandboxDatabaseNameReplacementTokenProviderModule(apiSettings));
 
-            ///
-            //builder.RegisterType<SharedInstanceDatabaseNameReplacementTokenProvider>()
-            //    .As<IDatabaseNameReplacementTokenProvider>()
-            //    .SingleInstance();
-
-            //builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
-            //    .As<IDbConnectionStringBuilderAdapterFactory>()
-            //    .SingleInstance();
-
-            //builder.RegisterType<ApiKeyContextProvider>()
-            //    .As<IApiKeyContextProvider>()
-            //    .SingleInstance();
-
-            //builder.RegisterType<HashtableContextStorage>()
-            //    .As<IContextStorage>()
-            //    .SingleInstance();
-
-            ///
-
-
-            container = builder.Build();
+            Container = builder.Build();
         }
     }
 }

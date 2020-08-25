@@ -3,15 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using AutoMapper.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace Test.Common
 {
@@ -19,11 +17,16 @@ namespace Test.Common
     {
         private const int CommandTimeout = 120;
 
-        private readonly string _connectionString;
+        private string _connectionString;
 
-        public DatabaseHelper(IConfigurationRoot config)
+        private string ConnectionString
         {
-            _connectionString = config.GetConnectionString("EdFi_master");
+            get
+            {
+                return _connectionString ??
+                       (_connectionString = ConfigurationManager.ConnectionStrings["EdFi_master"]
+                           .ConnectionString);
+            }
         }
 
         public void CopyDatabase(string originalDatabaseName, string newDatabaseName)
@@ -32,7 +35,7 @@ namespace Test.Common
             var backup = Path.Combine(GetBackupDirectory(), originalDatabaseName + ".bak");
             GetDatabaseFiles(originalDatabaseName, newDatabaseName, out datafile, out logfile);
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 conn.Open();
                 BackupDatabase(originalDatabaseName, backup, conn);
@@ -125,7 +128,7 @@ namespace Test.Common
             var sql = string.Format(
                 @"ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [{0}]", databaseName);
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 using (var cmd = conn.CreateCommand())
                 {
@@ -142,7 +145,7 @@ namespace Test.Common
             var sql = string.Format(@"SELECT [name] FROM sys.databases where [name] like '{0}'", databaseNamePattern);
             var databaseNames = new List<string>();
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 using (var cmd = conn.CreateCommand())
                 {
@@ -179,7 +182,7 @@ namespace Test.Common
             var sql = string.Format(@"EXEC master.dbo.xp_instance_regread N'{0}', N'{1}',N'{2}'", subtree, folder, key);
             string path = null;
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 using (var cmd = conn.CreateCommand())
                 {
@@ -214,7 +217,7 @@ namespace Test.Common
 
             string path;
 
-            using (var conn = new SqlConnection(_connectionString))
+            using (var conn = new SqlConnection(ConnectionString))
             {
                 using (var cmd = conn.CreateCommand())
                 {
