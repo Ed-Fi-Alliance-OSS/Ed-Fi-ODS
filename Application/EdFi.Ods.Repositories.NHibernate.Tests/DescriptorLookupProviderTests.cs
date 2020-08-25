@@ -19,6 +19,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
+    [TestFixture]
     public class DescriptorLookupProviderTests : BaseDatabaseTest
     {
         private const string CountryDescriptorName = "CountryDescriptor";
@@ -34,7 +35,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
         private IDescriptorLookupProvider DescriptorLookupProvider { get; set; }
 
-        [SetUp]
+        [OneTimeSetUp]
         public void SetUp()
         {
             CountryTestDescriptor1 = new CountryDescriptor
@@ -108,6 +109,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     "CountryDescriptor",
                     new EntityPropertyDefinition[] { },
                     new EntityIdentifierDefinition[] { }));
+
             var domainModelProvider = A.Fake<IDomainModelProvider>();
 
             A.CallTo(() => domainModelProvider.GetDomainModel())

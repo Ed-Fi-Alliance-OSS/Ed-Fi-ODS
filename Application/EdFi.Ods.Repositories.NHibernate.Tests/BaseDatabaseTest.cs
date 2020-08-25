@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
+    [TestFixture]
     public abstract class BaseDatabaseTest
     {
         protected IContainer Container;
@@ -33,7 +34,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             get => GlobalDatabaseSetupFixture.TestPopulatedDatabaseName;
         }
 
-        [SetUp]
+        [OneTimeSetUp]
         public void BaseSetUp()
         {
             RegisterDependencies();
