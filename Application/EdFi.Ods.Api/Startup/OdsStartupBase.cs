@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -12,6 +12,7 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Helpers;
@@ -33,6 +34,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -103,6 +105,14 @@ namespace EdFi.Ods.Api.Startup
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     })
                 .AddControllersAsServices();
+
+            services.AddMvc()
+                .ConfigureApiBehaviorOptions(
+                    options =>
+                    {
+                        options.InvalidModelStateResponseFactory = actionContext
+                            => new BadRequestObjectResult(ErrorTranslator.GetErrorMessage(actionContext.ModelState));
+                    });
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);

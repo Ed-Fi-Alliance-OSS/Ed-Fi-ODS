@@ -126,7 +126,7 @@ namespace EdFi.Ods.Api.Controllers
 
             return string.IsNullOrWhiteSpace(restError.Message)
                 ? (IActionResult) StatusCode(restError.Code)
-                : StatusCode(restError.Code, restError.Message);
+                : StatusCode(restError.Code, ErrorTranslator.GetErrorMessage(restError.Message));
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -140,7 +140,9 @@ namespace EdFi.Ods.Api.Controllers
             if (urlQueryParametersRequest.Limit != null &&
                 (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
-                return BadRequest("Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).");
+                return BadRequest(
+                    ErrorTranslator.GetErrorMessage(
+                        "Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit)."));
             }
 
             var internalRequestAsResource = new TResourceReadModel();
@@ -213,11 +215,6 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, [FromQuery] Guid id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             // Manual binding of Id to main request model
             request.Id = id;
 
@@ -256,21 +253,13 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Post([FromBody] TPostRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             var validationState = new ValidationState();
             PutResult result;
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                result = new PutResult
-                {
-                    Exception = new BadRequestException("Resource identifiers cannot be assigned by the client.")
-                };
+                return BadRequest(ErrorTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
             }
             else
             {
@@ -336,9 +325,14 @@ namespace EdFi.Ods.Api.Controllers
                     var urlBuilder = new UriBuilder
                     {
                         Scheme = Request.Scheme,
-                        Host = Request.Host.ToString(),
+                        Host = Request.Host.Host,
                         Path = Request.Path
                     };
+
+                    if (Request.Host.Port.HasValue)
+                    {
+                        urlBuilder.Port = Request.Host.Port.Value;
+                    }
 
                     _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
                 }
