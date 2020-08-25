@@ -5,7 +5,8 @@
 
 using System;
 
-namespace EdFi.Ods.Api.Validation {
+namespace EdFi.Ods.Api.Validation
+{
     /// <summary>
     /// Microsoft Web Protection Library (AntiXSS) has reached End of Life.
     /// The page states "In .NET 4.0 a version of AntiXSS was included in the framework and could be enabled via configuration. In ASP.NET v5 a white list based encoder will be the only encoder."

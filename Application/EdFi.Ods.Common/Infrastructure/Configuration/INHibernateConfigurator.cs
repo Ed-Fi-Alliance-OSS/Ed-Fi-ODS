@@ -3,7 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Common.Infrastructure.Configuration {
+namespace EdFi.Ods.Common.Infrastructure.Configuration
+{
     public interface INHibernateConfigurator
     {
         NHibernate.Cfg.Configuration Configure();

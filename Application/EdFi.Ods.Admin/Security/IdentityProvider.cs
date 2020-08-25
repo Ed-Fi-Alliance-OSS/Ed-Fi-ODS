@@ -26,10 +26,13 @@ namespace EdFi.Ods.Admin.Security
 
         public bool VerifyUserExists(string userEmail)
         {
-            var identityUserManager = GetIdentityUserManager();
-            var identityUser = identityUserManager.FindByEmail(userEmail);
-            return identityUser != null;
+            using (var identityUserManager = GetIdentityUserManager())
+            {
+                var identityUser = identityUserManager.FindByEmail(userEmail);
+                return identityUser != null;
+            }
         }
+                
 
         public bool VerifyUserEmailConfirmed(string userEmail)
         {
@@ -157,12 +160,12 @@ namespace EdFi.Ods.Admin.Security
         {
             using (var identityUserManager = GetIdentityUserManager())
             {
-                IdentityResult result = null;
+               
                 var identityUser = identityUserManager.FindByEmail(email);
 
                 if (identityUser != null)
-                {
-                    result = identityUserManager.ConfirmEmail(identityUser.Id, token);
+                {               
+                   IdentityResult result = identityUserManager.ConfirmEmail(identityUser.Id, token);
 
                     if (!result.Succeeded)
                     {

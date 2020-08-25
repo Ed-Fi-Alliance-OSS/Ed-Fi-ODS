@@ -5,7 +5,8 @@
 
 using System;
 
-namespace EdFi.Ods.Common.Infrastructure.Extensibility {
+namespace EdFi.Ods.Common.Infrastructure.Extensibility
+{
     public class EntityExtension
     {
         public Type Type { get; set; }

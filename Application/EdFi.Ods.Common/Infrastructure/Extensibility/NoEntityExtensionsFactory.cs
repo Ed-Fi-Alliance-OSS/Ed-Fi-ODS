@@ -6,7 +6,8 @@
 using System.Collections.Generic;
 using EdFi.Ods.Common.Models.Domain;
 
-namespace EdFi.Ods.Common.Infrastructure.Extensibility {
+namespace EdFi.Ods.Common.Infrastructure.Extensibility
+{
     public class NoEntityExtensionsFactory : IEntityExtensionsFactory
     {
         /// <summary>

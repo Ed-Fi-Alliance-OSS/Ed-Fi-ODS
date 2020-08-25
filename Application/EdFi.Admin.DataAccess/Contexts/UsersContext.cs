@@ -16,9 +16,9 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
-        public const string ConnectionStringName = "EdFi_Admin";
-
 #if NETFRAMEWORK
+
+        public const string ConnectionStringName = "EdFi_Admin";
         protected UsersContext()
             : base(ConnectionStringName)
         {
@@ -30,7 +30,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         protected UsersContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer<UsersContext>(null);
+            Database.SetInitializer(new ValidateDatabase<UsersContext>());
         }
 #endif
         public const string UserTableName = "Users";
