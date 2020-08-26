@@ -11,6 +11,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 #if NETSTANDARD
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common;
 #endif
 
 namespace EdFi.Admin.DataAccess.Contexts
@@ -36,8 +37,8 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
         {
-            _connectionStringsProvider = connectionStringsProvider;
-            _databaseEngine = databaseEngine;
+            _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
+            _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
         }
 #endif
 

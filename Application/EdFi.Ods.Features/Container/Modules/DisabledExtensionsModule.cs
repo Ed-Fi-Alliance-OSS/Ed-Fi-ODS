@@ -13,7 +13,6 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 namespace EdFi.Ods.Features.Container.Modules
 {
     public class DisabledExtensionsModule : ConditionalModule
-
     {
         public DisabledExtensionsModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(DisabledExtensionsModule)) { }

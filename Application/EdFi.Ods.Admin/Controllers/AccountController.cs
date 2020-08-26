@@ -330,8 +330,8 @@ namespace EdFi.Ods.Admin.Controllers
         //        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            var AuthenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-            AuthenticationManager.SignOut();
+            var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
             return Json(
                 new
                 {
