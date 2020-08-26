@@ -43,8 +43,7 @@ namespace EdFi.Ods.Admin.Contexts
             }
 
             throw new InvalidOperationException(
-                $"Cannot create an IIdentityContext  for database type
-                {_databaseEngine.DisplayName}");
+               $"Cannot create an IUsersContext for database type {_databaseEngine.DisplayName}");
         }
     }
 }

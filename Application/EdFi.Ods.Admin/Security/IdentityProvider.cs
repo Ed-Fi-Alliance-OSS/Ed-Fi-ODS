@@ -160,12 +160,11 @@ namespace EdFi.Ods.Admin.Security
         {
             using (var identityUserManager = GetIdentityUserManager())
             {
-               
                 var identityUser = identityUserManager.FindByEmail(email);
 
                 if (identityUser != null)
                 {               
-                   IdentityResult result = identityUserManager.ConfirmEmail(identityUser.Id, token);
+                   var result = identityUserManager.ConfirmEmail(identityUser.Id, token);
 
                     if (!result.Succeeded)
                     {
