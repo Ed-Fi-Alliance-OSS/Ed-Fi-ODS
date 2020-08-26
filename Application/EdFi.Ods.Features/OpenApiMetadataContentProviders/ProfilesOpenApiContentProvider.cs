@@ -53,13 +53,13 @@ namespace EdFi.Ods.Features.Profiles
                 .GetProfileResourceNames()
                 .Select(x => x.ProfileName)
                 .Select(
-                    x => new SwaggerProfileContext
+                    x => new OpenApiMetadataProfileContext
                     {
                         ProfileName = x,
                         ProfileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(x)
                     })
                 .Select(
-                    x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                     {
                         ProfileContext = x,
                         IsIncludedExtension = r => true
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Features.Profiles
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(openApiStrategy)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(openApiStrategy)),
                             RouteConstants.DataManagementRoutePrefix,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }

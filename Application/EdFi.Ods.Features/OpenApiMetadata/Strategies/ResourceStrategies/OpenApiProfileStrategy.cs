@@ -15,7 +15,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     public class OpenApiProfileStrategy : IOpenApiMetadataResourceStrategy
     {
-        public IEnumerable<SwaggerResource> GetFilteredResources(SwaggerDocumentContext swaggerDocumentContext)
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext swaggerDocumentContext)
         {
             var profileResources =
                 swaggerDocumentContext.ProfileContext.ProfileResourceModel.ResourceByName.Values
@@ -31,19 +31,23 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
             var readableSwaggerResources =
                 profileResources.Where(r => r.Readable != null)
                                 .Select(
-                                     r => new SwaggerResource(r.Readable)
-                                          {
-                                              Name = GetResourceName(r.Readable, ContentTypeUsage.Readable), Readable = true, IsProfileResource = true
-                                          })
+                                     r => new OpenApiMetadataResource(r.Readable)
+                                     {
+                                         Name = GetResourceName(r.Readable, ContentTypeUsage.Readable),
+                                         Readable = true,
+                                         IsProfileResource = true
+                                     })
                                 .ToList();
 
             var writableSwaggerResources =
                 profileResources.Where(r => r.Writable != null)
                                 .Select(
-                                     r => new SwaggerResource(r.Writable)
-                                          {
-                                              Name = GetResourceName(r.Writable, ContentTypeUsage.Writable), Writable = true, IsProfileResource = true
-                                          })
+                                     r => new OpenApiMetadataResource(r.Writable)
+                                     {
+                                         Name = GetResourceName(r.Writable, ContentTypeUsage.Writable),
+                                         Writable = true,
+                                         IsProfileResource = true
+                                     })
                                 .ToList();
 
             return readableSwaggerResources.Concat(writableSwaggerResources)
@@ -80,9 +84,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
         private string GetBaseResourceName(Resource baseResource, Resource resource, ContentTypeUsage contentTypeUsage)
             => $"{baseResource.Name}_{CompositeTermInflector.MakeSingular(resource.Name)}_{contentTypeUsage}".ToCamelCase();
 
-        private SwaggerResource GetBaseResourceInProfile(
+        private OpenApiMetadataResource GetBaseResourceInProfile(
             IList<Resource> resources,
-            SwaggerResource swaggerResource,
+            OpenApiMetadataResource swaggerResource,
             ContentTypeUsage contentTypeUsage)
         {
             if (swaggerResource.Resource.IsBase())
@@ -95,17 +99,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 
             return baseResource == null
                 ? null
-                : new SwaggerResource(baseResource)
-                  {
-                      Name = GetBaseResourceName(baseResource, swaggerResource.Resource, contentTypeUsage),
-                      Readable = contentTypeUsage == ContentTypeUsage.Readable, Writable = contentTypeUsage == ContentTypeUsage.Writable,
-                      IsProfileResource = true
-                  };
+                : new OpenApiMetadataResource(baseResource)
+                {
+                    Name = GetBaseResourceName(baseResource, swaggerResource.Resource, contentTypeUsage),
+                    Readable = contentTypeUsage == ContentTypeUsage.Readable,
+                    Writable = contentTypeUsage == ContentTypeUsage.Writable,
+                    IsProfileResource = true
+                };
         }
 
-        private SwaggerResource GetGenerationContextForSwaggerResource(
+        private OpenApiMetadataResource GetGenerationContextForSwaggerResource(
             IList<Resource> resources,
-            SwaggerResource swaggerResource,
+            OpenApiMetadataResource swaggerResource,
             ContentTypeUsage contentTypeUsage)
         {
             if (!swaggerResource.Resource.IsBase())
@@ -118,11 +123,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 
             return derivedResource == null
                 ? null
-                : new SwaggerResource(swaggerResource.Resource)
-                  {
-                      ContextualResource = derivedResource, Name = swaggerResource.Name, Readable = contentTypeUsage == ContentTypeUsage.Readable,
-                      Writable = contentTypeUsage == ContentTypeUsage.Writable, IsProfileResource = true
-                  };
+                : new OpenApiMetadataResource(swaggerResource.Resource)
+                {
+                    ContextualResource = derivedResource,
+                    Name = swaggerResource.Name,
+                    Readable = contentTypeUsage == ContentTypeUsage.Readable,
+                    Writable = contentTypeUsage == ContentTypeUsage.Writable,
+                    IsProfileResource = true
+                };
         }
     }
 }

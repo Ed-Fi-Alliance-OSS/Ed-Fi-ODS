@@ -61,8 +61,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _openApiMetadataResourceFilters =
                 new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.InvariantCultureIgnoreCase)
                 {
-                    {Descriptors, new SwaggerUiDescriptorOnlyStrategy()},
-                    {Resources, new SwaggerUiResourceOnlyStrategy()},
+                    {Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy()},
+                    {Resources, new OpenApiMetadataUiResourceOnlyStrategy()},
                     {All, new SdkGenAllResourceStrategy()}
                 };
 
@@ -151,8 +151,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             x.Key,
                             new Lazy<string>(
                                 () =>
-                                    new SwaggerDocumentFactory(
-                                            new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel()))
+                                    new OpenApiMetadataDocumentFactory(
+                                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
                                         .Create(x.Value)),
                             _odsDataBasePath));
             }
@@ -165,8 +165,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         All,
                         new Lazy<string>(
                             () =>
-                                new SwaggerDocumentFactory(
-                                        new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel()))
+                                new OpenApiMetadataDocumentFactory(
+                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
                                     .Create(_openApiMetadataResourceFilters[All])),
                         _odsDataBasePath,
                         string.Empty)

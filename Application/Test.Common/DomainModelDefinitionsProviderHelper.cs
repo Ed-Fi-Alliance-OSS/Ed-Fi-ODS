@@ -37,8 +37,8 @@ namespace Test.Common
             DomainModelProvider.GetDomainModel()
                                .SchemaNameMapProvider;
 
-        public static SwaggerDocumentContext DefaultSwaggerDocumentContext =
-            new SwaggerDocumentContext(ResourceModelProvider.GetResourceModel());
+        public static OpenApiMetadataDocumentContext DefaultSwaggerDocumentContext =
+            new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel());
     }
 
     // NOTE: this is a copy from the generated models class from the Grand Bend extensions.

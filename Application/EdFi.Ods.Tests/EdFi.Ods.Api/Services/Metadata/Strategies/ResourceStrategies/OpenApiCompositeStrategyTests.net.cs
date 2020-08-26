@@ -29,14 +29,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
         public class When_list_of_resources_is_filtered_with_composite_strategy : TestFixtureBase
         {
             private ICompositesMetadataProvider _compositesMetadataProvider;
-            private SwaggerResource _compositeResource;
-            private SwaggerDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataResource _compositeResource;
+            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
 
             protected override void Arrange()
             {
                 _compositesMetadataProvider = Stub<ICompositesMetadataProvider>();
 
-                var routes = new  List<XElement>(OpenApiCompositeHelper.Routes).ToReadOnlyList();
+                var routes = new List<XElement>(OpenApiCompositeHelper.Routes).ToReadOnlyList();
                 var definitions = new List<XElement>(OpenApiCompositeHelper.CompositeDefinitions).ToReadOnlyList();
 
                 A.CallTo(() => _compositesMetadataProvider.TryGetRoutes(
@@ -51,10 +51,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                         out definitions))
                     .Returns(true);
 
-                _swaggerDocumentContext = new SwaggerDocumentContext(
+                _swaggerDocumentContext = new OpenApiMetadataDocumentContext(
                     _resourceModelProvider.GetResourceModel())
                 {
-                    CompositeContext = new SwaggerCompositeContext
+                    CompositeContext = new OpenApiMetadataCompositeContext
                     {
                         CategoryName = OpenApiCompositeHelper.CategoryName
                     }

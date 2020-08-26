@@ -62,8 +62,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _openApiMetadataResourceFilters =
                 new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.InvariantCultureIgnoreCase)
                 {
-                    {Descriptors, new SwaggerUiDescriptorOnlyStrategy()},
-                    {Resources, new SwaggerUiResourceOnlyStrategy()},
+                    {Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy()},
+                    {Resources, new OpenApiMetadataUiResourceOnlyStrategy()},
                     {All, new SdkGenAllResourceStrategy()}
                 };
 
@@ -153,8 +153,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             OpenApiMetadataSections.SwaggerUi,
                             x.Key, new Lazy<string>(
                                 () =>
-                                    new SwaggerDocumentFactory(
-                                        new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
+                                    new OpenApiMetadataDocumentFactory(
+                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
                             _odsDataBasePath));
             }
 
@@ -164,7 +164,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     new OpenApiContent(
                         OpenApiMetadataSections.SdkGen,
                         All, new Lazy<string>( () =>
-                        new SwaggerDocumentFactory(new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel()))
+                        new OpenApiMetadataDocumentFactory(new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
                             .Create(_openApiMetadataResourceFilters[All])),
                         _odsDataBasePath,
                         string.Empty)

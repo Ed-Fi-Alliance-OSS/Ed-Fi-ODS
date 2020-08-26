@@ -24,7 +24,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
             _compositesMetadataProvider = compositesMetadataProvider;
         }
 
-        public IEnumerable<SwaggerResource> GetFilteredResources(SwaggerDocumentContext swaggerDocumentContext)
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext swaggerDocumentContext)
         {
             var compositeContext = swaggerDocumentContext.CompositeContext;
 
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
                 return null;
             }
 
-            var compositeResources = new List<SwaggerResource>();
+            var compositeResources = new List<OpenApiMetadataResource>();
 
             foreach (var compositeDefinition in compositeDefinitions)
             {
@@ -55,15 +55,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
                     new CompositeResourceModelBuilderContext());
 
                 compositeResources.Add(
-                    new SwaggerResource(compositeResource)
+                    new OpenApiMetadataResource(compositeResource)
                     {
-                        Readable = true, CompositeResourceContext = new CompositeResourceContext
-                                                                    {
-                                                                        OrganizationCode = swaggerDocumentContext.CompositeContext.OrganizationCode,
-                                                                        Specification = compositeDefinition.Element("Specification"), BaseResource =
+                        Readable = true,
+                        CompositeResourceContext = new CompositeResourceContext
+                        {
+                            OrganizationCode = swaggerDocumentContext.CompositeContext.OrganizationCode,
+                            Specification = compositeDefinition.Element("Specification"),
+                            BaseResource =
                                                                             compositeDefinition.Element("BaseResource")
                                                                                                .AttributeValue("name")
-                                                                    }
+                        }
                     });
             }
 

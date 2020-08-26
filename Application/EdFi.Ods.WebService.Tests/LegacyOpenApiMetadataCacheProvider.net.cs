@@ -85,8 +85,8 @@ namespace EdFi.Ods.WebService.Tests
             _openApiMetadataResourceFilters =
                 new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.InvariantCultureIgnoreCase)
                 {
-                    {Descriptors, new SwaggerUiDescriptorOnlyStrategy()},
-                    {Resources, new SwaggerUiResourceOnlyStrategy()},
+                    {Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy()},
+                    {Resources, new OpenApiMetadataUiResourceOnlyStrategy()},
                     {Extensions, new SdkGenExtensionResourceStrategy()},
                     {EdFi, new SdkGenAllEdFiResourceStrategy()},
                     {Profiles, new OpenApiProfileStrategy()},
@@ -210,13 +210,13 @@ namespace EdFi.Ods.WebService.Tests
             return _compositesMetadataProvider
                 .GetAllCategories()
                 .Select(
-                    x => new SwaggerCompositeContext
+                    x => new OpenApiMetadataCompositeContext
                     {
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
                 .Select(
-                    x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                     {
                         CompositeContext = x
                     })
@@ -225,7 +225,7 @@ namespace EdFi.Ods.WebService.Tests
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }
@@ -240,14 +240,14 @@ namespace EdFi.Ods.WebService.Tests
                 .GetProfileResourceNames()
                 .Select(x => x.ProfileName)
                 .Select(
-                    x => new SwaggerProfileContext
+                    x => new OpenApiMetadataProfileContext
                     {
                         ProfileName = x,
                         ProfileResourceModel = _profileResourceModelProvider
                             .GetProfileResourceModel(x)
                     })
                 .Select(
-                    x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                     {
                         ProfileContext = x,
                         IsIncludedExtension = r => true
@@ -257,7 +257,7 @@ namespace EdFi.Ods.WebService.Tests
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
                             _odsDataBasePath,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }
@@ -280,8 +280,8 @@ namespace EdFi.Ods.WebService.Tests
                             OpenApiMetadataSections.SwaggerUi,
                             x.Key,
                             new Lazy<string>(
-                                () => new SwaggerDocumentFactory(
-                                    new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
+                                () => new OpenApiMetadataDocumentFactory(
+                                    new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
                             _odsDataBasePath);
                     });
         }
@@ -294,8 +294,8 @@ namespace EdFi.Ods.WebService.Tests
                     OpenApiMetadataSections.SdkGen,
                     All,
                     new Lazy<string>(
-                        () => new SwaggerDocumentFactory(
-                            new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                        () => new OpenApiMetadataDocumentFactory(
+                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                         ).Create(_openApiMetadataResourceFilters[All])),
                     _odsDataBasePath,
                     string.Empty)
@@ -311,8 +311,8 @@ namespace EdFi.Ods.WebService.Tests
                     EdFi,
                     new Lazy<string>(
                         () =>
-                            new SwaggerDocumentFactory(
-                                new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                            new OpenApiMetadataDocumentFactory(
+                                new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                 {
                                     RenderType = RenderType.GeneralizedExtensions,
                                     IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
@@ -331,7 +331,7 @@ namespace EdFi.Ods.WebService.Tests
                                 UriSegment = _schemaNameMapProvider.GetSchemaMapByLogicalName(schema.LogicalName)
                                     .UriSegment,
                                 Factory =
-                                    SwaggerDocumentFactoryHelper.GetExtensionOnlySwaggerDocumentFactory(
+                                    OpenApiMetadataDocumentFactoryHelper.GetExtensionOnlySwaggerDocumentFactory(
                                         _resourceModelProvider.GetResourceModel(),
                                         schema)
                             })

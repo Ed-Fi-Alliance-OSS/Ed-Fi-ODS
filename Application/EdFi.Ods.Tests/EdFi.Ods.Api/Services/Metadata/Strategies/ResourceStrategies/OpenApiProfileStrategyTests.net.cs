@@ -29,16 +29,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
     {
         private static readonly IResourceModelProvider _resourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
-        private class SwaggerResourceProfileComparer : IEqualityComparer<SwaggerResource>
+        private class SwaggerResourceProfileComparer : IEqualityComparer<OpenApiMetadataResource>
         {
-            public bool Equals(SwaggerResource x, SwaggerResource y)
+            public bool Equals(OpenApiMetadataResource x, OpenApiMetadataResource y)
             {
                 return x.Name == y.Name
                        && x.Readable == y.Readable
                        && x.Writable == y.Writable;
             }
 
-            public int GetHashCode(SwaggerResource obj)
+            public int GetHashCode(OpenApiMetadataResource obj)
             {
                 return obj.GetHashCode();
             }
@@ -49,9 +49,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
         {
             private TestProfileResourceNamesProvider _testProfileResourceNamesProvider;
             private ISchemaNameMapProvider _schemaNameMapProvider;
-            private SwaggerDocumentContext _swaggerDocumentContext;
-            private IEnumerable<SwaggerResource> _actualFilteredResources;
-            private IEnumerable<SwaggerResource> _expectedFilteredResources;
+            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private IEnumerable<OpenApiMetadataResource> _actualFilteredResources;
+            private IEnumerable<OpenApiMetadataResource> _expectedFilteredResources;
 
             private class TestProfileResourceNamesProvider : IProfileMetadataProvider
             {
@@ -96,30 +96,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
 
                 _expectedFilteredResources = new[]
                 {
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_Readable", Readable = true
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_Readable", Readable = true,
                         ContextualResource = studentSpecialEducationProgramAssociation
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable",
                         Readable = true
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Writable",
                         Writable = true
                     },
-                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    new OpenApiMetadataResource(studentSpecialEducationProgramAssociation)
                     {
                         Name = "studentSpecialEducationProgramAssociation_Readable", Readable = true
                     },
-                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    new OpenApiMetadataResource(studentSpecialEducationProgramAssociation)
                     {
                         Name = "studentSpecialEducationProgramAssociation_Writable", Writable = true
                     }
@@ -133,13 +133,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                         _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"));
 
                 _swaggerDocumentContext =
-                    new SwaggerDocumentContext(
+                    new OpenApiMetadataDocumentContext(
                         _resourceModelProvider.GetResourceModel())
                     {
                         ProfileContext =
-                            new SwaggerProfileContext
+                            new OpenApiMetadataProfileContext
                             {
-                                ProfileName = "ProfileName", ProfileResourceModel = profileResourceModel
+                                ProfileName = "ProfileName",
+                                ProfileResourceModel = profileResourceModel
                             }
                     };
             }
