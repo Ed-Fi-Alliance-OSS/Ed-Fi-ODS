@@ -5,6 +5,7 @@
 
 using System;
 using System.Configuration;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 
@@ -12,7 +13,7 @@ namespace EdFi.Ods.Common.Database
 {
     /// <summary>
     /// Gets the connection string using a configured named connection string as a prototype for the connection string
-    /// with an injected <see cref="IDatabaseNameReplacementTokenProvider"/> to replace token in database name.
+    /// with an injected <see cref="EdFi.Ods.Common.Database.IDatabaseNameReplacementTokenProvider"/> to replace token in database name.
     /// </summary>
     public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IDatabaseConnectionStringProvider
     {
@@ -64,7 +65,7 @@ namespace EdFi.Ods.Common.Database
             connectionStringBuilder.DatabaseName = connectionStringBuilder.DatabaseName.IsFormatString()
                 ? string.Format(
                     connectionStringBuilder.DatabaseName,
-                    _databaseNameReplacementTokenProvider.GetReplacementToken())
+                    (object) _databaseNameReplacementTokenProvider.GetReplacementToken())
                 : connectionStringBuilder.DatabaseName;
 
             return connectionStringBuilder.ConnectionString;

@@ -3,33 +3,33 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 using System;
-using System.Data.SqlClient;
-using EdFi.Ods.Common.Database;
+using EdFi.Common.Database;
 using EdFi.TestFixture;
+using Npgsql;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 {
     [TestFixture]
-    public class SqlConnectionStringBuilderAdapterTests
+    public class NpgqlConnectionStringBuilderAdapterTests
     {
-        public class When_getting_and_setting_the_database_name_in_a_SQL_Server_connection_string 
+        public class When_getting_and_setting_the_database_name_in_a_Postgres_connection_string
             : TestFixtureBase
         {
             private string _actualInitialDatabaseName;
             private string _actualModifiedDatabaseName;
             private string _actualFinalConnectionString;
 
-            private const string SqlServerConnectionStringFormat = @"Server=(local);Database={0};Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;";
-            
+            private const string PostgresConnectionStringFormat = @"Host=localhost; Port=5432; Database={0}; username=postgres; Application Name=EdFi.Ods.WebApi;";
+
             protected override void Act()
             {
-                var adapter = new SqlConnectionStringBuilderAdapter();
+                var adapter = new NpgsqlConnectionStringBuilderAdapter();
 
-                adapter.ConnectionString = string.Format(SqlServerConnectionStringFormat, "OriginalDatabaseName");
+                adapter.ConnectionString = string.Format(PostgresConnectionStringFormat, "OriginalDatabaseName");
                 _actualInitialDatabaseName = adapter.DatabaseName;
-             
+
                 adapter.DatabaseName = "ModifiedDatabaseName";
                 _actualModifiedDatabaseName = adapter.DatabaseName;
 
@@ -41,7 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             {
                 _actualInitialDatabaseName.ShouldBe("OriginalDatabaseName");
             }
-            
+
             [Test]
             public void Should_return_the_modified_database_name_after_it_has_been_changed()
             {
@@ -52,11 +52,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             public void Should_incorporate_modified_database_name_into_connection_string_returned_by_the_adapter()
             {
                 string formattedConnectionString = string.Format(
-                    SqlServerConnectionStringFormat, "ModifiedDatabaseName");
-                
-                var builder = new SqlConnectionStringBuilder(formattedConnectionString);
+                    PostgresConnectionStringFormat, "ModifiedDatabaseName");
+
+                var builder = new NpgsqlConnectionStringBuilder(formattedConnectionString);
                 string expectedConnectionString = builder.ConnectionString;
-                
+
                 _actualFinalConnectionString.ShouldBe(expectedConnectionString);
             }
         }
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         {
             protected override void Act()
             {
-                var builder = new SqlConnectionStringBuilderAdapter();
+                var builder = new NpgsqlConnectionStringBuilderAdapter();
                 builder.DatabaseName = "Database1";
             }
 
