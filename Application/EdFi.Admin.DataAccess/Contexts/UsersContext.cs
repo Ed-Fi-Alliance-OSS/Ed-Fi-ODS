@@ -17,7 +17,6 @@ namespace EdFi.Admin.DataAccess.Contexts
     public abstract class UsersContext : DbContext, IUsersContext
     {
 #if NETFRAMEWORK
-
         public const string ConnectionStringName = "EdFi_Admin";
         protected UsersContext()
             : base(ConnectionStringName)
