@@ -32,7 +32,6 @@ namespace EdFi.Ods.Admin.Security
                 return identityUser != null;
             }
         }
-                
 
         public bool VerifyUserEmailConfirmed(string userEmail)
         {
@@ -95,7 +94,7 @@ namespace EdFi.Ods.Admin.Security
                     var userIdentity = identityUserManager.CreateIdentity(
                         identityUser, DefaultAuthenticationTypes.ApplicationCookie);
 
-                    authenticationManager.SignIn(new AuthenticationProperties() {IsPersistent = false}, userIdentity);
+                    authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, userIdentity);
                     return true;
                 }
 
@@ -163,8 +162,8 @@ namespace EdFi.Ods.Admin.Security
                 var identityUser = identityUserManager.FindByEmail(email);
 
                 if (identityUser != null)
-                {               
-                   var result = identityUserManager.ConfirmEmail(identityUser.Id, token);
+                {
+                    var result = identityUserManager.ConfirmEmail(identityUser.Id, token);
 
                     if (!result.Succeeded)
                     {
@@ -194,7 +193,7 @@ namespace EdFi.Ods.Admin.Security
                 if (identityRoleManager.FindByName(role) == null)
                 {
                     _log.Debug($"Adding role: {role} to asp net security.");
-                    identityRoleManager.Create(new IdentityRole() {Name = role});
+                    identityRoleManager.Create(new IdentityRole() { Name = role });
                 }
             }
         }
@@ -215,7 +214,7 @@ namespace EdFi.Ods.Admin.Security
             identityUserManager.UserTokenProvider = new Microsoft.AspNet.Identity.EmailTokenProvider<IdentityUser, string>();
 
             identityUserManager.UserValidator =
-                new UserValidator<IdentityUser>(identityUserManager) {AllowOnlyAlphanumericUserNames = false};
+                new UserValidator<IdentityUser>(identityUserManager) { AllowOnlyAlphanumericUserNames = false };
 
             return identityUserManager;
         }

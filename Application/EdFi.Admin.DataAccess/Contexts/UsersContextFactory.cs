@@ -37,8 +37,8 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
         {
-       _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
-        _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
+            _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
+            _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
         }
 #endif
 
