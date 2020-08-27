@@ -20,7 +20,7 @@ namespace EdFi.Ods.Features.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
-    [Route("oauth/tokenInfo")]
+    [Route("oauth/token_info")]
     [Produces("application/json")]
     [ApiController]
     public class TokenInfoController : ControllerBase
