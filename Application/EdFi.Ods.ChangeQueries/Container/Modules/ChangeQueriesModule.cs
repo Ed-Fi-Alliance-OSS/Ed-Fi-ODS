@@ -12,6 +12,7 @@ using EdFi.Ods.ChangeQueries.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
@@ -37,6 +38,9 @@ namespace EdFi.Ods.ChangeQueries.Container.Modules
 
             builder.RegisterType<DeletesRouteConvention>()
                 .As<IApplicationModelConvention>();
+
+            builder.RegisterType<ChangeQueryMappingNHibernateConfigurationActivity>()
+                .As<INHibernateBeforeBindMappingActivity>();
         }
     }
 }
