@@ -8,6 +8,7 @@ using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.NHibernate.Architecture;

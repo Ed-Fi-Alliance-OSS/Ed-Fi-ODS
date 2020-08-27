@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
 using EdFi.TestFixture;

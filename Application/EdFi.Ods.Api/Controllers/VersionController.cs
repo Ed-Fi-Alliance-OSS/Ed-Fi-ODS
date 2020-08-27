@@ -5,6 +5,8 @@
 
 #if NETCOREAPP
 using System.Linq;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
@@ -20,22 +22,22 @@ namespace EdFi.Ods.Api.Controllers
     [AllowAnonymous]
     public class VersionController : ControllerBase
     {
-        private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly IApiVersionProvider _apiVersionProvider;
+        private readonly ISystemDateProvider _systemDateProvider;
         private readonly IDomainModelProvider _domainModelProvider;
+        private readonly ApiSettings _apiSettings;
 
         public VersionController(
             IApiConfigurationProvider apiConfigurationProvider,
             IDomainModelProvider domainModelProvider,
-            IApiVersionProvider apiVersionProvider)
+            IApiVersionProvider apiVersionProvider,
+            ISystemDateProvider systemDateProvider,
+            ApiSettings apiSettings)
         {
-            Preconditions.ThrowIfNull(apiConfigurationProvider, nameof(apiConfigurationProvider));
-            Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
-            Preconditions.ThrowIfNull(apiVersionProvider, nameof(apiVersionProvider));
-
-            _apiConfigurationProvider = apiConfigurationProvider;
-            _domainModelProvider = domainModelProvider;
-            _apiVersionProvider = apiVersionProvider;
+            _domainModelProvider = Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
+            _apiVersionProvider = Preconditions.ThrowIfNull(apiVersionProvider, nameof(apiVersionProvider));
+            _systemDateProvider = Preconditions.ThrowIfNull(systemDateProvider, nameof(systemDateProvider));
+            _apiSettings = Preconditions.ThrowIfNull(apiSettings, nameof(apiSettings));
         }
 
         [HttpGet]
@@ -53,17 +55,55 @@ namespace EdFi.Ods.Api.Controllers
                     })
                 .ToArray();
 
+            var exposedUrls = GetUrls();
+
             var content = new
             {
                 version = _apiVersionProvider.Version,
                 informationalVersion = _apiVersionProvider.InformationalVersion,
                 suite = _apiVersionProvider.Suite,
                 build = _apiVersionProvider.Build,
-                apiMode = _apiConfigurationProvider.Mode.DisplayName,
-                dataModels = dataModels
+                apiMode = _apiSettings.GetApiMode().DisplayName,
+                dataModels = dataModels,
+                urls = new
+                {
+                    openApiMetadata = exposedUrls.MetaDataUrl,
+                    dependencies = exposedUrls.DependenciesUrl,
+                    oauth = exposedUrls.OauthUrl,
+                    dataManagementApi = exposedUrls.ApiUrl,
+                }
             };
 
             return Ok(content);
+
+            ExposedUrls GetUrls()
+            {
+                var currentYear = _systemDateProvider.GetDate().Year.ToString();
+
+                bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific);
+
+                bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
+
+                var exposedUrls = new ExposedUrls
+                {
+                    DependenciesUrl = Request.RootUrl(useReverseProxyHeaders) +
+                                      (isYearSpecific
+                                          ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
+                                          : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies"),
+                    MetaDataUrl = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                                  (isYearSpecific
+                                      ? currentYear
+                                      : string.Empty),
+                    OauthUrl = Request.RootUrl(useReverseProxyHeaders) + "/oauth/token",
+                    ApiUrl = Request.RootUrl(useReverseProxyHeaders) +
+                             $"/data/v{ApiVersionConstants.Ods}/" +
+                             (isYearSpecific
+                                 ? currentYear
+                                 : string.Empty)
+                };
+
+                return exposedUrls;
+            }
         }
     }
 }

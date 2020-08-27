@@ -13,6 +13,7 @@ using System.Transactions;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api._Installers;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;

@@ -22,22 +22,22 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DomainModelProvider>().As<IDomainModelProvider>().SingleInstance();
+            builder.RegisterType<DomainModelProvider>().As<IDomainModelProvider>();
 
             // Domain Model
-            builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel()).As<DomainModel>().SingleInstance();
+            builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel()).As<DomainModel>();
 
             // Schemas
-            builder.Register(c => c.Resolve<DomainModel>().Schemas.ToArray()).As<Schema[]>().SingleInstance();
+            builder.Register(c => c.Resolve<DomainModel>().Schemas.ToArray()).As<Schema[]>();
 
             // Schema Name Map Provider
-            builder.Register(c => c.Resolve<DomainModel>().SchemaNameMapProvider).As<ISchemaNameMapProvider>().SingleInstance();
+            builder.Register(c => c.Resolve<DomainModel>().SchemaNameMapProvider).As<ISchemaNameMapProvider>();
 
             // Resource Model Provider
-            builder.RegisterType<ResourceModelProvider>().As<IResourceModelProvider>().SingleInstance();
+            builder.RegisterType<ResourceModelProvider>().As<IResourceModelProvider>();
 
             // Validator for the domain model provider
-            builder.RegisterType<FluentValidationObjectValidator>().As<IExplicitObjectValidator>().SingleInstance();
+            builder.RegisterType<FluentValidationObjectValidator>().As<IExplicitObjectValidator>();
 
             // Domain Models definitions provider
             builder.RegisterType<DomainModelDefinitionsJsonEmbeddedResourceProvider>()
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     new ResolvedParameter(
                         (p, c) => p.ParameterType == typeof(Assembly),
                         (p, c) => c.Resolve<IAssembliesProvider>().GetAssemblies().SingleOrDefault(x => x.IsStandardAssembly())))
-                .As<IDomainModelDefinitionsProvider>().SingleInstance();
+                .As<IDomainModelDefinitionsProvider>();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;

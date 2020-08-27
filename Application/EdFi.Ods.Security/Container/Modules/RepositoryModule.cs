@@ -7,12 +7,15 @@
 using Autofac;
 using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
 
-namespace EdFi.Ods.Security.Container.Modules {
+namespace EdFi.Ods.Security.Container.Modules
+{
     public class RepositoryModule : Module
     {
         protected override void Load(ContainerBuilder builder)
@@ -28,7 +31,6 @@ namespace EdFi.Ods.Security.Container.Modules {
                         (pi, ctx) => ctx.Resolve<ApiSettings>()
                             .GetDatabaseEngine()))
                 .As<IUsersContextFactory>();
-
 
             builder.RegisterType<SecurityContextFactory>()
                 .WithParameter(

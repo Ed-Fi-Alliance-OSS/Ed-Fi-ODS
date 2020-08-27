@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,19 +32,13 @@ using NHibernate.Context;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
-        public class CompositeResourceResponseProvider : ICompositeResourceResponseProvider
+    public class CompositeResourceResponseProvider : ICompositeResourceResponseProvider
     {
         private readonly ICompositeDefinitionProcessor<HqlBuilderContext, CompositeQuery> _compositeDefinitionProcessor;
         private readonly IFieldsExpressionParser _fieldsExpressionParser;
 
         private readonly JsonSerializerSettings _jsonSerializerSettings
-            = new JsonSerializerSettings
-              {
-                  Converters = new[]
-                               {
-                                   new GuidConverter()
-                               }
-              };
+            = new JsonSerializerSettings {Converters = new[] {new GuidConverter()}};
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
         private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
@@ -68,12 +62,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             _profileResourceModelProvider = profileResourceModelProvider;
         }
 
-        public object Get(
+        public string GetJson(
             XElement compositeDefinition,
             IDictionary<string, CompositeSpecificationParameter> parameters,
             IDictionary<string, object> queryStringParameters,
             NullValueHandling nullValueHandling = NullValueHandling.Ignore)
         {
+            Preconditions.ThrowIfNull(parameters, nameof(parameters));
+            Preconditions.ThrowIfNull(queryStringParameters, nameof(queryStringParameters));
+
             var resourceModel = GetResourceModel();
 
             bool closeSession = false;
@@ -128,11 +125,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (closeSession)
                 {
                     _sessionFactory.GetCurrentSession()
-                                   .Close();
+                        .Close();
                 }
             }
 
-            return result;
+            return JsonConvert.SerializeObject(result, Formatting.Indented, _jsonSerializerSettings);
         }
 
         private bool IsSingleItemRequest(
@@ -148,12 +145,13 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
 
             string logicalSchema = currentElt.Attributes()
-                                             .SingleOrDefault(x => x.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.LogicalSchema))
-                                            ?.Value ?? EdFiConventions.LogicalName;
+                .SingleOrDefault(x => x.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.LogicalSchema))
+                ?.Value ?? EdFiConventions.LogicalName;
 
             var physicalName = resourceModel.GetPhysicalNameForLogicalName(logicalSchema);
 
-            var currentModel = resourceModel.GetResourceByFullName(new FullName(physicalName, currentElt.AttributeValue(CompositeDefinitionHelper.Name)));
+            var currentModel = resourceModel.GetResourceByFullName(
+                new FullName(physicalName, currentElt.AttributeValue(CompositeDefinitionHelper.Name)));
 
             return currentModel.IsSingleItemRequest(queryStringParameters.ToList());
         }
@@ -163,9 +161,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Determine caller's assigned profiles
             var assignedProfileNames =
                 ClaimsPrincipal.Current.Claims
-                               .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
-                               .Select(c => c.Value)
-                               .ToArray();
+                    .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
+                    .Select(c => c.Value)
+                    .ToArray();
 
             if (assignedProfileNames.Any())
             {
@@ -225,10 +223,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             return null;
         }
 
-        public object ProcessResults(CompositeQuery query, IReadOnlyList<SelectedResourceMember> fieldSelections, NullValueHandling nullValueHandling)
+        public object ProcessResults(CompositeQuery query, IReadOnlyList<SelectedResourceMember> fieldSelections,
+            NullValueHandling nullValueHandling)
         {
             return ProcessResults(query, null, null, fieldSelections, nullValueHandling)
-               .ApplyCardinality(query.IsSingleItemResult);
+                .ApplyCardinality(query.IsSingleItemResult);
         }
 
         public IList<IDictionary> ProcessResults(
@@ -265,7 +264,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Convert the row to serializable form
-                var resultItem = GetItem(currentRow, query.DataFields, query.OrderedFieldNames, fieldSelections, nullValueHandling);
+                var resultItem = GetItem(
+                    currentRow, query.DataFields, query.OrderedFieldNames, fieldSelections, nullValueHandling);
 
                 // Process the children
                 foreach (var childQuery in query.ChildQueries)
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                     ? null
                                     : selectedMember.Children,
                                 nullValueHandling)
-                           .ApplyCardinality(childQuery.IsSingleItemResult);
+                            .ApplyCardinality(childQuery.IsSingleItemResult);
                 }
 
                 results.Add(resultItem);
@@ -319,10 +319,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
 
             var descriptorNamespaceByKey = keys
-                                          .Where(x => x.EndsWith(CompositeDefinitionHelper.NamespaceMarker))
-                                          .ToDictionary(
-                                               x => x.Substring(0, x.IndexOf(CompositeDefinitionHelper.Marker)),
-                                               x => sourceRow[x]);
+                .Where(x => x.EndsWith(CompositeDefinitionHelper.NamespaceMarker))
+                .ToDictionary(
+                    x => x.Substring(0, x.IndexOf(CompositeDefinitionHelper.Marker)),
+                    x => sourceRow[x]);
 
             HashSet<string> selectedKeys = null;
 
@@ -336,21 +336,23 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
             }
 
-            var keysToProcess = keys.Where(x => !x.StartsWith(CompositeDefinitionHelper.Marker)
-                                                && !x.EndsWith(CompositeDefinitionHelper.NamespaceMarker));
+            var keysToProcess = keys.Where(
+                x => !x.StartsWith(CompositeDefinitionHelper.Marker)
+                     && !x.EndsWith(CompositeDefinitionHelper.NamespaceMarker));
 
             // Retain order of properties
             // since pass through items are not in the resource and/or domain model, we need to add them as part of the return fields.
             // order fields are exclusively from the model, so we need to add the pass through items to end.
             var keyValuePairs = orderedFieldNames
-                               .Concat(keys.Where(x => x.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
-                                           .Select(x => x.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker)))
-                               .Join(
-                                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys),
-                                    x => x,
-                                    x => x.Key,
-                                    (prop, kvp) => kvp,
-                                    StringComparer.InvariantCultureIgnoreCase);
+                .Concat(
+                    keys.Where(x => x.EndsWith(CompositeDefinitionHelper.PassThroughMarker))
+                        .Select(x => x.TrimSuffix(CompositeDefinitionHelper.PassThroughMarker)))
+                .Join(
+                    EnumerateKeyValuePairs(sourceRow, nullValueHandling, keysToProcess, descriptorNamespaceByKey, selectedKeys),
+                    x => x,
+                    x => x.Key,
+                    (prop, kvp) => kvp,
+                    StringComparer.InvariantCultureIgnoreCase);
 
             // Set the values to the ordered dictionary
             foreach (var kvp in keyValuePairs)
@@ -402,13 +404,14 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 EdFiDescriptorReferenceSpecification.GetFullyQualifiedDescriptorReference(
                                     namespaceForDescriptor.ToString(),
                                     sourceRow[key]
-                                       .ToString());
+                                        .ToString());
                         }
                         else
                         {
                             // See if we need to convert an USI to a UniqueId
                             if (UniqueIdSpecification.IsUSI(key)
-                                && UniqueIdSpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
+                                && UniqueIdSpecification.TryGetUSIPersonTypeAndRoleName(
+                                    key, out string personType, out string roleName))
                             {
                                 // Translate to UniqueId
                                 string uniqueId = _personUniqueIdToUsiCache.GetUniqueId(personType, (int) sourceRow[key]);

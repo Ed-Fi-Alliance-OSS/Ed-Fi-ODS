@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 

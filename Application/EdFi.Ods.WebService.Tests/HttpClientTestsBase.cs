@@ -11,19 +11,19 @@ namespace EdFi.Ods.WebService.Tests
 {
     public class HttpClientTestsBase
     {
+        protected HttpClient HttpClient;
+
         [OneTimeSetUp]
         public void Setup()
         {
-            _httpClient = new HttpClient();
+            HttpClient = new HttpClient();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _httpClient.Dispose();
+            HttpClient.Dispose();
         }
-
-        protected HttpClient _httpClient;
     }
 }
 #endif

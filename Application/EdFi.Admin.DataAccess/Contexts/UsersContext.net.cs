@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,12 +16,14 @@ namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
+        public const string ConnectionStringName = "EdFi_Admin";
 
-        protected UsersContext(string connectionString)
-            : base(connectionString)
+        protected UsersContext()
+            : base(ConnectionStringName)
         {
             Database.SetInitializer(new ValidateDatabase<UsersContext>());
         }
+
         public const string UserTableName = "Users";
 
         public static string UserNameColumn

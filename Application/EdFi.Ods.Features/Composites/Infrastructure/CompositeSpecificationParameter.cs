@@ -3,12 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
-namespace EdFi.Admin.DataAccess.Contexts
+namespace EdFi.Ods.Features.Composites.Infrastructure
 {
-    public class SqlServerUsersContext : UsersContext
+    public class CompositeSpecificationParameter
     {
-        public SqlServerUsersContext(string connectionString) : base(connectionString) { }
+        public object Value { get; set; }
+
+        public string FilterPath { get; set; }
     }
 }
-#endif

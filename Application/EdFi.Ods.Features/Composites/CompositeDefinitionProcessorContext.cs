@@ -56,19 +56,17 @@ namespace EdFi.Ods.Features.Composites
 
         public bool IsBaseResource() => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.BaseResource);
 
-        public bool IsReferenceResource() => CurrentElement.Name.ToString().EqualsIgnoreCase( CompositeDefinitionHelper.ReferencedResource);
+        public bool IsReferenceResource()
+            => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.ReferencedResource);
 
-        public bool IsEmbeddedObject() => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.ReferencedResource);
+        public bool IsEmbeddedObject()
+            => CurrentElement.Name.ToString().EqualsIgnoreCase(CompositeDefinitionHelper.ReferencedResource);
 
         public bool IsAbstract() => CurrentResourceClass.IsAbstract();
 
         public bool ShouldFlatten() => AttributeValueAsBool(CompositeDefinitionHelper.Flatten);
 
         public bool ShouldIncludeResourceSubtype() => AttributeValueAsBool(CompositeDefinitionHelper.IncludeResourceSubtype);
-
-        public bool ShouldUseHierarchy() => AttributeValueAsBool(CompositeDefinitionHelper.UseHierarchy);
-
-        public bool ShouldUseReferenceHierarchy() => AttributeValueAsBool(CompositeDefinitionHelper.UseReferencedHierarchy);
 
         public string AttributeValue(string attributeName) => CurrentElement.AttributeValue(attributeName);
 
@@ -81,8 +79,8 @@ namespace EdFi.Ods.Features.Composites
                 : JoinAssociation.OtherProperties;
 
             return CurrentResourceClass.Entity.Identifier.Properties
-                                       .Except(joinProperties, new EntityPropertyEqualityComparer())
-                                       .ToList();
+                .Except(joinProperties, new EntityPropertyEqualityComparer())
+                .ToList();
         }
 
         private bool AttributeValueAsBool(string attributeName)

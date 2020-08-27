@@ -9,6 +9,7 @@ using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.InversionOfControl;

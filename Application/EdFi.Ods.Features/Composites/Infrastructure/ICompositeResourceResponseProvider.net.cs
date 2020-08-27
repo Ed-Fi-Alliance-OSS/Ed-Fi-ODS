@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Newtonsoft.Json;
@@ -12,7 +12,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public interface ICompositeResourceResponseProvider
     {
-        object Get(
+        string GetJson(
             XElement compositeDefinition,
             IDictionary<string, CompositeSpecificationParameter> specParameters,
             IDictionary<string, object> queryStringParameters,

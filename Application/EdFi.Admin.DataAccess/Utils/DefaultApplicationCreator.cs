@@ -65,6 +65,7 @@ namespace EdFi.Admin.DataAccess.Utils
                         if (application.ApplicationEducationOrganizations.All(x => x.EducationOrganizationId != leaId))
                         {
                             var applicationEducationOrganization = application.CreateApplicationEducationOrganization(leaId);
+                            application.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                             context.ApplicationEducationOrganizations.AddOrUpdate(applicationEducationOrganization);
                         }
                     }

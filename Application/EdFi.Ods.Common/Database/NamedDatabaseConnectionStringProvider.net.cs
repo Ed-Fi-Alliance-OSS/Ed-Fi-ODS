@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System;
 using System.Configuration;
+using EdFi.Common.Database;
 
 namespace EdFi.Ods.Common.Database
 {

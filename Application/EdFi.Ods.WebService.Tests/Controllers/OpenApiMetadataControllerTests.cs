@@ -17,7 +17,7 @@ namespace EdFi.Ods.WebService.Tests
         [Test]
         public async Task MetadataEndpointGetShouldBeValid()
         {
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 

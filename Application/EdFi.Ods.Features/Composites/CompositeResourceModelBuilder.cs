@@ -29,11 +29,12 @@ namespace EdFi.Ods.Features.Composites
         /// </summary>
         /// <param name="processorContext"></param>
         /// <param name="builderContext">The builder context.</param>
-        public void ApplyRootResource(CompositeDefinitionProcessorContext processorContext, CompositeResourceModelBuilderContext builderContext)
+        public void ApplyRootResource(CompositeDefinitionProcessorContext processorContext,
+            CompositeResourceModelBuilderContext builderContext)
         {
             string compositeName = processorContext.CurrentElement.Ancestors("Composite")
-                                                   .First()
-                                                   .AttributeValue("name");
+                .First()
+                .AttributeValue("name");
 
             string resourceName = CompositeTermInflector.MakeSingular(compositeName);
             builderContext.RootResource = new Resource(resourceName); //resource.Entity.Name);
@@ -72,7 +73,7 @@ namespace EdFi.Ods.Features.Composites
             // Ensure Id property appears first
             var orderedPropertyProjections =
                 propertyProjections.Where(isIdProperty)
-                                   .Concat(propertyProjections.Where(p => !isIdProperty(p)));
+                    .Concat(propertyProjections.Where(p => !isIdProperty(p)));
 
             if (processorContext.ShouldIncludeResourceSubtype())
             {
@@ -128,8 +129,6 @@ namespace EdFi.Ods.Features.Composites
                     Logger.Debug($"Stripping property {property.ResourceProperty.PropertyName} from the builder context.");
                 }
             }
-
-
         }
 
         /// <summary>
@@ -165,7 +164,8 @@ namespace EdFi.Ods.Features.Composites
             switch (currentElementName)
             {
                 case Collection:
-                    AddItem(builderContext.ParentResource.Collections,
+                    AddItem(
+                        builderContext.ParentResource.Collections,
                         new Collection(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -176,7 +176,8 @@ namespace EdFi.Ods.Features.Composites
 
                 case LinkedCollection:
 
-                    AddItem(builderContext.ParentResource.Collections,
+                    AddItem(
+                        builderContext.ParentResource.Collections,
                         new Collection(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -187,7 +188,8 @@ namespace EdFi.Ods.Features.Composites
 
                 case ReferencedResource:
 
-                    AddItem(builderContext.ParentResource.EmbeddedObjects,
+                    AddItem(
+                        builderContext.ParentResource.EmbeddedObjects,
                         new EmbeddedObject(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -197,7 +199,8 @@ namespace EdFi.Ods.Features.Composites
 
                 case EmbeddedObject:
 
-                    AddItem(builderContext.ParentResource.EmbeddedObjects,
+                    AddItem(
+                        builderContext.ParentResource.EmbeddedObjects,
                         new EmbeddedObject(
                             builderContext.ParentResource,
                             builderContext.CurrentResource as ResourceChildItem,
@@ -286,12 +289,13 @@ namespace EdFi.Ods.Features.Composites
             CompositeDefinitionProcessorContext childProcessorContext)
         {
             return new CompositeResourceModelBuilderContext
-                   {
-                       RootResource = parentingBuilderContext.RootResource, ParentResource = parentingBuilderContext.CurrentResource,
-                       CurrentResource = new ResourceChildItem(
-                           childProcessorContext.CurrentResourceClass.Name,
-                           parentingBuilderContext.CurrentResource)
-                   };
+            {
+                RootResource = parentingBuilderContext.RootResource,
+                ParentResource = parentingBuilderContext.CurrentResource,
+                CurrentResource = new ResourceChildItem(
+                    childProcessorContext.CurrentResourceClass.Name,
+                    parentingBuilderContext.CurrentResource)
+            };
         }
 
         /// <summary>
@@ -312,26 +316,11 @@ namespace EdFi.Ods.Features.Composites
         /// <param name="processorContext">The composite definition processor context.</param>
         /// <param name="builderContext">The current builder context.</param>
         /// <returns><b>true</b> if the resource can be processed; otherwise <b>false</b>.</returns>
-        public bool TryIncludeResource(CompositeDefinitionProcessorContext processorContext, CompositeResourceModelBuilderContext builderContext)
+        public bool TryIncludeResource(CompositeDefinitionProcessorContext processorContext,
+            CompositeResourceModelBuilderContext builderContext)
         {
             // No reason not to include the resource in this usage scenario
             return true;
-        }
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        public void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            CompositeResourceModelBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
-        {
-            // Nothing to do
         }
 
         private static void AddItem<T>(IReadOnlyList<T> readOnlyList, T item)

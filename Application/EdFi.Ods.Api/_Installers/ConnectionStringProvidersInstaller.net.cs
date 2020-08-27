@@ -8,6 +8,7 @@ using System;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common._Installers.ComponentNaming;

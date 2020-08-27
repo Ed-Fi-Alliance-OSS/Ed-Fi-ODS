@@ -6,6 +6,7 @@
 
 using System;
 using Castle.MicroKernel.Registration;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Common._Installers.ComponentNaming
@@ -24,7 +25,7 @@ namespace EdFi.Ods.Common._Installers.ComponentNaming
         }
 
         /// <summary>
-        /// Names a component registration for an <see cref="IDatabaseConnectionStringProvider"/> using 
+        /// Names a component registration for an <see cref="IDatabaseConnectionStringProvider"/> using
         /// the supplied enumeration value's name as the suffix on the key.
         /// </summary>
         /// <typeparam name="T">The service type being registered.</typeparam>

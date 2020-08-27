@@ -16,7 +16,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Repositories;
@@ -26,7 +25,7 @@ namespace EdFi.Ods.Features.Composites
 {
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
-        private static ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IEdFiAuthorizationProvider _authorizationProvider;
 
@@ -44,7 +43,10 @@ namespace EdFi.Ods.Features.Composites
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));
-            _nHibernateFilterTextProvider = Preconditions.ThrowIfNull(nHibernateFilterTextProvider, nameof(nHibernateFilterTextProvider));
+
+            _nHibernateFilterTextProvider = Preconditions.ThrowIfNull(
+                nHibernateFilterTextProvider, nameof(nHibernateFilterTextProvider));
+
             _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
         }
 
@@ -60,7 +62,8 @@ namespace EdFi.Ods.Features.Composites
 
             if (!(resourceClass is Resource))
             {
-                throw new InvalidOperationException($"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
+                throw new InvalidOperationException(
+                    $"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
             }
 
             var resource = (Resource) resourceClass;
@@ -99,10 +102,11 @@ namespace EdFi.Ods.Features.Composites
                 {
                     Logger.Debug($"Resource {processorContext.CurrentResourceClass.Name} has no claim.");
 
-
                     if (processorContext.ShouldIncludeResourceSubtype())
                     {
-                        Logger.Debug($"Resource is abstract and so target resource '{processorContext.CurrentResourceClass.Name}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.");
+                        Logger.Debug(
+                            $"Resource is abstract and so target resource '{processorContext.CurrentResourceClass.Name}' cannot be authorized. Join will be included, but non-identifying resource members should be stripped from results.");
+
                         return true;
                     }
                 }
@@ -117,22 +121,6 @@ namespace EdFi.Ods.Features.Composites
             builderContext.CurrentQueryFilterByName = authorizationFilters.ToDictionary(x => x.FilterName, x => x);
 
             return true;
-        }
-
-        /// <summary>
-        /// Applies properties necessary to support self-referencing association behavior.
-        /// </summary>
-        /// <param name="selfReferencingAssociations">The relevant self-referencing associations.</param>
-        /// <param name="builderContext">The current builder context.</param>
-        /// <param name="processorContext">The composite definition processor context.</param>
-        /// <remarks>The associations supplied may not be from the current resource class.  In cases where the self-referencing
-        /// behavior is obtained through a referenced resource, the associations will be from the referenced resource.</remarks>
-        public void ApplySelfReferencingProperties(
-            IReadOnlyList<AssociationView> selfReferencingAssociations,
-            HqlBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
-        {
-            _next.ApplySelfReferencingProperties(selfReferencingAssociations, builderContext, processorContext);
         }
 
         /// <summary>
@@ -361,11 +349,13 @@ namespace EdFi.Ods.Features.Composites
                         {
                             if (authorizationFilterDetails.ClaimValues.Length == 1)
                             {
-                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] = authorizationFilterDetails.ClaimValues.Single();
+                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
+                                    authorizationFilterDetails.ClaimValues.Single();
                             }
                             else
                             {
-                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] = authorizationFilterDetails.ClaimValues;
+                                builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
+                                    authorizationFilterDetails.ClaimValues;
                             }
                         }
                     }

@@ -7,6 +7,7 @@
 using System.Linq;
 using Castle.Core;
 using Castle.MicroKernel.Facilities;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
 
@@ -14,10 +15,10 @@ namespace EdFi.Ods.Common.InversionOfControl
 {
     /// <summary>
     /// Provides a Castle Windsor Facility that processes dependencies on
-    /// <see cref="IDatabaseConnectionStringProvider"/> using naming conventions, applying 
+    /// <see cref="IDatabaseConnectionStringProvider"/> using naming conventions, applying
     /// the parameter name's prefix (the text coming before "DatabaseConnectionStringProvider")
-    /// as a suffix on the connection string provider's registration key.  For example, a 
-    /// constructor parameter named "abcDatabaseConnectionStringProvider" will be matched 
+    /// as a suffix on the connection string provider's registration key.  For example, a
+    /// constructor parameter named "abcDatabaseConnectionStringProvider" will be matched
     /// with a provider registered using the key "IDatabaseConnectionStringProvider.Abc".
     /// </summary>
     public class DatabaseConnectionStringProviderFacility : AbstractFacility

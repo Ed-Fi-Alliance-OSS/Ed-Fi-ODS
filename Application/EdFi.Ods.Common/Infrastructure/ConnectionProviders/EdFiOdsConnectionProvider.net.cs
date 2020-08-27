@@ -8,6 +8,7 @@ using System;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 using NHibernate.Connection;
 

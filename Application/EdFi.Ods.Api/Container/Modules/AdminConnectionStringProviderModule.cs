@@ -5,6 +5,7 @@
 
 #if NETCOREAPP
 using Autofac;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -14,6 +15,7 @@ namespace EdFi.Ods.Api.Container.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseConnectionStringProvider>().As<IAdminDatabaseConnectionStringProvider>()
+                .As<IDatabaseConnectionStringProvider>()
                 .SingleInstance();
         }
     }

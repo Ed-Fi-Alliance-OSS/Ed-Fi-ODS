@@ -21,12 +21,9 @@ namespace EdFi.Ods.Features.Composites
         public const string Collection = "Collection";
         public const string LinkedCollection = "LinkedCollection";
 
-        public const string HierarchicalReferenceName = "hierarchicalReferenceName";
         public const string Name = "name";
         public const string Flatten = "flatten";
         public const string IncludeResourceSubtype = "includeResourceSubtype";
-        public const string UseHierarchy = "useHierarchy";
-        public const string UseReferencedHierarchy = "useReferencedHierarchy";
         public const string Property = "Property";
         public const string DisplayName = "displayName";
 
@@ -34,7 +31,6 @@ namespace EdFi.Ods.Features.Composites
         public const string Fields = "fields";
         public const string NamespaceMarker = "__Namespace";
         public const string Marker = "__";
-        public const string HierarchyMarker = "H_";
         public const string PassThroughMarker = "__PassThrough";
         public const string UniqueId = "UniqueId";
 
@@ -56,8 +52,8 @@ namespace EdFi.Ods.Features.Composites
 
             return processorContext.ShouldIncludeResourceSubtype()
                 ? propertiesByName
-                 .Where(p => p.Value.IsIdentifying)
-                 .ToDictionary(k => k.Key, v => v.Value)
+                    .Where(p => p.Value.IsIdentifying)
+                    .ToDictionary(k => k.Key, v => v.Value)
                 : propertiesByName;
         }
 
@@ -69,8 +65,8 @@ namespace EdFi.Ods.Features.Composites
             Preconditions.ThrowIfNull(validPropertiesByName, nameof(validPropertiesByName));
 
             return selectedElements
-                  .Where(x => validPropertiesByName.ContainsKey(x.Name))
-                  .ToList();
+                .Where(x => validPropertiesByName.ContainsKey(x.Name))
+                .ToList();
         }
 
         public static List<PropertyNameWithDisplayName> CreateSelectedElements(IEnumerable<XElement> propertyElements)
@@ -78,15 +74,15 @@ namespace EdFi.Ods.Features.Composites
             Preconditions.ThrowIfNull(propertyElements, nameof(propertyElements));
 
             return propertyElements.Select(
-                                        e =>
-                                        {
-                                            string name = e.AttributeValue(Name);
-                                            string displayName = e.AttributeValue(DisplayName);
+                    e =>
+                    {
+                        string name = e.AttributeValue(Name);
+                        string displayName = e.AttributeValue(DisplayName);
 
-                                            return new PropertyNameWithDisplayName(name, displayName);
-                                        }
-                                    )
-                                   .ToList();
+                        return new PropertyNameWithDisplayName(name, displayName);
+                    }
+                )
+                .ToList();
         }
     }
 }

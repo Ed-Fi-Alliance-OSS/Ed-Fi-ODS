@@ -7,8 +7,8 @@
     </Routes>
 
     <Composites>
-      <!-- The composite definitions below (prefixed with Invalid) are commented out because 
-          they will break the build due to exceptions intentionally thrown during T4 generation, 
+      <!-- The composite definitions below (prefixed with Invalid) are commented out because
+          they will break the build due to exceptions intentionally thrown during T4 generation,
           but are needed for interactively testing the Composite validation process. -->
 
       <!-- BEGIN Composites for Interactive Validation Testing -->
@@ -18,14 +18,14 @@
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidProperty">       
+      <!--<Composite name="InvalidProperty">
         <BaseResource name="Student">
           <Property name="FirstInvalidProperty"/>
           <Property name="SecondInvalidProperty"/>
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidCollection">       
+      <!--<Composite name="InvalidCollection">
         <BaseResource name="Student">
           <Property name="FirstName"/>
           <Collection name="InvalidCollection">
@@ -34,7 +34,7 @@
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidLinkedCollection">       
+      <!--<Composite name="InvalidLinkedCollection">
         <BaseResource name="Student">
           <Property name="FirstName"/>
           <LinkedCollection name="InvalidLinkedCollection">
@@ -43,7 +43,7 @@
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidReference">       
+      <!--<Composite name="InvalidReference">
         <BaseResource name="Student">
           <Property name="FirstName"/>
           <ReferencedResource name="InvalidReference">
@@ -52,7 +52,7 @@
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidEmbeddedObject">        
+      <!--<Composite name="InvalidEmbeddedObject">
         <BaseResource name="Student">
           <Property name="FirstName"/>
           <EmbeddedObject name="InvalidEmbeddedObject">
@@ -61,7 +61,7 @@
         </BaseResource>
       </Composite>-->
 
-      <!--<Composite name="InvalidWithMultipleErrors">        
+      <!--<Composite name="InvalidWithMultipleErrors">
         <BaseResource name="Student">
           <Property name="InvalidProperty"/>
           <EmbeddedObject name="InvalidEmbeddedObject">
@@ -413,7 +413,7 @@
           </Collection>
         </BaseResource>
       </Composite>
-     
+
       <Composite name="StudentCollectionWithFlattenedReference">
         <BaseResource name="StudentAssessment">
           <Collection name="StudentAssessmentStudentObjectiveAssessments">
@@ -423,7 +423,7 @@
           </Collection>
         </BaseResource>
       </Composite>
-      
+
       <Composite name="ResourceCollectionWithFlattenedReference">
         <BaseResource name="Session">
           <Collection name="SessionGradingPeriods">
@@ -433,7 +433,7 @@
           </Collection>
         </BaseResource>
       </Composite>
-      
+
       <Composite name="StaffFilter">
         <BaseResource name="Staff">
           <Property name="HispanicLatinoEthnicity" />

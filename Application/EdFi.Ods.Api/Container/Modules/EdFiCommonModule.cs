@@ -22,6 +22,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<AppConfigValueProvider>().As<IConfigValueProvider>();
             builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
             builder.RegisterType<DatabaseEngineProvider>().As<IDatabaseEngineProvider>();
+            builder.RegisterType<SystemDateProvider>().As<ISystemDateProvider>();
         }
     }
 }

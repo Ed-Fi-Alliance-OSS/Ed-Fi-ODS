@@ -17,7 +17,7 @@ namespace EdFi.Ods.WebService.Tests
         [Test]
         public async Task VersionEndpointGetShouldBeValid()
         {
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl);
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl);
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 

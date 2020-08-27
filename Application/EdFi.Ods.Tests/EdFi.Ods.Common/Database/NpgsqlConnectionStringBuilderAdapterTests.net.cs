@@ -5,6 +5,7 @@
 
 #if NETFRAMEWORK
 using System;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 using EdFi.TestFixture;
 using Npgsql;

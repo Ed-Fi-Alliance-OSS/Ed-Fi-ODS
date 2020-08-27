@@ -44,7 +44,7 @@ namespace EdFi.Admin.DataAccess.UnitTests.Contexts
         private class UnsupportedDatabaseEngine : DatabaseEngine
         {
             public UnsupportedDatabaseEngine()
-                : base("unsupported", "Unsupported Database Engine") { }
+                : base("unsupported", "Unsupported Database Engine", "") { }
         }
 
         [Test]

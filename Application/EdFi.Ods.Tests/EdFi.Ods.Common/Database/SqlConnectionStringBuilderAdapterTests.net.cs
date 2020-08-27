@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System;
 using System.Data.SqlClient;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
 using EdFi.TestFixture;
 using NUnit.Framework;

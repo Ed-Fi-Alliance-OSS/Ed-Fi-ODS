@@ -16,6 +16,7 @@ using System.Web.Http;
 using System.Web.Http.Dependencies;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Database;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.HttpRouteConfigurations;
