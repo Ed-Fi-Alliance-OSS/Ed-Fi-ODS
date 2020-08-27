@@ -2,30 +2,31 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
+
 using System;
 using System.Data.Common;
-using Npgsql;
+using System.Data.SqlClient;
 
-namespace EdFi.Ods.Common.Database
+namespace EdFi.Common.Database
 {
     /// <summary>
-    /// Implements a PostgreSQL-specific adapter for the <see cref="DbConnectionStringBuilder" />
-    /// that provides the database name through the <see cref="NpgsqlConnectionStringBuilder.Database" />
+    /// Implements a SQL Server-specific adapter for the <see cref="DbConnectionStringBuilder" />
+    /// that provides the database name through the <see cref="SqlConnectionStringBuilder.InitialCatalog" />
     /// property.
     /// </summary>
-    public class NpgsqlConnectionStringBuilderAdapter : IDbConnectionStringBuilderAdapter
+    public class SqlConnectionStringBuilderAdapter : IDbConnectionStringBuilderAdapter
     {
-        private NpgsqlConnectionStringBuilder _builder;
+        private SqlConnectionStringBuilder _builder;
 
         public string ConnectionString
         {
             get => _builder?.ConnectionString;
-            set => _builder = new NpgsqlConnectionStringBuilder(value);
+            set => _builder = new SqlConnectionStringBuilder(value);
         }
 
         public string DatabaseName
         {
-            get => _builder?.Database;
+            get => _builder.InitialCatalog;
             set
             {
                 if (_builder == null)
@@ -33,7 +34,7 @@ namespace EdFi.Ods.Common.Database
                     throw new InvalidOperationException("Connection string has not been set.");
                 }
 
-                _builder.Database = value;
+                _builder.InitialCatalog = value;
             }
         }
     }

@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Admin.DataAccess.Utils
