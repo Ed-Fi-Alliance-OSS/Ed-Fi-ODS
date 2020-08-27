@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Serialization;
-using EdFi.Ods.Api.Common.Adapters;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Dependencies;
-using EdFi.Ods.Api.Common.Models;
-using EdFi.Ods.Api.Common.Validation;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using Newtonsoft.Json;
 using FluentValidation.Results;
@@ -329,7 +331,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -575,7 +577,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -897,7 +899,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
 
@@ -1153,7 +1155,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -1399,7 +1401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -1709,7 +1711,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -2390,7 +2392,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolGradeLevelsValidator = new SchoolGradeLevelPutPostRequestValidator();
 
@@ -2688,7 +2690,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -2944,7 +2946,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -3244,7 +3246,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -3536,7 +3538,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolDirectlyOwnedBusesValidator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
 
@@ -3794,7 +3796,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -4313,7 +4315,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationAddressPeriodsValidator = new EducationOrganizationAddressPeriodPutPostRequestValidator();
 
@@ -4569,7 +4571,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -4807,7 +4809,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -5053,7 +5055,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -5375,7 +5377,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
 
@@ -5631,7 +5633,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -5877,7 +5879,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -6609,7 +6611,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolCategoriesValidator = new SchoolCategoryPutPostRequestValidator();
 
@@ -6907,7 +6909,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -7163,7 +7165,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -7463,7 +7465,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -7755,7 +7757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolDirectlyOwnedBusesValidator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
 
@@ -8013,7 +8015,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -8532,7 +8534,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationAddressPeriodsValidator = new EducationOrganizationAddressPeriodPutPostRequestValidator();
 
@@ -8788,7 +8790,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -9405,7 +9407,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolCategoriesValidator = new SchoolCategoryPutPostRequestValidator();
 
@@ -9663,7 +9665,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -10066,7 +10068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -10631,7 +10633,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolGradeLevelsValidator = new SchoolGradeLevelPutPostRequestValidator();
 
@@ -10889,7 +10891,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -11408,7 +11410,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationAddressPeriodsValidator = new EducationOrganizationAddressPeriodPutPostRequestValidator();
 
@@ -11664,7 +11666,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -11902,7 +11904,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -12148,7 +12150,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -12470,7 +12472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
 
@@ -12726,7 +12728,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -12972,7 +12974,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -13282,7 +13284,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -14058,7 +14060,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolCategoriesValidator = new SchoolCategoryPutPostRequestValidator();
 
@@ -14376,7 +14378,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -14614,7 +14616,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -14870,7 +14872,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -15170,7 +15172,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -15462,7 +15464,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolDirectlyOwnedBusesValidator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
 
@@ -15720,7 +15722,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -16239,7 +16241,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationAddressPeriodsValidator = new EducationOrganizationAddressPeriodPutPostRequestValidator();
 
@@ -16495,7 +16497,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -16733,7 +16735,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -16979,7 +16981,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -17301,7 +17303,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var educationOrganizationIndicatorPeriodsValidator = new EducationOrganizationIndicatorPeriodPutPostRequestValidator();
 
@@ -17557,7 +17559,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -17803,7 +17805,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -18113,7 +18115,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -18889,7 +18891,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolCategoriesValidator = new SchoolCategoryPutPostRequestValidator();
 
@@ -19207,7 +19209,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -19445,7 +19447,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -19701,7 +19703,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -20001,7 +20003,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -20293,7 +20295,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var schoolDirectlyOwnedBusesValidator = new SchoolDirectlyOwnedBusPutPostRequestValidator();
 
@@ -20551,7 +20553,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())

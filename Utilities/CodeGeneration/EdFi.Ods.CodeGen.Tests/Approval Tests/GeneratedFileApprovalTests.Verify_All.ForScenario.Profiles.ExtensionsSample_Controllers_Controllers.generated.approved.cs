@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -68,7 +70,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude1
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -126,7 +128,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -184,7 +186,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.BusRoute_MixedInclud
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -242,7 +244,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -303,7 +305,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedE
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -361,7 +363,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedExclude2
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -422,7 +424,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedE
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -480,7 +482,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes.Staff_and_Prospect_M
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedInclude
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedInclude
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -541,7 +543,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_and_Prospect_MixedI
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -602,7 +604,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_Ex
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -663,7 +665,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Entity_Extension_In
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Include_All
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -724,7 +726,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Staff_Include_All
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Include_All
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]

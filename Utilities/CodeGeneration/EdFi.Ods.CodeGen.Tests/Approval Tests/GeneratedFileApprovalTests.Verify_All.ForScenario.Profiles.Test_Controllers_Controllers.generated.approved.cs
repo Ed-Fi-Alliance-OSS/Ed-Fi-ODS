@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
+namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Readable_Excludes_Optional_References
 {
     [ContentType("application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -75,7 +77,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Read
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
+namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Writable_Excludes_Optional_References
 {
     [ContentType("application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json")]
     [ExcludeFromCodeCoverage]
@@ -133,7 +135,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi.Academic_Week_Writ
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
+namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Excludes_Embedded_Object
 {
     [ContentType("application/vnd.ed-fi.assessment.assessment-readable-excludes-embedded-object.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -205,7 +207,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
+namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable_Includes_Embedded_Object
 {
     [ContentType("application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -277,7 +279,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Readable_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
+namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Excludes_Embedded_Object
 {
     [ContentType("application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json")]
     [ExcludeFromCodeCoverage]
@@ -335,7 +337,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
+namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable_Includes_Embedded_Object
 {
     [ContentType("application/vnd.ed-fi.assessment.assessment-writable-includes-embedded-object.readable+json")]
     [ExcludeFromCodeCoverage]
@@ -393,7 +395,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi.Assessment_Writable_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_ExcludeOnly
 {
     [ContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -474,7 +476,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.Minima
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.MinimalStudentSchoolAssociation_IncludeOnly
 {
     [ContentType("application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -555,7 +557,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi.Minima
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Readable_Restricted
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restricted
 {
     [ContentType("application/vnd.ed-fi.student.student-readable-restricted.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -633,7 +635,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Student_Readable_Restri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -690,7 +692,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -747,7 +749,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociation_Derived_Association_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -804,7 +806,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -861,7 +863,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi.Test_ParentNonAbstractBaseClass_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -918,7 +920,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -965,7 +967,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Prof
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1016,7 +1018,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Reso
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1063,7 +1065,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi.Test_Prof
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Resources_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1114,7 +1116,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Reso
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
     [ContentType("application/vnd.ed-fi.staff.test-profile-for-composites-with-multiple-resources.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -1193,7 +1195,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_For_Composit
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
+namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_Profile_For_Composites_With_Multiple_Resources
 {
     [ContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -1261,7 +1263,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1312,7 +1314,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ba
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_ExcludeOnly_2
 {
     [ContentType("application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly-2.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -1381,7 +1383,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ba
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_BaseClass_Child_Collection_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1432,7 +1434,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ba
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_ExcludeOnly_Specific_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1483,7 +1485,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ch
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_Filtered_To_IncludeOnly_Specific_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1534,7 +1536,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ch
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_Child_Collection_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1585,7 +1587,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ch
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1636,7 +1638,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ex
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1687,7 +1689,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_In
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1738,7 +1740,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_In
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
+namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_ExcludeOnly_Specific_Types_and_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1796,7 +1798,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
+namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile_Resource_Nested_Child_Collection_Filtered_To_IncludeOnly_Specific_Types_and_Descriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1854,7 +1856,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi.Test_Profile_
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
     [ContentType("application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -1923,7 +1925,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Re
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1974,7 +1976,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Re
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_References_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2025,7 +2027,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Re
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
     [ContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json")]
     [ExcludeFromCodeCoverage]
@@ -2083,7 +2085,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Wr
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2144,7 +2146,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_Re
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Student_and_School_Include_All
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_and_School_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2195,7 +2197,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Student_and
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_Student_and_School_Include_All
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_and_School_Include_All
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2255,7 +2257,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_Student_an
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly2_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2315,7 +2317,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnl
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOnly_Resource_IncludeAll
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2375,7 +2377,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi.Test_Profile_StudentOnl
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
+namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi.Test_StudentEducationOrganizationAssociation_Exclude_All_Addrs_Except_Physical
 {
     [ContentType("application/vnd.ed-fi.studenteducationorganizationassociation.test-studenteducationorganizationassociation-exclude-all-addrs-except-physical.writable+json")]
     [ExcludeFromCodeCoverage]

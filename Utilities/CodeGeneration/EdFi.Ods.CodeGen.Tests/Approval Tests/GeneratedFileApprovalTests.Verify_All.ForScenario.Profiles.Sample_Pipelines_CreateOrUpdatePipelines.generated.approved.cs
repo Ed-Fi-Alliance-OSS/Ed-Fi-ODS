@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.CreateOrUpdate;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Api.Infrastructure.Pipelines.CreateOrUpdate;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 
 namespace EdFi.Ods.Api.Pipelines.Test_Profile_Resource_ExcludeOnly
 {

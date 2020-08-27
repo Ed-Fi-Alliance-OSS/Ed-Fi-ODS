@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.TPDM;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AccreditationStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -47,7 +49,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AccreditationStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AidTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -84,7 +86,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AidTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -136,7 +138,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAcademicRecords
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAcademicRecords
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -182,7 +184,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAcademicRecords
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessments
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessments
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -230,7 +232,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessments
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessmentCourseAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentCourseAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -275,7 +277,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessmentCours
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessmentSectionAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentSectionAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -322,7 +324,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentAssessmentSecti
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentCourseAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -366,7 +368,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentCourseAssociati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentCourseTranscripts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseTranscripts
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -414,7 +416,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentCourseTranscrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentEducationOrganizationAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentEducationOrganizationAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -457,7 +459,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentEducationOrgani
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentSectionAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentSectionAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -503,7 +505,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.AnonymizedStudentSectionAssociat
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Applicants
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -558,7 +560,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Applicants
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicantProspectAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicantProspectAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -598,7 +600,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicantProspectAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Applications
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applications
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -655,7 +657,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Applications
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -703,7 +705,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEventResultDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventResultDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -740,7 +742,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEventResultDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEventTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -777,7 +779,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationSourceDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationSourceDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -814,7 +816,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationSourceDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -851,7 +853,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ApplicationStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.BackgroundCheckStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -888,7 +890,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.BackgroundCheckStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.BackgroundCheckTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -925,7 +927,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.BackgroundCheckTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Certifications
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -975,7 +977,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Certifications
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExams
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1019,7 +1021,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExams
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamResults
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1065,7 +1067,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamResults
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1102,7 +1104,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamStatusDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1139,7 +1141,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationExamTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationFieldDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationFieldDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1176,7 +1178,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationFieldDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1213,7 +1215,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationRouteDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1250,7 +1252,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationRouteDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationStandardDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationStandardDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1287,7 +1289,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CertificationStandardDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CompleterAsStaffAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CompleterAsStaffAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1326,7 +1328,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CompleterAsStaffAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CoteachingStyleObservedDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1363,7 +1365,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CoteachingStyleObservedDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1405,7 +1407,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialEventTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1442,7 +1444,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1479,7 +1481,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.CredentialStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.DegreeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.DegreeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1516,7 +1518,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.DegreeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EducatorRoleDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1553,7 +1555,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EducatorRoleDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1598,7 +1600,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentEventTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1635,7 +1637,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1679,7 +1681,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationReasonDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationReasonDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1716,7 +1718,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationReasonDescri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1753,7 +1755,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EmploymentSeparationTypeDescript
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EnglishLanguageExamDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1790,7 +1792,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EnglishLanguageExamDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Evaluations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1838,7 +1840,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Evaluations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElements
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1888,7 +1890,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElements
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElementRatings
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1942,7 +1944,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElementRatings
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElementRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1979,7 +1981,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationElementRatingLevelDesc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationObjectives
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2028,7 +2030,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationObjectives
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationObjectiveRatings
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2078,7 +2080,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationObjectiveRatings
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationPeriodDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2115,7 +2117,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationPeriodDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationRatings
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2167,7 +2169,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2204,7 +2206,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2241,7 +2243,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.EvaluationTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FederalLocaleCodeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.FederalLocaleCodeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2278,7 +2280,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FederalLocaleCodeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkExperiences
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperiences
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2322,7 +2324,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkExperiences
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkExperienceSectionAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperienceSectionAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2367,7 +2369,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkExperienceSectionAssoci
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2404,7 +2406,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FieldworkTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FundingSourceDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.FundingSourceDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2441,7 +2443,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.FundingSourceDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.GenderDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2478,7 +2480,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.GenderDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Goals
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2534,7 +2536,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Goals
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.GoalTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.GoalTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2571,7 +2573,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.GoalTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.HireStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.HireStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2608,7 +2610,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.HireStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.HiringSourceDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.HiringSourceDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2645,7 +2647,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.HiringSourceDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.InstructionalSettingDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.InstructionalSettingDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2682,7 +2684,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.InstructionalSettingDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.InternalExternalHireDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.InternalExternalHireDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2719,7 +2721,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.InternalExternalHireDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2756,7 +2758,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ObjectiveRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2793,7 +2795,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2835,7 +2837,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEventStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2872,7 +2874,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEventStatusDesc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEventTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2909,7 +2911,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionEventTypeDescri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionReasonDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionReasonDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2946,7 +2948,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.OpenStaffPositionReasonDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2990,7 +2992,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationRatings
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3043,7 +3045,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationRatings
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3080,7 +3082,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationRatingLevel
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3117,7 +3119,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PerformanceEvaluationTypeDescrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PreviousCareerDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.PreviousCareerDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3154,7 +3156,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.PreviousCareerDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3198,7 +3200,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentEventAttendances
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEventAttendances
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3242,7 +3244,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentEventAtte
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentOfferedByDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentOfferedByDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3279,7 +3281,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProfessionalDevelopmentOfferedBy
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProgramGatewayDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProgramGatewayDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3316,7 +3318,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProgramGatewayDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Prospects
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3379,7 +3381,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Prospects
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProspectTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3416,7 +3418,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ProspectTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasures
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3465,7 +3467,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasures
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureDatatypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureDatatypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3502,7 +3504,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureDatatypeDescr
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureScores
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3554,7 +3556,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureScores
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3591,7 +3593,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.QuantitativeMeasureTypeDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RecruitmentEvents
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEvents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3633,7 +3635,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RecruitmentEvents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RecruitmentEventTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEventTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3670,7 +3672,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RecruitmentEventTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RubricDimensions
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3720,7 +3722,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RubricDimensions
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RubricRatingLevelDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3757,7 +3759,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.RubricRatingLevelDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SalaryTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SalaryTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3794,7 +3796,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SalaryTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SchoolStatusDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SchoolStatusDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3831,7 +3833,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SchoolStatusDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffApplicantAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3870,7 +3872,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffApplicantAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffProspectAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffProspectAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3910,7 +3912,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffProspectAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasures
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasures
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3959,7 +3961,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasures
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureCourseAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureCourseAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4004,7 +4006,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureCourseA
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4048,7 +4050,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureEducati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureSectionAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureSectionAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4095,7 +4097,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffStudentGrowthMeasureSection
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffTeacherPreparationProviderAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProviderAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4136,7 +4138,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffTeacherPreparationProviderA
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffTeacherPreparationProviderProgramAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProviderProgramAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4180,7 +4182,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StaffTeacherPreparationProviderP
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StudentGrowthTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.StudentGrowthTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4217,7 +4219,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.StudentGrowthTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveyResponseTeacherCandidateTargetAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponseTeacherCandidateTargetAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4258,7 +4260,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveyResponseTeacherCandidateTa
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveySectionAggregateResponses
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4311,7 +4313,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveySectionAggregateResponses
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4353,7 +4355,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.SurveySectionResponseTeacherCand
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidates
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidates
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4423,7 +4425,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidates
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateAcademicRecords
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateAcademicRecords
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4486,7 +4488,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateAcademicRecords
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateCharacteristicDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCharacteristicDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4523,7 +4525,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateCharacteristicDe
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateCourseTranscripts
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCourseTranscripts
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4582,7 +4584,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateCourseTranscript
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStaffAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStaffAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4623,7 +4625,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStaffAssociation
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMeasures
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMeasures
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4672,7 +4674,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMea
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4717,7 +4719,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMea
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4761,7 +4763,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMea
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4808,7 +4810,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateStudentGrowthMea
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateTeacherPreparationProviderAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparationProviderAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4853,7 +4855,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateTeacherPreparati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociations
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4897,7 +4899,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherCandidateTeacherPreparati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProgramTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProgramTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4934,7 +4936,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProgramTypeDes
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProviders
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviders
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4975,7 +4977,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProviders
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProviderPrograms
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviderPrograms
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5020,7 +5022,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TeacherPreparationProviderProgra
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TPPDegreeTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPDegreeTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5057,7 +5059,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TPPDegreeTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TPPProgramPathwayDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPProgramPathwayDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5094,7 +5096,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.TPPProgramPathwayDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Universities
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.Universities
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5133,7 +5135,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.Universities
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ValueTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.ValueTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5170,7 +5172,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.ValueTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TPDM.WithdrawReasonDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.WithdrawReasonDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]

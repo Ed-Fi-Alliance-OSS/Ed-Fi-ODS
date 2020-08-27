@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.Sample;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.ArtMediumDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -47,7 +49,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.ArtMediumDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.Buses
+namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -85,7 +87,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.Buses
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes
+namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -138,7 +140,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.BusRoutes
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.FavoriteBookCategoryDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -175,7 +177,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.FavoriteBookCategoryDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.MembershipTypeDescriptors
+namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -212,7 +214,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.MembershipTypeDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.StudentArtProgramAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -265,7 +267,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sample.StudentArtProgramAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sample.StudentGraduationPlanAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]

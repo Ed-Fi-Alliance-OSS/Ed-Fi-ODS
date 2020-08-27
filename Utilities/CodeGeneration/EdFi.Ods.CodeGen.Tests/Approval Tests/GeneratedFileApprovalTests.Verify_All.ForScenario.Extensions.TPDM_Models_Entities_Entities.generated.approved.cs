@@ -6,11 +6,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api.Common.Adapters;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Caching;
-using EdFi.Ods.Api.Common.Dtos;
-using EdFi.Ods.Api.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
@@ -156,7 +158,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -403,7 +405,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1025,7 +1027,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1459,7 +1461,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1726,7 +1728,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2000,7 +2002,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2246,7 +2248,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2471,7 +2473,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2856,7 +2858,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAcademicRecordAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3460,7 +3462,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3784,7 +3786,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -4085,7 +4087,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -4450,7 +4452,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentCourseAssociat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -4800,7 +4802,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentSectionAssocia
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5150,7 +5152,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseAssociationAggrega
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5567,7 +5569,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseTranscriptAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5940,7 +5942,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentEducationOrganizationAss
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -6307,7 +6309,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentSectionAssociationAggreg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -7519,7 +7521,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8202,7 +8204,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8518,7 +8520,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8774,7 +8776,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9081,7 +9083,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9364,7 +9366,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9685,7 +9687,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9940,7 +9942,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10158,7 +10160,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10483,7 +10485,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10819,7 +10821,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11144,7 +11146,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11378,7 +11380,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11689,7 +11691,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11937,7 +11939,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12154,7 +12156,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12427,7 +12429,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12688,7 +12690,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12922,7 +12924,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -13225,7 +13227,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantProspectAssociationAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14112,7 +14114,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14513,7 +14515,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14745,7 +14747,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15008,7 +15010,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15247,7 +15249,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15692,7 +15694,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15925,7 +15927,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventResultDescriptorAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16172,7 +16174,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventTypeDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16419,7 +16421,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16666,7 +16668,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16933,7 +16935,7 @@ namespace EdFi.Ods.Entities.NHibernate.AssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -17142,7 +17144,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckStatusDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -17389,7 +17391,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18147,7 +18149,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18470,7 +18472,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18689,7 +18691,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18908,7 +18910,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19264,7 +19266,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19689,7 +19691,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19915,7 +19917,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamStatusDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20162,7 +20164,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamTypeDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20409,7 +20411,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationFieldDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20656,7 +20658,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationLevelDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20903,7 +20905,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21150,7 +21152,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationStandardDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21529,7 +21531,7 @@ namespace EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21727,7 +21729,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -22062,7 +22064,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -22445,7 +22447,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -22888,7 +22890,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23093,7 +23095,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23340,7 +23342,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23587,7 +23589,7 @@ namespace EdFi.Ods.Entities.NHibernate.DegreeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23834,7 +23836,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24254,7 +24256,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24487,7 +24489,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24915,7 +24917,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25141,7 +25143,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationReasonDescriptorAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25388,7 +25390,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationTypeDescriptorAggrega
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25635,7 +25637,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -26174,7 +26176,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -26468,7 +26470,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -26986,7 +26988,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -27292,7 +27294,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -27890,7 +27892,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28223,7 +28225,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28432,7 +28434,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28976,7 +28978,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -29276,7 +29278,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -29863,7 +29865,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -30169,7 +30171,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -30378,7 +30380,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31065,7 +31067,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31400,7 +31402,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31764,7 +31766,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32052,7 +32054,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32268,7 +32270,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32515,7 +32517,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32762,7 +32764,7 @@ namespace EdFi.Ods.Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33337,7 +33339,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33600,7 +33602,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33816,7 +33818,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34188,7 +34190,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggr
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34386,7 +34388,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34633,7 +34635,7 @@ namespace EdFi.Ods.Entities.NHibernate.FundingSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34880,7 +34882,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -35470,7 +35472,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -35773,7 +35775,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36074,7 +36076,7 @@ namespace EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36388,7 +36390,7 @@ namespace EdFi.Ods.Entities.NHibernate.HireStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36635,7 +36637,7 @@ namespace EdFi.Ods.Entities.NHibernate.HiringSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36882,7 +36884,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstructionalSettingDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37129,7 +37131,7 @@ namespace EdFi.Ods.Entities.NHibernate.InternalExternalHireDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37376,7 +37378,7 @@ namespace EdFi.Ods.Entities.NHibernate.LevelOfDegreeAwardedDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37637,7 +37639,7 @@ namespace EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37846,7 +37848,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38207,7 +38209,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38649,7 +38651,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38854,7 +38856,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventStatusDescriptorAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39101,7 +39103,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventTypeDescriptorAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39348,7 +39350,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionReasonDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39986,7 +39988,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40277,7 +40279,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40523,7 +40525,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40773,7 +40775,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -41454,7 +41456,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -41798,7 +41800,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42150,7 +42152,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42426,7 +42428,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42642,7 +42644,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42889,7 +42891,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43150,7 +43152,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43359,7 +43361,7 @@ namespace EdFi.Ods.Entities.NHibernate.PreviousCareerDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43703,7 +43705,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44127,7 +44129,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44339,7 +44341,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentOfferedByDescripto
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44586,7 +44588,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProgramGatewayDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -45596,7 +45598,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46118,7 +46120,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46432,7 +46434,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46693,7 +46695,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46999,7 +47001,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47260,7 +47262,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47577,7 +47579,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47800,7 +47802,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48047,7 +48049,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48263,7 +48265,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48488,7 +48490,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48705,7 +48707,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48907,7 +48909,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -49442,7 +49444,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -49654,7 +49656,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggr
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50200,7 +50202,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50412,7 +50414,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50763,7 +50765,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50982,7 +50984,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventTypeDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51485,7 +51487,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51704,7 +51706,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51951,7 +51953,7 @@ namespace EdFi.Ods.Entities.NHibernate.SalaryTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52248,7 +52250,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52471,7 +52473,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52800,7 +52802,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53041,7 +53043,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53256,7 +53258,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53502,7 +53504,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53699,7 +53701,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53979,7 +53981,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -54428,7 +54430,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -54860,7 +54862,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -55057,7 +55059,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -55403,7 +55405,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -55936,7 +55938,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56247,7 +56249,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56478,7 +56480,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56880,7 +56882,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureCourseAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -57287,7 +57289,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureEducationOrganiz
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -57709,7 +57711,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureSectionAssociati
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58191,7 +58193,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58448,7 +58450,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58667,7 +58669,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59076,7 +59078,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderProgramAss
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59309,7 +59311,7 @@ namespace EdFi.Ods.Entities.NHibernate.StateEducationAgencyAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59566,7 +59568,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59782,7 +59784,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGrowthTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -60064,7 +60066,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -60386,7 +60388,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssoc
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -60710,7 +60712,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -61282,7 +61284,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -61598,7 +61600,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponseTeacherCandidateTarg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -63314,7 +63316,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64151,7 +64153,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64467,7 +64469,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64723,7 +64725,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65029,7 +65031,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65319,7 +65321,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65567,7 +65569,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65779,7 +65781,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66093,7 +66095,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66348,7 +66350,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66566,7 +66568,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66798,7 +66800,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67116,7 +67118,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67376,7 +67378,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67712,7 +67714,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68037,7 +68039,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68271,7 +68273,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68494,7 +68496,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68840,7 +68842,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69088,7 +69090,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69307,7 +69309,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69615,7 +69617,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69828,7 +69830,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -70699,7 +70701,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71238,7 +71240,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71533,7 +71535,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71913,7 +71915,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72241,7 +72243,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72587,7 +72589,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72873,7 +72875,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCharacteristicDescriptorA
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -73563,7 +73565,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -73931,7 +73933,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -74302,7 +74304,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -74813,7 +74815,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75124,7 +75126,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75355,7 +75357,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75721,7 +75723,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureCours
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -76092,7 +76094,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureEduca
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -76478,7 +76480,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureSecti
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -76904,7 +76906,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77365,7 +77367,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77577,7 +77579,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProgramTypeDescriptorAg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77908,7 +77910,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78486,7 +78488,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78757,7 +78759,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78959,7 +78961,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPDegreeTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79206,7 +79208,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPProgramPathwayDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79490,7 +79492,7 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79814,7 +79816,7 @@ namespace EdFi.Ods.Entities.NHibernate.ValueTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -80061,7 +80063,7 @@ namespace EdFi.Ods.Entities.NHibernate.WithdrawReasonDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;

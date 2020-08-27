@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AbsenceEventCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -47,7 +49,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AbsenceEventCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AcademicHonorCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -84,7 +86,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AcademicHonorCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AcademicSubjectDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -121,7 +123,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AcademicSubjectDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -163,7 +165,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AcademicWeeks.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AccommodationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -200,7 +202,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AccommodationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Accounts.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -241,7 +243,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Accounts.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AccountabilityRatings.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -285,7 +287,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AccountabilityRatings.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AccountClassificationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -322,7 +324,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AccountClassificationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AccountCodes.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -364,7 +366,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AccountCodes.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AchievementCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -401,7 +403,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AchievementCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Actuals.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -443,7 +445,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Actuals.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AdditionalCreditTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -480,7 +482,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AdditionalCreditTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AddressTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -517,7 +519,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AddressTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AdministrationEnvironmentDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -554,7 +556,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AdministrationEnvironmentDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AdministrativeFundingControlDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -591,7 +593,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AdministrativeFundingControlDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -640,7 +642,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Assessments.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -677,7 +679,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentIdentificationSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -714,7 +716,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentIdentificationSystemDescrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItems.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -761,7 +763,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItems.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItemCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -798,7 +800,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItemCategoryDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItemResultDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -835,7 +837,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentItemResultDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentPeriodDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -872,7 +874,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentPeriodDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentReportingMethodDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -909,7 +911,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AssessmentReportingMethodDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AttemptStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -946,7 +948,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AttemptStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.AttendanceEventCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -983,7 +985,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.AttendanceEventCategoryDescriptors.Ed
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.BehaviorDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1020,7 +1022,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.BehaviorDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.BellSchedules.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1063,7 +1065,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.BellSchedules.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Budgets.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1105,7 +1107,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Budgets.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Calendars.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1146,7 +1148,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Calendars.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CalendarDates.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1187,7 +1189,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CalendarDates.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CalendarEventDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1224,7 +1226,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CalendarEventDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CalendarTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1261,7 +1263,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CalendarTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CareerPathwayDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1298,7 +1300,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CareerPathwayDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CharterApprovalAgencyTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1335,7 +1337,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CharterApprovalAgencyTypeDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CharterStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1372,7 +1374,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CharterStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CitizenshipStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1409,7 +1411,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CitizenshipStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ClassPeriods.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1449,7 +1451,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ClassPeriods.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ClassroomPositionDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1486,7 +1488,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ClassroomPositionDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Cohorts.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1529,7 +1531,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Cohorts.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CohortScopeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1566,7 +1568,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CohortScopeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CohortTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1603,7 +1605,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CohortTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CohortYearTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1640,7 +1642,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CohortYearTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CommunityOrganizations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1677,7 +1679,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CommunityOrganizations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CommunityProviders.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1720,7 +1722,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CommunityProviders.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CommunityProviderLicenses.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1768,7 +1770,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CommunityProviderLicenses.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CompetencyLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1805,7 +1807,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CompetencyLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CompetencyObjectives.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1848,7 +1850,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CompetencyObjectives.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ContactTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1885,7 +1887,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ContactTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ContentClassDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1922,7 +1924,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ContentClassDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ContinuationOfServicesReasonDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -1959,7 +1961,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ContinuationOfServicesReasonDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ContractedStaffs.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2002,7 +2004,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ContractedStaffs.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CostRateDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2039,7 +2041,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CostRateDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CountryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2076,7 +2078,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CountryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Courses.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2132,7 +2134,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Courses.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseAttemptResultDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2169,7 +2171,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseAttemptResultDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseDefinedByDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2206,7 +2208,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseDefinedByDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseGPAApplicabilityDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2243,7 +2245,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseGPAApplicabilityDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseIdentificationSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2280,7 +2282,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseIdentificationSystemDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseLevelCharacteristicDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2317,7 +2319,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseLevelCharacteristicDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseOfferings.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2362,7 +2364,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseOfferings.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseRepeatCodeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2399,7 +2401,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseRepeatCodeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CourseTranscripts.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2460,7 +2462,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CourseTranscripts.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Credentials.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2507,7 +2509,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Credentials.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CredentialFieldDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2544,7 +2546,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CredentialFieldDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CredentialTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2581,7 +2583,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CredentialTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CreditCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2618,7 +2620,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CreditCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CreditTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2655,7 +2657,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CreditTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CTEProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2692,7 +2694,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CTEProgramServiceDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.CurriculumUsedDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2729,7 +2731,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.CurriculumUsedDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DeliveryMethodDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2766,7 +2768,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DeliveryMethodDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DiagnosisDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2803,7 +2805,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DiagnosisDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DiplomaLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2840,7 +2842,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DiplomaLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DiplomaTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2877,7 +2879,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DiplomaTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2914,7 +2916,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDesignationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2951,7 +2953,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDesignationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDeterminationSourceTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -2988,7 +2990,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisabilityDeterminationSourceTypeDesc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineActions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3036,7 +3038,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineActions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineActionLengthDifferenceReasonDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3073,7 +3075,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineActionLengthDifferenceReaso
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3110,7 +3112,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineIncidents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3159,7 +3161,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineIncidents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineIncidentParticipationCodeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3196,7 +3198,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.DisciplineIncidentParticipationCodeDe
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationalEnvironmentDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3233,7 +3235,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationalEnvironmentDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationContents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3287,7 +3289,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationContents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3324,7 +3326,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationCategoryDescript
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationIdentificationSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3361,7 +3363,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationIdentificationSy
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationInterventionPrescriptionAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPrescriptionAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3403,7 +3405,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationInterventionPres
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationNetworks.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3441,7 +3443,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationNetworks.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationNetworkAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3482,7 +3484,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationNetworkAssociati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationPeerAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3521,7 +3523,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationOrganizationPeerAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationPlanDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3558,7 +3560,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationPlanDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EducationServiceCenters.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3596,7 +3598,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EducationServiceCenters.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ElectronicMailTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3633,7 +3635,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ElectronicMailTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EmploymentStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3670,7 +3672,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EmploymentStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EntryGradeLevelReasonDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3707,7 +3709,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EntryGradeLevelReasonDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EntryTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3744,7 +3746,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EntryTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.EventCircumstanceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3781,7 +3783,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.EventCircumstanceDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ExitWithdrawTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3818,7 +3820,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ExitWithdrawTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.FeederSchoolAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3860,7 +3862,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.FeederSchoolAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Grades.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3912,7 +3914,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Grades.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradebookEntries.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3961,7 +3963,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradebookEntries.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradebookEntryTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -3998,7 +4000,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradebookEntryTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradeLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4035,7 +4037,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradeLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradePointAverageTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4072,7 +4074,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradePointAverageTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradeTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4109,7 +4111,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradeTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradingPeriods.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4153,7 +4155,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradingPeriods.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GradingPeriodDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4190,7 +4192,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GradingPeriodDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GraduationPlans.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4234,7 +4236,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GraduationPlans.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GraduationPlanTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4271,7 +4273,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GraduationPlanTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.GunFreeSchoolsActReportingStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4308,7 +4310,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.GunFreeSchoolsActReportingStatusDescr
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.HomelessPrimaryNighttimeResidenceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4345,7 +4347,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.HomelessPrimaryNighttimeResidenceDesc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.HomelessProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4382,7 +4384,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.HomelessProgramServiceDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.IdentificationDocumentUseDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4419,7 +4421,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.IdentificationDocumentUseDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.IncidentLocationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4456,7 +4458,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.IncidentLocationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4493,7 +4495,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorGroupDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4530,7 +4532,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorGroupDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4567,7 +4569,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.IndicatorLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InstitutionTelephoneNumberTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4604,7 +4606,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InstitutionTelephoneNumberTypeDescrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InteractivityStyleDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4641,7 +4643,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InteractivityStyleDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InternetAccessDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4678,7 +4680,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InternetAccessDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Interventions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4723,7 +4725,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Interventions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InterventionClassDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4760,7 +4762,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InterventionClassDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InterventionEffectivenessRatingDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4797,7 +4799,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InterventionEffectivenessRatingDescri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InterventionPrescriptions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4840,7 +4842,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InterventionPrescriptions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.InterventionStudies.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4884,7 +4886,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.InterventionStudies.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LanguageDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4921,7 +4923,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LanguageDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LanguageInstructionProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4958,7 +4960,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LanguageInstructionProgramServiceDesc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LanguageUseDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -4995,7 +4997,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LanguageUseDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningObjectives.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5040,7 +5042,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningObjectives.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandards.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5087,7 +5089,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandards.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5124,7 +5126,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardCategoryDescriptors.E
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardEquivalenceAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5167,7 +5169,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardEquivalenceAssociatio
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardEquivalenceStrengthDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5204,7 +5206,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardEquivalenceStrengthDe
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardScopeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5241,7 +5243,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LearningStandardScopeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LevelOfEducationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5278,7 +5280,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LevelOfEducationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LicenseStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5315,7 +5317,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LicenseStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LicenseTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5352,7 +5354,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LicenseTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LimitedEnglishProficiencyDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5389,7 +5391,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LimitedEnglishProficiencyDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LocaleDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5426,7 +5428,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LocaleDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5468,7 +5470,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencies.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencyCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5505,7 +5507,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.LocalEducationAgencyCategoryDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Locations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5546,7 +5548,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Locations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5583,7 +5585,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.MagnetSpecialProgramEmphasisSchoolDes
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.MediumOfInstructionDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5620,7 +5622,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.MediumOfInstructionDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.MethodCreditEarnedDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5657,7 +5659,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.MethodCreditEarnedDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.MigrantEducationProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5694,7 +5696,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.MigrantEducationProgramServiceDescrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.MonitoredDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5731,7 +5733,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.MonitoredDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.NeglectedOrDelinquentProgramDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5768,7 +5770,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.NeglectedOrDelinquentProgramDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.NeglectedOrDelinquentProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5805,7 +5807,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.NeglectedOrDelinquentProgramServiceDe
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.NetworkPurposeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5842,7 +5844,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.NetworkPurposeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ObjectiveAssessments.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5888,7 +5890,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ObjectiveAssessments.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.OldEthnicityDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5925,7 +5927,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.OldEthnicityDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.OpenStaffPositions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -5971,7 +5973,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.OpenStaffPositions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.OperationalStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6008,7 +6010,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.OperationalStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.OtherNameTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6045,7 +6047,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.OtherNameTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Parents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6093,7 +6095,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Parents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ParticipationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6130,7 +6132,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ParticipationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ParticipationStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6167,7 +6169,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ParticipationStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Payrolls.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6210,7 +6212,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Payrolls.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PerformanceBaseConversionDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6247,7 +6249,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PerformanceBaseConversionDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PerformanceLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6284,7 +6286,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PerformanceLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.People.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6323,7 +6325,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.People.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PersonalInformationVerificationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6360,7 +6362,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PersonalInformationVerificationDescri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PlatformTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6397,7 +6399,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PlatformTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PopulationServedDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6434,7 +6436,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PopulationServedDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PostingResultDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6471,7 +6473,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PostingResultDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6512,7 +6514,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryEventCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6549,7 +6551,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryEventCategoryDescriptors
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryInstitutions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6588,7 +6590,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryInstitutions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryInstitutionLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6625,7 +6627,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PostSecondaryInstitutionLevelDescript
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProficiencyDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6662,7 +6664,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProficiencyDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Programs.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6703,7 +6705,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Programs.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgramAssignmentDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6740,7 +6742,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgramAssignmentDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgramCharacteristicDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6777,7 +6779,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgramCharacteristicDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgramSponsorDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6814,7 +6816,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgramSponsorDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgramTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6851,7 +6853,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgramTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgressDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6888,7 +6890,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgressDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProgressLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6925,7 +6927,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProgressLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProviderCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6962,7 +6964,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProviderCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProviderProfitabilityDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -6999,7 +7001,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProviderProfitabilityDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ProviderStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7036,7 +7038,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ProviderStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.PublicationStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7073,7 +7075,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.PublicationStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.QuestionFormDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7110,7 +7112,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.QuestionFormDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RaceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7147,7 +7149,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RaceDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ReasonExitedDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7184,7 +7186,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ReasonExitedDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ReasonNotTestedDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7221,7 +7223,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ReasonNotTestedDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RecognitionTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7258,7 +7260,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RecognitionTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RelationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7295,7 +7297,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RelationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RepeatIdentifierDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7332,7 +7334,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RepeatIdentifierDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ReportCards.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7380,7 +7382,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ReportCards.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ReporterDescriptionDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7417,7 +7419,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ReporterDescriptionDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ResidencyStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7454,7 +7456,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ResidencyStatusDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ResponseIndicatorDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7491,7 +7493,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ResponseIndicatorDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ResponsibilityDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7528,7 +7530,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ResponsibilityDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RestraintEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7570,7 +7572,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RestraintEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RestraintEventReasonDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7607,7 +7609,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RestraintEventReasonDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ResultDatatypeTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7644,7 +7646,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ResultDatatypeTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.RetestIndicatorDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7681,7 +7683,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.RetestIndicatorDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7727,7 +7729,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SchoolCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7764,7 +7766,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SchoolCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SchoolChoiceImplementStatusDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7801,7 +7803,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SchoolChoiceImplementStatusDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SchoolFoodServiceProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7838,7 +7840,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SchoolFoodServiceProgramServiceDescri
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SchoolTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7875,7 +7877,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SchoolTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SchoolYearTypes.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7915,7 +7917,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SchoolYearTypes.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sections.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -7969,7 +7971,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sections.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SectionAttendanceTakenEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8015,7 +8017,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SectionAttendanceTakenEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SectionCharacteristicDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8052,7 +8054,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SectionCharacteristicDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SeparationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8089,7 +8091,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SeparationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SeparationReasonDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8126,7 +8128,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SeparationReasonDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.ServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8163,7 +8165,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.ServiceDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Sessions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8207,7 +8209,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Sessions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SexDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8244,7 +8246,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SexDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SourceSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8281,7 +8283,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SourceSystemDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8318,7 +8320,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SpecialEducationProgramServiceDescrip
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SpecialEducationSettingDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8355,7 +8357,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SpecialEducationSettingDescriptors.Ed
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8411,7 +8413,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Staffs.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffAbsenceEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8453,7 +8455,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffAbsenceEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffClassificationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8490,7 +8492,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffClassificationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffCohortAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8533,7 +8535,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffCohortAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffDisciplineIncidentAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8573,7 +8575,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffDisciplineIncidentAssociations.E
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationAssignmentAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignmentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8622,7 +8624,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationAssignmentA
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationContactAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8664,7 +8666,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationContactAsso
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationEmploymentAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmploymentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8714,7 +8716,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffEducationOrganizationEmploymentA
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffIdentificationSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8751,7 +8753,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffIdentificationSystemDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffLeaves.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8794,7 +8796,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffLeaves.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffLeaveEventCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8831,7 +8833,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffLeaveEventCategoryDescriptors.Ed
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8875,7 +8877,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffProgramAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffSchoolAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8917,7 +8919,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffSchoolAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StaffSectionAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -8966,7 +8968,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StaffSectionAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StateAbbreviationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9003,7 +9005,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StateAbbreviationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StateEducationAgencies.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9040,7 +9042,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StateEducationAgencies.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9095,7 +9097,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Students.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentAcademicRecords.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9154,7 +9156,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentAcademicRecords.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9207,7 +9209,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentAssessments.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentCharacteristicDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9244,7 +9246,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentCharacteristicDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentCohortAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9286,7 +9288,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentCohortAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentCompetencyObjectives.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9333,7 +9335,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentCompetencyObjectives.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentCTEProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9378,7 +9380,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentCTEProgramAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentDisciplineIncidentAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9419,7 +9421,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentDisciplineIncidentAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9464,7 +9466,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationAssociati
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationResponsibilityAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsibilityAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9506,7 +9508,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentEducationOrganizationResponsib
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentGradebookEntries.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9557,7 +9559,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentGradebookEntries.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentHomelessProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9602,7 +9604,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentHomelessProgramAssociations.Ed
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentIdentificationSystemDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9639,7 +9641,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentIdentificationSystemDescriptor
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentInterventionAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9683,7 +9685,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentInterventionAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentInterventionAttendanceEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9729,7 +9731,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentInterventionAttendanceEvents.E
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentLanguageInstructionProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9773,7 +9775,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentLanguageInstructionProgramAsso
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentLearningObjectives.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9819,7 +9821,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentLearningObjectives.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentMigrantEducationProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9870,7 +9872,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentMigrantEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentNeglectedOrDelinquentProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9915,7 +9917,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentNeglectedOrDelinquentProgramAs
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentParentAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9960,7 +9962,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentParentAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentParticipationCodeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -9997,7 +9999,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentParticipationCodeDescriptors.E
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10039,7 +10041,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentProgramAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentProgramAttendanceEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10087,7 +10089,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentProgramAttendanceEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10145,7 +10147,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAttendanceEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10194,7 +10196,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolAttendanceEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolFoodServiceProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10237,7 +10239,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSchoolFoodServiceProgramAssoci
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSectionAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10286,7 +10288,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSectionAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSectionAttendanceEvents.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10337,7 +10339,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSectionAttendanceEvents.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10389,7 +10391,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentSpecialEducationProgramAssocia
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.StudentTitleIPartAProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10432,7 +10434,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.StudentTitleIPartAProgramAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Surveys.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10478,7 +10480,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Surveys.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyCategoryDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10515,7 +10517,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyCategoryDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyCourseAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10556,7 +10558,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyCourseAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyLevelDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10593,7 +10595,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyLevelDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyProgramAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10635,7 +10637,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyProgramAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyQuestions.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10678,7 +10680,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyQuestions.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyQuestionResponses.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10721,7 +10723,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyQuestionResponses.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponses.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10769,7 +10771,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponses.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponseEducationOrganizationTargetAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationTargetAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10810,7 +10812,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponseEducationOrganizationTa
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponseStaffTargetAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10851,7 +10853,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveyResponseStaffTargetAssociations
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveySections.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10891,7 +10893,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveySections.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10935,7 +10937,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionAssociations.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponses.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -10977,7 +10979,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponses.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11019,7 +11021,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponseEducationOrganiz
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponseStaffTargetAssociations.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11061,7 +11063,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.SurveySectionResponseStaffTargetAssoc
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TeachingCredentialBasisDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11098,7 +11100,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TeachingCredentialBasisDescriptors.Ed
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TeachingCredentialDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11135,7 +11137,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TeachingCredentialDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TechnicalSkillsAssessmentDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11172,7 +11174,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TechnicalSkillsAssessmentDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TelephoneNumberTypeDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11209,7 +11211,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TelephoneNumberTypeDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TermDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11246,7 +11248,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TermDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartAParticipantDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11283,7 +11285,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartAParticipantDescriptors.EdF
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartAProgramServiceDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11320,7 +11322,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartAProgramServiceDescriptors.
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartASchoolDesignationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11357,7 +11359,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TitleIPartASchoolDesignationDescripto
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.TribalAffiliationDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11394,7 +11396,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.TribalAffiliationDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.VisaDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -11431,7 +11433,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.VisaDescriptors.EdFi
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.WeaponDescriptors.EdFi
+namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]

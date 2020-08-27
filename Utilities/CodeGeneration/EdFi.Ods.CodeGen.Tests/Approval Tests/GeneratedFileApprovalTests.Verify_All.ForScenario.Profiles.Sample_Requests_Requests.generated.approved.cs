@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Api.Architecture;
 
 namespace EdFi.Ods.Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly

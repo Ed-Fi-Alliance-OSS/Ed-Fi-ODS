@@ -359,7 +359,7 @@
     <property name="TermDescriptorId" column="TermDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="AnonymizedStudentAssessmentPerformanceLevel" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="AnonymizedStudentAssessmentPerformanceLevel" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="AdministrationDate" />
         <column name="AnonymizedStudentIdentifier" />
@@ -372,7 +372,7 @@
     </set>
 
     <!-- One-to-one child mappings -->
-    <set name="AnonymizedStudentAssessmentScoreResult" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="AnonymizedStudentAssessmentScoreResult" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="AdministrationDate" />
         <column name="AnonymizedStudentIdentifier" />
@@ -3312,7 +3312,7 @@
     <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="EvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="FirstName" />
         <column name="LastSurname" />
@@ -3421,7 +3421,7 @@
     <property name="ProgramGatewayDescriptorId" column="ProgramGatewayDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="FieldworkExperienceCoteaching" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="FieldworkExperienceCoteaching" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="BeginDate" />
         <column name="FieldworkIdentifier" />
@@ -4148,7 +4148,7 @@
     <property name="ReviewerSourceSystemDescriptorId" column="ReviewerSourceSystemDescriptorId" type="int" />
 
     <!-- One-to-one child mappings -->
-    <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="PerformanceEvaluationRatingReviewerReceivedTraining" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="FirstName" />
         <column name="LastSurname" />
@@ -4404,7 +4404,7 @@
     <property name="TeacherCandidateIdentifier" column="TeacherCandidateIdentifier" type="string" length="32" />
 
     <!-- One-to-one child mappings -->
-    <set name="ProspectAid" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="ProspectAid" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="EducationOrganizationId" />
         <column name="ProspectIdentifier" />
@@ -4413,7 +4413,7 @@
     </set>
 
     <!-- One-to-one child mappings -->
-    <set name="ProspectCurrentPosition" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="ProspectCurrentPosition" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="EducationOrganizationId" />
         <column name="ProspectIdentifier" />
@@ -4422,7 +4422,7 @@
     </set>
 
     <!-- One-to-one child mappings -->
-    <set name="ProspectQualifications" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="ProspectQualifications" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="EducationOrganizationId" />
         <column name="ProspectIdentifier" />
@@ -6368,7 +6368,7 @@
     <property name="TuitionCost" column="TuitionCost" type="decimal" />
 
     <!-- One-to-one child mappings -->
-    <set name="TeacherCandidateBackgroundCheck" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="TeacherCandidateBackgroundCheck" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="TeacherCandidateIdentifier" />
       </key>
@@ -7220,7 +7220,7 @@
     <property name="TPPDegreeTypeDescriptorId" column="TPPDegreeTypeDescriptorId" type="int" not-null="true" />
 
     <!-- One-to-one child mappings -->
-    <set name="TeacherCandidateAcademicRecordClassRanking" access="EdFi.Ods.Api.Common.Infrastructure.Architecture.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Api.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+    <set name="TeacherCandidateAcademicRecordClassRanking" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
       <key>
         <column name="EducationOrganizationId" />
         <column name="SchoolYear" />

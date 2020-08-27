@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.Homograph;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Names
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -49,7 +51,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Names
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Parents
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -88,7 +90,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Parents
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Schools
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -127,7 +129,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Schools
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.SchoolYearTypes
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -165,7 +167,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.SchoolYearTypes
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Staffs
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -204,7 +206,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Staffs
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Students
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -244,7 +246,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.Students
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Homograph.StudentSchoolAssociations
+namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]

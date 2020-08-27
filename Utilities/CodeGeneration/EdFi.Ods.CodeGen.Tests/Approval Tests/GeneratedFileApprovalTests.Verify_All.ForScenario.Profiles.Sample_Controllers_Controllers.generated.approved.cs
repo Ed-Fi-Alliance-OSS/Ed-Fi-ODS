@@ -1,16 +1,18 @@
 #if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.ExceptionHandling;
-using EdFi.Ods.Api.Common.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Common.Models.Requests;
-using EdFi.Ods.Api.Common.Models.Queries;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -61,7 +63,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Ex
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_IncludeOnly
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
@@ -112,7 +114,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_In
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
     [ContentType("application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json")]
     [ExcludeFromCodeCoverage]
@@ -181,7 +183,7 @@ namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_Re
     }
 }
 
-namespace EdFi.Ods.Api.NetCore.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
+namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
     [ContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json")]
     [ExcludeFromCodeCoverage]

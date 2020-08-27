@@ -1,8 +1,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.Dependencies;
-using EdFi.Ods.Api.Common.Extensions;
-using EdFi.Ods.Api.Common.Providers;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;

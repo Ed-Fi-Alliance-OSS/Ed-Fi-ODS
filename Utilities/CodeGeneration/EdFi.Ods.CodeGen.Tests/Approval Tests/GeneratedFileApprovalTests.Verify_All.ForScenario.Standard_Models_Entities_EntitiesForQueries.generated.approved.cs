@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.Attributes;
-using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Models.Domain;
 using Newtonsoft.Json;
 
 // Aggregate: AbsenceEventCategoryDescriptor

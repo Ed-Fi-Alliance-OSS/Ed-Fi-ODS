@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Api.Common.Attributes;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common;
 
 #pragma warning disable 108,114

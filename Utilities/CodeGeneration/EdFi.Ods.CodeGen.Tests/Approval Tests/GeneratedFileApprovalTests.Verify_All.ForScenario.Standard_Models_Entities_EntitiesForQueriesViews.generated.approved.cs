@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Api.Common.Dtos;
+using EdFi.Ods.Common.Models.Domain;
 
 // Views
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
