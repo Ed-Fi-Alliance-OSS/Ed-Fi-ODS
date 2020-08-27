@@ -52,7 +52,7 @@ namespace EdFi.Ods.ChangeQueries.Conventions
                     template += RouteConstants.SchoolYearFromRoute;
                 }
 
-                return template += "{schema}/{resource:regex(^((?!(identities)).)*$)}/";
+                return template;
             }
         }
     }
