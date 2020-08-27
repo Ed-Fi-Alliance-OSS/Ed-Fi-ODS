@@ -2,7 +2,6 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +20,6 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityOrmMappings : GeneratorBase
     {
-        private const string HierarchicalViewSuffix = "H";
         private readonly IViewsProvider _viewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Dictionary<Entity, List<ClassMappingContext>> _classMappingsForEntities;
@@ -108,21 +106,6 @@ namespace EdFi.Ods.CodeGen.Generators
                     new ClassMappingContext {IsQueryModel = isQueryModel}
                 };
 
-                if (isQueryModel)
-                {
-                    if (ShouldGenerateHierarchicalArtifacts(isQueryModel, entity, out IEnumerable<EntityProperty> viewProperties))
-                    {
-                        // If we're generating the query mappings, and entity is self-referencing, add a hierarchical context
-                        contexts.Add(
-                            new ClassMappingContext
-                            {
-                                IsQueryModel = true,
-                                IsHierarchical = true,
-                                ViewProperties = viewProperties
-                            });
-                    }
-                }
-
                 if (entity.IsBase && !entity.IsAbstract)
                 {
                     // Concrete base classes need an additional specialized mapping created
@@ -148,19 +131,6 @@ namespace EdFi.Ods.CodeGen.Generators
                 return contexts;
             }
 
-            IEnumerable<OrmCollection> GetNHibernateCollectionMapping(
-                AssociationView association,
-                ClassMappingContext classMappingContext)
-            {
-                yield return CreateNHibernateCollectionMapping(association, classMappingContext);
-
-                if (_classMappingsForEntities[association.OtherEntity]
-                    .Any(x => x.IsHierarchical))
-                {
-                    yield return CreateNHibernateCollectionMapping(association, classMappingContext, true);
-                }
-            }
-
             IEnumerable<OrmClass> GetClassMappings(Entity entity)
             {
                 var contexts = _classMappingsForEntities[entity];
@@ -175,8 +145,7 @@ namespace EdFi.Ods.CodeGen.Generators
                     {
                         ClassName = fullyQualifiedClassName,
                         ReferenceClassName = fullyQualifiedClassName + "ReferenceData",
-                        TableName = entity.TableName(TemplateContext.TemplateSet.DatabaseEngine, entity.Name)
-                                    + GetHierarchicalViewSuffixForContext(classMappingContext),
+                        TableName = entity.TableName(TemplateContext.TemplateSet.DatabaseEngine, entity.Name),
                         SchemaName =
                             EdFiConventions.IsEdFiPhysicalSchemaName(entity.Schema)
                                 ? null
@@ -213,7 +182,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                 ch => !(classMappingContext.IsQueryModel && ch.IsSelfReferencing) &&
                                       _shouldRenderEntityForSchema(ch.OtherEntity))
                             .OrderBy(ch => ch.Name)
-                            .SelectMany(ch => GetNHibernateCollectionMapping(ch, classMappingContext))
+                            .Select(ch => CreateNHibernateCollectionMapping(ch, classMappingContext))
                             .ToList(),
                         IsConcreteEntityBaseMapping = classMappingContext.IsConcreteEntityBaseMapping,
                         HasDiscriminator = hasDiscriminator,
@@ -387,13 +356,11 @@ namespace EdFi.Ods.CodeGen.Generators
                                 IsJoinedSubclass = e.IsDescriptorEntity,
                                 ClassName = className,
                                 ReferenceClassName = className + "ReferenceData",
-                                TableName =
-                                    e.Name + GetHierarchicalViewSuffixForContext(derivedEntityClassMappingContext),
+                                TableName = e.Name,
                                 SchemaName = EdFiConventions.IsEdFiPhysicalSchemaName(e.Schema)
                                     ? null
                                     : e.Schema,
-                                DiscriminatorValue =
-                                    $"{e.Schema}.{e.Name + GetHierarchicalViewSuffixForContext(derivedEntityClassMappingContext)}",
+                                DiscriminatorValue = $"{e.Schema}.{e.Name}",
                                 BaseTableName = e.BaseEntity.Name,
                                 BaseTableSchemaName =
                                     EdFiConventions.IsEdFiPhysicalSchemaName(e.BaseEntity.Schema)
@@ -502,68 +469,14 @@ namespace EdFi.Ods.CodeGen.Generators
                 }
             }
 
-            bool ShouldGenerateHierarchicalArtifacts(
-                bool isQueryModel,
-                Entity entity,
-                out IEnumerable<EntityProperty> viewProperties)
-            {
-                // Initialize the 'out' value
-                viewProperties = new EntityProperty[0];
-
-                // Hierarchical artifacts are only relevant to the query model mappings
-                if (!isQueryModel)
-                {
-                    return false;
-                }
-
-                // Self-referencing associations are definitely hierarchical (by definition)
-                if (entity.HasSelfReferencingAssociations)
-                {
-                    return true;
-                }
-
-                // Build the expected name for a hierarchical view (by convention)
-                var hierarchicalViewFqn = new FullName(entity.Schema, entity.Name + HierarchicalViewSuffix);
-
-                // Find the hierarchical view, by convention
-                var view = _viewsProvider.LoadViews()
-                    .SingleOrDefault(v => new FullName(v.SchemaOwner, v.Name) == hierarchicalViewFqn);
-
-                if (view != null)
-                {
-                    var properties = view.Columns.Where(c => !c.IsPrimaryKey)
-
-                        // Filter out boilerplate properties
-                        .Where(x => !EntityExtensions.IsPredefinedProperty(x.Name))
-
-                        // Filter out properties that are part of the entity's identifier
-                        .Where(x => entity.Identifier.Properties.All(pkc => pkc.PropertyName != x.Name));
-
-                    // Convert the IDatabaseSchemaProvider properties to entity properties
-                    viewProperties = properties.Select(
-                        p =>
-                            new EntityProperty(
-                                new EntityPropertyDefinition(
-                                    p.Name,
-                                    new PropertyType(_databaseTypeTranslator.GetDbType(p.DbDataType), p.Length ?? 0, p.Precision ?? 0, p.Scale ?? 0, p.Nullable))));
-
-                    return true;
-                }
-
-                return false;
-            }
-
             OrmCollection CreateNHibernateCollectionMapping(
                 AssociationView childAssociation,
-                ClassMappingContext classMappingContext,
-                bool isHierarchical = false)
+                ClassMappingContext classMappingContext)
             {
                 return new OrmCollection
                 {
                     //Can't use classMappingContext.IsHierarchical here because this method is called 2x in that case.
-                    BagName = childAssociation.Name + (isHierarchical
-                                  ? "Hierarchy"
-                                  : string.Empty),
+                    BagName = childAssociation.Name,
                     IsEmbeddedCollection =
                         !classMappingContext.IsQueryModel && childAssociation.IsNavigable,
                     Columns = childAssociation.GetOrderedAssociationTargetColumns()
@@ -573,12 +486,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                 Name = ep.ColumnName(TemplateContext.TemplateSet.DatabaseEngine, ep.PropertyName)
                             })
                         .ToList(),
-                    ClassName = isHierarchical
-                        ? GetEntityFullNameForContext(
-                            childAssociation.OtherEntity,
-                            _classMappingsForEntities[childAssociation.OtherEntity]
-                                .First(x => x.IsHierarchical))
-                        : GetEntityFullNameForContext(
+                    ClassName = GetEntityFullNameForContext(
                             childAssociation.OtherEntity,
                             classMappingContext.IsConcreteEntityBaseMapping
                                 ? _classMappingsForEntities[childAssociation.OtherEntity]
@@ -605,7 +513,7 @@ namespace EdFi.Ods.CodeGen.Generators
                             ColumnName = p.ColumnName(TemplateContext.TemplateSet.DatabaseEngine, p.PropertyName),
                             NHibernateTypeName = p.PropertyType.ToNHibernateType(),
                             MaxLength = GetMaxLength(p),
-                            IsNullable = classMappingContext.IsHierarchical || p.PropertyType.IsNullable
+                            IsNullable = p.PropertyType.IsNullable
                         });
             }
 
@@ -664,17 +572,8 @@ namespace EdFi.Ods.CodeGen.Generators
                     suffixBuilder.Append("Q");
                 }
 
-                suffixBuilder.Append(GetHierarchicalViewSuffixForContext(classMappingContext));
-
                 return suffixBuilder.ToString();
             }
-        }
-
-        private static string GetHierarchicalViewSuffixForContext(ClassMappingContext classMappingContext)
-        {
-            return classMappingContext.IsHierarchical
-                ? HierarchicalViewSuffix
-                : string.Empty;
         }
 
         /// <summary>
@@ -710,12 +609,6 @@ namespace EdFi.Ods.CodeGen.Generators
             /// (rather than the persistent model mappings with aggregate boundaries).
             /// </summary>
             public bool IsQueryModel { get; set; }
-
-            /// <summary>
-            /// Indicates whether the class mapping is being generated for the hierarchical
-            /// version of the query mapping (only applies when IsQueryModel is true).
-            /// </summary>
-            public bool IsHierarchical { get; set; }
 
             /// <summary>
             /// Contains additional properties extracted from the hierarchical database view found for the specified entity.

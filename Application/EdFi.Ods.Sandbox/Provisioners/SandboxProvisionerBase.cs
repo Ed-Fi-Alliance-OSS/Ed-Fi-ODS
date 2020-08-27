@@ -69,13 +69,6 @@ namespace EdFi.Ods.Sandbox.Provisioners
                         .ConfigureAwait(false);
 
                     break;
-                case SandboxType.Empty:
-                    await CopySandboxAsync(
-                            _databaseNameBuilder.EmptyDatabase,
-                            _databaseNameBuilder.SandboxNameForKey(sandboxKey))
-                        .ConfigureAwait(false);
-
-                    break;
                 default:
                     throw new Exception("Unhandled SandboxType provided");
             }

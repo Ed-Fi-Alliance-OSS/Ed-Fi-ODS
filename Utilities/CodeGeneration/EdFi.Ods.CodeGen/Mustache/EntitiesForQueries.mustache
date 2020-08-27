@@ -19,7 +19,7 @@ namespace {{AggregateNamespace}}
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}}{{ClassNameSuffix}}{{ContextualClassNameSuffix}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}}
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}}{{ClassNameSuffix}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}}
     {
 
         // =============================================================
@@ -69,7 +69,7 @@ namespace {{AggregateNamespace}}
         //                          Collections
         // -------------------------------------------------------------
         {{#NavigableChildren}}
-        public virtual ICollection<{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}{{ClassNameSuffix}}> {{AssociationName}}{{PropertyNameSuffix}} { get; set; }
+        public virtual ICollection<{{ChildClassName}}{{#IsChildForConcreteBase}}ForBase{{/IsChildForConcreteBase}}{{ClassNameSuffix}}> {{AssociationName}} { get; set; }
         {{/NavigableChildren}}
 
         // -------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace {{AggregateNamespace}}
         // External references for NHibernate mappings and HQL query usage
             {{#NonNavigableChildren}}
     #pragma warning disable 114
-        protected virtual ICollection<{{AggregateRelativeNamespace}}.{{ChildClassName}}{{ChildClassNameSuffix}}> {{AssociationName}}{{PropertyNameSuffix}}  { get; set; }
+        protected virtual ICollection<{{AggregateRelativeNamespace}}.{{ChildClassName}}> {{AssociationName}}  { get; set; }
     #pragma warning restore 114
             {{/NonNavigableChildren}}
         {{/HasNonNavigableChildren}}

@@ -5,7 +5,7 @@
 
 using System.Data.Common;
 
-namespace EdFi.Ods.Common.Database
+namespace EdFi.Common.Database
 {
     /// <summary>
     /// Defines properties for manipulating components of a connection string in a generalized

@@ -16048,19 +16048,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationStudentParentAssociationToStudentParentAssociationReference
     {
-        private IStudentGraduationPlanAssociationStudentParentAssociation backReference;
+        private Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation backReference;
 
         // Parameterless constructor for deserialization
         public StudentGraduationPlanAssociationStudentParentAssociationToStudentParentAssociationReference() { }
 
         // Constructor for inline initialization in parent
-        public StudentGraduationPlanAssociationStudentParentAssociationToStudentParentAssociationReference(IStudentGraduationPlanAssociationStudentParentAssociation backReference)
+        public StudentGraduationPlanAssociationStudentParentAssociationToStudentParentAssociationReference(Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation backReference)
         {
             this.backReference = backReference;
         }
 
         // Expose back reference internally for access after JSON deserialization to enable link generation
-        internal IStudentGraduationPlanAssociationStudentParentAssociation BackReference
+        internal Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation BackReference
         {
             get { return backReference; }
             set { backReference = value; }
@@ -16464,7 +16464,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             IEnumerable<Tuple<string, string>> GetStudentUniqueIdSources()
             {
                 // Obtain value from the parent
-                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as IStudentGraduationPlanAssociationStudentParentAssociation).StudentGraduationPlanAssociation.StudentUniqueId);
+                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).StudentGraduationPlanAssociation.StudentUniqueId);
                     
                 // Obtain value from other references
                 var valueFromStudentParentAssociationReference = instance.StudentParentAssociationReference?.StudentUniqueId;

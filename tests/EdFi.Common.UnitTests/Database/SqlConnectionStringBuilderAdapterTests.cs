@@ -2,11 +2,9 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-
-#if NETCOREAPP
 using System;
 using System.Data.SqlClient;
-using EdFi.Ods.Common.Database;
+using EdFi.Common.Database;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
@@ -79,4 +77,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 }
-#endif

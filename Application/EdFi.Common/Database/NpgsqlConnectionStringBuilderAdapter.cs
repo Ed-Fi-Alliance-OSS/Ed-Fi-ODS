@@ -7,11 +7,11 @@ using System;
 using System.Data.Common;
 using Npgsql;
 
-namespace EdFi.Ods.Common.Database
+namespace EdFi.Common.Database
 {
     /// <summary>
     /// Implements a PostgreSQL-specific adapter for the <see cref="DbConnectionStringBuilder" />
-    /// that provides the database name through the <see cref="NpgsqlConnectionStringBuilder.Database" />
+    /// that provides the database name through the <see cref="Npgsql.NpgsqlConnectionStringBuilder.Database" />
     /// property.
     /// </summary>
     public class NpgsqlConnectionStringBuilderAdapter : IDbConnectionStringBuilderAdapter

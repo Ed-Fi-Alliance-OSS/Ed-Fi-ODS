@@ -7,7 +7,7 @@ using System;
 using System.Data.Common;
 using System.Data.SqlClient;
 
-namespace EdFi.Ods.Common.Database
+namespace EdFi.Common.Database
 {
     /// <summary>
     /// Implements a SQL Server-specific adapter for the <see cref="DbConnectionStringBuilder" />
