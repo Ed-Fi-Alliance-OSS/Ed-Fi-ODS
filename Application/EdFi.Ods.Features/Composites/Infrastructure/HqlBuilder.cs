@@ -26,7 +26,7 @@ using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
-        public class HqlBuilder : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
+    public class HqlBuilder : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
         private const string BaseEntityIdName = "__BaseEntityId__";
 
