@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,6 +27,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using log4net;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Services.Controllers
 {
@@ -52,19 +54,8 @@ namespace EdFi.Ods.Api.Services.Controllers
         // Collection operations
         public virtual async Task<HttpResponseMessage> GetAll([FromUri] UrlQueryParametersRequest urlQueryParametersRequest)
         {
-            string schemaUriSegment = (string) Request.GetRouteData().Values["schema"];
-            string resourceCollectionName = (string) Request.GetRouteData().Values["resourceCollection"];
+            Resource resource = GetResourceForRequest();
 
-            var resourceModel = _resourceModelProvider.GetResourceModel();
-            var schemaNameMapProvider = resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
-            
-            string schema = schemaNameMapProvider.GetSchemaMapByUriSegment(schemaUriSegment).PhysicalName;
-            string resourceName = CompositeTermInflector.MakeSingular(resourceCollectionName);
-
-            var resourceFullName = new FullName(schema, resourceName);
-
-            var resource = resourceModel.GetResourceByFullName(resourceFullName);
-            
             if (resource == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -104,6 +95,26 @@ namespace EdFi.Ods.Api.Services.Controllers
             }
 
             return new HttpResponseMessage {Content = new ResourceJsonContent(resourceClassQueries)};
+        }
+
+        private Resource GetResourceForRequest()
+        {
+            string schemaUriSegment = (string) Request.GetRouteData().Values["schema"];
+            string resourceCollectionName = (string) Request.GetRouteData().Values["resourceCollection"];
+
+            var resourceModel = _resourceModelProvider.GetResourceModel();
+
+            var schemaNameMapProvider =
+                resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
+
+            string schema = schemaNameMapProvider.GetSchemaMapByUriSegment(schemaUriSegment).PhysicalName;
+            string resourceName = CompositeTermInflector.MakeSingular(resourceCollectionName);
+
+            var resourceFullName = new FullName(schema, resourceName);
+
+            var resource = resourceModel.GetResourceByFullName(resourceFullName);
+
+            return resource;
         }
 
         public class ResourceClassQuery
@@ -428,8 +439,21 @@ FETCH NEXT @limit ROWS ONLY",
             sqlBuilder.InnerJoin(@join);
         }
 
-        public virtual async Task<IHttpActionResult> Post()
+        public virtual async Task<HttpResponseMessage> Post()
         {
+            Resource resource = GetResourceForRequest();
+
+            if (resource == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
+            var requestStream = await Request.Content.ReadAsStreamAsync();
+            
+            var jsonReader = new JsonTextReader(new StreamReader(requestStream));
+
+            var row = new Dapper.DapperRow();
+
             // var sqlBuilder = new Dapper.SqlBuilder();
             //
             // foreach (var property in entity.Properties)
