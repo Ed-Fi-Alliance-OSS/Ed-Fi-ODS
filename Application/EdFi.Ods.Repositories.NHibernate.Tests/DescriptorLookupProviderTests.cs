@@ -22,19 +22,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
     [TestFixture]
     public class DescriptorLookupProviderTests : BaseDatabaseTest
     {
-        private const string CountryDescriptorName = "CountryDescriptor";
-        private const string AssessmentPeriodDescriptorName = "AssessmentPeriodDescriptor";
-
-        private CountryDescriptor CountryTestDescriptor1 { get; set; }
-
-        private CountryDescriptor CountryTestDescriptor2 { get; set; }
-
-        private CountryDescriptor CountryTestDescriptor3 { get; set; }
-
-        private AssessmentPeriodDescriptor AssessmentPeriodTestDescriptor1 { get; set; }
-
-        private IDescriptorLookupProvider DescriptorLookupProvider { get; set; }
-
         [OneTimeSetUp]
         public void SetUp()
         {
@@ -118,6 +105,19 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             DescriptorLookupProvider = new DescriptorLookupProvider(
                 SessionFactory, new EdFiDescriptorReflectionProvider(domainModelProvider));
         }
+
+        private const string CountryDescriptorName = "CountryDescriptor";
+        private const string AssessmentPeriodDescriptorName = "AssessmentPeriodDescriptor";
+
+        private CountryDescriptor CountryTestDescriptor1 { get; set; }
+
+        private CountryDescriptor CountryTestDescriptor2 { get; set; }
+
+        private CountryDescriptor CountryTestDescriptor3 { get; set; }
+
+        private AssessmentPeriodDescriptor AssessmentPeriodTestDescriptor1 { get; set; }
+
+        private IDescriptorLookupProvider DescriptorLookupProvider { get; set; }
 
         [Test]
         public void When_getting_invalid_descriptor_name_by_id_should_throw_argument_exception()

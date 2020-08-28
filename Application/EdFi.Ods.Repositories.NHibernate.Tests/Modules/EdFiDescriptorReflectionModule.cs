@@ -5,18 +5,15 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Common.Database;
-using EdFi.Ods.Common.Database;
+using EdFi.Ods.Api.Providers;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
-    public class DbConnnectionStringBuilderAdapterFactoryModule : Module
+    public class EdFiDescriptorReflectionModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
-                .As<IDbConnectionStringBuilderAdapterFactory>()
-                .SingleInstance();
+            builder.RegisterType<EdFiDescriptorReflectionProvider>().As<IEdFiDescriptorReflectionProvider>().SingleInstance();
         }
     }
 }

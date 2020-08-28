@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                    .AddJsonFile("appsettings.json", optional: true)
                    .Build();
 
-            config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value = 
+            config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value =
                 config.GetConnectionString("EdFi_Ods")
                     .Replace(GlobalDatabaseSetupFixture.PopulatedDatabaseName, GlobalDatabaseSetupFixture.TestPopulatedDatabaseName);
             builder.RegisterInstance(config).As<IConfiguration>();
@@ -72,7 +72,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterInstance(apiConFigurationProvider).As<IApiConfigurationProvider>()
                 .SingleInstance();
 
-            builder.Register(kernal => kernal.Resolve<IApiConfigurationProvider>().DatabaseEngine).As<DatabaseEngine>();
+            builder.Register(kernel => kernel.Resolve<IApiConfigurationProvider>().DatabaseEngine).As<DatabaseEngine>();
 
             builder.RegisterModule(new NHibernateConfigurationModule());
             builder.RegisterModule(new RepositoryFilterProvidersModule());

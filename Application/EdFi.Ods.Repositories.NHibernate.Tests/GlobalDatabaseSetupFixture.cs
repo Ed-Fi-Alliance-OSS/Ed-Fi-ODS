@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using System;
-using System.Configuration;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Test.Common;
@@ -16,41 +16,43 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
     public class GlobalDatabaseSetupFixture
     {
         private const string DatabasePrefix = "EdFi_Integration_Test_";
-        private static IConfigurationRoot _configuration;
-
-        static GlobalDatabaseSetupFixture()
-        {
-            _configuration = new ConfigurationBuilder()
-                .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile("appsettings.json", optional: true)
-                .Build();
-
-            PopulatedDatabaseName = _configuration.GetSection("GlobalDatabaseSetupFixture").GetSection("TestDatabaseTemplateName").Value ?? "EdFi_Ods_Populated_Template_Test";
-
-            TestPopulatedDatabaseName = DatabasePrefix + Guid.NewGuid().ToString("N");
-        }
 
         public static string PopulatedDatabaseName { get; set; }
 
         public static string TestPopulatedDatabaseName { get; set; }
 
+        public IConfigurationRoot Configuration { get; set; }
+
         [OneTimeSetUp]
         public void Setup()
         {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .Build();
+
+            PopulatedDatabaseName = Configuration.GetSection("TestDatabaseTemplateName").Value ??
+                                    "EdFi_Ods_Populated_Template_Test";
+
+            TestPopulatedDatabaseName = DatabasePrefix + Guid.NewGuid().ToString("N");
+
             if (string.IsNullOrWhiteSpace(PopulatedDatabaseName))
             {
                 throw new ApplicationException(
-                    "Invalid configuration for integration tests.  Verify a valid source database name is provided in the App Setting \"GlobalDatabaseSetupFixture.TestDatabaseTemplateName\"");
+                    "Invalid configuration for integration tests.  Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
-            var databaseHelper = new DatabaseHelper(_configuration);
+            var databaseHelper = new DatabaseHelper(Configuration);
             databaseHelper.CopyDatabase(PopulatedDatabaseName, TestPopulatedDatabaseName);
+
+            Assembly.Load("EdFi.Ods.Common");
+            Assembly.Load("EdFi.Ods.Standard");
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            var databaseHelper = new DatabaseHelper(_configuration);
+            var databaseHelper = new DatabaseHelper(Configuration);
             databaseHelper.DropMatchingDatabases(DatabasePrefix + "%");
         }
     }

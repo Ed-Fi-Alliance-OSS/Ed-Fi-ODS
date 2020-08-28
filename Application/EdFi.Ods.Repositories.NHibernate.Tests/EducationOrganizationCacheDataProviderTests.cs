@@ -32,7 +32,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             using (var session = SessionFactory.OpenStatelessSession())
             {
-                expectedCount = session.CreateSQLQuery("SELECT Count(*) FROM edfi.\"EducationOrganization\";").UniqueResult<int>();
+                expectedCount = session.CreateSQLQuery("SELECT Count(*) FROM edfi.\"EducationOrganization\";")
+                    .UniqueResult<int>();
             }
 
             var results = (await Provider.GetAllEducationOrganizationIdentifiers().ConfigureAwait(true)).ToList();
