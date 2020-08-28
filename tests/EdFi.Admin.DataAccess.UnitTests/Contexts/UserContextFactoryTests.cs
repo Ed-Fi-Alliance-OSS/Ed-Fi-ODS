@@ -10,7 +10,6 @@ using EdFi.Admin.DataAccess.Providers;
 using NUnit.Framework;
 using Shouldly;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Database;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {

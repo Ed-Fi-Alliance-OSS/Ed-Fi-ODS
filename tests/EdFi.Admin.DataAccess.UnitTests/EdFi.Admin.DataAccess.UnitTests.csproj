@@ -32,6 +32,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
 </Project>
