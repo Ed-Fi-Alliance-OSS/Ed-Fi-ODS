@@ -6,6 +6,7 @@
 using System;
 using FakeItEasy;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.Providers;
 using NUnit.Framework;
 using Shouldly;
 using EdFi.Ods.Common.Configuration;

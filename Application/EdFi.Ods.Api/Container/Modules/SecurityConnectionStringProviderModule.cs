@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using Autofac;
 using EdFi.Ods.Common.Database;
+using EdFi.Security.DataAccess.Providers;
 
 namespace EdFi.Ods.Api.Container.Modules
 {

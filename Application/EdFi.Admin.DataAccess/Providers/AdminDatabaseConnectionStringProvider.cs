@@ -6,17 +6,18 @@
 #if NETSTANDARD
 using EdFi.Ods.Common.Configuration;
 
-namespace EdFi.Ods.Common.Database {
-    public class SecurityDatabaseConnectionStringProvider: ISecurityDatabaseConnectionStringProvider
+namespace EdFi.Admin.DataAccess.Providers
+{
+    public class AdminDatabaseConnectionStringProvider : IAdminDatabaseConnectionStringProvider
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
 
-        public SecurityDatabaseConnectionStringProvider(IConfigConnectionStringsProvider configConnectionStringsProvider)
+        public AdminDatabaseConnectionStringProvider(IConfigConnectionStringsProvider configConnectionStringsProvider)
         {
             _configConnectionStringsProvider = configConnectionStringsProvider;
         }
 
-        public string GetConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Security");
+        public string GetConnectionString() => _configConnectionStringsProvider.GetConnectionString("EdFi_Admin");
     }
 }
 #endif

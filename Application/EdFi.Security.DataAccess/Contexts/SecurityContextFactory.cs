@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Database;
+using EdFi.Security.DataAccess.Providers;
 
 namespace EdFi.Security.DataAccess.Contexts
 {

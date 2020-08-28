@@ -6,7 +6,7 @@
 using EdFi.Common.Database;
 
 #if NETSTANDARD
-namespace EdFi.Ods.Common.Database
+namespace EdFi.Security.DataAccess.Providers
 {
     public interface ISecurityDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider { }
 }

@@ -6,7 +6,7 @@
 #if NETSTANDARD
 using System;
 using System.Collections.Generic;
-using EdFi.Common.Database;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common;
 
@@ -22,9 +22,9 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         private readonly DatabaseEngine _databaseEngine;
 
-        private readonly IDatabaseConnectionStringProvider _connectionStringsProvider;
+        private readonly IAdminDatabaseConnectionStringProvider _connectionStringsProvider;
 
-        public UsersContextFactory(IDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
+        public UsersContextFactory(IAdminDatabaseConnectionStringProvider connectionStringsProvider, DatabaseEngine databaseEngine)
         {
             _connectionStringsProvider = Preconditions.ThrowIfNull(connectionStringsProvider, nameof(connectionStringsProvider));
             _databaseEngine =  Preconditions.ThrowIfNull(databaseEngine, nameof(databaseEngine));
