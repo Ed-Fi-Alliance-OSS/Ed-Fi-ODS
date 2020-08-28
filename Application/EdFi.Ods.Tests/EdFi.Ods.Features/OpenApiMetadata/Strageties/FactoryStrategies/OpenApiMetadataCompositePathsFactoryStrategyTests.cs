@@ -47,13 +47,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             }
         }
 
-        public class When_the_swagger_composite_paths_factory_strategy_is_applied_to_a_list_of_swagger_resources : TestFixtureBase
+        public class When_the_openapimetadata_composite_paths_factory_strategy_is_applied_to_a_list_of_openapimetadata_resources : TestFixtureBase
         {
             private ICompositesMetadataProvider _compositesMetadataProvider;
             private IEnumerable<OpenApiMetadataResource> _filteredResources;
             private IEnumerable<OpenApiMetadataPathsResource> _actualStrategyAppliedResources;
             private IEnumerable<OpenApiMetadataPathsResource> _expectedStrategyAppliedResources;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
@@ -76,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                             out routes))
                     .Returns(true);
 
-                _swaggerDocumentContext = new OpenApiMetadataDocumentContext(
+                _openApiMetadataDocumentContext = new OpenApiMetadataDocumentContext(
                     _resourceModelProvider.GetResourceModel())
                 {
                     CompositeContext = new OpenApiMetadataCompositeContext
@@ -89,7 +89,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
 
                 _filteredResources =
                     new OpenApiCompositeStrategy(_compositesMetadataProvider)
-                        .GetFilteredResources(_swaggerDocumentContext);
+                        .GetFilteredResources(_openApiMetadataDocumentContext);
 
                 var assessmentResource = _resourceModelProvider
                     .GetResourceModel()
@@ -120,7 +120,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                                 new OpenApiMetadataPathsResource(assessmentResource)
                                 {
                                     CompositeResourceContext = new CompositeResourceContext(), Path =
-                                        $"{_swaggerDocumentContext.CompositeContext.CategoryName}/{assessmentResource.PluralName}",
+                                        $"{_openApiMetadataDocumentContext.CompositeContext.CategoryName}/{assessmentResource.PluralName}",
                                     OperationId = "getAssessments", Readable = true, Writable = false
                                 }
                             });
@@ -129,13 +129,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             protected override void Act()
             {
                 _actualStrategyAppliedResources =
-                    new OpenApiMetadataCompositePathsFactoryStrategy(_swaggerDocumentContext)
+                    new OpenApiMetadataCompositePathsFactoryStrategy(_openApiMetadataDocumentContext)
                         .ApplyStrategy(_filteredResources)
                         .ToList();
             }
 
             [Assert]
-            public void Should_not_return_empty_list_of_swagger_paths_resources()
+            public void Should_not_return_empty_list_of_openapimetadata_paths_resources()
             {
                 _actualStrategyAppliedResources.ShouldNotBeEmpty();
             }

@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             var content = new StringContent(
                 JsonConvert.SerializeObject(
                     _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
-                        .Select(x => GetSwaggerSectionDetailsForCacheItem(x, request)),
+                                                 .Select(x => GetOpenApiMetadataSectionDetailsForCacheItem(x, request))));
                     new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()}));
 
             var eTag = new EntityTagHeaderValue(HashHelper.GetSha256Hash(content.ToString()).ToHexString().DoubleQuoted());
@@ -116,7 +116,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 .Replace("%BASE_PATH%", basePath);
         }
 
-        private OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent,
+        private OpenApiMetadataSectionDetails GetOpenApiMetadataSectionDetailsForCacheItem(OpenApiContent apiContent,
             OpenApiMetadataSectionRequest request)
         {
             // Construct fully qualified metadata url
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 ? string.Empty
                 : apiContent.RelativeSectionPath.EnsureSuffixApplied("/");
 
-            return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.SwaggerJson}".ToLowerInvariant();
+            return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
         }
 
         private string GetBasePath(OpenApiContent apiContent, int? schoolYear)

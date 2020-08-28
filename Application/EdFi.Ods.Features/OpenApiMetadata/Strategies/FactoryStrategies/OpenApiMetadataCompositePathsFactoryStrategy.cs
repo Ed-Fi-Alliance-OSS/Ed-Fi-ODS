@@ -21,30 +21,30 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
     {
         private readonly XElement _defaultCollectionRoute = XElement.Parse("<Route relativeRouteTemplate='/{compositeName}' />");
         private readonly XElement _defaultItemRoute = XElement.Parse("<Route relativeRouteTemplate='/{compositeName}/{id}' />");
-        private readonly OpenApiMetadataDocumentContext _swaggerDocumentContext;
+        private readonly OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
-        public OpenApiMetadataCompositePathsFactoryStrategy(OpenApiMetadataDocumentContext swaggerDocumentContext)
+        public OpenApiMetadataCompositePathsFactoryStrategy(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            _swaggerDocumentContext = swaggerDocumentContext;
+            _openApiMetadataDocumentContext = openApiMetadataDocumentContext;
         }
 
-        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
-            var swaggerResourceList = swaggerResources.Select(
+            var openApiMetadataResourceList = openApiMetadataResources.Select(
                                                            r => new OpenApiMetadataPathsResource(r.Resource)
                                                            {
                                                                CompositeResourceContext =
                                                                         r.CompositeResourceContext,
                                                                Readable = true,
                                                                Path =
-                                                                        $"/{_swaggerDocumentContext.CompositeContext.CategoryName}/{r.Resource.PluralName}",
+                                                                        $"/{_openApiMetadataDocumentContext.CompositeContext.CategoryName}/{r.Resource.PluralName}",
                                                                RequestProperties = GetMetaDataPropertiesForCurrentResource(r)
                                                            })
                                                       .ToList();
 
-            return swaggerResourceList
+            return openApiMetadataResourceList
                .Concat(
-                    swaggerResourceList
+                    openApiMetadataResourceList
                        .Where(r => r.IsCompositeResource)
                        .SelectMany(GetContainedResources));
         }
@@ -52,37 +52,37 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         public bool HasTotalCount => false;
 
         private IEnumerable<OpenApiMetadataPathsResource> GetContainedResources(
-            OpenApiMetadataResource swaggerResource)
+            OpenApiMetadataResource openApiMetadataResource)
         {
-            return _swaggerDocumentContext.CompositeContext.RouteElements
+            return _openApiMetadataDocumentContext.CompositeContext.RouteElements
                                           .Where(
                                                route =>
                                                    !IsDefaultRoute(route)
-                                                   && RouteAppliesToResource(route, swaggerResource))
+                                                   && RouteAppliesToResource(route, openApiMetadataResource))
                                           .SelectMany(
                                                d =>
                                                {
-                                                   var operationSpecSuffix = GetOperationSpecNickname(swaggerResource.Resource, d);
+                                                   var operationSpecSuffix = GetOperationSpecNickname(openApiMetadataResource.Resource, d);
 
-                                                   var swaggerResources = new List<OpenApiMetadataPathsResource>();
+                                                   var openApiMetadataResources = new List<OpenApiMetadataPathsResource>();
 
                                                    if (operationSpecSuffix.EqualsIgnoreCase("All"))
                                                    {
-                                                       swaggerResources.Add(CreateGetByExampleEndpoint(swaggerResource, d));
-                                                       swaggerResources.Add(CreateGetByIdEndpoint(swaggerResource, d));
+                                                       openApiMetadataResources.Add(CreateGetByExampleEndpoint(openApiMetadataResource, d));
+                                                       openApiMetadataResources.Add(CreateGetByIdEndpoint(openApiMetadataResource, d));
                                                    }
 
                                                    if (!operationSpecSuffix.StartsWith("By"))
                                                    {
-                                                       return swaggerResources;
+                                                       return openApiMetadataResources;
                                                    }
 
-                                                   swaggerResources.Add(
+                                                   openApiMetadataResources.Add(
                                                        operationSpecSuffix.Equals("ById")
-                                                           ? CreateGetByIdEndpoint(swaggerResource, d)
-                                                           : CreateGetByExampleEndpoint(swaggerResource, d, true));
+                                                           ? CreateGetByIdEndpoint(openApiMetadataResource, d)
+                                                           : CreateGetByExampleEndpoint(openApiMetadataResource, d, true));
 
-                                                   return swaggerResources;
+                                                   return openApiMetadataResources;
                                                });
         }
 
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                 CompositeResourceContext =
                            new CompositeResourceContext
                            {
-                               OrganizationCode = _swaggerDocumentContext.CompositeContext.OrganizationCode,
+                               OrganizationCode = _openApiMetadataDocumentContext.CompositeContext.OrganizationCode,
                                BaseResource = swagggerResource.Name,
                                Specification = routeDefinition
                            },
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         {
             string regexPattern = @"\{([^)]*)\}";
 
-            var resourcePathValue = _swaggerDocumentContext.CompositeContext.CategoryName
+            var resourcePathValue = _openApiMetadataDocumentContext.CompositeContext.CategoryName
                                     + routeDefinition.AttributeValue("relativeRouteTemplate")
                                                      .Replace("{compositeName}", swagggerResource.Resource.PluralName.ToCamelCase());
 
@@ -142,7 +142,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                                                                   .EqualsIgnoreCase("true"))
                                                        .ToList();
 
-            var swaggerQueryParameters =
+            var openApiMetadataQueryParameters =
                 (from p in queryParameters
                  where swagggerResource.Resource != null
                  select
@@ -162,24 +162,24 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                          swagggerResource.Description ?? p.AttributeValue("description")))
                .ToList();
 
-            return swaggerQueryParameters.Concat(GetMetaDataPropertiesForCurrentResource(swagggerResource));
+            return openApiMetadataQueryParameters.Concat(GetMetaDataPropertiesForCurrentResource(swagggerResource));
         }
 
-        private IEnumerable<ResourceProperty> GetMetaDataPropertiesForCurrentResource(OpenApiMetadataResource swagggerResource)
+        private IEnumerable<ResourceProperty> GetMetaDataPropertiesForCurrentResource(OpenApiMetadataResource openApiMetadataResource)
         {
-            var currentResourceBaseAndSpec = swagggerResource.CompositeResourceContext;
+            var currentResourceBaseAndSpec = openApiMetadataResource.CompositeResourceContext;
 
             //  This value will be calculated differently as a part of the Phase 4 work.
             var physicalName = EdFiConventions.PhysicalSchemaName;
 
             var resource =
-                _swaggerDocumentContext.ResourceModel.GetResourceByFullName(
+                _openApiMetadataDocumentContext.ResourceModel.GetResourceByFullName(
                     new FullName(physicalName, currentResourceBaseAndSpec.BaseResource));
 
             return resource
                   .AllProperties
                   .Where(p => p.EntityProperty?.IsIdentifying ?? false)
-                  .Select(p => CreateResourcePropertyForQueryStringParameter(swagggerResource.Resource, p));
+                  .Select(p => CreateResourcePropertyForQueryStringParameter(openApiMetadataResource.Resource, p));
         }
 
         private ResourceProperty CreateResourcePropertyForQueryStringParameter(
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                 CompositeResourceContext =
                            new CompositeResourceContext
                            {
-                               OrganizationCode = _swaggerDocumentContext.CompositeContext.OrganizationCode,
+                               OrganizationCode = _openApiMetadataDocumentContext.CompositeContext.OrganizationCode,
                                BaseResource = swagggerResource.Name,
                                Specification = routeDefinition
                            },
@@ -231,7 +231,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             OpenApiMetadataResource swagggerResource,
             XElement routeDefinition)
         {
-            string path = "/" + _swaggerDocumentContext.CompositeContext.CategoryName
+            string path = "/" + _openApiMetadataDocumentContext.CompositeContext.CategoryName
                               + routeDefinition.AttributeValue("relativeRouteTemplate")
                                                .Replace(
                                                     "{compositeName}",
@@ -355,7 +355,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         {
             string template = routeDefinition.AttributeValue("relativeRouteTemplate");
 
-            return "/" + _swaggerDocumentContext.CompositeContext.CategoryName
+            return "/" + _openApiMetadataDocumentContext.CompositeContext.CategoryName
                        + template.Replace("{compositeName}", resource.PluralName.ToCamelCase());
         }
 
@@ -369,7 +369,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         private bool RouteAppliesToResource(
             XElement routeDefinition,
-            OpenApiMetadataResource swaggerResource)
+            OpenApiMetadataResource openApiMetadataResource)
         {
             string routeTemplateToTest = routeDefinition.AttributeValue("relativeRouteTemplate");
 
@@ -380,8 +380,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
             // Get the specification parameters
             // Match this route if any of the parameters are present
-            return swaggerResource.CompositeResourceContext.Specification != null
-                   && swaggerResource.CompositeResourceContext.Specification
+            return openApiMetadataResource.CompositeResourceContext.Specification != null
+                   && openApiMetadataResource.CompositeResourceContext.Specification
                                      .Elements("Parameter")
                                      .Any(
                                           p => routeTemplateToTest

@@ -11,17 +11,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 {
     public interface IOpenApiMetadataPathsFactorySelectorStrategy
     {
-        IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> swaggerResources);
+        IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources);
         bool HasTotalCount { get; }
     }
 
     public interface IOpenApiMetadataPathsFactoryContentTypeStrategy
     {
-        string GetOperationContentType(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage);
+        string GetOperationContentType(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage);
     }
 
     public interface IOpenApiMetadataPathsFactoryNamingStrategy
     {
-        string GetResourceName(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage);
+        string GetResourceName(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage);
     }
 }

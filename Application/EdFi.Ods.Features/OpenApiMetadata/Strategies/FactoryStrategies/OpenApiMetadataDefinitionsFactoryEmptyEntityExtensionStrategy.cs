@@ -11,7 +11,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 {
     public class OpenApiMetadataDefinitionsFactoryEmptyEntityExtensionStrategy : IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy
     {
-        public IDictionary<string, Schema> GetEdFiExtensionBridgeDefinitions(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IDictionary<string, Schema> GetEdFiExtensionBridgeDefinitions(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
             // No definitions for specific extension items.
             return new Dictionary<string, Schema>();

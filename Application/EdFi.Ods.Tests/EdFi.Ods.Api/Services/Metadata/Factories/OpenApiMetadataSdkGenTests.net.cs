@@ -28,7 +28,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
     {
         public class When_Generating_Extension_Only_As_Root_Aggregate_Document : TestFixtureBase
         {
-            private OpenApiMetadataDocumentFactory _extensionOnlySwaggerDocumentFactory;
+            private OpenApiMetadataDocumentFactory _extensionOnlyOpenApiMetadataDocumentFactory;
             private SdkGenExtensionResourceStrategy _resourceStrategy;
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "gb";
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                _extensionOnlySwaggerDocumentFactory = OpenApiMetadataDocumentFactoryHelper
+                _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
                     .GetExtensionOnlySwaggerDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlySwaggerDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeSwaggerDocument(_actualMetadataText);
             }
 
@@ -133,7 +133,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
         public class When_Generating_Extension_Only_Document : LegacyTestFixtureBase
         {
-            private OpenApiMetadataDocumentFactory _extensionOnlySwaggerDocumentFactory;
+            private OpenApiMetadataDocumentFactory _extensionOnlyOpenApiMetadataDocumentFactory;
             private SdkGenExtensionResourceStrategy _resourceStrategy;
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "sample";
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                _extensionOnlySwaggerDocumentFactory = OpenApiMetadataDocumentFactoryHelper
+                _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
                     .GetExtensionOnlySwaggerDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
@@ -160,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlySwaggerDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeSwaggerDocument(_actualMetadataText);
             }
 
@@ -246,13 +246,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
         public class When_Generating_Sdk_Gen_EdFi_Only_Document : LegacyTestFixtureBase
         {
-            private OpenApiMetadataDefinitionsFactory _genericSwaggerDefinitionFactory;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDefinitionsFactory _genericOpenApiMetadataDefinitionFactory;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
             private IDictionary<string, Schema> _actualDefinitions;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext = new OpenApiMetadataDocumentContext(
+                _openApiMetadataDocumentContext = new OpenApiMetadataDocumentContext(
                     DomainModelDefinitionsProviderHelper
                         .ResourceModelProvider
                         .GetResourceModel())
@@ -261,22 +261,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
                 };
 
-                _genericSwaggerDefinitionFactory =
+                _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
-                        _swaggerDocumentContext);
+                        _openApiMetadataDocumentContext);
             }
 
             protected override void Act()
             {
                 var d1 = new SdkGenAllEdFiResourceStrategy()
-                    .GetFilteredResources(_swaggerDocumentContext)
+                    .GetFilteredResources(_openApiMetadataDocumentContext)
                     .Select(d => d.Resource.Entity)
                     .ToList();
 
-                _actualDefinitions = _genericSwaggerDefinitionFactory
+                _actualDefinitions = _genericOpenApiMetadataDefinitionFactory
                     .Create(
                         new SdkGenAllEdFiResourceStrategy()
-                            .GetFilteredResources(_swaggerDocumentContext)
+                            .GetFilteredResources(_openApiMetadataDocumentContext)
                             .ToList());
             }
 
@@ -331,22 +331,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
         public class When_Generating_Sdk_Gen_All_Document : LegacyTestFixtureBase
         {
-            private OpenApiMetadataDefinitionsFactory _genericSwaggerDefinitionFactory;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDefinitionsFactory _genericOpenApiMetadataDefinitionFactory;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
             private IDictionary<string, Schema> _actualDefinitions;
             private IDomainModelProvider _domainModelProvider;
             private ISchemaNameMapProvider _schemaNameMapProvider;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext = new OpenApiMetadataDocumentContext(
+                _openApiMetadataDocumentContext = new OpenApiMetadataDocumentContext(
                     DomainModelDefinitionsProviderHelper
                         .ResourceModelProvider
                         .GetResourceModel());
 
-                _genericSwaggerDefinitionFactory =
+                _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
-                        _swaggerDocumentContext);
+                        _openApiMetadataDocumentContext);
 
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
 
@@ -356,10 +356,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = _genericSwaggerDefinitionFactory
+                _actualDefinitions = _genericOpenApiMetadataDefinitionFactory
                     .Create(
                         new SdkGenAllResourceStrategy()
-                            .GetFilteredResources(_swaggerDocumentContext)
+                            .GetFilteredResources(_openApiMetadataDocumentContext)
                             .ToList());
             }
 

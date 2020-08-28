@@ -26,14 +26,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly OpenApiMetadataResponsesFactory _responsesFactory;
         private readonly OpenApiMetadataTagsFactory _tagsFactory;
 
-        public OpenApiMetadataDocumentFactory(OpenApiMetadataDocumentContext swaggerDocumentContext)
+        public OpenApiMetadataDocumentFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
             : this(
                 new OpenApiMetadataParametersFactory(),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(swaggerDocumentContext),
+                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(openApiMetadataDocumentContext),
                 new OpenApiMetadataResponsesFactory(),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerPathsFactory(swaggerDocumentContext),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerTagsFactory(swaggerDocumentContext),
-                swaggerDocumentContext)
+                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerPathsFactory(openApiMetadataDocumentContext),
+                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerTagsFactory(openApiMetadataDocumentContext),
+                openApiMetadataDocumentContext)
         { }
 
         internal OpenApiMetadataDocumentFactory(
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 var resources = resourceStrategy.GetFilteredResources(_documentContext)
                                                 .ToList();
 
-                var swaggerDocument = new OpenApiMetadataDocument
+                var openApiMetadataDocument = new OpenApiMetadataDocument
                 {
                     info = new Info
                     {
@@ -105,7 +105,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 };
 
                 return JsonConvert.SerializeObject(
-                    swaggerDocument,
+                    openApiMetadataDocument,
                     new JsonSerializerSettings
                     {
                         NullValueHandling = NullValueHandling.Ignore

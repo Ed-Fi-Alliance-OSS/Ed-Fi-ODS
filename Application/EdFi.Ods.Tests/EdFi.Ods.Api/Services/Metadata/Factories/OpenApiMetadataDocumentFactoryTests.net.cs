@@ -27,33 +27,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
         protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
 
-        public class When_creating_a_swagger_document_for_list_of_resources_for_a_single_instance_ods : TestFixtureBase
+        public class When_creating_a_openapimetadata_document_for_list_of_resources_for_a_single_instance_ods : TestFixtureBase
         {
             private IOpenApiMetadataResourceStrategy _stubbedOpenApiMetadataResourceStrategy;
             private string _actualJson;
-            private OpenApiMetadataDocument _swaggerDoc;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDocument _openApiMetadataDoc;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext = DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext;
+                _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
 
-                var swaggerResources = _swaggerDocumentContext.ResourceModel.GetAllResources()
+                var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
                 _stubbedOpenApiMetadataResourceStrategy = Stub<IOpenApiMetadataResourceStrategy>();
 
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
-                    .Returns(swaggerResources);
+                    .Returns(openApiMetadataResources);
             }
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_swaggerDocumentContext)
+                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext)
                     .Create(_stubbedOpenApiMetadataResourceStrategy);
 
-                _swaggerDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
+                _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
                     new JsonSerializerSettings
                     {
@@ -76,90 +76,90 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             [Assert]
             public void Should_filter_the_resources()
             {
-                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_swaggerDocumentContext)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_openApiMetadataDocumentContext)).MustHaveHappenedOnceExactly();
             }
 
             [Assert]
-            public void Should_deserialize_into_a_swagger_document()
+            public void Should_deserialize_into_a_openapimetadata_document()
             {
-                Assert.That(_swaggerDoc, Is.Not.Null);
+                Assert.That(_openApiMetadataDoc, Is.Not.Null);
             }
 
             [Assert]
             public void Should_set_info()
             {
-                Assert.That(_swaggerDoc.info, Is.Not.Null);
+                Assert.That(_openApiMetadataDoc.info, Is.Not.Null);
             }
 
             [Assert]
             public void Should_set_securityDefinitions()
             {
-                Assert.That(_swaggerDoc.securityDefinitions, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.securityDefinitions, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_security()
             {
-                Assert.That(_swaggerDoc.security, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.security, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_tags()
             {
-                Assert.That(_swaggerDoc.tags, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.tags, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_paths()
             {
-                Assert.That(_swaggerDoc.paths, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.paths, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_definitions()
             {
-                Assert.That(_swaggerDoc.definitions, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.definitions, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_parameters()
             {
-                Assert.That(_swaggerDoc.parameters, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.parameters, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_responses()
             {
-                Assert.That(_swaggerDoc.responses, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.responses, Is.Not.Empty);
             }
         }
 
-        public class When_creating_a_swagger_document_for_list_of_resources_for_a_year_specific_ods : LegacyTestFixtureBase
+        public class When_creating_a_openapimetadata_document_for_list_of_resources_for_a_year_specific_ods : LegacyTestFixtureBase
         {
             private IOpenApiMetadataResourceStrategy _stubbedOpenApiMetadataResourceStrategy;
             private string _actualJson;
-            private OpenApiMetadataDocument _swaggerDoc;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDocument _openApiMetadataDoc;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext = DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext;
+                _openApiMetadataDocumentContext = DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext;
 
-                var swaggerResources = _swaggerDocumentContext.ResourceModel.GetAllResources()
+                var openApiMetadataResources = _openApiMetadataDocumentContext.ResourceModel.GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
                 _stubbedOpenApiMetadataResourceStrategy = Stub<IOpenApiMetadataResourceStrategy>();
 
                 _stubbedOpenApiMetadataResourceStrategy.Stub(x => x.GetFilteredResources(Arg<OpenApiMetadataDocumentContext>.Is.Anything))
-                    .Return(swaggerResources);
+                    .Return(openApiMetadataResources);
             }
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_swaggerDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
 
-                _swaggerDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
+                _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
                     new JsonSerializerSettings
                     {
@@ -183,62 +183,62 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             public void Should_filter_the_resources()
             {
                 _stubbedOpenApiMetadataResourceStrategy.AssertWasCalled(
-                    x => x.GetFilteredResources(Arg<OpenApiMetadataDocumentContext>.Is.Equal(_swaggerDocumentContext)),
+                    x => x.GetFilteredResources(Arg<OpenApiMetadataDocumentContext>.Is.Equal(_openApiMetadataDocumentContext)),
                     x => x.Repeat.Once());
             }
 
             [Assert]
-            public void Should_deserialize_into_a_swagger_document()
+            public void Should_deserialize_into_a_openapimetadata_document()
             {
-                Assert.That(_swaggerDoc, Is.Not.Null);
+                Assert.That(_openApiMetadataDoc, Is.Not.Null);
             }
 
             [Assert]
             public void Should_set_info()
             {
-                Assert.That(_swaggerDoc.info, Is.Not.Null);
+                Assert.That(_openApiMetadataDoc.info, Is.Not.Null);
             }
 
             [Assert]
             public void Should_set_securityDefinitions()
             {
-                Assert.That(_swaggerDoc.securityDefinitions, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.securityDefinitions, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_security()
             {
-                Assert.That(_swaggerDoc.security, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.security, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_tags()
             {
-                Assert.That(_swaggerDoc.tags, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.tags, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_paths()
             {
-                Assert.That(_swaggerDoc.paths, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.paths, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_definitions()
             {
-                Assert.That(_swaggerDoc.definitions, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.definitions, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_parameters()
             {
-                Assert.That(_swaggerDoc.parameters, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.parameters, Is.Not.Empty);
             }
 
             [Assert]
             public void Should_set_responses()
             {
-                Assert.That(_swaggerDoc.responses, Is.Not.Empty);
+                Assert.That(_openApiMetadataDoc.responses, Is.Not.Empty);
             }
         }
     }

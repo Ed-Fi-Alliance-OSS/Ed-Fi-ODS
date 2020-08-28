@@ -11,9 +11,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 {
     public class OpenApiMetadataPathsFactoryDefaultStrategy : IOpenApiMetadataPathsFactoryNamingStrategy
     {
-        public string GetResourceName(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage)
+        public string GetResourceName(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage)
         {
-            var resource = swaggerResource.Resource;
+            var resource = openApiMetadataResource.Resource;
 
             var schemaPrefix =
                 resource.Entity.DomainModel.SchemaNameMapProvider.GetSchemaMapByPhysicalName(

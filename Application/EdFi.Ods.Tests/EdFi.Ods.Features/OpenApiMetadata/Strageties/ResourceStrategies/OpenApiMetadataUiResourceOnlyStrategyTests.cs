@@ -27,7 +27,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strageties.ResourceSt
         public class When_filtering_resources_with_resource_only_strategy : TestFixtureBase
         {
             private IEnumerable<Resource> _resources;
-            private OpenApiMetadataUiResourceOnlyStrategy _swaggerUiResourceOnlyStrategy;
+            private OpenApiMetadataUiResourceOnlyStrategy _openApiMetadataUiResourceOnlyStrategy;
             private string[] _expectedResources;
 
             protected override void Arrange()
@@ -38,13 +38,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Strageties.ResourceSt
                     .Select(x => x.Name)
                     .ToArray();
 
-                _swaggerUiResourceOnlyStrategy = new OpenApiMetadataUiResourceOnlyStrategy();
+                _openApiMetadataUiResourceOnlyStrategy = new OpenApiMetadataUiResourceOnlyStrategy();
             }
 
             protected override void Act()
             {
-                _resources = _swaggerUiResourceOnlyStrategy.GetFilteredResources(
-                        DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
+                _resources = _openApiMetadataUiResourceOnlyStrategy.GetFilteredResources(
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
                     .Select(x => x.Resource);
             }
 

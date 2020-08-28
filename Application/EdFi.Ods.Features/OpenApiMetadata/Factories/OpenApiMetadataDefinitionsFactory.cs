@@ -41,11 +41,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = "A unique system-generated value that identifies the version of the resource."
             };
 
-        public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> swaggerResources)
+        public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> openApiMetadataResources)
         {
             var definitions = BoilerPlateDefinitions();
 
-            swaggerResources.Where(x => _swaggerFactoryResourceFilterStrategy.ShouldInclude(x.Resource)).Select(
+            openApiMetadataResources.Where(x => _swaggerFactoryResourceFilterStrategy.ShouldInclude(x.Resource)).Select(
                 r => new
                 {
                     key = _swaggerDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     }
                 });
 
-            swaggerResources.SelectMany(
+            openApiMetadataResources.SelectMany(
                 r => r.Resource.AllContainedItemTypes.Where(x => _swaggerFactoryResourceFilterStrategy.ShouldInclude(x))
                     .Select(
                         i => new
@@ -67,7 +67,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             key = _swaggerDefinitionsFactoryNamingStrategy.GetContainedItemTypeName(r, i),
                             schema = CreateResourceChildSchema(i, r)
                         }).Concat(
-                        swaggerResources.SelectMany(s => s.Resource.AllContainedReferences).Select(
+                        openApiMetadataResources.SelectMany(s => s.Resource.AllContainedReferences).Select(
                             reference => new
                             {
                                 key = _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(r.Resource, reference),
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     }
                 });
 
-            _definitionsFactoryEntityExtensionStrategy.GetEdFiExtensionBridgeDefinitions(swaggerResources)
+            _definitionsFactoryEntityExtensionStrategy.GetEdFiExtensionBridgeDefinitions(openApiMetadataResources)
                 .ForEach(pair => definitions.Add(pair.Key, pair.Value));
 
             return new SortedDictionary<string, Schema>(definitions);
@@ -96,7 +96,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private static string ReferenceDescription(string referencedResourceName, string roleName, string otherEntityName)
             => $@"A reference to the related {referencedResourceName} resource for {roleName?.ToLower()}{otherEntityName}.";
 
-        private Schema CreateResourceChildSchema(ResourceChildItem resourceChildItem, OpenApiMetadataResource swaggerResource)
+        private Schema CreateResourceChildSchema(ResourceChildItem resourceChildItem, OpenApiMetadataResource openApiMetadataResource)
         {
             var properties = resourceChildItem.Properties
                 .Select(
@@ -114,7 +114,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             Schema = new Schema
                             {
                                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(swaggerResource.Resource, r))
+                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, r))
                             }
                         })).Concat(
                     resourceChildItem.Collections.Select(
@@ -122,17 +122,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         {
                             IsRequired = c.Association.IsRequiredCollection,
                             Key = c.JsonPropertyName,
-                            Schema = CreateCollectionSchema(c, swaggerResource)
+                            Schema = CreateCollectionSchema(c, openApiMetadataResource)
                         })).Concat(
                     resourceChildItem.EmbeddedObjects.Select(
                         e => new
                         {
                             IsRequired = false,
                             Key = e.JsonPropertyName,
-                            Schema = CreateEmbeddedObjectSchema(e, swaggerResource)
+                            Schema = CreateEmbeddedObjectSchema(e, openApiMetadataResource)
                         })).ToList();
 
-            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resourceChildItem, swaggerResource);
+            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resourceChildItem, openApiMetadataResource);
 
             if (bridgeSchema != null)
             {
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        private Schema CreateCollectionSchema(Collection collection, OpenApiMetadataResource swaggerResource)
+        private Schema CreateCollectionSchema(Collection collection, OpenApiMetadataResource openApiMetadataResource)
         {
             return new Schema
             {
@@ -165,22 +165,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = CollectionDescription(
                     collection.ItemType.PluralName.ToCamelCase(), collection.ItemType.Description.ScrubForOpenApi()),
                 items = RefSchema(
-                    _swaggerDefinitionsFactoryNamingStrategy.GetCollectionReferenceName(swaggerResource, collection))
+                    _swaggerDefinitionsFactoryNamingStrategy.GetCollectionReferenceName(openApiMetadataResource, collection))
             };
         }
 
-        private Schema CreateEmbeddedObjectSchema(EmbeddedObject embeddedObject, OpenApiMetadataResource swaggerResource)
+        private Schema CreateEmbeddedObjectSchema(EmbeddedObject embeddedObject, OpenApiMetadataResource openApiMetadataResource)
         {
             return new Schema
             {
                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                    _swaggerDefinitionsFactoryNamingStrategy.GetEmbeddedObjectReferenceName(swaggerResource, embeddedObject))
+                    _swaggerDefinitionsFactoryNamingStrategy.GetEmbeddedObjectReferenceName(openApiMetadataResource, embeddedObject))
             };
         }
 
-        private Schema CreateResourceSchema(OpenApiMetadataResource swaggerResource)
+        private Schema CreateResourceSchema(OpenApiMetadataResource openApiMetadataResource)
         {
-            var resource = swaggerResource.Resource;
+            var resource = openApiMetadataResource.Resource;
 
             var properties = resource.UnifiedKeyAllProperties()
                 .Select(
@@ -197,14 +197,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             PropertyName = CreateCollectionKey(x),
                             IsRequired = x.Association.IsRequiredCollection,
                             Sort = SortOrder(x.PropertyName, x.Association.IsRequiredCollection),
-                            Schema = CreateCollectionSchema(x, swaggerResource)
+                            Schema = CreateCollectionSchema(x, openApiMetadataResource)
                         })).Concat(
                     resource.EmbeddedObjects.Select(
                         x => new PropertySchemaInfo
                         {
                             PropertyName = x.JsonPropertyName,
                             Sort = SortOrder(x.PropertyName, false),
-                            Schema = CreateEmbeddedObjectSchema(x, swaggerResource)
+                            Schema = CreateEmbeddedObjectSchema(x, openApiMetadataResource)
                         })).Concat(
                     resource.References.Select(
                         x => new PropertySchemaInfo
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             Schema = new Schema
                             {
                                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(swaggerResource.Resource, x))
+                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, x))
                             }
 
                             // NOTE: currently there is an open issue with swagger-ui to address 
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .ToDictionary(x => x.PropertyName.ToCamelCase(), x => x.Schema);
 
             propertyDict.Add("_etag", EtagSchema);
-            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resource, swaggerResource);
+            var bridgeSchema = GetEdFiExtensionBridgeReferenceSchema(resource, openApiMetadataResource);
 
             if (bridgeSchema != null)
             {

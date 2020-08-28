@@ -24,9 +24,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
             _compositesMetadataProvider = compositesMetadataProvider;
         }
 
-        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext swaggerDocumentContext)
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            var compositeContext = swaggerDocumentContext.CompositeContext;
+            var compositeContext = openApiMetadataDocumentContext.CompositeContext;
 
             var definitionProcessor =
                 new CompositeDefinitionProcessor<CompositeResourceModelBuilderContext, Resource>(
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 
                 var compositeResource = definitionProcessor.Process(
                     compositeDefinition,
-                    swaggerDocumentContext.ResourceModel,
+                    openApiMetadataDocumentContext.ResourceModel,
                     new CompositeResourceModelBuilderContext());
 
                 compositeResources.Add(
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
                         Readable = true,
                         CompositeResourceContext = new CompositeResourceContext
                         {
-                            OrganizationCode = swaggerDocumentContext.CompositeContext.OrganizationCode,
+                            OrganizationCode = openApiMetadataDocumentContext.CompositeContext.OrganizationCode,
                             Specification = compositeDefinition.Element("Specification"),
                             BaseResource =
                                                                             compositeDefinition.Element("BaseResource")

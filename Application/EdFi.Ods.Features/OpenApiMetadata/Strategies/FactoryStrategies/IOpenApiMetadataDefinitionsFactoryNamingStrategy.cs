@@ -10,12 +10,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 {
     public interface IOpenApiMetadataDefinitionsFactoryNamingStrategy : IOpenApiMetadataFactoryResourceDefinitionNamingStrategy
     {
-        string GetContainedItemTypeName(OpenApiMetadataResource swaggerResource, ResourceChildItem resourceChildItem);
+        string GetContainedItemTypeName(OpenApiMetadataResource openApiMetadataResource, ResourceChildItem resourceChildItem);
 
         string GetReferenceName(ResourceClassBase resource, Reference reference);
 
-        string GetEmbeddedObjectReferenceName(OpenApiMetadataResource swaggerResource, EmbeddedObject embeddedObject);
+        string GetEmbeddedObjectReferenceName(OpenApiMetadataResource openApiMetadataResource, EmbeddedObject embeddedObject);
 
-        string GetCollectionReferenceName(OpenApiMetadataResource swaggerResource, Collection collection);
+        string GetCollectionReferenceName(OpenApiMetadataResource openApiMetadataResource, Collection collection);
     }
 }

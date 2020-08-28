@@ -15,45 +15,45 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
     public class OpenApiMetadataDefinitionsFactoryProfileNamingStrategy
         : IOpenApiMetadataDefinitionsFactoryNamingStrategy
     {
-        public string GetCollectionReferenceName(OpenApiMetadataResource swaggerResource, Collection collection)
+        public string GetCollectionReferenceName(OpenApiMetadataResource openApiMetadataResource, Collection collection)
         {
-            var name = collection.IsDerivedFrom(swaggerResource.Resource)
+            var name = collection.IsDerivedFrom(openApiMetadataResource.Resource)
                 ? CreateChildModelTypeName(
-                    swaggerResource.Resource,
+                    openApiMetadataResource.Resource,
                     collection.ItemType.Name,
                     collection.Parent)
                 : collection.ItemType.Name;
 
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
-                    $"{collection.ItemType.SchemaProperCaseName}_{name}_{swaggerResource.OperationNamingContext}");
+                    $"{collection.ItemType.SchemaProperCaseName}_{name}_{openApiMetadataResource.OperationNamingContext}");
         }
 
-        public string GetContainedItemTypeName(OpenApiMetadataResource swaggerResource, ResourceChildItem resourceChildItem)
+        public string GetContainedItemTypeName(OpenApiMetadataResource openApiMetadataResource, ResourceChildItem resourceChildItem)
         {
-            var name = resourceChildItem.IsDerivedFrom(swaggerResource.Resource)
+            var name = resourceChildItem.IsDerivedFrom(openApiMetadataResource.Resource)
                 ? CreateChildModelTypeName(
-                    swaggerResource.Resource,
+                    openApiMetadataResource.Resource,
                     resourceChildItem.Name,
                     resourceChildItem.Parent)
                 : resourceChildItem.Name;
 
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
-                    $"{resourceChildItem.SchemaProperCaseName}_{name}_{swaggerResource.OperationNamingContext}");
+                    $"{resourceChildItem.SchemaProperCaseName}_{name}_{openApiMetadataResource.OperationNamingContext}");
         }
 
-        public string GetEmbeddedObjectReferenceName(OpenApiMetadataResource swaggerResource, EmbeddedObject embeddedObject)
+        public string GetEmbeddedObjectReferenceName(OpenApiMetadataResource openApiMetadataResource, EmbeddedObject embeddedObject)
         {
             return
                 OpenApiMetadataDocumentHelper.CamelCaseSegments(
-                    $@"{embeddedObject.ObjectType.SchemaProperCaseName}_{embeddedObject.ObjectType.Name}_{swaggerResource.OperationNamingContext}");
+                    $@"{embeddedObject.ObjectType.SchemaProperCaseName}_{embeddedObject.ObjectType.Name}_{openApiMetadataResource.OperationNamingContext}");
         }
 
-        public string GetReferenceName(ResourceClassBase swaggerResource, Reference reference)
+        public string GetReferenceName(ResourceClassBase openApiMetadataResource, Reference reference)
         {
-            var schemaPrefix = swaggerResource.Entity.DomainModel.SchemaNameMapProvider
-                                              .GetSchemaMapByPhysicalName(swaggerResource.Entity.Schema)
+            var schemaPrefix = openApiMetadataResource.Entity.DomainModel.SchemaNameMapProvider
+                                              .GetSchemaMapByPhysicalName(openApiMetadataResource.Entity.Schema)
                                               .ProperCaseName;
 
             return OpenApiMetadataDocumentHelper.CamelCaseSegments($"{schemaPrefix}_{reference.ReferenceTypeName}");

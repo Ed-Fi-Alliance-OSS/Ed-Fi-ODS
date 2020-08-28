@@ -20,7 +20,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
     {
         public const string ContentType = "application/json";
 
-        public const string SwaggerJson = "swagger.json";
+        public const string Json = "swagger.json";
 
         public static string GetResourcePluralName(ResourceClassBase resourceClassBase) => resourceClassBase.PluralName;
 

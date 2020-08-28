@@ -23,22 +23,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
     {
         private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
-        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _swaggerPathsFactorySelectorStrategy;
+        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
 
         public OpenApiMetadataPathsFactory(
-            IOpenApiMetadataPathsFactorySelectorStrategy swaggerPathsFactorySelectorStrategy,
+            IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
             IOpenApiMetadataPathsFactoryContentTypeStrategy contentTypeStrategy,
             IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy)
         {
-            _swaggerPathsFactorySelectorStrategy = swaggerPathsFactorySelectorStrategy;
+            _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
         }
 
-        public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> swaggerResources, bool isCompositeContext)
+        public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> openApiMetadataResources, bool isCompositeContext)
         {
-            return _swaggerPathsFactorySelectorStrategy
-                .ApplyStrategy(swaggerResources)
+            return _openApiMetadataPathsFactorySelectorStrategy
+                .ApplyStrategy(openApiMetadataResources)
                 .Where(r => r.Readable || r.Writable)
                 .OrderBy(r => r.Name)
                 .SelectMany(
@@ -85,89 +85,89 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .ToDictionary(p => p.Path, p => p.PathItem);
         }
 
-        private PathItem CreatePathItemForNonIdAccessedOperations(OpenApiMetadataPathsResource swaggerResource, bool isCompositeContext)
+        private PathItem CreatePathItemForNonIdAccessedOperations(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
             => new PathItem
             {
-                get = swaggerResource.Readable
-                    ? CreateGetOperation(swaggerResource, isCompositeContext)
+                get = openApiMetadataResource.Readable
+                    ? CreateGetOperation(openApiMetadataResource, isCompositeContext)
                     : null,
-                post = swaggerResource.Writable
-                    ? CreatePostOperation(swaggerResource)
+                post = openApiMetadataResource.Writable
+                    ? CreatePostOperation(openApiMetadataResource)
                     : null
             };
 
-        private PathItem CreatePathItemForAccessByIdsOperations(OpenApiMetadataPathsResource swaggerResource)
+        private PathItem CreatePathItemForAccessByIdsOperations(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = swaggerResource.Readable
-                    ? CreateGetByIdOperation(swaggerResource)
+                get = openApiMetadataResource.Readable
+                    ? CreateGetByIdOperation(openApiMetadataResource)
                     : null,
-                put = swaggerResource.Writable
-                    ? CreatePutByIdOperation(swaggerResource)
+                put = openApiMetadataResource.Writable
+                    ? CreatePutByIdOperation(openApiMetadataResource)
                     : null,
-                delete = swaggerResource.Writable
-                    ? CreateDeleteByIdOperation(swaggerResource)
+                delete = openApiMetadataResource.Writable
+                    ? CreateDeleteByIdOperation(openApiMetadataResource)
                     : null
             };
 
-        private PathItem CreatePathItemForChangeQueryOperation(OpenApiMetadataPathsResource swaggerResource)
+        private PathItem CreatePathItemForChangeQueryOperation(OpenApiMetadataPathsResource openApiMetadataResource)
             => new PathItem
             {
-                get = swaggerResource.Writable
-                    ? CreateDeletesOperation(swaggerResource)
+                get = openApiMetadataResource.Writable
+                    ? CreateDeletesOperation(openApiMetadataResource)
                     : null
             };
 
-        private Operation CreateGetOperation(OpenApiMetadataPathsResource swaggerResource, bool isCompositeContext)
+        private Operation CreateGetOperation(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
         {
             var operation = new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Retrieves specific resources using the resource's property values (using the \"Get\" pattern).",
                 description =
                     "This GET operation provides access to resources using the \"Get\" search pattern.  The values of any properties of the resource that are specified will be used to return all matching results (if it exists).",
-                operationId = swaggerResource.OperationId ?? $"get{swaggerResource.Resource.PluralName}",
-                deprecated = swaggerResource.IsDeprecated,
-                produces = new[] { _contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Readable) },
-                parameters = CreateGetByExampleParameters(swaggerResource, isCompositeContext),
+                operationId = openApiMetadataResource.OperationId ?? $"get{openApiMetadataResource.Resource.PluralName}",
+                deprecated = openApiMetadataResource.IsDeprecated,
+                produces = new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable) },
+                parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
                 responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                    _pathsFactoryNamingStrategy.GetResourceName(swaggerResource, ContentTypeUsage.Readable),
+                    _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                     true)
             };
 
             return operation;
         }
 
-        private Operation CreateGetByIdOperation(OpenApiMetadataPathsResource swaggerResource)
+        private Operation CreateGetByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             return new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Retrieves a specific resource using the resource's identifier (using the \"Get By Id\" pattern).",
                 description = "This GET operation retrieves a resource by the specified resource identifier.",
-                operationId = $"get{swaggerResource.Resource.PluralName}ById",
-                deprecated = swaggerResource.IsDeprecated,
-                produces = new[] { _contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Readable) },
+                operationId = $"get{openApiMetadataResource.Resource.PluralName}ById",
+                deprecated = openApiMetadataResource.IsDeprecated,
+                produces = new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable) },
                 parameters = new[]
                     {
                         // Path parameters need to be inline in the operation, and not referenced.
                         OpenApiMetadataDocumentHelper.CreateIdParameter(),
                         new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match")}
                     }.Concat(
-                        swaggerResource.DefaultGetByIdParameters
+                        openApiMetadataResource.DefaultGetByIdParameters
                             .Select(p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                     .ToList(),
                 responses =
                     OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                        _pathsFactoryNamingStrategy.GetResourceName(swaggerResource, ContentTypeUsage.Readable),
+                        _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                         false)
             };
         }
@@ -191,7 +191,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
 #endif
 
-            if (_swaggerPathsFactorySelectorStrategy.HasTotalCount)
+            if (_openApiMetadataPathsFactorySelectorStrategy.HasTotalCount)
             {
                 parameterList.Add(
                     new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") });
@@ -200,28 +200,28 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return parameterList;
         }
 
-        private IList<Parameter> CreateGetByExampleParameters(OpenApiMetadataPathsResource swaggerResource, bool isCompositeContext)
+        private IList<Parameter> CreateGetByExampleParameters(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
         {
             var parameterList = CreateQueryParameters(isCompositeContext)
                 .Concat(
-                    swaggerResource.DefaultGetByExampleParameters.Select(
+                    openApiMetadataResource.DefaultGetByExampleParameters.Select(
                         p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
-            swaggerResource.RequestProperties.ForEach(
+            openApiMetadataResource.RequestProperties.ForEach(
                 x =>
                 {
                     parameterList.Add(
                         new Parameter
                         {
                             name = x.PropertyName.ToCamelCase(),
-                            @in = swaggerResource.IsPathParameter(x)
+                            @in = openApiMetadataResource.IsPathParameter(x)
                                 ? "path"
                                 : "query",
                             description = OpenApiMetadataDocumentHelper.PropertyDescription(x),
                             type = OpenApiMetadataDocumentHelper.PropertyType(x),
                             format = x.PropertyType.ToOpenApiFormat(),
-                            required = swaggerResource.IsPathParameter(x),
+                            required = openApiMetadataResource.IsPathParameter(x),
                             isIdentity = OpenApiMetadataDocumentHelper.GetIsIdentity(x),
                             maxLength = OpenApiMetadataDocumentHelper.GetMaxLength(x),
                             isDeprecated = OpenApiMetadataDocumentHelper.GetIsDeprecated(x),
@@ -232,53 +232,53 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return parameterList;
         }
 
-        private Operation CreatePutByIdOperation(OpenApiMetadataPathsResource swaggerResource)
+        private Operation CreatePutByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             return new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Updates or creates a resource based on the resource identifier.",
                 description =
                     "The PUT operation is used to update or create a resource by identifier. If the resource doesn't exist, the resource will be created using that identifier. Additionally, natural key values cannot be changed using this operation, and will not be modified in the database.  If the resource \"id\" is provided in the JSON body, it will be ignored as well.",
-                operationId = $"put{swaggerResource.Name}",
-                deprecated = swaggerResource.IsDeprecated,
-                consumes = new[] { _contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Writable) },
-                parameters = CreatePutParameters(swaggerResource),
+                operationId = $"put{openApiMetadataResource.Name}",
+                deprecated = openApiMetadataResource.IsDeprecated,
+                consumes = new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
+                parameters = CreatePutParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put)
             };
         }
 
-        private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource swaggerResource)
+        private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             IList<Parameter> parameterList = new List<Parameter>();
 
             parameterList.Add(OpenApiMetadataDocumentHelper.CreateIdParameter());
 
             parameterList.Add(CreateIfMatchParameter("PUT from updating"));
-            parameterList.Add(CreateBodyParameter(swaggerResource));
+            parameterList.Add(CreateBodyParameter(openApiMetadataResource));
 
             return parameterList;
         }
 
-        private Operation CreateDeleteByIdOperation(OpenApiMetadataPathsResource swaggerResource)
+        private Operation CreateDeleteByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             return new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Deletes an existing resource using the resource identifier.",
                 description =
                     "The DELETE operation is used to delete an existing resource by identifier. If the resource doesn't exist, an error will result (the resource will not be found).",
-                operationId = $"delete{swaggerResource.Name}ById",
-                deprecated = swaggerResource.IsDeprecated,
-                consumes = new[] { _contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Writable) },
+                operationId = $"delete{openApiMetadataResource.Name}ById",
+                deprecated = openApiMetadataResource.IsDeprecated,
+                consumes = new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
                 parameters = new[]
                 {
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
@@ -288,23 +288,23 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        private Operation CreateDeletesOperation(OpenApiMetadataPathsResource swaggerResource)
+        private Operation CreateDeletesOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             return new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Retrieves deleted resources based on change version.",
                 description = "The DELETES operation is used to retrieve deleted resources.",
-                operationId = $"deletes{swaggerResource.Resource.PluralName}",
-                deprecated = swaggerResource.IsDeprecated,
+                operationId = $"deletes{openApiMetadataResource.Resource.PluralName}",
+                deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
                 {
                     _contentTypeStrategy.GetOperationContentType(
-                        swaggerResource,
+                        openApiMetadataResource,
                         ContentTypeUsage.Writable)
                 },
                 parameters = new List<Parameter>
@@ -315,34 +315,34 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")}
                 },
                 responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                    _pathsFactoryNamingStrategy.GetResourceName(swaggerResource, ContentTypeUsage.Readable),
+                    _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                     true)
             };
         }
 
-        private Operation CreatePostOperation(OpenApiMetadataPathsResource swaggerResource)
+        private Operation CreatePostOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
             return new Operation
             {
                 tags = new List<string>
                 {
-                    OpenApiMetadataDocumentHelper.GetResourcePluralName(swaggerResource.Resource)
+                    OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
                 summary = "Creates or updates resources based on the natural key values of the supplied resource.",
                 description =
                     "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error (you must use a PUT operation to update a resource by \"id\"). The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately.",
-                operationId = "post" + swaggerResource.Name,
-                deprecated = swaggerResource.IsDeprecated,
-                consumes = new[] { _contentTypeStrategy.GetOperationContentType(swaggerResource, ContentTypeUsage.Writable) },
-                parameters = CreatePostParameters(swaggerResource),
+                operationId = "post" + openApiMetadataResource.Name,
+                deprecated = openApiMetadataResource.IsDeprecated,
+                consumes = new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
+                parameters = CreatePostParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post)
             };
         }
 
-        private IList<Parameter> CreatePostParameters(OpenApiMetadataPathsResource swaggerResource)
+        private IList<Parameter> CreatePostParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            return new List<Parameter> { CreateBodyParameter(swaggerResource) };
+            return new List<Parameter> { CreateBodyParameter(openApiMetadataResource) };
         }
 
         private Parameter CreateIfMatchParameter(string operationText)
@@ -355,12 +355,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 type = "string"
             };
 
-        private Parameter CreateBodyParameter(OpenApiMetadataPathsResource swaggerPathsResource)
+        private Parameter CreateBodyParameter(OpenApiMetadataPathsResource openApiMetadataPathsResource)
         {
-            var camelCaseName = swaggerPathsResource.Resource.Name.ToCamelCase();
+            var camelCaseName = openApiMetadataPathsResource.Resource.Name.ToCamelCase();
 
             var referenceName =
-                _pathsFactoryNamingStrategy.GetResourceName(swaggerPathsResource, ContentTypeUsage.Writable);
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataPathsResource, ContentTypeUsage.Writable);
 
             return new Parameter
             {

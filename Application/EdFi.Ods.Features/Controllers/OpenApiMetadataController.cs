@@ -115,7 +115,7 @@ namespace EdFi.Ods.Features.Controllers
                     ? string.Empty
                     : apiContent.RelativeSectionPath.EnsureSuffixApplied("/");
 
-                return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.SwaggerJson}".ToLowerInvariant();
+                return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
             }
 
             string GetBasePath(OpenApiContent apiContent, int? schoolYear)

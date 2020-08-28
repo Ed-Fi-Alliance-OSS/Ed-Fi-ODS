@@ -31,14 +31,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                var swaggerResources = ResourceModelProvider.GetResourceModel()
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
                     .GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
                 _actualTags = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerTagsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                    .Create(swaggerResources);
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
+                    .Create(openApiMetadataResources);
 
                 _actualTagNames = _actualTags.Select(x => x.name)
                     .ToArray();

@@ -43,12 +43,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             }
         }
 
-        public class When_th_swagger_profile_paths_factory_strategy_is_applied_to_a_list_of_swagger_resources
+        public class When_th_openapimetadata_profile_paths_factory_strategy_is_applied_to_a_list_of_openapimetadata_resources
             : TestFixtureBase
         {
             private TestProfileResourceNamesProvider _testProfileResourceNamesProvider;
             private ISchemaNameMapProvider _schemaNameMapProviderStub;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
             private IEnumerable<OpenApiMetadataResource> _actualFilteredResources;
             private IEnumerable<OpenApiMetadataResource> _expectedFilteredResources;
 
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                         _resourceModelProvider.GetResourceModel(),
                         _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"));
 
-                _swaggerDocumentContext =
+                _openApiMetadataDocumentContext =
                     new OpenApiMetadataDocumentContext(
                         _resourceModelProvider.GetResourceModel())
                     {
@@ -137,9 +137,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
 
             protected override void Act()
             {
-                _actualFilteredResources = new OpenApiMetadataPathsFactoryProfileStrategy(_swaggerDocumentContext)
+                _actualFilteredResources = new OpenApiMetadataPathsFactoryProfileStrategy(_openApiMetadataDocumentContext)
                     .ApplyStrategy(
-                        new OpenApiProfileStrategy().GetFilteredResources(_swaggerDocumentContext));
+                        new OpenApiProfileStrategy().GetFilteredResources(_openApiMetadataDocumentContext));
             }
 
             [Assert]
@@ -149,7 +149,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             }
 
             [Assert]
-            public void Should_return_a_list_of_swagger_resources_which_all_are_assigned_readable_or_writable()
+            public void Should_return_a_list_of_openapimetadata_resources_which_all_are_assigned_readable_or_writable()
             {
                 Assert.That(
                     _actualFilteredResources.All(
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             }
 
             [Assert]
-            public void Should_return_a_list_of_swagger_resources_which_all_assigned_a_value_of_true_for_IsProfileResource()
+            public void Should_return_a_list_of_openapimetadata_resources_which_all_assigned_a_value_of_true_for_IsProfileResource()
             {
                 Assert.That(
                     _actualFilteredResources.All(
@@ -167,7 +167,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
             }
 
             [Assert]
-            public void Should_return_comprehensive_list_of_swagger_paths_resources_for_the_applied_strategy()
+            public void Should_return_comprehensive_list_of_openapimetadata_paths_resources_for_the_applied_strategy()
             {
                 AssertHelper.All(
                     _actualFilteredResources
@@ -180,7 +180,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.FactoryStrate
                                             r,
                                             new OpenApiMetadataResourceProfileComparer()),
                                         Is.True,
-                                        $"Swagger Resource {r.Name} does not exist in expected")))
+                                        $"OpenApiMetadata Resource {r.Name} does not exist in expected")))
                         .ToArray());
             }
         }

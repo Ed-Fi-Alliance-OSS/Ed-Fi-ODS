@@ -18,42 +18,42 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         // that would create the entire SwaggerDocumentFactory with the correct strategies for that use case rather 
         // than using conditional checks on the context.
 
-        public static OpenApiMetadataDefinitionsFactory CreateSwaggerDefinitionsFactory(OpenApiMetadataDocumentContext swaggerDocumentContext)
+        public static OpenApiMetadataDefinitionsFactory CreateSwaggerDefinitionsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            switch (swaggerDocumentContext.RenderType)
+            switch (openApiMetadataDocumentContext.RenderType)
             {
                 case RenderType.GeneralizedExtensions:
 
                     var genericStrategy =
-                        new OpenApiMetadataDefinitionsFactoryGenericEdFiExtensionBridgeStrategy(swaggerDocumentContext);
+                        new OpenApiMetadataDefinitionsFactoryGenericEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
 
                     return new OpenApiMetadataDefinitionsFactory(
                         new OpenApiMetadataDefinitionsFactoryEmptyEntityExtensionStrategy(),
                         genericStrategy,
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
-                        new OpenApiMetadataFactoryResourceFilterSchemaStrategy(swaggerDocumentContext));
+                        new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext));
 
                 case RenderType.ExtensionArtifactsOnly:
 
                     var genericBridgeStrategy =
-                        new OpenApiMetadataDefinitionsFactoryGenericEdFiExtensionBridgeStrategy(swaggerDocumentContext);
+                        new OpenApiMetadataDefinitionsFactoryGenericEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
 
                     return new OpenApiMetadataDefinitionsFactory(
                         new OpenApiMetadataDefinitionsFactoryDefaultEntityExtensionStrategy(
-                            swaggerDocumentContext,
+                            openApiMetadataDocumentContext,
                             genericBridgeStrategy,
                             new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy()),
                         genericBridgeStrategy,
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
-                        new OpenApiMetadataFactoryResourceFilterSchemaStrategy(swaggerDocumentContext));
+                        new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext));
                 default:
-                    var bridgeStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(swaggerDocumentContext);
+                    var bridgeStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
                     var filterStrategy = new OpenApiMetadataFactoryResourceFilterDefaultStrategy();
 
-                    var namingStrategy = GetSwaggerDefinitionsFactoryNamingStrategy(swaggerDocumentContext);
+                    var namingStrategy = GetSwaggerDefinitionsFactoryNamingStrategy(openApiMetadataDocumentContext);
 
                     var extensionStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEntityExtensionStrategy(
-                        swaggerDocumentContext,
+                        openApiMetadataDocumentContext,
                         bridgeStrategy,
                         namingStrategy);
 
@@ -65,11 +65,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
         }
 
-        public static OpenApiMetadataPathsFactory CreateSwaggerPathsFactory(OpenApiMetadataDocumentContext swaggerDocumentContext)
+        public static OpenApiMetadataPathsFactory CreateSwaggerPathsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            if (swaggerDocumentContext.IsProfileContext)
+            if (openApiMetadataDocumentContext.IsProfileContext)
             {
-                var profileStrategy = new OpenApiMetadataPathsFactoryProfileStrategy(swaggerDocumentContext);
+                var profileStrategy = new OpenApiMetadataPathsFactoryProfileStrategy(openApiMetadataDocumentContext);
 
                 //Profile strategy implements each of the interfaces in the signature of the paths factory constructor
                 //Hence the odd parameter repetition.
@@ -79,14 +79,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             IOpenApiMetadataPathsFactorySelectorStrategy selectorStrategy = null;
             IOpenApiMetadataPathsFactoryNamingStrategy resourceNamingStrategy = null;
 
-            if (swaggerDocumentContext.RenderType == RenderType.ExtensionArtifactsOnly)
+            if (openApiMetadataDocumentContext.RenderType == RenderType.ExtensionArtifactsOnly)
             {
-                selectorStrategy = new OpenApiMetadataPathsFactorySchemaSelectorStrategy(swaggerDocumentContext);
+                selectorStrategy = new OpenApiMetadataPathsFactorySchemaSelectorStrategy(openApiMetadataDocumentContext);
             }
 
-            if (swaggerDocumentContext.IsCompositeContext)
+            if (openApiMetadataDocumentContext.IsCompositeContext)
             {
-                selectorStrategy = new OpenApiMetadataCompositePathsFactoryStrategy(swaggerDocumentContext);
+                selectorStrategy = new OpenApiMetadataCompositePathsFactoryStrategy(openApiMetadataDocumentContext);
                 resourceNamingStrategy = new OpenApiMetadataPathsFactoryCompositeStrategy();
             }
 
@@ -110,14 +110,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
 
         private static IOpenApiMetadataDefinitionsFactoryNamingStrategy GetSwaggerDefinitionsFactoryNamingStrategy(
-            OpenApiMetadataDocumentContext swaggerDocumentContext)
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            if (swaggerDocumentContext.IsCompositeContext)
+            if (openApiMetadataDocumentContext.IsCompositeContext)
             {
                 return new OpenApiMetadataDefinitionsFactoryCompositeNamingStrategy();
             }
 
-            return swaggerDocumentContext.IsProfileContext
+            return openApiMetadataDocumentContext.IsProfileContext
                 ? (IOpenApiMetadataDefinitionsFactoryNamingStrategy)new OpenApiMetadataDefinitionsFactoryProfileNamingStrategy()
                 : new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy();
         }

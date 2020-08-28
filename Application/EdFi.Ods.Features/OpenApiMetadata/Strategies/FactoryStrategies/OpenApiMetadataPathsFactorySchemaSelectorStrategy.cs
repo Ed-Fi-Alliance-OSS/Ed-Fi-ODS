@@ -18,9 +18,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             _documentContext = documentContext;
         }
 
-        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
-            return swaggerResources.Where(x => _documentContext.IsIncludedExtension(x.Resource))
+            return openApiMetadataResources.Where(x => _documentContext.IsIncludedExtension(x.Resource))
                                    .Select(
                                         x => new OpenApiMetadataPathsResource(x)
                                         {

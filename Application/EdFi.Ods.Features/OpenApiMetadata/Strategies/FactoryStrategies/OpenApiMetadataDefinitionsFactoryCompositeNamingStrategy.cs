@@ -14,11 +14,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
     public class OpenApiMetadataDefinitionsFactoryCompositeNamingStrategy : IOpenApiMetadataDefinitionsFactoryNamingStrategy
     {
         public string GetContainedItemTypeName(
-            OpenApiMetadataResource swaggerResource,
+            OpenApiMetadataResource openApiMetadataResource,
             ResourceChildItem resourceChildItem)
         {
             return CreateCompositeChildModelTypeName(
-                swaggerResource.Resource.Name,
+                openApiMetadataResource.Resource.Name,
                 resourceChildItem.Name,
                 resourceChildItem.Parent);
         }
@@ -32,19 +32,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         }
 
         public string GetEmbeddedObjectReferenceName(
-            OpenApiMetadataResource swaggerResource,
+            OpenApiMetadataResource openApiMetadataResource,
             EmbeddedObject embeddedObject)
         {
             return CreateCompositeChildModelTypeName(
-                swaggerResource.Resource.Name,
+                openApiMetadataResource.Resource.Name,
                 embeddedObject.ObjectType.Name,
                 embeddedObject.Parent);
         }
 
-        public string GetCollectionReferenceName(OpenApiMetadataResource swaggerResource, Collection collection)
+        public string GetCollectionReferenceName(OpenApiMetadataResource openApiMetadataResource, Collection collection)
         {
             return CreateCompositeChildModelTypeName(
-                swaggerResource.Resource.Name,
+                openApiMetadataResource.Resource.Name,
                 collection.ItemType.Name,
                 collection.Parent);
         }

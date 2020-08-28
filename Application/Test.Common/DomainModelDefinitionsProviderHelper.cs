@@ -37,7 +37,7 @@ namespace Test.Common
             DomainModelProvider.GetDomainModel()
                                .SchemaNameMapProvider;
 
-        public static OpenApiMetadataDocumentContext DefaultSwaggerDocumentContext =
+        public static OpenApiMetadataDocumentContext DefaultopenApiMetadataDocumentContext =
             new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel());
     }
 

@@ -11,9 +11,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 {
     public class OpenApiMetadataPathsFactoryCompositeStrategy : IOpenApiMetadataPathsFactoryNamingStrategy
     {
-        public string GetResourceName(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage)
+        public string GetResourceName(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage)
         {
-            return swaggerResource.Resource.Name.ToCamelCase();
+            return openApiMetadataResource.Resource.Name.ToCamelCase();
         }
     }
 }

@@ -39,14 +39,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                var swaggerResources = ResourceModelProvider.GetResourceModel()
+                var openApiMetadataResources = ResourceModelProvider.GetResourceModel()
                     .GetAllResources()
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultSwaggerDocumentContext)
-                    .Create(swaggerResources, false);
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
+                    .Create(openApiMetadataResources, false);
             }
 
             [Assert]
@@ -148,12 +148,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             : TestFixtureBase
         {
             private IDictionary<string, PathItem> _actualPaths;
-            private IList<OpenApiMetadataResource> _swaggerResources;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private IList<OpenApiMetadataResource> _openApiMetadataResources;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext =
+                _openApiMetadataDocumentContext =
                     new OpenApiMetadataDocumentContext(
                         ResourceModelProvider.GetResourceModel())
                     {
@@ -187,7 +187,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 var writableResourceModel =
                     profileResourceModel.ResourceByName.Values.Where(r => r.Writable != null);
 
-                _swaggerResources = readableResourceModel
+                _openApiMetadataResources = readableResourceModel
                     .Select(
                         r => new OpenApiMetadataResource(r.Readable)
                         {
@@ -212,8 +212,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateSwaggerPathsFactory(_swaggerDocumentContext)
-                    .Create(_swaggerResources, false);
+                    .CreateSwaggerPathsFactory(_openApiMetadataDocumentContext)
+                    .Create(_openApiMetadataResources, false);
             }
 
             [Assert]

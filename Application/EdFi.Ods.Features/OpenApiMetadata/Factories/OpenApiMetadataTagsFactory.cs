@@ -21,9 +21,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             _filterStrategy = filterStrategy;
         }
 
-        public IList<Tag> Create(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IList<Tag> Create(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
-            return swaggerResources.Where(x => _filterStrategy.ShouldInclude(x.Resource))
+            return openApiMetadataResources.Where(x => _filterStrategy.ShouldInclude(x.Resource))
                                    .Select(
                                         x => new Tag
                                         {

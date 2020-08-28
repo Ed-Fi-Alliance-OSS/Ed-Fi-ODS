@@ -12,7 +12,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
     public class OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy : IOpenApiMetadataDefinitionsFactoryNamingStrategy
     {
         public string GetContainedItemTypeName(
-            OpenApiMetadataResource swaggerResource,
+            OpenApiMetadataResource openApiMetadataResource,
             ResourceChildItem resourceChildItem)
         {
             var schemaPrefix = resourceChildItem.SchemaProperCaseName;
@@ -27,7 +27,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         }
 
         public string GetEmbeddedObjectReferenceName(
-            OpenApiMetadataResource swaggerResource,
+            OpenApiMetadataResource openApiMetadataResource,
             EmbeddedObject embeddedObject)
         {
             var schemaPrefix = embeddedObject
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         }
 
         public string GetCollectionReferenceName(
-            OpenApiMetadataResource swaggerResource,
+            OpenApiMetadataResource openApiMetadataResource,
             Collection collection)
         {
             var schemaPrefix = collection

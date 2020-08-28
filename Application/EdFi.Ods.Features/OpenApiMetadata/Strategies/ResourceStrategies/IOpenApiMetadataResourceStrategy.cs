@@ -10,6 +10,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     public interface IOpenApiMetadataResourceStrategy
     {
-        IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext swaggerDocumentContext);
+        IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext);
     }
 }

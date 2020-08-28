@@ -192,12 +192,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 TestFixtureBase
         {
             private IDictionary<string, Schema> _actualDefinitions;
-            private IList<OpenApiMetadataResource> _swaggerResources;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private IList<OpenApiMetadataResource> _openApiMetadataResources;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext =
+                _openApiMetadataDocumentContext =
                     new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                     {
                         ProfileContext = new OpenApiMetadataProfileContext()
@@ -213,7 +213,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 var writableResourceModel = profileResourceModel.ResourceByName.Values.Where(r => r.Writable != null);
                 var edFiSchemaPrefix = "edFi";
 
-                _swaggerResources = readableResourceModel
+                _openApiMetadataResources = readableResourceModel
                     .Select(
                         r => new OpenApiMetadataResource(r.Readable)
                         {
@@ -236,8 +236,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_swaggerDocumentContext)
-                    .Create(_swaggerResources);
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_openApiMetadataDocumentContext)
+                    .Create(_openApiMetadataResources);
             }
 
             [Assert]
@@ -319,12 +319,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 TestFixtureBase
         {
             private IDictionary<string, Schema> _actualDefinitions;
-            private IList<OpenApiMetadataResource> _swaggerResources;
-            private OpenApiMetadataDocumentContext _swaggerDocumentContext;
+            private IList<OpenApiMetadataResource> _openApiMetadataResources;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
 
             protected override void Arrange()
             {
-                _swaggerDocumentContext = new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
+                _openApiMetadataDocumentContext = new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                 {
                     CompositeContext = new OpenApiMetadataCompositeContext {CategoryName = OpenApiCompositeHelper.CategoryName}
                 };
@@ -338,14 +338,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 A.CallTo(() => compositesMetadataProvider.TryGetRoutes(A<string>._, A<string>._, out routes)).Returns(true);
 
-                _swaggerResources = new OpenApiCompositeStrategy(compositesMetadataProvider)
-                    .GetFilteredResources(_swaggerDocumentContext).ToList();
+                _openApiMetadataResources = new OpenApiCompositeStrategy(compositesMetadataProvider)
+                    .GetFilteredResources(_openApiMetadataDocumentContext).ToList();
             }
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_swaggerDocumentContext)
-                    .Create(_swaggerResources);
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_openApiMetadataDocumentContext)
+                    .Create(_openApiMetadataResources);
             }
 
             [Assert]

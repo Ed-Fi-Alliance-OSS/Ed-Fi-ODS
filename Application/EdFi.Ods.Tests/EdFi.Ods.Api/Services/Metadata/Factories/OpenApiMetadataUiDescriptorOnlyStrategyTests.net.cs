@@ -27,7 +27,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
         public class When_filtering_resources_with_descriptor_only_strategy : TestFixtureBase
         {
             private IEnumerable<Resource> _actualDescriptors;
-            private OpenApiMetadataUiDescriptorOnlyStrategy _swaggerUiDescriptorOnlyStrategy;
+            private OpenApiMetadataUiDescriptorOnlyStrategy _openApiMetadataUiDescriptorOnlyStrategy;
             private string[] _expectedDescriptors;
 
             protected override void Arrange()
@@ -38,14 +38,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .Select(x => x.Name)
                     .ToArray();
 
-                _swaggerUiDescriptorOnlyStrategy = new OpenApiMetadataUiDescriptorOnlyStrategy();
+                _openApiMetadataUiDescriptorOnlyStrategy = new OpenApiMetadataUiDescriptorOnlyStrategy();
             }
 
             protected override void Act()
             {
-                _actualDescriptors = _swaggerUiDescriptorOnlyStrategy.GetFilteredResources(
+                _actualDescriptors = _openApiMetadataUiDescriptorOnlyStrategy.GetFilteredResources(
                         DomainModelDefinitionsProviderHelper
-                            .DefaultSwaggerDocumentContext)
+                            .DefaultopenApiMetadataDocumentContext)
                     .Select(x => x.Resource);
             }
 

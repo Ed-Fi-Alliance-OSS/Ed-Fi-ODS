@@ -15,14 +15,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         : IOpenApiMetadataPathsFactorySelectorStrategy,
           IOpenApiMetadataPathsFactoryContentTypeStrategy
     {
-        public string GetOperationContentType(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage)
+        public string GetOperationContentType(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage)
         {
             return OpenApiMetadataDocumentHelper.ContentType;
         }
 
-        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
-            return swaggerResources.Select(
+            return openApiMetadataResources.Select(
                 r => new OpenApiMetadataPathsResource(r.Resource)
                 {
                     Readable = true,

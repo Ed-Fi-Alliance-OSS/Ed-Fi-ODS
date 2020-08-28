@@ -22,42 +22,42 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             _documentContext = documentContext;
         }
 
-        public string GetOperationContentType(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage)
+        public string GetOperationContentType(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage)
             => ProfilesContentTypeHelper.CreateContentType(
-                swaggerResource.Resource.Name,
+                openApiMetadataResource.Resource.Name,
                 _documentContext.ProfileContext.ProfileName,
                 contentTypeUsage);
 
-        public string GetResourceName(OpenApiMetadataResource swaggerResource, ContentTypeUsage contentTypeUsage)
+        public string GetResourceName(OpenApiMetadataResource openApiMetadataResource, ContentTypeUsage contentTypeUsage)
         {
             var schemaPrefix =
-                swaggerResource.Resource.Entity.DomainModel.SchemaNameMapProvider
-                               .GetSchemaMapByPhysicalName(swaggerResource.Resource.Entity.Schema)
+                openApiMetadataResource.Resource.Entity.DomainModel.SchemaNameMapProvider
+                               .GetSchemaMapByPhysicalName(openApiMetadataResource.Resource.Entity.Schema)
                                .ProperCaseName;
 
-            var name = swaggerResource.ContextualResource == null
+            var name = openApiMetadataResource.ContextualResource == null
                 ? string.Format(
                     "{0}_{1}_{2}",
                     schemaPrefix,
-                    CompositeTermInflector.MakeSingular(swaggerResource.Resource.Name),
+                    CompositeTermInflector.MakeSingular(openApiMetadataResource.Resource.Name),
                     contentTypeUsage)
                 : string.Format(
                     "{0}_{1}_{2}_{3}",
                     schemaPrefix,
-                    CompositeTermInflector.MakeSingular(swaggerResource.Resource.Name),
-                    swaggerResource.ContextualResource.Name,
+                    CompositeTermInflector.MakeSingular(openApiMetadataResource.Resource.Name),
+                    openApiMetadataResource.ContextualResource.Name,
                     contentTypeUsage);
 
             return OpenApiMetadataDocumentHelper.CamelCaseSegments(name);
         }
 
-        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> swaggerResources)
+        public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
             // When rendering definitions, profile resources exist as separate OpenApiMetadataResource objects
             // per content type (Readable / Writable).
             // When rendering paths, all profile resource content types are rendered
             // in the same 'Paths' section and need to be merged into a unified OpenApiMetadataPathsResource.
-            return swaggerResources.GroupBy(
+            return openApiMetadataResources.GroupBy(
                                         r => new
                                         {
                                             r.NameWithoutContext,
