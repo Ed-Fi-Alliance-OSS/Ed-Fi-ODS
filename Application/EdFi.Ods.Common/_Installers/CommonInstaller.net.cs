@@ -28,7 +28,8 @@ namespace EdFi.Ods.Common._Installers
                 Component.For<IConfigValueProvider>().ImplementedBy<AppConfigValueProvider>().IsFallback(),
                 Component.For<IConfigConnectionStringsProvider>().ImplementedBy<AppConfigConnectionStringsProvider>()
                     .IsFallback(),
-                Component.For<IConfigSectionProvider>().ImplementedBy<AppConfigSectionProvider>().IsFallback());
+                Component.For<IConfigSectionProvider>().ImplementedBy<AppConfigSectionProvider>().IsFallback(),
+                Component.For<ISystemDateProvider>().ImplementedBy<SystemDateProvider>());
         }
     }
 }

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using DatabaseSchemaReader;
 using DatabaseSchemaReader.DataSchema;
+using EdFi.Common.Database;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.CodeGen.Database.DatabaseSchema
 {

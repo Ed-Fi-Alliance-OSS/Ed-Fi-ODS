@@ -6,6 +6,8 @@
 #if NETFRAMEWORK
 using System.Linq;
 using System.Web.Http;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
@@ -17,19 +19,32 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IApiVersionProvider _apiVersionProvider;
+        private readonly ISystemDateProvider _systemDateProvider;
+        private const string UseReverseProxyHeadersConfigKey = "UseReverseProxyHeaders";
+        private readonly bool _useProxyHeaders;
 
         public VersionController(
             IApiConfigurationProvider apiConfigurationProvider,
             IDomainModelProvider domainModelProvider,
-            IApiVersionProvider apiVersionProvider)
+            IApiVersionProvider apiVersionProvider,
+            ISystemDateProvider systemDateProvider,
+            IConfigValueProvider configValueProvider)
         {
             Preconditions.ThrowIfNull(apiConfigurationProvider, nameof(apiConfigurationProvider));
             Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
             Preconditions.ThrowIfNull(apiVersionProvider, nameof(apiVersionProvider));
+            Preconditions.ThrowIfNull(systemDateProvider, nameof(systemDateProvider));
 
             _apiConfigurationProvider = apiConfigurationProvider;
             _domainModelProvider = domainModelProvider;
             _apiVersionProvider = apiVersionProvider;
+            _systemDateProvider = systemDateProvider;
+
+            bool tempConfigValue;
+
+            _useProxyHeaders = bool.TryParse(
+                configValueProvider.GetValue(UseReverseProxyHeadersConfigKey),
+                out tempConfigValue) && tempConfigValue;
         }
 
         [Route("")]
@@ -46,6 +61,8 @@ namespace EdFi.Ods.Api.Services.Controllers
                     })
                 .ToArray();
 
+            var exposedUrls = GetUrls();
+
             var content = new
             {
                 version = _apiVersionProvider.Version,
@@ -53,10 +70,43 @@ namespace EdFi.Ods.Api.Services.Controllers
                 suite = _apiVersionProvider.Suite,
                 build = _apiVersionProvider.Build,
                 apiMode = _apiConfigurationProvider.Mode.DisplayName,
-                dataModels = dataModels
+                dataModels = dataModels,
+                urls = new
+                {
+                    openApiMetadata = exposedUrls.MetaDataUrl,
+                    dependencies = exposedUrls.DependenciesUrl,
+                    oauth = exposedUrls.OauthUrl,
+                    dataManagementApi = exposedUrls.ApiUrl,
+                }
             };
 
             return Ok(content);
+        }
+
+        private ExposedUrls GetUrls()
+        {
+            var currentYear = _systemDateProvider.GetDate().Year.ToString();
+
+            var exposedUrls = new ExposedUrls();
+
+            exposedUrls.DependenciesUrl = Request.RootUrl(_useProxyHeaders) + (_apiConfigurationProvider.IsYearSpecific()
+                ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
+                : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies");
+
+            exposedUrls.MetaDataUrl = Request.RootUrl(_useProxyHeaders) + "/metadata/" +
+                                      (_apiConfigurationProvider.IsYearSpecific()
+                                          ? currentYear
+                                          : string.Empty);
+
+            exposedUrls.OauthUrl = Request.RootUrl(_useProxyHeaders) + "/oauth/token";
+
+            exposedUrls.ApiUrl = Request.RootUrl(_useProxyHeaders) + $"/data/v{ApiVersionConstants.Ods}/" +
+                                 (_apiConfigurationProvider.IsYearSpecific()
+                                     ? _systemDateProvider.GetDate().Year.ToString()
+                                     : string.Empty);
+
+            return exposedUrls;
+
         }
     }
 }

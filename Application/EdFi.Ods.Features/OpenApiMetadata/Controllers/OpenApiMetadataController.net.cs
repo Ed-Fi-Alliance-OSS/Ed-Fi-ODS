@@ -1,4 +1,5 @@
 ﻿#if NETFRAMEWORK
+
 // SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
@@ -10,7 +11,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
@@ -21,6 +21,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
 {
@@ -33,14 +34,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
         private readonly bool _useProxyHeaders;
 
         public OpenApiMetadataController(IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
-                                         IConfigValueProvider configValueProvider)
+            IConfigValueProvider configValueProvider)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             bool tempConfigValue;
 
             _useProxyHeaders = bool.TryParse(
-                                   configValueProvider.GetValue(UseReverseProxyHeadersConfigKey),
-                                   out tempConfigValue) && tempConfigValue;
+                configValueProvider.GetValue(UseReverseProxyHeadersConfigKey),
+                out tempConfigValue) && tempConfigValue;
         }
 
         public HttpResponseMessage Get([FromUri] OpenApiMetadataRequest request)
@@ -59,8 +60,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
 
             var etag = new EntityTagHeaderValue(
                 HashHelper.GetSha256Hash(metadata)
-                          .ToHexString()
-                          .DoubleQuoted());
+                    .ToHexString()
+                    .DoubleQuoted());
 
             if (ActionContext.Request.Headers.IfNoneMatch.Contains(etag))
             {
@@ -68,13 +69,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK)
-                         {
-                             Headers =
-                             {
-                                 ETag = etag
-                             },
-                             Content = new StringContent(metadata)
-                         };
+            {
+                Headers = {ETag = etag},
+                Content = new StringContent(metadata)
+            };
 
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(SwaggerDocumentHelper.ContentType);
 
@@ -86,7 +84,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             var content = new StringContent(
                 JsonConvert.SerializeObject(
                     _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
-                                                 .Select(x => GetSwaggerSectionDetailsForCacheItem(x, request))));
+                        .Select(x => GetSwaggerSectionDetailsForCacheItem(x, request)),
+                    new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()}));
 
             var eTag = new EntityTagHeaderValue(HashHelper.GetSha256Hash(content.ToString()).ToHexString().DoubleQuoted());
 
@@ -96,12 +95,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK)
-                         {
-                             Content = content, Headers =
-                             {
-                                 ETag = eTag
-                             }
-                         };
+            {
+                Content = content,
+                Headers = {ETag = eTag}
+            };
 
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(SwaggerDocumentHelper.ContentType);
 
@@ -111,16 +108,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
         private string GetMetadataForContent(OpenApiContent content, OpenApiMetadataRequest request)
         {
             string basePath = Request.VirtualPath()
-                                     .EnsureSuffixApplied("/") + GetBasePath(content, request.SchoolYearFromRoute);
+                .EnsureSuffixApplied("/") + GetBasePath(content, request.SchoolYearFromRoute);
 
             return content.Metadata
-                          .Replace("%HOST%", $"{Request.Host(_useProxyHeaders)}:{Request.Port(_useProxyHeaders)}")
-                          .Replace("%TOKEN_URL%", TokenUrl())
-                          .Replace("%BASE_PATH%", basePath);
+                .Replace("%HOST%", $"{Request.Host(_useProxyHeaders)}:{Request.Port(_useProxyHeaders)}")
+                .Replace("%TOKEN_URL%", TokenUrl())
+                .Replace("%BASE_PATH%", basePath);
         }
 
         private SwaggerSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent,
-                                                                           OpenApiMetadataSectionRequest request)
+            OpenApiMetadataSectionRequest request)
         {
             // Construct fully qualified metadata url
             var url =
@@ -129,12 +126,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                     GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute));
 
             return new SwaggerSectionDetails
-                   {
-                       EndpointUri = url.AbsoluteUri, Name = apiContent.Name.NormalizeCompositeTermForDisplay('-').Replace(" ", "-"), Prefix =
-                           apiContent.Section.EqualsIgnoreCase(OpenApiMetadataSections.SwaggerUi)
-                               ? string.Empty
-                               : apiContent.Section
-                   };
+            {
+                EndpointUri = url.AbsoluteUri,
+                Name = apiContent.Name.NormalizeCompositeTermForDisplay('-').Replace(" ", "-"),
+                Prefix =
+                    apiContent.Section.EqualsIgnoreCase(OpenApiMetadataSections.SwaggerUi)
+                        ? string.Empty
+                        : apiContent.Section
+            };
         }
 
         private string TokenUrl() => $"{Request.RootUrl(_useProxyHeaders)}/oauth/token";
