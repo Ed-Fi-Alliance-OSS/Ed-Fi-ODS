@@ -17,24 +17,26 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 
         protected abstract HttpStatusCode ResponseCode { get; }
         
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
             Preconditions.ThrowIfNull(ex, nameof(ex));
-            
-            webServiceError = null;
 
+            translationResult = null;
+            
             if (!ExceptionTypes.Contains(ex.GetType()))
             {
                 return false;
             }
 
-            webServiceError = new RESTError
+            var error = new RESTError
             {
                 Code = (int) ResponseCode, 
                 Type = ResponseCode.ToString().NormalizeCompositeTermForDisplay(), 
                 Message = ex.GetAllMessages()
             };
 
+            translationResult = new ExceptionTranslationResult(error, ex);
+            
             return true;
         }
     }

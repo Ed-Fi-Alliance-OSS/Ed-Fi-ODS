@@ -59,13 +59,13 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             {typeof(IUpsertEntity<>), typeof(UpsertEntityAuthorizationDecorator<>)},
 
             // pipeline steps authorization decorators
-            {typeof(IGetPipelineStepsProvider), typeof(AuthorizationContextGetPipelineStepsProviderDecorator)},
+            {typeof(IGetPipelineStepTypesProvider), typeof(AuthorizationContextGetPipelineStepTypesProviderDecorator)},
             {
-                typeof(IGetBySpecificationPipelineStepsProvider),
-                typeof(AuthorizationContextGetBySpecificationPipelineStepsProviderDecorator)
+                typeof(IGetBySpecificationPipelineStepTypesProvider),
+                typeof(AuthorizationContextGetBySpecificationPipelineStepTypesProviderDecorator)
             },
-            {typeof(IPutPipelineStepsProvider), typeof(AuthorizationContextPutPipelineStepsProviderDecorator)},
-            {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)}
+            {typeof(IPutPipelineStepTypesProvider), typeof(AuthorizationContextPutPipelineStepTypesProviderDecorator)},
+            {typeof(IDeletePipelineStepTypesProvider), typeof(AuthorizationContextDeletePipelineStepTypesProviderDecorator)}
         };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(SecurityInstaller));

@@ -64,7 +64,9 @@ namespace EdFi.Ods.WebService.Tests._Installers
                 .ImplementedBy<ResourceLoadGraphFactory>());
 
             container.Register(
+                // TODO: DELETE THIS REGISTRATION
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
+                Component.For<IExceptionTranslationProvider>().ImplementedBy<ExceptionTranslationProvider>(),
                 Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
 

@@ -13,13 +13,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
-using Castle.MicroKernel.Internal;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.CustomActionResults;
-using EdFi.Ods.Api.ChangeQueries.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Services.Queries;
@@ -27,7 +25,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Factories;
 using EdFi.Ods.Pipelines.Get;
@@ -49,7 +46,7 @@ namespace EdFi.Ods.Api.Services.Controllers
     public abstract class EdFiControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot, TPutRequest, TPostRequest,
                                              TDeleteRequest, TGetByExampleRequest>
         : ApiController
-        where TResourceReadModel : IHasIdentifier, IHasETag, new()
+        where TResourceReadModel : class, IHasIdentifier, IHasETag, new()
         where TResourceWriteModel : IHasIdentifier, IHasETag, new()
         where TEntityInterface : class
         where TAggregateRoot : class, IHasIdentifier, new()
@@ -61,14 +58,12 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IRESTErrorProvider restErrorProvider;
 
         private ILog _logger;
-        protected Lazy<DeletePipeline> deletePipeline;
-        protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> getByIdPipeline;
-        protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> getManyPipeline;
-        protected Lazy<GetDeletedResourcePipeline<TAggregateRoot>> getDeletedResourcePipeline;
+        protected Lazy<IDeletePipeline<TResourceReadModel, TAggregateRoot>> deletePipeline;
+        protected Lazy<IGetPipeline<TResourceReadModel, TAggregateRoot>> getByIdPipeline;
+        protected Lazy<IGetManyPipeline<TResourceReadModel, TAggregateRoot>> getManyPipeline;
 
-        protected Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>> putPipeline;
+        protected Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>> putPipeline;
 
-        //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider schoolYearContextProvider;
         protected IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider;
 
@@ -78,24 +73,20 @@ namespace EdFi.Ods.Api.Services.Controllers
             IRESTErrorProvider restErrorProvider,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider) //IRepository<TAggregateRoot> repository, 
         {
-            //this.repository = repository;
             this.schoolYearContextProvider = schoolYearContextProvider;
             this.restErrorProvider = restErrorProvider;
             this.defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
 
-            getByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
+            getByIdPipeline = new Lazy<IGetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
 
-            getManyPipeline = new Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>>
+            getManyPipeline = new Lazy<IGetManyPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetManyPipeline<TResourceReadModel, TAggregateRoot>);
 
-            getDeletedResourcePipeline = new Lazy<GetDeletedResourcePipeline<TAggregateRoot>>
-                (pipelineFactory.CreateGetDeletedResourcePipeline<TResourceReadModel, TAggregateRoot>);
-
-            putPipeline = new Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>>
+            putPipeline = new Lazy<IPutPipeline<TResourceWriteModel, TAggregateRoot>>
                 (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);
 
-            deletePipeline = new Lazy<DeletePipeline>
+            deletePipeline = new Lazy<IDeletePipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateDeletePipeline<TResourceReadModel, TAggregateRoot>);
         }
 
@@ -113,21 +104,27 @@ namespace EdFi.Ods.Api.Services.Controllers
         }
 
         private IHttpActionResult CreateActionResultFromException(
-            Exception exception,
+            ExceptionTranslationResult exceptionTranslation,
             bool enforceOptimisticLock = false)
         {
-            var restError = restErrorProvider.GetRestErrorFromException(exception);
-
-            if (exception is ConcurrencyException && enforceOptimisticLock)
+            int code;
+            string message;
+            
+            if (exceptionTranslation.OriginalException is ConcurrencyException && enforceOptimisticLock)
             {
                 // See RFC 5789 - Conflicting modification (with "If-Match" header)
-                restError.Code = (int) HttpStatusCode.PreconditionFailed;
-                restError.Message = "Resource was modified by another consumer.";
+                code = (int) HttpStatusCode.PreconditionFailed;
+                message = "Resource was modified by another consumer.";
+            }
+            else
+            {
+                code = exceptionTranslation.Error.Code;
+                message = exceptionTranslation.Error.Message;
             }
 
-            return string.IsNullOrWhiteSpace(restError.Message)
-                ? new StatusCodeResult((HttpStatusCode) restError.Code, this)
-                : new StatusCodeResult((HttpStatusCode) restError.Code, this).WithError(restError.Message);
+            return string.IsNullOrWhiteSpace(message)
+                ? new StatusCodeResult((HttpStatusCode) code, this)
+                : new StatusCodeResult((HttpStatusCode) code, this).WithError(message);
         }
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
@@ -169,7 +166,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("GetAllRequest", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
             var response = Request.CreateResponse(HttpStatusCode.OK, result.Resources);
@@ -196,7 +193,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("GetByIdRequest", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
             // Handle success result
@@ -236,7 +233,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Put", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.ExceptionTranslation, enforceOptimisticLock);
             }
 
             var status = result.ResourceWasCreated
@@ -262,30 +259,26 @@ namespace EdFi.Ods.Api.Services.Controllers
             }
 
             var validationState = new ValidationState();
-            PutResult result;
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
             {
-                result = new PutResult
-                         {
-                             Exception = new BadRequestException("Resource identifiers cannot be assigned by the client.")
-                         };
+                string errorMessage = "Resource identifiers cannot be assigned by the client.";
+
+                Logger.Error("Post: ${errorMessage}");
+                return new StatusCodeResult(HttpStatusCode.BadRequest, this).WithError(errorMessage);
             }
-            else
-            {
-                result = await putPipeline.Value.ProcessAsync(new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
-            }
+
+            var result = await putPipeline.Value.ProcessAsync(new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
 
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.ExceptionTranslation);
             }
 
-            //Once here either the resource was created or it already existed and it was updated
-            //NEW GUY QUESTION: Is this the expected behavior?  Should a create fail if the resource exists?
+            // Once here either the resource was created or it already existed and it was updated
             var status = result.ResourceWasCreated
                 ? HttpStatusCode.Created
                 : HttpStatusCode.OK;
@@ -320,7 +313,7 @@ namespace EdFi.Ods.Api.Services.Controllers
             if (result.Exception != null)
             {
                 Logger.Error("Delete", result.Exception);
-                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
+                return CreateActionResultFromException(result.ExceptionTranslation, enforceOptimisticLock);
             }
 
             //Return 204 (according to RFC 2616, if the delete action has been enacted but the response does not include an entity, the return code should be 204).
@@ -346,29 +339,6 @@ namespace EdFi.Ods.Api.Services.Controllers
             value = values.FirstOrDefault();
 
             return !string.IsNullOrEmpty(value);
-        }
-
-        protected bool TryProcessEtagHeader<TRequest>(TRequest request, string headerName, Action<TRequest, DateTime> setLastModifiedDate)
-        {
-            // Check for optimistic locking "opt-in" header value
-            IEnumerable<string> values;
-
-            if (!Request.Headers.TryGetValues(headerName, out values))
-            {
-                return false;
-            }
-
-            string etag = values.FirstOrDefault();
-
-            long etagValue = 0;
-
-            if (etag != null && long.TryParse(etag, out etagValue))
-            {
-                setLastModifiedDate(request, DateTime.FromBinary(etagValue));
-                return true;
-            }
-
-            return false;
         }
 
         protected IHttpActionResult AddOutboundEtagForSingleResult(IHttpActionResult response, IHasETag dto)

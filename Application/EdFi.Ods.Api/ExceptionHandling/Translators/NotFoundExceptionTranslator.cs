@@ -12,17 +12,20 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class NotFoundExceptionTranslator : IExceptionTranslator
     {
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (ex is NotFoundException)
             {
-                webServiceError = new RESTError
-                                  {
-                                      Code = (int) HttpStatusCode.NotFound, Type = "Not Found",
-                                      Message = ex.GetAllMessages() ?? "The specified resource could not be found."
-                                  };
+                var error = new RESTError
+                {
+                    Code = (int) HttpStatusCode.NotFound,
+                    Type = "Not Found",
+                    Message = ex.GetAllMessages() ?? "The specified resource could not be found."
+                };
+
+                translationResult = new ExceptionTranslationResult(error, ex);
 
                 return true;
             }

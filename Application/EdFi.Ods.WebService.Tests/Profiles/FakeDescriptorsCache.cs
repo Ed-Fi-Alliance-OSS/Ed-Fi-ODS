@@ -32,5 +32,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                 $"uri://ed-fi.org/{descriptorName}",
                 descriptorName.Substring(0, 1) + id);
         }
+
+        public bool TryRefreshSingleDescriptorCache(string descriptorName) => throw new NotImplementedException();
     }
 }

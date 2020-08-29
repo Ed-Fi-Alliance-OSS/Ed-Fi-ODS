@@ -12,17 +12,21 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class EdFiSecurityExceptionTranslator : IExceptionTranslator
     {
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (ex is EdFiSecurityException)
             {
-                webServiceError = new RESTError
-                                  {
-                                      Code = (int) HttpStatusCode.Forbidden, Type = "Forbidden", Message = ex.GetAllMessages()
-                                  };
+                var error = new RESTError
+                {
+                    Code = (int) HttpStatusCode.Forbidden,
+                    Type = "Forbidden",
+                    Message = ex.GetAllMessages()
+                };
 
+                translationResult = new ExceptionTranslationResult(error, ex);
+                
                 return true;
             }
 

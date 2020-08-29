@@ -9,9 +9,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Web.Http;
+using Castle.MicroKernel.Registration;
+using EdFi.Ods.Api.Pipelines.Factories;
 using EdFi.Ods.Api.Services.Controllers.Students.EdFi;
 using EdFi.Ods.Api.Services.Extensions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Pipelines.Factories;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -20,6 +23,7 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
 {
+    [TestFixture]
     internal class StudentDeleteTests
     {
         [TestFixture]
@@ -32,9 +36,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(EmptyResourceStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(EmptyResourceStep<,,,>)));
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
@@ -68,13 +72,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(NotFoundExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(NotFoundExceptionStep<,,,>)));
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory);
                 _id = Guid.NewGuid();
-
                 _responseMessage = controller.Delete(_id).GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
@@ -98,15 +101,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(DeleteReferentialExceptionStep<,,,>)));
+                var pipelineFactory = new PipelineFactory(container);
+                RegisterSinglePipelineStepType(container, typeof(DeleteReferentialExceptionStep<,,,>));
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, this._id.ToString("N"));
                 _id = Guid.NewGuid();
+
                 _responseMessage = controller.Delete(_id)
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
-
             }
 
             [Test]
@@ -120,7 +123,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 var result = _responseMessage.Content.ReadAsStringAsync()
                                              .GetResultSafely();
-
+        
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldContain("The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency");
             }
@@ -134,9 +137,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 var id = Guid.NewGuid();
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(EdFiSecurityExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(EdFiSecurityExceptionStep<,,,>)));
+                var pipelineFactory = new PipelineFactory(container);
 
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, id.ToString("N"));
 
@@ -159,11 +162,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 _id = Guid.NewGuid();
+
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(UnhandledExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(UnhandledExceptionStep<,,,>)));
-
+                var pipelineFactory = new PipelineFactory(container);
+        
                 var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, this._id.ToString("N"));
                 _responseMessage = controller.Delete(_id)
                     .GetResultSafely()
@@ -180,8 +184,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             [Test]
             public void Should_return_message()
             {
-                var result = _responseMessage.Content.ReadAsStringAsync()
-                                             .GetResultSafely();
+                var result = _responseMessage.Content.ReadAsStringAsync().GetResultSafely();
 
                 var resource = JsonConvert.DeserializeObject<HttpError>(result);
                 resource.Message.ShouldBe("An unexpected error occurred on the server.");
@@ -198,15 +201,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             public void Setup()
             {
                 var container = TestControllerBuilder.GetWindsorContainer();
+                RegisterSinglePipelineStepType(container, typeof(ConcurrencyExceptionStep<,,,>));
 
-                var pipelineFactory =
-                    new PipelineFactory(container, null, null, null, null, new SingleStepPipelineProviderForTest(typeof(ConcurrencyExceptionStep<,,,>)));
+                var pipelineFactory = new PipelineFactory(container);
 
-                var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, this._id.ToString("N"));
+                var controller = TestControllerBuilder.GetController<StudentsController>(pipelineFactory, _id.ToString("N"));
                 _id = Guid.NewGuid();
-                controller.Request.Headers.IfMatch.Add(new EntityTagHeaderValue(this._id.ToString("N").Quoted()));
+                controller.Request.Headers.IfMatch.Add(new EntityTagHeaderValue(_id.ToString("N").Quoted()));
 
-                _responseMessage = controller.Delete(this._id)
+                _responseMessage = controller.Delete(_id)
                     .GetResultSafely()
                     .ExecuteAsync(new CancellationToken())
                     .GetResultSafely();
@@ -227,6 +230,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Controllers
             {
                 _responseMessage.StatusCode.ShouldBe(HttpStatusCode.PreconditionFailed);
             }
+        }
+
+        private static void RegisterSinglePipelineStepType(WindsorContainerEx container, Type stepType)
+        {
+            container.Register(
+                Component.For<IDeletePipelineStepTypesProvider>()
+                    .Instance(new SingleStepTypePipelineProviderForTest(stepType)));
         }
     }
 }

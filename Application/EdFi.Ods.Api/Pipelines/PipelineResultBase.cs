@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Pipelines
@@ -15,6 +16,8 @@ namespace EdFi.Ods.Pipelines
         /// </summary>
         public Exception Exception { get; set; }
 
+        public ExceptionTranslationResult ExceptionTranslation { get; set; }
+        
         public ResultMetadata ResultMetadata { get; set; }
     }
 }

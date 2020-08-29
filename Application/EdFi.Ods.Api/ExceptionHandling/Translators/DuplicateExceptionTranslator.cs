@@ -15,9 +15,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         private const string ExpectedExceptionPattern =
             @"^a different object with the same identifier value was already associated with the session: (?<subject>\w*): (?<subjectId>\d*), (?<entitySimple>\w*): (?<property>\w*): (?<entityPropertyId>\d*), of entity: (?<entityFullName>\w*)";
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (ex is NonUniqueObjectException)
             {
@@ -27,20 +27,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
                 {
                     try
                     {
-                        webServiceError = new RESTError
-                                          {
-                                              Code = (int) HttpStatusCode.Conflict, Type = HttpStatusCode.Conflict.ToString(), Message =
-                                                  string.Format(
-                                                      "A duplicate {0} conflict occurred when attempting to create a new {1} resource with {2} of {3}.",
-                                                      match.Groups["subject"]
-                                                           .Value,
-                                                      match.Groups["entitySimple"]
-                                                           .Value,
-                                                      match.Groups["property"]
-                                                           .Value,
-                                                      match.Groups["entityPropertyId"]
-                                                           .Value)
-                                          };
+                        var error = new RESTError
+                        {
+                            Code = (int) HttpStatusCode.Conflict,
+                            Type = HttpStatusCode.Conflict.ToString(),
+                            Message = $"A duplicate {match.Groups["subject"].Value} conflict occurred when attempting to create a new {match.Groups["entitySimple"].Value} resource with {match.Groups["property"].Value} of {match.Groups["entityPropertyId"].Value}."
+                        };
+                        
+                        translationResult = new ExceptionTranslationResult(error, ex);
                     }
                     catch
                     {

@@ -11,16 +11,19 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class NotModifiedExceptionTranslator : IExceptionTranslator
     {
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (ex is NotModifiedException)
             {
-                webServiceError = new RESTError
-                                  {
-                                      Code = (int) HttpStatusCode.NotModified, Type = "Not Modified"
-                                  };
+                var error = new RESTError
+                {
+                    Code = (int) HttpStatusCode.NotModified,
+                    Type = "Not Modified"
+                };
+
+                translationResult = new ExceptionTranslationResult(error, ex);
 
                 return true;
             }

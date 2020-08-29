@@ -12,18 +12,22 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
     public class ConcurencyExceptionTranslator : IExceptionTranslator
     {
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             if (ex is ConcurrencyException)
             {
                 // See RFC 5789 - Conflicting modification (enforced internally, and no "If-Match" header)
-                webServiceError = new RESTError
-                                  {
-                                      Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = ex.GetAllMessages()
-                                  };
+                var error = new RESTError
+                {
+                    Code = (int) HttpStatusCode.Conflict,
+                    Type = "Conflict",
+                    Message = ex.GetAllMessages()
+                };
 
+                translationResult = new ExceptionTranslationResult(error, ex);
+                
                 return true;
             }
 

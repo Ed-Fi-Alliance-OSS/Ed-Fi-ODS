@@ -5,6 +5,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Pipelines.Common;
 
@@ -20,11 +21,13 @@ namespace EdFi.Ods.Pipelines
     public abstract class PipelineBase<TContext, TResult> : IPipeline
         where TResult : PipelineResultBase, new()
     {
-        private readonly IStep<TContext, TResult>[] steps;
+        protected IStep<TContext, TResult>[] _steps;
+        private readonly IExceptionTranslationProvider _exceptionTranslationProvider;
 
-        protected PipelineBase(IStep<TContext, TResult>[] steps)
+        protected PipelineBase(IStep<TContext, TResult>[] steps, IExceptionTranslationProvider exceptionTranslationProvider)
         {
-            this.steps = steps;
+            _steps = steps;
+            _exceptionTranslationProvider = exceptionTranslationProvider;
         }
 
         public object Process(object context) => ProcessAsync((TContext) context, CancellationToken.None).GetResultSafely();
@@ -38,13 +41,16 @@ namespace EdFi.Ods.Pipelines
         {
             var result = new TResult();
 
-            foreach (var step in steps)
+            foreach (var step in _steps)
             {
                 await step.ExecuteAsync(context, result, cancellationToken);
 
                 // If we have experienced an exception, quit processing steps now
                 if (result.Exception != null)
                 {
+                    var translationResult = _exceptionTranslationProvider.TranslateException(result.Exception);
+                    result.ExceptionTranslation = translationResult;
+                    
                     break;
                 }
             }

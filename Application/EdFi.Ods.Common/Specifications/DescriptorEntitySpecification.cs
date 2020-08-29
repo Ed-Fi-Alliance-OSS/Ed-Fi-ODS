@@ -15,6 +15,12 @@ namespace EdFi.Ods.Common.Specifications
             return IsEdFiDescriptorEntity(type.Name);
         }
 
+        /// <summary>
+        /// Indicates whether the supplied type name matches the convention of descriptor
+        /// entities without being the base (abstract) descriptor.
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
         public static bool IsEdFiDescriptorEntity(string typeName)
         {
             return typeName.EndsWithIgnoreCase("Descriptor")

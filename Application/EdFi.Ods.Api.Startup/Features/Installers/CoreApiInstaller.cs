@@ -17,6 +17,9 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Pipelines.Get;
+using EdFi.Ods.Api.Pipelines.GetMany;
+using EdFi.Ods.Api.Pipelines.Put;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authentication.ClientCredentials;
 using EdFi.Ods.Api.Services.Authorization;
@@ -39,7 +42,11 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Pipelines;
 using EdFi.Ods.Pipelines.Common;
+using EdFi.Ods.Pipelines.Delete;
 using EdFi.Ods.Pipelines.Factories;
+using EdFi.Ods.Pipelines.Get;
+using EdFi.Ods.Pipelines.GetMany;
+using EdFi.Ods.Pipelines.Put;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Security.Claims;
 using FluentValidation;
@@ -300,7 +307,10 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         private void RegisterExceptionHandling(IWindsorContainer container)
         {
             container.Register(
+                // TODO: DELETE THIS REGISTRATION
                 Component.For<IRESTErrorProvider>().ImplementedBy<RESTErrorProvider>(),
+                Component.For<IExceptionTranslationProvider>().ImplementedBy<ExceptionTranslationProvider>(),
+                
                 Classes.FromAssemblyContaining<Marker_EdFi_Ods_Api>().BasedOn<IExceptionTranslator>()
                     .WithService.Base());
         }
@@ -336,8 +346,47 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 Component
                     .For<IPipelineFactory>()
                     .ImplementedBy<PipelineFactory>()
-                    .DependsOn(
-                        new {locator = container}),
+                    .DependsOn(new {locator = container}),
+
+                // Get pipeline
+                Component
+                    .For<IGetPipelineStepsProvider>()
+                    .ImplementedBy<GetPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IGetPipeline<,>))
+                    .ImplementedBy(typeof(GetPipeline<,>)),
+
+                // GetMany pipeline
+                Component
+                    .For<IGetManyPipelineStepsProvider>()
+                    .ImplementedBy<GetManyPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IGetManyPipeline<,>))
+                    .ImplementedBy(typeof(GetManyPipeline<,>)),
+
+                // Put pipeline
+                Component
+                    .For<IPutPipelineStepsProvider>()
+                    .ImplementedBy<PutPipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(StaleDescriptorCachePutPipelineDecorator<,>)),
+                Component
+                    .For(typeof(IPutPipeline<,>))
+                    .ImplementedBy(typeof(PutPipeline<,>)),
+
+                // Delete pipeline
+                Component
+                    .For<IDeletePipelineStepsProvider>()
+                    .ImplementedBy<DeletePipelineStepsProvider>()
+                    .DependsOn(new {serviceLocator = container}),
+                Component
+                    .For(typeof(IDeletePipeline<,>))
+                    .ImplementedBy(typeof(DeletePipeline<,>)),
+                
                 Classes.FromAssembly(_standardAssembly)
                     .BasedOn(typeof(ICreateOrUpdatePipeline<,>))
                     .WithService.AllInterfaces(),
@@ -350,7 +399,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
                 // Register the providers of the core pipeline steps
                 Classes
                     .FromAssembly(_apiAssembly)
-                    .BasedOn<IPipelineStepsProvider>()
+                    .BasedOn<IPipelineStepTypesProvider>()
                     .WithServiceFirstInterface());
         }
 

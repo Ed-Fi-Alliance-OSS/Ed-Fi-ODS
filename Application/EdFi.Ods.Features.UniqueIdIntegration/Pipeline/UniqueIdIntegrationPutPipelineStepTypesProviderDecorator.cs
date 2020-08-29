@@ -12,19 +12,19 @@ using EdFi.Ods.Common.Extensions;
 namespace EdFi.Ods.Features.UniqueIdIntegration.Pipeline
 {
     /// <summary>
-    /// Implements a <see cref="IPutPipelineStepsProvider"/> decorator that inserts a step to 
+    /// Implements a <see cref="IPutPipelineStepTypesProvider"/> decorator that inserts a step to 
     /// populate the GUID-based Id from the supplied UniqueId for person-type resources.
     /// </summary>
-    public class UniqueIdIntegrationPutPipelineStepsProviderDecorator : IPutPipelineStepsProvider
+    public class UniqueIdIntegrationPutPipelineStepTypesProviderDecorator : IPutPipelineStepTypesProvider
     {
-        private readonly IPutPipelineStepsProvider _next;
+        private readonly IPutPipelineStepTypesProvider _next;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UniqueIdIntegrationPutPipelineStepsProviderDecorator"/> class using
+        /// Initializes a new instance of the <see cref="UniqueIdIntegrationPutPipelineStepTypesProviderDecorator"/> class using
         /// a supplied provider to be decorated.
         /// </summary>
         /// <param name="next">The decorated provider.</param>
-        public UniqueIdIntegrationPutPipelineStepsProviderDecorator(IPutPipelineStepsProvider next)
+        public UniqueIdIntegrationPutPipelineStepTypesProviderDecorator(IPutPipelineStepTypesProvider next)
         {
             _next = next;
         }

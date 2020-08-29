@@ -13,14 +13,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 {
     public class PostgresForeignKeyExceptionTranslator : IExceptionTranslator
     {
-        private static readonly Regex _expression = new Regex(@"(?<ErrorCode>\d*): (?<ConstraintType>insert or update|update or delete) on table ""(?<TableName>\w+)"" violates foreign key constraint ""(?<ConstraintName>.*?)"".*?");
-        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) is (?<ConstraintType>not present in|still referenced from) table ""(?<TableName>\w+)"".");
         private const string InsertOrUpdateMessageFormat = "The value supplied for the related '{0}' resource does not exist.";
         private const string UpdateOrDeleteMessageFormat = "The resource (or a subordinate entity of the resource) cannot be deleted because it is a dependency of the '{1}' value of the '{0}' entity.";
+        private static readonly Regex _expression = new Regex(@"(?<ErrorCode>\d*): (?<ConstraintType>insert or update|update or delete) on table ""(?<TableName>\w+)"" violates foreign key constraint ""(?<ConstraintName>.*?)"".*?");
+        private static readonly Regex _detailExpression = new Regex(@"Key \((?<KeyColumns>.*?)\)=\((?<KeyValues>.*?)\) is (?<ConstraintType>not present in|still referenced from) table ""(?<TableName>\w+)"".");
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             var exception = ex is GenericADOException
                 ? ex.InnerException
@@ -36,12 +36,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
 
                     var handledMessage = GetHandledMessage(exceptionInfo, match);
 
-                    webServiceError = new RESTError
+                    var error = new RESTError
                     {
-                        Code = (int)HttpStatusCode.Conflict,
+                        Code = (int) HttpStatusCode.Conflict,
                         Type = "Conflict",
                         Message = handledMessage
                     };
+
+                    translationResult = new ExceptionTranslationResult(error, ex);
 
                     return true;
                 }
@@ -63,7 +65,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
             }
         }
 
-        private static string GetHandledMessageFromExceptionMessage(PostgresExceptionInfo exceptionInfo, Match exceptionMessageMatch)
+        private static string GetHandledMessageFromExceptionMessage(
+            PostgresExceptionInfo exceptionInfo,
+            Match exceptionMessageMatch)
         {
             var constraintTypeText = exceptionMessageMatch.Groups["ConstraintType"].Value;
             var tableName = exceptionMessageMatch.Groups["TableName"].Value;

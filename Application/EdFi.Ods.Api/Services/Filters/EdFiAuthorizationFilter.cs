@@ -38,17 +38,17 @@ namespace EdFi.Ods.Api.Services.Filters
     public class EdFiAuthorizationFilter : IAuthorizationFilter
     {
         private readonly IEdFiAuthorizationProvider _authorizationProvider;
-        private readonly IRESTErrorProvider _restErrorProvider;
         private readonly ISecurityRepository _securityRepository;
+        private readonly IExceptionTranslationProvider _exceptionTranslationProvider;
 
         public EdFiAuthorizationFilter(
             IEdFiAuthorizationProvider authorizationProvider,
             ISecurityRepository securityRepository,
-            IRESTErrorProvider restErrorProvider)
+            IExceptionTranslationProvider exceptionTranslationProvider)
         {
             _authorizationProvider = authorizationProvider;
             _securityRepository = securityRepository;
-            _restErrorProvider = restErrorProvider;
+            _exceptionTranslationProvider = exceptionTranslationProvider;
         }
 
         public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
@@ -77,11 +77,11 @@ namespace EdFi.Ods.Api.Services.Filters
             }
             catch (Exception ex)
             {
-                var restError = _restErrorProvider.GetRestErrorFromException(ex);
+                var translationResult = _exceptionTranslationProvider.TranslateException(ex);
 
-                var result = string.IsNullOrWhiteSpace(restError.Message)
-                    ? new StatusCodeResult((HttpStatusCode) restError.Code, actionContext.Request)
-                    : new StatusCodeResult((HttpStatusCode) restError.Code, actionContext.Request).WithError(restError.Message);
+                var result = string.IsNullOrWhiteSpace(translationResult.Error.Message)
+                    ? new StatusCodeResult((HttpStatusCode) translationResult.Error.Code, actionContext.Request)
+                    : new StatusCodeResult((HttpStatusCode) translationResult.Error.Code, actionContext.Request).WithError(translationResult.Error.Message);
 
                 return await result.ExecuteAsync(cancellationToken);
             }

@@ -31,8 +31,8 @@ namespace EdFi.Ods.Features.UniqueIdIntegration.Installers
         {
             container.Register(
                 Component
-                    .For<IPutPipelineStepsProvider>()
-                    .ImplementedBy<UniqueIdIntegrationPutPipelineStepsProviderDecorator>().IsDecorator());
+                    .For<IPutPipelineStepTypesProvider>()
+                    .ImplementedBy<UniqueIdIntegrationPutPipelineStepTypesProviderDecorator>().IsDecorator());
         }
 
         private  void RegisterPipelineSteps(IWindsorContainer container)

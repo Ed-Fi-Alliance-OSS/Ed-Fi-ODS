@@ -17,8 +17,13 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
     {
         private static readonly Regex expression = new Regex(
             @"^Cannot insert duplicate key row in object '[a-z]+\.(?<TableName>\w+)' with unique index '(?<IndexName>\w+)'(?:\. The duplicate key value is (?<Values>\(.*\))\.)?|^Violation of UNIQUE KEY constraint '(?<IndexName>\w+)'. Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'.");
-        private static readonly string singleMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
-        private static readonly string multipleMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+        
+        private static readonly string singleMessageFormat =
+            "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
+
+        private static readonly string multipleMessageFormat =
+            "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
+        
         private readonly IDatabaseMetadataProvider _databaseMetadataProvider;
 
         public SqlServerUniqueIndexExceptionTranslator(IDatabaseMetadataProvider databaseMetadataProvider)
@@ -26,9 +31,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             _databaseMetadataProvider = databaseMetadataProvider;
         }
 
-        public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
+        public bool TryTranslateMessage(Exception ex, out ExceptionTranslationResult translationResult)
         {
-            webServiceError = null;
+            translationResult = null;
 
             var exception = ex is GenericADOException
                 ? ex.InnerException
@@ -40,11 +45,9 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                 if (match.Success)
                 {
-                    string indexName = match.Groups["IndexName"]
-                                            .Value;
+                    string indexName = match.Groups["IndexName"].Value;
 
-                    string values = match.Groups["Values"]
-                                         .Value;
+                    string values = match.Groups["Values"].Value;
 
                     if (string.IsNullOrWhiteSpace(values))
                     {
@@ -72,11 +75,15 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
                         message = string.Format(multipleMessageFormat, values, columnNames, tableName);
                     }
 
-                    webServiceError = new RESTError
-                                      {
-                                          Code = (int) HttpStatusCode.Conflict, Type = "Conflict", Message = message
-                                      };
+                    var error = new RESTError
+                    {
+                        Code = (int) HttpStatusCode.Conflict,
+                        Type = "Conflict",
+                        Message = message
+                    };
 
+                    translationResult = new ExceptionTranslationResult(error, ex);
+                    
                     return true;
                 }
             }

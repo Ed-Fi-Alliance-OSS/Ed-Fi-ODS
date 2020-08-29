@@ -20,17 +20,17 @@ namespace EdFi.Ods.Api.Startup.HttpConfigurators
         private readonly ISchoolYearContextProvider _schoolYearContextProvider;
         private readonly IEdFiAuthorizationProvider _edFiAuthorizationProvider;
         private readonly ISecurityRepository _securityRepository;
-        private readonly IRESTErrorProvider _restErrorProvider;
+        private readonly IExceptionTranslationProvider _exceptionTranslationProvider;
 
         public HttpFilterConfigurator(ISchoolYearContextProvider schoolYearContextProvider, 
                                       IEdFiAuthorizationProvider edFiAuthorizationProvider,
                                       ISecurityRepository securityRepository,
-                                      IRESTErrorProvider restErrorProvider)
+                                      IExceptionTranslationProvider exceptionTranslationProvider)
         {
             _schoolYearContextProvider = Preconditions.ThrowIfNull(schoolYearContextProvider, nameof(schoolYearContextProvider));
             _edFiAuthorizationProvider = Preconditions.ThrowIfNull(edFiAuthorizationProvider, nameof(edFiAuthorizationProvider));
             _securityRepository = Preconditions.ThrowIfNull(securityRepository, nameof(securityRepository));
-            _restErrorProvider = Preconditions.ThrowIfNull(restErrorProvider, nameof(restErrorProvider));
+            _exceptionTranslationProvider = Preconditions.ThrowIfNull(exceptionTranslationProvider, nameof(exceptionTranslationProvider));
         }
 
         public void Configure(HttpConfiguration config)
@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Startup.HttpConfigurators
 
             config.Filters.Add(new ExceptionHandlingFilter(showErrors));
             config.Filters.Add(new SchoolYearContextFilter(_schoolYearContextProvider));
-            config.Filters.Add(new EdFiAuthorizationFilter(_edFiAuthorizationProvider, _securityRepository, _restErrorProvider));
+            config.Filters.Add(new EdFiAuthorizationFilter(_edFiAuthorizationProvider, _securityRepository, _exceptionTranslationProvider));
         }
     }
 }
