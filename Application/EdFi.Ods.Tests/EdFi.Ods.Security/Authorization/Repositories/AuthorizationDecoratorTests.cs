@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,7 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Services.Authorization;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
@@ -40,10 +41,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
             protected override void Arrange()
             {
-                
-                A.CallTo(() => 
+
+                A.CallTo(() =>
                         Given<IGetEntityById<Student>>().GetByIdAsync(A<Guid>.Ignored, A<CancellationToken>._))
-                        .Returns(Task.FromResult<Student>(null));
+                    .Returns(Task.FromResult<Student>(null));
             }
 
             /// <summary>
@@ -79,16 +80,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             {
                 Supplied(Guid.NewGuid());
 
-                A.CallTo(() => 
-                    Given<IGetEntityById<Student>>().GetByIdAsync(Supplied<Guid>(), A<CancellationToken>._))
+                A.CallTo(() =>
+                        Given<IGetEntityById<Student>>().GetByIdAsync(Supplied<Guid>(), A<CancellationToken>._))
                     .Returns(Task.FromResult(Supplied(new Student())));
 
-                A.CallTo(() => 
-                    Given<IAuthorizationContextProvider>().GetAction())
+                A.CallTo(() =>
+                        Given<IAuthorizationContextProvider>().GetAction())
                     .Returns("Action");
 
-                A.CallTo(() => 
-                    Given<IAuthorizationContextProvider>().GetResourceUris())
+                A.CallTo(() =>
+                        Given<IAuthorizationContextProvider>().GetResourceUris())
                     .Returns(new[] {"Resource"});
 
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
@@ -129,9 +130,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             [Assert]
             public void Should_invoke_authorization_on_the_item()
             {
-                A.CallTo(() => 
-                    Given<IEdFiAuthorizationProvider>()
-                        .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
+                A.CallTo(() =>
+                        Given<IEdFiAuthorizationProvider>()
+                            .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
                     .MustHaveHappened();
             }
 
@@ -157,3 +158,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
         }
     }
 }
+#endif

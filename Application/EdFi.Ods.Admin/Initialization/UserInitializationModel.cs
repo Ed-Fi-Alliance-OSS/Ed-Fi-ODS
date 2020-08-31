@@ -19,7 +19,7 @@ namespace EdFi.Ods.Admin.Initialization
 
         public string UserName
         {
-            get => Email;
+            get => Name;
         }
 
         public IEnumerable<string> Roles

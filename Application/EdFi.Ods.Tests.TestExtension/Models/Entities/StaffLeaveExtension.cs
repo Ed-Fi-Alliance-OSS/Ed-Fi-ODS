@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Tests.TestExtension.Models.Interfaces;
 

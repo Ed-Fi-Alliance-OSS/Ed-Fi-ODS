@@ -14,6 +14,11 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class DatabaseMetadataProvider : GeneratorBase
     {
+        private string BaseNamespaceName
+        {
+            get => "EdFi.Ods.Api.Common.ExceptionHandling";
+        }
+
         protected override object Build()
         {
             string ColumnNamesFor(IEnumerable<string> columnNames) => string.Join(", ", columnNames.Select(c => $@"""{c}"""));
@@ -74,8 +79,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
             return new
             {
-                NamespaceName = EdFiConventions.BuildNamespace(
-                    Namespaces.CodeGen.ExceptionHandling, TemplateContext.SchemaProperCaseName),
+                NamespaceName =  EdFiConventions.BuildNamespace(BaseNamespaceName, TemplateContext.SchemaProperCaseName),
                 IndexMetaData = databaseMetadata.OrderBy(x => x.TableName).ThenBy(x => x.Name)
             };
         }

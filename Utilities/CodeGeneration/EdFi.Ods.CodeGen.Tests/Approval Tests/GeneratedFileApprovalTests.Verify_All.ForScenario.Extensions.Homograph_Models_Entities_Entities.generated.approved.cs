@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.Homograph;
@@ -141,7 +141,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -213,7 +213,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -397,7 +397,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -587,7 +587,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -725,7 +725,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -796,7 +796,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -914,7 +914,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1007,7 +1007,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1190,7 +1190,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1342,7 +1342,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1458,7 +1458,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1530,7 +1530,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1719,7 +1719,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1790,7 +1790,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1974,7 +1974,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2162,7 +2162,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2300,7 +2300,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2371,7 +2371,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2489,7 +2489,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2582,7 +2582,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2769,7 +2769,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2931,7 +2931,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3062,7 +3062,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3133,7 +3133,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3323,7 +3323,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3442,7 +3442,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3502,5 +3502,3 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         // -----------------------------------------
     }
 }
-
-

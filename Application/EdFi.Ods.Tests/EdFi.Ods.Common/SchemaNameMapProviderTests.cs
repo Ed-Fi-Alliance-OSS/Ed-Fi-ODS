@@ -3,14 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common
@@ -22,26 +24,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
 
         private static SchemaNameMapProvider GetSchemaNameMapProvider(string logicalSchemaName, string physicalSchemaName)
         {
-            var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-            domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(
-                                               new DomainModelDefinitions(
-                                                   new SchemaDefinition(logicalSchemaName, physicalSchemaName),
-                                                   new AggregateDefinition[0],
-                                                   new EntityDefinition[0],
-                                                   new AssociationDefinition[0]));
+            var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                .Returns(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition(logicalSchemaName, physicalSchemaName),
+                        new AggregateDefinition[0],
+                        new EntityDefinition[0],
+                        new AssociationDefinition[0]));
 
             // Add a second schema to demonstrate correct matching with multiple schema entries
-            var domainModelDefinitionsProvider2 = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-            domainModelDefinitionsProvider2.Stub(x => x.GetDomainModelDefinitions())
-                                           .Return(
-                                                new DomainModelDefinitions(
-                                                    new SchemaDefinition("AnotherSchema", "another"),
-                                                    new AggregateDefinition[0],
-                                                    new EntityDefinition[0],
-                                                    new AssociationDefinition[0]));
+            var domainModelDefinitionsProvider2 = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(()=> domainModelDefinitionsProvider2.GetDomainModelDefinitions())
+                .Returns(
+                    new DomainModelDefinitions(
+                        new SchemaDefinition("AnotherSchema", "another"),
+                        new AggregateDefinition[0],
+                        new EntityDefinition[0],
+                        new AssociationDefinition[0]));
 
             var schemaDefinitions =
                 new DomainModelProvider(
@@ -49,13 +49,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                         {
                             domainModelDefinitionsProvider, domainModelDefinitionsProvider2
                         })
-                   .GetDomainModel()
-                   .Schemas;
+                    .GetDomainModel()
+                    .Schemas;
 
             return new SchemaNameMapProvider(schemaDefinitions);
         }
 
-        public class When_mapping_schema_names : LegacyTestFixtureBase
+        public class When_mapping_schema_names : TestFixtureBase
         {
             private string _suppliedPhysicalName;
             private string _suppliedLogicalName;
@@ -96,7 +96,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_mapping_schema_names_based_on_a_mixed_cased_hyphenated_logical_name : LegacyTestFixtureBase
+        public class When_mapping_schema_names_based_on_a_mixed_cased_hyphenated_logical_name : TestFixtureBase
         {
             private SchemaNameMap _actualSchemaNameMapByLogicalName;
 
@@ -123,7 +123,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_mapping_schema_names_based_on_a_lower_cased_hyphenated_logical_name : LegacyTestFixtureBase
+        public class When_mapping_schema_names_based_on_a_lower_cased_hyphenated_logical_name : TestFixtureBase
         {
             private SchemaNameMap _actualSchemaNameMapByLogicalName;
 
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_mapping_schema_names_based_on_a_logical_name_containing_spaces : LegacyTestFixtureBase
+        public class When_mapping_schema_names_based_on_a_logical_name_containing_spaces : TestFixtureBase
         {
             private SchemaNameMap _actualSchemaNameMapByLogicalName;
 
@@ -177,7 +177,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_mapping_schema_names_based_on_a_logical_name_that_looks_like_a_state_abbreviation : LegacyTestFixtureBase
+        public class When_mapping_schema_names_based_on_a_logical_name_that_looks_like_a_state_abbreviation : TestFixtureBase
         {
             private SchemaNameMap _actualSchemaNameMapByLogicalName;
 
@@ -204,7 +204,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_mapping_schema_names_based_on_a_logical_name_with_a_single_character_name : LegacyTestFixtureBase
+        public class When_mapping_schema_names_based_on_a_logical_name_with_a_single_character_name : TestFixtureBase
         {
             private SchemaNameMap _actualSchemaNameMapByLogicalName;
 
@@ -231,7 +231,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_initializing_the_schema_name_map_provider_with_a_null_logical_name : LegacyTestFixtureBase
+        public class When_initializing_the_schema_name_map_provider_with_a_null_logical_name : TestFixtureBase
         {
             protected override void Act()
             {
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_initializing_the_schema_name_map_provider_with_an_empty_logical_name : LegacyTestFixtureBase
+        public class When_initializing_the_schema_name_map_provider_with_an_empty_logical_name : TestFixtureBase
         {
             protected override void Act()
             {
@@ -259,7 +259,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_initializing_the_schema_name_map_provider_with_a_null_physical_name : LegacyTestFixtureBase
+        public class When_initializing_the_schema_name_map_provider_with_a_null_physical_name : TestFixtureBase
         {
             protected override void Act()
             {
@@ -273,7 +273,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             }
         }
 
-        public class When_initializing_the_schema_name_map_provider_with_an_empty_physical_name : LegacyTestFixtureBase
+        public class When_initializing_the_schema_name_map_provider_with_an_empty_physical_name : TestFixtureBase
         {
             protected override void Act()
             {
@@ -288,3 +288,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
     }
 }
+#endif

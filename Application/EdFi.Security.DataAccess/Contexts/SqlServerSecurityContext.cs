@@ -8,5 +8,8 @@ namespace EdFi.Security.DataAccess.Contexts
     public class SqlServerSecurityContext : SecurityContext
     {
         // The default behavior is appropriate for this sub-class.
+#if NETSTANDARD
+        public SqlServerSecurityContext(string connectionString) : base(connectionString) { }
+#endif
     }
 }

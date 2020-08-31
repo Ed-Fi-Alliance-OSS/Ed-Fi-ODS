@@ -12,7 +12,7 @@ using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Http.Context;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
 using log4net;
 
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Api.Caching
             _uniqueIdToUsiValueMapper = uniqueIdToUsiValueMapper;
             _personIdentifiersProvider = personIdentifiersProvider;
             _synchronousInitialization = synchronousInitialization;
-            
+
             if (slidingExpiration < TimeSpan.Zero)
             {
                 throw new ArgumentOutOfRangeException(nameof(slidingExpiration), "TimeSpan cannot be a negative value.");
@@ -97,7 +97,7 @@ namespace EdFi.Ods.Api.Caching
         /// Gets the externally defined UniqueId for the specified type of person and the ODS-specific surrogate identifier.
         /// </summary>
         /// <param name="personType">The type of the person (e.g. Staff, Student, Parent).</param>
-        /// <param name="usi">The integer-based identifier for the specified representation of the person, 
+        /// <param name="usi">The integer-based identifier for the specified representation of the person,
         /// specific to a particular ODS database instance.</param>
         /// <returns>The UniqueId value assigned to the person if found; otherwise <b>null</b>.</returns>
         public string GetUniqueId(string personType, int usi)
@@ -142,7 +142,7 @@ namespace EdFi.Ods.Api.Caching
         /// </summary>
         /// <param name="personType">The type of the person (e.g. Staff, Student, Parent).</param>
         /// <param name="uniqueId">The UniqueId value associated with the person.</param>
-        /// <returns>The ODS-specific integer identifier for the specified type of representation of 
+        /// <returns>The ODS-specific integer identifier for the specified type of representation of
         /// the person if found; otherwise 0.</returns>
         public int GetUsi(string personType, string uniqueId)
         {
@@ -155,7 +155,7 @@ namespace EdFi.Ods.Api.Caching
         /// </summary>
         /// <param name="personTypeName">The type of the person (e.g. Staff, Student, Parent).</param>
         /// <param name="uniqueId">The UniqueId value associated with the person.</param>
-        /// <returns>The ODS-specific integer identifier for the specified type of representation of 
+        /// <returns>The ODS-specific integer identifier for the specified type of representation of
         /// the person if found; otherwise <b>null</b>.</returns>
         public int? GetUsiNullable(string personTypeName, string uniqueId)
         {
@@ -327,7 +327,7 @@ namespace EdFi.Ods.Api.Caching
         }
 
         private DateTime GetAbsoluteExpiration() => _absoluteExpirationPeriod == TimeSpan.Zero
-            ? DateTime.MaxValue 
+            ? DateTime.MaxValue
             : DateTime.UtcNow.Add(_absoluteExpirationPeriod);
 
         private static string GetPersonTypeIdentifiersCacheKey(string personType, string context)
@@ -431,7 +431,7 @@ namespace EdFi.Ods.Api.Caching
 
         private string GetUsiKeyTokenContext()
         {
-            return string.Format("from_{0}", _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
+            return string.Format((string) "from_{0}", (object) _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
         }
 
         private class IdentityValueMaps

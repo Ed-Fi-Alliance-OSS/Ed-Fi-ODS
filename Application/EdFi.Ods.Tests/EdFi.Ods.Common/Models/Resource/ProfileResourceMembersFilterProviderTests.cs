@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -13,8 +14,8 @@ using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Test.Common;
 using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
 
@@ -119,107 +120,107 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             string schema = "edfi";
 
             var entityDefinitions = new[]
-                                    {
-                                        new EntityDefinition(
-                                            schema,
-                                            "CoreEntity",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true),
-                                        new EntityDefinition(
-                                            schema,
-                                            "Collection1Item",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
-                                                new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true),
-                                        new EntityDefinition(
-                                            schema,
-                                            "EmbeddedObject1",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true)
-                                    };
+            {
+                new EntityDefinition(
+                    schema,
+                    "CoreEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    schema,
+                    "Collection1Item",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true),
+                        new EntityPropertyDefinition("KeyProperty2", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    schema,
+                    "EmbeddedObject1",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions = new[]
-                                         {
-                                             new AssociationDefinition(
-                                                 new FullName(schema, "FK_CoreEntityEmbeddedObject"),
-                                                 Cardinality.OneToOne,
-                                                 new FullName(schema, "CoreEntity"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 new FullName(schema, "EmbeddedObject1"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 isIdentifying: true,
-                                                 isRequired: true),
-                                             new AssociationDefinition(
-                                                 new FullName(schema, "FK_CoreEntityCollection"),
-                                                 Cardinality.OneToZeroOrMore,
-                                                 new FullName(schema, "CoreEntity"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 new FullName(schema, "Collection1Item"),
-                                                 new[]
-                                                 {
-                                                     new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                 },
-                                                 isIdentifying: true,
-                                                 isRequired: true)
-                                         };
+            {
+                new AssociationDefinition(
+                    new FullName(schema, "FK_CoreEntityEmbeddedObject"),
+                    Cardinality.OneToOne,
+                    new FullName(schema, "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName(schema, "EmbeddedObject1"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true),
+                new AssociationDefinition(
+                    new FullName(schema, "FK_CoreEntityCollection"),
+                    Cardinality.OneToZeroOrMore,
+                    new FullName(schema, "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName(schema, "Collection1Item"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true)
+            };
 
             var aggredateDefinitions = new[]
-                                       {
-                                           new AggregateDefinition(
-                                               new FullName(schema, "CoreEntity"),
-                                               new[]
-                                               {
-                                                   new FullName(schema, "Collection1Item"), new FullName(schema, "EmbeddedObject1")
-                                               })
-                                       };
+            {
+                new AggregateDefinition(
+                    new FullName(schema, "CoreEntity"),
+                    new[]
+                    {
+                        new FullName(schema, "Collection1Item"), new FullName(schema, "EmbeddedObject1")
+                    })
+            };
 
             var schemaDefinition = new SchemaDefinition(schema, schema);
 
@@ -229,10 +230,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 entityDefinitions,
                 associationDefinitions);
 
-            var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
+            var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
 
-            domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions);
+            A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                .Returns(modelDefinitions);
 
             return domainModelDefinitionsProvider;
         }
@@ -240,73 +241,73 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         internal static IDomainModelDefinitionsProvider BuildTestExtensionDefinitionsProvider()
         {
             var aggredateDefinitions2 = new[]
-                                        {
-                                            new AggregateDefinition(
-                                                new FullName("ExtensionPhysical", "ExtensionAggregate"),
-                                                new[]
-                                                {
-                                                    new FullName("ExtensionPhysical", "ExtensionEntity")
-                                                })
-                                        };
+            {
+                new AggregateDefinition(
+                    new FullName("ExtensionPhysical", "ExtensionAggregate"),
+                    new[]
+                    {
+                        new FullName("ExtensionPhysical", "ExtensionEntity")
+                    })
+            };
 
             var entityDefinitions2 = new[]
-                                     {
-                                         new EntityDefinition(
-                                             "ExtensionPhysical",
-                                             "ExtensionAggregate",
-                                             new[]
-                                             {
-                                                 new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                             },
-                                             new[]
-                                             {
-                                                 new EntityIdentifierDefinition(
-                                                     "PK",
-                                                     new[]
-                                                     {
-                                                         "KeyProperty1", "KeyProperty2"
-                                                     },
-                                                     isPrimary: true)
-                                             },
-                                             true),
-                                         new EntityDefinition(
-                                             "ExtensionPhysical",
-                                             "ExtensionEntity",
-                                             new[]
-                                             {
-                                                 new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                             },
-                                             new[]
-                                             {
-                                                 new EntityIdentifierDefinition(
-                                                     "PK",
-                                                     new[]
-                                                     {
-                                                         "KeyProperty1", "KeyProperty2"
-                                                     },
-                                                     isPrimary: true)
-                                             },
-                                             true)
-                                     };
+            {
+                new EntityDefinition(
+                    "ExtensionPhysical",
+                    "ExtensionAggregate",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true),
+                new EntityDefinition(
+                    "ExtensionPhysical",
+                    "ExtensionEntity",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions2 = new[]
-                                          {
-                                              new AssociationDefinition(
-                                                  new FullName("ExtensionPhysical", "FK_ExtensionEntity"),
-                                                  Cardinality.OneToOneExtension,
-                                                  new FullName("edfi", "CoreEntity"),
-                                                  new[]
-                                                  {
-                                                      new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                  },
-                                                  new FullName("ExtensionPhysical", "ExtensionEntity"),
-                                                  new[]
-                                                  {
-                                                      new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                  },
-                                                  isIdentifying: true,
-                                                  isRequired: true)
-                                          };
+            {
+                new AssociationDefinition(
+                    new FullName("ExtensionPhysical", "FK_ExtensionEntity"),
+                    Cardinality.OneToOneExtension,
+                    new FullName("edfi", "CoreEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new FullName("ExtensionPhysical", "ExtensionEntity"),
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    isIdentifying: true,
+                    isRequired: true)
+            };
 
             var schemaDefinition2 = new SchemaDefinition("Extension-Logical", "ExtensionPhysical");
 
@@ -316,10 +317,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 entityDefinitions2,
                 associationDefinitions2);
 
-            var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
 
-            domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions2);
+            var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions()).Returns(modelDefinitions2);
 
             return domainModelDefinitionsProvider;
         }
@@ -330,9 +330,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             IDomainModelDefinitionsProvider extensionDefinitionProvider = BuildTestExtensionDefinitionsProvider();
 
             List<IDomainModelDefinitionsProvider> providerList = new List<IDomainModelDefinitionsProvider>
-                                                                 {
-                                                                     domainCoreDefinitionProvider, extensionDefinitionProvider
-                                                                 };
+            {
+                domainCoreDefinitionProvider, extensionDefinitionProvider
+            };
 
             DomainModelProvider ddm = new DomainModelProvider(providerList);
 
@@ -357,7 +357,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = new Resource_Resource("TestResource");
 
-                // Execute code under test
                 var filterProvider = new ProfileResourceMembersFilterProvider();
 
                 var definition = XElement.Parse(
@@ -475,7 +474,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
             protected override void Act()
             {
-                // Execute code under test
                 _suppliedResource = GetTestResource();
 
                 var filterProvider = new ProfileResourceMembersFilterProvider();
@@ -553,7 +551,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 _suppliedResource = GetTestResourceForWithAnExtension();
 
-                // Execute code under test
                 var filterProvider = new ProfileResourceMembersFilterProvider();
 
                 var definition = XElement.Parse(
@@ -588,3 +585,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
     }
 }
+#endif

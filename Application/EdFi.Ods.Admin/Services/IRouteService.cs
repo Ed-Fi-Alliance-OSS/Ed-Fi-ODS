@@ -7,8 +7,8 @@ namespace EdFi.Ods.Admin.Services
 {
     public interface IRouteService
     {
-        string GetRouteForPasswordReset(string marker);
+        string GetRouteForPasswordReset(string email, string marker);
 
-        string GetRouteForActivation(string marker);
+        string GetRouteForActivation(string email, string marker);
     }
 }

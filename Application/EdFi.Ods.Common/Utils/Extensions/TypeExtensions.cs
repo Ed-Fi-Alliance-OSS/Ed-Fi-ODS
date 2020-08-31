@@ -31,19 +31,4 @@ namespace EdFi.Ods.Common.Utils.Extensions
                 : null;
         }
     }
-
-    public static class ObjectExtensions
-    {
-        public static bool IsDefault(this object value, Type type)
-        {
-            var defaultValue = type.DefaultValue();
-
-            if (value == null)
-            {
-                return defaultValue == null;
-            }
-
-            return value.Equals(defaultValue);
-        }
-    }
 }

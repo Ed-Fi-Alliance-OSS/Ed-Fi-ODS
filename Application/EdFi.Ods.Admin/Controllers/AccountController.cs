@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -6,15 +6,14 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using EdFi.Ods.Admin.Extensions;
 using EdFi.Ods.Admin.Models;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Admin.Models.Results;
 using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Admin.Services;
-using WebMatrix.WebData;
 using EdFi.Admin.DataAccess.Models;
 
 namespace EdFi.Ods.Admin.Controllers
@@ -25,7 +24,6 @@ namespace EdFi.Ods.Admin.Controllers
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IPasswordService _passwordService;
         private readonly ISecurityService _securityService;
-
         private readonly IUserAccountManager _userAccountManager;
 
         public AccountController(
@@ -87,21 +85,14 @@ namespace EdFi.Ods.Admin.Controllers
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string marker)
+        public ActionResult ResetPassword(string email, string marker)
         {
-            var userProfile = _passwordService.GetUserForPasswordResetToken(marker);
-
-            if (userProfile != null)
-            {
-                return View(
-                    new PasswordResetViewModel
-                    {
-                        Marker = marker, UserName = userProfile.Email
-                    });
-            }
-
-            TempData.SetErrorMessage("Password Reset Request is invalid or expired.");
-            return RedirectToAction("ForgotPassword");
+            return View(
+                new PasswordResetViewModel
+                {
+                    Marker = marker,
+                    Email = email
+                });
         }
 
         [HttpPost]
@@ -121,7 +112,8 @@ namespace EdFi.Ods.Admin.Controllers
                 return View(
                     new PasswordResetViewModel
                     {
-                        Marker = model.Marker, UserName = model.UserName
+                        Marker = model.Marker,
+                        Email = model.Email
                     });
             }
 
@@ -135,16 +127,16 @@ namespace EdFi.Ods.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> ActivateAccount(string marker)
+        public ActionResult ActivateAccount(string email, string marker)
         {
-            var validation = await _passwordService.ConfirmAccountAsync(marker);
+            var validation = _passwordService.ConfirmAccount(email,marker);
 
             if (validation.Success)
             {
                 return View(
                     new PasswordResetViewModel
                     {
-                        Marker = marker, UserName = validation.UserName
+                        Marker = marker, Email = validation.UserName
                     });
             }
 
@@ -170,7 +162,7 @@ namespace EdFi.Ods.Admin.Controllers
                 return View(
                     new PasswordResetViewModel
                     {
-                        Marker = model.Marker, UserName = model.UserName
+                        Marker = model.Marker, Email = model.Email
                     });
             }
 
@@ -222,9 +214,9 @@ namespace EdFi.Ods.Admin.Controllers
 
         [HttpPost]
         [Authorize(Roles = SecurityRoles.Administrator)]
-        public async Task<ActionResult> ResendAccountActivation(ForgotPasswordModel model)
+        public ActionResult ResendAccountActivation(ForgotPasswordModel model)
         {
-            var result = await _userAccountManager.ResendConfirmationAsync(model);
+            var result = _userAccountManager.ResendConfirmationAsync(model);
 
             if (result.Success)
             {
@@ -266,7 +258,8 @@ namespace EdFi.Ods.Admin.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            model.UserName = WebSecurity.CurrentUserName;
+            var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+            model.UserName = authenticationManager.User.Identity.Name;
             var result = _userAccountManager.ChangePassword(model);
 
             if (result.Success)
@@ -284,21 +277,21 @@ namespace EdFi.Ods.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (WebSecurity.Login(model.EmailAddress, model.Password, persistCookie: model.RememberMe))
+                if (_userAccountManager.Login(model.EmailAddress, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.EmailAddress, model.RememberMe);
                     var user = _clientAppRepo.GetUser(model.EmailAddress);
 
                     return Json(
                         new
                         {
-                            success = true, name = user.FullName, authenticated = true
+                            success = true,
+                            name = user.FullName,
+                            authenticated = true
                         });
                 }
 
                 //Failed Login
                 Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-                Response.SuppressFormsAuthenticationRedirect = true;
 
                 return Json(
                     new
@@ -337,8 +330,8 @@ namespace EdFi.Ods.Admin.Controllers
         //        [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            WebSecurity.Logout();
-
+            var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
             return Json(
                 new
                 {

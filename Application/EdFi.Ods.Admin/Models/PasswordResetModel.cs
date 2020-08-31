@@ -7,7 +7,7 @@ namespace EdFi.Ods.Admin.Models
 {
     public class ResetRequestValidationModel
     {
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         public string Marker { get; set; }
     }

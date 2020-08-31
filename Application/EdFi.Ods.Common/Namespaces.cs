@@ -46,14 +46,14 @@ namespace EdFi.Ods.Common
 
         public static class Resources
         {
-            public static string RelativeNamespace => "Api.Models.Resources";
+            public static string RelativeNamespace => "Api.Common.Models.Resources";
 
             public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
         }
 
         public static class Requests
         {
-            public static string RelativeNamespace => "Api.Models.Requests";
+            public static string RelativeNamespace => "Api.Common.Models.Requests";
 
             public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
         }

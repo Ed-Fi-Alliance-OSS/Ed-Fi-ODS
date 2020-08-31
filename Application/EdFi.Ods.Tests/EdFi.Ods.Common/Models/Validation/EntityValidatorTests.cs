@@ -3,21 +3,22 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Data;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
 {
     public class EntityValidatorTests
     {
-        public class When_building_a_domain_model_with_an_entity_using_an_undefined_schema : LegacyTestFixtureBase
+        public class When_building_a_domain_model_with_an_entity_using_an_undefined_schema : TestFixtureBase
         {
             private DomainModelBuilder _domainModelBuilder;
 
@@ -34,58 +35,58 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             private static DomainModelBuilder CreateFaultyDomainModel()
             {
                 var entityDefinitions = new[]
-                                        {
-                                            new EntityDefinition(
-                                                "DefinedSchema",
-                                                "RootEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true),
+                {
+                    new EntityDefinition(
+                        "DefinedSchema",
+                        "RootEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true),
 
-                                            // The line that follows is causing the failure.  The 1st value should be "schema1", not "schema2"
-                                            new EntityDefinition(
-                                                "UndefinedSchema",
-                                                "ChildEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true)
-                                        };
+                    // The line that follows is causing the failure.  The 1st value should be "schema1", not "schema2"
+                    new EntityDefinition(
+                        "UndefinedSchema",
+                        "ChildEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true)
+                };
 
                 var associationDefinitions = new AssociationDefinition[0];
 
                 var aggregateDefinitions = new[]
-                                           {
-                                               new AggregateDefinition(
-                                                   new FullName("DefinedSchema", "RootEntity"),
-                                                   new[]
-                                                   {
-                                                       new FullName("UndefinedSchema", "ChildEntity")
-                                                   })
-                                           };
+                {
+                    new AggregateDefinition(
+                        new FullName("DefinedSchema", "RootEntity"),
+                        new[]
+                        {
+                            new FullName("UndefinedSchema", "ChildEntity")
+                        })
+                };
 
                 var schemaDefinition = new SchemaDefinition("logicalName", "DefinedSchema");
 
@@ -95,10 +96,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                     entityDefinitions,
                     associationDefinitions);
 
-                var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-                domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                              .Return(modelDefinitions);
+                var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+                A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                    .Returns(modelDefinitions);
 
                 DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -119,7 +119,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             }
         }
 
-        public class When_building_a_domain_model_with_all_entities_using_defined_schemas : LegacyTestFixtureBase
+        public class When_building_a_domain_model_with_all_entities_using_defined_schemas : TestFixtureBase
         {
             private DomainModelBuilder _domainModelBuilder;
             private DomainModel _domainModel;
@@ -137,58 +137,58 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
             private static DomainModelBuilder CreateValidDomainModel()
             {
                 var entityDefinitions = new[]
-                                        {
-                                            new EntityDefinition(
-                                                "DefinedSchema",
-                                                "RootEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true),
+                {
+                    new EntityDefinition(
+                        "DefinedSchema",
+                        "RootEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true),
 
-                                            // The line that follows is causing the failure.  The 1st value should be "schema1", not "schema2"
-                                            new EntityDefinition(
-                                                "DefinedSchema",
-                                                "ChildEntity",
-                                                new[]
-                                                {
-                                                    new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                                },
-                                                new[]
-                                                {
-                                                    new EntityIdentifierDefinition(
-                                                        "PK",
-                                                        new[]
-                                                        {
-                                                            "KeyProperty1", "KeyProperty2"
-                                                        },
-                                                        isPrimary: true)
-                                                },
-                                                true)
-                                        };
+                    // The line that follows is causing the failure.  The 1st value should be "schema1", not "schema2"
+                    new EntityDefinition(
+                        "DefinedSchema",
+                        "ChildEntity",
+                        new[]
+                        {
+                            new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                        },
+                        new[]
+                        {
+                            new EntityIdentifierDefinition(
+                                "PK",
+                                new[]
+                                {
+                                    "KeyProperty1", "KeyProperty2"
+                                },
+                                isPrimary: true)
+                        },
+                        true)
+                };
 
                 var associationDefinitions = new AssociationDefinition[0];
 
                 var aggregateDefinitions = new[]
-                                           {
-                                               new AggregateDefinition(
-                                                   new FullName("DefinedSchema", "RootEntity"),
-                                                   new[]
-                                                   {
-                                                       new FullName("DefinedSchema", "ChildEntity")
-                                                   })
-                                           };
+                {
+                    new AggregateDefinition(
+                        new FullName("DefinedSchema", "RootEntity"),
+                        new[]
+                        {
+                            new FullName("DefinedSchema", "ChildEntity")
+                        })
+                };
 
                 var schemaDefinition = new SchemaDefinition("logicalName", "DefinedSchema");
 
@@ -198,10 +198,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                     entityDefinitions,
                     associationDefinitions);
 
-                var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-                domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                              .Return(modelDefinitions);
+                var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+                A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                    .Returns(modelDefinitions);
 
                 DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -222,3 +221,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         }
     }
 }
+#endif

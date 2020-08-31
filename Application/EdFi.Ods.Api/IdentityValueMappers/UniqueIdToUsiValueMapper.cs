@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         public PersonIdentifiersValueMap GetUsi(string personType, string uniqueId)
         {
             Preconditions.ThrowIfNull(personType, nameof(personType));
-            
+
             return GetPersonIdentifiersValueMap(personType, personType + "UniqueId", uniqueId)
                       .FirstOrDefault() ?? new PersonIdentifiersValueMap();
         }
@@ -41,14 +41,14 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         public PersonIdentifiersValueMap GetUniqueId(string personType, int usi)
         {
             Preconditions.ThrowIfNull(personType, nameof(personType));
-            
+
             return GetPersonIdentifiersValueMap(personType, personType + "USI", usi)
                       .FirstOrDefault() ?? new PersonIdentifiersValueMap();
         }
 
         private IEnumerable<PersonIdentifiersValueMap> GetPersonIdentifiersValueMap(
-            string personType, 
-            string searchField, 
+            string personType,
+            string searchField,
             object searchValue)
         {
             // Validate Person type
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
             {
                 string validPersonTypes = string.Join("','", PersonEntitySpecification.ValidPersonTypes)
                     .SingleQuoted();
-                
+
                 throw new ArgumentException($"Invalid person type '{personType}'. Valid person types are: {validPersonTypes}");
             }
 

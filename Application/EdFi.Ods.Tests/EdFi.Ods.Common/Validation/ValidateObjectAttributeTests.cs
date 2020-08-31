@@ -3,11 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.ComponentModel.DataAnnotations;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Common.Attributes;
+using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
 {
@@ -23,11 +24,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
     }
 
     [TestFixture]
-    public class When_validating_an_object_with_a_validated_child_reference_that_is_null : LegacyTestFixtureBase
+    public class When_validating_an_object_with_a_validated_child_reference_that_is_null : TestFixtureBase
     {
         private ValidationResult validationResult;
 
-        protected override void ExecuteBehavior()
+        protected override void Arrange()
         {
             var parentObject = new ParentClass();
 
@@ -45,3 +46,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
         }
     }
 }
+#endif

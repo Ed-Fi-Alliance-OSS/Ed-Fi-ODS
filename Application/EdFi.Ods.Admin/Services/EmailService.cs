@@ -32,7 +32,7 @@ namespace EdFi.Ods.Admin.Services
             messageBuilder.AppendLine();
             messageBuilder.AppendLine(@"Please follow this link to set your password:");
             messageBuilder.AppendLine();
-            messageBuilder.AppendLine(_routeService.GetRouteForActivation(secret));
+            messageBuilder.AppendLine(_routeService.GetRouteForActivation(emailAddress, secret));
 
             var body = string.Format(messageBuilder.ToString(), secret);
 
@@ -53,7 +53,7 @@ namespace EdFi.Ods.Admin.Services
             messageBuilder.AppendLine(@"You have requested a password reset for your account in Sandbox Admin.");
             messageBuilder.AppendLine();
             messageBuilder.AppendLine(@"In order to reset your password, please follow this link:");
-            messageBuilder.AppendLine(_routeService.GetRouteForPasswordReset(secret));
+            messageBuilder.AppendLine(_routeService.GetRouteForPasswordReset(emailAddress,secret));
 
             var body = string.Format(messageBuilder.ToString(), secret);
 

@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 
@@ -17,9 +19,15 @@ namespace EdFi.Ods.Common.UnitTests.Configuration
             [Test]
             public void Should_return_a_null_value()
             {
-                new AppConfigValueProvider().GetValue("Non-existent Key")
+                var config = new ConfigurationBuilder()
+                   .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                   .AddJsonFile("appsettings.json", optional: true)
+                   .Build();
+
+                new AppConfigValueProvider(config).GetValue("Non-existent Key")
                                             .ShouldBeNull();
             }
         }
     }
 }
+#endif

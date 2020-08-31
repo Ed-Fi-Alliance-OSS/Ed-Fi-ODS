@@ -3,14 +3,18 @@ using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Net;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Serialization;
-using EdFi.Ods.Api.Dependencies;
-using EdFi.Ods.Api.Models;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Dependencies;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Homograph;
 using Newtonsoft.Json;
@@ -18,7 +22,7 @@ using FluentValidation.Results;
 
 // Aggregate: Name
 
-namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
 {
     /// <summary>
     /// Represents a reference to the Name resource.
@@ -89,7 +93,7 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -173,22 +177,22 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IName;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Homograph.IName).FirstName == null
-                || !(this as Entities.Common.Homograph.IName).FirstName.Equals(compareTo.FirstName)) 
+                || !(this as Entities.Common.Homograph.IName).FirstName.Equals(compareTo.FirstName))
                 return false;
- 
+
             // Standard Property
             if ((this as Entities.Common.Homograph.IName).LastSurname == null
-                || !(this as Entities.Common.Homograph.IName).LastSurname.Equals(compareTo.LastSurname)) 
+                || !(this as Entities.Common.Homograph.IName).LastSurname.Equals(compareTo.LastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -207,13 +211,13 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IName).FirstName != null) 
+                if ((this as Entities.Common.Homograph.IName).FirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IName).FirstName.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IName).LastSurname != null) 
+                if ((this as Entities.Common.Homograph.IName).LastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IName).LastSurname.GetHashCode();
                 return hash;
             }
@@ -235,7 +239,7 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -252,7 +256,7 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -324,7 +328,7 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -345,7 +349,7 @@ namespace EdFi.Ods.Api.Models.Resources.Name.Homograph
 }
 // Aggregate: Parent
 
-namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 {
     /// <summary>
     /// Represents a reference to the Parent resource.
@@ -416,7 +420,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -574,22 +578,22 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParent;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IParent).ParentFirstName == null
-                || !(this as Entities.Common.Homograph.IParent).ParentFirstName.Equals(compareTo.ParentFirstName)) 
+                || !(this as Entities.Common.Homograph.IParent).ParentFirstName.Equals(compareTo.ParentFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IParent).ParentLastSurname == null
-                || !(this as Entities.Common.Homograph.IParent).ParentLastSurname.Equals(compareTo.ParentLastSurname)) 
+                || !(this as Entities.Common.Homograph.IParent).ParentLastSurname.Equals(compareTo.ParentLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -608,13 +612,13 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParent).ParentFirstName != null) 
+                if ((this as Entities.Common.Homograph.IParent).ParentFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParent).ParentLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IParent).ParentLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentLastSurname.GetHashCode();
                 return hash;
             }
@@ -636,7 +640,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -653,7 +657,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -772,12 +776,12 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
 
         // Child collection item filter delegates
         Func<Entities.Common.Homograph.IParentAddress, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentAddressIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Homograph.IParentStudentSchoolAssociation, bool> Entities.Common.Homograph.IParentSynchronizationSourceSupport.IsParentStudentSchoolAssociationIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -787,8 +791,8 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IParent.ParentNameResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IParent.ParentNameResourceId
+        {
             get { return null; }
             set { ImplicitParentNameReference.ResourceId = value ?? default(Guid); }
         }
@@ -827,7 +831,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var parentAddressesValidator = new ParentAddressPutPostRequestValidator();
 
@@ -937,21 +941,21 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParentAddress;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parent == null || !_parent.Equals(compareTo.Parent))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Homograph.IParentAddress).City == null
-                || !(this as Entities.Common.Homograph.IParentAddress).City.Equals(compareTo.City)) 
+                || !(this as Entities.Common.Homograph.IParentAddress).City.Equals(compareTo.City))
                 return false;
             #pragma warning disable 472
 
@@ -973,9 +977,9 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
                 //Parent Property
                 if (_parent != null)
                     hash = hash * 23 + _parent.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IParentAddress).City != null) 
+                if ((this as Entities.Common.Homograph.IParentAddress).City != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParentAddress).City.GetHashCode();
                 return hash;
             }
@@ -997,7 +1001,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1014,7 +1018,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1082,7 +1086,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -1273,31 +1277,31 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParentStudentSchoolAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_parent == null || !_parent.Equals(compareTo.Parent))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName)) 
+                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName)) 
+                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname)) 
+                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -1319,17 +1323,17 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
                 //Parent Property
                 if (_parent != null)
                     hash = hash * 23 + _parent.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName != null) 
+                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName != null) 
+                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
@@ -1351,7 +1355,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1368,7 +1372,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1410,8 +1414,8 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IParentStudentSchoolAssociation.StudentSchoolAssociationResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IParentStudentSchoolAssociation.StudentSchoolAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStudentSchoolAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -1450,7 +1454,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -1471,7 +1475,7 @@ namespace EdFi.Ods.Api.Models.Resources.Parent.Homograph
 }
 // Aggregate: School
 
-namespace EdFi.Ods.Api.Models.Resources.School.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 {
     /// <summary>
     /// Represents a reference to the School resource.
@@ -1539,7 +1543,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -1649,17 +1653,17 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchool;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Homograph.ISchool).SchoolName == null
-                || !(this as Entities.Common.Homograph.ISchool).SchoolName.Equals(compareTo.SchoolName)) 
+                || !(this as Entities.Common.Homograph.ISchool).SchoolName.Equals(compareTo.SchoolName))
                 return false;
             #pragma warning disable 472
 
@@ -1678,9 +1682,9 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.ISchool).SchoolName != null) 
+                if ((this as Entities.Common.Homograph.ISchool).SchoolName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.ISchool).SchoolName.GetHashCode();
                 return hash;
             }
@@ -1741,7 +1745,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         }
 
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -1758,7 +1762,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -1806,8 +1810,8 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.ISchool.SchoolYearTypeResourceId 
-        { 
+        Guid? Entities.Common.Homograph.ISchool.SchoolYearTypeResourceId
+        {
             get { return null; }
             set { ImplicitSchoolYearTypeReference.ResourceId = value ?? default(Guid); }
         }
@@ -1846,7 +1850,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -1929,13 +1933,13 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchoolAddress;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_school == null || !_school.Equals(compareTo.School))
                 return false;
@@ -1987,7 +1991,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2004,7 +2008,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2073,7 +2077,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -2094,7 +2098,7 @@ namespace EdFi.Ods.Api.Models.Resources.School.Homograph
 }
 // Aggregate: SchoolYearType
 
-namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
 {
     /// <summary>
     /// Represents a reference to the SchoolYearType resource.
@@ -2162,7 +2166,7 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -2239,17 +2243,17 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchoolYearType;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Standard Property
             if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear == null
-                || !(this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.Equals(compareTo.SchoolYear)) 
+                || !(this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
             #pragma warning disable 472
 
@@ -2268,9 +2272,9 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear != null) 
+                if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.GetHashCode();
                 return hash;
             }
@@ -2292,7 +2296,7 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2309,7 +2313,7 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2381,7 +2385,7 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -2402,7 +2406,7 @@ namespace EdFi.Ods.Api.Models.Resources.SchoolYearType.Homograph
 }
 // Aggregate: Staff
 
-namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 {
     /// <summary>
     /// Represents a reference to the Staff resource.
@@ -2473,7 +2477,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -2631,22 +2635,22 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaff;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStaff).StaffFirstName == null
-                || !(this as Entities.Common.Homograph.IStaff).StaffFirstName.Equals(compareTo.StaffFirstName)) 
+                || !(this as Entities.Common.Homograph.IStaff).StaffFirstName.Equals(compareTo.StaffFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStaff).StaffLastSurname == null
-                || !(this as Entities.Common.Homograph.IStaff).StaffLastSurname.Equals(compareTo.StaffLastSurname)) 
+                || !(this as Entities.Common.Homograph.IStaff).StaffLastSurname.Equals(compareTo.StaffLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -2665,13 +2669,13 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaff).StaffFirstName != null) 
+                if ((this as Entities.Common.Homograph.IStaff).StaffFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaff).StaffLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IStaff).StaffLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffLastSurname.GetHashCode();
                 return hash;
             }
@@ -2693,7 +2697,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -2710,7 +2714,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -2829,12 +2833,12 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
 
         // Child collection item filter delegates
         Func<Entities.Common.Homograph.IStaffAddress, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffAddressIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
         Func<Entities.Common.Homograph.IStaffStudentSchoolAssociation, bool> Entities.Common.Homograph.IStaffSynchronizationSourceSupport.IsStaffStudentSchoolAssociationIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -2844,8 +2848,8 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IStaff.StaffNameResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStaff.StaffNameResourceId
+        {
             get { return null; }
             set { ImplicitStaffNameReference.ResourceId = value ?? default(Guid); }
         }
@@ -2884,7 +2888,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var staffAddressesValidator = new StaffAddressPutPostRequestValidator();
 
@@ -2994,21 +2998,21 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaffAddress;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_staff == null || !_staff.Equals(compareTo.Staff))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Homograph.IStaffAddress).City == null
-                || !(this as Entities.Common.Homograph.IStaffAddress).City.Equals(compareTo.City)) 
+                || !(this as Entities.Common.Homograph.IStaffAddress).City.Equals(compareTo.City))
                 return false;
             #pragma warning disable 472
 
@@ -3030,9 +3034,9 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
                 //Parent Property
                 if (_staff != null)
                     hash = hash * 23 + _staff.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IStaffAddress).City != null) 
+                if ((this as Entities.Common.Homograph.IStaffAddress).City != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaffAddress).City.GetHashCode();
                 return hash;
             }
@@ -3054,7 +3058,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3071,7 +3075,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3139,7 +3143,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -3330,31 +3334,31 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaffStudentSchoolAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_staff == null || !_staff.Equals(compareTo.Staff))
                 return false;
 
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName)) 
+                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName)) 
+                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname)) 
+                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -3376,17 +3380,17 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
                 //Parent Property
                 if (_staff != null)
                     hash = hash * 23 + _staff.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName != null) 
+                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName != null) 
+                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
@@ -3408,7 +3412,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3425,7 +3429,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3467,8 +3471,8 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationResourceId
+        {
             get { return null; }
             set { ImplicitStudentSchoolAssociationReference.ResourceId = value ?? default(Guid); }
         }
@@ -3507,7 +3511,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -3528,7 +3532,7 @@ namespace EdFi.Ods.Api.Models.Resources.Staff.Homograph
 }
 // Aggregate: Student
 
-namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 {
     /// <summary>
     /// Represents a reference to the Student resource.
@@ -3599,7 +3603,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -3788,22 +3792,22 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudent;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStudent).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStudent).StudentFirstName.Equals(compareTo.StudentFirstName)) 
+                || !(this as Entities.Common.Homograph.IStudent).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStudent).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStudent).StudentLastSurname.Equals(compareTo.StudentLastSurname)) 
+                || !(this as Entities.Common.Homograph.IStudent).StudentLastSurname.Equals(compareTo.StudentLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -3822,13 +3826,13 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudent).StudentFirstName != null) 
+                if ((this as Entities.Common.Homograph.IStudent).StudentFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudent).StudentLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IStudent).StudentLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentLastSurname.GetHashCode();
                 return hash;
             }
@@ -3877,7 +3881,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -3894,7 +3898,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -3979,7 +3983,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
 
         // Child collection item filter delegates
         Func<Entities.Common.Homograph.IStudentAddress, bool> Entities.Common.Homograph.IStudentSynchronizationSourceSupport.IsStudentAddressIncluded
-        { 
+        {
             get { return null; }
             set { }
         }
@@ -3989,8 +3993,8 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IStudent.SchoolYearTypeResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStudent.SchoolYearTypeResourceId
+        {
             get { return null; }
             set { ImplicitSchoolYearTypeReference.ResourceId = value ?? default(Guid); }
         }
@@ -4003,8 +4007,8 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         }
 
 
-        Guid? Entities.Common.Homograph.IStudent.StudentNameResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStudent.StudentNameResourceId
+        {
             get { return null; }
             set { ImplicitStudentNameReference.ResourceId = value ?? default(Guid); }
         }
@@ -4043,7 +4047,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
             var studentAddressesValidator = new StudentAddressPutPostRequestValidator();
 
@@ -4143,21 +4147,21 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudentAddress;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
+
             // Parent Property
             if (_student == null || !_student.Equals(compareTo.Student))
                 return false;
 
- 
+
             // Standard Property
             if ((this as Entities.Common.Homograph.IStudentAddress).City == null
-                || !(this as Entities.Common.Homograph.IStudentAddress).City.Equals(compareTo.City)) 
+                || !(this as Entities.Common.Homograph.IStudentAddress).City.Equals(compareTo.City))
                 return false;
             #pragma warning disable 472
 
@@ -4179,9 +4183,9 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
                 //Parent Property
                 if (_student != null)
                     hash = hash * 23 + _student.GetHashCode();
- 
+
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IStudentAddress).City != null) 
+                if ((this as Entities.Common.Homograph.IStudentAddress).City != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudentAddress).City.GetHashCode();
                 return hash;
             }
@@ -4203,7 +4207,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4220,7 +4224,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4288,7 +4292,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())
@@ -4309,7 +4313,7 @@ namespace EdFi.Ods.Api.Models.Resources.Student.Homograph
 }
 // Aggregate: StudentSchoolAssociation
 
-namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
+namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograph
 {
     /// <summary>
     /// Represents a reference to the StudentSchoolAssociation resource.
@@ -4383,7 +4387,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
                 return link;
 
             var resource = GeneratedArtifactStaticDependencies.ResourceModelProvider.GetResourceModel()
-                .GetResourceByFullName(new Common.Models.Domain.FullName(linkParts[0], linkParts[1]));
+                .GetResourceByFullName(new FullName(linkParts[0], linkParts[1]));
 
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
@@ -4593,27 +4597,27 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
         {
             #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudentSchoolAssociation;
-        
+
             if (ReferenceEquals(this, compareTo))
                 return true;
 
             if (compareTo == null)
                 return false;
-            
- 
+
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName)) 
+                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName)) 
+                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
- 
+
             // Referenced Property
             if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname)) 
+                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
                 return false;
             #pragma warning disable 472
 
@@ -4632,17 +4636,17 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
             unchecked
             {
                 int hash = 17;
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName != null) 
+                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName != null) 
+                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.GetHashCode();
- 
+
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname != null) 
+                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname != null)
                     hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
@@ -4664,7 +4668,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
         //                     One-to-one relationships
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-    
+
         // =============================================================
         //              Inherited One-to-one relationships
         // -------------------------------------------------------------
@@ -4681,7 +4685,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
         // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
         public System.Collections.IDictionary Extensions {
             get { return null; }
-            set { } 
+            set { }
         }
         // -------------------------------------------------------------
 
@@ -4727,8 +4731,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
-        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.SchoolResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.SchoolResourceId
+        {
             get { return null; }
             set { ImplicitSchoolReference.ResourceId = value ?? default(Guid); }
         }
@@ -4741,8 +4745,8 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
         }
 
 
-        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.StudentResourceId 
-        { 
+        Guid? Entities.Common.Homograph.IStudentSchoolAssociation.StudentResourceId
+        {
             get { return null; }
             set { ImplicitStudentReference.ResourceId = value ?? default(Guid); }
         }
@@ -4781,7 +4785,7 @@ namespace EdFi.Ods.Api.Models.Resources.StudentSchoolAssociation.Homograph
             // -----------------------
             //  Validate unified keys
             // -----------------------
-        
+
             // Recursively invoke the child collection item validators
 
             if (failures.Any())

@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.ChangeQueries.Models;
+using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.ChangeQueries.Providers
 {

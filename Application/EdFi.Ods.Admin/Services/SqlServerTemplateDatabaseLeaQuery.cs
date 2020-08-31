@@ -5,9 +5,6 @@
 
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 

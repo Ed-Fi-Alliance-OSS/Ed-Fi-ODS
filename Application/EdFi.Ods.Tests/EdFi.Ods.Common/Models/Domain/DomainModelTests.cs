@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Data;
 using System.Linq;
@@ -10,8 +11,9 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests.TestExtension;
+using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
@@ -19,7 +21,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
     [TestFixture]
     public class DomainModelTests
     {
-        public class When_constructing_a_DomainModel_with_definitions_arguments : LegacyTestFixtureBase
+        public class When_constructing_a_DomainModel_with_definitions_arguments : TestFixtureBase
         {
             private AggregateDefinition _agDefinition;
             private EntityDefinition _entityDefinition1;
@@ -85,22 +87,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 _domainModelDefinitionsProvider = Stub<IDomainModelDefinitionsProvider>();
 
-                _domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                               .Return(
-                                                    new DomainModelDefinitions(
-                                                        _schemaDefinition,
-                                                        new[]
-                                                        {
-                                                            _agDefinition
-                                                        },
-                                                        new[]
-                                                        {
-                                                            _entityDefinition1, _entityDefinition2, _entityDefinition3, _entityDefinition4
-                                                        },
-                                                        new[]
-                                                        {
-                                                            _associateDefinition
-                                                        }));
+                A.CallTo(()=> _domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                    .Returns(
+                        new DomainModelDefinitions(
+                            _schemaDefinition,
+                            new[]
+                            {
+                                _agDefinition
+                            },
+                            new[]
+                            {
+                                _entityDefinition1, _entityDefinition2, _entityDefinition3, _entityDefinition4
+                            },
+                            new[]
+                            {
+                                _associateDefinition
+                            }));
+
             }
 
             protected override void Act()
@@ -234,7 +237,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             }
         }
 
-        public class When_constructing_a_domain_model_with_aggregate_extensions_present : LegacyTestFixtureBase
+        public class When_constructing_a_domain_model_with_aggregate_extensions_present : TestFixtureBase
         {
             private IDomainModelDefinitionsProvider _extensionDefinitionsProvider;
             private DomainModel _domainModel;
@@ -261,19 +264,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             public void Resulting_model_should_contain_aggregate_extension_entities_as_members_of_edfi_aggregates()
             {
                 var aggregateExtensionContainingAggregates = _domainModel.Entities.Where(e => e.IsAggregateExtension)
-                                                                         .Select(e => e.Aggregate);
+                    .Select(e => e.Aggregate);
 
                 AssertHelper.All(
                     aggregateExtensionContainingAggregates
-                       .Select(
+                        .Select(
                             a =>
                                 (Action)
                                 (() =>
-                                     Assert.That(
-                                         a.AggregateRoot.IsEdFiStandardEntity,
-                                         Is.True,
-                                         $@"Aggregate extension {a.FullName} is not part of an Ed-Fi standard Aggregate")))
-                       .ToArray());
+                                    Assert.That(
+                                        a.AggregateRoot.IsEdFiStandardEntity,
+                                        Is.True,
+                                        $@"Aggregate extension {a.FullName} is not part of an Ed-Fi standard Aggregate")))
+                        .ToArray());
             }
 
             [Test]
@@ -283,30 +286,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
                 AssertHelper.All(
                     actualAggregateExtensionEntities
-                       .Select(
+                        .Select(
                             e =>
                                 (Action)
                                 (() =>
-                                     Assert.That(
-                                         e.IncomingAssociations.Any(a => a.OtherEntity.IsEdFiStandardEntity),
-                                         Is.True,
-                                         $@"Association from aggregate extension entity to Ed-Fi standard entity not found for {e.FullName}")))
-                       .ToArray());
+                                    Assert.That(
+                                        e.IncomingAssociations.Any(a => a.OtherEntity.IsEdFiStandardEntity),
+                                        Is.True,
+                                        $@"Association from aggregate extension entity to Ed-Fi standard entity not found for {e.FullName}")))
+                        .ToArray());
             }
 
             [Test]
             public void Resulting_model_should_contain_expected_aggregate_extension_entities()
             {
                 var actualAggregateExtensionEntities = _domainModel.Entities.Where(e => e.IsAggregateExtension)
-                                                                   .Select(e => e.FullName);
+                    .Select(e => e.FullName);
 
                 var expectedAggregateExtensionEntities = _extensionDefinitionsProvider.GetDomainModelDefinitions()
-                                                                                      .AggregateExtensionDefinitions
-                                                                                      .FirstOrDefault()
-                                                                                     ?.ExtensionEntityNames;
+                    .AggregateExtensionDefinitions
+                    .FirstOrDefault()
+                    ?.ExtensionEntityNames;
 
                 Assert.That(actualAggregateExtensionEntities, Is.EquivalentTo(expectedAggregateExtensionEntities));
             }
         }
     }
 }
+#endif

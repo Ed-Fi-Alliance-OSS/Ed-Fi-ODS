@@ -1,16 +1,17 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Ods.Admin.DataAccess.IntegrationTests.Models;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
 using FakeItEasy;
@@ -48,12 +49,6 @@ namespace EdFi.Ods.Admin.Tests.Services
                 DeleteApplicationEducationOrganization(_leaId);
                 DeleteVendor(_vendorName);
 
-                var leaQuery = Stub<ITemplateDatabaseLeaQuery>();
-
-                A.CallTo(() => leaQuery.GetLocalEducationAgencyIds(A<string>._))
-                    .Returns(
-                        new[] {_leaId});
-
                 var configValueProvider = Stub<IConfigValueProvider>();
 
                 A.CallTo(() => configValueProvider.GetValue("DefaultApplicationName"))
@@ -68,16 +63,16 @@ namespace EdFi.Ods.Admin.Tests.Services
                 var usersContextFactory = Stub<IUsersContextFactory>();
 
                 A.CallTo(() => usersContextFactory.CreateContext())
-                    .Returns(new SqlServerUsersContext());
+                    .Returns(new SqlServerUsersContext(ConnectionString));
 
-                using (var context = new SqlServerUsersContext())
+                using (var context = new SqlServerUsersContext(ConnectionString))
                 {
                     var vendor = new Vendor {VendorName = _vendorName};
 
                     context.Vendors.Add(vendor);
                     context.SaveChanges();
 
-                    var creator = new DefaultApplicationCreator(usersContextFactory, leaQuery, configValueProvider);
+                    var creator = new DefaultApplicationCreator(usersContextFactory, configValueProvider);
 
                     _createdApplication =
                         creator.FindOrCreateUpdatedDefaultSandboxApplication(vendor.VendorId, SandboxType.Sample);
@@ -173,9 +168,9 @@ namespace EdFi.Ods.Admin.Tests.Services
                 var usersContextFactory = Stub<IUsersContextFactory>();
 
                 A.CallTo(() => usersContextFactory.CreateContext())
-                    .Returns(new SqlServerUsersContext());
+                    .Returns(new SqlServerUsersContext(ConnectionString));
 
-                using (var context = new SqlServerUsersContext())
+                using (var context = new SqlServerUsersContext(ConnectionString))
                 {
                     var vendor = new Vendor {VendorName = vendorName};
 
@@ -185,7 +180,7 @@ namespace EdFi.Ods.Admin.Tests.Services
                     context.Vendors.Add(vendor);
                     context.SaveChanges();
 
-                    var creator = new DefaultApplicationCreator(usersContextFactory, leaQuery, configValueProvider);
+                    var creator = new DefaultApplicationCreator(usersContextFactory, configValueProvider);
                     _foundApplication = creator.FindOrCreateUpdatedDefaultSandboxApplication(vendor.VendorId, SandboxType.Sample);
                     context.SaveChanges();
 
@@ -218,3 +213,4 @@ namespace EdFi.Ods.Admin.Tests.Services
         }
     }
 }
+#endif

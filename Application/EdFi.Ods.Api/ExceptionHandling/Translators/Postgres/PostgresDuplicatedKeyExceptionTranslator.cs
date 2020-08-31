@@ -6,6 +6,7 @@
 using System;
 using System.Net;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Api.Models;
 using NHibernate.Exceptions;
 using Npgsql;
 

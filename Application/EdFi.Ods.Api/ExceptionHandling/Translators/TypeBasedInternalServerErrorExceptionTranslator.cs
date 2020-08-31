@@ -5,7 +5,7 @@
 
 using System;
 using System.Net;
-using EdFi.Ods.Api.Exceptions;
+using EdFi.Ods.Common.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
@@ -17,8 +17,14 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
             typeof(ApiSecurityConfigurationException)
         };
 
-        protected override Type[] ExceptionTypes => _exceptionTypes;
+        protected override Type[] ExceptionTypes
+        {
+            get => _exceptionTypes;
+        }
 
-        protected override HttpStatusCode ResponseCode => HttpStatusCode.InternalServerError;
+        protected override HttpStatusCode ResponseCode
+        {
+            get => HttpStatusCode.InternalServerError;
+        }
     }
 }

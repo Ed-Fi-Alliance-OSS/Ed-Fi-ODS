@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using EdFi.Ods.Common.Caching;
 using EdFi.TestFixture;
 using NUnit.Framework;
@@ -335,3 +336,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Caching
         }
     }
 }
+
+#endif

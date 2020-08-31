@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -20,36 +20,56 @@ namespace EdFi.Ods.CodeGen.Generators
         private const string NullRequest = "Null{0}Request";
         private const string ProfileContentTypeBase = "application/vnd.ed-fi.{0}.{1}.{2}";
 
+        private string BaseNamespaceName { get; set; }
+
+        private string RequestBaseNamespaceName { get; set; }
+
+        protected override void Configure()
+        {
+            BaseNamespaceName = Namespaces.Api.Controllers;
+            RequestBaseNamespaceName = Namespaces.Requests.RelativeNamespace;
+        }
+
         protected override object Build()
         {
             return new
-                   {
-                       Controllers = GetStandardizedResourceProfileData()
-                                    .Where(r => (r.Readable == null || !r.Readable.IsAbstract()) && (r.Writable == null || !r.Writable.IsAbstract()))
-                                    .Select(r => GetControllersModel(r))
-                                    .ToList(),
-                       ControllersBaseNamespace = Namespaces.Api.Controllers, ProperCaseName = TemplateContext.SchemaProperCaseName
-                   };
+            {
+                Controllers = GetStandardizedResourceProfileData()
+                    .Where(
+                        r => (r.Readable == null || !r.Readable.IsAbstract()) && (r.Writable == null || !r.Writable.IsAbstract()))
+                    .Select(GetControllersModel)
+                    .ToList(),
+                ControllersBaseNamespace = BaseNamespaceName,
+                ProperCaseName = TemplateContext.SchemaProperCaseName
+            };
         }
 
         private object GetControllersModel(StandardizedResourceProfileData resourceData)
         {
             return new
-                   {
-                       ControllersNamespace = FormatControllersNamespace(resourceData), NullRequests = GetNullRequests(resourceData),
-                       ControllerClass = string.Format("{0}Controller", resourceData.ResolvedResource.PluralName),
-                       ResourceReadModel = FormatResourceReadModel(resourceData), ResourceWriteModel = FormatResourceWriteModel(resourceData),
-                       EntityInterface = FormatEntityInterface(resourceData.ResolvedResource),
-                       AggregateRoot = FormatAggregateRoot(resourceData.ResolvedResource), PutRequest = FormatWritableRequest(resourceData, "Put"),
-                       PostRequest = FormatWritableRequest(resourceData, "Post"), DeleteRequest = FormatDeleteRequest(resourceData),
-                       GetByExampleRequest = FormatReadableRequest(resourceData, "GetByExample"), ResourceName = resourceData.ResolvedResource.Name,
-                       MapAllExpression = FormatReadExpressions(
-                           resourceData,
-                           r => r.AllRequestProperties()),
-                       ResourceCollectionName = resourceData.ResolvedResource.PluralName.ToCamelCase(),
-                       ReadContentType = FormatReadContentType(resourceData), OverrideHttpFunctions = FormatHttpFunctionOverides(resourceData),
-                       ExtensionNamespacePrefix = FormatExtensionNamespacePrefix(resourceData), IsExtensionContext = TemplateContext.IsExtension
-                   };
+            {
+                ControllersNamespace = FormatControllersNamespace(resourceData),
+                NullRequests = GetNullRequests(resourceData),
+                ControllerClass = $"{resourceData.ResolvedResource.PluralName}Controller",
+                RouteTemplate = $"{resourceData.ResolvedResource.SchemaUriSegment()}/{resourceData.ResolvedResource.PluralName.ToCamelCase()}",
+                ResourceReadModel = FormatResourceReadModel(resourceData),
+                ResourceWriteModel = FormatResourceWriteModel(resourceData),
+                EntityInterface = FormatEntityInterface(resourceData.ResolvedResource),
+                AggregateRoot = FormatAggregateRoot(resourceData.ResolvedResource),
+                PutRequest = FormatWritableRequest(resourceData, "Put"),
+                PostRequest = FormatWritableRequest(resourceData, "Post"),
+                DeleteRequest = FormatDeleteRequest(resourceData),
+                GetByExampleRequest = FormatReadableRequest(resourceData, "GetByExample"),
+                ResourceName = resourceData.ResolvedResource.Name,
+                MapAllExpression = FormatReadExpressions(
+                    resourceData,
+                    r => r.AllRequestProperties()),
+                ResourceCollectionName = resourceData.ResolvedResource.PluralName.ToCamelCase(),
+                ReadContentType = FormatReadContentType(resourceData),
+                OverrideHttpFunctions = FormatHttpFunctionOverides(resourceData),
+                ExtensionNamespacePrefix = FormatExtensionNamespacePrefix(resourceData),
+                IsExtensionContext = TemplateContext.IsExtension
+            };
         }
 
         private object FormatHttpFunctionOverides(StandardizedResourceProfileData resourceData)
@@ -60,41 +80,50 @@ namespace EdFi.Ods.CodeGen.Generators
             if (resourceData.Readable == null)
             {
                 return new[]
-                       {
-                           new
-                           {
-                               MethodName = "Get", MethodParameters = "Guid id", resourceData.ProfileName, AllowedHttpMethods = ReadOnlyHttpMethods
-                           },
-                           new
-                           {
-                               MethodName = "GetAll", MethodParameters =
-                                   string.Format(
-                                       "UrlQueryParametersRequest urlQueryParametersRequest, {0} specification = null",
-                                       FormatReadableRequest(resourceData, "GetAll")),
-                               resourceData.ProfileName, AllowedHttpMethods = ReadOnlyHttpMethods
-                           }
-                       };
+                {
+                    new
+                    {
+                        MethodName = "Get",
+                        MethodParameters = "Guid id",
+                        resourceData.ProfileName,
+                        AllowedHttpMethods = ReadOnlyHttpMethods
+                    },
+                    new
+                    {
+                        MethodName = "GetAll",
+                        MethodParameters =
+                            string.Format(
+                                "UrlQueryParametersRequest urlQueryParametersRequest, {0} specification = null",
+                                FormatReadableRequest(resourceData, "GetAll")),
+                        resourceData.ProfileName,
+                        AllowedHttpMethods = ReadOnlyHttpMethods
+                    }
+                };
             }
 
             if (resourceData.Writable == null)
             {
                 return new[]
-                       {
-                           new
-                           {
-                               MethodName = "Post", MethodParameters = string.Format(
-                                   "{0} request",
-                                   FormatWritableRequest(resourceData, "Post")),
-                               resourceData.ProfileName, AllowedHttpMethods = WriteOnlyHttpMethods
-                           },
-                           new
-                           {
-                               MethodName = "Put", MethodParameters = string.Format(
-                                   "{0} request, Guid id",
-                                   FormatWritableRequest(resourceData, "Put")),
-                               resourceData.ProfileName, AllowedHttpMethods = WriteOnlyHttpMethods
-                           }
-                       };
+                {
+                    new
+                    {
+                        MethodName = "Post",
+                        MethodParameters = string.Format(
+                            "{0} request",
+                            FormatWritableRequest(resourceData, "Post")),
+                        resourceData.ProfileName,
+                        AllowedHttpMethods = WriteOnlyHttpMethods
+                    },
+                    new
+                    {
+                        MethodName = "Put",
+                        MethodParameters = string.Format(
+                            "{0} request, Guid id",
+                            FormatWritableRequest(resourceData, "Put")),
+                        resourceData.ProfileName,
+                        AllowedHttpMethods = WriteOnlyHttpMethods
+                    }
+                };
             }
 
             return null;
@@ -106,28 +135,26 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             if (resourceData.Readable == null)
             {
-                return new
-                       {
-                           HasProperties = false
-                       };
+                return new {HasProperties = false};
             }
 
             //For matching purposes
             var unfilteredResource = ResourceModelProvider.GetResourceModel()
-                                                          .GetResourceByFullName(resourceData.Readable.Entity.FullName);
+                .GetResourceByFullName(resourceData.Readable.Entity.FullName);
 
             //otherwise resourceData.Readable
             return new
-                   {
-                       HasProperties = true, Properties = resourcePropertiesToRender.Invoke(unfilteredResource)
-                                                                                    .OrderBy(x => x.EntityProperty.PropertyName)
-                                                                                    .Select(
-                                                                                         y => new
-                                                                                              {
-                                                                                                  SpecificationProperty = y.PropertyName,
-                                                                                                  RequestProperty = y.PropertyName
-                                                                                              })
-                   };
+            {
+                HasProperties = true,
+                Properties = resourcePropertiesToRender.Invoke(unfilteredResource)
+                    .OrderBy(x => x.EntityProperty.PropertyName)
+                    .Select(
+                        y => new
+                        {
+                            SpecificationProperty = y.PropertyName,
+                            RequestProperty = y.PropertyName
+                        })
+            };
         }
 
         private static string FormatReadContentType(StandardizedResourceProfileData resourceData)
@@ -135,7 +162,7 @@ namespace EdFi.Ods.CodeGen.Generators
             return resourceData.ProfileName == null
                 ? null
                 : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource, resourceData.ProfileName, "readable+json")
-                        .ToLower();
+                    .ToLower();
         }
 
         private static string FormatWriteContentType(StandardizedResourceProfileData resourceData)
@@ -143,7 +170,7 @@ namespace EdFi.Ods.CodeGen.Generators
             return resourceData.ProfileName == null
                 ? null
                 : string.Format(ProfileContentTypeBase, resourceData.ResolvedResource, resourceData.ProfileName, "writable+json")
-                        .ToLower();
+                    .ToLower();
         }
 
         private string FormatControllersNamespace(StandardizedResourceProfileData resourceData)
@@ -151,7 +178,7 @@ namespace EdFi.Ods.CodeGen.Generators
             return string.Format(
                 "{0}{1}",
                 EdFiConventions.BuildNamespace(
-                    Namespaces.Api.Controllers,
+                    BaseNamespaceName,
                     TemplateContext.GetSchemaProperCaseNameForResource(resourceData.ResolvedResource),
                     resourceData.ResolvedResource.PluralName,
                     resourceData.ResolvedResource.Entity.IsExtensionEntity),
@@ -192,16 +219,10 @@ namespace EdFi.Ods.CodeGen.Generators
                 string.Format(NullRequest, "Write"));
         }
 
-        private static string RemoveApiNamespacePrefix(string namespaceName)
-        {
-            return namespaceName.Replace(Namespaces.Api.BaseNamespace, string.Empty)
-                                .TrimStart('.');
-        }
-
         private static string RemoveEdFiNamespacePrefix(string namespaceName)
         {
             return namespaceName.Replace(Namespaces.OdsBaseNamespace, string.Empty)
-                                .TrimStart('.');
+                .TrimStart('.');
         }
 
         private string FormatResourceReadModel(StandardizedResourceProfileData resourceData)
@@ -211,7 +232,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 return FormatNullReadRequest(resourceData);
             }
 
-            return RemoveApiNamespacePrefix(
+            return RemoveEdFiNamespacePrefix(
                 string.Format(
                     "{0}.{1}",
                     EdFiConventions.CreateResourceNamespace(
@@ -230,7 +251,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 return FormatNullWriteRequest(resourceData);
             }
 
-            return RemoveApiNamespacePrefix(
+            return RemoveEdFiNamespacePrefix(
                 string.Format(
                     "{0}.{1}",
                     EdFiConventions.CreateResourceNamespace(
@@ -285,8 +306,8 @@ namespace EdFi.Ods.CodeGen.Generators
             string properCaseName = resource.IsEdFiResource()
                 ? TemplateContext.SchemaProperCaseName
                 : resource.ResourceModel.SchemaNameMapProvider
-                          .GetSchemaMapByPhysicalName(resource.Entity.Schema)
-                          .ProperCaseName;
+                    .GetSchemaMapByPhysicalName(resource.Entity.Schema)
+                    .ProperCaseName;
 
             return RemoveEdFiNamespacePrefix(
                 string.Format(
@@ -302,8 +323,8 @@ namespace EdFi.Ods.CodeGen.Generators
             string properCaseName = resource.IsEdFiResource()
                 ? TemplateContext.SchemaProperCaseName
                 : resource.ResourceModel.SchemaNameMapProvider
-                          .GetSchemaMapByPhysicalName(resource.Entity.Schema)
-                          .ProperCaseName;
+                    .GetSchemaMapByPhysicalName(resource.Entity.Schema)
+                    .ProperCaseName;
 
             return RemoveEdFiNamespacePrefix(
                 $"{resource.Entity.AggregateNamespace(properCaseName)}.{resource.Name}");
@@ -319,16 +340,18 @@ namespace EdFi.Ods.CodeGen.Generators
             var readRequest = resourceData.Readable != null
                 ? null
                 : new
-                  {
-                      ContentType = FormatReadContentType(resourceData), ClassName = FormatNullReadRequest(resourceData)
-                  };
+                {
+                    ContentType = FormatReadContentType(resourceData),
+                    ClassName = FormatNullReadRequest(resourceData)
+                };
 
             var writeRequest = resourceData.Writable != null
                 ? null
                 : new
-                  {
-                      ContentType = FormatWriteContentType(resourceData), ClassName = FormatNullWriteRequest(resourceData)
-                  };
+                {
+                    ContentType = FormatWriteContentType(resourceData),
+                    ClassName = FormatNullWriteRequest(resourceData)
+                };
 
             //One of the requests has to be populated.
             return readRequest ?? writeRequest;
@@ -339,34 +362,38 @@ namespace EdFi.Ods.CodeGen.Generators
             if (ProjectHasProfileDefinition)
             {
                 return ProfileResourceNamesProvider
-                      .GetProfileResourceNames()
-                      .Select(prn => prn.ProfileName)
-                      .Distinct()
-                      .Select(
-                           profileName =>
-                               ProfileResourceModelProvider.GetProfileResourceModel(profileName))
-                      .SelectMany(
-                           prm => prm.Resources.Select(
-                               pct =>
-                                   new StandardizedResourceProfileData
-                                   {
-                                       Readable = pct.Readable, Writable = pct.Writable, ProfileName = prm.ProfileName
-                                   }))
-                      .OrderBy(spd => spd.ProfileName.ToLower())
-                      .ThenBy(x => x.ResolvedResource.Name);
+                    .GetProfileResourceNames()
+                    .Select(prn => prn.ProfileName)
+                    .Distinct()
+                    .Select(
+                        profileName =>
+                            ProfileResourceModelProvider.GetProfileResourceModel(profileName))
+                    .SelectMany(
+                        prm => prm.Resources.Select(
+                            pct =>
+                                new StandardizedResourceProfileData
+                                {
+                                    Readable = pct.Readable,
+                                    Writable = pct.Writable,
+                                    ProfileName = prm.ProfileName
+                                }))
+                    .OrderBy(spd => spd.ProfileName.ToLower())
+                    .ThenBy(x => x.ResolvedResource.Name);
             }
 
             return ResourceModelProvider.GetResourceModel()
-                                        .GetAllResources()
-                                        .Where(r => !r.IsAbstract() && TemplateContext.ShouldRenderResourceClass(r))
-                                        .OrderBy(x => x.Name)
-                                        .Select(
-                                             resource =>
-                                                 new StandardizedResourceProfileData
-                                                 {
-                                                     Readable = resource, Writable = resource, ProfileName = null
-                                                 })
-                                        .OrderBy(x => x.ResolvedResource.Name);
+                .GetAllResources()
+                .Where(r => !r.IsAbstract() && TemplateContext.ShouldRenderResourceClass(r))
+                .OrderBy(x => x.Name)
+                .Select(
+                    resource =>
+                        new StandardizedResourceProfileData
+                        {
+                            Readable = resource,
+                            Writable = resource,
+                            ProfileName = null
+                        })
+                .OrderBy(x => x.ResolvedResource.Name);
         }
 
         private string FormatExtensionNamespacePrefix(StandardizedResourceProfileData profileData)
@@ -381,8 +408,8 @@ namespace EdFi.Ods.CodeGen.Generators
             }
 
             var extensionsName = resource.ResourceModel.SchemaNameMapProvider
-                                         .GetSchemaMapByPhysicalName(resource.Entity.Schema)
-                                         .ProperCaseName;
+                .GetSchemaMapByPhysicalName(resource.Entity.Schema)
+                .ProperCaseName;
 
             return $"{Namespaces.Entities.Common.RelativeNamespace}.{extensionsName}.";
         }

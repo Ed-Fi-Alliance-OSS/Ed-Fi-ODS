@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using EdFi.Ods.Api.Models;
 
 namespace EdFi.Ods.Api.ExceptionHandling
 {

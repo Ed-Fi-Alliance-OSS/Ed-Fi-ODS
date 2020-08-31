@@ -7,6 +7,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 

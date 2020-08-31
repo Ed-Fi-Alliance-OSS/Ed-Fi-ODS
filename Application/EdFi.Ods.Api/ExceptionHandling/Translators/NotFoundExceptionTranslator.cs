@@ -5,7 +5,8 @@
 
 using System;
 using System.Net;
-using EdFi.Ods.Api.Exceptions;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators

@@ -3,16 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
-using EdFi.Ods.Common.Composites;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features.Composites;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
@@ -33,7 +34,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 var domainModel = DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel();
 
                 var resource = domainModel.ResourceModel.GetAllResources()
-                                          .First(r => r.Name.Equals("Assessment"));
+                    .First(r => r.Name.Equals("Assessment"));
 
                 var embeddedObject = resource.EmbeddedObjects.First(e => e.PropertyName.Equals("AssessmentContentStandard"));
 
@@ -66,7 +67,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
                 var resourceModel =
                     DomainModelDefinitionsProviderHelper.DomainModelProvider.GetDomainModel()
-                                                        .ResourceModel;
+                        .ResourceModel;
 
                 var definitionProcessor =
                     new CompositeDefinitionProcessor
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 // Get all the category names
                 var categoryNames =
                     compositeMetadataProvider.GetAllCategories()
-                                             .First(c => c.Name.Equals("test") && c.DisplayName.Equals("Test"));
+                        .First(c => c.Name.Equals("test") && c.DisplayName.Equals("Test"));
 
                 IReadOnlyList<XElement> compositeDefinitions;
 
@@ -116,3 +117,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
     }
 }
+#endif

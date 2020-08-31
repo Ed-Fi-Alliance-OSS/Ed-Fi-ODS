@@ -3,13 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -32,12 +31,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(string.Empty,
-                        string.Empty,
-                        new List<int> { EducationOrganizationId },
-                        Enumerable.Empty<string>(),
-                        Enumerable.Empty<string>(),
-                        string.Empty,
-                        null, null));
+                    string.Empty,
+                    new List<int> { EducationOrganizationId },
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    string.Empty,
+                    null, null));
 
             _databaseNameReplacementTokenProvider =
                 new DistrictSpecificDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
@@ -56,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     }
 
     public class When_using_district_specific_database_name_replacement_token_provider_with_no_api_key_context
-    : TestFixtureBase
+        : TestFixtureBase
     {
         private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
 
@@ -156,3 +155,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 }
+#endif

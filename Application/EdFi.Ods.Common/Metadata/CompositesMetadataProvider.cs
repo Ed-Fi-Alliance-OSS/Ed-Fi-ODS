@@ -233,7 +233,7 @@ namespace EdFi.Ods.Common.Metadata
 
         private static bool IsCompositesAssembly(Assembly assembly)
         {
-            return assembly.FullName.Contains("Composites"); // TODO: Embedded convention
+            return assembly.FullName.StartsWithIgnoreCase("EdFi.Ods.Composites"); // TODO: Embedded convention
         }
     }
 

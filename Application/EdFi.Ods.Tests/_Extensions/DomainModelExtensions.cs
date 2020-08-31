@@ -3,8 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Reflection;
-using EdFi.Ods.Api.NHibernate;
+using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Tests._Extensions
@@ -19,3 +20,4 @@ namespace EdFi.Ods.Tests._Extensions
         }
     }
 }
+#endif

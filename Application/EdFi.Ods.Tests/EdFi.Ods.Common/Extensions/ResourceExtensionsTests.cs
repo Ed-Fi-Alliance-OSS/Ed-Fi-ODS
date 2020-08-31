@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -30,11 +31,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel();
 
                 _stateEducationAgency = resourceModel.GetAllResources()
-                                                     .First(r => r.Name == "StateEducationAgency");
+                    .First(r => r.Name == "StateEducationAgency");
 
                 _educationOrganizationAddresses = resourceModel.GetAllResources()
-                                                               .SelectMany(r => r.Collections)
-                                                               .First(c => c.PropertyName == "EducationOrganizationAddresses");
+                    .SelectMany(r => r.Collections)
+                    .First(c => c.PropertyName == "EducationOrganizationAddresses");
             }
 
             protected override void Act()
@@ -60,11 +61,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel();
 
                 _resourceProperty = resourceModel.GetAllResources()
-                                                 .SelectMany(r => r.AllProperties)
-                                                 .FirstOrDefault(
-                                                      p =>
-                                                          p.EntityProperty != null
-                                                          && p.EntityProperty.IncomingAssociations.Count > 1);
+                    .SelectMany(r => r.AllProperties)
+                    .FirstOrDefault(
+                        p =>
+                            p.EntityProperty != null
+                            && p.EntityProperty.IncomingAssociations.Count > 1);
             }
 
             protected override void Act()
@@ -90,16 +91,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel();
 
                 _derivedResource = resourceModel.GetAllResources()
-                                                .First(r => r.IsDerived);
+                    .First(r => r.IsDerived);
 
                 _expectedResourceProperties = _derivedResource.AllProperties.Where(
-                                                                   p => ModelComparers.Entity.Equals(
-                                                                       _derivedResource.Entity,
-                                                                       p.EntityProperty.Entity))
-                                                              .Union(
-                                                                   _derivedResource.IdentifyingProperties.Where(
-                                                                       p => p.EntityProperty != null
-                                                                            && p.EntityProperty.IncomingAssociations.Any()));
+                        p => ModelComparers.Entity.Equals(
+                            _derivedResource.Entity,
+                            p.EntityProperty.Entity))
+                    .Union(
+                        _derivedResource.IdentifyingProperties.Where(
+                            p => p.EntityProperty != null
+                                 && p.EntityProperty.IncomingAssociations.Any()));
             }
 
             [Test]
@@ -121,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel();
 
                 _resource = resourceModel.GetAllResources()
-                                         .First(r => !r.IsDerived);
+                    .First(r => !r.IsDerived);
 
                 _expectedResourceProperties = _resource.AllProperties;
             }
@@ -150,19 +151,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                     DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel();
 
                 _resource = resourceModel.GetAllResources()
-                                         .First(r => r.Name == "Student");
+                    .First(r => r.Name == "Student");
 
                 var unifiedProperties =
                     _resource.IdentifyingProperties.Where(
-                                  p => p.EntityProperty != null && p.EntityProperty.IncomingAssociations.Count > 1)
-                             .Union(
-                                  _resource.AllProperties,
-                                  ModelComparers.ResourcePropertyNameOnly);
+                            p => p.EntityProperty != null && p.EntityProperty.IncomingAssociations.Count > 1)
+                        .Union(
+                            _resource.AllProperties,
+                            ModelComparers.ResourcePropertyNameOnly);
 
                 _expectedResourceProperties =
                     unifiedProperties.Where(
                         p => !_resource.References.SelectMany(r => r.Properties)
-                                       .Contains(p));
+                            .Contains(p));
             }
 
             protected override void Act()
@@ -192,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
                 var resources = resourceModel.GetAllResources();
 
                 _resourceChildItem = resources.SelectMany(r => r.AllContainedItemTypes)
-                                              .First(i => i.Name == "AssessmentContentStandard");
+                    .First(i => i.Name == "AssessmentContentStandard");
 
                 _resource = resources.First(r => r.Name == "StateEducationAgency");
             }
@@ -241,3 +242,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
         }
     }
 }
+#endif

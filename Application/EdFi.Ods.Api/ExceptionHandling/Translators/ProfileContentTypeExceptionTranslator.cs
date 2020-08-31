@@ -5,6 +5,7 @@
 
 using System;
 using System.Net;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
@@ -12,10 +13,10 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
     public class ProfileContentTypeExceptionTranslator : IExceptionTranslator
     {
         /// <summary>
-        /// Attempts to translate the specified <see cref="Exception"/> to an error message that hides 
+        /// Attempts to translate the specified <see cref="System.Exception"/> to an error message that hides
         /// internal details of the service implementation and is palatable for consumers of the API.
         /// </summary>
-        /// <param name="ex">The <see cref="Exception"/> to be translated.</param>
+        /// <param name="ex">The <see cref="System.Exception"/> to be translated.</param>
         /// <param name="webServiceError">The web service error response model.</param>
         /// <returns><b>true</b> if the exception was handled; otherwise <b>false</b>.</returns>
         public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)

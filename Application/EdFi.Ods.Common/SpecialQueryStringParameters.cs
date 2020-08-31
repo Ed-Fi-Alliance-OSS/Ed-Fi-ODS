@@ -44,7 +44,10 @@ namespace EdFi.Ods.Common
         public static readonly HashSet<string> Names =
             new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
             {
-                Q, Limit, Offset, CorrelationId
+                Q,
+                Limit,
+                Offset,
+                CorrelationId
             };
     }
 }

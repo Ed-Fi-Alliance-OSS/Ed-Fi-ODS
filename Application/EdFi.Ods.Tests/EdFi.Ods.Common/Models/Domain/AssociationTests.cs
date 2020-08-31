@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -22,8 +23,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         protected override void Act()
         {
             var domainModelBuilder = new DomainModelBuilder();
-
-            // Perform the action to be tested
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
                     new FullName("schema", "Parent"),
@@ -107,3 +106,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         }
     }
 }
+#endif

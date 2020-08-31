@@ -6,6 +6,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 
@@ -16,11 +17,11 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         protected abstract Type[] ExceptionTypes { get; }
 
         protected abstract HttpStatusCode ResponseCode { get; }
-        
+
         public bool TryTranslateMessage(Exception ex, out RESTError webServiceError)
         {
             Preconditions.ThrowIfNull(ex, nameof(ex));
-            
+
             webServiceError = null;
 
             if (!ExceptionTypes.Contains(ex.GetType()))
@@ -30,8 +31,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
 
             webServiceError = new RESTError
             {
-                Code = (int) ResponseCode, 
-                Type = ResponseCode.ToString().NormalizeCompositeTermForDisplay(), 
+                Code = (int) ResponseCode,
+                Type = ResponseCode.ToString().NormalizeCompositeTermForDisplay(),
                 Message = ex.GetAllMessages()
             };
 

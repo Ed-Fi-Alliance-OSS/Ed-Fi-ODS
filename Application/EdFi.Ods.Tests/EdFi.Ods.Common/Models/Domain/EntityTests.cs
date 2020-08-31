@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
             Assert.That(
                 _entity.AlternateIdentifiers[0]
-                       .Properties.Select(p => p.PropertyName),
+                    .Properties.Select(p => p.PropertyName),
                 Is.EqualTo(
                     new[]
                     {
@@ -214,7 +215,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
             Assert.That(
                 _entity.AlternateIdentifiers[0]
-                       .Properties.Select(p => p.PropertyName),
+                    .Properties.Select(p => p.PropertyName),
                 Is.EqualTo(
                     new[]
                     {
@@ -223,7 +224,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
             Assert.That(
                 _entity.AlternateIdentifiers[1]
-                       .Properties.Select(p => p.PropertyName),
+                    .Properties.Select(p => p.PropertyName),
                 Is.EqualTo(
                     new[]
                     {
@@ -481,7 +482,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 specializedSchool.InheritedOutgoingAssociations.Select(x => x.Name),
                 Is.EquivalentTo(
                     edOrg.OutgoingAssociations.Select(x => x.Name)
-                         .Concat(school.OutgoingAssociations.Select(x => x.Name))));
+                        .Concat(school.OutgoingAssociations.Select(x => x.Name))));
         }
 
         [Test]
@@ -493,8 +494,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
             Assert.That(
                 specializedSchool.InheritedProperties
-                                 .Where(x => x.IsIdentifying)
-                                 .Select(x => x.PropertyName),
+                    .Where(x => x.IsIdentifying)
+                    .Select(x => x.PropertyName),
                 Is.EquivalentTo(specializedSchool.Identifier.Properties.Select(x => x.PropertyName)));
         }
 
@@ -511,8 +512,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 specializedSchool.InheritedNonIdentifyingProperties.Select(x => x.PropertyName),
                 Is.EquivalentTo(
                     edOrg.NonIdentifyingProperties
-                         .Concat(school.NonIdentifyingProperties)
-                         .Select(x => x.PropertyName)));
+                        .Concat(school.NonIdentifyingProperties)
+                        .Select(x => x.PropertyName)));
         }
 
         [Test]
@@ -528,9 +529,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 specializedSchool.InheritedProperties.Select(x => x.PropertyName),
                 Is.EquivalentTo(
                     edOrg.NonIdentifyingProperties
-                         .Concat(school.NonIdentifyingProperties)
-                         .Concat(specializedSchool.BaseAssociation.ThisProperties)
-                         .Select(x => x.PropertyName)));
+                        .Concat(school.NonIdentifyingProperties)
+                        .Concat(specializedSchool.BaseAssociation.ThisProperties)
+                        .Select(x => x.PropertyName)));
         }
 
         [Test]
@@ -561,8 +562,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
 
             Assert.That(
                 school.InheritedProperties
-                      .Where(x => x.IsIdentifying)
-                      .Select(x => x.PropertyName),
+                    .Where(x => x.IsIdentifying)
+                    .Select(x => x.PropertyName),
                 Is.EquivalentTo(school.Identifier.Properties.Select(x => x.PropertyName)));
         }
 
@@ -578,8 +579,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                 school.InheritedProperties.Select(x => x.PropertyName),
                 Is.EquivalentTo(
                     edOrg.NonIdentifyingProperties
-                         .Concat(school.BaseAssociation.ThisProperties)
-                         .Select(x => x.PropertyName)));
+                        .Concat(school.BaseAssociation.ThisProperties)
+                        .Select(x => x.PropertyName)));
         }
     }
 
@@ -762,10 +763,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         public void Should_have_aggregate_member_for_implicit_extension_collection()
         {
             var studentPetExists = _domainModel
-                                  .EntityByFullName[new FullName("edfi", "Student")]
-                                  .Aggregate
-                                  .Members
-                                  .Any(m => m.FullName == new FullName("sample", "StudentPet"));
+                .EntityByFullName[new FullName("edfi", "Student")]
+                .Aggregate
+                .Members
+                .Any(m => m.FullName == new FullName("sample", "StudentPet"));
 
             Assert.That(studentPetExists, Is.True);
         }
@@ -774,10 +775,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         public void Should_have_cardinality_of_OneToZeroOrMore_for_implicit_extension_collection()
         {
             var cardinality = _domainModel
-                             .EntityByFullName[new FullName("edfi", "Student")]
-                             .Aggregate
-                             .Members.Single(m => m.FullName == new FullName("sample", "StudentPet"))
-                             .ParentAssociation.Association.Cardinality;
+                .EntityByFullName[new FullName("edfi", "Student")]
+                .Aggregate
+                .Members.Single(m => m.FullName == new FullName("sample", "StudentPet"))
+                .ParentAssociation.Association.Cardinality;
 
             Assert.That(cardinality, Is.EqualTo(Cardinality.OneToZeroOrMore));
         }
@@ -786,9 +787,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         public void Should_have_aggregate_member_for_implicit_extension_embedded_object()
         {
             var studentPetPreferenceExists = _domainModel
-                                            .EntityByFullName[new FullName("edfi", "Student")]
-                                            .Aggregate
-                                            .Members.Any(m => m.FullName == new FullName("sample", "StudentPetPreference"));
+                .EntityByFullName[new FullName("edfi", "Student")]
+                .Aggregate
+                .Members.Any(m => m.FullName == new FullName("sample", "StudentPetPreference"));
 
             Assert.That(studentPetPreferenceExists, Is.True);
         }
@@ -797,12 +798,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         public void Should_have_cardinality_of_OneToZeroOrMore_for_implicit_extension_embedded_object()
         {
             var cardinality = _domainModel
-                             .EntityByFullName[new FullName("edfi", "Student")]
-                             .Aggregate
-                             .Members.Single(m => m.FullName == new FullName("sample", "StudentPetPreference"))
-                             .ParentAssociation.Association.Cardinality;
+                .EntityByFullName[new FullName("edfi", "Student")]
+                .Aggregate
+                .Members.Single(m => m.FullName == new FullName("sample", "StudentPetPreference"))
+                .ParentAssociation.Association.Cardinality;
 
             Assert.That(cardinality, Is.EqualTo(Cardinality.OneToOne));
         }
     }
 }
+#endif

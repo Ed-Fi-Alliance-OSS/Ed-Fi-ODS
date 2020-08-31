@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common;
@@ -95,16 +96,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             var domainModel = domainModelBuilder.Build();
 
             string entityNamespace = domainModel.EntityByFullName[fullName]
-                                                .AggregateNamespace(EdFiConventions.ProperCaseName);
+                .AggregateNamespace(EdFiConventions.ProperCaseName);
 
             string entityName = domainModel.EntityByFullName[fullName]
-                                           .Name;
+                .Name;
 
             string entityExtensionNamespace = domainModel.EntityByFullName[fullName1]
-                                                         .AggregateNamespace("TestEntity1ExtensionProperCaseName");
+                .AggregateNamespace("TestEntity1ExtensionProperCaseName");
 
             string entityExtensionName = domainModel.EntityByFullName[fullName1]
-                                                    .Name;
+                .Name;
 
             Assert.That(
                 entityNamespace.Equals($"{Namespaces.Entities.NHibernate.BaseNamespace}.{entityName}Aggregate.{EdFiConventions.ProperCaseName}"));
@@ -115,3 +116,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
     }
 }
+#endif

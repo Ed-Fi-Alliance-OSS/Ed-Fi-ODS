@@ -10,6 +10,6 @@ using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 #endregion
 
 namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Homograph
-{ 
+{
 
 }

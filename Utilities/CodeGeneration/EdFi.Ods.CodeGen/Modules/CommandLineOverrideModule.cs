@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Common.Database;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Providers.Impl;
-using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.CodeGen.Modules
 {

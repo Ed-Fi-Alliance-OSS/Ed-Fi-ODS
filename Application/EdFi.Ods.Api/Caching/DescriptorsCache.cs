@@ -6,10 +6,12 @@
 using System;
 using System.Linq;
 using System.Threading;
-using EdFi.Ods.Api.IdentityValueMappers;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Dtos;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils;
 
@@ -47,14 +49,13 @@ namespace EdFi.Ods.Api.Caching
             get
             {
                 var currentTime = SystemClock.Now();
-                DateTime lastSynced;
 
-                if (!_cacheProvider.TryGetCachedObject(GetLastSynchedKey(), out lastSynced))
+                if (!_cacheProvider.TryGetCachedObject(GetLastSynchedKey(), out object lastSynced))
                 {
                     lastSynced = DateTime.MinValue;
                 }
 
-                var totalSeconds = (currentTime - lastSynced).TotalSeconds;
+                var totalSeconds = (currentTime - (DateTime) lastSynced).TotalSeconds;
                 return totalSeconds > DatabaseSynchronizationExpirationSeconds;
             }
         }
@@ -71,10 +72,9 @@ namespace EdFi.Ods.Api.Caching
                 return default(string);
             }
 
-            string codeValue;
             var lookupKey = GetDescriptorLookupKeyById(descriptorName, id);
 
-            if (TryGetCachedValue(lookupKey, out codeValue))
+            if (TryGetCachedValue(lookupKey, out string codeValue))
             {
                 return codeValue;
             }
@@ -108,10 +108,9 @@ namespace EdFi.Ods.Api.Caching
                 return default(int);
             }
 
-            int id;
             var lookupKey = GetDescriptorLookupKeyByValue(descriptorName, descriptorValue);
 
-            if (TryGetCachedId(lookupKey, out id))
+            if (TryGetCachedId(lookupKey, out int id))
             {
                 return id;
             }
@@ -277,7 +276,7 @@ namespace EdFi.Ods.Api.Caching
 
             try
             {
-                return _cacheProvider.TryGetCachedObject(lookupKey, out id);
+                return CacheProviderExtensions.TryGetCachedObject(_cacheProvider, lookupKey, out id);
             }
             finally
             {
@@ -291,7 +290,7 @@ namespace EdFi.Ods.Api.Caching
 
             try
             {
-                return _cacheProvider.TryGetCachedObject(lookupKey, out value);
+                return CacheProviderExtensions.TryGetCachedObject(_cacheProvider, lookupKey, out value);
             }
             finally
             {

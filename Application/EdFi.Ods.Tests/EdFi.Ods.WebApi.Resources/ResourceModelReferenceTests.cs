@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Models.Resources.BellSchedule.EdFi;
-using EdFi.Ods.Api.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi;
-using EdFi.Ods.Api.Models.Resources.StudentSchoolAttendanceEvent.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.BellSchedule.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi;
+using EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi;
 using EdFi.Ods.Entities.Common.EdFi;
+using EdFi.TestFixture;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
@@ -19,7 +21,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
     public class ResourceModelReferenceTests
     {
         public class When_initalizing_a_model_with_an_optional_reference_where_none_of_the_optional_references_properties_are_explicitly_set
-            : LegacyTestFixtureBase
+            : TestFixtureBase
         {
             // Supplied values
             private StaffEducationOrganizationAssignmentAssociation _model;
@@ -44,8 +46,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
                 _modelInterface = _model;
 
                 // Set only the required "key" properties on the main model
-                _modelInterface.StaffUniqueId =
-                    "ABC123"; // This also serves as part of the optional reference, but is "unified" (or shared) from other references.
+                // This also serves as part of the optional reference, but is "unified" (or shared) from other references.
+                _modelInterface.StaffUniqueId = "ABC123";
 
                 _modelInterface.EducationOrganizationId = 123;
                 _modelInterface.StaffClassificationDescriptor = "Hello";
@@ -80,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             }
         }
 
-        public class When_setting_and_getting_properties_for_an_optional_reference_on_a_model : LegacyTestFixtureBase
+        public class When_setting_and_getting_properties_for_an_optional_reference_on_a_model : TestFixtureBase
         {
             private StaffEducationOrganizationAssignmentAssociation _model;
             private IStaffEducationOrganizationAssignmentAssociation _modelInterface;
@@ -94,7 +96,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
                 // This property is "unified" with other references
                 _modelInterface.StaffUniqueId = "ABC123";
 
-                // Because it's shared by multiple references, this property should return its value 
+                // Because it's shared by multiple references, this property should return its value
                 // immediately (it's not **specific** to the optional reference)
                 _modelInterface.StaffUniqueId.ShouldBe("ABC123");
 
@@ -194,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             }
         }
 
-        public class When_deserializing_a_model_with_a_reference_based_on_a_composite_key : LegacyTestFixtureBase
+        public class When_deserializing_a_model_with_a_reference_based_on_a_composite_key : TestFixtureBase
         {
             private StudentSchoolAttendanceEvent _model;
 
@@ -240,7 +242,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             }
         }
 
-        public class When_deserializing_a_model_with_a_reference_based_on_a_composite_key_with_backReference_presence : LegacyTestFixtureBase
+        public class When_deserializing_a_model_with_a_reference_based_on_a_composite_key_with_backReference_presence : TestFixtureBase
         {
             private BellSchedule _model;
             /* C# initializer helper
@@ -303,15 +305,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Resources
             public void Should_return_a_reference()
             {
                 _model.BellScheduleClassPeriods.First()
-                      .ClassPeriodReference.ShouldNotBeNull();
+                    .ClassPeriodReference.ShouldNotBeNull();
             }
 
             [Assert]
             public void Reference_should_return_the_non_default_values()
             {
                 _model.BellScheduleClassPeriods.First()
-                      .ClassPeriodReference.ClassPeriodName.ShouldBe("ABC");
+                    .ClassPeriodReference.ClassPeriodName.ShouldBe("ABC");
             }
         }
     }
 }
+#endif

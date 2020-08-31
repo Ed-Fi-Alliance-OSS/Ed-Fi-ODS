@@ -7,6 +7,7 @@ using System;
 using System.Data.SqlClient;
 using System.Net;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using NHibernate.Exceptions;
 
@@ -38,7 +39,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
          * 
          */
 
-        private static readonly Regex expression = new Regex(
+        private static readonly Regex _expression = new Regex(
             @"^The (?<StatementType>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint ""(?<ConstraintName>\w+)"".*?table ""[a-z]+\.(?<TableName>\w+)""(?:, column '(?<ColumnName>\w+)')?");
 
         // ^The (?<Statement>INSERT|UPDATE|DELETE) statement conflicted with the (?<ConstraintType>FOREIGN KEY|REFERENCE) constraint "(?<ConstraintName>\w+)".*?table "[a-z]+\.(?<TableName>\w+)".*?(?: column '(?<ColumnName>\w+)')?
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
             if (exception is SqlException)
             {
                 // Is this a constraint violation message from SQL Server?
-                var match = expression.Match(exception.Message);
+                var match = _expression.Match(exception.Message);
 
                 if (match.Success)
                 {

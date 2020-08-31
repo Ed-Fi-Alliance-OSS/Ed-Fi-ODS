@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Api.NHibernate.Filtering;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
@@ -12,7 +12,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
     public class RelationshipsWithEdOrgsOnlyAuthorizationStrategyFilterConfigurator : INHibernateFilterConfigurator
     {
         /// <summary>
-        /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them. 
+        /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
         public IReadOnlyList<FilterApplicationDetails> GetFilters()

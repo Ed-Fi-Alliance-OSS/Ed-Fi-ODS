@@ -3,9 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Runtime.Serialization;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Test1
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Test1
 {
     [DataContract]
     public class StaffLanguageExtension
@@ -18,7 +19,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Tes
     }
 }
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.TestArbitraryCasing
 {
     [DataContract]
     public class StaffLanguageExtension
@@ -27,3 +28,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Models.Resources.Staff.EdFi.Extensions.Tes
         public bool IsFictional { get; set; }
     }
 }
+#endif

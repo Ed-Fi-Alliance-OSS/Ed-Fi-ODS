@@ -5,6 +5,7 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Common.Security;
@@ -40,6 +41,39 @@ namespace EdFi.Ods.Sandbox.Security
                    };
         }
 
+        public async Task<ApiClientIdentity> GetApiClientIdentityAsync(string key)
+        {
+            var client = await GetClientAsync(key);
+
+            var edOrgs = client.ApplicationEducationOrganizations.Select(aeo => aeo.EducationOrganizationId)
+                .ToList();
+
+            var profiles = client.Application.Profiles.Select(p => p.ProfileName)
+                .ToList();
+
+            var namespacePrefixes = client.Application.Vendor.VendorNamespacePrefixes.Select(vnp => vnp.NamespacePrefix)
+                .ToList();
+
+            return new ApiClientIdentity
+            {
+                ClaimSetName = client.Application.ClaimSetName,
+                EducationOrganizationIds = edOrgs,
+                Key = key,
+                NamespacePrefixes = namespacePrefixes,
+                Profiles = profiles
+            };
+        }
+
+        public async Task<ApiClientSecret> GetSecretAsync(string key)
+        {
+            var client = await GetClientAsync(key);
+
+            return new ApiClientSecret
+            {
+                Secret = client.Secret, IsHashed = client.SecretIsHashed
+            };
+        }
+
         public ApiClientSecret GetSecret(string key)
         {
             var client = GetClient(key);
@@ -62,6 +96,18 @@ namespace EdFi.Ods.Sandbox.Security
         private ApiClient GetClient(string key)
         {
             var client = _clientAppRepo.GetClient(key);
+
+            if (client == null)
+            {
+                throw new ArgumentException($"Invalid key:'{key}'");
+            }
+
+            return client;
+        }
+
+        private async Task<ApiClient> GetClientAsync(string key)
+        {
+            var client = await _clientAppRepo.GetClientAsync(key);
 
             if (client == null)
             {

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETSTANDARD
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -10,20 +11,17 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {
     public abstract class UsersContext : DbContext, IUsersContext
     {
-        public const string ConnectionStringName = "EdFi_Admin";
 
-        protected UsersContext()
-            : base(ConnectionStringName)
+        protected UsersContext(string connectionString)
+            : base(connectionString)
         {
             Database.SetInitializer(new ValidateDatabase<UsersContext>());
         }
-
         public const string UserTableName = "Users";
 
         public static string UserNameColumn
@@ -69,7 +67,7 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         /// <remarks>
         /// Sub-classes should override this to provide database system-specific column and/or
-        /// table mappings: for example, if a linking table column in Postgres needs to map to a 
+        /// table mappings: for example, if a linking table column in Postgres needs to map to a
         /// name other than the default provided by Entity Framework.
         /// </remarks>
         protected virtual void ApplyProviderSpecificMappings(DbModelBuilder modelBuilder) { }
@@ -90,7 +88,41 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         private static string UserMemberName(Expression<Func<User, object>> emailExpression)
         {
-            return emailExpression.MemberName();
+            return MemberName(emailExpression);
+
+            string MemberName(LambdaExpression expression)
+            {
+                var memberExpression = expression.Body as MemberExpression;
+
+                if (memberExpression != null)
+                {
+                    return memberExpression.Member.Name;
+                }
+
+                var methodExpression = expression.Body as MethodCallExpression;
+
+                if (methodExpression != null)
+                {
+                    return methodExpression.Method.Name;
+                }
+
+                var unaryExpression = expression.Body as UnaryExpression;
+
+                if (unaryExpression != null)
+                {
+                    var unaryMember = unaryExpression.Operand as MemberExpression;
+
+                    if (unaryMember == null)
+                    {
+                        throw new ArgumentException($"Strange operand in unary expression '{expression}'");
+                    }
+
+                    return unaryMember.Member.Name;
+                }
+
+                throw new ArgumentException($"Expression '{expression}' of type '{expression.Body.GetType()}' is not handled");
+            }
         }
     }
 }
+#endif

@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -9,12 +9,14 @@ using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using EdFi.Ods.Common.Configuration;
 
 // ReSharper disable InconsistentNaming
 
@@ -38,15 +40,22 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         protected override void Arrange()
         {
             _transaction = new TransactionScope();
-
-            Factory = Stub<IUsersContextFactory>();
-
+             Factory = Stub<IUsersContextFactory>();
+           
+            var config = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+           
+            var connectionStringProvider = new ConfigConnectionStringsProvider(config);
+          
             A.CallTo(() => Factory.CreateContext())
-                .Returns(new SqlServerUsersContext());
+                .Returns(new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")));
 
             SystemUnderTest = new AccessTokenClientRepo(Factory);
 
-            TestFixtureContext = new SqlServerUsersContext();
+            TestFixtureContext = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin"));
         }
 
         [OneTimeTearDown]

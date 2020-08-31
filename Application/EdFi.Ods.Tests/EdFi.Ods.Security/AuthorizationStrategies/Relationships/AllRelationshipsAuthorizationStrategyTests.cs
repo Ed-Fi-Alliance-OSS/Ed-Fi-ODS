@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -45,7 +46,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             params string[] propertyNames)
         {
             A.CallTo(() =>
-                dependency.GetAuthorizationContextPropertyNames())
+                    dependency.GetAuthorizationContextPropertyNames())
                 .Returns(propertyNames);
 
             return dependency;
@@ -56,7 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData> provider)
         {
             A.CallTo(() =>
-                dependency.GetProvider(A<Type>.Ignored))
+                    dependency.GetProvider(A<Type>.Ignored))
                 .Returns(provider);
 
             return dependency;
@@ -67,13 +68,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             int educationOrganizationId)
         {
             A.CallTo(() =>
-                dependency
-                    .GetEducationOrganizationIdentifiers(educationOrganizationId))
-                    .Returns(
-                           new EducationOrganizationIdentifiers(
-                               educationOrganizationId,
-                               "LocalEducationAgency",
-                               localEducationAgencyId: educationOrganizationId));
+                    dependency
+                        .GetEducationOrganizationIdentifiers(educationOrganizationId))
+                .Returns(
+                    new EducationOrganizationIdentifiers(
+                        educationOrganizationId,
+                        "LocalEducationAgency",
+                        localEducationAgencyId: educationOrganizationId));
 
             return dependency;
         }
@@ -82,7 +83,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
         //     this IEducationOrganizationCache dependency,
         //     int educationOrganizationId)
         // {
-        //     return 
+        //     return
         //         A.CallTo(() => dependency.GetEducationOrganizationIdentifiers(educationOrganizationId));
         // }
 
@@ -92,7 +93,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             A.CallTo(() =>
                     dependency
                         .GetEducationOrganizationHierarchy())
-                        .Returns(new AdjacencyGraph<string, Edge<string>>());
+                .Returns(new AdjacencyGraph<string, Edge<string>>());
 
             return dependency;
         }
@@ -109,7 +110,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             RelationshipsAuthorizationContextData contextData)
         {
             A.CallTo(() => dependency.GetConcreteAuthorizationContextData(contextData))
-                      .Returns(contextData);
+                .Returns(contextData);
 
             return dependency;
         }
@@ -146,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<context_data_provider>()
-                   .that_returns_property_names(
+                    .that_returns_property_names(
                         Supplied(
                             "propertyNames",
                             new[]
@@ -155,10 +156,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                             }));
 
                 Given<context_data_provider_factory>()
-                   .that_always_returns(Given<context_data_provider>());
+                    .that_always_returns(Given<context_data_provider>());
 
                 Given<education_organization_cache>()
-                   .that_always_returns_a_Local_Education_Agency_for(Supplied("LocalEducationAgencyId", 999));
+                    .that_always_returns_a_Local_Education_Agency_for(Supplied("LocalEducationAgencyId", 999));
 
                 Supplied("entity", new object());
 
@@ -198,7 +199,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Arrange()
             {
                 Given<context_data_provider>()
-                   .that_returns_property_names(
+                    .that_returns_property_names(
                         Supplied(
                             "propertyNames",
                             new[]
@@ -207,23 +208,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                             }));
 
                 Given<context_data_provider_factory>()
-                   .that_always_returns(Given<context_data_provider>());
+                    .that_always_returns(Given<context_data_provider>());
 
                 Supplied("LocalEducationAgencyId", 999);
                 Supplied("SchoolId", 888);
 
                 A.CallTo(() =>
-                    Given<education_organization_cache>()
-                        .GetEducationOrganizationIdentifiers(Supplied<int>("LocalEducationAgencyId")))
-                        .Returns(
-                            new EducationOrganizationIdentifiers(
-                                Supplied<int>("LocalEducationAgencyId"),
-                                "LocalEducationAgency"));
+                        Given<education_organization_cache>()
+                            .GetEducationOrganizationIdentifiers(Supplied<int>("LocalEducationAgencyId")))
+                    .Returns(
+                        new EducationOrganizationIdentifiers(
+                            Supplied<int>("LocalEducationAgencyId"),
+                            "LocalEducationAgency"));
 
                 A.CallTo(() =>
-                    Given<education_organization_cache>()
-                        .GetEducationOrganizationIdentifiers(Supplied<int>("SchoolId")))
-                   .Returns(new EducationOrganizationIdentifiers(Supplied<int>("SchoolId"), "School"));
+                        Given<education_organization_cache>()
+                            .GetEducationOrganizationIdentifiers(Supplied<int>("SchoolId")))
+                    .Returns(new EducationOrganizationIdentifiers(Supplied<int>("SchoolId"), "School"));
 
                 Supplied("entity", new object());
 
@@ -250,8 +251,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             {
                 ActualException.ShouldNotBeOfType<NotSupportedException>();
             }
-            
-            
+
+
             [Assert]
             public void Should_call_segments_converter_to_convert_segments_built_based_on_the_supplied_claims_with_the_supplied_entity_type_and_filter_builder()
             {
@@ -299,27 +300,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                     });
 
                 Given<education_organization_cache>()
-                   .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
+                    .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
 
                 Given<education_organization_hierarchy_provider>()
-                   .that_always_returns_an_empty_graph();
+                    .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(
                     new passthrough_context_data_transformer());
 
                 Given<context_data_provider>()
-                   .that_returns_property_names(
+                    .that_returns_property_names(
                         Supplied(
                             "propertyNames",
                             new[]
                             {
                                 "LocalEducationAgencyId", "StaffUSI"
                             }))
-                   .that_given_entity(Supplied("entity"))
-                   .Returns(Supplied<RelationshipsAuthorizationContextData>());
+                    .that_given_entity(Supplied("entity"))
+                    .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
                 Given<context_data_provider_factory>()
-                   .that_always_returns(Given<context_data_provider>());
+                    .that_always_returns(Given<context_data_provider>());
 
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
@@ -329,12 +330,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Act()
             {
                 SystemUnderTest.AuthorizeSingleItemAsync(
-                    new[]
-                    {
-                        Supplied<Claim>()
-                    },
-                    Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Supplied<Claim>()
+                        },
+                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -372,27 +373,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                     });
 
                 Given<education_organization_cache>()
-                   .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
+                    .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
 
                 Given<education_organization_hierarchy_provider>()
-                   .that_always_returns_an_empty_graph();
+                    .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(
                     new passthrough_context_data_transformer());
 
                 Given<context_data_provider>()
-                   .that_returns_property_names(
+                    .that_returns_property_names(
                         Supplied(
                             "propertyNames",
                             new[]
                             {
                                 "LocalEducationAgencyId"
                             }))
-                   .that_given_entity(Supplied("entity"))
-                   .Returns(Supplied<RelationshipsAuthorizationContextData>());
+                    .that_given_entity(Supplied("entity"))
+                    .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
                 Given<context_data_provider_factory>()
-                   .that_always_returns(Given<context_data_provider>());
+                    .that_always_returns(Given<context_data_provider>());
 
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
@@ -402,12 +403,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Act()
             {
                 SystemUnderTest.AuthorizeSingleItemAsync(
-                    new[]
-                    {
-                        Supplied<Claim>()
-                    },
-                    Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Supplied<Claim>()
+                        },
+                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -415,8 +416,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             public void Should_not_call_through_to_verify_the_segments()
             {
                 A.CallTo(() =>
-                    Given<IAuthorizationSegmentsVerifier>()
-                        .VerifyAsync(A<IReadOnlyList<ClaimsAuthorizationSegment>>.Ignored, A<CancellationToken>.Ignored))
+                        Given<IAuthorizationSegmentsVerifier>()
+                            .VerifyAsync(A<IReadOnlyList<ClaimsAuthorizationSegment>>.Ignored, A<CancellationToken>.Ignored))
                     .MustNotHaveHappened();
             }
         }
@@ -448,28 +449,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
                     });
 
                 Given<education_organization_cache>()
-                   .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"))
-                   .that_always_returns_a_Local_Education_Agency_for(777);
+                    .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"))
+                    .that_always_returns_a_Local_Education_Agency_for(777);
 
                 Given<education_organization_hierarchy_provider>()
-                   .that_always_returns_an_empty_graph();
+                    .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(
                     new passthrough_context_data_transformer());
 
                 Given<context_data_provider>()
-                   .that_returns_property_names(
+                    .that_returns_property_names(
                         Supplied(
                             "propertyNames",
                             new[]
                             {
                                 "LocalEducationAgencyId"
                             }))
-                   .that_given_entity(Supplied("entity"))
-                   .Returns(Supplied<RelationshipsAuthorizationContextData>());
+                    .that_given_entity(Supplied("entity"))
+                    .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
                 Given<context_data_provider_factory>()
-                   .that_always_returns(Given<context_data_provider>());
+                    .that_always_returns(Given<context_data_provider>());
 
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(777));
@@ -478,12 +479,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Act()
             {
                 SystemUnderTest.AuthorizeSingleItemAsync(
-                    new[]
-                    {
-                        Supplied<Claim>()
-                    },
-                    Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                    CancellationToken.None)
+                        new[]
+                        {
+                            Supplied<Claim>()
+                        },
+                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
+                        CancellationToken.None)
                     .WaitSafely();
             }
 
@@ -496,3 +497,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
         }
     }
 }
+#endif

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Tests._Extensions;
@@ -63,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             public void Should_parse_the_schema_name_from_the_first_segment()
             {
                 Assert.That(
-                    _actualBagNameParts.SchemaProperCaseName, 
+                    _actualBagNameParts.SchemaProperCaseName,
                     Is.EqualTo(_suppliedExtensionBagName.Split('_')[0]));
             }
 
@@ -71,9 +72,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
             public void Should_parse_the_schema_name_from_the_last_segment()
             {
                 Assert.That(
-                    _actualBagNameParts.PluralName, 
+                    _actualBagNameParts.PluralName,
                     Is.EqualTo(_suppliedExtensionBagName.Split('_')[1]));
             }
         }
     }
 }
+#endif

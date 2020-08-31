@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Security
 
         protected override bool CanHandleRequest(SecureHashRequest request)
         {
-            // to allow for auto upgrading of an existing hash routine that used the string version of GetHashCode() 
+            // to allow for auto upgrading of an existing hash routine that used the string version of GetHashCode()
             // we need to keep it in this check. Note, the string version of GetHashCode() is not deterministic when outside of the app domain.
             return request.HashAlgorithm == HashHelper.GetSha256Hash(Algorithm).ToInt32()
                    || request.HashAlgorithm == Algorithm.GetHashCode();

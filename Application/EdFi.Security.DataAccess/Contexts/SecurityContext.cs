@@ -11,11 +11,19 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public abstract class SecurityContext : DbContext, ISecurityContext
     {
+#if NETFRAMEWORK
         protected SecurityContext()
             : base("EdFi_Security")
         {
             Database.SetInitializer(new ValidateDatabase<SecurityContext>());
         }
+#elif NETSTANDARD
+        protected SecurityContext(string connectionString)
+            : base(connectionString)
+        {
+            Database.SetInitializer(new ValidateDatabase<SecurityContext>());
+        }
+#endif
 
         public DbSet<Application> Applications { get; set; }
 

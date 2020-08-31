@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Web.Http;
+using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Sandbox.Provisioners;
 
 namespace EdFi.Ods.Admin.Controllers.Api
@@ -13,7 +14,7 @@ namespace EdFi.Ods.Admin.Controllers.Api
         public string Command { get; set; }
     }
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = SecurityRoles.Administrator)]
     public class SandboxController : ApiController
     {
         private readonly ISandboxProvisioner _sandboxProvisioner;

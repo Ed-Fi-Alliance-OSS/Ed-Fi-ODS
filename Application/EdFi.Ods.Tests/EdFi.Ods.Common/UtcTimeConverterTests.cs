@@ -3,12 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using EdFi.Ods.Common;
+using EdFi.TestFixture;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common
 {
@@ -57,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
 
         [TestFixture]
-        public class When_serializing_and_deserializing_time_values_from_JSON_to_nullable_or_non_nullable_times : LegacyTestFixtureBase
+        public class When_serializing_and_deserializing_time_values_from_JSON_to_nullable_or_non_nullable_times : TestFixtureBase
         {
             private Times times;
             private NullableTimes nullableTimes;
@@ -65,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
             private string serializedJsonForNullableTimes;
             private Times rolloverTimes;
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 times = JsonConvert.DeserializeObject<Times>(
                     @"
@@ -176,12 +177,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
 
         [TestFixture]
-        public class When_deserializing_null_values_to_nullable_time_value_from_JSON : LegacyTestFixtureBase
+        public class When_deserializing_null_values_to_nullable_time_value_from_JSON : TestFixtureBase
         {
             private NullableTimes nullableTimes;
             private string serializedJsonForNullableTimes;
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 nullableTimes = JsonConvert.DeserializeObject<NullableTimes>(
                     @"
@@ -219,3 +220,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
         }
     }
 }
+#endif

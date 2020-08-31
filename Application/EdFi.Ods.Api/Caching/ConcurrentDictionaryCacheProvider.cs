@@ -6,8 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web.Caching;
+using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Api.Caching
 {

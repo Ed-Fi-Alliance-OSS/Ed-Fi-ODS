@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETSTANDARD
 using System;
 using System.Configuration;
 using EdFi.Common.Database;
@@ -15,9 +16,10 @@ namespace EdFi.Ods.Common.Database
     /// Gets the connection string using a configured named connection string as a prototype for the connection string
     /// with an injected <see cref="IDatabaseNameReplacementTokenProvider"/> to replace token in database name.
     /// </summary>
-    public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IDatabaseConnectionStringProvider
+    public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IOdsDatabaseConnectionStringProvider
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
+
         private readonly IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
         private readonly string _prototypeConnectionStringName;
@@ -54,7 +56,7 @@ namespace EdFi.Ods.Common.Database
 
             if (string.IsNullOrEmpty(protoTypeConnectionString))
             {
-                throw new ConfigurationErrorsException(
+                throw new ArgumentException(
                     $"No connection string named '{_prototypeConnectionStringName}' was found in the 'connectionStrings' section of the application configuration file.");
             }
 
@@ -74,7 +76,7 @@ namespace EdFi.Ods.Common.Database
             {
                 if (_configConnectionStringsProvider.Count == 0)
                 {
-                    throw new ConfigurationErrorsException("No connection strings were found in the configuration file.");
+                    throw new ArgumentException("No connection strings were found in the configuration file.");
                 }
 
                 if (string.IsNullOrWhiteSpace(_prototypeConnectionStringName))
@@ -87,3 +89,4 @@ namespace EdFi.Ods.Common.Database
         }
     }
 }
+#endif

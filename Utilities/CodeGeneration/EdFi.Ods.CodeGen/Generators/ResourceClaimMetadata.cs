@@ -18,21 +18,20 @@ namespace EdFi.Ods.CodeGen.Generators
             var domainModel = TemplateContext.DomainModelProvider.GetDomainModel();
 
             var orderedAggregates = domainModel
-                                   .Entities
-                                   .Where(x => x.IsAggregateRoot && !x.IsAbstract)
-                                   .OrderBy(x => x.FullName.Name)
-                                   .Select(
-                                        x => new
-                                             {
-                                                 DisplayName = x.Name.ToCamelCase(), ResourceName = x.Name.ToCamelCase(),
-                                                 ParentResourceName = GetParentResource(x), HasParent = GetParentResource(x) != null
-                                             })
-                                   .ToList();
+                .Entities
+                .Where(x => x.IsAggregateRoot && !x.IsAbstract)
+                .OrderBy(x => x.FullName.Name)
+                .Select(
+                    x => new
+                    {
+                        DisplayName = x.Name.ToCamelCase(),
+                        ResourceName = x.Name.ToCamelCase(),
+                        ParentResourceName = GetParentResource(x),
+                        HasParent = GetParentResource(x) != null
+                    })
+                .ToList();
 
-            return new
-                   {
-                       Aggregates = orderedAggregates
-                   };
+            return new {Aggregates = orderedAggregates};
         }
 
         private string GetParentResource(Entity entity)

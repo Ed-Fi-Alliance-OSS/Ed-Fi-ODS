@@ -17,31 +17,33 @@ namespace EdFi.Ods.CodeGen.Generators
         protected override object Build()
         {
             return new
-                   {
-                       CommonRecordsNamespace =
-                           EdFiConventions.BuildNamespace(
-                               Namespaces.Entities.Records.BaseNamespace,
-                               TemplateContext.SchemaProperCaseName),
-                       Interfaces =
-                           TemplateContext.DomainModelProvider.GetDomainModel()
-                                          .Entities
-                                          .Where(TemplateContext.ShouldRenderEntity)
-                                          .Select(
-                                               e => new
-                                                    {
-                                                        e.Schema, AggregateRootName = e.Aggregate.AggregateRoot.Name, EntityName = e.Name,
-                                                        EntityProperties = e.EntityRecordInterfaceUnifiedProperties()
-                                                                            .OrderBy(
-                                                                                 p => p.PropertyName)
-                                                                            .Select(
-                                                                                 p => new
-                                                                                      {
-                                                                                          PropertyType = p.PropertyType.ToCSharp(true),
-                                                                                          CSharpSafePropertyName =
-                                                                                              p.PropertyName.MakeSafeForCSharpClass(e.Name)
-                                                                                      })
-                                                    })
-                   };
+            {
+                CommonRecordsNamespace =
+                    EdFiConventions.BuildNamespace(
+                        Namespaces.Entities.Records.BaseNamespace,
+                        TemplateContext.SchemaProperCaseName),
+                Interfaces =
+                    TemplateContext.DomainModelProvider.GetDomainModel()
+                        .Entities
+                        .Where(TemplateContext.ShouldRenderEntity)
+                        .Select(
+                            e => new
+                            {
+                                e.Schema,
+                                AggregateRootName = e.Aggregate.AggregateRoot.Name,
+                                EntityName = e.Name,
+                                EntityProperties = e.EntityRecordInterfaceUnifiedProperties()
+                                    .OrderBy(
+                                        p => p.PropertyName)
+                                    .Select(
+                                        p => new
+                                        {
+                                            PropertyType = p.PropertyType.ToCSharp(true),
+                                            CSharpSafePropertyName =
+                                                p.PropertyName.MakeSafeForCSharpClass(e.Name)
+                                        })
+                            })
+            };
         }
     }
 }

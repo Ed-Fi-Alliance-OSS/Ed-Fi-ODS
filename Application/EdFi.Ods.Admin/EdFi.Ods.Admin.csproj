@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>EdFi.Ods.Admin</AssemblyName>
@@ -16,8 +16,9 @@
     <PackageReference Include="Antlr" Version="3.5.0.2" />
     <PackageReference Include="Castle.Core" Version="4.4.0" />
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="EntityFramework" Version="6.2.0" />
+    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
     <PackageReference Include="Microsoft.AspNet.Web.Optimization" Version="1.1.3" />
@@ -28,6 +29,8 @@
     <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebPages.Data" Version="3.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebPages.WebData" Version="3.2.7" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="4.1.0" />
     <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RazorGenerator.Mvc" Version="2.4.9" />
@@ -46,7 +49,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Common.Http\EdFi.Ods.Common.Http.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="App_Start\RazorGeneratorMvcStart.cs" />

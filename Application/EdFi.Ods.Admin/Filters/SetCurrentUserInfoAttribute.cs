@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Web;
 using System.Web.Mvc;
 using EdFi.Ods.Admin.Services;
+using Microsoft.AspNet.Identity;
 
 namespace EdFi.Ods.Admin.Filters
 {
@@ -35,7 +37,8 @@ namespace EdFi.Ods.Admin.Filters
                 return;
             }
 
-            var userLookup = SecurityService.GetCurrentUser();
+            string currentUserName = HttpContext.Current.User?.Identity?.Name;
+            var userLookup = SecurityService.GetCurrentUser(currentUserName);
             filterContext.Controller.ViewBag.UserLookup = userLookup;
         }
     }

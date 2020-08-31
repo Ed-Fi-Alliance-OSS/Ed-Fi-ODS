@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Context;
@@ -31,12 +32,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 "Profile1",
                 "Profile2"
             };
-            
+
             private const string SuppliedStudentIdentificationSystemDescriptor =
                 "SomeStudentIdentificationSystemDescriptor";
 
             private readonly short _suppliedCreatorOwnershipTokenId = 1;
-            
+
             private readonly short?[] _suppliedOwnershipTokenIds =
             {
                 1,
@@ -164,3 +165,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
         }
     }
 }
+#endif

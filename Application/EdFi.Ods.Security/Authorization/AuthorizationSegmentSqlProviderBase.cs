@@ -34,7 +34,8 @@ namespace EdFi.Ods.Security.Authorization
 
         public AuthorizationSegmentSqlProviderBase(IAuthorizationViewsProvider authorizationViewsProvider)
         {
-            _supportedAuthorizationViewNames = new Lazy<IReadOnlyList<string>>(authorizationViewsProvider.GetAuthorizationViews);
+            _supportedAuthorizationViewNames =
+                new Lazy<IReadOnlyList<string>>(() => authorizationViewsProvider.GetAuthorizationViews().ToReadOnlyList());
         }
 
         public QueryMetadata GetAuthorizationQueryMetadata(

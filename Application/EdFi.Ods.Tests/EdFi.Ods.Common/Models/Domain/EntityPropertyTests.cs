@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -177,12 +178,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             // Direct child entity property lookup by name
             Assert.That(
                 _childEntity.PropertyByName["Primary1a"]
-                            .IsFromParent,
+                    .IsFromParent,
                 Is.True);
 
             Assert.That(
                 _childEntity.PropertyByName["Primary1b"]
-                            .IsFromParent,
+                    .IsFromParent,
                 Is.True);
 
             // Child identifier properties, matched by name
@@ -199,7 +200,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             // Direct child entity property lookup by name
             Assert.That(
                 _childEntity.PropertyByName["Primary2"]
-                            .IsFromParent,
+                    .IsFromParent,
                 Is.False);
 
             // Identifier property
@@ -214,17 +215,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
             Assert.That(_parentOneToManyAssociation.SecondaryEntityAssociationProperties, Has.Length.GreaterThan(0));
 
             _parentOneToManyAssociation.SecondaryEntityAssociationProperties
-                                       .ForEach(p => Assert.That(p.EntityProperty.IsFromParent, p.PropertyName));
+                .ForEach(p => Assert.That(p.EntityProperty.IsFromParent, p.PropertyName));
         }
 
         [Test]
         public virtual void Should_indicate_that_NON_UNIFIED_properties_of_incoming_non_parent_association_is_NOT_from_parent()
         {
             var nonUnifiedProperties = _unifyingNonParentAssociation.SecondaryEntityAssociationProperties
-                                                                    .Except(
-                                                                         _parentOneToManyAssociation.SecondaryEntityAssociationProperties,
-                                                                         ModelComparers.AssociationPropertyNameOnly)
-                                                                    .ToList();
+                .Except(
+                    _parentOneToManyAssociation.SecondaryEntityAssociationProperties,
+                    ModelComparers.AssociationPropertyNameOnly)
+                .ToList();
 
             Assert.That(nonUnifiedProperties, Has.Count.GreaterThan(0));
             nonUnifiedProperties.ForEach(p => Assert.That(p.EntityProperty.IsFromParent, Is.False, p.PropertyName + " is from parent?"));
@@ -234,13 +235,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
         public virtual void Should_indicate_that_unified_properties_of_incoming_non_parent_association_is_from_parent()
         {
             var unifiedProperties = _unifyingNonParentAssociation.SecondaryEntityAssociationProperties
-                                                                 .Intersect(
-                                                                      _parentOneToManyAssociation.SecondaryEntityAssociationProperties,
-                                                                      ModelComparers.AssociationPropertyNameOnly)
-                                                                 .ToList();
+                .Intersect(
+                    _parentOneToManyAssociation.SecondaryEntityAssociationProperties,
+                    ModelComparers.AssociationPropertyNameOnly)
+                .ToList();
 
             Assert.That(unifiedProperties, Has.Count.GreaterThan(0));
             unifiedProperties.ForEach(p => Assert.That(p.EntityProperty.IsFromParent, Is.True, p.PropertyName + " is from parent?"));
         }
     }
 }
+#endif

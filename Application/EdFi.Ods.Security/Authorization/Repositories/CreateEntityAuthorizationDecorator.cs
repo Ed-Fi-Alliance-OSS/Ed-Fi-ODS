@@ -9,8 +9,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
-using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Security.Authorization.Repositories
 {

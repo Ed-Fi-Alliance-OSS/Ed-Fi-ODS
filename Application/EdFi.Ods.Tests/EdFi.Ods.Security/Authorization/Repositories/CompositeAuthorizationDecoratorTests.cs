@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,12 +15,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.NHibernate.Composites;
-using EdFi.Ods.Api.Services.Authorization;
-using EdFi.Ods.Common.Composites;
+using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -27,6 +26,8 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
+using EdFi.Ods.Features.Composites;
+using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Ods.Security.Claims;
@@ -115,21 +116,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 var suppliedFilterText = $"TheField = :{SuppliedParameterName}";
 
-                A.CallTo(() => 
-                    Given<INHibernateFilterTextProvider>()
-                    .TryGetHqlFilterText(
+                A.CallTo(() =>
+                        Given<INHibernateFilterTextProvider>()
+                            .TryGetHqlFilterText(
                                 A<Type>.Ignored,
                                 A<string>.Ignored,
                                 out suppliedFilterText))
                     .Returns(true);
 
                 Supplied("ResourceUriValue", "uri://some-value");
-                
-                A.CallTo(() => 
-                    Given<IResourceClaimUriProvider>()
-                    .GetResourceClaimUris(A<Resource>.Ignored))
+
+                A.CallTo(() =>
+                        Given<IResourceClaimUriProvider>()
+                            .GetResourceClaimUris(A<Resource>.Ignored))
                     .Returns(new[] {Supplied<string>("ResourceUriValue")});
-                
+
                 var claimsIdentityProvider = new ClaimsIdentityProvider(
                     new ApiKeyContextProvider(new CallContextStorage()),
                     new StubSecurityRepository());
@@ -253,7 +254,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
                 Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName, Has.Count.EqualTo(1));
 
                 Assert.That(_hqlBuilderContext.CurrentQueryFilterParameterValueByName.Keys, Is.EquivalentTo(new [] { SuppliedParameterName }));
-                
+
                 Assert.That(
                     _hqlBuilderContext.CurrentQueryFilterParameterValueByName[SuppliedParameterName],
                     Is.EqualTo(SuppliedParameterValue));
@@ -269,9 +270,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
             /// </summary>
             protected override void Arrange()
             {
-                A.CallTo(() => 
-                    Given<IEdFiAuthorizationProvider>()
-                    .GetAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored))
+                A.CallTo(() =>
+                        Given<IEdFiAuthorizationProvider>()
+                            .GetAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored))
                     .Throws(new EdFiSecurityException("Test exception"));
             }
 
@@ -300,7 +301,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
 
                 SystemUnderTest.TryIncludeResource(processorContext, hqlBuilderContext);
             }
-            
+
             [Assert]
             public void Should_throw_a_security_exception()
             {
@@ -368,3 +369,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
         }
     }
 }
+#endif

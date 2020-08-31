@@ -3,36 +3,38 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Linq;
-using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Tests._Extensions;
-using Rhino.Mocks;
+using EdFi.TestFixture;
+using FakeItEasy;
 using Shouldly;
 using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
 {
     public class Feature_Converting_EducationOrganizationId_to_appropriate_concrete_type
-        : LegacyTestFixtureBase
+        : TestFixtureBase
     {
         private static IEducationOrganizationCache Given_a_cache_that_returns_all_identifiers_as_type(string educationOrganizationType)
         {
-            var cache = MockRepository.GenerateStub<IEducationOrganizationCache>();
+            var cache =A.Fake<IEducationOrganizationCache>();
 
-            cache.Stub(x => x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything))
-                 .Return(new EducationOrganizationIdentifiers(0, educationOrganizationType));
+            A.CallTo(() => cache.GetEducationOrganizationIdentifiers(A<int>._))
+                .Returns(new EducationOrganizationIdentifiers(0, educationOrganizationType));
 
             return cache;
         }
 
         private static IEducationOrganizationCache Given_a_cache_that_returns_no_identifiers()
         {
-            return MockRepository.GenerateStub<IEducationOrganizationCache>();
+            return A.Fake<IEducationOrganizationCache>();
         }
 
         private static RelationshipsAuthorizationContextData Given_context_data_for_EducationOrganizationId_of_999()
@@ -42,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             return contextData;
         }
 
-        public class When_attempting_to_convert_a_context_with_a_null_education_organization_identifier : LegacyTestFixtureBase
+        public class When_attempting_to_convert_a_context_with_a_null_education_organization_identifier : TestFixtureBase
         {
             // Supplied values
             private RelationshipsAuthorizationContextData _suppliedContextData;
@@ -73,14 +75,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             [Assert]
             public void Should_not_try_to_look_the_identifier_up_in_the_cache()
             {
-                _educationOrganizationCache.AssertWasNotCalled(
-                    x =>
-                        x.GetEducationOrganizationIdentifiers(Arg<int>.Is.Anything));
+                A.CallTo(
+                    () =>
+                        _educationOrganizationCache.GetEducationOrganizationIdentifiers(A<int>._));
             }
         }
 
         public class When_converting_a_known_identifier_that_is_an_unhandled_type
-            : LegacyTestFixtureBase
+            : TestFixtureBase
         {
             // Actual values
             protected RelationshipsAuthorizationContextData _actualContextData;
@@ -105,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         }
 
         public class When_converting_an_unknown_identifier
-            : LegacyTestFixtureBase
+            : TestFixtureBase
         {
             // Actual values
             protected RelationshipsAuthorizationContextData _actualContextData;
@@ -131,7 +133,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         }
 
         public abstract class When_converting_a_known_identifier_of_a_known_type
-            : LegacyTestFixtureBase
+            : TestFixtureBase
         {
             // Supplied values
 
@@ -164,7 +166,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 object concreteValue;
 
                 values.TryGetValue(ConcreteEducationOrganizationType + "Id", out concreteValue)
-                      .ShouldBeTrue(string.Format("Unable to find property '{0}'Id.", ConcreteEducationOrganizationType));
+                    .ShouldBeTrue(string.Format("Unable to find property '{0}'Id.", ConcreteEducationOrganizationType));
 
                 concreteValue.ShouldBe(999);
             }
@@ -173,12 +175,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             public void Should_not_set_any_other_values_on_the_context()
             {
                 (from p in _actualContextData.GetType()
-                                             .GetProperties()
-                 where p.Name != ConcreteEducationOrganizationType + "Id"
-                       && p.Name != "ConcreteEducationOrganizationIdPropertyName"
-                 select p.GetValue(_actualContextData))
-                   .All(x => x == null)
-                   .ShouldBeTrue("One or more properties on the context data was set.  They should be null.");
+                            .GetProperties()
+                        where p.Name != ConcreteEducationOrganizationType + "Id"
+                              && p.Name != "ConcreteEducationOrganizationIdPropertyName"
+                        select p.GetValue(_actualContextData))
+                    .All(x => x == null)
+                    .ShouldBeTrue("One or more properties on the context data was set.  They should be null.");
             }
         }
 
@@ -228,3 +230,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
         }
     }
 }
+#endif

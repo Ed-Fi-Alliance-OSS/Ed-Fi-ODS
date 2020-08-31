@@ -18,7 +18,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 {
     public class SqlServerSandboxProvisioner : SandboxProvisionerBase
     {
-        private readonly ILog _logger = LogManager.GetLogger(nameof(SqlServerSandboxProvisioner));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
 
         public SqlServerSandboxProvisioner(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)

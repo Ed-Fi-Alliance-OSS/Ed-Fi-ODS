@@ -1,0 +1,87 @@
+#if NETCOREAPP
+using System.Diagnostics.CodeAnalysis;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
+using EdFi.Ods.Common.Infrastructure;
+using EdFi.Ods.Common.Models.Requests;
+using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
+using EdFi.Ods.Entities.Common.{{ProperCaseName}};
+{{#IsExtensionContext}}
+using {{ControllersBaseNamespace}};
+{{/IsExtensionContext}}
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+{{#Controllers}}
+
+namespace {{ControllersNamespace}}
+{
+    {{#NullRequests}}
+    [ContentType("{{ContentType}}")]
+    [ExcludeFromCodeCoverage]
+    public class {{ClassName}} : NullRequestBase { }
+
+    {{/NullRequests}}
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Produces("application/json")]
+    [Route("{{RouteTemplate}}")]
+    public partial class {{ControllerClass}} : DataManagementControllerBase<
+        {{ResourceReadModel}},
+        {{ResourceWriteModel}},
+        {{EntityInterface}},
+        {{AggregateRoot}},
+        {{PutRequest}},
+        {{PostRequest}},
+        {{DeleteRequest}},
+        {{GetByExampleRequest}}>
+    {
+        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll({{GetByExampleRequest}} request, {{ExtensionNamespacePrefix}}I{{ResourceName}} specification)
+        {
+        {{#MapAllExpression}}
+            {{#HasProperties}}
+                        // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            {{/HasProperties}}
+            {{#Properties}}
+            specification.{{SpecificationProperty}} = request.{{RequestProperty}};
+            {{/Properties}}
+            {{^HasProperties}}
+            throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
+            {{/HasProperties}}
+        {{/MapAllExpression}}
+                    }
+
+        protected override string GetResourceCollectionName()
+        {
+            return "{{ResourceCollectionName}}";
+        }
+        {{#ReadContentType}}
+
+        protected override string GetReadContentType()
+        {
+            return "{{ReadContentType}}";
+        }
+        {{/ReadContentType}}
+        {{#OverrideHttpFunctions}}
+
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
+        {
+            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
+                .WithError("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}."));
+        }
+        {{/OverrideHttpFunctions}}
+    }
+}
+{{/Controllers}}
+#endif

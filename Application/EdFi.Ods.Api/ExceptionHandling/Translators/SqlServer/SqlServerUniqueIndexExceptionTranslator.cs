@@ -8,6 +8,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Extensions;
 using NHibernate.Exceptions;
 
@@ -15,7 +17,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
     public class SqlServerUniqueIndexExceptionTranslator : IExceptionTranslator
     {
-        private static readonly Regex expression = new Regex(
+        private static readonly Regex _expression = new Regex(
             @"^Cannot insert duplicate key row in object '[a-z]+\.(?<TableName>\w+)' with unique index '(?<IndexName>\w+)'(?:\. The duplicate key value is (?<Values>\(.*\))\.)?|^Violation of UNIQUE KEY constraint '(?<IndexName>\w+)'. Cannot insert duplicate key in object '[a-z]+\.(?<TableName>\w+)'.");
         private static readonly string singleMessageFormat = "The value {0} supplied for property '{1}' of entity '{2}' is not unique.";
         private static readonly string multipleMessageFormat = "The values {0} supplied for properties '{1}' of entity '{2}' are not unique.";
@@ -36,7 +38,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
             if (exception is SqlException)
             {
-                var match = expression.Match(exception.Message);
+                var match = _expression.Match(exception.Message);
 
                 if (match.Success)
                 {
@@ -59,7 +61,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 
                     string columnNames = indexDetails == null
                         ? "unknown"
-                        : string.Join("', '", indexDetails.ColumnNames.Select(x => x.ToCamelCase()));
+                        : string.Join("', '", indexDetails.ColumnNames.Select<string, string>(x => x.ToCamelCase()));
 
                     string message;
 

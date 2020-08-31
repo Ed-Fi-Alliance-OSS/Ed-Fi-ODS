@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -75,7 +76,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                     () => result.Parameters.Length.ShouldBe(2),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                            .ShouldBeFalse(),
+                        .ShouldBeFalse(),
 
                     // TVP parameters is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
@@ -92,7 +93,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 var sql = result.Sql;
 
                 var expectedSql =
-$@"SELECT 1 WHERE
+                    $@"SELECT 1 WHERE
 (
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 );";
@@ -136,7 +137,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                     () => result.Parameters.Length.ShouldBe(4),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                            .ShouldBeFalse(),
+                        .ShouldBeFalse(),
 
                     // TVP parameters is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
@@ -164,7 +165,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                 var sql = result.Sql;
 
                 var expectedSql =
-$@"SELECT 1 WHERE
+                    $@"SELECT 1 WHERE
 (
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
@@ -219,7 +220,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                     () => result.Parameters.Length.ShouldBe(8),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                            .ShouldBeFalse(),
+                        .ShouldBeFalse(),
 
                     // -----------------------------
                     // Claims to StaffUSI segment
@@ -269,7 +270,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 var sql = result.Sql;
 
                 var expectedSql =
-$@"SELECT 1 WHERE
+                    $@"SELECT 1 WHERE
 (
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p2 and a.StaffUSI = @p3)
@@ -314,10 +315,11 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
+                        // Multiple types of EdOrgIds
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds
+                    },
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -330,7 +332,7 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                     () => result.Parameters.Length.ShouldBe(4),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                            .ShouldBeFalse(),
+                        .ShouldBeFalse(),
 
                     // -----------------------------
                     // Claims to StaffUSI segment
@@ -361,7 +363,7 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                 var sql = result.Sql;
 
                 var expectedSql =
-$@"SELECT 1 WHERE
+                    $@"SELECT 1 WHERE
 (
 EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p0 and a.StaffUSI = @p1)
 )
@@ -404,10 +406,11 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
+                        // Multiple types of EdOrgIds
                         SuppliedLea1,
                         SuppliedPostSecondaryInstitutionId,
                         SuppliedLea2
-                    }, // Multiple types of EdOrgIds
+                    },
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -485,10 +488,12 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 result.ShouldSatisfyAllConditions(
                     () => result.ShouldNotBeNull(),
                     () => result.Parameters.Length.ShouldBe(
-                        _suppliedClaim.EducationOrganizationIds.Count + 1), // + 1 is for StaffUSI segment
+                    
+                        // + 1 is for StaffUSI segment
+                        _suppliedClaim.EducationOrganizationIds.Count + 1),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(NpgsqlParameter))
-                            .ShouldBeFalse(),
+                        .ShouldBeFalse(),
 
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
                     () => result.Parameters[0].Value.ShouldBe(_suppliedClaim.EducationOrganizationIds[0]),
@@ -506,7 +511,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 var sql = result.Sql;
 
                 var expectedSql =
-$@"SELECT 1 WHERE
+                    $@"SELECT 1 WHERE
 (
 EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
 );";
@@ -556,3 +561,4 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
         }
     }
 }
+#endif

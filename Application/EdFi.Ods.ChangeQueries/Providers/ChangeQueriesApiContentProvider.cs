@@ -6,8 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Services.Metadata;
-using EdFi.Ods.Api.Services.Metadata.Providers;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.ChangeQueries.Providers

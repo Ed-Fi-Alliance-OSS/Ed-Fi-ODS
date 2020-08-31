@@ -14,6 +14,11 @@ namespace EdFi.Security.DataAccess.Contexts
 {
     public class PostgresSecurityContext : SecurityContext
     {
+#if NETSTANDARD
+        public PostgresSecurityContext(string connectionString)
+            : base(connectionString) { }
+#endif
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

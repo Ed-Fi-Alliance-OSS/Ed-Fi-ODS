@@ -5,6 +5,7 @@
 
 using System;
 using System.Net;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 

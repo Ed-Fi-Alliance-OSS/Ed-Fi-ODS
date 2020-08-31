@@ -9,16 +9,39 @@ namespace EdFi.Ods.Api.Constants
 {
     public static class MetadataRouteConstants
     {
-        public static string ResourceTypes => EdFiConventions.GetOpenApiMetadataRouteName("ResourceTypes");
+        public static string ResourceTypes
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("ResourceTypes");
+        }
 
-        public static string Profiles => EdFiConventions.GetOpenApiMetadataRouteName("Profiles");
+        public static string Profiles
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Profiles");
+        }
 
-        public static string Composites => EdFiConventions.GetOpenApiMetadataRouteName("Composites");
+        public static string Composites
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Composites");
+        }
 
-        public static string Schema => EdFiConventions.GetOpenApiMetadataRouteName("Schema");
+        public static string Schema
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Schema");
+        }
 
-        public static string All => EdFiConventions.GetOpenApiMetadataRouteName("All");
+        public static string All
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("All");
+        }
 
-        public static string Identity => EdFiConventions.GetOpenApiMetadataRouteName("Identity");
+        public static string Bulk
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Bulk");
+        }
+
+        public static string Identity
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Identity");
+        }
     }
 }

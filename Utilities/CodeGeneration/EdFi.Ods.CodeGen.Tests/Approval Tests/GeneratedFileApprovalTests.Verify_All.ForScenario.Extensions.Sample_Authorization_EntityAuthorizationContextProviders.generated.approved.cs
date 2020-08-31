@@ -13,7 +13,7 @@ using EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sam
 #endregion
 
 namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
-{ 
+{
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the sample.BusRoute table of the BusRoute aggregate in the Ods Database.
@@ -21,7 +21,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
     [ExcludeFromCodeCoverage]
     public class BusRouteRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IBusRoute, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -58,8 +58,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
         public TContextData GetContextData(object resource)
         {
             return GetContextData((BusRoute) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the sample.StudentArtProgramAssociation table of the StudentArtProgramAssociation aggregate in the Ods Database.
@@ -67,7 +67,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentArtProgramAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -106,8 +106,8 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentArtProgramAssociation) resource);
-        } 
-    } 
+        }
+    }
 
     /// <summary>
     /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the sample.StudentGraduationPlanAssociation table of the StudentGraduationPlanAssociation aggregate in the Ods Database.
@@ -115,7 +115,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentGraduationPlanAssociation, TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
-    {     
+    {
         /// <summary>
         /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
         /// </summary>
@@ -154,7 +154,7 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentGraduationPlanAssociation) resource);
-        } 
-    } 
+        }
+    }
 
 }

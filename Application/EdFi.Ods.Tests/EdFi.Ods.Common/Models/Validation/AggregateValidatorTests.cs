@@ -3,19 +3,20 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Collections.Generic;
 using System.Data;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Tests._Extensions;
+using EdFi.TestFixture;
+using FakeItEasy;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
 {
-    public class When_building_a_domain_model_containing_an_aggregate_using_an_undefined_schema : LegacyTestFixtureBase
+    public class When_building_a_domain_model_containing_an_aggregate_using_an_undefined_schema : TestFixtureBase
     {
         private DomainModelBuilder _domainModelBuilder;
 
@@ -32,38 +33,38 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         private static DomainModelBuilder CreateDomainModel()
         {
             var entityDefinitions = new[]
-                                    {
-                                        new EntityDefinition(
-                                            "UndefinedSchema",
-                                            "Entity1",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true)
-                                    };
+            {
+                new EntityDefinition(
+                    "UndefinedSchema",
+                    "Entity1",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions = new AssociationDefinition[]
-                                         { };
+                { };
 
             var aggredateDefinitions = new[]
-                                       {
-                                           new AggregateDefinition(
-                                               new FullName("UndefinedSchema", "Entity1"),
-                                               new FullName[0])
-                                       };
+            {
+                new AggregateDefinition(
+                    new FullName("UndefinedSchema", "Entity1"),
+                    new FullName[0])
+            };
 
-            //  schema names do not match the names on the AggregateDefinition
+            // schema names do not match the names on the AggregateDefinition
             var schemaDefinition = new SchemaDefinition("logicalName", "DefinedSchema");
 
             var modelDefinitions = new DomainModelDefinitions(
@@ -72,10 +73,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                 entityDefinitions,
                 associationDefinitions);
 
-            var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-            domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions);
+            var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                .Returns(modelDefinitions);
 
             DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -96,7 +96,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         }
     }
 
-    public class When_building_a_domain_model_containing_an_aggregate_using_a_defined_schema : LegacyTestFixtureBase
+    public class When_building_a_domain_model_containing_an_aggregate_using_a_defined_schema : TestFixtureBase
     {
         private DomainModel _domainModel;
         private DomainModelBuilder domainModelBuilder;
@@ -114,37 +114,37 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         private static DomainModelBuilder CreateValidDomainModel()
         {
             var entityDefinitions = new[]
-                                    {
-                                        new EntityDefinition(
-                                            "DefinedSchema",
-                                            "Entity1",
-                                            new[]
-                                            {
-                                                new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
-                                            },
-                                            new[]
-                                            {
-                                                new EntityIdentifierDefinition(
-                                                    "PK",
-                                                    new[]
-                                                    {
-                                                        "KeyProperty1", "KeyProperty2"
-                                                    },
-                                                    isPrimary: true)
-                                            },
-                                            true)
-                                    };
+            {
+                new EntityDefinition(
+                    "DefinedSchema",
+                    "Entity1",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("KeyProperty1", new PropertyType(DbType.Int32), null, true)
+                    },
+                    new[]
+                    {
+                        new EntityIdentifierDefinition(
+                            "PK",
+                            new[]
+                            {
+                                "KeyProperty1", "KeyProperty2"
+                            },
+                            isPrimary: true)
+                    },
+                    true)
+            };
 
             var associationDefinitions = new AssociationDefinition[]
-                                         { };
+                { };
 
             var aggredateDefinitions = new[]
-                                       {
-                                           new AggregateDefinition(
-                                               new FullName("DefinedSchema", "Entity1"),
-                                               new FullName[]
-                                               { })
-                                       };
+            {
+                new AggregateDefinition(
+                    new FullName("DefinedSchema", "Entity1"),
+                    new FullName[]
+                        { })
+            };
 
             //  schema names do not match the names on the AggregateDefinition
             var schemaDefinition = new SchemaDefinition("logicalName", "DefinedSchema");
@@ -155,10 +155,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
                 entityDefinitions,
                 associationDefinitions);
 
-            var domainModelDefinitionsProvider = MockRepository.GenerateStub<IDomainModelDefinitionsProvider>();
-
-            domainModelDefinitionsProvider.Stub(x => x.GetDomainModelDefinitions())
-                                          .Return(modelDefinitions);
+            var domainModelDefinitionsProvider = A.Fake<IDomainModelDefinitionsProvider>();
+            A.CallTo(()=> domainModelDefinitionsProvider.GetDomainModelDefinitions())
+                .Returns(modelDefinitions);
 
             DomainModelBuilder builder = new DomainModelBuilder();
 
@@ -178,3 +177,4 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Validation
         }
     }
 }
+#endif

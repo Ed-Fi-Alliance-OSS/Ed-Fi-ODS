@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using EdFi.Ods.Common.Extensions;
 using NHibernate;
 
 namespace EdFi.Ods.Security.Utilities
@@ -9,12 +11,12 @@ namespace EdFi.Ods.Security.Utilities
     /// </summary>
     public class AuthorizationViewsProvider : IAuthorizationViewsProvider
     {
-        private Lazy<List<string>> _authorizationViews;
+        private readonly Lazy<IList<string>> _authorizationViews;
         private readonly ISessionFactory _sessionFactory;
 
         public AuthorizationViewsProvider(ISessionFactory sessionFactory)
         {
-            _authorizationViews = new Lazy<List<string>>(LoadAuthorizationViews);
+            _authorizationViews = new Lazy<IList<string>>(() => LoadAuthorizationViewsAsync().GetResultSafely());
             _sessionFactory = sessionFactory;
         }
 
@@ -22,30 +24,19 @@ namespace EdFi.Ods.Security.Utilities
         /// Returns a list of implemented authorization views
         /// </summary>
         /// <returns>List of valid authorization views</returns>
-        public virtual IReadOnlyList<string> GetAuthorizationViews()
+        public virtual IList<string> GetAuthorizationViews()
         {
             return _authorizationViews.Value;
         }
 
-        private List<string> LoadAuthorizationViews()
+        private async Task<IList<string>> LoadAuthorizationViewsAsync()
         {
-            var views = new List<string>();
-
             using (var session = _sessionFactory.OpenStatelessSession())
             {
-                var cmd = session.Connection.CreateCommand();
-
-                cmd.CommandText = "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'";
-
-                var reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    views.Add(reader[0] as string);
-                }
+                return await session.CreateSQLQuery(
+                        "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'")
+                    .ListAsync<string>();
             }
-
-            return views;
         }
     }
 }

@@ -3,16 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.ChangeQueries.Models;
 using EdFi.Ods.ChangeQueries.SqlServer;
+using EdFi.Ods.Common.Infrastructure;
 using NHibernate;
 using NHibernate.Transform;
 
 namespace EdFi.Ods.ChangeQueries.Providers
 {
     /// <summary>
-    /// Implements an <see cref="AvailableChangeVersionProvider"/> that get the ids of the earliest (oldest) and most 
+    /// Implements an <see cref="AvailableChangeVersionProvider"/> that get the ids of the earliest (oldest) and most
     /// recent (newest) change version available using a standard SQL query executed using the connection
     /// provided by NHibernate.
     /// </summary>

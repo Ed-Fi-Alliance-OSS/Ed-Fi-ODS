@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
-using EdFi.Ods.Api;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Extensibility;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.NHibernate.Architecture;
-using EdFi.Ods.Api.Validation;
+using EdFi.Ods.Api.Attributes;
+using EdFi.Ods.Common.Adapters;
+using EdFi.Ods.Common.Attributes;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -158,7 +158,7 @@ namespace EdFi.Ods.Entities.NHibernate.AccreditationStatusDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -334,7 +334,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -405,7 +405,7 @@ namespace EdFi.Ods.Entities.NHibernate.AidTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -651,7 +651,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1027,7 +1027,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1303,7 +1303,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1461,7 +1461,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1655,7 +1655,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -1728,7 +1728,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -1882,7 +1882,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2002,7 +2002,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2175,7 +2175,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2248,7 +2248,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2401,7 +2401,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2473,7 +2473,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -2724,7 +2724,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAcademicRecordAggregate.
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -2858,7 +2858,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAcademicRecordAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3095,7 +3095,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3462,7 +3462,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3643,7 +3643,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -3786,7 +3786,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -3943,7 +3943,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -4087,7 +4087,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -4334,7 +4334,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentCourseAssociat
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -4452,7 +4452,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentCourseAssociat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -4682,7 +4682,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentSectionAssocia
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -4802,7 +4802,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentAssessmentSectionAssocia
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5016,7 +5016,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseAssociationAggrega
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -5152,7 +5152,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseAssociationAggrega
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5410,7 +5410,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseTranscriptAggregat
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -5569,7 +5569,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentCourseTranscriptAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -5807,7 +5807,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentEducationOrganizationAss
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -5942,7 +5942,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentEducationOrganizationAss
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -6171,7 +6171,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentSectionAssociationAggreg
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -6309,7 +6309,7 @@ namespace EdFi.Ods.Entities.NHibernate.AnonymizedStudentSectionAssociationAggreg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -6509,7 +6509,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -7521,7 +7521,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8029,7 +8029,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -8204,7 +8204,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8427,7 +8427,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -8520,7 +8520,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8678,7 +8678,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -8776,7 +8776,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -8945,7 +8945,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -9083,7 +9083,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9252,7 +9252,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -9366,7 +9366,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9529,7 +9529,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -9687,7 +9687,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -9869,7 +9869,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -9942,7 +9942,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10085,7 +10085,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -10160,7 +10160,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10350,7 +10350,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -10485,7 +10485,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -10661,7 +10661,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -10821,7 +10821,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11026,7 +11026,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -11146,7 +11146,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11307,7 +11307,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -11380,7 +11380,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11556,7 +11556,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -11691,7 +11691,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -11867,7 +11867,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -11939,7 +11939,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12080,7 +12080,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -12156,7 +12156,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12278,7 +12278,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -12429,7 +12429,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12614,7 +12614,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -12690,7 +12690,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -12852,7 +12852,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -12924,7 +12924,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -13114,7 +13114,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantProspectAssociationAggregate.TPD
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -13227,7 +13227,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicantProspectAssociationAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -13417,7 +13417,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -14114,7 +14114,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14438,7 +14438,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -14515,7 +14515,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14656,7 +14656,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -14747,7 +14747,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -14900,7 +14900,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -15010,7 +15010,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15177,7 +15177,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -15249,7 +15249,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15492,7 +15492,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -15694,7 +15694,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -15856,7 +15856,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventResultDescriptorAggregate
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -15927,7 +15927,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventResultDescriptorAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16103,7 +16103,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventTypeDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -16174,7 +16174,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationEventTypeDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16350,7 +16350,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationSourceDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -16421,7 +16421,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16597,7 +16597,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationStatusDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -16668,7 +16668,7 @@ namespace EdFi.Ods.Entities.NHibernate.ApplicationStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -16830,7 +16830,7 @@ namespace EdFi.Ods.Entities.NHibernate.AssessmentAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -16935,7 +16935,7 @@ namespace EdFi.Ods.Entities.NHibernate.AssessmentAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -17073,7 +17073,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckStatusDescriptorAggregate.
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -17144,7 +17144,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckStatusDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -17320,7 +17320,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckTypeDescriptorAggregate.TP
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -17391,7 +17391,7 @@ namespace EdFi.Ods.Entities.NHibernate.BackgroundCheckTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -17625,7 +17625,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -18149,7 +18149,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18380,7 +18380,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -18472,7 +18472,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18619,7 +18619,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -18691,7 +18691,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -18838,7 +18838,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -18910,7 +18910,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19096,7 +19096,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -19266,7 +19266,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19536,7 +19536,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -19691,7 +19691,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamResultAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -19846,7 +19846,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamStatusDescriptorAggregat
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -19917,7 +19917,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamStatusDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20093,7 +20093,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamTypeDescriptorAggregate.
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -20164,7 +20164,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationExamTypeDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20340,7 +20340,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationFieldDescriptorAggregate.TPD
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -20411,7 +20411,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationFieldDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20587,7 +20587,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationLevelDescriptorAggregate.TPD
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -20658,7 +20658,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationLevelDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -20834,7 +20834,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -20905,7 +20905,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationRouteDescriptorAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21081,7 +21081,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationStandardDescriptorAggregate.
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -21152,7 +21152,7 @@ namespace EdFi.Ods.Entities.NHibernate.CertificationStandardDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21419,7 +21419,7 @@ namespace EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -21531,7 +21531,7 @@ namespace EdFi.Ods.Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21658,7 +21658,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -21729,7 +21729,7 @@ namespace EdFi.Ods.Entities.NHibernate.CoteachingStyleObservedDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -21968,7 +21968,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -22064,7 +22064,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -22176,7 +22176,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -22390,7 +22390,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
 
                 if (_credentialStudentAcademicRecords == null)
                     _credentialStudentAcademicRecords = new CovariantCollectionAdapter<Entities.Common.TPDM.ICredentialStudentAcademicRecord, CredentialStudentAcademicRecord>(sourceList);
-                
+
                 return _credentialStudentAcademicRecords;
             }
             set
@@ -22447,7 +22447,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -22792,7 +22792,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -22890,7 +22890,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23024,7 +23024,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventTypeDescriptorAggregate.TP
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -23095,7 +23095,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialEventTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23271,7 +23271,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -23342,7 +23342,7 @@ namespace EdFi.Ods.Entities.NHibernate.CredentialStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23518,7 +23518,7 @@ namespace EdFi.Ods.Entities.NHibernate.DegreeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -23589,7 +23589,7 @@ namespace EdFi.Ods.Entities.NHibernate.DegreeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -23765,7 +23765,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -23836,7 +23836,7 @@ namespace EdFi.Ods.Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24104,7 +24104,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -24256,7 +24256,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24418,7 +24418,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventTypeDescriptorAggregate.TP
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -24489,7 +24489,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentEventTypeDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -24732,7 +24732,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -24917,7 +24917,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25072,7 +25072,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationReasonDescriptorAggre
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -25143,7 +25143,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationReasonDescriptorAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25319,7 +25319,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationTypeDescriptorAggrega
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -25390,7 +25390,7 @@ namespace EdFi.Ods.Entities.NHibernate.EmploymentSeparationTypeDescriptorAggrega
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25566,7 +25566,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -25637,7 +25637,7 @@ namespace EdFi.Ods.Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TP
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -25988,7 +25988,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -26176,7 +26176,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -26391,7 +26391,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -26470,7 +26470,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -26798,7 +26798,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -26988,7 +26988,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -27215,7 +27215,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -27294,7 +27294,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -27675,7 +27675,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -27892,7 +27892,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28113,7 +28113,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -28225,7 +28225,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28363,7 +28363,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -28434,7 +28434,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingLevelDescriptorAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -28789,7 +28789,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -28978,7 +28978,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -29199,7 +29199,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -29278,7 +29278,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -29655,7 +29655,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -29865,7 +29865,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -30059,7 +30059,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -30171,7 +30171,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -30309,7 +30309,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -30380,7 +30380,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationPeriodDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -30785,7 +30785,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -31067,7 +31067,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31290,7 +31290,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -31402,7 +31402,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31574,7 +31574,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -31766,7 +31766,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -31959,7 +31959,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -32054,7 +32054,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32199,7 +32199,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -32270,7 +32270,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32446,7 +32446,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -32517,7 +32517,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -32693,7 +32693,7 @@ namespace EdFi.Ods.Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -32764,7 +32764,7 @@ namespace EdFi.Ods.Entities.NHibernate.FederalLocaleCodeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33045,7 +33045,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -33339,7 +33339,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33502,7 +33502,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -33602,7 +33602,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -33736,7 +33736,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -33818,7 +33818,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34072,7 +34072,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggr
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -34190,7 +34190,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkExperienceSectionAssociationAggr
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34317,7 +34317,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -34388,7 +34388,7 @@ namespace EdFi.Ods.Entities.NHibernate.FieldworkTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34564,7 +34564,7 @@ namespace EdFi.Ods.Entities.NHibernate.FundingSourceDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -34635,7 +34635,7 @@ namespace EdFi.Ods.Entities.NHibernate.FundingSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -34811,7 +34811,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -34882,7 +34882,7 @@ namespace EdFi.Ods.Entities.NHibernate.GenderDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -35162,7 +35162,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -35472,7 +35472,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -35704,7 +35704,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -35775,7 +35775,7 @@ namespace EdFi.Ods.Entities.NHibernate.GoalTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -35945,7 +35945,7 @@ namespace EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -36076,7 +36076,7 @@ namespace EdFi.Ods.Entities.NHibernate.GraduationPlanAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36319,7 +36319,7 @@ namespace EdFi.Ods.Entities.NHibernate.HireStatusDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -36390,7 +36390,7 @@ namespace EdFi.Ods.Entities.NHibernate.HireStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36566,7 +36566,7 @@ namespace EdFi.Ods.Entities.NHibernate.HiringSourceDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -36637,7 +36637,7 @@ namespace EdFi.Ods.Entities.NHibernate.HiringSourceDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -36813,7 +36813,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstructionalSettingDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -36884,7 +36884,7 @@ namespace EdFi.Ods.Entities.NHibernate.InstructionalSettingDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37060,7 +37060,7 @@ namespace EdFi.Ods.Entities.NHibernate.InternalExternalHireDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -37131,7 +37131,7 @@ namespace EdFi.Ods.Entities.NHibernate.InternalExternalHireDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37307,7 +37307,7 @@ namespace EdFi.Ods.Entities.NHibernate.LevelOfDegreeAwardedDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -37378,7 +37378,7 @@ namespace EdFi.Ods.Entities.NHibernate.LevelOfDegreeAwardedDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37534,7 +37534,7 @@ namespace EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -37639,7 +37639,7 @@ namespace EdFi.Ods.Entities.NHibernate.LocalEducationAgencyAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -37777,7 +37777,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -37848,7 +37848,7 @@ namespace EdFi.Ods.Entities.NHibernate.ObjectiveRatingLevelDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38010,7 +38010,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -38209,7 +38209,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38521,7 +38521,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -38651,7 +38651,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -38785,7 +38785,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventStatusDescriptorAgg
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -38856,7 +38856,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventStatusDescriptorAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39032,7 +39032,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventTypeDescriptorAggre
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -39103,7 +39103,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionEventTypeDescriptorAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39279,7 +39279,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionReasonDescriptorAggregat
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -39350,7 +39350,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionReasonDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -39699,7 +39699,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -39988,7 +39988,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40204,7 +40204,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -40279,7 +40279,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40450,7 +40450,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -40525,7 +40525,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -40696,7 +40696,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -40775,7 +40775,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -41133,7 +41133,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -41456,7 +41456,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -41688,7 +41688,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -41800,7 +41800,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -41960,7 +41960,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -42152,7 +42152,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42333,7 +42333,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -42428,7 +42428,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42573,7 +42573,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -42644,7 +42644,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationRatingLevelDescripto
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -42820,7 +42820,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -42891,7 +42891,7 @@ namespace EdFi.Ods.Entities.NHibernate.PerformanceEvaluationTypeDescriptorAggreg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43047,7 +43047,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -43152,7 +43152,7 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryInstitutionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43290,7 +43290,7 @@ namespace EdFi.Ods.Entities.NHibernate.PreviousCareerDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -43361,7 +43361,7 @@ namespace EdFi.Ods.Entities.NHibernate.PreviousCareerDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43592,7 +43592,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -43705,7 +43705,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAggregate.TPD
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -43975,7 +43975,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAgg
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -44129,7 +44129,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentEventAttendanceAgg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44270,7 +44270,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentOfferedByDescripto
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -44341,7 +44341,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProfessionalDevelopmentOfferedByDescripto
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44517,7 +44517,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProgramGatewayDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -44588,7 +44588,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProgramGatewayDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -44828,7 +44828,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -45598,7 +45598,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -45979,7 +45979,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -46120,7 +46120,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46275,7 +46275,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -46434,7 +46434,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46623,7 +46623,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -46695,7 +46695,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -46843,7 +46843,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -47001,7 +47001,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47189,7 +47189,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -47262,7 +47262,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47444,7 +47444,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -47579,7 +47579,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47726,7 +47726,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -47802,7 +47802,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -47977,7 +47977,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -48049,7 +48049,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48173,7 +48173,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -48265,7 +48265,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48414,7 +48414,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -48490,7 +48490,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48635,7 +48635,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -48707,7 +48707,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -48838,7 +48838,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -48909,7 +48909,7 @@ namespace EdFi.Ods.Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -49271,7 +49271,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -49444,7 +49444,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -49585,7 +49585,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggr
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -49656,7 +49656,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureDatatypeDescriptorAggr
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50071,7 +50071,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -50202,7 +50202,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureScoreAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50343,7 +50343,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregat
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -50414,7 +50414,7 @@ namespace EdFi.Ods.Entities.NHibernate.QuantitativeMeasureTypeDescriptorAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50653,7 +50653,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -50765,7 +50765,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -50913,7 +50913,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventTypeDescriptorAggregate.T
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -50984,7 +50984,7 @@ namespace EdFi.Ods.Entities.NHibernate.RecruitmentEventTypeDescriptorAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51346,7 +51346,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -51487,7 +51487,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricDimensionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51635,7 +51635,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -51706,7 +51706,7 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -51882,7 +51882,7 @@ namespace EdFi.Ods.Entities.NHibernate.SalaryTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -51953,7 +51953,7 @@ namespace EdFi.Ods.Entities.NHibernate.SalaryTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52109,7 +52109,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -52250,7 +52250,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52402,7 +52402,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolStatusDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -52473,7 +52473,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolStatusDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52664,7 +52664,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -52802,7 +52802,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -52971,7 +52971,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -53043,7 +53043,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53149,7 +53149,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -53258,7 +53258,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53429,7 +53429,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -53504,7 +53504,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53617,7 +53617,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -53701,7 +53701,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -53830,7 +53830,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -53981,7 +53981,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -54129,7 +54129,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -54297,7 +54297,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
 
                 if (_staffBackgroundChecks == null)
                     _staffBackgroundChecks = new CovariantCollectionAdapter<Entities.Common.TPDM.IStaffBackgroundCheck, StaffBackgroundCheck>(sourceList);
-                
+
                 return _staffBackgroundChecks;
             }
             set
@@ -54323,7 +54323,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
 
                 if (_staffHighlyQualifiedAcademicSubjects == null)
                     _staffHighlyQualifiedAcademicSubjects = new CovariantCollectionAdapter<Entities.Common.TPDM.IStaffHighlyQualifiedAcademicSubject, StaffHighlyQualifiedAcademicSubject>(sourceList);
-                
+
                 return _staffHighlyQualifiedAcademicSubjects;
             }
             set
@@ -54349,7 +54349,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
 
                 if (_staffSeniorities == null)
                     _staffSeniorities = new CovariantCollectionAdapter<Entities.Common.TPDM.IStaffSeniority, StaffSeniority>(sourceList);
-                
+
                 return _staffSeniorities;
             }
             set
@@ -54375,7 +54375,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
 
                 if (_staffTeacherPreparationPrograms == null)
                     _staffTeacherPreparationPrograms = new CovariantCollectionAdapter<Entities.Common.TPDM.IStaffTeacherPreparationProgram, StaffTeacherPreparationProgram>(sourceList);
-                
+
                 return _staffTeacherPreparationPrograms;
             }
             set
@@ -54430,7 +54430,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -54750,7 +54750,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -54862,7 +54862,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -54987,7 +54987,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -55059,7 +55059,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffEducationOrganizationAssignmentAssoc
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -55292,7 +55292,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -55405,7 +55405,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffProspectAssociationAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -55641,7 +55641,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -55938,7 +55938,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56177,7 +56177,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -56249,7 +56249,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56408,7 +56408,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -56480,7 +56480,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -56726,7 +56726,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureCourseAssociatio
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -56882,7 +56882,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureCourseAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -57134,7 +57134,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureEducationOrganiz
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -57289,7 +57289,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureEducationOrganiz
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -57553,7 +57553,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureSectionAssociati
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -57711,7 +57711,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffStudentGrowthMeasureSectionAssociati
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -57945,7 +57945,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -58193,7 +58193,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58378,7 +58378,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -58450,7 +58450,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58597,7 +58597,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -58669,7 +58669,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderAssociatio
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -58932,7 +58932,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderProgramAss
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -59078,7 +59078,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffTeacherPreparationProviderProgramAss
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59206,7 +59206,7 @@ namespace EdFi.Ods.Entities.NHibernate.StateEducationAgencyAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -59311,7 +59311,7 @@ namespace EdFi.Ods.Entities.NHibernate.StateEducationAgencyAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59477,7 +59477,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -59568,7 +59568,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59713,7 +59713,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGrowthTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -59784,7 +59784,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGrowthTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -59952,7 +59952,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -60066,7 +60066,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -60274,7 +60274,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssoc
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -60388,7 +60388,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssoc
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -60507,7 +60507,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -60712,7 +60712,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -61153,7 +61153,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -61284,7 +61284,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionAggregateResponseAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -61485,7 +61485,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponseTeacherCandidateTarg
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -61600,7 +61600,7 @@ namespace EdFi.Ods.Entities.NHibernate.SurveySectionResponseTeacherCandidateTarg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -61797,7 +61797,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -63316,7 +63316,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -63978,7 +63978,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -64153,7 +64153,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64376,7 +64376,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -64469,7 +64469,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64627,7 +64627,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -64725,7 +64725,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -64859,7 +64859,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -65031,7 +65031,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65207,7 +65207,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -65321,7 +65321,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65485,7 +65485,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -65569,7 +65569,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65687,7 +65687,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -65781,7 +65781,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -65937,7 +65937,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -66095,7 +66095,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66277,7 +66277,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -66350,7 +66350,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66493,7 +66493,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -66568,7 +66568,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66725,7 +66725,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -66800,7 +66800,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -66983,7 +66983,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -67118,7 +67118,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67261,7 +67261,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -67378,7 +67378,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67554,7 +67554,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -67714,7 +67714,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -67919,7 +67919,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -68039,7 +68039,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68200,7 +68200,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -68273,7 +68273,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68414,7 +68414,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -68496,7 +68496,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -68707,7 +68707,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -68842,7 +68842,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69018,7 +69018,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -69090,7 +69090,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69233,7 +69233,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -69309,7 +69309,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69541,7 +69541,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -69617,7 +69617,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -69758,7 +69758,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -69830,7 +69830,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -70062,7 +70062,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -70701,7 +70701,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71075,7 +71075,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -71240,7 +71240,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71441,7 +71441,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -71535,7 +71535,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -71732,7 +71732,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -71915,7 +71915,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72165,7 +72165,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -72243,7 +72243,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72423,7 +72423,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -72589,7 +72589,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.T
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -72804,7 +72804,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCharacteristicDescriptorA
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -72875,7 +72875,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCharacteristicDescriptorA
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -73193,7 +73193,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -73565,7 +73565,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -73857,7 +73857,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -73933,7 +73933,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -74162,7 +74162,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -74304,7 +74304,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStaffAssociationAggregate
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -74518,7 +74518,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -74815,7 +74815,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75054,7 +75054,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -75126,7 +75126,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75285,7 +75285,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -75357,7 +75357,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggre
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75567,7 +75567,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureCours
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -75723,7 +75723,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureCours
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -75939,7 +75939,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureEduca
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -76094,7 +76094,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureEduca
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -76322,7 +76322,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureSecti
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -76480,7 +76480,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateStudentGrowthMeasureSecti
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -76688,7 +76688,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -76906,7 +76906,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77176,7 +77176,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -77367,7 +77367,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherCandidateTeacherPreparationProvide
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77508,7 +77508,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProgramTypeDescriptorAg
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -77579,7 +77579,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProgramTypeDescriptorAg
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -77745,7 +77745,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
             set { WebSite = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -77910,7 +77910,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78270,7 +78270,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -78488,7 +78488,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78686,7 +78686,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
         //                      Inherited Properties
         // -------------------------------------------------------------
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -78759,7 +78759,7 @@ namespace EdFi.Ods.Entities.NHibernate.TeacherPreparationProviderProgramAggregat
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -78890,7 +78890,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPDegreeTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -78961,7 +78961,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPDegreeTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79137,7 +79137,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPProgramPathwayDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -79208,7 +79208,7 @@ namespace EdFi.Ods.Entities.NHibernate.TPPProgramPathwayDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79374,7 +79374,7 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
             set { WebSite = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -79492,7 +79492,7 @@ namespace EdFi.Ods.Entities.NHibernate.UniversityAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79745,7 +79745,7 @@ namespace EdFi.Ods.Entities.NHibernate.ValueTypeDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -79816,7 +79816,7 @@ namespace EdFi.Ods.Entities.NHibernate.ValueTypeDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -79992,7 +79992,7 @@ namespace EdFi.Ods.Entities.NHibernate.WithdrawReasonDescriptorAggregate.TPDM
             set { ShortDescription = value; }
         }
         // -------------------------------------------------------------
-        
+
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
@@ -80063,7 +80063,7 @@ namespace EdFi.Ods.Entities.NHibernate.WithdrawReasonDescriptorAggregate.TPDM
                         return false;
                     }
                 }
-                else 
+                else
                 {
                     if (!entry.Value.Equals(thoseKeys[entry.Key]))
                         return false;
@@ -80172,5 +80172,3 @@ namespace EdFi.Ods.Entities.NHibernate.WithdrawReasonDescriptorAggregate.TPDM
         // -----------------------------------------
     }
 }
-
-
