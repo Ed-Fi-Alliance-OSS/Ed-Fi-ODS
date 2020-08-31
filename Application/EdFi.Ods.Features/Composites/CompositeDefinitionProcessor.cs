@@ -379,28 +379,48 @@ namespace EdFi.Ods.Features.Composites
 
                 case CompositeDefinitionHelper.ReferencedResource:
 
+                    ResourceMemberBase resourceMemberToUseForFlattening;
+
                     if (!currentResourceClass.ReferenceByName.TryGetValue(childMemberName, out Reference reference))
                     {
-                        ApplyValidationMessage("referenced resource", childMemberName, currentElementName);
+                        // Look for a "descriptor" property
+                        if (currentResourceClass.PropertyByName.TryGetValue(
+                            childMemberName,
+                            out ResourceProperty descriptorProperty))
+                        {
+                            resourceMemberToUseForFlattening = descriptorProperty;
+                            childModel = descriptorProperty.DescriptorResource;
+                            childEntityMemberName = childMemberName;
+                            association = descriptorProperty.EntityProperty.IncomingAssociations.FirstOrDefault();
+                            resourceMember = descriptorProperty;
+                            resourceMemberName = childMemberName;
+                        }
+                        else
+                        {
+                            ApplyValidationMessage("referenced resource", childMemberName, currentElementName);
 
-                        return null;
+                            return null;
+                        }
                     }
+                    else
+                    {
+                        _logger.Debug(
+                            $"Current element '{currentElementName}' is a referenced resourced named '{childMemberName}'.");
 
-                    _logger.Debug(
-                        $"Current element '{currentElementName}' is an referenced resourced named '{childMemberName}'.");
-
-                    childModel = reference.ReferencedResource;
-                    childEntityMemberName = reference.Association.Name;
-                    association = reference.Association;
-                    resourceMember = reference;
-                    resourceMemberName = reference.PropertyName;
+                        resourceMemberToUseForFlattening = reference;
+                        childModel = reference.ReferencedResource;
+                        childEntityMemberName = reference.Association.Name;
+                        association = reference.Association;
+                        resourceMember = reference;
+                        resourceMemberName = reference.PropertyName;
+                    }
 
                     // If reference is flattened, process recursively without adding another query at this level.
                     if (CompositeDefinitionHelper.ShouldFlatten(childElement))
                     {
                         _logger.Debug($"Flattening referenced resource {childModel.Name}");
 
-                        _compositeBuilder.ApplyFlattenedMember(reference, parentingBuilderContext);
+                        _compositeBuilder.ApplyFlattenedMember(resourceMemberToUseForFlattening, parentingBuilderContext);
 
                         var childBuilderContextForReference =
                             _compositeBuilder.CreateFlattenedReferenceChildContext(parentingBuilderContext);
@@ -478,7 +498,7 @@ namespace EdFi.Ods.Features.Composites
             {
                 string flattenedMemberName = flattenedMemberElt.AttributeValue(CompositeDefinitionHelper.Name);
 
-                ResourceMemberBase resourceToUse = null;
+                ResourceMemberBase resourceMemberToUse = null;
                 Resource flattenedResource = null;
 
                 bool memberIsReference = flattenedMemberElt.Name.LocalName == CompositeDefinitionHelper.ReferencedResource;
@@ -489,15 +509,31 @@ namespace EdFi.Ods.Features.Composites
                     if (!processorContext.CurrentResourceClass.ReferenceByName.TryGetValue(
                         flattenedMemberName, out Reference resourceToUseAsReference))
                     {
-                        ApplyValidationMessage("resource reference", flattenedMemberName, currentContainingElementName);
-                        continue;
+                        // Look for a "descriptor" property
+                        if (processorContext.CurrentResourceClass.PropertyByName.TryGetValue(
+                            flattenedMemberName,
+                            out ResourceProperty descriptorProperty))
+                        {
+                            resourceMemberToUse = descriptorProperty;
+
+                            flattenedResource =
+                                processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
+                                    descriptorProperty.DescriptorResource.Entity.FullName);
+                        }
+                        else
+                        {
+                            ApplyValidationMessage("resource reference", flattenedMemberName, currentContainingElementName);
+                            continue;
+                        }
                     }
+                    else
+                    {
+                        resourceMemberToUse = resourceToUseAsReference;
 
-                    resourceToUse = resourceToUseAsReference;
-
-                    flattenedResource =
-                        processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
-                            resourceToUseAsReference.ReferencedResource.Entity.FullName);
+                        flattenedResource =
+                            processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
+                                resourceToUseAsReference.ReferencedResource.Entity.FullName);
+                    }
                 }
                 else if (memberIsEmbeddedObject)
                 {
@@ -508,7 +544,7 @@ namespace EdFi.Ods.Features.Composites
                         continue;
                     }
 
-                    resourceToUse = resourceAsEmbeddedObject;
+                    resourceMemberToUse = resourceAsEmbeddedObject;
 
                     flattenedResource =
                         processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
@@ -532,9 +568,9 @@ namespace EdFi.Ods.Features.Composites
                     null,
                     null,
                     0,
-                    resourceToUse);
+                    resourceMemberToUse);
 
-                var shouldContinueWithValidation = resourceToUse == null && _performValidation;
+                var shouldContinueWithValidation = resourceMemberToUse == null && _performValidation;
 
                 if (flattenedResource.Entity.IsAggregateRoot)
                 {
@@ -550,7 +586,7 @@ namespace EdFi.Ods.Features.Composites
                     continue;
                 }
 
-                _compositeBuilder.ApplyFlattenedMember(resourceToUse, flattenedBuilderContext);
+                _compositeBuilder.ApplyFlattenedMember(resourceMemberToUse, flattenedBuilderContext);
 
                 // TODO: Consider refining what is passed into Resource model classes rather than XElements
                 var propertyElements = flattenedMemberElt
@@ -569,7 +605,7 @@ namespace EdFi.Ods.Features.Composites
                 {
                     flattenedPropertyProjections = GetPropertyProjectionsForNonAggregateRoot(
                         processorContext,
-                        (EmbeddedObject) resourceToUse,
+                        (EmbeddedObject) resourceMemberToUse,
                         propertyElements,
                         currentContainingElementName);
                 }

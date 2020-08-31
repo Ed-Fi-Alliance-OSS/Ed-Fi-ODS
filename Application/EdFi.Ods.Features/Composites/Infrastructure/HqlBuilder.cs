@@ -337,10 +337,12 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         {
             var downCastedReference = member as Reference;
             var downCastedEmbeddedObject = member as EmbeddedObject;
+            var downCastedResourceProperty = member as ResourceProperty;
 
-            string associationName = downCastedReference != null
-                ? downCastedReference.Association.Name
-                : downCastedEmbeddedObject.Association.Name;
+            string associationName =
+                downCastedReference?.Association?.Name
+                ?? downCastedEmbeddedObject?.Association?.Name
+                ?? downCastedResourceProperty?.PropertyName;
 
             // Create a new alias
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();

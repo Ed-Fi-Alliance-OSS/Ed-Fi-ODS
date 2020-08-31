@@ -122,7 +122,8 @@ namespace EdFi.Ods.Common.Models.Resource
         public string LookupTypeName { get; }
         
         /// <summary>
-        /// Gets the <see cref="Resource" /> representing the descriptor referenced by the property.
+        /// For descriptors, gets the <see cref="Resource" /> representing the descriptor referenced by the property;
+        /// otherwise <b>null</b>.
         /// </summary>
         public Resource DescriptorResource { get; }
 

@@ -9108,6 +9108,119 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Descriptor sub-properties in Composites",
+			"item": [
+				{
+					"name": "Get Request for StaffWithReferencedDescriptors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c3a2d54-f476-41c4-ba01-4dda359ae850",
+								"exec": [
+									"const __ = require('lodash');",
+									"",
+									"const responseItems = pm.response.json();",
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"     const responseItems = pm.response.json();     ",
+									"     pm.expect(responseItems.length).to.be.greaterThan(0);",
+									"});",
+									"",
+									"pm.test(\"Should return StaffWithReferencedDescriptor has all properties ['id', 'staffUniqueId', 'sexDescriptorUri', 'sexDescriptorNamespace', 'sexDescriptorCodeValue','sexDescriptorShortDescription','personId','sourceSystemDescriptorNamespace','sourceSystemDescriptorCodeValue','sourceSystemDescriptorShortDescription','electronicMails','electronicMailsWithFlattenedDescriptors','sexDescriptor','personReference']\", () => {",
+									"     __.each(responseItems, (responseItem) => {",
+									"        const properties = Object.keys(responseItem); ",
+									"        pm.expect(properties).to.have.members([\"id\", \"staffUniqueId\", \"sexDescriptorUri\", \"sexDescriptorNamespace\", \"sexDescriptorCodeValue\",'sexDescriptorShortDescription','personId',",
+									"         'sourceSystemDescriptorNamespace','sourceSystemDescriptorCodeValue','sourceSystemDescriptorShortDescription','electronicMails','electronicMailsWithFlattenedDescriptors','sexDescriptor','personReference']);",
+									"     });    ",
+									"});",
+									"",
+									"pm.test(\"Should return direct descriptor reference\", () => {",
+									"     __.each(responseItems, (responseItem) => {",
+									"        const properties = Object.keys(responseItem.sexDescriptor);         ",
+									"        pm.expect(properties).to.have.members([\"namespace\", \"codeValue\"]);        ",
+									"     });    ",
+									"});",
+									"",
+									"pm.test(\"Should return direct descriptor reference with properties flattened\", () => {",
+									"   __.each(responseItems, (responseItem) => {",
+									"        const properties = Object.keys(responseItem); ",
+									"        pm.expect(properties).to.contains.members(['sexDescriptorUri','sexDescriptorNamespace','sexDescriptorCodeValue','sexDescriptorShortDescription']);",
+									"     });  ",
+									"});",
+									"",
+									"pm.test(\"Should return descriptor reference from child reference\", () => {",
+									"       __.each(responseItems, (responseItem) => {",
+									"        let properties = Object.keys(responseItem.personReference);         ",
+									"        pm.expect(properties).to.have.members([\"personId\", \"sourceSystemDescriptor\"]);   ",
+									"        properties = Object.keys(responseItem.personReference.sourceSystemDescriptor);           ",
+									"        pm.expect(properties).to.have.members([\"namespace\", \"codeValue\",\"shortDescription\"]);   ",
+									"     });   ",
+									"});",
+									"",
+									"pm.test(\"Should return descriptor reference from child reference with properties flattened\", () => {",
+									"     __.each(responseItems, (responseItem) => {",
+									"        const properties = Object.keys(responseItem); ",
+									"        pm.expect(properties).to.contains.members(['personId','sourceSystemDescriptorNamespace','sourceSystemDescriptorCodeValue','sourceSystemDescriptorShortDescription']);",
+									"     });   ",
+									"});",
+									"",
+									"pm.test(\"Should return descriptor reference on child collection reference\", () => {",
+									"     __.each(responseItems, (responseItem) => {",
+									"         __.each(responseItem.electronicMails, (electronicMail) => {",
+									"                let properties = Object.keys(electronicMail); ",
+									"                pm.expect(properties).to.contains.members(['electronicMailAddress','electronicMailTypeDescriptor']);",
+									"                properties = Object.keys(electronicMail.electronicMailTypeDescriptor);                 ",
+									"                pm.expect(properties).to.contains.members(['namespace','codeValue']);",
+									"         });        ",
+									"     });  ",
+									"});",
+									"",
+									"pm.test(\"Should return descriptor reference on child collection reference with properties flattened\", () => {",
+									"     __.each(responseItems, (responseItem) => {",
+									"         __.each(responseItem.electronicMailsWithFlattenedDescriptors, (electronicMailsWithFlattenedDescriptor) => {",
+									"                let properties = Object.keys(electronicMailsWithFlattenedDescriptor); ",
+									"                pm.expect(properties).to.contains.members(['electronicMailAddress','electronicMailTypeNamespace','electronicMailTypeCodeValue']);               ",
+									"         });        ",
+									"     });  ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StaffWithReferencedDescriptors?limit=1",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"composites",
+								"v1",
+								"ed-fi",
+								"test",
+								"StaffWithReferencedDescriptors"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"auth": {
