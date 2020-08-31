@@ -16,7 +16,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
 {
    public static class OpenApiMetadataHelper
    {
-      public static OpenApiMetadataDocument DeserializeSwaggerDocument(string json)
+      public static OpenApiMetadataDocument DeserializeOpenApiMetadataDocument(string json)
       {
          return JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
             json,

@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 _actualDefinitions = OpenApiMetadataDocumentFactoryHelper
-                    .CreateSwaggerDefinitionsFactory(
+                    .CreateOpenApiMetadataDefinitionsFactory(
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
@@ -236,7 +236,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
                     .Create(_openApiMetadataResources);
             }
 
@@ -344,7 +344,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
                     .Create(_openApiMetadataResources);
             }
 

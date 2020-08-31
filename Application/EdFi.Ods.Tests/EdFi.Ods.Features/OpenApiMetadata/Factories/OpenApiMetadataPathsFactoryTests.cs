@@ -44,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
-                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerPathsFactory(
+                _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
                         DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
                     .Create(openApiMetadataResources, false);
             }
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateSwaggerPathsFactory(_openApiMetadataDocumentContext)
+                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext)
                     .Create(_openApiMetadataResources, false);
             }
 

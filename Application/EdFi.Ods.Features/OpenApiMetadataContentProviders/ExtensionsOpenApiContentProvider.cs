@@ -45,7 +45,7 @@ namespace EdFi.Ods.Features.Extensions
                     {
                         UriSegment = _schemaNameMapProvider.GetSchemaMapByLogicalName(schema.LogicalName).UriSegment,
                         Factory = OpenApiMetadataDocumentFactoryHelper
-                            .GetExtensionOnlySwaggerDocumentFactory(_resourceModelProvider.GetResourceModel(), schema)
+                            .GetExtensionOnlyOpenApiMetadataDocumentFactory(_resourceModelProvider.GetResourceModel(), schema)
                     })
                 .Select(
                     sf => new OpenApiContent(

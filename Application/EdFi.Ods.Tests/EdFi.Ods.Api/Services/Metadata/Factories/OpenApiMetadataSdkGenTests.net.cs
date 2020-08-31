@@ -46,7 +46,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .First();
 
                 _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
-                    .GetExtensionOnlySwaggerDocumentFactory(
+                    .GetExtensionOnlyOpenApiMetadataDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
 
@@ -56,7 +56,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
-                _actualMetadataObject = OpenApiMetadataHelper.DeserializeSwaggerDocument(_actualMetadataText);
+                _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 
             [Assert]
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .First();
 
                 _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
-                    .GetExtensionOnlySwaggerDocumentFactory(
+                    .GetExtensionOnlyOpenApiMetadataDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
                         schemaDefinition);
 
@@ -161,7 +161,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
             protected override void Act()
             {
                 _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
-                _actualMetadataObject = OpenApiMetadataHelper.DeserializeSwaggerDocument(_actualMetadataText);
+                _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 
             [Assert]
@@ -262,7 +262,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                 };
 
                 _genericOpenApiMetadataDefinitionFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext);
             }
 
@@ -345,7 +345,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                         .GetResourceModel());
 
                 _genericOpenApiMetadataDefinitionFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
                         _openApiMetadataDocumentContext);
 
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;

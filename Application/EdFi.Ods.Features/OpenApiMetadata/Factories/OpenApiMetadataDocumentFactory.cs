@@ -29,10 +29,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public OpenApiMetadataDocumentFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
             : this(
                 new OpenApiMetadataParametersFactory(),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerDefinitionsFactory(openApiMetadataDocumentContext),
+                OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(openApiMetadataDocumentContext),
                 new OpenApiMetadataResponsesFactory(),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerPathsFactory(openApiMetadataDocumentContext),
-                OpenApiMetadataDocumentFactoryHelper.CreateSwaggerTagsFactory(openApiMetadataDocumentContext),
+                OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(openApiMetadataDocumentContext),
+                OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(openApiMetadataDocumentContext),
                 openApiMetadataDocumentContext)
         { }
 

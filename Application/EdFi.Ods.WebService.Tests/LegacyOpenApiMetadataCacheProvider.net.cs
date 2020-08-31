@@ -62,7 +62,7 @@ namespace EdFi.Ods.WebService.Tests
             OpenApiMetadataSections.SdkGen,
             OpenApiMetadataSections.Other
         };
-        private readonly ConcurrentDictionary<string, OpenApiContent> _swaggerMetadataCache;
+        private readonly ConcurrentDictionary<string, OpenApiContent> _openApiMetadataMetadataCache;
 
         public LegacyOpenApiMetadataCacheProvider(
             IDomainModelProvider domainModelProvider,
@@ -101,7 +101,7 @@ namespace EdFi.Ods.WebService.Tests
                     {MetadataRouteConstants.All, CreateSdkGenAllSection},
                     {MetadataRouteConstants.Profiles, CreateProfileSection},
                     {MetadataRouteConstants.Composites, CreateCompositeSection},
-                    {MetadataRouteConstants.ResourceTypes, CreateSwaggerUiSection}
+                    {MetadataRouteConstants.ResourceTypes, CreateOpenApiMetadataUiSection}
                 };
 
             foreach (var openApiContentProvider in openApiContentProviders)
@@ -117,13 +117,13 @@ namespace EdFi.Ods.WebService.Tests
                 _openApiMetadataSectionByRoute.Add(routeName, openApiContentProvider.GetOpenApiContent);
             }
 
-            _swaggerMetadataCache =
+            _openApiMetadataMetadataCache =
                 new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public IList<OpenApiContent> GetAllSectionDocuments(bool sdk)
         {
-            var sections = _swaggerMetadataCache.Values.Where(
+            var sections = _openApiMetadataMetadataCache.Values.Where(
                     c => sdk
                         ? _sdkGenSections.Contains(c.Section)
                         : !c.Section.Equals(
@@ -145,7 +145,7 @@ namespace EdFi.Ods.WebService.Tests
 
         public OpenApiContent GetOpenApiContentByFeedName(string feedName)
         {
-            if (!_swaggerMetadataCache.TryGetValue(feedName, out OpenApiContent document))
+            if (!_openApiMetadataMetadataCache.TryGetValue(feedName, out OpenApiContent document))
             {
                 _logger.Warn($"Unable to find OpenApiContent for {feedName}");
             }
@@ -187,7 +187,7 @@ namespace EdFi.Ods.WebService.Tests
             foreach (var openApiContent in openApiContents)
             {
                 // we want to force an update if the document has changed.
-                _swaggerMetadataCache.AddOrUpdate(
+                _openApiMetadataMetadataCache.AddOrUpdate(
                     GetCacheKey(openApiContent),
                     openApiContent,
                     (key, existing) => existing.GetHashCode() != openApiContent.GetHashCode()
@@ -262,7 +262,7 @@ namespace EdFi.Ods.WebService.Tests
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }
 
-        private IEnumerable<OpenApiContent> CreateSwaggerUiSection()
+        private IEnumerable<OpenApiContent> CreateOpenApiMetadataUiSection()
         {
             // resources, types, descriptors using tightly coupled extensions
             return _openApiMetadataResourceFilters
@@ -331,7 +331,7 @@ namespace EdFi.Ods.WebService.Tests
                                 UriSegment = _schemaNameMapProvider.GetSchemaMapByLogicalName(schema.LogicalName)
                                     .UriSegment,
                                 Factory =
-                                    OpenApiMetadataDocumentFactoryHelper.GetExtensionOnlySwaggerDocumentFactory(
+                                    OpenApiMetadataDocumentFactoryHelper.GetExtensionOnlyOpenApiMetadataDocumentFactory(
                                         _resourceModelProvider.GetResourceModel(),
                                         schema)
                             })

@@ -20,18 +20,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private const string ExtensionCollectionKey = "_ext";
         private readonly IOpenApiMetadataDefinitionsFactoryEdFiExtensionBridgeStrategy _definitionsFactoryEdFiExtensionBridgeStrategy;
         private readonly IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy _definitionsFactoryEntityExtensionStrategy;
-        private readonly IOpenApiMetadataDefinitionsFactoryNamingStrategy _swaggerDefinitionsFactoryNamingStrategy;
-        private readonly IOpenApiMetadataFactoryResourceFilterStrategy _swaggerFactoryResourceFilterStrategy;
+        private readonly IOpenApiMetadataDefinitionsFactoryNamingStrategy _openApiMetadataDefinitionsFactoryNamingStrategy;
+        private readonly IOpenApiMetadataFactoryResourceFilterStrategy _openApiMetadataFactoryResourceFilterStrategy;
 
         public OpenApiMetadataDefinitionsFactory(IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy entityExtensionStrategy,
             IOpenApiMetadataDefinitionsFactoryEdFiExtensionBridgeStrategy edFiExtensionBridgeStrategy,
-            IOpenApiMetadataDefinitionsFactoryNamingStrategy swaggerDefinitionsFactoryNamingStrategy,
-            IOpenApiMetadataFactoryResourceFilterStrategy swaggerFactoryResourceFilterStrategy)
+            IOpenApiMetadataDefinitionsFactoryNamingStrategy openApiMetadataDefinitionsFactoryNamingStrategy,
+            IOpenApiMetadataFactoryResourceFilterStrategy openApiMetadataFactoryResourceFilterStrategy)
         {
             _definitionsFactoryEntityExtensionStrategy = entityExtensionStrategy;
             _definitionsFactoryEdFiExtensionBridgeStrategy = edFiExtensionBridgeStrategy;
-            _swaggerDefinitionsFactoryNamingStrategy = swaggerDefinitionsFactoryNamingStrategy;
-            _swaggerFactoryResourceFilterStrategy = swaggerFactoryResourceFilterStrategy;
+            _openApiMetadataDefinitionsFactoryNamingStrategy = openApiMetadataDefinitionsFactoryNamingStrategy;
+            _openApiMetadataFactoryResourceFilterStrategy = openApiMetadataFactoryResourceFilterStrategy;
         }
 
         private static Schema EtagSchema
@@ -45,10 +45,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var definitions = BoilerPlateDefinitions();
 
-            openApiMetadataResources.Where(x => _swaggerFactoryResourceFilterStrategy.ShouldInclude(x.Resource)).Select(
+            openApiMetadataResources.Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource)).Select(
                 r => new
                 {
-                    key = _swaggerDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
+                    key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
                     schema = CreateResourceSchema(r)
                 }).GroupBy(d => d?.key).Select(g => g.First()).ForEach(
                 d =>
@@ -60,17 +60,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 });
 
             openApiMetadataResources.SelectMany(
-                r => r.Resource.AllContainedItemTypes.Where(x => _swaggerFactoryResourceFilterStrategy.ShouldInclude(x))
+                r => r.Resource.AllContainedItemTypes.Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x))
                     .Select(
                         i => new
                         {
-                            key = _swaggerDefinitionsFactoryNamingStrategy.GetContainedItemTypeName(r, i),
+                            key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetContainedItemTypeName(r, i),
                             schema = CreateResourceChildSchema(i, r)
                         }).Concat(
                         openApiMetadataResources.SelectMany(s => s.Resource.AllContainedReferences).Select(
                             reference => new
                             {
-                                key = _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(r.Resource, reference),
+                                key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetReferenceName(r.Resource, reference),
                                 schema = OpenApiMetadataDocumentHelper.CreateReferenceSchema(reference)
                             }))).GroupBy(d => d?.key).Select(g => g.First()).ForEach(
                 d =>
@@ -114,7 +114,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             Schema = new Schema
                             {
                                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, r))
+                                    _openApiMetadataDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, r))
                             }
                         })).Concat(
                     resourceChildItem.Collections.Select(
@@ -165,7 +165,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = CollectionDescription(
                     collection.ItemType.PluralName.ToCamelCase(), collection.ItemType.Description.ScrubForOpenApi()),
                 items = RefSchema(
-                    _swaggerDefinitionsFactoryNamingStrategy.GetCollectionReferenceName(openApiMetadataResource, collection))
+                    _openApiMetadataDefinitionsFactoryNamingStrategy.GetCollectionReferenceName(openApiMetadataResource, collection))
             };
         }
 
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return new Schema
             {
                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                    _swaggerDefinitionsFactoryNamingStrategy.GetEmbeddedObjectReferenceName(openApiMetadataResource, embeddedObject))
+                    _openApiMetadataDefinitionsFactoryNamingStrategy.GetEmbeddedObjectReferenceName(openApiMetadataResource, embeddedObject))
             };
         }
 
@@ -216,15 +216,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             Schema = new Schema
                             {
                                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                                    _swaggerDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, x))
+                                    _openApiMetadataDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, x))
                             }
 
-                            // NOTE: currently there is an open issue with swagger-ui to address 
+                            // NOTE: currently there is an open issue with openApiMetadata-ui to address 
                             // objects showing up in the ui that have a reference and 
                             // other properties within the schema. The standard at this time does
                             // not support this use case. (The error we get is:
                             // Sibling values are not allowed along side $refs.
-                            // As of swagger-ui 3.11.0 this has not been resolved.
+                            // As of openApiMetadata-ui 3.11.0 this has not been resolved.
                             // https://github.com/OAI/OpenAPI-Specification/issues/556
                             // TODO: JSM - Once the standard is updated to accept sibling values along
                             // side with $refs, uncomment the line below

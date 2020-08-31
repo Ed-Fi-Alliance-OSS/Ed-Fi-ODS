@@ -14,11 +14,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
     {
         // Consider reviewing the conditionals in this file for similarities, that could be used 
         // to create methods for construction of the underlying strategies for that conditional function segment.
-        // This would allow for methods like "GetCompositeSwaggerDefinitionsFactory" or "GetExtensionOnlySwaggerDocumentFactory"
-        // that would create the entire SwaggerDocumentFactory with the correct strategies for that use case rather 
+        // This would allow for methods like "GetCompositeOpenApiMetadataDefinitionsFactory" or "GetExtensionOnlyOpenApiMetadataDocumentFactory"
+        // that would create the entire OpenApiMetadataDocumentFactory with the correct strategies for that use case rather 
         // than using conditional checks on the context.
 
-        public static OpenApiMetadataDefinitionsFactory CreateSwaggerDefinitionsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
+        public static OpenApiMetadataDefinitionsFactory CreateOpenApiMetadataDefinitionsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
             switch (openApiMetadataDocumentContext.RenderType)
             {
@@ -50,7 +50,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     var bridgeStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
                     var filterStrategy = new OpenApiMetadataFactoryResourceFilterDefaultStrategy();
 
-                    var namingStrategy = GetSwaggerDefinitionsFactoryNamingStrategy(openApiMetadataDocumentContext);
+                    var namingStrategy = GetOpenApiMetadataDefinitionsFactoryNamingStrategy(openApiMetadataDocumentContext);
 
                     var extensionStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEntityExtensionStrategy(
                         openApiMetadataDocumentContext,
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
         }
 
-        public static OpenApiMetadataPathsFactory CreateSwaggerPathsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
+        public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return new OpenApiMetadataPathsFactory(selectorStrategy, contentTypeStrategy, resourceNamingStrategy);
         }
 
-        public static OpenApiMetadataTagsFactory CreateSwaggerTagsFactory(OpenApiMetadataDocumentContext documentContext)
+        public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)
         {
             var filter = documentContext.RenderType == RenderType.ExtensionArtifactsOnly
                 ? new OpenApiMetadataFactoryResourceFilterSchemaStrategy(documentContext) as IOpenApiMetadataFactoryResourceFilterStrategy
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             return new OpenApiMetadataTagsFactory(filter);
         }
 
-        private static IOpenApiMetadataDefinitionsFactoryNamingStrategy GetSwaggerDefinitionsFactoryNamingStrategy(
+        private static IOpenApiMetadataDefinitionsFactoryNamingStrategy GetOpenApiMetadataDefinitionsFactoryNamingStrategy(
             OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
             if (openApiMetadataDocumentContext.IsCompositeContext)
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 : new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy();
         }
 
-        public static OpenApiMetadataDocumentFactory GetExtensionOnlySwaggerDocumentFactory(IResourceModel resourceModel, Schema schema)
+        public static OpenApiMetadataDocumentFactory GetExtensionOnlyOpenApiMetadataDocumentFactory(IResourceModel resourceModel, Schema schema)
         {
             var documentContext = new OpenApiMetadataDocumentContext(resourceModel)
             {
@@ -132,10 +132,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
             return new OpenApiMetadataDocumentFactory(
                 new OpenApiMetadataParametersFactory(),
-                CreateSwaggerDefinitionsFactory(documentContext),
+                CreateOpenApiMetadataDefinitionsFactory(documentContext),
                 new OpenApiMetadataResponsesFactory(),
-                CreateSwaggerPathsFactory(documentContext),
-                CreateSwaggerTagsFactory(documentContext),
+                CreateOpenApiMetadataPathsFactory(documentContext),
+                CreateOpenApiMetadataTagsFactory(documentContext),
                 documentContext
             );
         }

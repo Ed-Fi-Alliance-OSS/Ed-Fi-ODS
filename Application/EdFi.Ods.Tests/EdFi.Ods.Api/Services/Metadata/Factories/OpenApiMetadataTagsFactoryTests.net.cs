@@ -36,7 +36,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Factories
                     .Select(r => new OpenApiMetadataResource(r))
                     .ToList();
 
-                _actualTags = OpenApiMetadataDocumentFactoryHelper.CreateSwaggerTagsFactory(
+                _actualTags = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(
                         DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
                     .Create(openApiMetadataResources);
 
