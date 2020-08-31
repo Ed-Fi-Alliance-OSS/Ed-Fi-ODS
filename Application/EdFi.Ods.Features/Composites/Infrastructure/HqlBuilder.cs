@@ -354,6 +354,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 associationName,
                 builderContext.CurrentAlias);
         }
+
         /// <summary>
         /// Applies the provided flattened resource reference to the build result using the suplied builder context.
         /// </summary>
