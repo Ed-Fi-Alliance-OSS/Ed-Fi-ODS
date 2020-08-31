@@ -21,7 +21,7 @@ namespace EdFi.Security.DataAccess.Contexts
         protected SecurityContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer<SecurityContext>(null);
+            Database.SetInitializer(new ValidateDatabase<SecurityContext>());
         }
 #endif
 
