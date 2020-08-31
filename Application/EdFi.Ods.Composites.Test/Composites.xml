@@ -518,6 +518,65 @@
         </BaseResource>
       </Composite>
 
+			<Composite name="StaffWithReferencedDescriptor">
+				<BaseResource name="Staff">
+					<Property name="Id" />
+					<Property name="StaffUniqueId" />
+
+					<!-- Direct descriptor reference -->
+					<ReferencedResource name="SexDescriptor">
+						<Property name="Namespace" />
+						<Property name="CodeValue" />
+					</ReferencedResource>
+
+					<!-- Direct descriptor reference with properties flattened -->
+					<Property name="SexDescriptor" displayName="sexDescriptorUri" />
+					<ReferencedResource name="SexDescriptor" flatten="true">
+						<Property name="Namespace" displayName="sexDescriptorNamespace" />
+						<Property name="CodeValue" displayName="sexDescriptorCodeValue" />
+						<Property name="CodeValue" displayName="sexDescriptorShortDescription" />
+					</ReferencedResource>
+
+					<!-- Descriptor reference from child reference -->
+					<ReferencedResource name="PersonReference">
+						<Property name="PersonId" />
+						<ReferencedResource name="SourceSystemDescriptor">
+							<Property name="Namespace" />
+							<Property name="CodeValue" />
+							<Property name="ShortDescription" />
+						</ReferencedResource>
+					</ReferencedResource>
+
+					<!-- Descriptor reference from child reference with properties flattened -->
+					<ReferencedResource name="PersonReference" flatten="true">
+						<Property name="PersonId" />
+						<ReferencedResource name="SourceSystemDescriptor" flatten="true">
+							<Property name="Namespace" displayName="SourceSystemDescriptorNamespace" />
+							<Property name="CodeValue" displayName="SourceSystemDescriptorCodeValue" />
+							<Property name="ShortDescription" displayName="SourceSystemDescriptorShortDescription" />
+						</ReferencedResource>
+					</ReferencedResource>
+
+					<!-- Descriptor reference on child collection reference -->
+					<Collection name="StaffElectronicMails" displayName="electronicMails">
+						<ReferencedResource name="ElectronicMailTypeDescriptor">
+							<Property name="Namespace" />
+							<Property name="CodeValue" />
+						</ReferencedResource>
+						<Property name="ElectronicMailAddress" />
+					</Collection>
+
+					<!-- Descriptor reference on child collection reference with properties flattened -->
+					<Collection name="StaffElectronicMails" displayName="electronicMailsWithFlattenedDescriptors">
+						<ReferencedResource name="ElectronicMailTypeDescriptor" flatten="true">
+							<Property name="Namespace" displayName="electronicMailTypeNamespace" />
+							<Property name="CodeValue" displayName="electronicMailTypeCodeValue" />
+						</ReferencedResource>
+						<Property name="ElectronicMailAddress" />
+					</Collection>
+				</BaseResource>
+			</Composite>
+
       <Composite name="Staff">
         <Specification>
           <Parameter name="LocalEducationAgency.Id"

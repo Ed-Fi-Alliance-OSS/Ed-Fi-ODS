@@ -15,8 +15,7 @@ using log4net;
 
 namespace EdFi.Ods.Features.Composites
 {
-    public class CompositeDefinitionProcessor<TBuilderContext, TBuildResult> : ICompositeDefinitionProcessor<TBuilderContext,
-        TBuildResult>
+    public class CompositeDefinitionProcessor<TBuilderContext, TBuildResult> : ICompositeDefinitionProcessor<TBuilderContext, TBuildResult>
         where TBuildResult : class
     {
         private readonly ICompositeItemBuilder<TBuilderContext, TBuildResult> _compositeBuilder;
@@ -44,12 +43,11 @@ namespace EdFi.Ods.Features.Composites
                 throw new Exception("Unable to find the main 'Resource' element of the composite definition.");
             }
 
-            var resourceLogicalName = currentElt.AttributeValue(CompositeDefinitionHelper.LogicalSchema) ??
-                                      EdFiConventions.LogicalName;
+            var resourceLogicalName = currentElt.AttributeValue(CompositeDefinitionHelper.LogicalSchema) ?? EdFiConventions.LogicalName;
 
             var resourcePhysicalName = resourceModel.SchemaNameMapProvider
-                .GetSchemaMapByLogicalName(resourceLogicalName)
-                .PhysicalName;
+                                                    .GetSchemaMapByLogicalName(resourceLogicalName)
+                                                    .PhysicalName;
 
             // Composites does not support extensions
             var currentModel =
@@ -148,9 +146,8 @@ namespace EdFi.Ods.Features.Composites
             return thisBuildResult;
         }
 
-        private void ApplyLocalIdentifyingProperties(TBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext,
-            List<EntityProperty> nonIncomingIdentifyingProperties)
+        private void ApplyLocalIdentifyingProperties(TBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext,
+                                                     List<EntityProperty> nonIncomingIdentifyingProperties)
         {
             // Apply local identifying properties to the artifact under construction
             _compositeBuilder.ApplyLocalIdentifyingProperties(
@@ -177,22 +174,22 @@ namespace EdFi.Ods.Features.Composites
                 processorContext.ShouldIncludeResourceSubtype());
 
             return validProperties.Select(
-                    pn =>
-                        new CompositePropertyProjection(
-                            processorContext.CurrentResourceClass.AllPropertyByName[pn.Name],
-                            pn.DisplayName))
-                .ToList();
+                                       pn =>
+                                           new CompositePropertyProjection(
+                                               processorContext.CurrentResourceClass.AllPropertyByName[pn.Name],
+                                               pn.DisplayName))
+                                  .ToList();
         }
 
         private void ValidateSelectedElements(List<PropertyNameWithDisplayName> selectedElements,
-            List<PropertyNameWithDisplayName> validProperties,
-            string elementName,
-            bool shouldIncludeResourceSubtype)
+                                              List<PropertyNameWithDisplayName> validProperties,
+                                              string elementName,
+                                              bool shouldIncludeResourceSubtype)
         {
             if (_performValidation)
             {
                 var invalidElements = selectedElements.Except(validProperties)
-                    .ToList();
+                                                      .ToList();
 
                 if (invalidElements.Any())
                 {
@@ -216,24 +213,19 @@ namespace EdFi.Ods.Features.Composites
             string containingElementName)
         {
             var selectedElements = CompositeDefinitionHelper.CreateSelectedElements(propertyElements);
-
-            var validPropertiesByName = CompositeDefinitionHelper.ValidPropertiesByName(
-                processorContext, currentMember.ObjectType.PropertyByName);
-
+            var validPropertiesByName = CompositeDefinitionHelper.ValidPropertiesByName(processorContext, currentMember.ObjectType.PropertyByName);
             var validProperties = CompositeDefinitionHelper.GetValidProperties(selectedElements, validPropertiesByName);
 
-            ValidateSelectedElements(
-                selectedElements, validProperties, containingElementName, processorContext.ShouldIncludeResourceSubtype());
+            ValidateSelectedElements(selectedElements, validProperties, containingElementName, processorContext.ShouldIncludeResourceSubtype());
 
             return validProperties
-                .Select(
-                    pn => new CompositePropertyProjection(currentMember.ObjectType.AllPropertyByName[pn.Name], pn.DisplayName))
-                .ToList();
+                  .Select(pn => new CompositePropertyProjection(currentMember.ObjectType.AllPropertyByName[pn.Name], pn.DisplayName))
+                  .ToList();
         }
 
         private void ProcessChildren(TBuildResult parentResult,
-            CompositeDefinitionProcessorContext processorContext,
-            TBuilderContext parentingBuilderContext)
+                                     CompositeDefinitionProcessorContext processorContext,
+                                     TBuilderContext parentingBuilderContext)
         {
             var resourceModel = processorContext.ResourceModel;
             XElement currentElt = processorContext.CurrentElement;
@@ -241,17 +233,16 @@ namespace EdFi.Ods.Features.Composites
 
             // Iterate through children (Collection, EmbeddedObject, Resource or Reference)
             var otherChildren = currentElt.Elements(CompositeDefinitionHelper.Collection)
-                .Concat(currentElt.Elements(CompositeDefinitionHelper.EmbeddedObject))
-                .Concat(currentElt.Elements(CompositeDefinitionHelper.LinkedCollection))
-                .Concat(currentElt.Elements(CompositeDefinitionHelper.ReferencedResource));
+                                          .Concat(currentElt.Elements(CompositeDefinitionHelper.EmbeddedObject))
+                                          .Concat(currentElt.Elements(CompositeDefinitionHelper.LinkedCollection))
+                                          .Concat(currentElt.Elements(CompositeDefinitionHelper.ReferencedResource));
 
             int childIndex = 0;
 
             foreach (var childElt in otherChildren)
             {
                 var childProcessorContext = CreateChildProcessorContext(
-                    parentResult, processorContext, parentingBuilderContext, childElt, currentResourceClass, resourceModel,
-                    childIndex);
+                    parentResult, processorContext, parentingBuilderContext, childElt, currentResourceClass, resourceModel, childIndex);
 
                 if (childProcessorContext == null)
                 {
@@ -267,11 +258,11 @@ namespace EdFi.Ods.Features.Composites
         }
 
         private CompositeDefinitionProcessorContext CreateChildProcessorContext(TBuildResult parentResult,
-            CompositeDefinitionProcessorContext processorContext,
-            TBuilderContext parentingBuilderContext,
-            XElement childElement,
-            ResourceClassBase currentResourceClass,
-            IResourceModel resourceModel, int childIndex)
+                                                                                CompositeDefinitionProcessorContext processorContext,
+                                                                                TBuilderContext parentingBuilderContext,
+                                                                                XElement childElement,
+                                                                                ResourceClassBase currentResourceClass,
+                                                                                IResourceModel resourceModel, int childIndex)
         {
             ResourceClassBase childModel;
             AssociationView association;
@@ -314,8 +305,7 @@ namespace EdFi.Ods.Features.Composites
                         return null;
                     }
 
-                    if (!resource.LinkedResourceCollectionByName.TryGetValue(
-                        childMemberName, out LinkedCollection linkedCollection))
+                    if (!resource.LinkedResourceCollectionByName.TryGetValue(childMemberName, out LinkedCollection linkedCollection))
                     {
                         ApplyValidationMessage("linked collection", childMemberName, currentElementName);
                         return null;
@@ -334,8 +324,7 @@ namespace EdFi.Ods.Features.Composites
 
                 case CompositeDefinitionHelper.EmbeddedObject:
 
-                    if (!currentResourceClass.EmbeddedObjectByName.TryGetValue(
-                        childMemberName, out EmbeddedObject embeddedObject))
+                    if (!currentResourceClass.EmbeddedObjectByName.TryGetValue(childMemberName, out EmbeddedObject embeddedObject))
                     {
                         ApplyValidationMessage("embedded object", childMemberName, currentElementName);
 
@@ -356,8 +345,7 @@ namespace EdFi.Ods.Features.Composites
 
                         _compositeBuilder.ApplyFlattenedMember(embeddedObject, parentingBuilderContext);
 
-                        var childBuilderContextForObject =
-                            _compositeBuilder.CreateFlattenedReferenceChildContext(parentingBuilderContext);
+                        var childBuilderContextForObject = _compositeBuilder.CreateFlattenedReferenceChildContext(parentingBuilderContext);
 
                         var childProcessorContextForObject = new CompositeDefinitionProcessorContext(
                             processorContext.CompositeDefinitionElement,
@@ -379,31 +367,49 @@ namespace EdFi.Ods.Features.Composites
 
                 case CompositeDefinitionHelper.ReferencedResource:
 
+                    ResourceMemberBase resourceMemberToUseForFlattening;
+
                     if (!currentResourceClass.ReferenceByName.TryGetValue(childMemberName, out Reference reference))
                     {
-                        ApplyValidationMessage("referenced resource", childMemberName, currentElementName);
+                        // Look for a "descriptor" property
+                        if (currentResourceClass.PropertyByName.TryGetValue(
+                            childMemberName,
+                            out ResourceProperty descriptorProperty))
+                        {
+                            resourceMemberToUseForFlattening = descriptorProperty;
+                            childModel = descriptorProperty.DescriptorResource;
+                            childEntityMemberName = childMemberName;
+                            association = descriptorProperty.EntityProperty.IncomingAssociations.FirstOrDefault();
+                            resourceMember = descriptorProperty;
+                            resourceMemberName = childMemberName;
+                        }
+                        else
+                        {
+                            ApplyValidationMessage("referenced resource", childMemberName, currentElementName);
 
-                        return null;
+                            return null;
+                        }
                     }
+                    else
+                    {
+                        _logger.Debug($"Current element '{currentElementName}' is a referenced resourced named '{childMemberName}'.");
 
-                    _logger.Debug(
-                        $"Current element '{currentElementName}' is an referenced resourced named '{childMemberName}'.");
-
-                    childModel = reference.ReferencedResource;
-                    childEntityMemberName = reference.Association.Name;
-                    association = reference.Association;
-                    resourceMember = reference;
-                    resourceMemberName = reference.PropertyName;
+                        resourceMemberToUseForFlattening = reference;
+                        childModel = reference.ReferencedResource;
+                        childEntityMemberName = reference.Association.Name;
+                        association = reference.Association;
+                        resourceMember = reference;
+                        resourceMemberName = reference.PropertyName;
+                    }
 
                     // If reference is flattened, process recursively without adding another query at this level.
                     if (CompositeDefinitionHelper.ShouldFlatten(childElement))
                     {
                         _logger.Debug($"Flattening referenced resource {childModel.Name}");
 
-                        _compositeBuilder.ApplyFlattenedMember(reference, parentingBuilderContext);
+                        _compositeBuilder.ApplyFlattenedMember(resourceMemberToUseForFlattening, parentingBuilderContext);
 
-                        var childBuilderContextForReference =
-                            _compositeBuilder.CreateFlattenedReferenceChildContext(parentingBuilderContext);
+                        var childBuilderContextForReference = _compositeBuilder.CreateFlattenedReferenceChildContext(parentingBuilderContext);
 
                         var childProcessorContextForReference = new CompositeDefinitionProcessorContext(
                             processorContext.CompositeDefinitionElement,
@@ -419,8 +425,7 @@ namespace EdFi.Ods.Features.Composites
                         if (childModel.Entity.IsAggregateRoot)
                         {
                             // Provide opportunity to perform processing related to navigating into another resource (i.e. authorization)
-                            if (!_compositeBuilder.TryIncludeResource(
-                                childProcessorContextForReference, childBuilderContextForReference))
+                            if (!_compositeBuilder.TryIncludeResource(childProcessorContextForReference, childBuilderContextForReference))
                             {
                                 return null;
                             }
@@ -465,20 +470,20 @@ namespace EdFi.Ods.Features.Composites
             string currentContainingElementName = processorContext.CurrentElement.AttributeValue(CompositeDefinitionHelper.Name);
 
             var flattenedMemberElements = processorContext.CurrentElement
-                .Elements(CompositeDefinitionHelper.ReferencedResource)
-                .Where(CompositeDefinitionHelper.ShouldFlatten)
-                .ToList();
+                                                          .Elements(CompositeDefinitionHelper.ReferencedResource)
+                                                          .Where(CompositeDefinitionHelper.ShouldFlatten)
+                                                          .ToList();
 
             flattenedMemberElements.AddRange(
                 processorContext.CurrentElement
-                    .Elements(CompositeDefinitionHelper.EmbeddedObject)
-                    .Where(CompositeDefinitionHelper.ShouldFlatten));
+                                .Elements(CompositeDefinitionHelper.EmbeddedObject)
+                                .Where(CompositeDefinitionHelper.ShouldFlatten));
 
             foreach (var flattenedMemberElt in flattenedMemberElements)
             {
                 string flattenedMemberName = flattenedMemberElt.AttributeValue(CompositeDefinitionHelper.Name);
 
-                ResourceMemberBase resourceToUse = null;
+                ResourceMemberBase resourceMemberToUse = null;
                 Resource flattenedResource = null;
 
                 bool memberIsReference = flattenedMemberElt.Name.LocalName == CompositeDefinitionHelper.ReferencedResource;
@@ -489,15 +494,31 @@ namespace EdFi.Ods.Features.Composites
                     if (!processorContext.CurrentResourceClass.ReferenceByName.TryGetValue(
                         flattenedMemberName, out Reference resourceToUseAsReference))
                     {
-                        ApplyValidationMessage("resource reference", flattenedMemberName, currentContainingElementName);
-                        continue;
+                        // Look for a "descriptor" property
+                        if (processorContext.CurrentResourceClass.PropertyByName.TryGetValue(
+                            flattenedMemberName,
+                            out ResourceProperty descriptorProperty))
+                        {
+                            resourceMemberToUse = descriptorProperty;
+
+                            flattenedResource =
+                                processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
+                                    descriptorProperty.DescriptorResource.Entity.FullName);
+                        }
+                        else
+                        {
+                            ApplyValidationMessage("resource reference", flattenedMemberName, currentContainingElementName);
+                            continue;
+                        }
                     }
+                    else
+                    {
+                        resourceMemberToUse = resourceToUseAsReference;
 
-                    resourceToUse = resourceToUseAsReference;
-
-                    flattenedResource =
-                        processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
-                            resourceToUseAsReference.ReferencedResource.Entity.FullName);
+                        flattenedResource =
+                            processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
+                                resourceToUseAsReference.ReferencedResource.Entity.FullName);
+                    }
                 }
                 else if (memberIsEmbeddedObject)
                 {
@@ -508,17 +529,15 @@ namespace EdFi.Ods.Features.Composites
                         continue;
                     }
 
-                    resourceToUse = resourceAsEmbeddedObject;
+                    resourceMemberToUse = resourceAsEmbeddedObject;
 
                     flattenedResource =
-                        processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(
-                            resourceAsEmbeddedObject.Parent.Entity.FullName);
+                        processorContext.CurrentResourceClass.ResourceModel.GetResourceByFullName(resourceAsEmbeddedObject.Parent.Entity.FullName);
                 }
                 else
                 {
                     // Defensive programming, but also throw a helpful message in the event it does ever happen
-                    throw new NotSupportedException(
-                        $"Flattened elements of type '{flattenedMemberElt.Name.LocalName}' are not yet supported.");
+                    throw new NotSupportedException($"Flattened elements of type '{flattenedMemberElt.Name.LocalName}' are not yet supported.");
                 }
 
                 var flattenedBuilderContext = _compositeBuilder.CreateFlattenedMemberContext(builderContext);
@@ -532,9 +551,9 @@ namespace EdFi.Ods.Features.Composites
                     null,
                     null,
                     0,
-                    resourceToUse);
+                    resourceMemberToUse);
 
-                var shouldContinueWithValidation = resourceToUse == null && _performValidation;
+                var shouldContinueWithValidation = resourceMemberToUse == null && _performValidation;
 
                 if (flattenedResource.Entity.IsAggregateRoot)
                 {
@@ -550,12 +569,12 @@ namespace EdFi.Ods.Features.Composites
                     continue;
                 }
 
-                _compositeBuilder.ApplyFlattenedMember(resourceToUse, flattenedBuilderContext);
+                _compositeBuilder.ApplyFlattenedMember(resourceMemberToUse, flattenedBuilderContext);
 
                 // TODO: Consider refining what is passed into Resource model classes rather than XElements
                 var propertyElements = flattenedMemberElt
-                    .Elements(CompositeDefinitionHelper.Property)
-                    .ToList();
+                                      .Elements(CompositeDefinitionHelper.Property)
+                                      .ToList();
 
                 List<CompositePropertyProjection> flattenedPropertyProjections = new List<CompositePropertyProjection>();
 
@@ -569,13 +588,12 @@ namespace EdFi.Ods.Features.Composites
                 {
                     flattenedPropertyProjections = GetPropertyProjectionsForNonAggregateRoot(
                         processorContext,
-                        (EmbeddedObject) resourceToUse,
+                        (EmbeddedObject)resourceMemberToUse,
                         propertyElements,
                         currentContainingElementName);
                 }
 
-                _compositeBuilder.ProjectProperties(
-                    flattenedPropertyProjections, flattenedBuilderContext, flattenedProcessingContext);
+                _compositeBuilder.ProjectProperties(flattenedPropertyProjections, flattenedBuilderContext, flattenedProcessingContext);
 
                 // Recursively process flattened resource properties
                 ProcessFlattenedMemberProperties(
