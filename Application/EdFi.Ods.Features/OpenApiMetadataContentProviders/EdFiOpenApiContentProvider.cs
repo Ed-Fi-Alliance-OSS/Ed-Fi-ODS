@@ -40,8 +40,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata
                     EdFiConventions.UriSegment,
                     new Lazy<string>(
                         () =>
-                            new SwaggerDocumentFactory(
-                                    new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                            new OpenApiMetadataDocumentFactory(
+                                    new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                     {
                                         RenderType = RenderType.GeneralizedExtensions,
                                         IsIncludedExtension = x

@@ -11,22 +11,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     public class SdkGenExtensionResourceStrategy : IOpenApiMetadataResourceStrategy
     {
-        public IEnumerable<SwaggerResource> GetFilteredResources(SwaggerDocumentContext swaggerDocumentContext) =>
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext) =>
 
             // Only included extensions or EdFi resources that have one of the included extensions
-            swaggerDocumentContext.ResourceModel
+            openApiMetadataDocumentContext.ResourceModel
                                   .GetAllResources()
                                   .Where(
                                        r =>
-                                           swaggerDocumentContext.IsIncludedExtension(r)
+                                           openApiMetadataDocumentContext.IsIncludedExtension(r)
                                            || r.IsEdFiStandardResource
                                            && (r.AllContainedItemTypes.Any(
                                                    i =>
                                                        i.Extensions.Any(
-                                                           x => swaggerDocumentContext.IsIncludedExtension(
+                                                           x => openApiMetadataDocumentContext.IsIncludedExtension(
                                                                x.ObjectType)))
                                                || r.Extensions.Any(
-                                                   x => swaggerDocumentContext.IsIncludedExtension(x.ObjectType))))
-                                  .Select(r => new SwaggerResource(r));
+                                                   x => openApiMetadataDocumentContext.IsIncludedExtension(x.ObjectType))))
+                                  .Select(r => new OpenApiMetadataResource(r));
     }
 }

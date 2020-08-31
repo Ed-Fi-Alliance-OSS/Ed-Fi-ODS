@@ -29,16 +29,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
     {
         private static readonly IResourceModelProvider _resourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
-        private class SwaggerResourceProfileComparer : IEqualityComparer<SwaggerResource>
+        private class OpenApiMetadataResourceProfileComparer : IEqualityComparer<OpenApiMetadataResource>
         {
-            public bool Equals(SwaggerResource x, SwaggerResource y)
+            public bool Equals(OpenApiMetadataResource x, OpenApiMetadataResource y)
             {
                 return x.Name == y.Name
                        && x.Readable == y.Readable
                        && x.Writable == y.Writable;
             }
 
-            public int GetHashCode(SwaggerResource obj)
+            public int GetHashCode(OpenApiMetadataResource obj)
             {
                 return obj.GetHashCode();
             }
@@ -49,9 +49,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
         {
             private TestProfileResourceNamesProvider _testProfileResourceNamesProvider;
             private ISchemaNameMapProvider _schemaNameMapProvider;
-            private SwaggerDocumentContext _swaggerDocumentContext;
-            private IEnumerable<SwaggerResource> _actualFilteredResources;
-            private IEnumerable<SwaggerResource> _expectedFilteredResources;
+            private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
+            private IEnumerable<OpenApiMetadataResource> _actualFilteredResources;
+            private IEnumerable<OpenApiMetadataResource> _expectedFilteredResources;
 
             private class TestProfileResourceNamesProvider : IProfileMetadataProvider
             {
@@ -96,30 +96,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
 
                 _expectedFilteredResources = new[]
                 {
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_Readable", Readable = true
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_Readable", Readable = true,
                         ContextualResource = studentSpecialEducationProgramAssociation
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Readable",
                         Readable = true
                     },
-                    new SwaggerResource(studentProgramAssociation)
+                    new OpenApiMetadataResource(studentProgramAssociation)
                     {
                         Name = "generalStudentProgramAssociation_StudentSpecialEducationProgramAssociation_Writable",
                         Writable = true
                     },
-                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    new OpenApiMetadataResource(studentSpecialEducationProgramAssociation)
                     {
                         Name = "studentSpecialEducationProgramAssociation_Readable", Readable = true
                     },
-                    new SwaggerResource(studentSpecialEducationProgramAssociation)
+                    new OpenApiMetadataResource(studentSpecialEducationProgramAssociation)
                     {
                         Name = "studentSpecialEducationProgramAssociation_Writable", Writable = true
                     }
@@ -132,12 +132,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
                         _resourceModelProvider.GetResourceModel(),
                         _testProfileResourceNamesProvider.GetProfileDefinition("ProfileName"));
 
-                _swaggerDocumentContext =
-                    new SwaggerDocumentContext(
+                _openApiMetadataDocumentContext =
+                    new OpenApiMetadataDocumentContext(
                         _resourceModelProvider.GetResourceModel())
                     {
                         ProfileContext =
-                            new SwaggerProfileContext
+                            new OpenApiMetadataProfileContext
                             {
                                 ProfileName = "ProfileName", ProfileResourceModel = profileResourceModel
                             }
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             protected override void Act()
             {
                 _actualFilteredResources =
-                    new OpenApiProfileStrategy().GetFilteredResources(_swaggerDocumentContext)
+                    new OpenApiProfileStrategy().GetFilteredResources(_openApiMetadataDocumentContext)
                         .ToList();
             }
 
@@ -158,32 +158,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Strategies.ResourceStrat
             }
 
             [Assert]
-            public void Should_return_a_list_of_swagger_resources_which_all_are_assigned_readable_or_writable()
+            public void Should_return_a_list_of_openapimetadata_resources_which_all_are_assigned_readable_or_writable()
             {
                 _actualFilteredResources.ShouldAllBe(r => r.Readable || r.Writable);
             }
 
             [Assert]
-            public void Should_return_a_list_of_swagger_resources_which_all_assigned_a_value_of_true_for_IsProfileResource()
+            public void Should_return_a_list_of_openapimetadata_resources_which_all_assigned_a_value_of_true_for_IsProfileResource()
             {
                 _actualFilteredResources.ShouldAllBe(r => r.IsProfileResource);
             }
 
             [Assert]
-            public void Should_return_comprehensive_list_of_swagger_resources_for_the_provided_profile()
+            public void Should_return_comprehensive_list_of_openapimetadata_resources_for_the_provided_profile()
             {
                 AssertHelper.All(
                     _actualFilteredResources
                         .Select(
                             r =>
                                 (Action)
-                                (() => _expectedFilteredResources.Contains(r, new SwaggerResourceProfileComparer())
+                                (() => _expectedFilteredResources.Contains(r, new OpenApiMetadataResourceProfileComparer())
                                     .ShouldBeTrue()))
                         .ToArray());
             }
 
             [Assert]
-            public void Should_not_contains_a_writable_swagger_resource_for_a_readonly_profile_resource()
+            public void Should_not_contains_a_writable_openapimetadata_resource_for_a_readonly_profile_resource()
             {
                 _actualFilteredResources.ShouldNotContain(r => r.Name.EqualsIgnoreCase("GeneralStudentProgramAssociation") && r.Writable);
             }

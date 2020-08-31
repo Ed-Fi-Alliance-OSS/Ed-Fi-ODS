@@ -44,18 +44,18 @@ namespace EdFi.Ods.Features.Composites
             return _compositesMetadataProvider
                 .GetAllCategories()
                 .Select(
-                    x => new SwaggerCompositeContext
+                    x => new OpenApiMetadataCompositeContext
                     {
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
-                .Select(x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
+                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) { CompositeContext = x })
                 .Select(
                     c =>
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(openApiStrategy)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(openApiStrategy)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }

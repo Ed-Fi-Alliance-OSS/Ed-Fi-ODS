@@ -74,7 +74,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 Content = new StringContent(metadata)
             };
 
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(SwaggerDocumentHelper.ContentType);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(OpenApiMetadataDocumentHelper.ContentType);
 
             return result;
         }
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             var content = new StringContent(
                 JsonConvert.SerializeObject(
                     _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
-                        .Select(x => GetSwaggerSectionDetailsForCacheItem(x, request)),
+                        .Select(x => GetOpenApiMetadataSectionDetailsForCacheItem(x, request)),
                     new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()}));
 
             var eTag = new EntityTagHeaderValue(HashHelper.GetSha256Hash(content.ToString()).ToHexString().DoubleQuoted());
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 Headers = {ETag = eTag}
             };
 
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue(SwaggerDocumentHelper.ContentType);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(OpenApiMetadataDocumentHelper.ContentType);
 
             return result;
         }
@@ -116,7 +116,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 .Replace("%BASE_PATH%", basePath);
         }
 
-        private SwaggerSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent,
+        private OpenApiMetadataSectionDetails GetOpenApiMetadataSectionDetailsForCacheItem(OpenApiContent apiContent,
             OpenApiMetadataSectionRequest request)
         {
             // Construct fully qualified metadata url
@@ -125,7 +125,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                     new Uri(new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")), "metadata/"),
                     GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute));
 
-            return new SwaggerSectionDetails
+            return new OpenApiMetadataSectionDetails
             {
                 EndpointUri = url.AbsoluteUri,
                 Name = apiContent.Name.NormalizeCompositeTermForDisplay('-').Replace(" ", "-"),
@@ -157,7 +157,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
                 ? string.Empty
                 : apiContent.RelativeSectionPath.EnsureSuffixApplied("/");
 
-            return $"{basePath}/{relativeSectionUri}{SwaggerDocumentHelper.SwaggerJson}".ToLowerInvariant();
+            return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
         }
 
         private string GetBasePath(OpenApiContent apiContent, int? schoolYear)

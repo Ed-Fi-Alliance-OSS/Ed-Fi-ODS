@@ -11,11 +11,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     public class SdkGenAllResourceStrategy : IOpenApiMetadataResourceStrategy
     {
-        public IEnumerable<SwaggerResource> GetFilteredResources(SwaggerDocumentContext swaggerDocumentContext) => swaggerDocumentContext
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext) => openApiMetadataDocumentContext
                                                                                                                   .ResourceModel
                                                                                                                   .GetAllResources()
                                                                                                                   .Where(r => !r.Entity.IsAbstract)
                                                                                                                   .Select(
-                                                                                                                       r => new SwaggerResource(r));
+                                                                                                                       r => new OpenApiMetadataResource(r));
     }
 }

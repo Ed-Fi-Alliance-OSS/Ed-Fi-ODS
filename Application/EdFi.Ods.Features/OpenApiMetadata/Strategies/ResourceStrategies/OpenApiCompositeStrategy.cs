@@ -24,9 +24,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
             _compositesMetadataProvider = compositesMetadataProvider;
         }
 
-        public IEnumerable<SwaggerResource> GetFilteredResources(SwaggerDocumentContext swaggerDocumentContext)
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
-            var compositeContext = swaggerDocumentContext.CompositeContext;
+            var compositeContext = openApiMetadataDocumentContext.CompositeContext;
 
             var definitionProcessor =
                 new CompositeDefinitionProcessor<CompositeResourceModelBuilderContext, Resource>(
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
                 return null;
             }
 
-            var compositeResources = new List<SwaggerResource>();
+            var compositeResources = new List<OpenApiMetadataResource>();
 
             foreach (var compositeDefinition in compositeDefinitions)
             {
@@ -51,19 +51,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 
                 var compositeResource = definitionProcessor.Process(
                     compositeDefinition,
-                    swaggerDocumentContext.ResourceModel,
+                    openApiMetadataDocumentContext.ResourceModel,
                     new CompositeResourceModelBuilderContext());
 
                 compositeResources.Add(
-                    new SwaggerResource(compositeResource)
+                    new OpenApiMetadataResource(compositeResource)
                     {
-                        Readable = true, CompositeResourceContext = new CompositeResourceContext
-                                                                    {
-                                                                        OrganizationCode = swaggerDocumentContext.CompositeContext.OrganizationCode,
-                                                                        Specification = compositeDefinition.Element("Specification"), BaseResource =
-                                                                            compositeDefinition.Element("BaseResource")
-                                                                                               .AttributeValue("name")
-                                                                    }
+                        Readable = true,
+                        CompositeResourceContext = new CompositeResourceContext
+                        {
+                            OrganizationCode = openApiMetadataDocumentContext.CompositeContext.OrganizationCode,
+                            Specification = compositeDefinition.Element("Specification"),
+                            BaseResource = compositeDefinition.Element("BaseResource").AttributeValue("name")
+                        }
                     });
             }
 

@@ -62,7 +62,7 @@ namespace EdFi.Ods.WebService.Tests
             OpenApiMetadataSections.SdkGen,
             OpenApiMetadataSections.Other
         };
-        private readonly ConcurrentDictionary<string, OpenApiContent> _swaggerMetadataCache;
+        private readonly ConcurrentDictionary<string, OpenApiContent> _openApiMetadataMetadataCache;
 
         public LegacyOpenApiMetadataCacheProvider(
             IDomainModelProvider domainModelProvider,
@@ -85,8 +85,8 @@ namespace EdFi.Ods.WebService.Tests
             _openApiMetadataResourceFilters =
                 new Dictionary<string, IOpenApiMetadataResourceStrategy>(StringComparer.InvariantCultureIgnoreCase)
                 {
-                    {Descriptors, new SwaggerUiDescriptorOnlyStrategy()},
-                    {Resources, new SwaggerUiResourceOnlyStrategy()},
+                    {Descriptors, new OpenApiMetadataUiDescriptorOnlyStrategy()},
+                    {Resources, new OpenApiMetadataUiResourceOnlyStrategy()},
                     {Extensions, new SdkGenExtensionResourceStrategy()},
                     {EdFi, new SdkGenAllEdFiResourceStrategy()},
                     {Profiles, new OpenApiProfileStrategy()},
@@ -101,7 +101,7 @@ namespace EdFi.Ods.WebService.Tests
                     {MetadataRouteConstants.All, CreateSdkGenAllSection},
                     {MetadataRouteConstants.Profiles, CreateProfileSection},
                     {MetadataRouteConstants.Composites, CreateCompositeSection},
-                    {MetadataRouteConstants.ResourceTypes, CreateSwaggerUiSection}
+                    {MetadataRouteConstants.ResourceTypes, CreateOpenApiMetadataUiSection}
                 };
 
             foreach (var openApiContentProvider in openApiContentProviders)
@@ -117,13 +117,13 @@ namespace EdFi.Ods.WebService.Tests
                 _openApiMetadataSectionByRoute.Add(routeName, openApiContentProvider.GetOpenApiContent);
             }
 
-            _swaggerMetadataCache =
+            _openApiMetadataMetadataCache =
                 new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         public IList<OpenApiContent> GetAllSectionDocuments(bool sdk)
         {
-            var sections = _swaggerMetadataCache.Values.Where(
+            var sections = _openApiMetadataMetadataCache.Values.Where(
                     c => sdk
                         ? _sdkGenSections.Contains(c.Section)
                         : !c.Section.Equals(
@@ -145,7 +145,7 @@ namespace EdFi.Ods.WebService.Tests
 
         public OpenApiContent GetOpenApiContentByFeedName(string feedName)
         {
-            if (!_swaggerMetadataCache.TryGetValue(feedName, out OpenApiContent document))
+            if (!_openApiMetadataMetadataCache.TryGetValue(feedName, out OpenApiContent document))
             {
                 _logger.Warn($"Unable to find OpenApiContent for {feedName}");
             }
@@ -187,7 +187,7 @@ namespace EdFi.Ods.WebService.Tests
             foreach (var openApiContent in openApiContents)
             {
                 // we want to force an update if the document has changed.
-                _swaggerMetadataCache.AddOrUpdate(
+                _openApiMetadataMetadataCache.AddOrUpdate(
                     GetCacheKey(openApiContent),
                     openApiContent,
                     (key, existing) => existing.GetHashCode() != openApiContent.GetHashCode()
@@ -210,13 +210,13 @@ namespace EdFi.Ods.WebService.Tests
             return _compositesMetadataProvider
                 .GetAllCategories()
                 .Select(
-                    x => new SwaggerCompositeContext
+                    x => new OpenApiMetadataCompositeContext
                     {
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
                 .Select(
-                    x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                     {
                         CompositeContext = x
                     })
@@ -225,7 +225,7 @@ namespace EdFi.Ods.WebService.Tests
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }
@@ -240,14 +240,14 @@ namespace EdFi.Ods.WebService.Tests
                 .GetProfileResourceNames()
                 .Select(x => x.ProfileName)
                 .Select(
-                    x => new SwaggerProfileContext
+                    x => new OpenApiMetadataProfileContext
                     {
                         ProfileName = x,
                         ProfileResourceModel = _profileResourceModelProvider
                             .GetProfileResourceModel(x)
                     })
                 .Select(
-                    x => new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                     {
                         ProfileContext = x,
                         IsIncludedExtension = r => true
@@ -257,12 +257,12 @@ namespace EdFi.Ods.WebService.Tests
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new SwaggerDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
                             _odsDataBasePath,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }
 
-        private IEnumerable<OpenApiContent> CreateSwaggerUiSection()
+        private IEnumerable<OpenApiContent> CreateOpenApiMetadataUiSection()
         {
             // resources, types, descriptors using tightly coupled extensions
             return _openApiMetadataResourceFilters
@@ -280,8 +280,8 @@ namespace EdFi.Ods.WebService.Tests
                             OpenApiMetadataSections.SwaggerUi,
                             x.Key,
                             new Lazy<string>(
-                                () => new SwaggerDocumentFactory(
-                                    new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
+                                () => new OpenApiMetadataDocumentFactory(
+                                    new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
                             _odsDataBasePath);
                     });
         }
@@ -294,8 +294,8 @@ namespace EdFi.Ods.WebService.Tests
                     OpenApiMetadataSections.SdkGen,
                     All,
                     new Lazy<string>(
-                        () => new SwaggerDocumentFactory(
-                            new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                        () => new OpenApiMetadataDocumentFactory(
+                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                         ).Create(_openApiMetadataResourceFilters[All])),
                     _odsDataBasePath,
                     string.Empty)
@@ -311,8 +311,8 @@ namespace EdFi.Ods.WebService.Tests
                     EdFi,
                     new Lazy<string>(
                         () =>
-                            new SwaggerDocumentFactory(
-                                new SwaggerDocumentContext(_resourceModelProvider.GetResourceModel())
+                            new OpenApiMetadataDocumentFactory(
+                                new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                 {
                                     RenderType = RenderType.GeneralizedExtensions,
                                     IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
@@ -331,7 +331,7 @@ namespace EdFi.Ods.WebService.Tests
                                 UriSegment = _schemaNameMapProvider.GetSchemaMapByLogicalName(schema.LogicalName)
                                     .UriSegment,
                                 Factory =
-                                    SwaggerDocumentFactoryHelper.GetExtensionOnlySwaggerDocumentFactory(
+                                    OpenApiMetadataDocumentFactoryHelper.GetExtensionOnlyOpenApiMetadataDocumentFactory(
                                         _resourceModelProvider.GetResourceModel(),
                                         schema)
                             })
