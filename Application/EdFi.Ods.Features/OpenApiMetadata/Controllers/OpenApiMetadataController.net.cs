@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Controllers
             var content = new StringContent(
                 JsonConvert.SerializeObject(
                     _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
-                                                 .Select(x => GetOpenApiMetadataSectionDetailsForCacheItem(x, request))));
+                        .Select(x => GetOpenApiMetadataSectionDetailsForCacheItem(x, request)),
                     new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()}));
 
             var eTag = new EntityTagHeaderValue(HashHelper.GetSha256Hash(content.ToString()).ToHexString().DoubleQuoted());

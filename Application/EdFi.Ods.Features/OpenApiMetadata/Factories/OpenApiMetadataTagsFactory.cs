@@ -24,17 +24,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public IList<Tag> Create(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
             return openApiMetadataResources.Where(x => _filterStrategy.ShouldInclude(x.Resource))
-                                   .Select(
-                                        x => new Tag
-                                        {
-                                            name = OpenApiMetadataDocumentHelper.GetResourcePluralName(x.Resource)
-                                                                             .ToCamelCase(),
-                                            description = x.Description
-                                        })
-                                   .GroupBy(t => t.name)
-                                   .Select(g => g.First())
-                                   .OrderBy(x => x.name)
-                                   .ToList();
+                .Select(
+                    x => new Tag
+                    {
+                        name = OpenApiMetadataDocumentHelper.GetResourcePluralName(x.Resource).ToCamelCase(),
+                        description = x.Description
+                    })
+                .GroupBy(t => t.name)
+                .Select(g => g.First())
+                .OrderBy(x => x.name)
+                .ToList();
         }
     }
 }

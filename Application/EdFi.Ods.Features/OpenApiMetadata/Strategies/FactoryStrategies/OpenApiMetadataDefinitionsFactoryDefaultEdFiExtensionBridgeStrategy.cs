@@ -36,19 +36,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             {
                 type = "object",
                 properties = resourceClassBase.ExtensionByName
-                                                                      .Where(kvp => _documentContext.IsIncludedExtension(kvp.Value.ObjectType))
-                                                                      .ToDictionary(
-                                                                           pair => pair.Key,
-                                                                           pair =>
-                                                                               new Schema
-                                                                               {
-                                                                                   @ref =
-                                                                                       OpenApiMetadataDocumentHelper.GetDefinitionReference(
-                                                                                           OpenApiMetadataDocumentHelper
-                                                                                              .GetResourceExtensionDefinitionName(
-                                                                                                   pair.Value,
-                                                                                                   resourceContext))
-                                                                               })
+                    .Where(kvp => _documentContext.IsIncludedExtension(kvp.Value.ObjectType))
+                    .ToDictionary(
+                        pair => pair.Key,
+                        pair =>
+                            new Schema
+                            {
+                                @ref =
+                                    OpenApiMetadataDocumentHelper.GetDefinitionReference(
+                                        OpenApiMetadataDocumentHelper
+                                            .GetResourceExtensionDefinitionName(
+                                                pair.Value,
+                                                resourceContext))
+                            })
             };
         }
     }

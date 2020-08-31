@@ -31,16 +31,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         public IEnumerable<OpenApiMetadataPathsResource> ApplyStrategy(IEnumerable<OpenApiMetadataResource> openApiMetadataResources)
         {
             var openApiMetadataResourceList = openApiMetadataResources.Select(
-                                                           r => new OpenApiMetadataPathsResource(r.Resource)
-                                                           {
-                                                               CompositeResourceContext =
-                                                                        r.CompositeResourceContext,
-                                                               Readable = true,
-                                                               Path =
-                                                                        $"/{_openApiMetadataDocumentContext.CompositeContext.CategoryName}/{r.Resource.PluralName}",
-                                                               RequestProperties = GetMetaDataPropertiesForCurrentResource(r)
-                                                           })
-                                                      .ToList();
+                r => new OpenApiMetadataPathsResource(r.Resource)
+                {
+                    CompositeResourceContext = r.CompositeResourceContext,
+                    Readable = true,
+                    Path = $"/{_openApiMetadataDocumentContext.CompositeContext.CategoryName}/{r.Resource.PluralName}",
+                    RequestProperties = GetMetaDataPropertiesForCurrentResource(r)
+                })
+                .ToList();
 
             return openApiMetadataResourceList
                .Concat(
@@ -55,35 +53,35 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
             OpenApiMetadataResource openApiMetadataResource)
         {
             return _openApiMetadataDocumentContext.CompositeContext.RouteElements
-                                          .Where(
-                                               route =>
-                                                   !IsDefaultRoute(route)
-                                                   && RouteAppliesToResource(route, openApiMetadataResource))
-                                          .SelectMany(
-                                               d =>
-                                               {
-                                                   var operationSpecSuffix = GetOperationSpecNickname(openApiMetadataResource.Resource, d);
+                .Where(
+                    route =>
+                        !IsDefaultRoute(route)
+                        && RouteAppliesToResource(route, openApiMetadataResource))
+                .SelectMany(
+                    d =>
+                    {
+                        var operationSpecSuffix = GetOperationSpecNickname(openApiMetadataResource.Resource, d);
 
-                                                   var openApiMetadataResources = new List<OpenApiMetadataPathsResource>();
+                        var openApiMetadataResources = new List<OpenApiMetadataPathsResource>();
 
-                                                   if (operationSpecSuffix.EqualsIgnoreCase("All"))
-                                                   {
-                                                       openApiMetadataResources.Add(CreateGetByExampleEndpoint(openApiMetadataResource, d));
-                                                       openApiMetadataResources.Add(CreateGetByIdEndpoint(openApiMetadataResource, d));
-                                                   }
+                        if (operationSpecSuffix.EqualsIgnoreCase("All"))
+                        {
+                            openApiMetadataResources.Add(CreateGetByExampleEndpoint(openApiMetadataResource, d));
+                            openApiMetadataResources.Add(CreateGetByIdEndpoint(openApiMetadataResource, d));
+                        }
 
-                                                   if (!operationSpecSuffix.StartsWith("By"))
-                                                   {
-                                                       return openApiMetadataResources;
-                                                   }
+                        if (!operationSpecSuffix.StartsWith("By"))
+                        {
+                            return openApiMetadataResources;
+                        }
 
-                                                   openApiMetadataResources.Add(
-                                                       operationSpecSuffix.Equals("ById")
-                                                           ? CreateGetByIdEndpoint(openApiMetadataResource, d)
-                                                           : CreateGetByExampleEndpoint(openApiMetadataResource, d, true));
+                        openApiMetadataResources.Add(
+                            operationSpecSuffix.Equals("ById")
+                                ? CreateGetByIdEndpoint(openApiMetadataResource, d)
+                                : CreateGetByExampleEndpoint(openApiMetadataResource, d, true));
 
-                                                   return openApiMetadataResources;
-                                               });
+                        return openApiMetadataResources;
+                    });
         }
 
         private OpenApiMetadataPathsResource CreateGetByExampleEndpoint(

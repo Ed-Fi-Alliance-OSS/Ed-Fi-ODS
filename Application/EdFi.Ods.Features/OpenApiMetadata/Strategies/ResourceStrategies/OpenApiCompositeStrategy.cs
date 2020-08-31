@@ -62,9 +62,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
                         {
                             OrganizationCode = openApiMetadataDocumentContext.CompositeContext.OrganizationCode,
                             Specification = compositeDefinition.Element("Specification"),
-                            BaseResource =
-                                                                            compositeDefinition.Element("BaseResource")
-                                                                                               .AttributeValue("name")
+                            BaseResource = compositeDefinition.Element("BaseResource").AttributeValue("name")
                         }
                     });
             }

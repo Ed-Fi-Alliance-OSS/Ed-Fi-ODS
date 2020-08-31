@@ -12,13 +12,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies
 {
     public class OpenApiMetadataUiDescriptorOnlyStrategy : IOpenApiMetadataResourceStrategy
     {
-        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(OpenApiMetadataDocumentContext openApiMetadataDocumentContext) => openApiMetadataDocumentContext
-                                                                                                                  .ResourceModel
-                                                                                                                  .GetAllResources()
-                                                                                                                  .Where(
-                                                                                                                       x => x.IsDescriptorEntity()
-                                                                                                                            && !x.Entity.IsAbstract)
-                                                                                                                  .Select(
-                                                                                                                       r => new OpenApiMetadataResource(r));
+        public IEnumerable<OpenApiMetadataResource> GetFilteredResources(
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext) => openApiMetadataDocumentContext
+                .ResourceModel
+                .GetAllResources()
+                .Where(
+                    x => x.IsDescriptorEntity()
+                        && !x.Entity.IsAbstract)
+                .Select(
+                    r => new OpenApiMetadataResource(r));
     }
 }

@@ -169,8 +169,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 type = "object",
                 required = properties.Where(x => x.IsRequired)
-                                                             .Select(x => x.PropertyName.ToCamelCase())
-                                                             .ToList(),
+                    .Select(x => x.PropertyName.ToCamelCase())
+                    .ToList(),
                 properties = propertyDict
             };
         }

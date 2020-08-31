@@ -44,12 +44,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Dtos
         /// <summary>
         /// Default rendering mode that includes all resources, with strongly-typed extensions (for a tightly-coupled client-side SDK).
         /// </summary>
-        AllWithStronglyTypedExtensions, /// <summary>
-                                        /// Uses generalized extension collections (for a loosely-coupled client-side SDK).
-                                        /// </summary>
-        GeneralizedExtensions, /// <summary>
-                               /// Includes extension resources only and any model definitions for "entity extension" classes.
-                               /// </summary>
+        AllWithStronglyTypedExtensions, 
+
+        /// <summary>
+        /// Uses generalized extension collections (for a loosely-coupled client-side SDK).
+        /// </summary>
+        GeneralizedExtensions, 
+
+        /// <summary>
+        /// Includes extension resources only and any model definitions for "entity extension" classes.
+        /// </summary>
         ExtensionArtifactsOnly
     }
 }

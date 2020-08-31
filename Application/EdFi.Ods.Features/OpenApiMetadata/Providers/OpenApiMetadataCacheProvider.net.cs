@@ -153,8 +153,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             OpenApiMetadataSections.SwaggerUi,
                             x.Key, new Lazy<string>(
                                 () =>
-                                    new OpenApiMetadataDocumentFactory(
-                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
+                                new OpenApiMetadataDocumentFactory(
+                                    new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
                             _odsDataBasePath));
             }
 
