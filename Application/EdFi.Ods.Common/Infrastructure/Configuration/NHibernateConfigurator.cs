@@ -101,6 +101,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
         public NHibernate.Cfg.Configuration Configure()
         {
+            SetAssemblyBinding();
+
             var configuration = new NHibernate.Cfg.Configuration();
 
             // NOTE: the NHibernate documentation states that this file would be automatically loaded, however in testings this was not the case.
@@ -184,6 +186,18 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             configuration.AddCreateDateHooks();
 
             return configuration;
+
+            void SetAssemblyBinding()
+            {
+                // NHibernate does not behave nicely with assemblies that are loaded from another folder.
+                // By default NHibernate tries to load the assembly from the execution folder.
+                // In our case we have pre loaded the assemblies into the domain, so we just need to tell NHibernate to pull the loaded
+                // assembly. Setting the AssemblyResolve event fixes this. c.f. https://nhibernate.jira.com/browse/NH-2063 for further details.
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+                AppDomain.CurrentDomain.AssemblyResolve += (s, e)
+                    => assemblies.FirstOrDefault(a => a.GetName().Name.EqualsIgnoreCase(e.Name));
+            }
         }
 
         private void Configuration_BeforeBindMapping(object sender, BindMappingEventArgs e)
