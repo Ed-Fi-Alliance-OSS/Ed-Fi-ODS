@@ -16,7 +16,7 @@ namespace EdFi.Ods.Security.Utilities
 
         public AuthorizationViewsProvider(ISessionFactory sessionFactory)
         {
-            _authorizationViews = new Lazy<IList<string>>(() => LoadAuthorizationViewsAsync().GetResultSafely());
+            _authorizationViews = new Lazy<IList<string>>(LoadAuthorizationViews);
             _sessionFactory = sessionFactory;
         }
 
@@ -29,13 +29,13 @@ namespace EdFi.Ods.Security.Utilities
             return _authorizationViews.Value;
         }
 
-        private async Task<IList<string>> LoadAuthorizationViewsAsync()
+        private IList<string> LoadAuthorizationViews()
         {
             using (var session = _sessionFactory.OpenStatelessSession())
             {
-                return await session.CreateSQLQuery(
+                return session.CreateSQLQuery(
                         "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'")
-                    .ListAsync<string>();
+                    .List<string>();
             }
         }
     }
