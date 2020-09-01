@@ -1,37 +1,25 @@
-﻿// //SPDX-License-Identifier: Apache-2.0
-// //Licensed to the Ed-Fi Alliance under one or more agreements.
-// //The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
-// //See the LICENSE and NOTICES files in the project root for more information.
+﻿////SPDX-License-Identifier: Apache-2.0
+////Licensed to the Ed-Fi Alliance under one or more agreements.
+////The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+////See the LICENSE and NOTICES files in the project root for more information.
 
-//#if NETFRAMEWORK
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Web.Http.Routing;
-// using EdFi.Ods.Api.Common.Constants;
-// using EdFi.Ods.Api.Common.Models;
-// using EdFi.Ods.Api.Common.Providers;
-//using EdFi.Ods.Api.Constants;
-//using EdFi.Ods.Api.Extensions;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
 //using EdFi.Ods.Api.Models;
 //using EdFi.Ods.Api.Providers;
-//using EdFi.Ods.Api.Services.Metadata;
-// using EdFi.Ods.Common;
-// using EdFi.Ods.Common.Conventions;
-// using EdFi.Ods.Common.Extensions;
-// using EdFi.Ods.Common.Metadata;
-// using EdFi.Ods.Common.Models;
-// using EdFi.Ods.Composites.Test;
+//using EdFi.Ods.Common;
+//using EdFi.Ods.Common.Conventions;
+//using EdFi.Ods.Common.Extensions;
+//using EdFi.Ods.Common.Metadata;
+//using EdFi.Ods.Common.Models;
+//using EdFi.Ods.Composites.Test;
 //using EdFi.Ods.Features.IdentityManagement;
-//using EdFi.Ods.Features.OpenApiMetadata;
-// using EdFi.Ods.Features.OpenApiMetadata.Providers;
-// using EdFi.Ods.Profiles.Test;
-// using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
-// using NUnit.Framework;
-// using Rhino.Mocks;
-// using Test.Common;
+//using EdFi.TestFixture;
+//using NUnit.Framework;
+//using Test.Common;
 
-// namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata
+//namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata
 //{
 //    [TestFixture]
 //    [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
@@ -70,13 +58,13 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_sdk_gen_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_sdk_gen_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
 //            private IProfileResourceNamesProvider _profileResourceNamesProvider;
 
-//             private IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
+//            // private IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
 //            private List<OpenApiContent> _actualMetadata;
 
 //            protected override void Arrange()
@@ -89,20 +77,20 @@
 //                _profileResourceNamesProvider = new ProfileResourceNamesProvider();
 //                _profileResourceModelProvider = new ProfileResourceModelProvider(ResourceModelProvider, new ProfileResourceNamesProvider());
 
-//                var openApiMetadataRouteProviderStub = Stub<IOpenApiMetadataRouteProvider>();
-
-//                openApiMetadataRouteProviderStub.Stub(x => x.GetAllRoutes())
-//                                                .Return(GetTestRoutes());
-
-//                _openApiMetadataCacheProvider = new LegacyOpenApiMetadataCacheProvider(
-//                    DomainModelProvider,
-//                    ResourceModelProvider,
-//                    _profileResourceModelProvider,
-//                    _profileResourceNamesProvider,
-//                    _compositesMetadataProvider,
-//                    SchemaNameMapProvider,
-//                    openApiMetadataRouteProviderStub,
-//                    TestOpenApiContentProviders);
+//                // var openApiMetadataRouteProviderStub = Stub<IOpenApiMetadataRouteProvider>();
+//                //
+//                // openApiMetadataRouteProviderStub.Stub(x => x.GetAllRoutes())
+//                //                                 .Return(GetTestRoutes());
+//                //
+//                // _openApiMetadataCacheProvider = new LegacyOpenApiMetadataCacheProvider(
+//                //     DomainModelProvider,
+//                //     ResourceModelProvider,
+//                //     _profileResourceModelProvider,
+//                //     _profileResourceNamesProvider,
+//                //     _compositesMetadataProvider,
+//                //     SchemaNameMapProvider,
+//                //     openApiMetadataRouteProviderStub,
+//                //     TestOpenApiContentProviders);
 //            }
 
 //            protected override void Act()
@@ -149,7 +137,7 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_swagger_ui_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_swagger_ui_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
@@ -219,15 +207,15 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_other_ui_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_other_ui_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
 //            private IProfileResourceNamesProvider _profileResourceNamesProvider;
 
-//            private LegacyOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
+//            // private LegacyOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
 
-//            private List<OpenApiContent> _actualMetadata;
+//            // private List<OpenApiContent> _actualMetadata;
 
 //            protected override void Arrange()
 //            {
@@ -248,25 +236,25 @@
 //                openApiMetadataRouteProviderStub.Stub(x => x.GetAllRoutes())
 //                                                .Return(GetTestRoutes());
 
-//                _openApiMetadataCacheProvider = new LegacyOpenApiMetadataCacheProvider(
-//                    DomainModelProvider,
-//                    ResourceModelProvider,
-//                    _profileResourceModelProvider,
-//                    _profileResourceNamesProvider,
-//                    _compositesMetadataProvider,
-//                    SchemaNameMapProvider,
-//                    openApiMetadataRouteProviderStub,
-//                    TestOpenApiContentProviders);
+//                // _openApiMetadataCacheProvider = new LegacyOpenApiMetadataCacheProvider(
+//                //     DomainModelProvider,
+//                //     ResourceModelProvider,
+//                //     _profileResourceModelProvider,
+//                //     _profileResourceNamesProvider,
+//                //     _compositesMetadataProvider,
+//                //     SchemaNameMapProvider,
+//                //     openApiMetadataRouteProviderStub,
+//                //     TestOpenApiContentProviders);
 //            }
 
 //            protected override void Act()
 //            {
-//                _openApiMetadataCacheProvider.InitializeCache();
-
-//                _actualMetadata = _openApiMetadataCacheProvider
-//                                 .GetAllSectionDocuments(sdk: false)
-//                                 .Where(x => x.Section.Equals(OpenApiMetadataSections.Other))
-//                                 .ToList();
+//                // _openApiMetadataCacheProvider.InitializeCache();
+//                //
+//                // _actualMetadata = _openApiMetadataCacheProvider
+//                //                  .GetAllSectionDocuments(sdk: false)
+//                //                  .Where(x => x.Section.Equals(OpenApiMetadataSections.Other))
+//                //                  .ToList();
 //            }
 
 //            [Assert]
@@ -287,7 +275,7 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_profiles_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_profiles_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
@@ -369,7 +357,7 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_composites_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_composites_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
@@ -450,7 +438,7 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_the_extensions_section_from_the_cache : LegacyTestFixtureBase
+//        public class When_requesting_the_extensions_section_from_the_cache : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
@@ -537,7 +525,7 @@
 //        }
 
 //        [Ignore("Needs refactoring to new OpenApiMetadata Controller")]
-//        public class When_requesting_a_section_from_the_cache_for_which_no_route_was_registered : LegacyTestFixtureBase
+//        public class When_requesting_a_section_from_the_cache_for_which_no_route_was_registered : TestFixtureBase
 //        {
 //            private ICompositesMetadataProvider _compositesMetadataProvider;
 //            private IProfileResourceModelProvider _profileResourceModelProvider;
@@ -597,4 +585,3 @@
 //        }
 //    }
 //}
-//#endif
