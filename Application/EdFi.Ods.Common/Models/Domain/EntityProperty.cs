@@ -156,6 +156,14 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
+        /// Gets the corresponding property in the base entity, if current entity is derived; otherwise <b>null</b>.
+        /// </summary>
+        public EntityProperty BaseProperty
+        {
+            get => Entity.BaseAssociation?.PropertyMappingByThisName[PropertyName].OtherProperty;
+        }
+
+        /// <summary>
         /// Indicates whether or not the property participates in key unification (is a property
         /// introduced by multiple associations, indicating deep referential integrity in
         /// the underlying model).

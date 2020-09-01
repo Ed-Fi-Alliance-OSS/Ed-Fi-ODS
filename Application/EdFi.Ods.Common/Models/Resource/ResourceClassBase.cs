@@ -34,6 +34,7 @@ namespace EdFi.Ods.Common.Models.Resource
         private Lazy<IReadOnlyList<ResourceMemberBase>> _allMembers;
 
         private Lazy<IReadOnlyList<ResourceProperty>> _allProperties;
+        private Lazy<IReadOnlyList<ResourceProperty>> _allIdentifyingProperties;
 
         private Lazy<IReadOnlyDictionary<string, ResourceProperty>> _allPropertyByName;
         private Lazy<IReadOnlyDictionary<string, Collection>> _collectionByName;
@@ -252,6 +253,11 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         public Entity Entity { get; }
+
+        /// <summary>
+        /// Gets all the identifying properties defined on, or introduced by references to this resource class (with identifying properties listed before non-identifying properties).
+        /// </summary>
+        public virtual IReadOnlyList<ResourceProperty> AllIdentifyingProperties => _allIdentifyingProperties.Value;
 
         /// <summary>
         /// Gets the identifying properties of the resource that are introduced in the local context, including those in references, as necessary.
@@ -579,6 +585,8 @@ namespace EdFi.Ods.Common.Models.Resource
                 () =>
                     AllProperties.ToDictionary(x => x.PropertyName, x => x, StringComparer.InvariantCultureIgnoreCase));
 
+            _allIdentifyingProperties = new Lazy<IReadOnlyList<ResourceProperty>>(() => _allProperties.Value.Where(p => p.IsIdentifying).ToArray());
+            
             _propertyByName = new Lazy<IReadOnlyDictionary<string, ResourceProperty>>(
                 () =>
                     Properties
