@@ -14,6 +14,11 @@ namespace EdFi.Ods.Api.Constants
             get => EdFiConventions.GetOpenApiMetadataRouteName("ResourceTypes");
         }
 
+        public static string Extensions
+        {
+            get => EdFiConventions.GetOpenApiMetadataRouteName("Extensions");
+        }
+
         public static string Profiles
         {
             get => EdFiConventions.GetOpenApiMetadataRouteName("Profiles");
