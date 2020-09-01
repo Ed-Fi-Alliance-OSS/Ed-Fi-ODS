@@ -294,8 +294,26 @@ delete ApiClients where ApiClientId = @clientId",
 
         public ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null)
         {
-            return AddClientAccessTokenAsync(apiClientId, tokenRequestScope)
-                .GetResultSafely();
+            using (var context = _contextFactory.CreateContext())
+            {
+                var client = context.Clients.FirstOrDefault(c => c.ApiClientId == apiClientId);
+
+                if (client == null)
+                {
+                    throw new InvalidOperationException("Cannot add client access token when the client does not exist.");
+                }
+
+                var token = new ClientAccessToken(TimeSpan.FromMinutes(_duration.Value))
+                {
+                    Scope = string.IsNullOrEmpty(tokenRequestScope)
+                        ? null
+                        : tokenRequestScope.Trim()
+                };
+
+                client.ClientAccessTokens.Add(token);
+                context.SaveChanges();
+                return token;
+            }
         }
 
         public Application[] GetVendorApplications(int vendorId)
