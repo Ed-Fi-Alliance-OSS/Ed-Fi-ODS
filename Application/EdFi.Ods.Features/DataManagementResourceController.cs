@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Http.Results;
 using Dapper;
 using EdFi.Ods.Api.NHibernate;
 using EdFi.Ods.Api.Services.Authentication;
@@ -28,6 +29,7 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Api.Services.Controllers
 {
@@ -64,28 +66,59 @@ namespace EdFi.Ods.Api.Services.Controllers
             int offset = urlQueryParametersRequest.Offset ?? 0;
             int limit = urlQueryParametersRequest.Limit ?? 25;
             
-            var pagedQueryBuilder = BuildPagedQueryForEntity(resource.Entity, offset, limit);
-            
-            var resourceClassQueries = BuildQueriesForResource(resource).ToList();
-            
+            List<ResourceClassQuery> resourceClassQueries = await GetResourceData(resource, offset: offset, limit: limit);
+
+            return new HttpResponseMessage {Content = new ResourceJsonContent(resourceClassQueries)};
+        }
+
+        private async Task<List<ResourceClassQuery>> GetResourceData(Resource resource, 
+            IDictionary<string, object> primaryKeyValues = null,
+            int? offset = null, int? limit = null)
+        {
             var sql = new StringBuilder();
-            sql.AppendLine(pagedQueryBuilder.RawSql);
+
+            if (primaryKeyValues == null)
+            {
+                var pagedQueryBuilder = BuildPagedQueryForEntity(resource.Entity, offset ?? 0, limit ?? 25);
+                sql.AppendLine(pagedQueryBuilder.RawSql);
+            }
+            
+            var resourceClassQueries = BuildQueriesForResource(resource, primaryKeyValues).ToList();
 
             foreach (var resourceClassQuery in resourceClassQueries)
             {
                 sql.Append(resourceClassQuery.Template.RawSql);
             }
-            
+
             using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
             {
                 await conn.OpenAsync();
 
                 _logger.Debug($"SQL: {sql}");
+
+                var parameters = new DynamicParameters();
+
+                if (offset != null)
+                {
+                    parameters.Add("offset", offset);
+                }
+
+                if (limit != null)
+                {
+                    parameters.Add("limit", limit);
+                }
+
+                if (primaryKeyValues != null)
+                {
+                    parameters.AddDynamicParams(primaryKeyValues);
+                }
                 
-                using (var multipleResults = await conn.QueryMultipleAsync(sql.ToString(), new { offset, limit}))
+                using (var multipleResults = await conn.QueryMultipleAsync(
+                    sql.ToString(),
+                    parameters))
                 {
                     int i = 0;
-                    
+
                     while (!multipleResults.IsConsumed)
                     {
                         var result = await multipleResults.ReadAsync();
@@ -94,7 +127,7 @@ namespace EdFi.Ods.Api.Services.Controllers
                 }
             }
 
-            return new HttpResponseMessage {Content = new ResourceJsonContent(resourceClassQueries)};
+            return resourceClassQueries;
         }
 
         private Resource GetResourceForRequest()
@@ -104,8 +137,7 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             var resourceModel = _resourceModelProvider.GetResourceModel();
 
-            var schemaNameMapProvider =
-                resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
+            var schemaNameMapProvider = resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
 
             string schema = schemaNameMapProvider.GetSchemaMapByUriSegment(schemaUriSegment).PhysicalName;
             string resourceName = CompositeTermInflector.MakeSingular(resourceCollectionName);
@@ -131,7 +163,9 @@ namespace EdFi.Ods.Api.Services.Controllers
             public List<object> Results { get; set; }
         }
 
-        private IEnumerable<ResourceClassQuery> BuildQueriesForResource(Resource resource)
+        private IEnumerable<ResourceClassQuery> BuildQueriesForResource(
+            Resource resource, 
+            IDictionary<string, object> primaryKeyValues = null)
         {
             var sqlBuilder = new SqlBuilder();
             var aliasGenerator = new AliasGenerator();
@@ -147,7 +181,10 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             if (resource.IsDerived)
             {
-                sqlBuilder.Where("b.Id IN (SELECT Id FROM @ids)");
+                if (primaryKeyValues == null)
+                {
+                    sqlBuilder.Where("b.Id IN (SELECT Id FROM @ids)");
+                }
                 
                 CreateBaseEntityJoin(resource.Entity, sqlBuilder);
                 
@@ -161,7 +198,15 @@ namespace EdFi.Ods.Api.Services.Controllers
             }
             else
             {
-                sqlBuilder.Where("e.Id IN (SELECT Id FROM @ids)");
+                if (primaryKeyValues == null)
+                {
+                    sqlBuilder.Where("e.Id IN (SELECT Id FROM @ids)");
+                }
+            }
+
+            if (primaryKeyValues != null)
+            {
+                ApplyRootResourcePrimaryKeyCriteria(resource, primaryKeyValues, sqlBuilder, aliasGenerator);
             }
 
             var query = sqlBuilder.AddTemplate($@"
@@ -174,23 +219,90 @@ FROM {resource.FullName} AS e
 
             yield return new ResourceClassQuery(resource, query);
 
-            foreach (var childQuery in ProcessChildren(resource))
+            foreach (var childQuery in ProcessChildren(resource, primaryKeyValues))
             {
                 yield return childQuery;
             }
         }
 
-        private IEnumerable<ResourceClassQuery> ProcessChildren(ResourceClassBase resourceClass)
+        private static void ApplyRootResourcePrimaryKeyCriteria(
+            ResourceClassBase resourceClass,
+            IDictionary<string, object> primaryKeyValues,
+            SqlBuilder sqlBuilder,
+            AliasGenerator aliasGenerator)
+        {
+            string rootAlias = (resourceClass is Resource)
+                ? "e"
+                : "r";
+
+            // TODO: Semantic model candidate
+             bool isInheritedChild = (resourceClass.Entity.Aggregate.AggregateRoot != resourceClass.ResourceRoot.Entity);
+            
+            foreach (var resourceProperty in resourceClass.ResourceRoot.AllIdentifyingProperties)
+            {
+                var entityProperty = isInheritedChild
+                    ? resourceProperty.EntityProperty.BaseProperty // e.g. EducationOrganizationId
+                    : resourceProperty.EntityProperty; // e.g. SchoolId
+
+                if (entityProperty.IsLookup)
+                {
+                    // TODO: Descriptor requires join to Descriptor on Namespace/CodeValue, splitting on #
+                    var descriptorParts = ((string) primaryKeyValues[resourceProperty.PropertyName])?.Split('#');
+
+                    string descriptorAlias = aliasGenerator.GetNextAlias();
+
+                    sqlBuilder.InnerJoin(
+                        $"edfi.Descriptor AS {descriptorAlias} ON {rootAlias}.{entityProperty.PropertyName} = {descriptorAlias}.DescriptorId");
+
+                    var parameters = new DynamicParameters();
+                    parameters.Add($"{descriptorAlias}_Namespace", descriptorParts[0]);
+                    parameters.Add($"{descriptorAlias}_CodeValue", descriptorParts[1]);
+
+                    sqlBuilder.Where(
+                        $"{descriptorAlias}.Namespace = @{descriptorAlias}_Namespace AND {descriptorAlias}.CodeValue = @{descriptorAlias}_CodeValue",
+                        parameters);
+                }
+                else if (UniqueIdSpecification.IsUniqueId(resourceProperty.PropertyName))
+                {
+                    // TODO: UniqueId requires join to corresponding Person table
+                    var personType = UniqueIdSpecification.GetUSIPersonType(entityProperty.PropertyName);
+
+                    string personTypeUsiName = $"{personType}USI"; // TODO: Embedded convention - PersonUSI name
+                    string personTypeUniqueName = $"{personType}UniqueId"; // TODO: Embedded convention - PersonUniqueId name
+
+                    string personAlias = aliasGenerator.GetNextAlias();
+
+                    sqlBuilder.InnerJoin(
+                        $"edfi.{personType} AS {personAlias} ON e.{entityProperty.PropertyName} = {personAlias}.{personTypeUsiName}");
+
+                    var parameters = new DynamicParameters();
+                    parameters.Add(personAlias, primaryKeyValues[resourceProperty.PropertyName]);
+
+                    sqlBuilder.Where($"{personAlias}.{personTypeUniqueName} = @{personAlias}", parameters);
+                }
+                else
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add(resourceProperty.PropertyName, primaryKeyValues[resourceProperty.EntityProperty.PropertyName]);
+
+                    sqlBuilder.Where($"{entityProperty.PropertyName} = @{resourceProperty.EntityProperty.PropertyName}", parameters);
+                }
+            }
+        }
+
+        private IEnumerable<ResourceClassQuery> ProcessChildren(
+            ResourceClassBase resourceClass,
+            IDictionary<string, object> rootPrimaryKeyValues = null)
         {
             foreach (var childResource in resourceClass.Collections)
             {
-                var queries = BuildQueriesForResource(childResource.ItemType);
+                var queries = BuildQueriesForResource(childResource.ItemType, rootPrimaryKeyValues);
 
                 foreach (var query in queries)
                 {
                     yield return new ResourceClassQuery(childResource.ItemType, query);
 
-                    foreach (var childQuery in ProcessChildren(childResource.ItemType))
+                    foreach (var childQuery in ProcessChildren(childResource.ItemType, rootPrimaryKeyValues))
                     {
                         yield return childQuery;
                     }
@@ -199,7 +311,7 @@ FROM {resource.FullName} AS e
 
             foreach (var childResource in resourceClass.EmbeddedObjects)
             {
-                var queries = BuildQueriesForResource(childResource.ObjectType);
+                var queries = BuildQueriesForResource(childResource.ObjectType, rootPrimaryKeyValues);
 
                 foreach (var query in queries)
                 {
@@ -213,7 +325,9 @@ FROM {resource.FullName} AS e
             }
         }
 
-        private IEnumerable<SqlBuilder.Template> BuildQueriesForResource(ResourceChildItem resourceChildItem)
+        private IEnumerable<SqlBuilder.Template> BuildQueriesForResource(
+            ResourceChildItem resourceChildItem, 
+            IDictionary<string, object> rootPrimaryKeyValues)
         {
             var sqlBuilder = new SqlBuilder();
             var aliasGenerator = new AliasGenerator();
@@ -222,11 +336,20 @@ FROM {resource.FullName} AS e
 
             sqlBuilder.Select("e.*");
             
-            // Child join to root
-            var aggregateRoot = resourceChildItem.Entity.Aggregate.AggregateRoot;
+            // Apply root criteria
+            if (rootPrimaryKeyValues == null)
+            {
+                // Join child entity to root entity
+                var aggregateRoot = entity.Aggregate.AggregateRoot;
+                sqlBuilder.InnerJoin($"{(aggregateRoot.IsDerived ? aggregateRoot.BaseEntity.FullName : aggregateRoot.FullName)} r on {JoinCriteriaToRoot(entity)}");
+                sqlBuilder.Where("r.Id IN (SELECT Id FROM @ids");
+            }
+            else
+            {
+                
+                ApplyRootResourcePrimaryKeyCriteria(resourceChildItem, rootPrimaryKeyValues, sqlBuilder, aliasGenerator);
+            }
             
-            sqlBuilder.InnerJoin($"{(aggregateRoot.IsDerived ? aggregateRoot.BaseEntity.FullName : aggregateRoot.FullName)} r on {JoinCriteriaToRoot(entity)}");
-
             // Sort results by PK
             foreach (var property in entity.Identifier.Properties)
             {
@@ -241,7 +364,7 @@ SELECT /**select**/
 FROM {entity.FullName} e
     /**innerjoin**/
     /**leftjoin**/
-WHERE r.Id IN (SELECT Id FROM @ids)
+/**where**/
 /**orderby**/
 ");
 
@@ -439,20 +562,29 @@ FETCH NEXT @limit ROWS ONLY",
             sqlBuilder.InnerJoin(@join);
         }
 
-        public virtual async Task<HttpResponseMessage> Post()
+        public virtual async Task<IHttpActionResult> Post([FromBody] JObject jsonData)
         {
             Resource resource = GetResourceForRequest();
 
             if (resource == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return new NotFoundResult(Request);
+                // return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
-            var requestStream = await Request.Content.ReadAsStreamAsync();
+            // Get the primary key of the resource
+            var primaryKeyValues = resource.AllIdentifyingProperties
+                .ToDictionary(
+                    rp => rp.PropertyName, 
+                    rp => (object) jsonData[rp.JsonPropertyName].Value<object>());
             
-            var jsonReader = new JsonTextReader(new StreamReader(requestStream));
+            var resourceData = await GetResourceData(resource, primaryKeyValues);
+            
+            
+            
+            // var requestStream = await Request.Content.ReadAsStreamAsync();
+            // var jsonReader = new JsonTextReader(new StreamReader(requestStream));
 
-            var row = new Dapper.DapperRow();
 
             // var sqlBuilder = new Dapper.SqlBuilder();
             //
@@ -480,7 +612,7 @@ FETCH NEXT @limit ROWS ONLY",
             //     return Ok(results);
             // }
             //
-            return Ok(new {hello = "world"});
+            return Ok(resourceData);
         }
 
         // Item operations
