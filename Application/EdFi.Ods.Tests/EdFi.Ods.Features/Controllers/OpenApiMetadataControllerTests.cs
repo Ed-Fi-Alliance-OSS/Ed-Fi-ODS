@@ -4,9 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Collections.Generic;
 using System.Net;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Extensions;
+using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
@@ -17,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
+using NHibernate.Criterion;
 using NUnit.Framework;
 using Test.Common;
 
@@ -29,62 +35,54 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         {
             private OpenApiMetadataController _controller;
             private IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
-            private const string XForwardedProto = "X-Forwarded-Proto";
-            private const string XForwardedHost = "X-Forwarded-Host";
-            private const string XForwardedPort = "X-Forwarded-Port";
 
             protected override void Arrange()
             {
                 var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = true;
-                configValueProvider.Features.Add(new Feature { Name = "openApiMetadata", IsEnabled = true });
+                configValueProvider.UseReverseProxyHeaders = false;
+                Feature item = new Feature();
+                item.IsEnabled = true;
+                item.Name = "openApiMetadata";
+                configValueProvider.Features.Add(item);
 
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 A.CallTo(() => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(A<string>._))
                     .Returns(OpenApiMetadataHelper.GetIdentityContent());
 
+                var fakeopenAPIcontent = A.Fake<List<OpenApiContent>>();
+
+                A.CallTo(() => _openApiMetadataCacheProvider.GetAllSectionDocuments(A<bool>._)).Returns(fakeopenAPIcontent);
+
+                var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
+                fakeopenAPIcontent.Add(sectiondata);
+
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
-                // // var config = new HttpConfiguration();
-                // var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/metadata");
-                // var route = config.Routes.MapHttpRoute("default", "{controller}");
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthAuthorize",
-                //     "oauth/authorize",
-                //     new
-                //     {
-                //         controller = "Authorize"
-                //     });
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthToken",
-                //     "oauth/token",
-                //     new
-                //     {
-                //         controller = "Token"
-                //     });
-                //
-                // var routeData2 = new HttpRouteData(
-                //     route,
-                //     new HttpRouteValueDictionary
-                //     {
-                //         {
-                //             "controller", "metadata"
-                //         }
-                //     });
 
-                HttpContext httpContext = A.Fake<HttpContext>();
-                RouteData routeData = new RouteData();
-                ActionDescriptor actionDescriptor = A.Fake<ControllerActionDescriptor>();
-                ActionContext context = new ActionContext(httpContext, routeData, actionDescriptor);
+                var request = A.Fake<HttpRequest>();
+                request.Method = "Post";
+                request.Scheme = "http";
 
-                _controller.ControllerContext = new ControllerContext(context);
+                A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
-                _controller.Request.Headers.Add(XForwardedProto, "https");
-                _controller.Request.Headers.Add(XForwardedHost, "api.com");
-                _controller.Request.Headers.Add(XForwardedPort, "443");
+                request.PathBase = "/";
+                request.RouteValues = new RouteValueDictionary { {
+                            "controller", "Token"
+                        } };
 
+                var httpContext = A.Fake<HttpContext>();
+
+                A.CallTo(() => httpContext.Request).Returns(request);
+
+                var controllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext,
+                };
+                RouteValueDictionary dictionary = new RouteValueDictionary();
+                dictionary.Add("controller", "Token");
+
+                controllerContext.RouteData = new RouteData(dictionary);
+                _controller.ControllerContext = controllerContext;
             }
 
             [Assert]
@@ -92,83 +90,88 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var request = new OpenApiMetadataSectionRequest
                 {
-                    Sdk = true
+                    Sdk = true,
+                    SchoolYearFromRoute = 2020
                 };
 
+                var response = (OkObjectResult)_controller.Get(request);
+                var openapisectionlist = (List<OpenApiMetadataSectionDetails>)response.Value;
 
-                var results =  (OkObjectResult)_controller.Get(request);
-
-                Assert.IsNotNull(results);
-                Assert.AreEqual(results.StatusCode, (int)HttpStatusCode.OK);
-
-                //var content = await response.ExecuteResultAsync().Wait();
-                //Assert.IsNotNull(content);
-                //Assert.IsTrue(content.Contains("localhost:80"));
-                //Assert.IsTrue(content.Contains("http://localhost/oauth/token"));
+                Assert.AreEqual(200, response.StatusCode);
+                Assert.IsNotNull(response);
+                Assert.IsTrue(openapisectionlist.Count > 0);
+                Assert.AreEqual("Identity", openapisectionlist[0].Name);
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
+                Assert.AreEqual("Other", openapisectionlist[0].Prefix);
             }
         }
 
         [TestFixture]
         public class When_calling_the_metadata_controller_with_use_reverse_proxy_and_forwarded_headers : TestFixtureBase
         {
-            private const string XForwardedProto = "X-Forwarded-Proto";
-            private const string XForwardedHost = "X-Forwarded-Host";
-            private const string XForwardedPort = "X-Forwarded-Port";
-
             private OpenApiMetadataController _controller;
             private IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
 
             protected override void Arrange()
             {
-                var apisetting = new ApiSettings();
-                apisetting.UseReverseProxyHeaders = true;
-                apisetting.Features.Add(new Feature{Name= "openApiMetadata",IsEnabled=true });
+                var configValueProvider = new ApiSettings();
+                configValueProvider.UseReverseProxyHeaders = true;
+                Feature item = new Feature();
+                item.IsEnabled = true;
+                item.Name = "openApiMetadata";
+                configValueProvider.Features.Add(item);
+
+                _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 A.CallTo(() => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(A<string>._))
                     .Returns(OpenApiMetadataHelper.GetIdentityContent());
 
-                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, apisetting);
-                // var config = new HttpConfiguration();
-                // var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/metadata");
-                // var route = config.Routes.MapHttpRoute("default", "{controller}");
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthAuthorize",
-                //     "oauth/authorize",
-                //     new
-                //     {
-                //         controller = "Authorize"
-                //     });
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthToken",
-                //     "oauth/token",
-                //     new
-                //     {
-                //         controller = "Token"
-                //     });
-                //
-                // var routeData2 = new HttpRouteData(
-                //     route,
-                //     new HttpRouteValueDictionary
-                //     {
-                //         {
-                //             "controller", "metadata"
-                //         }
-                //     });
+                var fakeopenAPIcontent = A.Fake<List<OpenApiContent>>();
 
-                HttpContext httpContext = A.Fake<HttpContext>();
-                RouteData routeData = new RouteData();
-                ActionDescriptor actionDescriptor = A.Fake<ControllerActionDescriptor>();
-                ActionContext context = new ActionContext(httpContext, routeData, actionDescriptor);
+                A.CallTo(() => _openApiMetadataCacheProvider.GetAllSectionDocuments(A<bool>._)).Returns(fakeopenAPIcontent);
 
-                _controller.ControllerContext = new ControllerContext(context);
+                var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
+                fakeopenAPIcontent.Add(sectiondata);
+                _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
 
-                _controller.Request.Headers.Add(XForwardedProto, "https");
-                _controller.Request.Headers.Add(XForwardedHost, "api.com");
-                _controller.Request.Headers.Add(XForwardedPort, "443");
+                var request = A.Fake<HttpRequest>();
+                request.Method = "Post";
+                request.Scheme = "http";
+
+                A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
+
+                request.PathBase = "/";
+                request.RouteValues = new RouteValueDictionary { {
+                            "controller", "Token"
+                        } };
+
+                var headerDictionary = A.Fake<IHeaderDictionary>();
+
+                HeaderDictionary dict = new HeaderDictionary();
+                dict.Add(HeaderConstants.XForwardedProto, "https");
+                dict.Add(HeaderConstants.XForwardedHost, "api.com");
+                dict.Add(HeaderConstants.XForwardedPort, "443");
+
+                A.CallTo(() => request.Headers).Returns(dict);
+
+                var httpContext = A.Fake<HttpContext>();
+
+                A.CallTo(() => httpContext.Request).Returns(request);
+
+                var controllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext,
+                };
+                RouteValueDictionary dictionary = new RouteValueDictionary();
+                dictionary.Add("controller", "Token");
+
+                controllerContext.RouteData = new RouteData(dictionary);
+
+                _controller.ControllerContext = controllerContext;
             }
 
             [Assert]
@@ -176,13 +179,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var request = new OpenApiMetadataSectionRequest
                 {
-                    Sdk = true
+                    Sdk = true,
+                    SchoolYearFromRoute = 2020
                 };
 
-                var results = (OkObjectResult)_controller.Get(request);
+                var response = (OkObjectResult)_controller.Get(request);
 
-                Assert.IsNotNull(results);
-                Assert.AreEqual(results.StatusCode, (int)HttpStatusCode.OK);
+                var openapisectionlist = (List<OpenApiMetadataSectionDetails>)response.Value;
+                Assert.AreEqual(200, response.StatusCode);
+                Assert.IsNotNull(response);
+                Assert.IsTrue(openapisectionlist.Count > 0);
+                Assert.AreEqual("Identity", openapisectionlist[0].Name);
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("api.com"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("https"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
+                Assert.AreEqual("Other", openapisectionlist[0].Prefix);
             }
         }
 
@@ -195,57 +207,51 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             protected override void Arrange()
             {
                 var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = false;
-                configValueProvider.Features.Add(new Feature { Name = "openApiMetadata", IsEnabled = true });
+                configValueProvider.UseReverseProxyHeaders = true;
+                Feature item = new Feature();
+                item.IsEnabled = true;
+                item.Name = "openApiMetadata";
+                configValueProvider.Features.Add(item);
+
                 _openApiMetadataCacheProvider = Stub<IOpenApiMetadataCacheProvider>();
 
                 A.CallTo(() => _openApiMetadataCacheProvider.GetOpenApiContentByFeedName(A<string>._))
                     .Returns(OpenApiMetadataHelper.GetIdentityContent());
 
+                var fakeopenAPIcontent = A.Fake<List<OpenApiContent>>();
+
+                A.CallTo(() => _openApiMetadataCacheProvider.GetAllSectionDocuments(A<bool>._)).Returns(fakeopenAPIcontent);
+
+                var sectiondata = _openApiMetadataCacheProvider.GetOpenApiContentByFeedName("openApiMetadata");
+                fakeopenAPIcontent.Add(sectiondata);
+
                 _controller = new OpenApiMetadataController(_openApiMetadataCacheProvider, configValueProvider);
-                // var config = new HttpConfiguration();
-                // var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/metadata");
-                // var route = config.Routes.MapHttpRoute("default", "{controller}");
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthAuthorize",
-                //     "oauth/authorize",
-                //     new
-                //     {
-                //         controller = "Authorize"
-                //     });
-                //
-                // config.Routes.MapHttpRoute(
-                //     "OAuthToken",
-                //     "oauth/token",
-                //     new
-                //     {
-                //         controller = "Token"
-                //     });
-                //
-                // var routeData2 = new HttpRouteData(
-                //     route,
-                //     new HttpRouteValueDictionary
-                //     {
-                //         {
-                //             "controller", "metadata"
-                //         }
-                //     });
 
-                //_controller.ControllerContext = new HttpControllerContext(config, routeData, request);
-                //_controller.Request = request;
-                //_controller.Url = new UrlHelper(request);
-                //_controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
-                //_controller.RequestContext.VirtualPathRoot = "/";
+                var request = A.Fake<HttpRequest>();
+                request.Method = "Post";
+                request.Scheme = "http";
 
+                A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
-                ActionContext context = new ActionContext();
-                context.HttpContext = A.Fake<HttpContext>();
-                context.RouteData = A.Fake<RouteData>();
+                request.PathBase = "/";
+                request.RouteValues = new RouteValueDictionary { {
+                            "controller", "Token"
+                        } };
 
-                context.ActionDescriptor = Stub<ControllerActionDescriptor>();
+                var httpContext = A.Fake<HttpContext>();
 
-                _controller.ControllerContext = new ControllerContext(context);
+                A.CallTo(() => httpContext.Request).Returns(request);
+
+                var controllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext,
+                };
+                RouteValueDictionary dictionary = new RouteValueDictionary();
+                dictionary.Add("controller", "Token");
+
+                controllerContext.RouteData = new RouteData(dictionary);
+
+                _controller.ControllerContext = controllerContext;
             }
 
             [Assert]
@@ -253,22 +259,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var request = new OpenApiMetadataSectionRequest
                 {
-                    Sdk = true
+                    Sdk = true,
+                    SchoolYearFromRoute = 2020
                 };
 
-                var results = (OkObjectResult)_controller.Get(request);
+                var response = (OkObjectResult)_controller.Get(request);
+                var openapisectionlist = (List<OpenApiMetadataSectionDetails>)response.Value;
 
-                Assert.IsNotNull(results);
-                Assert.AreEqual(results.StatusCode, (int)HttpStatusCode.OK);
-
-                //HttpResponseMessage response = _controller.Get(request);
-                //Assert.IsNotNull(response);
-                //Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
-
-                //var content = await response.Content.ReadAsStringAsync();
-                //Assert.IsNotNull(content);
-                //Assert.IsTrue(content.Contains("localhost:80"));
-                //Assert.IsTrue(content.Contains("http://localhost/oauth/token"));
+                Assert.AreEqual(200, response.StatusCode);
+                Assert.IsNotNull(response);
+                Assert.IsTrue(openapisectionlist.Count > 0);
+                Assert.AreEqual("Identity", openapisectionlist[0].Name);
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
             }
         }
     }

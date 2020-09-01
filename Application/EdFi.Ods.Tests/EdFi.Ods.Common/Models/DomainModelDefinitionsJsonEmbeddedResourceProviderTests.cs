@@ -11,6 +11,7 @@ using EdFi.Ods.Tests._Extensions;
 using NUnit.Framework;
 using Test.Common;
 using EdFi.TestFixture;
+using System.Reflection;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models
 {
@@ -62,9 +63,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models
             {
                 Assert.That(ActualException, Is.Not.Null);
 
-                // ActualException.MessageShouldContain(
-                //     The<Assembly>()
-                //         .FullName);
+                ActualException.MessageShouldContain(
+                    The<Assembly>()
+                        .FullName);
 
                 ActualException.MessageShouldContain("did not contain the expected embedded resource");
             }

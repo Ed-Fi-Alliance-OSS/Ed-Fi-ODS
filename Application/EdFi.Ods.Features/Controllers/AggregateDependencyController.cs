@@ -47,10 +47,12 @@ namespace EdFi.Ods.Features.Controllers
             }
 
             try
-            {
-                return Request.Headers["Accept"].ToString().EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
+            {       
+                    return Request.Headers["Accept"].ToString().EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
                     ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
                     : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
+
+                     
             }
             catch (NonAcyclicGraphException e)
             {

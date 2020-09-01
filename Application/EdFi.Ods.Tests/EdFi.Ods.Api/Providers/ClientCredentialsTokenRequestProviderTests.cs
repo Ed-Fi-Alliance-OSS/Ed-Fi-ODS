@@ -37,7 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
 
             protected override void Arrange()
             {
-                var apiClient = new ApiClient {ApiClientId = 0};
+                var apiClient = new ApiClient { ApiClientId = 0 };
 
                 _clientAppRepo = A.Fake<IClientAppRepo>();
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                 A.CallTo(() => _clientAppRepo.GetClient(A<string>._)).Returns(apiClient);
 
                 A.CallTo(() => _clientAppRepo.AddClientAccessToken(A<int>._, A<string>._))
-                    .Returns(new ClientAccessToken {ApiClient = new ApiClient()});
+                    .Returns(new ClientAccessToken { ApiClient = new ApiClient() });
 
                 _tokenRequest = new TokenRequest
                 {
@@ -101,8 +101,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                     .MustHaveHappenedOnceExactly();
             }
 
-            //Valid test but throwing error as cant create fakeiteasy object for the apiclientauthenticator
-            //[Assert]
+            [Assert]
             public void Should_call_try_authenticate_from_the_database_once()
             {
                 A.CallTo(
