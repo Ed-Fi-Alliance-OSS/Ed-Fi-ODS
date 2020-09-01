@@ -134,7 +134,7 @@ namespace EdFi.Ods.Api.Helpers
                 }
 
                 // return the assemblies that are only plugins and exclude non plugin assembles (e.g. log4net.dll)
-                foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
+                foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll", SearchOption.AllDirectories))
                 {
                     var assembly = Assembly.ReflectionOnlyLoadFrom(fileInfo.FullName);
 
