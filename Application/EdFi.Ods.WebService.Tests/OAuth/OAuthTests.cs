@@ -5,8 +5,14 @@
 
 #if NETCOREAPP
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Models.Tokens;
+using EdFi.Ods.Features.TokenInfo;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using Shouldly;
 
@@ -16,15 +22,55 @@ namespace EdFi.Ods.WebService.Tests.OAuth
     public class OAuthTests : HttpClientTestsBase
     {
         [Test]
-        public async Task OAuthEndpointGetShouldNotAllow()
+        public async Task OAuthEndpointPostShouldReturnValidToken()
         {
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + "oauth/token");
+            var tokenRequest = new TokenRequest()
+            {
+                Client_id = "clientId",
+                Client_secret = "clientSecret",
+                Grant_type = "client_credentials"
+            };
 
-            response.StatusCode.ShouldBe(HttpStatusCode.MethodNotAllowed);
+            var _serializerSettings
+                = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
 
-            var json = await response.Content.ReadAsStringAsync();
+            string jsonText = JsonConvert.SerializeObject(tokenRequest, _serializerSettings);
 
-            json.ShouldBeNullOrWhiteSpace();
+            var json = JObject.Parse(jsonText);
+            string rawJson = json.ToString();
+            var content = new StringContent(rawJson, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(TestConstants.BaseUrl + "oauth/token", content);
+
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            result.ShouldBeNullOrWhiteSpace();
+        }
+
+        [Test]
+        public async Task OAuthEndpointPostShouldReturnValidTokenInfo()
+        {
+            var tokenInfoRequest = new TokenInfoRequest()
+            {
+                Token = ""
+            };
+
+            var _serializerSettings
+                = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+
+            string jsonText = JsonConvert.SerializeObject(tokenInfoRequest, _serializerSettings);
+
+            var json = JObject.Parse(jsonText);
+            string rawJson = json.ToString();
+            var content = new StringContent(rawJson, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(TestConstants.BaseUrl + "oauth/token_info", content);
+
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+            var result = await response.Content.ReadAsStringAsync();
+
+            result.ShouldBeNullOrWhiteSpace();
         }
     }
 }
