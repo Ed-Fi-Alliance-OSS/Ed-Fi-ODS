@@ -261,33 +261,32 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
-            private XElement _xelement;
-            private ResourceClassBase _resourceBaseClassName;
             private IMemberFilter memberFilter;
 
             protected override void Arrange()
             {
+                var xelement = Given(XElement.Parse(
+                                     @"
+                                        <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+                                            <Object name='IncludedObject1' memberSelection='IncludeAll' />
+                                            <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+                                                <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+                                            </Collection>
+                                        </ClassDefinition>"));
+
+                var resourceclassbase = Given((ResourceClassBase)GetTestResourceForWithAnExtension());
+
+                memberFilter = Given<IMemberFilter>();
                 _resoureceMembersFilterProvider = A.Fake<IResourceMembersFilterProvider>();
-                _xelement = XElement.Parse(
-                    @"
-                            <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-                                <Object name='IncludedObject1' memberSelection='IncludeAll' />
-                                <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-                                    <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-                                </Collection>
-                            </ClassDefinition>");
-                _resourceBaseClassName = (ResourceClassBase)GetTestResourceForWithAnExtension();
-                _actualFilterContext = new FilterContext(_resoureceMembersFilterProvider, _xelement, _resourceBaseClassName);
 
+                A.CallTo(() => _resoureceMembersFilterProvider.GetMemberFilter(resourceclassbase, xelement))
+                    .Returns(The<IMemberFilter>());
 
-                var resourcemember = A.Fake<IResourceMembersFilterProvider>();
-
-                memberFilter = resourcemember.GetMemberFilter(_resourceBaseClassName, _xelement);
             }
 
             protected override void Act()
             {
-                _actualFilterContext = _actualFilterContext.GetChildContext("Collection1Items");
+                _actualFilterContext = SystemUnderTest.GetChildContext("Collection1Items");
             }
 
             [Assert]
@@ -308,9 +307,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_return_a_FilterContext_that_uses_the_member_filter_returned_by_the_supplied_filter_provider()
             {
-                Arrange();
-                Act();
-                Assert.AreEqual(_actualFilterContext.MemberFilter, memberFilter);
+                Assert.AreEqual(memberFilter, _actualFilterContext.MemberFilter);
             }
         }
 
@@ -318,37 +315,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 : ScenarioFor<FilterContext>
         {
             private FilterContext _actualFilterContext;
-
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
-            private XElement _xelement;
-            private ResourceClassBase _resourceBaseClassName;
             private IMemberFilter memberFilter;
 
             protected override void Arrange()
             {
                 // Initialize dependencies
-                _xelement = XElement.Parse(
-                    @"
-                            <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-                                <Object name='EmbeddedObject1' memberSelection='IncludeAll' />
-                                <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-                                    <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-                                </Collection>
-                            </ClassDefinition>");
+                Given(
+                    XElement.Parse(
+                        @"
+<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+    <Object name='EmbeddedObject1' memberSelection='IncludeAll' />
+    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+    </Collection>
+</ClassDefinition>"));
 
-                _resourceBaseClassName = (ResourceClassBase)GetTestResourceForWithAnExtension();
+                Given((ResourceClassBase)GetTestResourceForWithAnExtension());
 
+                Given<IMemberFilter>();
+
+                memberFilter = The<IMemberFilter>();
                 _resoureceMembersFilterProvider = A.Fake<IResourceMembersFilterProvider>();
-
-                _actualFilterContext = new FilterContext(_resoureceMembersFilterProvider, _xelement, _resourceBaseClassName);
-                memberFilter = A.Fake<IMemberFilter>();
-                A.CallTo(() => _resoureceMembersFilterProvider.GetMemberFilter(_resourceBaseClassName, _xelement)).Returns(memberFilter);
-
+                A.CallTo(() => _resoureceMembersFilterProvider.GetMemberFilter(A<ResourceClassBase>._, A<XElement>._))
+                    .Returns(The<IMemberFilter>());
             }
 
             protected override void Act()
             {
-                _actualFilterContext = _actualFilterContext.GetChildContext("EmbeddedObject1");
+                // Execute code under test
+                _actualFilterContext = SystemUnderTest.GetChildContext("EmbeddedObject1");
             }
 
             [Assert]
@@ -366,7 +362,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Assert.That(_actualFilterContext.UnfilteredResourceClass.Name, Is.EqualTo("EmbeddedObject1"));
             }
 
-            //Valid test but assert is failing even if the data type and data matches
             [Assert]
             public void Should_return_a_FilterContext_that_uses_the_member_filter_returned_by_the_supplied_filter_provider()
             {
@@ -381,35 +376,35 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
-            private XElement _xelement;
-            private ResourceClassBase _resourceBaseClassName;
-
             protected override void Arrange()
             {
                 // Initialize dependencies
-                _xelement = XElement.Parse(
-                    @"
-                        <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-                            <Object name='IncludedObject1' memberSelection='IncludeAll' />
-                            <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-                                <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-                            </Collection>
-                            <Extension name='ExtensionEntity'  memberSelection='IncludeOnly'>
-                                <Property name='AssessmentCategoryDescriptor'/>
-                            </Extension>
-                        </ClassDefinition>");
+                Given(
+                    XElement.Parse(
+                        @"
+<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+    <Object name='IncludedObject1' memberSelection='IncludeAll' />
+    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+    </Collection>
+    <Extension name='ExtensionEntity'  memberSelection='IncludeOnly'>
+        <Property name='AssessmentCategoryDescriptor'/>
+    </Extension>
+</ClassDefinition>"));
 
-                _resourceBaseClassName = (ResourceClassBase)GetTestResourceForWithAnExtension();
+                Given((ResourceClassBase)GetTestResourceForWithAnExtension());
+
+                Given<IMemberFilter>();
 
                 _resoureceMembersFilterProvider = A.Fake<IResourceMembersFilterProvider>();
-
-                _actualFilterContext = new FilterContext(_resoureceMembersFilterProvider, _xelement, _resourceBaseClassName);
-
+                A.CallTo(() => _resoureceMembersFilterProvider.GetMemberFilter(A<ResourceClassBase>._, A<XElement>._))
+                    .Returns(The<IMemberFilter>());
             }
 
             protected override void Act()
             {
-                _actualFilterContext = _actualFilterContext.GetChildContext("ExtensionEntity");
+                // Execute code under test
+                _actualFilterContext = SystemUnderTest.GetChildContext("ExtensionEntity");
             }
 
             [Test]
@@ -421,7 +416,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 
         [Description("Test to extract a filter-context for an entity extension")]
         public class When_creating_a_extension_filter_context_find_entity_extension
-: ScenarioFor<FilterContext>
+        : ScenarioFor<FilterContext>
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
@@ -432,32 +427,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             protected override void Arrange()
             {
                 // Initialize dependencies
-                _xelement = XElement.Parse(
-                    @"
-                        <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-                            <Object name='IncludedObject1' memberSelection='IncludeAll' />
-                            <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-                                <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-                            </Collection>
-                            <Extension name='Extension-Logical'  memberSelection='IncludeOnly'>
-                                <Property name='AssessmentCategoryDescriptor'/>
-                            </Extension>
-                        </ClassDefinition>");
+                Given(
+                    XElement.Parse(
+                        @"
+<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+    <Object name='IncludedObject1' memberSelection='IncludeAll' />
+    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+    </Collection>
+    <Extension name='Extension-Logical'  memberSelection='IncludeOnly'>
+        <Property name='AssessmentCategoryDescriptor'/>
+    </Extension>
+</ClassDefinition>"));
 
-                _resourceBaseClassName = (ResourceClassBase)GetTestResourceForWithAnExtension();
+                Given((ResourceClassBase)GetTestResourceForWithAnExtension());
 
+                memberFilter = Given<IMemberFilter>();
                 _resoureceMembersFilterProvider = A.Fake<IResourceMembersFilterProvider>();
-
-                _actualFilterContext = new FilterContext(_resoureceMembersFilterProvider, _xelement, _resourceBaseClassName);
-
-                memberFilter = _resoureceMembersFilterProvider.GetMemberFilter(_resourceBaseClassName, _xelement);
-
+                A.CallTo(() => _resoureceMembersFilterProvider.GetMemberFilter(A<ResourceClassBase>._, A<XElement>._))
+                    .Returns(The<IMemberFilter>());
             }
 
             protected override void Act()
             {
                 // Execute code under test
-                _actualFilterContext = _actualFilterContext.GetExtensionContext("ExtensionLogical");
+                _actualFilterContext = SystemUnderTest.GetExtensionContext("ExtensionLogical");
             }
 
             [Test]

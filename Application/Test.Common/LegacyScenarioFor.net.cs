@@ -57,13 +57,13 @@ namespace Test.Common
         {
             var constructorDetails =
                 (from c in typeof(T).GetConstructors()
-                    let p = c.GetParameters()
-                    orderby p.Count() descending
-                    select new
-                    {
-                        Constructor = c,
-                        Parameters = p
-                    })
+                 let p = c.GetParameters()
+                 orderby p.Count() descending
+                 select new
+                 {
+                     Constructor = c,
+                     Parameters = p
+                 })
                 .FirstOrDefault();
 
             _constructor = constructorDetails.Constructor;
@@ -204,7 +204,7 @@ namespace Test.Common
                     _constructorArgs[argIndex] = new Lazy<object>(() => explicitDependency);
                 }
             }
-            return (TDependency) lazyDependency.Value;
+            return (TDependency)lazyDependency.Value;
         }
 
         protected TDependency Given<TDependency>()
@@ -230,7 +230,7 @@ namespace Test.Common
                 return stub;
             }
 
-            return (TDependency) dependency.Value;
+            return (TDependency)dependency.Value;
         }
 
         protected TDependency The<TDependency>()
@@ -253,10 +253,10 @@ namespace Test.Common
                     throw new Exception(string.Format("Unable to find a stub of type '{0}'.", typeof(TDependency).Name));
                 }
 
-                return (TDependency) firstFromCollection;
+                return (TDependency)firstFromCollection;
             }
 
-            return (TDependency) dependency.Value;
+            return (TDependency)dependency.Value;
         }
 
         private readonly Dictionary<string, object> _suppliedByName =
@@ -295,7 +295,7 @@ namespace Test.Common
 
         protected TSupplied Supplied<TSupplied>(string tag)
         {
-            return (TSupplied) Supplied(tag);
+            return (TSupplied)Supplied(tag);
         }
 
         protected TDependency The_first<TDependency>()
@@ -303,7 +303,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency) list[0];
+            return (TDependency)list[0];
         }
 
         protected TDependency The_second<TDependency>()
@@ -311,7 +311,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency) list[1];
+            return (TDependency)list[1];
         }
 
         protected TDependency The_third<TDependency>()
@@ -319,7 +319,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency) list[2];
+            return (TDependency)list[2];
         }
 
         protected TDependency The_fourth<TDependency>()
@@ -327,7 +327,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency) list[3];
+            return (TDependency)list[3];
         }
 
         protected TDependency The_fifth<TDependency>()
@@ -335,7 +335,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency) list[4];
+            return (TDependency)list[4];
         }
 
         private dynamic GetDependencyList<TDependency>()
@@ -377,9 +377,9 @@ namespace Test.Common
             var uninitializedDependencyNames = uninitializedArgDisplayNames.Concat(uninitializedPropertyDisplayNames);
 
             // Prepare the test subject
-            TestSubject = (T) _constructor.Invoke(
+            TestSubject = (T)_constructor.Invoke(
                 (from a in _constructorArgs
-                    select a.Value)
+                 select a.Value)
                 .ToArray());
 
             // Inject property dependencies
@@ -403,7 +403,7 @@ namespace Test.Common
 
                 setter.Invoke(
                     TestSubject,
-                    new[] {dependencyValue});
+                    new[] { dependencyValue });
             }
 
             // Execute the behavior
