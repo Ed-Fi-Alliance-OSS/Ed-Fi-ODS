@@ -3,14 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETFRAMEWORK
+using EdFi.Ods.Admin.Initialization;
+using EdFi.Admin.DataAccess.Models;
+
 namespace EdFi.Ods.Admin.Services
 {
-    public interface IEmailService
+    public interface IClientCreator
     {
-        void SendConfirmationEmail(string emailAddress, string secret);
+        ApiClient CreateNewSandboxClient(SandboxInitializationModel createModel, User user);
 
-        void SendForgotPasswordEmail(string emailAddress, string secret);
+        ApiClient ResetSandboxClient(SandboxInitializationModel createModel, User user);
     }
 }
-#endif
