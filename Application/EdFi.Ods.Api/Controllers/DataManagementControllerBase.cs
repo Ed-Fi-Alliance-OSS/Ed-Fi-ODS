@@ -213,7 +213,7 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
-        public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, [FromQuery] Guid id)
+        public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, Guid id)
         {
             // Manual binding of Id to main request model
             request.Id = id;
@@ -285,7 +285,7 @@ namespace EdFi.Ods.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
-        public async Task<IActionResult> Delete([FromQuery] Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             // Read the If-Match header and populate the delete context based on the value (or lack of one)
             var enforceOptimisticLock = Request.TryGetRequestHeader(HeaderConstants.IfMatch, out string etag);
