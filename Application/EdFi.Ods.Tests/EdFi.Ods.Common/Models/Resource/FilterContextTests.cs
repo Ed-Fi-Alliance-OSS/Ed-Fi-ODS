@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -22,8 +24,71 @@ using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {
-    public class FilterContextTests
+    public static class FilterContextTests
     {
+
+        internal static IMemberFilter ByProperties<T>(this IMemberFilter expected)
+        {
+            var fakeExpected = A.Fake<IMemberFilter>(o => o.Wrapping(expected));
+            var properties = expected.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            A.CallTo(() => fakeExpected.Equals(A<object>._)).ReturnsLazily(
+                call =>
+                {
+                    var actual = call.GetArgument<object>(0);
+                    if (ReferenceEquals(null, actual))
+                        return false;
+                    if (ReferenceEquals(expected, actual))
+                        return true;
+                    if (actual.GetType() != expected.GetType())
+                        return false;
+                    return AreEqualByProperties(expected, actual, properties);
+                });
+            return fakeExpected;
+        }
+
+        internal static bool AreEqualByProperties(object expected, object actual, PropertyInfo[] properties)
+        {
+            foreach (var propertyInfo in properties)
+            {
+                var expectedValue = propertyInfo.GetValue(expected);
+                var actualValue = propertyInfo.GetValue(actual);
+                if (expectedValue == null || actualValue == null)
+                {
+                    if (expectedValue != null || actualValue != null)
+                    {
+                        return false;
+                    }
+                }
+                else if (typeof(System.Collections.IList).IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    if (!AssertListsEquals((IList)expectedValue, (IList)actualValue))
+                    {
+                        return false;
+                    }
+                }
+                else if (!expectedValue.Equals(actualValue))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        internal static bool AssertListsEquals(IList expectedValue, IList actualValue)
+        {
+            if (expectedValue.Count != actualValue.Count)
+            {
+                return false;
+            }
+            for (int I = 0; I < expectedValue.Count; I++)
+            {
+                if (!Equals(expectedValue[I], actualValue[I]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         internal static IDomainModelDefinitionsProvider BuildCoreModelEntityDefinitionsProvider()
         {
             var edfiSchema = EdFiConventions.PhysicalSchemaName;
@@ -307,7 +372,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_return_a_FilterContext_that_uses_the_member_filter_returned_by_the_supplied_filter_provider()
             {
-                Assert.AreEqual(memberFilter, _actualFilterContext.MemberFilter);
+                Assert.AreEqual(_actualFilterContext.MemberFilter.ByProperties<IMemberFilter>(), The<IMemberFilter>());
             }
         }
 
@@ -365,8 +430,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_return_a_FilterContext_that_uses_the_member_filter_returned_by_the_supplied_filter_provider()
             {
-                var filtercontxt = (FilterContext)_actualFilterContext;
-                Assert.That(memberFilter, Is.EqualTo(filtercontxt.MemberFilter));
+                Assert.AreEqual(_actualFilterContext.MemberFilter.ByProperties<IMemberFilter>(), The<IMemberFilter>());
             }
         }
 
@@ -420,8 +484,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
-            private XElement _xelement;
-            private ResourceClassBase _resourceBaseClassName;
             private IMemberFilter memberFilter;
 
             protected override void Arrange()
@@ -487,9 +549,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             [Assert]
             public void Should_return_a_FilterContext_that_uses_the_member_filter_returned_by_the_supplied_filter_provider()
             {
-                Assert.That(memberFilter, Is.EqualTo(_actualFilterContext.MemberFilter));
+                Assert.AreEqual(_actualFilterContext.MemberFilter.ByProperties<IMemberFilter>(), The<IMemberFilter>());
             }
         }
+
     }
 }
 #endif

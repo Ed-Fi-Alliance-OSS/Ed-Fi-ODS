@@ -21,6 +21,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
+    <PackageReference Include="Autofac.Extras.FakeItEasy" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="CompareNETObjects" Version="4.65.0" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
