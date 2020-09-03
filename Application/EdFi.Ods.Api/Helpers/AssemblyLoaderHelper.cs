@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.Helpers
 
             CacheAlreadyLoadedAssemblies(loaded, includeFramework);
 
-            // Loop on loaded assemblies to load dependencies(it includes Startup assembly so should load all the dependency tree)
+            // Loop on loaded assemblies to load dependencies (it includes Startup assembly so should load all the dependency tree)
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => IsNotNetFramework(a.FullName)))
             {
