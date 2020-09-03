@@ -33,13 +33,6 @@ namespace EdFi.Ods.Api.Helpers
             var sw = new Stopwatch();
             _logger.Debug($"Already loaded assemblies:");
 
-            //foreach (var a in AppDomain.CurrentDomain.GetAssemblies()
-            //    .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
-            //{
-            //    loaded.TryAdd(a.FullName, true);
-            //    _logger.Debug($"{a.FullName}");
-            //}
-
             CacheAlreadyLoadedAssemblies(loaded, includeFramework);
 
             //Loop on loaded assemblies to load dependencies(it includes Startup assembly so should load all the dependency tree)
@@ -51,35 +44,6 @@ namespace EdFi.Ods.Api.Helpers
 
             _logger.Debug(
                 $"Assemblies loaded after scan ({loaded.Keys.Count - alreadyLoaded} assemblies in {sw.ElapsedMilliseconds} ms):");
-
-            // Filter to avoid loading all the .net framework
-            //bool ShouldLoad(string assemblyName)
-            //{
-            //    return (includeFramework || IsNotNetFramework(assemblyName))
-            //           && !loaded.ContainsKey(assemblyName);
-            //}
-
-            //bool IsNotNetFramework(string assemblyName)
-            //{
-            //    return !assemblyName.StartsWith("Microsoft.", StringComparison.CurrentCultureIgnoreCase)
-            //           && !assemblyName.StartsWith("System.", StringComparison.CurrentCultureIgnoreCase)
-            //           && !assemblyName.StartsWith("Newtonsoft.", StringComparison.CurrentCultureIgnoreCase)
-            //           && assemblyName != "netstandard"
-            //           && !assemblyName.StartsWith("Autofac", StringComparison.CurrentCultureIgnoreCase);
-            //}
-
-            //void LoadReferencedAssembly(Assembly assembly)
-            //{
-            //    // Check all referenced assemblies of the specified assembly
-            //    foreach (AssemblyName an in assembly.GetReferencedAssemblies()
-            //        .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
-            //    {
-            //        // Load the assembly and load its dependencies
-            //        LoadReferencedAssembly(Assembly.Load(an)); // AppDomain.CurrentDomain.Load(name)
-            //        loaded.TryAdd(an.FullName, true);
-            //        _logger.Debug($"Referenced assembly => {an.FullName}");
-            //    }
-            //}
 
             void LoadAssembliesFromExecutingFolder()
             {
@@ -184,11 +148,8 @@ namespace EdFi.Ods.Api.Helpers
 
         private class PluginAssemblyLoadingContext : AssemblyLoadContext
         {
-            public PluginAssemblyLoadingContext()
-                : base(true)
-            {
-
-            }
+            public PluginAssemblyLoadingContext() : base(true)
+            { }
         }
 
         public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
