@@ -5,42 +5,31 @@
 
 #if NETCOREAPP
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading;
+using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Api.Models.Tokens;
-using EdFi.Ods.Sandbox.Repositories;
-using EdFi.Ods.Common.Security;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using NUnit.Framework;
-using Test.Common;
 using EdFi.Ods.Api.Controllers;
-using EdFi.TestFixture;
+using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Security;
+using EdFi.Ods.Sandbox.Repositories;
+using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Mvc;
-using EdFi.Ods.Api.Middleware;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Routing;
+using NUnit.Framework;
+using Shouldly;
+using Test.Common;
 
 //ReSharper disable InconsistentNaming
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
-    public class When_calling_the_token_controller
+    [TestFixture]
+    public class TokenControllerTests
     {
-
-        private static TokenController CreateTokenController(
-            ClientCredentialsTokenRequestProvider tokenRequestProvider)
+        private static TokenController CreateTokenController(ClientCredentialsTokenRequestProvider tokenRequestProvider)
         {
-
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";
@@ -49,9 +38,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
             A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
             request.PathBase = "/";
-            request.RouteValues = new RouteValueDictionary { {
-                            "controller", "authorize"
-                        } };
+            request.RouteValues = new RouteValueDictionary {{"controller", "authorize"}};
 
             var httpContext = A.Fake<HttpContext>();
             A.CallTo(() => httpContext.Request).Returns(request);
@@ -60,6 +47,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
             {
                 HttpContext = httpContext,
             };
+
             var routeData = A.Fake<RouteData>();
             RouteValueDictionary dictionary = new RouteValueDictionary();
             dictionary.Add("controller", "authorize");
@@ -70,10 +58,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
             return controller;
         }
 
-        public class Using_client_credentials_grant
+        public class When_using_client_credentials_grant
         {
-            [TestFixture]
-            public class With_valid_key_and_secret : TestFixtureBase
+            public class With_valid_key_and_secret : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
                 private IApiClientAuthenticator _apiClientAuthenticator;
@@ -84,14 +71,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
 
                 private TimeSpan _suppliedTTL;
                 private IActionResult _actionResult;
+                private TokenResponse _tokenResponse;
 
-                protected override void Arrange()
+                protected override async Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient
-                    {
-                        ApiClientId = 1
-
-                    };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -99,81 +83,94 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _clientAppRepo = Stub<IClientAppRepo>();
 
                     //// Simulate a successful lookup of the client id/secret
-                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._)).Returns(_suppliedClient);
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
 
                     _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-                    var accessToken = new ClientAccessToken(_suppliedTTL);
-                    accessToken.ApiClient = _suppliedClient;
-                    accessToken.Id = _suppliedAccessToken;
+                    var accessToken = new ClientAccessToken(_suppliedTTL)
+                    {
+                        ApiClient = _suppliedClient,
+                        Id = _suppliedAccessToken
+                    };
 
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                         .Returns(accessToken);
 
-                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._)).Returns(new ApiClientAuthenticator.AuthenticationResult { IsAuthenticated = true, ApiClientIdentity = new ApiClientIdentity { Key = "clientId" } });
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
+
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
+
                     _controller = CreateTokenController(_tokenRequestProvider);
                 }
 
-                protected override void Act()
+                protected override async Task ActAsync()
                 {
-                    _actionResult = _controller.Post(
-                               new TokenRequest
-                               {
-                                   Client_id = "clientId",
-                                   Client_secret = "clientSecret",
-                                   Grant_type = "client_credentials"
+                    _actionResult = await _controller.Post(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret",
+                            Grant_type = "client_credentials"
+                        });
 
-                               }).Result;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
-                [Assert]
+                [Test]
                 public void Should_return_HTTP_status_of_OK()
                 {
-                    var result = (OkObjectResult)_actionResult;
-                    Assert.AreEqual(result.StatusCode, StatusCodes.Status200OK);
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
-                [Assert]
-                public void Should_include_CacheControl_and_Pragma_headers()
-                {
-                    //Assert.That(
-                    //    _actualResponseMessage.Headers.CacheControl,
-                    //    Is.EqualTo(CacheControlHeaderValue.Parse("no-store")));
-
-                    //Assert.That(
-                    //    _actualResponseMessage.Headers.Pragma,
-                    //    Is.EqualTo(
-                    //        new[]
-                    //        {
-                    //             new NameValueHeaderValue("no-cache")
-                    //        }));
-                }
+                // TODO: ODS-4430 fix this test
+                // [Test]
+                // public void Should_include_CacheControl_and_Pragma_headers()
+                // {
+                //     Assert.That(
+                //         _actualResponseMessage.Headers.CacheControl,
+                //         Is.EqualTo(CacheControlHeaderValue.Parse("no-store")));
+                //
+                //     Assert.That(
+                //         _actualResponseMessage.Headers.Pragma,
+                //         Is.EqualTo(
+                //             new[]
+                //             {
+                //                  new NameValueHeaderValue("no-cache")
+                //             }));
+                // }
 
                 [Assert]
                 public void Should_include_the_generated_access_token_value_in_the_response()
                 {
-                    var result = (OkObjectResult)_actionResult;
-                    var tokenResonse = (TokenResponse)result.Value;
-
-                    Assert.AreEqual(_suppliedAccessToken, Guid.Parse(tokenResonse.Access_token));
+                    Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
                 }
 
                 [Assert]
                 public void Should_indicate_the_access_token_is_a_bearer_token()
                 {
-                    var result = (OkObjectResult)_actionResult;
-                    var tokenResonse = (TokenResponse)result.Value;
+                    var result = (OkObjectResult) _actionResult;
+                    var tokenResponse = (TokenResponse) result.Value;
 
-                    Assert.AreEqual("bearer", tokenResonse.Token_type);
+                    Assert.AreEqual("bearer", tokenResponse.Token_type);
                 }
 
                 [Assert]
                 public void Should_indicate_the_access_token_expires_within_1_second_of_the_supplied_expiration_time()
                 {
-                    var result = (OkObjectResult)_actionResult;
-                    var tokenResonse = (TokenResponse)result.Value;
+                    var result = (OkObjectResult) _actionResult;
+                    var tokenResonse = (TokenResponse) result.Value;
                     var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(tokenResonse.Expires_in));
 
                     var expectedBegin = _suppliedTTL.Add(TimeSpan.FromSeconds(-1));
@@ -191,19 +188,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                 [Assert]
                 public void Should_call_try_authenticate_from_the_database_once()
                 {
-                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret")).MustHaveHappenedOnceExactly();
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
                 }
 
                 [Assert]
                 public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
                 {
-                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null)).MustHaveHappened();
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustHaveHappened();
                 }
-
             }
 
-
-            // TODO: ODS-4430 ... 
+            // TODO: ODS-4430 ...
             //[TestFixture]
             //public class With_valid_key_and_secret_provided_using_Basic_Authorization_header : TestFixtureBase
             //{
