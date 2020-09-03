@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Admin.Services
+#if NETFRAMEWORK
+namespace EdFi.Ods.Admin.Models
 {
-    public interface IRouteService
+    public class PasswordResetViewModel
     {
-        string GetRouteForPasswordReset(string email, string marker);
+        public string Marker { get; set; }
 
-        string GetRouteForActivation(string email, string marker);
+        public string Email { get; set; }
     }
 }
+#endif
