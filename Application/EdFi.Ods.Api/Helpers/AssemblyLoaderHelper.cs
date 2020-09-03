@@ -21,6 +21,54 @@ namespace EdFi.Ods.Api.Helpers
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
 
+        private class PluginFinder<TPlugin>
+        {
+            private static readonly ILog _logger = LogManager.GetLogger(typeof(PluginFinder<>));
+
+            private class PluginAssemblyLoadingContext : AssemblyLoadContext
+            {
+                public PluginAssemblyLoadingContext()
+                    : base(true) { }
+            }
+
+            public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
+            {
+                // return no plugins to load if the folder does not exist
+                if (!Directory.Exists(pluginFolder))
+                {
+                    _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                    yield break;
+                }
+
+                var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
+
+                var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
+
+                foreach (var assemblyPath in assemblies)
+                {
+                    var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
+
+                    if (HasPlugin(assembly))
+                    {
+                        yield return assembly.Location;
+                    }
+                }
+
+                pluginFinderAssemblyContext.Unload();
+            }
+
+            private static bool HasPlugin(Assembly assembly)
+            {
+                return assembly.GetTypes()
+                    .Any(
+                        t =>
+                            t.GetInterfaces()
+                                .Any(
+                                    i =>
+                                        i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
+            }
+        }
+
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
@@ -35,7 +83,7 @@ namespace EdFi.Ods.Api.Helpers
 
             CacheAlreadyLoadedAssemblies(loaded, includeFramework);
 
-            //Loop on loaded assemblies to load dependencies(it includes Startup assembly so should load all the dependency tree)
+            // Loop on loaded assemblies to load dependencies(it includes Startup assembly so should load all the dependency tree)
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => IsNotNetFramework(a.FullName)))
             {
@@ -77,6 +125,7 @@ namespace EdFi.Ods.Api.Helpers
                 _logger.Debug($"Referenced assembly => {an.FullName}");
             }
         }
+
         static void CacheAlreadyLoadedAssemblies(IDictionary<string, bool> loaded, bool includeFramework = false)
         {
             foreach (var a in AppDomain.CurrentDomain.GetAssemblies()
@@ -120,7 +169,7 @@ namespace EdFi.Ods.Api.Helpers
             {
                 var assembly = Assembly.LoadFile(assemblyFile);
 
-                LoadReferencedAssembly(assembly, loaded, includeFramework); 
+                LoadReferencedAssembly(assembly, loaded, includeFramework);
             }
 
             bool IsSuppliedPluginFolderName()
@@ -139,53 +188,6 @@ namespace EdFi.Ods.Api.Helpers
 
                 return true;
             }
-        }
-    }
-
-    public class PluginFinder<TPlugin> 
-    {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(PluginFinder<>));
-
-        private class PluginAssemblyLoadingContext : AssemblyLoadContext
-        {
-            public PluginAssemblyLoadingContext() : base(true)
-            { }
-        }
-
-        public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
-        {
-            // return no plugins to load if the folder does not exist
-            if (!Directory.Exists(pluginFolder))
-            {
-                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                yield break;
-            }
-
-            var assemblies = Directory.GetFiles(pluginFolder,"*.dll", SearchOption.AllDirectories);
-
-            var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
-
-            foreach (var assemblyPath in assemblies)
-            {
-                var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
-                if (HasPlugin(assembly))
-                {
-                    yield return assembly.Location;
-                }
-            }
-
-            pluginFinderAssemblyContext.Unload();
-        }
-
-        public static bool HasPlugin(Assembly assembly)
-        {
-           return assembly.GetTypes()
-                .Any(
-                    t =>
-                        t.GetInterfaces()
-                            .Any(
-                                i =>
-                                    i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
         }
     }
 }
