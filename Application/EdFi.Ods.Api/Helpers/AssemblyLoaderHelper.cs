@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using EdFi.Ods.Common.Extensibility;
 using log4net;
 
@@ -105,56 +106,11 @@ namespace EdFi.Ods.Api.Helpers
                 return;
             }
 
-            foreach (var assembly in GetPlugins())
+            var pluginFinder = new PluginFinder<IPluginMarker>();
+
+            foreach (var assemblyFile in pluginFinder.FindAssemliesWithPlugins(pluginFolder))
             {
-                Assembly.Load(assembly.GetName());
-            }
-
-            IEnumerable<Assembly> GetPlugins()
-            {
-                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) =>
-                {
-                    var assembly = Assembly.ReflectionOnlyLoad(e.Name);
-
-                    if (assembly == null)
-                    {
-                        throw new Exception($"Could not load assembly {e.Name}.");
-                    }
-
-                    return assembly;
-                };
-
-                var directoryInfo = new DirectoryInfo(pluginFolder);
-
-                // return no plugins to load if the folder does not exist
-                if (!directoryInfo.Exists)
-                {
-                    _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                    yield break;
-                }
-
-                // return the assemblies that are only plugins and exclude non plugin assembles (e.g. log4net.dll)
-                foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll", SearchOption.AllDirectories))
-                {
-                    var assembly = Assembly.ReflectionOnlyLoadFrom(fileInfo.FullName);
-
-                    // load in the referenced assemblies into the reflection domain
-                    foreach (AssemblyName referencedAssembly in assembly.GetReferencedAssemblies())
-                    {
-                        Assembly.ReflectionOnlyLoad(referencedAssembly.FullName);
-                    }
-
-                    if (assembly.GetTypes()
-                        .Any(
-                            t =>
-                                t.GetInterfaces()
-                                    .Any(
-                                        i =>
-                                            i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName)))
-                    {
-                        yield return assembly;
-                    }
-                }
+                Assembly.LoadFile(assemblyFile);
             }
 
             bool IsSuppliedPluginFolderName()
@@ -173,6 +129,56 @@ namespace EdFi.Ods.Api.Helpers
 
                 return true;
             }
+        }
+    }
+
+    public class PluginFinder<TPlugin> 
+    {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(PluginFinder<>));
+
+        private class PluginAssemblyLoadingContext : AssemblyLoadContext
+        {
+            public PluginAssemblyLoadingContext()
+                : base(true)
+            {
+
+            }
+        }
+
+        public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
+        {
+            // return no plugins to load if the folder does not exist
+            if (!Directory.Exists(pluginFolder))
+            {
+                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                yield break;
+            }
+
+            var assemblies = Directory.GetFiles(pluginFolder,"*.dll", SearchOption.AllDirectories);
+
+            var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
+
+            foreach (var assemblyPath in assemblies)
+            {
+                var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
+                if (HasPlugins(assembly))
+                {
+                    yield return assembly.Location;
+                }
+            }
+
+            pluginFinderAssemblyContext.Unload();
+        }
+
+        public static bool HasPlugins(Assembly assembly)
+        {
+           return assembly.GetTypes()
+                .Any(
+                    t =>
+                        t.GetInterfaces()
+                            .Any(
+                                i =>
+                                    i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
         }
     }
 }
