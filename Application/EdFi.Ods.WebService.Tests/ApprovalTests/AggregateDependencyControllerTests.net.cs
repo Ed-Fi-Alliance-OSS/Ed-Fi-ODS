@@ -22,7 +22,7 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
     public class AggregateDependencyControllerTests : OwinTestBase
     {
         [Test]
-        public void Should_Get_Dependencies()
+        public void Should_Get_Dependencies_NetFramework()
         {
             string dependenciesResult;
 

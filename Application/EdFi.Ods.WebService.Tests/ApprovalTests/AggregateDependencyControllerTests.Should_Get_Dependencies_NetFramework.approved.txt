@@ -1,4 +1,4 @@
-﻿[
+[
   {
     "resource": "/ed-fi/absenceEventCategoryDescriptors",
     "order": 1,

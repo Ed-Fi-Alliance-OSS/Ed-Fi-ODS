@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.WebService.Tests._Helpers;
 using NUnit.Framework;
@@ -30,7 +31,7 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
 
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
-                
+
             var response = await _httpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -45,18 +46,19 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
         public async Task Should_Get_Dependencies_GraphML()
         {
             _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
 
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
-                
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + "metadata/data/v3/dependencies");
+
+            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var xml = await response.Content.ReadAsStringAsync();
 
             xml.ShouldNotBeNullOrWhiteSpace();
+            Approvals.Verify(xml);
         }
     }
 }

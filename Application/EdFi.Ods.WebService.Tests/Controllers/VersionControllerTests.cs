@@ -6,12 +6,15 @@
 #if NETCOREAPP
 using System.Net;
 using System.Threading.Tasks;
+using ApprovalTests;
+using ApprovalTests.Reporters;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
+    [UseReporter(typeof(DiffReporter))]
     public class VersionControllerTests : HttpClientTestsBase
     {
         [Test]
@@ -24,6 +27,7 @@ namespace EdFi.Ods.WebService.Tests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
+            Approvals.Verify(json);
         }
     }
 }
