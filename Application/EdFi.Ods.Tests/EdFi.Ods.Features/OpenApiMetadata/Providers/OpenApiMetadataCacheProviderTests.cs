@@ -169,7 +169,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                         {
                              "SDKGen",
                              "Extensions",
-                             "Composites"
+                             "Composites",
+                             "Other"
                         }));
             }
         }
