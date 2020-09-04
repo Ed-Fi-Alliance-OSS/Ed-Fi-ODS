@@ -113,8 +113,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         .Return(
                             new ClientAccessToken(_suppliedTTL)
                             {
-                                ApiClient = _suppliedClient,
-                                Id = _suppliedAccessToken
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
                             });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
@@ -127,8 +126,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "clientId",
-                                Client_secret = "clientSecret",
+                                Client_id = "clientId", Client_secret = "clientSecret",
                                 Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
@@ -252,8 +250,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         .Return(
                             new ClientAccessToken(new TimeSpan(0, 10, 0))
                             {
-                                ApiClient = _suppliedClient,
-                                Id = _suppliedAccessToken
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
                             });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
@@ -806,8 +803,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         .Return(
                             new ClientAccessToken(new TimeSpan(0, 10, 0))
                             {
-                                ApiClient = _suppliedClient,
-                                Id = _suppliedAccessToken
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
                             });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
@@ -822,8 +818,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "clientId",
-                                Grant_type = "client_credentials"
+                                Client_id = "clientId", Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
                         .Result;
@@ -947,8 +942,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                         .Return(
                             new ClientAccessToken(new TimeSpan(0, 10, 0))
                             {
-                                ApiClient = _suppliedClient,
-                                Id = _suppliedAccessToken
+                                ApiClient = _suppliedClient, Id = _suppliedAccessToken
                             });
 
                     _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
@@ -963,8 +957,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_secret = "clientSecret",
-                                Grant_type = "client_credentials"
+                                Client_secret = "clientSecret", Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
                         .Result;
@@ -1080,8 +1073,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "invalidClientId",
-                                Grant_type = "client_credentials"
+                                Client_id = "invalidClientId", Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
                         .Result;
@@ -1146,8 +1138,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_secret = "invalidClientSecret",
-                                Grant_type = "client_credentials"
+                                Client_secret = "invalidClientSecret", Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
                         .Result;
@@ -1472,8 +1463,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "badClientId",
-                                Client_secret = "badClientSecret",
+                                Client_id = "badClientId", Client_secret = "badClientSecret",
                                 Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
@@ -1542,8 +1532,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "clientId",
-                                Client_secret = string.Empty,
+                                Client_id = "clientId", Client_secret = string.Empty,
                                 Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
@@ -1612,8 +1601,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Controllers
                     _actualResponseMessage = _controller.Post(
                             new TokenRequest
                             {
-                                Client_id = "clientId",
-                                Grant_type = "client_credentials"
+                                Client_id = "clientId", Grant_type = "client_credentials"
                             })
                         .ExecuteAsync(new CancellationToken())
                         .Result;
