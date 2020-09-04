@@ -1644,7 +1644,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         }
         #endregion
 
-        public class When_using_client_credentials_grant_FromForm
+        public class When_using_client_credentials_grant_posting_via_form
         {
             public class With_No_Header_Request : TestFixtureAsyncBase
             {
