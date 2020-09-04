@@ -1,0 +1,95 @@
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
+using System.Threading.Tasks;
+using FakeItEasy;
+using NUnit.Framework;
+
+namespace EdFi.TestFixture
+{
+    [TestFixture]
+    public abstract class TestFixtureAsyncBase
+    {
+        private Exception _actualException;
+        private bool _actualExceptionInspected;
+
+        protected Exception ActualException
+        {
+            get
+            {
+                _actualExceptionInspected = true;
+                return _actualException;
+            }
+            set
+            {
+                _actualExceptionInspected = false;
+                _actualException = value;
+            }
+        }
+
+        [OneTimeSetUp]
+        public virtual async Task RunOnceBeforeAnyAsync()
+        {
+            try
+            {
+                //Arrange
+                await ArrangeAsync();
+            }
+            catch (Exception ex)
+            {
+                var handled = HandleArrangeException(ex);
+
+                if (!handled)
+                {
+                    throw;
+                }
+            }
+
+            //Act
+            // Execute the behavior
+            try
+            {
+                await ActAsync();
+            }
+            catch (Exception ex)
+            {
+                ActualException = ex;
+            }
+        }
+
+        [OneTimeTearDown]
+        public virtual async Task RunOnceAfterAllAsync()
+        {
+            // Make sure exception was inspected.
+            if (_actualException != null && !_actualExceptionInspected)
+            {
+                Assert.Fail(
+                    $"The exception of type '{_actualException.GetType().Name}' was not inspected by the test:\r\n {_actualException}.");
+            }
+        }
+
+        /// <summary>
+        /// Setup tests context
+        /// </summary>
+        protected virtual async Task ArrangeAsync() { }
+
+        /// <summary>
+        /// Executes the code to be tested.
+        /// </summary>
+        protected virtual async Task ActAsync() { }
+
+        protected T Stub<T>()
+            where T : class
+        {
+            return A.Fake<T>();
+        }
+
+        protected virtual bool HandleArrangeException(Exception ex)
+        {
+            return false;
+        }
+    }
+}
