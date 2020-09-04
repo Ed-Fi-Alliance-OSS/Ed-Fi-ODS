@@ -74,12 +74,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
         protected override async Task ActAsync()
         {
-            _actualStudentIdentifiers = await Task.FromResult(_personIdentifiersProvider.GetAllPersonIdentifiers("Student").Result);
-            _actualStaffIdentifiers = await Task.FromResult(_personIdentifiersProvider.GetAllPersonIdentifiers("Staff").Result);
-            _actualParentIdentifiers = await Task.FromResult(_personIdentifiersProvider.GetAllPersonIdentifiers("Parent").Result);
+            _actualStudentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Student");
+            _actualStaffIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Staff");
+            _actualParentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Parent");
 
             // This statement throws an exception
-            var ignoredDueToException = await Task.FromResult(_personIdentifiersProvider.GetAllPersonIdentifiers("NonPersonType").Result);
+            var ignoredDueToException = await _personIdentifiersProvider.GetAllPersonIdentifiers("NonPersonType");
         }
 
         [Assert]
