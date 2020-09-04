@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using EdFi.Ods.Common.Extensibility;
 using log4net;
 
@@ -32,51 +33,17 @@ namespace EdFi.Ods.Api.Helpers
             var sw = new Stopwatch();
             _logger.Debug($"Already loaded assemblies:");
 
-            foreach (var a in AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => ShouldLoad(a.FullName)))
-            {
-                loaded.TryAdd(a.FullName, true);
-                _logger.Debug($"{a.FullName}");
-            }
+            CacheAlreadyLoadedAssemblies(loaded, includeFramework);
 
             // Loop on loaded assemblies to load dependencies (it includes Startup assembly so should load all the dependency tree)
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => IsNotNetFramework(a.FullName)))
             {
-                LoadReferencedAssembly(assembly);
+                LoadReferencedAssembly(assembly, loaded, includeFramework);
             }
 
             _logger.Debug(
                 $"Assemblies loaded after scan ({loaded.Keys.Count - alreadyLoaded} assemblies in {sw.ElapsedMilliseconds} ms):");
-
-            // Filter to avoid loading all the .net framework
-            bool ShouldLoad(string assemblyName)
-            {
-                return (includeFramework || IsNotNetFramework(assemblyName))
-                       && !loaded.ContainsKey(assemblyName);
-            }
-
-            bool IsNotNetFramework(string assemblyName)
-            {
-                return !assemblyName.StartsWith("Microsoft.", StringComparison.CurrentCultureIgnoreCase)
-                       && !assemblyName.StartsWith("System.", StringComparison.CurrentCultureIgnoreCase)
-                       && !assemblyName.StartsWith("Newtonsoft.", StringComparison.CurrentCultureIgnoreCase)
-                       && assemblyName != "netstandard"
-                       && !assemblyName.StartsWith("Autofac", StringComparison.CurrentCultureIgnoreCase);
-            }
-
-            void LoadReferencedAssembly(Assembly assembly)
-            {
-                // Check all referenced assemblies of the specified assembly
-                foreach (AssemblyName an in assembly.GetReferencedAssemblies()
-                    .Where(a => ShouldLoad(a.FullName)))
-                {
-                    // Load the assembly and load its dependencies
-                    LoadReferencedAssembly(Assembly.Load(an)); // AppDomain.CurrentDomain.Load(name)
-                    loaded.TryAdd(an.FullName, true);
-                    _logger.Debug($"Referenced assembly => {an.FullName}");
-                }
-            }
 
             void LoadAssembliesFromExecutingFolder()
             {
@@ -90,7 +57,7 @@ namespace EdFi.Ods.Api.Helpers
                 _logger.Debug($"Loaded assemblies from executing folder: {directoryInfo.FullName}");
 
                 foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll")
-                    .Where(fi => ShouldLoad(fi.Name)))
+                    .Where(fi => ShouldLoad(fi.Name, loaded, includeFramework)))
                 {
                     _logger.Debug($"{fileInfo.Name}");
                     Assembly.LoadFrom(fileInfo.FullName);
@@ -98,63 +65,64 @@ namespace EdFi.Ods.Api.Helpers
             }
         }
 
-        public static void LoadPluginAssemblies(string pluginFolder)
+        private static void LoadReferencedAssembly(Assembly assembly, IDictionary<string, bool> loaded,
+            bool includeFramework = false)
         {
+            // Check all referenced assemblies of the specified assembly
+            foreach (AssemblyName an in assembly.GetReferencedAssemblies()
+                .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
+            {
+                // Load the assembly and load its dependencies
+                LoadReferencedAssembly(Assembly.Load(an), loaded, includeFramework); // AppDomain.CurrentDomain.Load(name)
+                loaded.TryAdd(an.FullName, true);
+                _logger.Debug($"Referenced assembly => {an.FullName}");
+            }
+        }
+
+        private static void CacheAlreadyLoadedAssemblies(IDictionary<string, bool> loaded, bool includeFramework = false)
+        {
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => ShouldLoad(a.FullName, loaded, includeFramework)))
+            {
+                loaded.TryAdd(a.FullName, true);
+                _logger.Debug($"{a.FullName}");
+            }
+        }
+
+        private static bool ShouldLoad(string assemblyName, IDictionary<string, bool> loaded, bool includeFramework = false)
+        {
+            return (includeFramework || IsNotNetFramework(assemblyName))
+                   && !loaded.ContainsKey(assemblyName);
+        }
+
+        private static bool IsNotNetFramework(string assemblyName)
+        {
+            return !assemblyName.StartsWith("Microsoft.", StringComparison.CurrentCultureIgnoreCase)
+                   && !assemblyName.StartsWith("System.", StringComparison.CurrentCultureIgnoreCase)
+                   && !assemblyName.StartsWith("Newtonsoft.", StringComparison.CurrentCultureIgnoreCase)
+                   && assemblyName != "netstandard"
+                   && !assemblyName.StartsWith("Autofac", StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        public static void LoadPluginAssemblies(string pluginFolder, bool includeFramework = false)
+        {
+            // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
+            IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
+
+            CacheAlreadyLoadedAssemblies(loaded, includeFramework);
+
             if (!IsSuppliedPluginFolderName())
             {
                 return;
             }
 
-            foreach (var assembly in GetPlugins())
+            var pluginFinder = new PluginFinder<IPluginMarker>();
+
+            foreach (var assemblyFile in pluginFinder.FindAssemliesWithPlugins(pluginFolder))
             {
-                Assembly.Load(assembly.GetName());
-            }
+                var assembly = Assembly.LoadFile(assemblyFile);
 
-            IEnumerable<Assembly> GetPlugins()
-            {
-                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) =>
-                {
-                    var assembly = Assembly.ReflectionOnlyLoad(e.Name);
-
-                    if (assembly == null)
-                    {
-                        throw new Exception($"Could not load assembly {e.Name}.");
-                    }
-
-                    return assembly;
-                };
-
-                var directoryInfo = new DirectoryInfo(pluginFolder);
-
-                // return no plugins to load if the folder does not exist
-                if (!directoryInfo.Exists)
-                {
-                    _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                    yield break;
-                }
-
-                // return the assemblies that are only plugins and exclude non plugin assembles (e.g. log4net.dll)
-                foreach (FileInfo fileInfo in directoryInfo.GetFiles("*.dll"))
-                {
-                    var assembly = Assembly.ReflectionOnlyLoadFrom(fileInfo.FullName);
-
-                    // load in the referenced assemblies into the reflection domain
-                    foreach (AssemblyName referencedAssembly in assembly.GetReferencedAssemblies())
-                    {
-                        Assembly.ReflectionOnlyLoad(referencedAssembly.FullName);
-                    }
-
-                    if (assembly.GetTypes()
-                        .Any(
-                            t =>
-                                t.GetInterfaces()
-                                    .Any(
-                                        i =>
-                                            i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName)))
-                    {
-                        yield return assembly;
-                    }
-                }
+                LoadReferencedAssembly(assembly, loaded, includeFramework);
             }
 
             bool IsSuppliedPluginFolderName()
@@ -172,6 +140,50 @@ namespace EdFi.Ods.Api.Helpers
                 }
 
                 return true;
+            }
+        }
+
+        private class PluginFinder<TPlugin>
+        {
+            private static readonly ILog _logger = LogManager.GetLogger(typeof(PluginFinder<>));
+
+            public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
+            {
+                // return no plugins to load if the folder does not exist
+                if (!Directory.Exists(pluginFolder))
+                {
+                    _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                    yield break;
+                }
+
+                var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
+
+                var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
+
+                foreach (var assemblyPath in assemblies)
+                {
+                    var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
+
+                    if (HasPlugin(assembly))
+                    {
+                        yield return assembly.Location;
+                    }
+                }
+
+                pluginFinderAssemblyContext.Unload();
+            }
+
+            private static bool HasPlugin(Assembly assembly)
+            {
+                return assembly.GetTypes().Any(
+                    t => t.GetInterfaces()
+                        .Any(i => i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
+            }
+
+            private class PluginAssemblyLoadingContext : AssemblyLoadContext
+            {
+                public PluginAssemblyLoadingContext()
+                    : base(true) { }
             }
         }
     }
