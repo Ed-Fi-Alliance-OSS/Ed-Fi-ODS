@@ -59,13 +59,9 @@ namespace EdFi.Ods.Api.Helpers
 
             private static bool HasPlugin(Assembly assembly)
             {
-                return assembly.GetTypes()
-                    .Any(
-                        t =>
-                            t.GetInterfaces()
-                                .Any(
-                                    i =>
-                                        i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
+                return assembly.GetTypes().Any(
+                    t => t.GetInterfaces()
+                        .Any(i => i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
             }
         }
 
