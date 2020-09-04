@@ -41,7 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             A.CallTo(() => request.Host).Returns(new HostString("localhost", 80));
 
             request.PathBase = "/";
-            request.RouteValues = new RouteValueDictionary { { "controller", "authorize" } };
+            request.RouteValues = new RouteValueDictionary {{"controller", "authorize"}};
 
             var httpContext = A.Fake<HttpContext>();
             A.CallTo(() => httpContext.Request).Returns(request);
@@ -76,9 +76,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenResponse _tokenResponse;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient { ApiClientId = 1 };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -114,6 +114,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -126,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             Grant_type = "client_credentials"
                         });
 
-                    _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
                 [Test]
@@ -134,7 +136,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                        () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
                 // TODO: ODS-4430 fix this test
@@ -1657,9 +1659,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TimeSpan _suppliedTTL;
                 private IActionResult _actionResult;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient { ApiClientId = 1 };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -1687,7 +1689,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -1696,15 +1698,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                     _controller = CreateTokenController(_tokenRequestProvider);
 
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
                     _actionResult = await _controller.PostFromForm(
-                        new TokenRequest
-                        {
-                            Grant_type = "client_credentials"
-                        });
+                        new TokenRequest {Grant_type = "client_credentials"});
                 }
 
                 [Test]
@@ -1712,8 +1712,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
-                        () => ((UnauthorizedResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
-
+                        () => ((UnauthorizedResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
                 }
 
                 [Test]
@@ -1749,9 +1748,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TimeSpan _suppliedTTL;
                 private IActionResult _actionResult;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient { ApiClientId = 1 };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -1779,7 +1778,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -1804,15 +1803,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     };
 
                     _controller.ControllerContext = controllerContext;
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
                     _actionResult = await _controller.PostFromForm(
-                        new TokenRequest
-                        {
-
-                        });
+                        new TokenRequest { });
                 }
 
                 [Test]
@@ -1820,8 +1818,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                        () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Test]
@@ -1858,9 +1855,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenResponse _tokenResponse;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient { ApiClientId = 1 };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
                     _suppliedTTL = TimeSpan.FromMinutes(30);
@@ -1888,7 +1885,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -1913,17 +1910,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     };
 
                     _controller.ControllerContext = controllerContext;
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
                     _actionResult = await _controller.PostFromForm(
-                        new TokenRequest
-                        {
-                            Grant_type = "client_credentials"
-                        });
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                    _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
                 [Test]
@@ -1931,7 +1927,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                        () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
                 // TODO: ODS-4430 fix this test
@@ -2009,20 +2005,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenResponse _tokenResponse;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
                     _suppliedClient = new ApiClient
                     {
                         ApiClientId = 1,
                         ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                         {
-                             new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                         }
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
                     };
 
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
                     // Scope the request to the first associated EdOrg
                     _requestedScope = _suppliedClient.ApplicationEducationOrganizations
                         .Select(x => x.EducationOrganizationId)
@@ -2038,11 +2035,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         .Returns(Task.FromResult(_suppliedClient));
 
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                       .Returns(new ClientAccessToken(new TimeSpan(0, 10, 0))
-                       {
-                           ApiClient = _suppliedClient,
-                           Id = _suppliedAccessToken
-                       });
+                        .Returns(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient,
+                                Id = _suppliedAccessToken
+                            });
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                         .Returns(
@@ -2050,7 +2048,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -2075,25 +2073,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     };
 
                     _controller.ControllerContext = controllerContext;
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
                     _actionResult = await _controller.PostFromForm(
-                           new TokenRequest
-                           {
-                               Grant_type = "client_credentials",
-                           });
+                        new TokenRequest
+                        {
+                            Grant_type = "client_credentials",
+                        });
 
-                    _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_OK()
                 {
                     AssertHelper.All(
-                       () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                       () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
                 //TODO ODS-4430
@@ -2155,7 +2155,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
                         .MustHaveHappened();
                 }
-
             }
 
             public class With_a_scope_not_matching_an_associated_EdOrgId : TestFixtureAsyncBase
@@ -2168,22 +2167,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private Guid _suppliedAccessToken;
                 private string _requestedScope;
 
-                private JObject _actualJsonContent;
-
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
                     _suppliedClient = new ApiClient
                     {
                         ApiClientId = 1,
                         ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                         {
-                             new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                         }
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
                     };
 
                     // Scope the request to something not in list above
@@ -2195,24 +2192,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                       .Returns(Task.FromResult(_suppliedClient));
+                        .Returns(Task.FromResult(_suppliedClient));
 
                     _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                             .Returns(
-                                 Task.FromResult(
-                                     new ApiClientAuthenticator.AuthenticationResult
-                                     {
-                                         IsAuthenticated = true,
-                                         ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                                     }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2235,22 +2234,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                      new TokenRequest
-                      {
-                          Grant_type = "client_credentials",
-                          Scope = _requestedScope
-                      });
+                        new TokenRequest
+                        {
+                            Grant_type = "client_credentials",
+                            Scope = _requestedScope
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                       () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                       () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
@@ -2258,7 +2256,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _tokenError.Error.Equals("invalid_scope"),
-                        () => _tokenError.Error_description.Equals("The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'."));
+                        () => _tokenError.Error_description.Equals(
+                            "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'."));
                 }
 
                 [Test]
@@ -2271,16 +2270,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 public void Should_call_try_authenticate_from_the_database_once()
                 {
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                       .MustHaveHappenedOnceExactly();
+                        .MustHaveHappenedOnceExactly();
                 }
 
                 [Test]
                 public void Should_NOT_use_ClientAppRepo_to_create_token()
                 {
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                                          .MustNotHaveHappened();
+                        .MustNotHaveHappened();
                 }
-
             }
 
             public class With_a_scope_that_is_not_a_number : TestFixtureAsyncBase
@@ -2296,17 +2294,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
                     _suppliedClient = new ApiClient
                     {
                         ApiClientId = 1,
                         ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                         {
-                             new ApplicationEducationOrganization { EducationOrganizationId = 997 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 998 },
-                             new ApplicationEducationOrganization { EducationOrganizationId = 999 },
-                         }
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
                     };
 
                     // Scope the request to something not in list above
@@ -2318,24 +2316,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                            .Returns(Task.FromResult(_suppliedClient));
+                        .Returns(Task.FromResult(_suppliedClient));
 
                     _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2358,29 +2358,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                       new TokenRequest
-                       {
-                           Grant_type = "client_credentials",
-                           Scope = _requestedScope
-                       });
+                        new TokenRequest
+                        {
+                            Grant_type = "client_credentials",
+                            Scope = _requestedScope
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                       () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                       () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Test]
                 public void Should_return_an_error_body_indicating_an_invalid_scope_was_supplied()
                 {
                     AssertHelper.All(
-                                         () => _tokenError.Error.Equals("invalid_scope"),
-                                         () => _tokenError.Error_description.Equals("The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client)."));
+                        () => _tokenError.Error.Equals("invalid_scope"),
+                        () => _tokenError.Error_description.Equals(
+                            "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client)."));
                 }
 
                 [Assert]
@@ -2393,19 +2394,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 public void Should_call_try_authenticate_from_the_database_once()
                 {
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                              .MustHaveHappenedOnceExactly();
+                        .MustHaveHappenedOnceExactly();
                 }
 
                 [Assert]
                 public void Should_NOT_use_ClientAppRepo_to_create_token()
                 {
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                             .MustNotHaveHappened();
+                        .MustNotHaveHappened();
                 }
-
             }
 
-            public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
+            public class
+                With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
                 : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
@@ -2416,14 +2417,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private Guid _suppliedAccessToken;
                 private IActionResult _actionResult;
                 private TokenResponse _tokenResponse;
-                private JObject _actualJsonContent;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient
-                    {
-                        ApiClientId = 1
-                    };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
 
@@ -2433,15 +2430,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                     // Simulate a successful lookup of the client id/secret
                     A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                       .Returns(Task.FromResult(_suppliedClient));
-
+                        .Returns(Task.FromResult(_suppliedClient));
 
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                       .Returns(new ClientAccessToken(new TimeSpan(0, 10, 0))
-                       {
-                           ApiClient = _suppliedClient,
-                           Id = _suppliedAccessToken
-                       });
+                        .Returns(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient,
+                                Id = _suppliedAccessToken
+                            });
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                         .Returns(
@@ -2449,7 +2446,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -2457,6 +2454,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2479,13 +2478,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                                           new TokenRequest
-                                           {
-                                               Client_id = "clientId",
-                                               Grant_type = "client_credentials"
-                                           });
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Grant_type = "client_credentials"
+                        });
 
-                    _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
                 [Test]
@@ -2493,7 +2492,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                        () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
                 //TODO  To be covered by ODS-4430
@@ -2546,7 +2545,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 public void Should_call_try_authenticate_from_the_database_once()
                 {
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                       .MustHaveHappenedOnceExactly();
+                        .MustHaveHappenedOnceExactly();
                 }
 
                 [Test]
@@ -2555,10 +2554,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                         .MustHaveHappened();
                 }
-
             }
 
-            public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
+            public class
+                With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
                 : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
@@ -2570,14 +2569,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenResponse _tokenResponse;
-                private JObject _actualJsonContent;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
-                    _suppliedClient = new ApiClient
-                    {
-                        ApiClientId = 1
-                    };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
                     _suppliedAccessToken = Guid.NewGuid();
 
@@ -2590,27 +2585,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         .Returns(Task.FromResult(_suppliedClient));
 
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                          .Returns(new ClientAccessToken(new TimeSpan(0, 10, 0))
-                          {
-                              ApiClient = _suppliedClient,
-                              Id = _suppliedAccessToken
-                          });
-
+                        .Returns(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient,
+                                Id = _suppliedAccessToken
+                            });
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2639,15 +2636,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             Grant_type = "client_credentials"
                         });
 
-                    _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_OK()
                 {
                     AssertHelper.All(
-                         () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                         () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
                 }
 
                 //TODO ODS-4430
@@ -2700,7 +2697,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 public void Should_call_try_authenticate_from_the_database_once()
                 {
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                       .MustHaveHappenedOnceExactly();
+                        .MustHaveHappenedOnceExactly();
                 }
 
                 [Test]
@@ -2709,10 +2706,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                         .MustHaveHappened();
                 }
-
             }
 
-            public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_an_invalid_client_Id_is_provided_in_the_body_as_well
+            public class
+                With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_an_invalid_client_Id_is_provided_in_the_body_as_well
                 : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
@@ -2720,27 +2717,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TokenController _controller;
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
 
                     _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2769,7 +2768,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             Grant_type = "client_credentials"
                         });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
@@ -2777,7 +2776,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 {
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                        () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
@@ -2786,7 +2785,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     AssertHelper.All(
                         () => _tokenError.Error.ShouldBe("invalid_request"));
                 }
-
             }
 
             public class
@@ -2798,26 +2796,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TokenController _controller;
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
-                   
+
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-                   
+
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2840,30 +2841,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                       new TokenRequest
-                       {
-                           Client_secret = "invalidClientSecret",
-                           Grant_type = "client_credentials"
-                       });
+                        new TokenRequest
+                        {
+                            Client_secret = "invalidClientSecret",
+                            Grant_type = "client_credentials"
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                       () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                       () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
                 {
                     AssertHelper.All(
-                            () => _tokenError.Error.ShouldBe("invalid_request"));
+                        () => _tokenError.Error.ShouldBe("invalid_request"));
                 }
-
             }
 
             public class Using_digest_authorization : TestFixtureAsyncBase
@@ -2874,18 +2874,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                         .Returns(
                             Task.FromResult(
                                 new ApiClientAuthenticator.AuthenticationResult
                                 {
                                     IsAuthenticated = true,
-                                    ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                                 }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
@@ -2893,6 +2894,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2915,20 +2918,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                      new TokenRequest
-                      {
-                          Grant_type = "client_credentials"
-                      });
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_Unauthorized()
                 {
                     AssertHelper.All(
-                         () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
-                         () => ((UnauthorizedResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
+                        () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
+                        () => ((UnauthorizedResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
                 }
 
                 //TODO ODS-4430
@@ -2944,7 +2944,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
                     AssertHelper.All(
-                       () => _tokenError.Error.Equals("invalid_client"));
+                        () => _tokenError.Error.Equals("invalid_client"));
                 }
             }
 
@@ -2956,27 +2956,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
 
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -2999,27 +3001,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                      new TokenRequest
-                      {
-                          Grant_type = "client_credentials"
-                      });
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                           () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                           () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
                 {
                     AssertHelper.All(
-                         () => _tokenError.Error.Equals("invalid_request"));
+                        () => _tokenError.Error.Equals("invalid_request"));
                 }
             }
 
@@ -3030,27 +3029,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TokenController _controller;
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
 
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
@@ -3073,20 +3074,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                      new TokenRequest
-                      {
-                          Grant_type = "client_credentials"
-                      });
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                            () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                            () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
@@ -3105,28 +3103,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                private JObject _actualJsonContent;
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
-                   
+
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-                   
+
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
-                    var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
+                    var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
-                    _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
+                    _controller = CreateTokenController(tokenRequestProvider);
 
-                    _controller = CreateTokenController(_tokenRequestProvider);
+                    return Task.CompletedTask;
                 }
+
                 protected override async Task ActAsync()
                 {
                     var request = A.Fake<HttpRequest>();
@@ -3147,30 +3146,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller.ControllerContext = controllerContext;
 
                     _actionResult = await _controller.PostFromForm(
-                       new TokenRequest
-                       {
-                           Grant_type = "client_credentials"
-                       });
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                      () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                      () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
                 {
-                   AssertHelper.All(
-                       () => _tokenError.Error.Equals("invalid_request"));
+                    AssertHelper.All(
+                        () => _tokenError.Error.Equals("invalid_request"));
                 }
-
             }
+
             public class With_an_incorrect_client_id_and_secret : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
@@ -3179,18 +3175,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                       .Returns(
-                           Task.FromResult(
-                               new ApiClientAuthenticator.AuthenticationResult
-                               {
-                                   IsAuthenticated = true,
-                                   ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                               }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
@@ -3199,15 +3196,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _controller = CreateTokenController(_tokenRequestProvider);
 
                     var request = A.Fake<HttpRequest>();
-                   
+
                     var headerDictionary = A.Fake<IHeaderDictionary>();
-                   
+
                     HeaderDictionary dict = new HeaderDictionary();
-                     
+
                     A.CallTo(() => request.Headers).Returns(dict);
 
                     var httpContext = A.Fake<HttpContext>();
-                    
+
                     A.CallTo(() => httpContext.Request).Returns(request);
 
                     var controllerContext = new ControllerContext()
@@ -3216,34 +3213,36 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     };
 
                     _controller.ControllerContext = controllerContext;
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
-                     _actionResult = await _controller.PostFromForm(
-                       new TokenRequest
-                       {
-                           Client_id = "badClientId",
-                           Client_secret = "badClientSecret",
-                           Grant_type = "client_credentials"
-                       });
+                    _actionResult = await _controller.PostFromForm(
+                        new TokenRequest
+                        {
+                            Client_id = "badClientId",
+                            Client_secret = "badClientSecret",
+                            Grant_type = "client_credentials"
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                                 () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                                 () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
                     AssertHelper.All(
-                       () => _tokenError.Error.Equals("invalid_client"));
+                        () => _tokenError.Error.Equals("invalid_client"));
                 }
 
                 //TODO - ODS-4430
@@ -3253,7 +3252,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 //    Assert.That(_actualResponseMessage.Headers.CacheControl, Is.Null);
                 //    Assert.That(_actualResponseMessage.Headers.Pragma, Is.Empty);
                 //}
-
             }
 
             public class With_an_empty_secret : TestFixtureAsyncBase
@@ -3264,54 +3262,57 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                protected override async Task ArrangeAsync()
+
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
 
                     _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                                           .Returns(
-                                               Task.FromResult(
-                                                   new ApiClientAuthenticator.AuthenticationResult
-                                                   {
-                                                       IsAuthenticated = true,
-                                                       ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                                                   }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
                     var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
 
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
-                   _actionResult = await _controller.PostFromForm(
-                      new TokenRequest
-                      {
-                          Client_id = "clientId",
-                          Client_secret = string.Empty,
-                          Grant_type = "client_credentials"
-                      });
+                    _actionResult = await _controller.PostFromForm(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Client_secret = string.Empty,
+                            Grant_type = "client_credentials"
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                               () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                               () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
                     AssertHelper.All(
-                            () => _tokenError.Error.Equals("invalid_client"));
+                        () => _tokenError.Error.Equals("invalid_client"));
                 }
 
                 //TODO - ODS-4430
@@ -3332,51 +3333,52 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
 
-                protected override async Task ArrangeAsync()
+                protected override Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                     A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
-                    var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
-
-                    _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
+                    var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
+
+                    return Task.CompletedTask;
                 }
 
                 protected override async Task ActAsync()
                 {
-                     _actionResult = await _controller.PostFromForm(
-                       new TokenRequest
-                       {
-                           Client_id = "clientId",
-                           Grant_type = "client_credentials"
-                       });
+                    _actionResult = await _controller.PostFromForm(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Grant_type = "client_credentials"
+                        });
 
-                    _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
                 }
 
                 [Assert]
                 public void Should_return_HTTP_status_of_BadRequest()
                 {
                     AssertHelper.All(
-                                () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                                () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
                 }
 
                 [Assert]
                 public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
                 {
                     AssertHelper.All(
-                           () => _tokenError.Error.Equals("invalid_client"));
+                        () => _tokenError.Error.Equals("invalid_client"));
                 }
 
                 //TODO- ODS-4430
@@ -3386,7 +3388,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 //    Assert.That(_actualResponseMessage.Headers.CacheControl, Is.Null);
                 //    Assert.That(_actualResponseMessage.Headers.Pragma, Is.Empty);
                 //}
-
             }
         }
     }

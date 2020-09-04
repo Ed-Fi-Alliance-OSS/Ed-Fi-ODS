@@ -91,46 +91,38 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
         public class When_requesting_the_sdk_gen_section_from_the_cache : TestFixtureBase
         {
-            private ICompositesMetadataProvider _compositesMetadataProvider;
-            private IProfileResourceModelProvider _profileResourceModelProvider;
-            private IProfileResourceNamesProvider _profileResourceNamesProvider;
-
             private OpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
             private List<OpenApiContent> _actualMetadata;
 
             protected override void Arrange()
             {
                 var apiSettings = CreateApiSettings();
-               
+
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
-                
-                _compositesMetadataProvider = new CompositesMetadataProvider();
-             
-                var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
                 var _resourceModelProvider = Stub<IResourceModelProvider>();
-                
+
                 var resourceModel = ResourceModelProvider.GetResourceModel();
-                
+
                 A.CallTo(() => _resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
-                var openapicontentproviderlist = new List<IOpenApiContentProvider>();
+                var openApiContentProviders = new List<IOpenApiContentProvider>();
 
-                var compositemetadataprovider = new CompositesMetadataProvider();
-               
-                var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(compositemetadataprovider, ResourceModelProvider);
-                
+                var compositesMetadataProvider = new CompositesMetadataProvider();
+
+                var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(compositesMetadataProvider, ResourceModelProvider);
+
                 var extensionsOpenApiContentProvider = new ExtensionsOpenApiContentProvider(DomainModelProvider, ResourceModelProvider, SchemaNameMapProvider);
-                
-                var identityprovider = new IdentityOpenApiContentProvider();
-                
-                openapicontentproviderlist.Add(identityprovider);
-                
-                openapicontentproviderlist.Add(compositeOpenApiContentProvider);
-                
-                openapicontentproviderlist.Add(extensionsOpenApiContentProvider);
 
-                _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist);
+                var identityProvider = new IdentityOpenApiContentProvider();
+
+                openApiContentProviders.Add(identityProvider);
+
+                openApiContentProviders.Add(compositeOpenApiContentProvider);
+
+                openApiContentProviders.Add(extensionsOpenApiContentProvider);
+
+                _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openApiContentProviders);
             }
 
             protected override void Act()
@@ -388,7 +380,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 _compositesMetadataProvider = new CompositesMetadataProvider();
-               
+
                 var apiSettings = CreateApiSettings();
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
@@ -482,7 +474,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                         DomainModelProvider.GetDomainModel()
                                            .Schemas);
 
-             
+
                 var apiSettings = CreateApiSettings();
 
                 AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
