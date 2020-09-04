@@ -61,7 +61,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             return controller;
         }
 
-        #region Post Method
         public class When_using_client_credentials_grant
         {
             public class With_valid_key_and_secret : TestFixtureAsyncBase
