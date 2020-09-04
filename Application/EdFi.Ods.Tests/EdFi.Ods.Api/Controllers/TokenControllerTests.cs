@@ -2365,7 +2365,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                        });
 
                     _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-
                 }
 
                 [Assert]
