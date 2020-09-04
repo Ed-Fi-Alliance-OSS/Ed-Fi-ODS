@@ -1642,7 +1642,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             //    }
             //}
         }
-        #endregion
 
         public class When_using_client_credentials_grant_posting_via_form
         {
