@@ -85,7 +85,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                     _clientAppRepo = Stub<IClientAppRepo>();
 
-                    //// Simulate a successful lookup of the client id/secret
+                    // Simulate a successful lookup of the client id/secret
                     A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                         .Returns(Task.FromResult(_suppliedClient));
 
