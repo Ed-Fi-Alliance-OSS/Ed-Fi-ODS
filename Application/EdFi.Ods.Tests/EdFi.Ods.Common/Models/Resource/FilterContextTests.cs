@@ -24,9 +24,8 @@ using Resource_Resource = EdFi.Ods.Common.Models.Resource.Resource;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {
-    public static class FilterContextTests
+    public class FilterContextTests
     {
-
         internal static IMemberFilter ByProperties<T>(this IMemberFilter expected)
         {
             var fakeExpected = A.Fake<IMemberFilter>(o => o.Wrapping(expected));
@@ -73,6 +72,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             }
             return true;
         }
+
         internal static bool AssertListsEquals(IList expectedValue, IList actualValue)
         {
             if (expectedValue.Count != actualValue.Count)
@@ -536,9 +536,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             public void Result_filter_should_contain_values_from_xelement()
             {
                 Assert.That(
-                     _actualFilterContext.Definition.Attribute("name")
-                         ?.Value,
-                     Is.EqualTo("Extension-Logical"));
+                    _actualFilterContext.Definition.Attribute("name")
+                        ?.Value,
+                    Is.EqualTo("Extension-Logical"));
 
                 Assert.That(
                     _actualFilterContext.Definition.DescendantNodes()

@@ -2,6 +2,7 @@
 //Licensed to the Ed-Fi Alliance under one or more agreements.
 //The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 //See the LICENSE and NOTICES files in the project root for more information.
+
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
         protected static IOpenApiContentProvider[] TestOpenApiContentProviders = {
                                                                                       new IdentityOpenApiContentProvider()
                                                                                   };
-
 
         private static IEnumerable<IOpenApiMetadataRouteInformation> GetTestRouteInformation(ApiSettings apiSettings)
         {
@@ -446,7 +446,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     Is.EquivalentTo(compositeCategoryNames));
             }
         }
-
 
         public class When_requesting_the_extensions_section_from_the_cache : TestFixtureBase
         {

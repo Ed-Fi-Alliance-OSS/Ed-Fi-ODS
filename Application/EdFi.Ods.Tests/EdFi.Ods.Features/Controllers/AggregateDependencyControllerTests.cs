@@ -107,8 +107,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 _actionResult = _controller.Get();
 
                 objectResult = (OkObjectResult)_actionResult;
-
-
             }
 
             [Test]
@@ -150,7 +148,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         private static AggregateDependencyController CreateController(IResourceLoadGraphFactory graphFactory,
             bool isGraphRequest = false)
         {
-
             var apiSettings = new ApiSettings { Mode = ApiMode.SharedInstance.Value };
             Feature item = new Feature();
             item.IsEnabled = true;

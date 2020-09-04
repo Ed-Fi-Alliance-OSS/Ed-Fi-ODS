@@ -64,7 +64,7 @@ namespace Test.Common
                      Constructor = c,
                      Parameters = p
                     })
-                    .FirstOrDefault();
+                .FirstOrDefault();
 
             _constructor = constructorDetails.Constructor;
 
@@ -311,7 +311,7 @@ namespace Test.Common
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency)list[1];
+            return (TDependency) list[1];
         }
 
         protected TDependency The_third<TDependency>()

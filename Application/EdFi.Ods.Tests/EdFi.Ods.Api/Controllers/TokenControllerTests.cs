@@ -2946,7 +2946,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     AssertHelper.All(
                        () => _tokenError.Error.Equals("invalid_client"));
                 }
-
             }
 
             public class Using_basic_authorization_with_no_value : TestFixtureAsyncBase
@@ -2979,7 +2978,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
-
                 }
 
                 protected override async Task ActAsync()
@@ -3055,7 +3053,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
 
                     _controller = CreateTokenController(_tokenRequestProvider);
-
                 }
 
                 protected override async Task ActAsync()
@@ -3375,7 +3372,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             //    }
             //}
         }
-        #endregion
     }
 }
 #endif
