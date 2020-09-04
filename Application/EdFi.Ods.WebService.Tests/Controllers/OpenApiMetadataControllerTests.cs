@@ -6,24 +6,28 @@
 #if NETCOREAPP
 using System.Net;
 using System.Threading.Tasks;
+using ApprovalTests;
+using ApprovalTests.Reporters;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
+    [UseReporter(typeof(DiffReporter))]
     public class OpenApiMetadataControllerTests : HttpClientTestsBase
     {
         [Test]
         public async Task MetadataEndpointGetShouldBeValid()
         {
-            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
+            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
+            Approvals.Verify(json);
         }
     }
 }
