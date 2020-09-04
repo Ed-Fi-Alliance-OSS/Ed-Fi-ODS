@@ -6,13 +6,11 @@
 #if NETCOREAPP
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.WebService.Tests._Helpers;
 using NUnit.Framework;
 using Shouldly;
@@ -39,7 +37,9 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(json);
+
+            // fix for teamcity
+            Approvals.Verify(json, s =>  s.Replace(@"\r\n", @"\n"));
         }
 
         [Test]
@@ -58,7 +58,9 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
             var xml = await response.Content.ReadAsStringAsync();
 
             xml.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(xml);
+
+            // fix for teamcity
+            Approvals.Verify(xml, s => s.Replace(@"\r\n", @"\n"));
         }
     }
 }
