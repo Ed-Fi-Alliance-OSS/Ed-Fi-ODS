@@ -1931,7 +1931,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     AssertHelper.All(
                         () => _actionResult.ShouldBeOfType<OkObjectResult>(),
                         () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
-
                 }
 
                 // TODO: ODS-4430 fix this test
