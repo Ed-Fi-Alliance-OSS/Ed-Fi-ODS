@@ -1844,6 +1844,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         .MustNotHaveHappened();
                 }
             }
+
             public class With_valid_key_and_secret : TestFixtureAsyncBase
             {
                 private IClientAppRepo _clientAppRepo;
