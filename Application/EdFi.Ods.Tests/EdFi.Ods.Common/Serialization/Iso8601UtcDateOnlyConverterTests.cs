@@ -34,14 +34,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
             private DateTimes datetimes;
             private string serializedJson;
 
-            protected override void ExecuteBehavior()
+            protected override void Arrange()
             {
                 datetimes = DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                     @"
- {
-     ""DateTimeOnly"":""2014-08-01"",
-     ""NullableDateTimeOnly"":""2014-08-01""
- }");
+                     {
+                         ""DateTimeOnly"":""2014-08-01"",
+                         ""NullableDateTimeOnly"":""2014-08-01""
+                     }");
 
                 serializedJson = JsonConvert.SerializeObject(datetimes);
             }
@@ -67,14 +67,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
             private DateTimes nullableDateTimes;
             private string serializedJsonForNullableDateTimes;
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 nullableDateTimes = DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                     @"
- {
-     ""DateTimeOnly"":""2014-08-01"",
-     ""NullableDateTimeOnly"":null
- }");
+                     {
+                         ""DateTimeOnly"":""2014-08-01"",
+                         ""NullableDateTimeOnly"":null
+                     }");
 
                 serializedJsonForNullableDateTimes = JsonConvert.SerializeObject(nullableDateTimes);
             }
@@ -102,9 +102,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
                     () =>
                         JsonConvert.DeserializeObject<DateTimes>(
                             @"
- {
-     ""DateTimeOnly"":""2014-08-01T07:57:32Z""
- }"));
+                             {
+                                 ""DateTimeOnly"":""2014-08-01T07:57:32Z""
+                             }"));
             }
         }
 
@@ -136,9 +136,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
                     () =>
                         DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                             @"
- {
-     ""DateTimeOnly"":""" + dateTimeValue + @"""
- }"));
+                             {
+                                 ""DateTimeOnly"":""" + dateTimeValue + @"""
+                             }"));
             }
         }
 
@@ -158,9 +158,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
             {
                 var dateTimesObject = DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                     @"
- {
-     ""DateTimeOnly"":""" + dateTimeValue + @"""
- }");
+                     {
+                         ""DateTimeOnly"":""" + dateTimeValue + @"""
+                     }");
 
                 var now = DateTime.Now;
                 Assert.That(dateTimesObject.DateTimeOnly, Is.EqualTo(new DateTime(expectedYear ?? now.Year, expectedMonth ?? now.Month, expectedDay ?? now.Day)));
@@ -172,15 +172,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
             private Exception expectedException;
             private DateTimes deserializedObject;
 
-            protected override void ExecuteBehavior()
+            protected override void Arrange()
             {
                 try
                 {
                     deserializedObject = DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                         @"
- {
-     ""DateTimeOnly"":""2014-08-01T07:57:32Z""
- }");
+                         {
+                             ""DateTimeOnly"":""2014-08-01T07:57:32Z""
+                         }");
                 }
                 catch (Exception e)
                 {

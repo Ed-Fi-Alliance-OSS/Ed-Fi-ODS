@@ -168,7 +168,7 @@ namespace EdFi.TestFixture
         }
 
         protected TDependency The<TDependency>()
-         where TDependency : class
+           where TDependency : class
         {
             Lazy<object> dependency;
 
@@ -202,7 +202,7 @@ namespace EdFi.TestFixture
         }
 
         private dynamic GetDependencyList<TDependency>()
-            where TDependency : class
+           where TDependency : class
         {
             dynamic list;
 
@@ -213,7 +213,6 @@ namespace EdFi.TestFixture
 
             return list;
         }
-
 
         /// <summary>
         /// Supplies a named value for subsequent usage during behavior verification, eliminating the need to create a test fixture field to hold the value.

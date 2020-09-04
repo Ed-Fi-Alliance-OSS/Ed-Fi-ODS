@@ -362,7 +362,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         // Supplied values
         private RelationshipsAuthorizationContextData _suppliedContextData;
 
-        protected override void EstablishContext()
+        protected override void Arrange()
         {
             #region Commented out code for integration testing against SQL Server
 
@@ -405,7 +405,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
         }
 
-        protected override void ExecuteBehavior()
+        protected override void Act()
         {
             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
                 _suppliedClaims,
@@ -491,7 +491,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         // Supplied values
         private RelationshipsAuthorizationContextData suppliedContextData;
 
-        protected override void EstablishContext()
+        protected override void Arrange()
         {
             suppliedContextData = new RelationshipsAuthorizationContextData
             {
@@ -520,7 +520,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
         }
 
-        protected override void ExecuteBehavior()
+        protected override void Act()
         {
             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
                 suppliedClaims,

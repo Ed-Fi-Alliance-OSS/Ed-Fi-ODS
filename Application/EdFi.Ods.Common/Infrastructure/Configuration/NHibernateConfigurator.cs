@@ -107,7 +107,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             // NOTE: the NHibernate documentation states that this file would be automatically loaded, however in testings this was not the case.
             // The expectation is that this file will be in the binaries location.
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             configuration.Configure(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
             // NOTE: since we are using the connection string provider instead we just need to configure the connection string.
@@ -253,7 +252,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                             $"The subclass extension to entity '{entityName}' could not be applied because the class mapping could not be found.");
                     }
 
-                    var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object)x).ToArray();
+                    var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object) x).ToArray();
 
                     classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmSubclasses).ToArray();
                 }
@@ -272,7 +271,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     }
 
                     var hbmJoinedSubclasses = _extensionDescriptorByEntityName[entityName]
-                        .Select(x => (object)x)
+                        .Select(x => (object) x)
                         .ToArray();
 
                     classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmJoinedSubclasses)
@@ -303,7 +302,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     {
                         name = AggregateExtensionMemberName,
                         Items = _aggregateExtensionHbmBagsByEntityName[entityName]
-                            .Select(x => (object)x)
+                            .Select(x => (object) x)
                             .ToArray()
                     };
 
@@ -348,7 +347,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     {
                         name = EntityExtensionMemberName,
                         Items = _entityExtensionHbmBagsByEntityName[entityName]
-                            .Select(x => (object)x)
+                            .Select(x => (object) x)
                             .ToArray()
                     };
 

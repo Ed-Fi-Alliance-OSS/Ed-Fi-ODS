@@ -88,7 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
             private EducationOrganizationIdentifiers actual88ResultForString2;
             private EducationOrganizationIdentifiers actual99ResultForString2;
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 // Provide external dependencies not needing specific behavior in this test
                 var memorycacheoption = A.Fake<IOptions<MemoryCacheOptions>>();

@@ -35,7 +35,6 @@ namespace EdFi.TestFixture
             try
             {
                 //Arrange
-                EstablishContext();
                 Arrange();
             }
             catch (Exception ex)
@@ -52,7 +51,6 @@ namespace EdFi.TestFixture
             // Execute the behavior
             try
             {
-                ExecuteBehavior();
                 Act();
             }
             catch (Exception ex)
@@ -81,8 +79,7 @@ namespace EdFi.TestFixture
         /// Executes the code to be tested.
         /// </summary>
         protected virtual void Act() { }
-        protected virtual void EstablishContext() { }
-        protected virtual void ExecuteBehavior() { }
+
         protected T Stub<T>()
             where T : class
         {

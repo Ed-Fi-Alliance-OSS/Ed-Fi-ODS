@@ -322,7 +322,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
 
         public class When_creating_a_child_filter_context_for_a_child_collection_that_includes_only_certain_members
-: ScenarioFor<FilterContext>
+        : ScenarioFor<FilterContext>
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
@@ -377,7 +377,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
 
         public class When_creating_a_child_filter_context_for_a_child_embedded_object_that_includes_all_members
-: ScenarioFor<FilterContext>
+        : ScenarioFor<FilterContext>
         {
             private FilterContext _actualFilterContext;
             private IResourceMembersFilterProvider _resoureceMembersFilterProvider;
@@ -388,13 +388,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 // Initialize dependencies
                 Given(
                     XElement.Parse(
-                        @"
-<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-    <Object name='EmbeddedObject1' memberSelection='IncludeAll' />
-    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-    </Collection>
-</ClassDefinition>"));
+                    @"
+                        <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+                            <Object name='EmbeddedObject1' memberSelection='IncludeAll' />
+                            <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+                                <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+                            </Collection>
+                        </ClassDefinition>"));
 
                 Given((ResourceClassBase)GetTestResourceForWithAnExtension());
 
@@ -446,15 +446,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given(
                     XElement.Parse(
                         @"
-<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-    <Object name='IncludedObject1' memberSelection='IncludeAll' />
-    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-    </Collection>
-    <Extension name='ExtensionEntity'  memberSelection='IncludeOnly'>
-        <Property name='AssessmentCategoryDescriptor'/>
-    </Extension>
-</ClassDefinition>"));
+                            <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+                                <Object name='IncludedObject1' memberSelection='IncludeAll' />
+                                <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+                                    <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+                                </Collection>
+                                <Extension name='ExtensionEntity'  memberSelection='IncludeOnly'>
+                                    <Property name='AssessmentCategoryDescriptor'/>
+                                </Extension>
+                            </ClassDefinition>"));
 
                 Given((ResourceClassBase)GetTestResourceForWithAnExtension());
 
@@ -492,15 +492,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 Given(
                     XElement.Parse(
                         @"
-<ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
-    <Object name='IncludedObject1' memberSelection='IncludeAll' />
-    <Collection name='Collection1Items' memberSelection='IncludeOnly'>
-        <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
-    </Collection>
-    <Extension name='Extension-Logical'  memberSelection='IncludeOnly'>
-        <Property name='AssessmentCategoryDescriptor'/>
-    </Extension>
-</ClassDefinition>"));
+                            <ClassDefinition name='CoreEntity' memberSelection='IncludeOnly'>
+                                <Object name='IncludedObject1' memberSelection='IncludeAll' />
+                                <Collection name='Collection1Items' memberSelection='IncludeOnly'>
+                                    <Object name='IncludedCollectionObject1' memberSelection='IncludeAll' />
+                                </Collection>
+                                <Extension name='Extension-Logical'  memberSelection='IncludeOnly'>
+                                    <Property name='AssessmentCategoryDescriptor'/>
+                                </Extension>
+                            </ClassDefinition>"));
 
                 Given((ResourceClassBase)GetTestResourceForWithAnExtension());
 

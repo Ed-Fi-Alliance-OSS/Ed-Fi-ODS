@@ -27,12 +27,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool result;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 exception = new Exception();
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
                 RESTError actualError;
@@ -54,12 +54,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 exception = new GenericADOException("Generic exception message", null);
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
@@ -80,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 const string slightlyWrongMessage =
                     "VViolation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). The statement has been terminated.";
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 exception = NHibernateExceptionBuilder.CreateException("Some generic SQL Exception message", slightlyWrongMessage);
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 const string mess =
                     "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
@@ -129,7 +129,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                         });
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
@@ -169,7 +169,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 const string mess =
                     "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
@@ -180,7 +180,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     .Returns(null);
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
@@ -209,7 +209,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 var mess =
                     "Violation of PRIMARY KEY constraint 'BackwardsPkName_PK'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
@@ -220,7 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                     .Returns(null);
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(suppliedMetadataProvider);
                 result = translator.TryTranslateMessage(exception, out actualError);
@@ -240,7 +240,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private RESTError actualError;
 
-            protected override void EstablishContext()
+            protected override void Arrange()
             {
                 var mess =
                     "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). The statement has been terminated.";
@@ -249,7 +249,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 exception = new GenericADOException("Generic exception message", innerexception);
             }
 
-            protected override void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyCreateExceptionTranslator(Stub<IDatabaseMetadataProvider>());
                 result = translator.TryTranslateMessage(exception, out actualError);
