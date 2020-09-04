@@ -269,8 +269,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             }
         }
 
-        #region Givens
-
+  #region Givens
         private static IEducationOrganizationCache Given_a_cache_that_indicates_no_organizations_exist()
         {
             return A.Fake<IEducationOrganizationCache>();
@@ -341,8 +340,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 StaffUSI = 1234
             };
         }
-
-        #endregion
+ #endregion
     }
 
     public class
@@ -364,7 +362,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
         protected override void Arrange()
         {
-            #region Commented out code for integration testing against SQL Server
+ #region Commented out code for integration testing against SQL Server
 
             //private IDatabaseConnectionStringProvider connectionStringProvider;
 
@@ -374,8 +372,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
             //executor.Execute(actualAuthorizationRules);
-
-            #endregion
+#endregion
 
             _suppliedContextData = new RelationshipsAuthorizationContextData
             {

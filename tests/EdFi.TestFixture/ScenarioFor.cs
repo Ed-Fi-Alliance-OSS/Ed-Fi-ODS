@@ -137,7 +137,7 @@ namespace EdFi.TestFixture
                 }
             }
 
-            return (TDependency)lazyDependency.Value;
+            return (TDependency) lazyDependency.Value;
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace EdFi.TestFixture
                 return stub;
             }
 
-            return (TDependency)dependency.Value;
+            return (TDependency) dependency.Value;
         }
 
         protected TDependency The<TDependency>()
@@ -187,10 +187,10 @@ namespace EdFi.TestFixture
                     throw new Exception(string.Format("Unable to find a stub of type '{0}'.", typeof(TDependency).Name));
                 }
 
-                return (TDependency)firstFromCollection;
+                return (TDependency) firstFromCollection;
             }
 
-            return (TDependency)dependency.Value;
+            return (TDependency) dependency.Value;
         }
 
         protected TDependency The_first<TDependency>()
@@ -198,7 +198,7 @@ namespace EdFi.TestFixture
         {
             dynamic list = GetDependencyList<TDependency>();
 
-            return (TDependency)list[0];
+            return (TDependency) list[0];
         }
 
         private dynamic GetDependencyList<TDependency>()
@@ -273,7 +273,7 @@ namespace EdFi.TestFixture
         /// <returns></returns>
         protected TSupplied Supplied<TSupplied>(string tag)
         {
-            return (TSupplied)Supplied(tag);
+            return (TSupplied) Supplied(tag);
         }
 
         /// <summary>
@@ -303,7 +303,7 @@ namespace EdFi.TestFixture
                 .ToArray();
 
             // Prepare the test subject
-            SystemUnderTest = (TSystemUnderTest)_constructor.Invoke(args);
+            SystemUnderTest = (TSystemUnderTest) _constructor.Invoke(args);
 
             // Inject property dependencies
             var propertyDependencies = GetPropertyDependencies();
@@ -322,7 +322,7 @@ namespace EdFi.TestFixture
 
                 setter.Invoke(
                     SystemUnderTest,
-                    new[] { dependencyValue });
+                    new[] {dependencyValue});
             }
 
             // Execute the behavior
