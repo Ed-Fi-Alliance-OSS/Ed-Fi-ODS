@@ -24,7 +24,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
             builder.RegisterType<AppConfigValueProvider>().As<IConfigValueProvider>();
             builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
-            builder.RegisterType<DatabaseEngineProvider>().As<IDatabaseEngineProvider>();
         }
     }
 }
