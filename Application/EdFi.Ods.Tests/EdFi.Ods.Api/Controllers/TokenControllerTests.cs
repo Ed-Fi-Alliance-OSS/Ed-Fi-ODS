@@ -2720,8 +2720,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TokenController _controller;
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                private JObject _actualJsonContent;
-
+                
                 protected override async Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
@@ -2873,8 +2872,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                private JObject _actualJsonContent;
-
+                
                 protected override async Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
@@ -2956,8 +2954,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                private JObject _actualJsonContent;
-
+                
                 protected override async Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
@@ -3031,8 +3028,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 private TokenController _controller;
                 private IActionResult _actionResult;
                 private TokenError _tokenError;
-                private JObject _actualJsonContent;
-
+                
                 protected override async Task ArrangeAsync()
                 {
                     _clientAppRepo = Stub<IClientAppRepo>();
@@ -3099,69 +3095,64 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 }
             }
 
-            // TODO: ODS-4430 fix this test
-            //public class Using_basic_authorization_with_unencoded_value : TestFixtureBase
-            //{
-            //    private IClientAppRepo _clientAppRepo;
-            //    private IApiClientAuthenticator _apiClientAuthenticator;
-            //    private TokenController _controller;
+            public class Using_basic_authorization_with_unencoded_value : TestFixtureBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
 
-            //    private HttpResponseMessage _actualResponseMessage;
-            //    private JObject _actualJsonContent;
+                private HttpResponseMessage _actualResponseMessage;
+                private JObject _actualJsonContent;
 
-            //    protected override void Arrange()
-            //    {
-            //        _clientAppRepo = mocks.StrictMock<IClientAppRepo>();
-            //        _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
+                protected override void Arrange()
+                {
+                    _clientAppRepo = mocks.StrictMock<IClientAppRepo>();
+                    _apiClientAuthenticator = _apiClientAuthenticatorHelper.Mock(mocks);
 
-            //        _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-            //    }
+                    _controller = CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                }
 
-            //    protected override void Act()
-            //    {
-            //        _controller.Request.Headers.Authorization
-            //            = new AuthenticationHeaderValue("Basic", "ThisIsNotBase64Encoded");
+                protected override void Act()
+                {
+                    _controller.Request.Headers.Authorization
+                        = new AuthenticationHeaderValue("Basic", "ThisIsNotBase64Encoded");
 
-            //        _actualResponseMessage = _controller.Post(
-            //                new TokenRequest
-            //                {
-            //                    Grant_type = "client_credentials"
-            //                })
-            //            .ExecuteAsync(new CancellationToken())
-            //            .Result;
+                    _actualResponseMessage = _controller.Post(
+                            new TokenRequest
+                            {
+                                Grant_type = "client_credentials"
+                            })
+                        .ExecuteAsync(new CancellationToken())
+                        .Result;
 
-            //        string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
-            //            .Result;
+                    string actualContent = _actualResponseMessage.Content.ReadAsStringAsync()
+                        .Result;
 
-            //        _actualJsonContent = JObject.Parse(actualContent);
-            //    }
+                    _actualJsonContent = JObject.Parse(actualContent);
+                }
 
-            //    [Assert]
-            //    public void Should_return_HTTP_status_of_BadRequest()
-            //    {
-            //        Assert.That(_actualResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-            //    }
+                [Assert]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    Assert.That(_actualResponseMessage.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+                }
 
-            //    [Assert]
-            //    public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
-            //    {
-            //        Assert.That(
-            //            _actualJsonContent.Properties()
-            //                .Count(),
-            //            Is.EqualTo(1),
-            //            _actualJsonContent.ToString());
+                [Assert]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
+                {
+                    Assert.That(
+                        _actualJsonContent.Properties()
+                            .Count(),
+                        Is.EqualTo(1),
+                        _actualJsonContent.ToString());
 
-            //        Assert.That(
-            //            _actualJsonContent["error"]
-            //                .Value<string>(),
-            //            Is.EqualTo("invalid_request"));
-            //    }
+                    Assert.That(
+                        _actualJsonContent["error"]
+                            .Value<string>(),
+                        Is.EqualTo("invalid_request"));
+                }
 
-            //    public override void RunOnceAfterAll()
-            //    {
-            //        _clientAppRepo.VerifyAllExpectations();
-            //    }
-            //}
+            }
 
             // TODO: ODS-4430 fix this test
             //public class With_an_incorrect_client_id_and_secret : TestFixtureBase

@@ -26,69 +26,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
 {
     public class FilterContextTests
     {
-        internal static IMemberFilter ByProperties<T>(this IMemberFilter expected)
-        {
-            var fakeExpected = A.Fake<IMemberFilter>(o => o.Wrapping(expected));
-            var properties = expected.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
-            A.CallTo(() => fakeExpected.Equals(A<object>._)).ReturnsLazily(
-                call =>
-                {
-                    var actual = call.GetArgument<object>(0);
-                    if (ReferenceEquals(null, actual))
-                        return false;
-                    if (ReferenceEquals(expected, actual))
-                        return true;
-                    if (actual.GetType() != expected.GetType())
-                        return false;
-                    return AreEqualByProperties(expected, actual, properties);
-                });
-            return fakeExpected;
-        }
-
-        internal static bool AreEqualByProperties(object expected, object actual, PropertyInfo[] properties)
-        {
-            foreach (var propertyInfo in properties)
-            {
-                var expectedValue = propertyInfo.GetValue(expected);
-                var actualValue = propertyInfo.GetValue(actual);
-                if (expectedValue == null || actualValue == null)
-                {
-                    if (expectedValue != null || actualValue != null)
-                    {
-                        return false;
-                    }
-                }
-                else if (typeof(System.Collections.IList).IsAssignableFrom(propertyInfo.PropertyType))
-                {
-                    if (!AssertListsEquals((IList)expectedValue, (IList)actualValue))
-                    {
-                        return false;
-                    }
-                }
-                else if (!expectedValue.Equals(actualValue))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        internal static bool AssertListsEquals(IList expectedValue, IList actualValue)
-        {
-            if (expectedValue.Count != actualValue.Count)
-            {
-                return false;
-            }
-            for (int I = 0; I < expectedValue.Count; I++)
-            {
-                if (!Equals(expectedValue[I], actualValue[I]))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         internal static IDomainModelDefinitionsProvider BuildCoreModelEntityDefinitionsProvider()
         {
             var edfiSchema = EdFiConventions.PhysicalSchemaName;
@@ -551,6 +488,73 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
             {
                 Assert.AreEqual(_actualFilterContext.MemberFilter.ByProperties<IMemberFilter>(), The<IMemberFilter>());
             }
+        }
+
+    }
+
+    public static class MemberFilterExtension
+    {
+        internal static IMemberFilter ByProperties<T>(this IMemberFilter expected)
+        {
+            var fakeExpected = A.Fake<IMemberFilter>(o => o.Wrapping(expected));
+            var properties = expected.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            A.CallTo(() => fakeExpected.Equals(A<object>._)).ReturnsLazily(
+                call =>
+                {
+                    var actual = call.GetArgument<object>(0);
+                    if (ReferenceEquals(null, actual))
+                        return false;
+                    if (ReferenceEquals(expected, actual))
+                        return true;
+                    if (actual.GetType() != expected.GetType())
+                        return false;
+                    return AreEqualByProperties(expected, actual, properties);
+                });
+            return fakeExpected;
+        }
+
+        internal static bool AreEqualByProperties(object expected, object actual, PropertyInfo[] properties)
+        {
+            foreach (var propertyInfo in properties)
+            {
+                var expectedValue = propertyInfo.GetValue(expected);
+                var actualValue = propertyInfo.GetValue(actual);
+                if (expectedValue == null || actualValue == null)
+                {
+                    if (expectedValue != null || actualValue != null)
+                    {
+                        return false;
+                    }
+                }
+                else if (typeof(System.Collections.IList).IsAssignableFrom(propertyInfo.PropertyType))
+                {
+                    if (!AssertListsEquals((IList)expectedValue, (IList)actualValue))
+                    {
+                        return false;
+                    }
+                }
+                else if (!expectedValue.Equals(actualValue))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        internal static bool AssertListsEquals(IList expectedValue, IList actualValue)
+        {
+            if (expectedValue.Count != actualValue.Count)
+            {
+                return false;
+            }
+            for (int I = 0; I < expectedValue.Count; I++)
+            {
+                if (!Equals(expectedValue[I], actualValue[I]))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }
