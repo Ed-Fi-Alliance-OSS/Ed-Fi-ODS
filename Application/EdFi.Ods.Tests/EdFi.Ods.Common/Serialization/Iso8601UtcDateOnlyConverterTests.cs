@@ -145,17 +145,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         [TestFixture]
         public class When_deserializing_valid_date_only_values
         {
-            [TestCase("2014-08-01", 2014, 08, 01)]
-            [TestCase("01-08-2014", 2014, 08, 01)]
-            [TestCase("2014/08/01", 2014, 08, 01)]
-            [TestCase("01/08/2014", 2014, 08, 01)]
+            [TestCase("2014-08-01", 2014, 08, 01)] // YYYY-MM-DD
+            [TestCase("08-01-2014", 2014, 08, 01)] // MM-DD-YYYY
+            [TestCase("2014/08/01", 2014, 08, 01)] // YYYY/MM/DD
+            [TestCase("08/01/2014", 2014, 08, 01)] // MM/DD/YYYY
             [TestCase("Aug 01, 2014", 2014, 08, 01)]
-            [TestCase("Aug 01", 2001, 08, 01)]
-            [TestCase("01/08", null, 08, 01)]
-            [TestCase("08/2014", 2014, 08, 01)]
-            [TestCase("2014/08", 2014, 08, 01)]
+            [TestCase("Aug 01", null, 08, 01)]
+            [TestCase("08/01", null, 08, 01)] // MM/DD
+            [TestCase("08/2014", 2014, 08, 01)] // MM/YYYY
+            [TestCase("2014/08", 2014, 08, 01)] // YYYY/MM
             public void Should_deserialize_to_valid_value(string dateTimeValue, int? expectedYear, int? expectedMonth, int? expectedDay)
             {
+                // NOTE the spec revised 2019 states the format is year, month, day https://en.wikipedia.org/wiki/ISO_8601
                 var dateTimesObject = DefaultTestJsonSerializer.DeserializeObject<DateTimes>(
                     @"
                      {
