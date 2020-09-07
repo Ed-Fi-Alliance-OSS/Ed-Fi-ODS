@@ -13,6 +13,7 @@ using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using log4net;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
@@ -20,9 +21,9 @@ namespace EdFi.Ods.Sandbox.Provisioners
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
 
-        public SqlServerSandboxProvisioner(IConfigValueProvider configValueProvider,
+        public SqlServerSandboxProvisioner(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
-            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
+            : base(configuration, connectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection() => new SqlConnection(ConnectionString);
 
