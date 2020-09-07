@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                 A.CallTo(() => _clientAppRepo.GetClient(A<string>._)).Returns(apiClient);
 
                 A.CallTo(() => _clientAppRepo.AddClientAccessToken(A<int>._, A<string>._))
-                    .Returns(new ClientAccessToken { ApiClient = new ApiClient() });
+                    .Returns(new ClientAccessToken {ApiClient = new ApiClient()});
 
                 _tokenRequest = new TokenRequest
                 {

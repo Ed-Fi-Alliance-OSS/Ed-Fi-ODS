@@ -245,9 +245,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
                 StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
                     .ResourceIsNeverCreatedOrModified;
 
-                var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
-                    repository,
-                    eTagProvider);
+                var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>
+                           (repository,eTagProvider);
 
                 step.ExecuteAsync(context, _putResult, CancellationToken.None).WaitSafely();
 

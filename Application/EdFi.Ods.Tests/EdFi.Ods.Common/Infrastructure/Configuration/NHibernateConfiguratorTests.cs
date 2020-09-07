@@ -22,7 +22,7 @@ using NHibernate.Cfg;
 using NHibernate.Mapping;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.NHibernate.Architecture
+namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.ConfigurationTest
 {
     public class NHibernateConfiguratorTests
     {
