@@ -19,7 +19,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<AssembliesProvider>().As<IAssembliesProvider>();
             builder.RegisterType<FileSystemWrapper>().As<IFileSystem>();
             builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
-            builder.RegisterType<AppConfigValueProvider>().As<IConfigValueProvider>();
             builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
             builder.RegisterType<SystemDateProvider>().As<ISystemDateProvider>();
         }

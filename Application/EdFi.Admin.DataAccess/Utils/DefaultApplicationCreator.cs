@@ -11,20 +11,21 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Utils
 {
     public class DefaultApplicationCreator : IDefaultApplicationCreator
     {
-        private readonly IConfigValueProvider _configValueProvider;
+        private readonly IConfiguration _configuration;
         private readonly IUsersContextFactory _usersContextFactory;
 
         public DefaultApplicationCreator(
             IUsersContextFactory usersContextFactory,
-            IConfigValueProvider configValueProvider)
+            IConfiguration configuration)
         {
             _usersContextFactory = Preconditions.ThrowIfNull(usersContextFactory, nameof(usersContextFactory));
-            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
+            _configuration = Preconditions.ThrowIfNull(configuration, nameof(configuration));
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace EdFi.Admin.DataAccess.Utils
                                     .Include(x => x.Applications.Select<Application, ICollection<ApplicationEducationOrganization>>(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
-                var defaultAppName = _configValueProvider.GetValue("DefaultApplicationName");
+                var defaultAppName = _configuration.GetSection("DefaultApplicationName");
                 var applicationName = defaultAppName + " " + sandboxType;
                 var application = GetApplication(context, vendor, applicationName);
 
@@ -82,10 +83,10 @@ namespace EdFi.Admin.DataAccess.Utils
                 return vendor.Applications.Single(x => x.ApplicationName == applicationName);
             }
 
-            var defaultClaimSetName = _configValueProvider.GetValue("DefaultClaimSetName");
+            var defaultClaimSetName = _configuration.GetSection("DefaultClaimSetName").Value;
             var newApplication = vendor.CreateApplication(applicationName, defaultClaimSetName);
 
-            newApplication.OperationalContextUri = _configValueProvider.GetValue("DefaultOperationalContextUri");
+            newApplication.OperationalContextUri = _configuration.GetSection("DefaultOperationalContextUri").Value;
             context.Applications.Add(newApplication);
             return newApplication;
         }
