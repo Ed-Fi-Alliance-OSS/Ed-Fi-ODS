@@ -18,17 +18,17 @@ using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.TestFixture;
 using FakeItEasy;
-using NHibernate.Cfg;
 using NHibernate.Mapping;
 using NUnit.Framework;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.ConfigurationTest
+namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
 {
+    [TestFixture]
     public class NHibernateConfiguratorTests
     {
         public class When_configurating_nHibernate_extensions : TestFixtureBase
         {
-            private Configuration _configuration;
+            private NHibernate.Cfg.Configuration _configuration;
             private List<PersistentClass> _persistentClasses;
             private const string CoreTableName = "StaffLeave";
             private const string MappedExtensionProperty = "Extensions";
