@@ -11,23 +11,24 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
     public abstract class SandboxProvisionerBase : ISandboxProvisioner
     {
-        private readonly IConfigValueProvider _configValueProvider;
+        private readonly IConfiguration _configuration;
         private readonly IConfigConnectionStringsProvider _connectionStringsProvider;
         protected readonly IDatabaseNameBuilder _databaseNameBuilder;
-
-        protected SandboxProvisionerBase(IConfigValueProvider configValueProvider,
+        
+        protected SandboxProvisionerBase(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
         {
-            _configValueProvider = configValueProvider;
+            _configuration = configuration;
             _connectionStringsProvider = connectionStringsProvider;
             _databaseNameBuilder = databaseNameBuilder;
 
-            CommandTimeout = int.TryParse(_configValueProvider.GetValue("SandboxAdminSQLCommandTimeout"), out int timeout)
+            CommandTimeout = int.TryParse(_configuration.GetSection("SandboxAdminSQLCommandTimeout").Value, out int timeout)
                 ? timeout
                 : 30;
 

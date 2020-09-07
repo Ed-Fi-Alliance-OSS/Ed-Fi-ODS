@@ -58,8 +58,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Entities.NHibernate
 
         protected IEdFiOdsInstanceIdentificationProvider MockEdFiOdsInstanceIdentificationProvider { get; set; }
 
-        protected IConfigValueProvider MockConfigValueProvider { get; set; }
-
         protected DescriptorsCache descriptionCache;
 
         private IDescriptorsCache MockNHibernateCallsAndInitializeCache()

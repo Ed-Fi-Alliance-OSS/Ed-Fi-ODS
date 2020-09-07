@@ -10,6 +10,7 @@ using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using log4net;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace EdFi.Ods.Sandbox.Provisioners
@@ -18,9 +19,9 @@ namespace EdFi.Ods.Sandbox.Provisioners
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(PostgresSandboxProvisioner));
 
-        public PostgresSandboxProvisioner(IConfigValueProvider configValueProvider,
+        public PostgresSandboxProvisioner(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
-            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
+            : base(configuration, connectionStringsProvider, databaseNameBuilder) { }
 
         public override async Task RenameSandboxAsync(string oldName, string newName)
         {
