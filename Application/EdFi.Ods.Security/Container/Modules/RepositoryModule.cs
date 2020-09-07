@@ -23,22 +23,8 @@ namespace EdFi.Ods.Security.Container.Modules
             builder.RegisterType<SecurityRepository>().As<ISecurityRepository>();
             builder.RegisterType<ClientAppRepo>().As<IClientAppRepo>();
             builder.RegisterType<AccessTokenClientRepo>().As<IAccessTokenClientRepo>();
-
-            builder.RegisterType<UsersContextFactory>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (pi, ctx) => pi.GetType() == typeof(DatabaseEngine),
-                        (pi, ctx) => ctx.Resolve<ApiSettings>()
-                            .GetDatabaseEngine()))
-                .As<IUsersContextFactory>();
-
-            builder.RegisterType<SecurityContextFactory>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (pi, ctx) => pi.GetType() == typeof(DatabaseEngine),
-                        (pi, ctx) => ctx.Resolve<ApiSettings>()
-                            .GetDatabaseEngine()))
-                .As<ISecurityContextFactory>();
+            builder.RegisterType<UsersContextFactory>().As<IUsersContextFactory>();
+            builder.RegisterType<SecurityContextFactory>().As<ISecurityContextFactory>();
         }
     }
 }
