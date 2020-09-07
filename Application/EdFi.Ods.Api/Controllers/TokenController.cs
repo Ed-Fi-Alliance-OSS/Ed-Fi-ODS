@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.Controllers
                 .EqualsIgnoreCase("Basic"))
             {
                 _logger.Debug("Authorization scheme is not Basic");
-                return Unauthorized(new TokenError("invalid_client"));
+                return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
             }
 
             string[] clientIdAndSecret;
