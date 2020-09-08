@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -12,21 +12,20 @@ using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Utils
 {
     public class DefaultApplicationCreator : IDefaultApplicationCreator
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfigValueProvider _configValueProvider;
         private readonly IUsersContextFactory _usersContextFactory;
 
         public DefaultApplicationCreator(
             IUsersContextFactory usersContextFactory,
-            IConfiguration configuration)
+            IConfigValueProvider configValueProvider)
         {
             _usersContextFactory = Preconditions.ThrowIfNull(usersContextFactory, nameof(usersContextFactory));
-            _configuration = Preconditions.ThrowIfNull(configuration, nameof(configuration));
+            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
         }
 
         /// <summary>
@@ -45,7 +44,7 @@ namespace EdFi.Admin.DataAccess.Utils
                                     .Include(x => x.Applications.Select<Application, ICollection<ApplicationEducationOrganization>>(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
-                var defaultAppName = _configuration.GetSection("DefaultApplicationName");
+                var defaultAppName = _configValueProvider.GetValue("DefaultClaimSetName");
                 var applicationName = defaultAppName + " " + sandboxType;
                 var application = GetApplication(context, vendor, applicationName);
 
@@ -84,10 +83,10 @@ namespace EdFi.Admin.DataAccess.Utils
                 return vendor.Applications.Single(x => x.ApplicationName == applicationName);
             }
 
-            var defaultClaimSetName = _configuration.GetSection("DefaultClaimSetName").Value;
+            var defaultClaimSetName = _configValueProvider.GetValue("DefaultClaimSetName");
             var newApplication = vendor.CreateApplication(applicationName, defaultClaimSetName);
 
-            newApplication.OperationalContextUri = _configuration.GetSection("DefaultOperationalContextUri").Value;
+            newApplication.OperationalContextUri = _configValueProvider.GetValue("DefaultOperationalContextUri");
             context.Applications.Add(newApplication);
             return newApplication;
         }

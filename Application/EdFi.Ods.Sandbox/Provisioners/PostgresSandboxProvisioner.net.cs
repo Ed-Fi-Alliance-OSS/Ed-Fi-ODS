@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETFRAMEWORK
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +11,6 @@ using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using log4net;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace EdFi.Ods.Sandbox.Provisioners
@@ -20,9 +19,9 @@ namespace EdFi.Ods.Sandbox.Provisioners
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(PostgresSandboxProvisioner));
 
-        public PostgresSandboxProvisioner(IConfiguration configuration,
+        public PostgresSandboxProvisioner(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
-            : base(configuration, connectionStringsProvider, databaseNameBuilder) { }
+            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
 
         public override async Task RenameSandboxAsync(string oldName, string newName)
         {

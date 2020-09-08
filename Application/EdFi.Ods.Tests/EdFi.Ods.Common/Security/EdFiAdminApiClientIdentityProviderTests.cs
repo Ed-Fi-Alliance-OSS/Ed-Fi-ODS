@@ -46,8 +46,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
-
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -150,8 +148,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
-
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -196,8 +192,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 _transaction = new TransactionScope();
-
-                var configValueProviderStub = Stub<IConfigValueProvider>();
 
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -244,7 +238,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
 
                 var config = new ConfigurationBuilder()
@@ -293,7 +286,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -352,7 +344,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
 
                 var config = new ConfigurationBuilder()
@@ -399,7 +390,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -445,7 +435,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)

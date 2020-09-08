@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETFRAMEWORK
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
@@ -12,24 +12,23 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
     public abstract class SandboxProvisionerBase : ISandboxProvisioner
     {
-        private readonly IConfiguration _configuration;
+        private readonly IConfigValueProvider _configValueProvider;
         private readonly IConfigConnectionStringsProvider _connectionStringsProvider;
         protected readonly IDatabaseNameBuilder _databaseNameBuilder;
         
-        protected SandboxProvisionerBase(IConfiguration configuration,
+        protected SandboxProvisionerBase(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
         {
-            _configuration = configuration;
+            _configValueProvider = configValueProvider;
             _connectionStringsProvider = connectionStringsProvider;
             _databaseNameBuilder = databaseNameBuilder;
 
-            CommandTimeout = int.TryParse(_configuration.GetSection("SandboxAdminSQLCommandTimeout").Value, out int timeout)
+            CommandTimeout = int.TryParse(_configValueProvider.GetValue("SandboxAdminSQLCommandTimeout"), out int timeout)
                 ? timeout
                 : 30;
 
