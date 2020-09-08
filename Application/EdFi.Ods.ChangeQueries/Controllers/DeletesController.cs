@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Net;
+using System.Net.Mime;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -12,6 +14,7 @@ using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.ChangeQueries.Controllers
 {
@@ -43,7 +46,13 @@ namespace EdFi.Ods.ChangeQueries.Controllers
 
             var result = _getDeletedResourceIdsRepository.Execute(schema, resource, queryParameter);
 
-            return Ok(result);
+            // Explicitly serialize the response to remain backwards compatible with pre .net core
+            return new ContentResult
+            {
+                Content = JsonConvert.SerializeObject(result),
+                ContentType = MediaTypeNames.Application.Json,
+                StatusCode = (int)HttpStatusCode.OK
+            };
         }
     }
 }
