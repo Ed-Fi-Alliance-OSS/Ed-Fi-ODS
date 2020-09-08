@@ -221,50 +221,49 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Pipelines.Steps
             }
         }
 
-        // [TestFixture]
-        // public class When_etag_provider_throws_an_exception : TestFixtureBase
-        // {
-        //     private readonly PutResult _putResult = new PutResult();
-        //
-        //     [OneTimeSetUp]
-        //     public void Setup()
-        //     {
-        //         var resource = new AccountResource();
-        //         var persistentModel = new AccountEntity();
-        //
-        //         var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
-        //         {
-        //             PersistentModel = persistentModel
-        //         };
-        //
-        //         var eTagProvider = Stub<IETagProvider>();
-        //
-        //
-        //         A.CallTo(() => eTagProvider.GetETag(null)).Throws(new Exception("Some Fun Exception"));
-        //
-        //
-        //         StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
-        //             .ResourceIsNeverCreatedOrModified;
-        //
-        //         var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>(
-        //             repository,
-        //             eTagProvider);
-        //
-        //         step.ExecuteAsync(context, _putResult, CancellationToken.None).WaitSafely();
-        //     }
-        //
-        //     [Test]
-        //     public void Should_include_exception_in_result()
-        //     {
-        //         _putResult.Exception.Message.ShouldBe("Some Fun Exception");
-        //     }
-        //
-        //     [Test]
-        //     public void Should_indicate_resource_was_persisted()
-        //     {
-        //         _putResult.ResourceWasPersisted.ShouldBeTrue();
-        //     }
-        // }
+        [TestFixture]
+        public class When_etag_provider_throws_an_exception : TestFixtureBase
+        {
+            private readonly PutResult _putResult = new PutResult();
+
+            [OneTimeSetUp]
+            public void Setup()
+            {
+                var resource = new AccountResource();
+                var persistentModel = new AccountEntity();
+
+                var context = new PutContext<AccountResource, AccountEntity>(resource, new ValidationState())
+                {
+                    PersistentModel = persistentModel
+                };
+
+                var eTagProvider = Stub<IETagProvider>();
+
+                A.CallTo(() => eTagProvider.GetETag(null)).WithAnyArguments()
+                                      .Throws(new Exception("Some Fun Exception"));
+
+                StubRepository<AccountEntity> repository = New.StubRepository<AccountEntity>()
+                    .ResourceIsNeverCreatedOrModified;
+
+                var step = new PersistEntityModel<PutContext<AccountResource, AccountEntity>, PutResult, AccountResource, AccountEntity>
+                           (repository,eTagProvider);
+
+                step.ExecuteAsync(context, _putResult, CancellationToken.None).WaitSafely();
+
+            }
+
+            [Test]
+            public void Should_include_exception_in_result()
+            {
+                _putResult.Exception.Message.ShouldBe("Some Fun Exception");
+            }
+
+            [Test]
+            public void Should_indicate_resource_was_persisted()
+            {
+                _putResult.ResourceWasPersisted.ShouldBeTrue();
+            }
+        }
     }
 }
 #endif

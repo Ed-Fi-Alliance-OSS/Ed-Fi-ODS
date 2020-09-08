@@ -173,7 +173,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
             protected override void Act()
             {
                 var authorizationFilters = SystemUnderTest.GetAuthorizationFilters(
-                    new[] {Supplied<Claim>()},
+                    new[] { Supplied<Claim>() },
                     Supplied<EdFiAuthorizationContext>());
             }
 

@@ -167,6 +167,53 @@ namespace EdFi.TestFixture
             return (TDependency) dependency.Value;
         }
 
+        protected TDependency The<TDependency>()
+           where TDependency : class
+        {
+            Lazy<object> dependency;
+
+            if (!_mocksByType.TryGetValue(typeof(TDependency), out dependency))
+            {
+                object firstFromCollection = null;
+
+                try
+                {
+                    firstFromCollection = The_first<TDependency>();
+                }
+                catch { }
+
+                if (firstFromCollection == null)
+                {
+                    throw new Exception(string.Format("Unable to find a stub of type '{0}'.", typeof(TDependency).Name));
+                }
+
+                return (TDependency) firstFromCollection;
+            }
+
+            return (TDependency) dependency.Value;
+        }
+
+        protected TDependency The_first<TDependency>()
+           where TDependency : class
+        {
+            dynamic list = GetDependencyList<TDependency>();
+
+            return (TDependency) list[0];
+        }
+
+        private dynamic GetDependencyList<TDependency>()
+           where TDependency : class
+        {
+            dynamic list;
+
+            if (!_collectionsByType.TryGetValue(typeof(TDependency), out list))
+            {
+                throw new Exception(string.Format("Unable to find a list of stubs of type '{0}'.", typeof(TDependency).Name));
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// Supplies a named value for subsequent usage during behavior verification, eliminating the need to create a test fixture field to hold the value.
         /// </summary>

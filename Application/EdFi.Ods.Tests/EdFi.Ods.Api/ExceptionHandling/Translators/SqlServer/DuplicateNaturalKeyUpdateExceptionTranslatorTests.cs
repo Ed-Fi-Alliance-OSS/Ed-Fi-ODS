@@ -26,12 +26,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private Exception exception;
             private bool result;
 
-            protected void EstablishContext()
+            protected override void Arrange()
             {
                 exception = new Exception();
             }
 
-            protected void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
                 RESTError actualError;
@@ -53,12 +53,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private RESTError actualError;
 
-            protected void EstablishContext()
+            protected override void Arrange()
             {
                 exception = new GenericADOException("Generic exception message", null);
             }
 
-            protected void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
@@ -79,7 +79,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool wasHandled;
             private RESTError actualError;
 
-            protected void EstablishContext()
+            protected override void Arrange()
             {
                 const string slightlyWrongMessage =
                     "VViolation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). The statement has been terminated.";
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 exception = NHibernateExceptionBuilder.CreateException("Some generic SQL Exception message", slightlyWrongMessage);
             }
 
-            protected void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
                 wasHandled = translator.TryTranslateMessage(exception, out actualError);
@@ -100,49 +100,49 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             }
         }
 
-        // [TestFixture]
-        // public class When_an_nHibernate_StaleObjectState_exception_is_thrown : TestFixtureBase
-        // {
-        //     private Exception exception;
-        //     private bool result;
-        //     private RESTError actualError;
-        //
-        //     protected void EstablishContext()
-        //     {
-        //         exception = new StaleObjectStateException("Some entity", "some object key");
-        //     }
-        //
-        //     protected void ExecuteBehavior()
-        //     {
-        //         var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
-        //         result = translator.TryTranslateMessage(exception, out actualError);
-        //     }
-        //
-        //     [Test]
-        //     public void Should_handle_this_exception()
-        //     {
-        //         result.ShouldBeTrue();
-        //     }
-        //
-        //     [Test]
-        //     public void Should_set_a_reasonable_message()
-        //     {
-        //         actualError.Message.ShouldBe(
-        //             "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
-        //     }
-        //
-        //     [Test]
-        //     public void Should_set_the_exception_type_to_conflict()
-        //     {
-        //         actualError.Type.ShouldBe("Conflict");
-        //     }
-        //
-        //     [Test]
-        //     public void Should_translate_the_exception_to_a_409_error()
-        //     {
-        //         actualError.Code.ShouldBe(409);
-        //     }
-        // }
+        [TestFixture]
+        public class When_an_nHibernate_StaleObjectState_exception_is_thrown : TestFixtureBase
+        {
+            private Exception exception;
+            private bool result;
+            private RESTError actualError;
+
+            protected override void Arrange()
+            {
+                exception = new StaleObjectStateException("Some entity", "some object key");
+            }
+
+            protected override void Act()
+            {
+                var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
+                result = translator.TryTranslateMessage(exception, out actualError);
+            }
+
+            [Test]
+            public void Should_handle_this_exception()
+            {
+                result.ShouldBeTrue();
+            }
+
+            [Test]
+            public void Should_set_a_reasonable_message()
+            {
+                actualError.Message.ShouldBe(
+                    "A natural key conflict occurred when attempting to update a new resource with a duplicate key. This is likely caused by multiple resources with the same key in the same file. Exactly one of these resources was updated.");
+            }
+
+            [Test]
+            public void Should_set_the_exception_type_to_conflict()
+            {
+                actualError.Type.ShouldBe("Conflict");
+            }
+
+            [Test]
+            public void Should_translate_the_exception_to_a_409_error()
+            {
+                actualError.Code.ShouldBe(409);
+            }
+        }
 
         [TestFixture]
         public class When_an_nHibernate_ADO_exception_is_thrown_with_an_inner_exception_of_the_wrong_type : TestFixtureBase
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             private bool result;
             private RESTError actualError;
 
-            protected void EstablishContext()
+            protected override void Arrange()
             {
                 var mess =
                     "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). The statement has been terminated.";
@@ -160,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
                 exception = new GenericADOException("Generic exception message", innerexception);
             }
 
-            protected void ExecuteBehavior()
+            protected override void Act()
             {
                 var translator = new DuplicateNaturalKeyUpdateExceptionTranslator();
                 result = translator.TryTranslateMessage(exception, out actualError);

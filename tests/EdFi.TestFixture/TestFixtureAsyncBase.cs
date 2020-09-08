@@ -61,7 +61,7 @@ namespace EdFi.TestFixture
         }
 
         [OneTimeTearDown]
-        public virtual async Task RunOnceAfterAllAsync()
+        public virtual Task RunOnceAfterAllAsync()
         {
             // Make sure exception was inspected.
             if (_actualException != null && !_actualExceptionInspected)
@@ -69,17 +69,19 @@ namespace EdFi.TestFixture
                 Assert.Fail(
                     $"The exception of type '{_actualException.GetType().Name}' was not inspected by the test:\r\n {_actualException}.");
             }
+
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Setup tests context
         /// </summary>
-        protected virtual async Task ArrangeAsync() { }
+        protected virtual Task ArrangeAsync() => Task.CompletedTask;
 
         /// <summary>
         /// Executes the code to be tested.
         /// </summary>
-        protected virtual async Task ActAsync() { }
+        protected virtual Task ActAsync() => Task.CompletedTask;
 
         protected T Stub<T>()
             where T : class

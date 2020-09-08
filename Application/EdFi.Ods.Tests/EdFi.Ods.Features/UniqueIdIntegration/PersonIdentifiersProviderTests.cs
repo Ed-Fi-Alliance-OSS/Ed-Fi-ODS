@@ -35,51 +35,63 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
         // External dependencies
         private IPersonIdentifiersProvider _personIdentifiersProvider;
 
-        protected override async Task ArrangeAsync()
+        protected override Task ArrangeAsync()
         {
             _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
 
             _suppliedPersonIdentifiers = new List<PersonIdentifiersValueMap>
+            {
+                new PersonIdentifiersValueMap
                 {
-                    new PersonIdentifiersValueMap
-                    {
-                        UniqueId = Guid.NewGuid()
-                            .ToString(),
-                        Usi = 100,
-                        Id = new Guid()
-                    },
-                    new PersonIdentifiersValueMap
-                    {
-                        UniqueId = Guid.NewGuid()
-                            .ToString(),
-                        Usi = 101,
-                        Id = new Guid()
-                    }
-                };
+                    UniqueId = Guid.NewGuid()
+                        .ToString(),
+                    Usi = 100,
+                    Id = new Guid()
+                },
+                new PersonIdentifiersValueMap
+                {
+                    UniqueId = Guid.NewGuid()
+                        .ToString(),
+                    Usi = 101,
+                    Id = new Guid()
+                }
+            };
 
             A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers("Student"))
-                    .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>)_suppliedPersonIdentifiers));
+                .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>) _suppliedPersonIdentifiers));
 
             A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers("Staff"))
-                    .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>)_suppliedPersonIdentifiers));
+                .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>) _suppliedPersonIdentifiers));
 
             A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers("Parent"))
-                    .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>)_suppliedPersonIdentifiers));
+                .Returns(Task.FromResult((IEnumerable<PersonIdentifiersValueMap>) _suppliedPersonIdentifiers));
 
             string validPersonTypes = string.Join("','", PersonEntitySpecification.ValidPersonTypes)
-                    .SingleQuoted();
+                .SingleQuoted();
+
             A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers("NonPersonType"))
-                .ThrowsAsync(new AggregateException(new ArgumentException($"Invalid person type 'NonPersonType'. Valid person types are: {validPersonTypes}")));
+                .ThrowsAsync(
+                    new AggregateException(
+                        new ArgumentException(
+                            $"Invalid person type 'NonPersonType'. Valid person types are: {validPersonTypes}")));
+
+            return Task.CompletedTask;
         }
 
         protected override async Task ActAsync()
         {
-            _actualStudentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Student");
-            _actualStaffIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Staff");
-            _actualParentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Parent");
+            _actualStudentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Student")
+                .ConfigureAwait(false);
+
+            _actualStaffIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Staff")
+                .ConfigureAwait(false);
+
+            _actualParentIdentifiers = await _personIdentifiersProvider.GetAllPersonIdentifiers("Parent")
+                .ConfigureAwait(false);
 
             // This statement throws an exception
-            var ignoredDueToException = await _personIdentifiersProvider.GetAllPersonIdentifiers("NonPersonType");
+            var ignoredDueToException = await _personIdentifiersProvider.GetAllPersonIdentifiers("NonPersonType")
+                .ConfigureAwait(false);
         }
 
         [Assert]
@@ -125,8 +137,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 .InnerException;
 
             innerException.ShouldSatisfyAllConditions(
-                    () => innerException.ShouldBeOfType<ArgumentException>(),
-                    () => innerException?.Message.ShouldContain("Invalid person type"));
+                () => innerException.ShouldBeOfType<ArgumentException>(),
+                () => innerException?.Message.ShouldContain("Invalid person type"));
         }
     }
 }

@@ -23,11 +23,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 var packedHash = new PackedHash
                 {
-                    Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                    Format = 1,
+                    HashAlgorithm = 123,
+                    HashBytes = new byte[]
                     {
                         111, 222, 200
                     },
-                    Iterations = 321, Salt = new byte[]
+                    Iterations = 321,
+                    Salt = new byte[]
                     {
                         100, 200, 201
                     }
@@ -61,7 +64,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     "MySecret",
                     new ApiClientSecret
                     {
-                        Secret = "MyHashedSecret", IsHashed = true
+                        Secret = "MyHashedSecret",
+                        IsHashed = true
                     });
             }
 
@@ -86,11 +90,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     .Return(
                         new PackedHash
                         {
-                            Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                            Format = 1,
+                            HashAlgorithm = 123,
+                            HashBytes = new byte[]
                             {
                                 100, 100, 100
                             },
-                            Iterations = 321, Salt = new byte[]
+                            Iterations = 321,
+                            Salt = new byte[]
                             {
                                 100, 200, 201
                             }
@@ -110,11 +117,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     .Return(
                         new PackedHash
                         {
-                            Format = 1, HashAlgorithm = 123, HashBytes = new byte[]
+                            Format = 1,
+                            HashAlgorithm = 123,
+                            HashBytes = new byte[]
                             {
                                 200, 200, 200
                             },
-                            Iterations = 321, Salt = new byte[]
+                            Iterations = 321,
+                            Salt = new byte[]
                             {
                                 100, 200, 201
                             }
@@ -130,7 +140,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     "MyDifferentSecret",
                     new ApiClientSecret
                     {
-                        Secret = "MyHashedSecret", IsHashed = true
+                        Secret = "MyHashedSecret",
+                        IsHashed = true
                     });
             }
 
@@ -162,7 +173,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     "MySecret",
                     new ApiClientSecret
                     {
-                        Secret = "MySecret", IsHashed = false
+                        Secret = "MySecret",
+                        IsHashed = false
                     });
             }
 
@@ -194,7 +206,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                     "MySecret",
                     new ApiClientSecret
                     {
-                        Secret = "MyDifferentSecret", IsHashed = false
+                        Secret = "MyDifferentSecret",
+                        IsHashed = false
                     });
             }
 

@@ -61,8 +61,8 @@ namespace Test.Common
                     orderby p.Count() descending
                     select new
                     {
-                        Constructor = c,
-                        Parameters = p
+                     Constructor = c,
+                     Parameters = p
                     })
                 .FirstOrDefault();
 

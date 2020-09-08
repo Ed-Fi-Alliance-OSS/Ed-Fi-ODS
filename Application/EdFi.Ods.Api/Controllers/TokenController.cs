@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
@@ -21,6 +22,7 @@ namespace EdFi.Ods.Api.Controllers
     [Route("oauth/token")]
     [Produces("application/json")]
     [AllowAnonymous]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class TokenController : ControllerBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));
@@ -77,11 +79,20 @@ namespace EdFi.Ods.Api.Controllers
                 .EqualsIgnoreCase("Basic"))
             {
                 _logger.Debug("Authorization scheme is not Basic");
-                return Unauthorized();
+                return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
             }
 
-            string[] clientIdAndSecret = Base64Decode(encodedClientAndSecret[1])
-                .Split(':');
+            string[] clientIdAndSecret;
+
+            try
+            {
+                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]))
+                    .Split(':');
+            }
+            catch (Exception )
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
 
             // Correct format will include 2 entries
             // format of the string is <client_id>:<client_secret>
@@ -99,8 +110,6 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             return Ok(authenticationResult.TokenResponse);
-
-            string Base64Decode(string encoded) => Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
         }
     }
 }
