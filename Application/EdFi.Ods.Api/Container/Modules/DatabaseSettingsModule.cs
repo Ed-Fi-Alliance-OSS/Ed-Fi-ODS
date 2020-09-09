@@ -5,18 +5,15 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
-    public class ApiConfigurationModule : Module
+    public class DatabaseSettingsModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<NetCoreApiConfigurationProvider>().As<IApiConfigurationProvider>().SingleInstance();
-
-            builder.Register(c => c.Resolve<IApiConfigurationProvider>().DatabaseEngine)
+            builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine())
                 .SingleInstance();
         }
     }

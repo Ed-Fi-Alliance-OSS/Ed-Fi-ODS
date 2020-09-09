@@ -402,14 +402,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new OdsConnectionStringProviderModule());
                 builder.RegisterModule(new EdFiCommonModule());
 
-                var apiConFigurationProvider = A.Fake<IApiConfigurationProvider>();
-                A.CallTo(() => apiConFigurationProvider.DatabaseEngine).Returns(DatabaseEngine.SqlServer);
-
-                builder.RegisterInstance(apiConFigurationProvider).As<IApiConfigurationProvider>()
-                    .SingleInstance();
-
-                builder.Register(kernal => kernal.Resolve<IApiConfigurationProvider>().DatabaseEngine).As<DatabaseEngine>();
-
                 var apiSettings = new ApiSettings
                 {
                     Engine = ApiConfigurationConstants.SqlServer,
