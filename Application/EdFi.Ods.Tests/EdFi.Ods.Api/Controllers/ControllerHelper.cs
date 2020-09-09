@@ -6,6 +6,8 @@
 #if NETCOREAPP
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Security;
+using EdFi.Ods.Sandbox.Repositories;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +17,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
     public static class ControllerHelper
     {
-        public static TokenController CreateTokenController(ClientCredentialsTokenRequestProvider tokenRequestProvider)
+        public static TokenController CreateTokenController(IClientAppRepo clientAppRepo,IApiClientAuthenticator apiClientAuthenticator)
         {
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo,apiClientAuthenticator);
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";

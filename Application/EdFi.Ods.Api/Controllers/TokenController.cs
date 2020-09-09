@@ -5,6 +5,8 @@
 
 #if NETCOREAPP
 using System;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
@@ -36,8 +38,55 @@ namespace EdFi.Ods.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/json")]
-        public async Task<IActionResult> Post([FromBody] TokenRequest tokenRequest)
+        public async Task<IActionResult> PostFromJsonAsync([FromBody] TokenRequest tokenRequest)
         {
+            // Look for the authorization header, since we MUST support this method of authorization
+            // https://tools.ietf.org/html/rfc6749#section-2.3.1
+            // Decode and parse the client id/secret from the header
+            // Authorization is in a form of Bearer <encoded client and secret>
+
+            if (!Request.Headers.ContainsKey("Authorization"))
+            {
+                _logger.Debug($"Header is missing authorization credentials");
+                return Unauthorized();
+            }
+
+            string[] encodedClientAndSecret = Request.Headers["Authorization"]
+                .ToString()
+                .Split(' ');
+
+            if (encodedClientAndSecret.Length != 2)
+            {
+                _logger.Debug("Header is not in the form of Basic <encoded credentials>");
+                return Unauthorized();
+            }
+
+            if (!encodedClientAndSecret[0]
+                .EqualsIgnoreCase("Basic"))
+            {
+                _logger.Debug("Authorization scheme is not Basic");
+                return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+            }
+
+            string[] clientIdAndSecret;
+
+            try
+            {
+                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]))
+                    .Split(':');
+            }
+            catch (Exception)
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
+            // Correct format will include 2 entries
+            // format of the string is <client_id>:<client_secret>
+            if (clientIdAndSecret.Length == 2)
+            {
+                tokenRequest.Client_id = clientIdAndSecret[0];
+                tokenRequest.Client_secret = clientIdAndSecret[1];
+            }
             // Handle token request
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
 
@@ -46,7 +95,7 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(authenticationResult.TokenError);
             }
 
-            return Ok(authenticationResult.TokenResponse);
+                return Ok(authenticationResult.TokenResponse);
         }
 
         [HttpPost]

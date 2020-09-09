@@ -91,9 +91,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -178,9 +176,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -268,9 +264,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -397,9 +391,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -519,9 +511,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -631,9 +621,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -748,9 +736,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -880,9 +866,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -990,9 +974,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1047,9 +1029,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1102,9 +1082,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1159,9 +1137,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1213,9 +1189,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 IsAuthenticated = false
                             }));
 
-                var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1272,12 +1246,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 IsAuthenticated = true,
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
-
-                var _tokenRequestProvider = Stub<ClientCredentialsTokenRequestProvider>();
-
-                _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+    
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
@@ -1336,9 +1306,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                var _tokenRequestProvider = new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator);
-
-                _controller = ControllerHelper.CreateTokenController(_tokenRequestProvider);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
                 return Task.CompletedTask;
             }
