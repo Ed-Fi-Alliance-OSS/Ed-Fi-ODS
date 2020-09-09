@@ -4,15 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-using System.Net;
 using System.Net.Mime;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -51,7 +50,7 @@ namespace EdFi.Ods.ChangeQueries.Controllers
             {
                 Content = JsonConvert.SerializeObject(result),
                 ContentType = MediaTypeNames.Application.Json,
-                StatusCode = (int)HttpStatusCode.OK
+                StatusCode = StatusCodes.Status200OK
             };
         }
     }
