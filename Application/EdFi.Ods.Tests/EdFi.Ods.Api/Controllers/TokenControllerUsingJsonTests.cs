@@ -773,11 +773,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_OK()
+            public void Should_return_HTTP_status_of_BadRequest()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                    () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                   () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                   () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
             }
 
             [Test]

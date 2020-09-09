@@ -80,6 +80,11 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
             }
 
+            if(clientIdAndSecret.Length ==2 && tokenRequest.Client_id != null)
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
             // Correct format will include 2 entries
             // format of the string is <client_id>:<client_secret>
             if (clientIdAndSecret.Length == 2)
@@ -139,6 +144,11 @@ namespace EdFi.Ods.Api.Controllers
                     .Split(':');
             }
             catch (Exception )
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
+            if (clientIdAndSecret.Length == 2 && tokenRequest.Client_id != null)
             {
                 return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
             }
