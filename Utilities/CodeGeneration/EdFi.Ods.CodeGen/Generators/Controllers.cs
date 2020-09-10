@@ -410,11 +410,6 @@ namespace EdFi.Ods.CodeGen.Generators
                 ? profileData.Readable
                 : profileData.Writable;
 
-            if (resource.IsEdFiResource())
-            {
-                return string.Empty;
-            }
-
             var extensionsName = resource.ResourceModel.SchemaNameMapProvider
                 .GetSchemaMapByPhysicalName(resource.Entity.Schema)
                 .ProperCaseName;

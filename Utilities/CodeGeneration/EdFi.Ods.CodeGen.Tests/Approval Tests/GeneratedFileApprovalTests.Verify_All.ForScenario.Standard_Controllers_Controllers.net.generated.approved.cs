@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorGetByExample request, IAbsenceEventCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAbsenceEventCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AcademicHonorCategoryDescriptors.EdFi.AcademicHonorCategoryDescriptorGetByExample request, IAcademicHonorCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AcademicHonorCategoryDescriptors.EdFi.AcademicHonorCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAcademicHonorCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorGetByExample request, IAcademicSubjectDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorGetByExample request, Entities.Common.EdFi.IAcademicSubjectDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -136,7 +136,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AcademicWeeks.EdFi.AcademicWeekGetByExample request, IAcademicWeek specification)
+        protected override void MapAll(Api.Common.Models.Requests.AcademicWeeks.EdFi.AcademicWeekGetByExample request, Entities.Common.EdFi.IAcademicWeek specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorGetByExample request, IAccommodationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorGetByExample request, Entities.Common.EdFi.IAccommodationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -207,7 +207,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Accounts.EdFi.AccountGetByExample request, IAccount specification)
+        protected override void MapAll(Api.Common.Models.Requests.Accounts.EdFi.AccountGetByExample request, Entities.Common.EdFi.IAccount specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -244,7 +244,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AccountabilityRatings.EdFi.AccountabilityRatingGetByExample request, IAccountabilityRating specification)
+        protected override void MapAll(Api.Common.Models.Requests.AccountabilityRatings.EdFi.AccountabilityRatingGetByExample request, Entities.Common.EdFi.IAccountabilityRating specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -284,7 +284,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample request, IAccountClassificationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample request, Entities.Common.EdFi.IAccountClassificationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -317,7 +317,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample request, IAccountCode specification)
+        protected override void MapAll(Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample request, Entities.Common.EdFi.IAccountCode specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -355,7 +355,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AchievementCategoryDescriptors.EdFi.AchievementCategoryDescriptorGetByExample request, IAchievementCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AchievementCategoryDescriptors.EdFi.AchievementCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAchievementCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -388,7 +388,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Actuals.EdFi.ActualGetByExample request, IActual specification)
+        protected override void MapAll(Api.Common.Models.Requests.Actuals.EdFi.ActualGetByExample request, Entities.Common.EdFi.IActual specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -426,7 +426,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorGetByExample request, IAdditionalCreditTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorGetByExample request, Entities.Common.EdFi.IAdditionalCreditTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -459,7 +459,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AddressTypeDescriptors.EdFi.AddressTypeDescriptorGetByExample request, IAddressTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AddressTypeDescriptors.EdFi.AddressTypeDescriptorGetByExample request, Entities.Common.EdFi.IAddressTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -492,7 +492,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorGetByExample request, IAdministrationEnvironmentDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorGetByExample request, Entities.Common.EdFi.IAdministrationEnvironmentDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -525,7 +525,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AdministrativeFundingControlDescriptors.EdFi.AdministrativeFundingControlDescriptorGetByExample request, IAdministrativeFundingControlDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AdministrativeFundingControlDescriptors.EdFi.AdministrativeFundingControlDescriptorGetByExample request, Entities.Common.EdFi.IAdministrativeFundingControlDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -558,7 +558,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Assessments.EdFi.AssessmentGetByExample request, IAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.Assessments.EdFi.AssessmentGetByExample request, Entities.Common.EdFi.IAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -603,7 +603,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorGetByExample request, IAssessmentCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -636,7 +636,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorGetByExample request, IAssessmentIdentificationSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentIdentificationSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -669,7 +669,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentItems.EdFi.AssessmentItemGetByExample request, IAssessmentItem specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentItems.EdFi.AssessmentItemGetByExample request, Entities.Common.EdFi.IAssessmentItem specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -712,7 +712,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorGetByExample request, IAssessmentItemCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentItemCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -745,7 +745,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentItemResultDescriptors.EdFi.AssessmentItemResultDescriptorGetByExample request, IAssessmentItemResultDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentItemResultDescriptors.EdFi.AssessmentItemResultDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentItemResultDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -778,7 +778,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorGetByExample request, IAssessmentPeriodDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentPeriodDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -811,7 +811,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorGetByExample request, IAssessmentReportingMethodDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorGetByExample request, Entities.Common.EdFi.IAssessmentReportingMethodDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -844,7 +844,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AttemptStatusDescriptors.EdFi.AttemptStatusDescriptorGetByExample request, IAttemptStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AttemptStatusDescriptors.EdFi.AttemptStatusDescriptorGetByExample request, Entities.Common.EdFi.IAttemptStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -877,7 +877,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorGetByExample request, IAttendanceEventCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorGetByExample request, Entities.Common.EdFi.IAttendanceEventCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -910,7 +910,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorGetByExample request, IBehaviorDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorGetByExample request, Entities.Common.EdFi.IBehaviorDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -943,7 +943,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.BellSchedules.EdFi.BellScheduleGetByExample request, IBellSchedule specification)
+        protected override void MapAll(Api.Common.Models.Requests.BellSchedules.EdFi.BellScheduleGetByExample request, Entities.Common.EdFi.IBellSchedule specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -982,7 +982,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Budgets.EdFi.BudgetGetByExample request, IBudget specification)
+        protected override void MapAll(Api.Common.Models.Requests.Budgets.EdFi.BudgetGetByExample request, Entities.Common.EdFi.IBudget specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1020,7 +1020,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Calendars.EdFi.CalendarGetByExample request, ICalendar specification)
+        protected override void MapAll(Api.Common.Models.Requests.Calendars.EdFi.CalendarGetByExample request, Entities.Common.EdFi.ICalendar specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1057,7 +1057,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CalendarDates.EdFi.CalendarDateGetByExample request, ICalendarDate specification)
+        protected override void MapAll(Api.Common.Models.Requests.CalendarDates.EdFi.CalendarDateGetByExample request, Entities.Common.EdFi.ICalendarDate specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1094,7 +1094,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorGetByExample request, ICalendarEventDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorGetByExample request, Entities.Common.EdFi.ICalendarEventDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1127,7 +1127,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CalendarTypeDescriptors.EdFi.CalendarTypeDescriptorGetByExample request, ICalendarTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CalendarTypeDescriptors.EdFi.CalendarTypeDescriptorGetByExample request, Entities.Common.EdFi.ICalendarTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1160,7 +1160,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorGetByExample request, ICareerPathwayDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorGetByExample request, Entities.Common.EdFi.ICareerPathwayDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1193,7 +1193,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CharterApprovalAgencyTypeDescriptors.EdFi.CharterApprovalAgencyTypeDescriptorGetByExample request, ICharterApprovalAgencyTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CharterApprovalAgencyTypeDescriptors.EdFi.CharterApprovalAgencyTypeDescriptorGetByExample request, Entities.Common.EdFi.ICharterApprovalAgencyTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1226,7 +1226,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorGetByExample request, ICharterStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorGetByExample request, Entities.Common.EdFi.ICharterStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1259,7 +1259,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorGetByExample request, ICitizenshipStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorGetByExample request, Entities.Common.EdFi.ICitizenshipStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1292,7 +1292,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ClassPeriods.EdFi.ClassPeriodGetByExample request, IClassPeriod specification)
+        protected override void MapAll(Api.Common.Models.Requests.ClassPeriods.EdFi.ClassPeriodGetByExample request, Entities.Common.EdFi.IClassPeriod specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1328,7 +1328,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorGetByExample request, IClassroomPositionDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorGetByExample request, Entities.Common.EdFi.IClassroomPositionDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1361,7 +1361,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Cohorts.EdFi.CohortGetByExample request, ICohort specification)
+        protected override void MapAll(Api.Common.Models.Requests.Cohorts.EdFi.CohortGetByExample request, Entities.Common.EdFi.ICohort specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1400,7 +1400,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorGetByExample request, ICohortScopeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorGetByExample request, Entities.Common.EdFi.ICohortScopeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1433,7 +1433,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CohortTypeDescriptors.EdFi.CohortTypeDescriptorGetByExample request, ICohortTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CohortTypeDescriptors.EdFi.CohortTypeDescriptorGetByExample request, Entities.Common.EdFi.ICohortTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1466,7 +1466,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorGetByExample request, ICohortYearTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorGetByExample request, Entities.Common.EdFi.ICohortYearTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1499,7 +1499,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationGetByExample request, ICommunityOrganization specification)
+        protected override void MapAll(Api.Common.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationGetByExample request, Entities.Common.EdFi.ICommunityOrganization specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1532,7 +1532,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CommunityProviders.EdFi.CommunityProviderGetByExample request, ICommunityProvider specification)
+        protected override void MapAll(Api.Common.Models.Requests.CommunityProviders.EdFi.CommunityProviderGetByExample request, Entities.Common.EdFi.ICommunityProvider specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1571,7 +1571,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CommunityProviderLicenses.EdFi.CommunityProviderLicenseGetByExample request, ICommunityProviderLicense specification)
+        protected override void MapAll(Api.Common.Models.Requests.CommunityProviderLicenses.EdFi.CommunityProviderLicenseGetByExample request, Entities.Common.EdFi.ICommunityProviderLicense specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1615,7 +1615,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorGetByExample request, ICompetencyLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorGetByExample request, Entities.Common.EdFi.ICompetencyLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1648,7 +1648,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CompetencyObjectives.EdFi.CompetencyObjectiveGetByExample request, ICompetencyObjective specification)
+        protected override void MapAll(Api.Common.Models.Requests.CompetencyObjectives.EdFi.CompetencyObjectiveGetByExample request, Entities.Common.EdFi.ICompetencyObjective specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1687,7 +1687,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample request, IContactTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample request, Entities.Common.EdFi.IContactTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1720,7 +1720,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ContentClassDescriptors.EdFi.ContentClassDescriptorGetByExample request, IContentClassDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ContentClassDescriptors.EdFi.ContentClassDescriptorGetByExample request, Entities.Common.EdFi.IContentClassDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1753,7 +1753,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorGetByExample request, IContinuationOfServicesReasonDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorGetByExample request, Entities.Common.EdFi.IContinuationOfServicesReasonDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1786,7 +1786,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample request, IContractedStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample request, Entities.Common.EdFi.IContractedStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1825,7 +1825,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CostRateDescriptors.EdFi.CostRateDescriptorGetByExample request, ICostRateDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CostRateDescriptors.EdFi.CostRateDescriptorGetByExample request, Entities.Common.EdFi.ICostRateDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1858,7 +1858,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorGetByExample request, ICountryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorGetByExample request, Entities.Common.EdFi.ICountryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1891,7 +1891,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Courses.EdFi.CourseGetByExample request, ICourse specification)
+        protected override void MapAll(Api.Common.Models.Requests.Courses.EdFi.CourseGetByExample request, Entities.Common.EdFi.ICourse specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1943,7 +1943,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorGetByExample request, ICourseAttemptResultDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorGetByExample request, Entities.Common.EdFi.ICourseAttemptResultDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -1976,7 +1976,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseDefinedByDescriptors.EdFi.CourseDefinedByDescriptorGetByExample request, ICourseDefinedByDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseDefinedByDescriptors.EdFi.CourseDefinedByDescriptorGetByExample request, Entities.Common.EdFi.ICourseDefinedByDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2009,7 +2009,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorGetByExample request, ICourseGPAApplicabilityDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorGetByExample request, Entities.Common.EdFi.ICourseGPAApplicabilityDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2042,7 +2042,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseIdentificationSystemDescriptors.EdFi.CourseIdentificationSystemDescriptorGetByExample request, ICourseIdentificationSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseIdentificationSystemDescriptors.EdFi.CourseIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.ICourseIdentificationSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2075,7 +2075,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorGetByExample request, ICourseLevelCharacteristicDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.ICourseLevelCharacteristicDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2108,7 +2108,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseOfferings.EdFi.CourseOfferingGetByExample request, ICourseOffering specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseOfferings.EdFi.CourseOfferingGetByExample request, Entities.Common.EdFi.ICourseOffering specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2149,7 +2149,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorGetByExample request, ICourseRepeatCodeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorGetByExample request, Entities.Common.EdFi.ICourseRepeatCodeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2182,7 +2182,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CourseTranscripts.EdFi.CourseTranscriptGetByExample request, ICourseTranscript specification)
+        protected override void MapAll(Api.Common.Models.Requests.CourseTranscripts.EdFi.CourseTranscriptGetByExample request, Entities.Common.EdFi.ICourseTranscript specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2239,7 +2239,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Credentials.EdFi.CredentialGetByExample request, ICredential specification)
+        protected override void MapAll(Api.Common.Models.Requests.Credentials.EdFi.CredentialGetByExample request, Entities.Common.EdFi.ICredential specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2282,7 +2282,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorGetByExample request, ICredentialFieldDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorGetByExample request, Entities.Common.EdFi.ICredentialFieldDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2315,7 +2315,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CredentialTypeDescriptors.EdFi.CredentialTypeDescriptorGetByExample request, ICredentialTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CredentialTypeDescriptors.EdFi.CredentialTypeDescriptorGetByExample request, Entities.Common.EdFi.ICredentialTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2348,7 +2348,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorGetByExample request, ICreditCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorGetByExample request, Entities.Common.EdFi.ICreditCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2381,7 +2381,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CreditTypeDescriptors.EdFi.CreditTypeDescriptorGetByExample request, ICreditTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CreditTypeDescriptors.EdFi.CreditTypeDescriptorGetByExample request, Entities.Common.EdFi.ICreditTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2414,7 +2414,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorGetByExample request, ICTEProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.ICTEProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2447,7 +2447,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.CurriculumUsedDescriptors.EdFi.CurriculumUsedDescriptorGetByExample request, ICurriculumUsedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.CurriculumUsedDescriptors.EdFi.CurriculumUsedDescriptorGetByExample request, Entities.Common.EdFi.ICurriculumUsedDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2480,7 +2480,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorGetByExample request, IDeliveryMethodDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorGetByExample request, Entities.Common.EdFi.IDeliveryMethodDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2513,7 +2513,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorGetByExample request, IDiagnosisDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorGetByExample request, Entities.Common.EdFi.IDiagnosisDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2546,7 +2546,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DiplomaLevelDescriptors.EdFi.DiplomaLevelDescriptorGetByExample request, IDiplomaLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DiplomaLevelDescriptors.EdFi.DiplomaLevelDescriptorGetByExample request, Entities.Common.EdFi.IDiplomaLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2579,7 +2579,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorGetByExample request, IDiplomaTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorGetByExample request, Entities.Common.EdFi.IDiplomaTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2612,7 +2612,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisabilityDescriptors.EdFi.DisabilityDescriptorGetByExample request, IDisabilityDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisabilityDescriptors.EdFi.DisabilityDescriptorGetByExample request, Entities.Common.EdFi.IDisabilityDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2645,7 +2645,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorGetByExample request, IDisabilityDesignationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorGetByExample request, Entities.Common.EdFi.IDisabilityDesignationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2678,7 +2678,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorGetByExample request, IDisabilityDeterminationSourceTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorGetByExample request, Entities.Common.EdFi.IDisabilityDeterminationSourceTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2711,7 +2711,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisciplineActions.EdFi.DisciplineActionGetByExample request, IDisciplineAction specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisciplineActions.EdFi.DisciplineActionGetByExample request, Entities.Common.EdFi.IDisciplineAction specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2755,7 +2755,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorGetByExample request, IDisciplineActionLengthDifferenceReasonDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorGetByExample request, Entities.Common.EdFi.IDisciplineActionLengthDifferenceReasonDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2788,7 +2788,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorGetByExample request, IDisciplineDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorGetByExample request, Entities.Common.EdFi.IDisciplineDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2821,7 +2821,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidents.EdFi.DisciplineIncidentGetByExample request, IDisciplineIncident specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidents.EdFi.DisciplineIncidentGetByExample request, Entities.Common.EdFi.IDisciplineIncident specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2866,7 +2866,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorGetByExample request, IDisciplineIncidentParticipationCodeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorGetByExample request, Entities.Common.EdFi.IDisciplineIncidentParticipationCodeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2899,7 +2899,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorGetByExample request, IEducationalEnvironmentDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorGetByExample request, Entities.Common.EdFi.IEducationalEnvironmentDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2932,7 +2932,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationContents.EdFi.EducationContentGetByExample request, IEducationContent specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationContents.EdFi.EducationContentGetByExample request, Entities.Common.EdFi.IEducationContent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -2982,7 +2982,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi.EducationOrganizationCategoryDescriptorGetByExample request, IEducationOrganizationCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi.EducationOrganizationCategoryDescriptorGetByExample request, Entities.Common.EdFi.IEducationOrganizationCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3015,7 +3015,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorGetByExample request, IEducationOrganizationIdentificationSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.IEducationOrganizationIdentificationSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3048,7 +3048,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationInterventionPrescriptionAssociations.EdFi.EducationOrganizationInterventionPrescriptionAssociationGetByExample request, IEducationOrganizationInterventionPrescriptionAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationInterventionPrescriptionAssociations.EdFi.EducationOrganizationInterventionPrescriptionAssociationGetByExample request, Entities.Common.EdFi.IEducationOrganizationInterventionPrescriptionAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3086,7 +3086,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkGetByExample request, IEducationOrganizationNetwork specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkGetByExample request, Entities.Common.EdFi.IEducationOrganizationNetwork specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3120,7 +3120,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworkAssociations.EdFi.EducationOrganizationNetworkAssociationGetByExample request, IEducationOrganizationNetworkAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworkAssociations.EdFi.EducationOrganizationNetworkAssociationGetByExample request, Entities.Common.EdFi.IEducationOrganizationNetworkAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3157,7 +3157,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationGetByExample request, IEducationOrganizationPeerAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationGetByExample request, Entities.Common.EdFi.IEducationOrganizationPeerAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3192,7 +3192,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorGetByExample request, IEducationPlanDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorGetByExample request, Entities.Common.EdFi.IEducationPlanDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3225,7 +3225,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EducationServiceCenters.EdFi.EducationServiceCenterGetByExample request, IEducationServiceCenter specification)
+        protected override void MapAll(Api.Common.Models.Requests.EducationServiceCenters.EdFi.EducationServiceCenterGetByExample request, Entities.Common.EdFi.IEducationServiceCenter specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3259,7 +3259,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorGetByExample request, IElectronicMailTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorGetByExample request, Entities.Common.EdFi.IElectronicMailTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3292,7 +3292,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EmploymentStatusDescriptors.EdFi.EmploymentStatusDescriptorGetByExample request, IEmploymentStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EmploymentStatusDescriptors.EdFi.EmploymentStatusDescriptorGetByExample request, Entities.Common.EdFi.IEmploymentStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3325,7 +3325,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorGetByExample request, IEntryGradeLevelReasonDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorGetByExample request, Entities.Common.EdFi.IEntryGradeLevelReasonDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3358,7 +3358,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EntryTypeDescriptors.EdFi.EntryTypeDescriptorGetByExample request, IEntryTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EntryTypeDescriptors.EdFi.EntryTypeDescriptorGetByExample request, Entities.Common.EdFi.IEntryTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3391,7 +3391,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorGetByExample request, IEventCircumstanceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorGetByExample request, Entities.Common.EdFi.IEventCircumstanceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3424,7 +3424,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorGetByExample request, IExitWithdrawTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorGetByExample request, Entities.Common.EdFi.IExitWithdrawTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3457,7 +3457,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.FeederSchoolAssociations.EdFi.FeederSchoolAssociationGetByExample request, IFeederSchoolAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.FeederSchoolAssociations.EdFi.FeederSchoolAssociationGetByExample request, Entities.Common.EdFi.IFeederSchoolAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3495,7 +3495,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Grades.EdFi.GradeGetByExample request, IGrade specification)
+        protected override void MapAll(Api.Common.Models.Requests.Grades.EdFi.GradeGetByExample request, Entities.Common.EdFi.IGrade specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3543,7 +3543,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradebookEntries.EdFi.GradebookEntryGetByExample request, IGradebookEntry specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradebookEntries.EdFi.GradebookEntryGetByExample request, Entities.Common.EdFi.IGradebookEntry specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3588,7 +3588,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorGetByExample request, IGradebookEntryTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorGetByExample request, Entities.Common.EdFi.IGradebookEntryTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3621,7 +3621,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradeLevelDescriptors.EdFi.GradeLevelDescriptorGetByExample request, IGradeLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradeLevelDescriptors.EdFi.GradeLevelDescriptorGetByExample request, Entities.Common.EdFi.IGradeLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3654,7 +3654,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorGetByExample request, IGradePointAverageTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorGetByExample request, Entities.Common.EdFi.IGradePointAverageTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3687,7 +3687,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorGetByExample request, IGradeTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorGetByExample request, Entities.Common.EdFi.IGradeTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3720,7 +3720,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradingPeriods.EdFi.GradingPeriodGetByExample request, IGradingPeriod specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradingPeriods.EdFi.GradingPeriodGetByExample request, Entities.Common.EdFi.IGradingPeriod specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3760,7 +3760,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorGetByExample request, IGradingPeriodDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorGetByExample request, Entities.Common.EdFi.IGradingPeriodDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3793,7 +3793,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GraduationPlans.EdFi.GraduationPlanGetByExample request, IGraduationPlan specification)
+        protected override void MapAll(Api.Common.Models.Requests.GraduationPlans.EdFi.GraduationPlanGetByExample request, Entities.Common.EdFi.IGraduationPlan specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3833,7 +3833,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorGetByExample request, IGraduationPlanTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorGetByExample request, Entities.Common.EdFi.IGraduationPlanTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3866,7 +3866,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.GunFreeSchoolsActReportingStatusDescriptors.EdFi.GunFreeSchoolsActReportingStatusDescriptorGetByExample request, IGunFreeSchoolsActReportingStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.GunFreeSchoolsActReportingStatusDescriptors.EdFi.GunFreeSchoolsActReportingStatusDescriptorGetByExample request, Entities.Common.EdFi.IGunFreeSchoolsActReportingStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3899,7 +3899,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorGetByExample request, IHomelessPrimaryNighttimeResidenceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorGetByExample request, Entities.Common.EdFi.IHomelessPrimaryNighttimeResidenceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3932,7 +3932,7 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.HomelessProgramServiceDescriptors.EdFi.HomelessProgramServiceDescriptorGetByExample request, IHomelessProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.HomelessProgramServiceDescriptors.EdFi.HomelessProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.IHomelessProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3965,7 +3965,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorGetByExample request, IIdentificationDocumentUseDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorGetByExample request, Entities.Common.EdFi.IIdentificationDocumentUseDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -3998,7 +3998,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IncidentLocationDescriptors.EdFi.IncidentLocationDescriptorGetByExample request, IIncidentLocationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IncidentLocationDescriptors.EdFi.IncidentLocationDescriptorGetByExample request, Entities.Common.EdFi.IIncidentLocationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4031,7 +4031,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample request, IIndicatorDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample request, Entities.Common.EdFi.IIndicatorDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4064,7 +4064,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample request, IIndicatorGroupDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample request, Entities.Common.EdFi.IIndicatorGroupDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4097,7 +4097,7 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample request, IIndicatorLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample request, Entities.Common.EdFi.IIndicatorLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4130,7 +4130,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi.InstitutionTelephoneNumberTypeDescriptorGetByExample request, IInstitutionTelephoneNumberTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi.InstitutionTelephoneNumberTypeDescriptorGetByExample request, Entities.Common.EdFi.IInstitutionTelephoneNumberTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4163,7 +4163,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorGetByExample request, IInteractivityStyleDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorGetByExample request, Entities.Common.EdFi.IInteractivityStyleDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4196,7 +4196,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InternetAccessDescriptors.EdFi.InternetAccessDescriptorGetByExample request, IInternetAccessDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.InternetAccessDescriptors.EdFi.InternetAccessDescriptorGetByExample request, Entities.Common.EdFi.IInternetAccessDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4229,7 +4229,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Interventions.EdFi.InterventionGetByExample request, IIntervention specification)
+        protected override void MapAll(Api.Common.Models.Requests.Interventions.EdFi.InterventionGetByExample request, Entities.Common.EdFi.IIntervention specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4270,7 +4270,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorGetByExample request, IInterventionClassDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorGetByExample request, Entities.Common.EdFi.IInterventionClassDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4303,7 +4303,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorGetByExample request, IInterventionEffectivenessRatingDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorGetByExample request, Entities.Common.EdFi.IInterventionEffectivenessRatingDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4336,7 +4336,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InterventionPrescriptions.EdFi.InterventionPrescriptionGetByExample request, IInterventionPrescription specification)
+        protected override void MapAll(Api.Common.Models.Requests.InterventionPrescriptions.EdFi.InterventionPrescriptionGetByExample request, Entities.Common.EdFi.IInterventionPrescription specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4375,7 +4375,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.InterventionStudies.EdFi.InterventionStudyGetByExample request, IInterventionStudy specification)
+        protected override void MapAll(Api.Common.Models.Requests.InterventionStudies.EdFi.InterventionStudyGetByExample request, Entities.Common.EdFi.IInterventionStudy specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4415,7 +4415,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorGetByExample request, ILanguageDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorGetByExample request, Entities.Common.EdFi.ILanguageDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4448,7 +4448,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LanguageInstructionProgramServiceDescriptors.EdFi.LanguageInstructionProgramServiceDescriptorGetByExample request, ILanguageInstructionProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LanguageInstructionProgramServiceDescriptors.EdFi.LanguageInstructionProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.ILanguageInstructionProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4481,7 +4481,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorGetByExample request, ILanguageUseDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorGetByExample request, Entities.Common.EdFi.ILanguageUseDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4514,7 +4514,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningObjectives.EdFi.LearningObjectiveGetByExample request, ILearningObjective specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningObjectives.EdFi.LearningObjectiveGetByExample request, Entities.Common.EdFi.ILearningObjective specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4555,7 +4555,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningStandards.EdFi.LearningStandardGetByExample request, ILearningStandard specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningStandards.EdFi.LearningStandardGetByExample request, Entities.Common.EdFi.ILearningStandard specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4598,7 +4598,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorGetByExample request, ILearningStandardCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorGetByExample request, Entities.Common.EdFi.ILearningStandardCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4631,7 +4631,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceAssociations.EdFi.LearningStandardEquivalenceAssociationGetByExample request, ILearningStandardEquivalenceAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceAssociations.EdFi.LearningStandardEquivalenceAssociationGetByExample request, Entities.Common.EdFi.ILearningStandardEquivalenceAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4670,7 +4670,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorGetByExample request, ILearningStandardEquivalenceStrengthDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorGetByExample request, Entities.Common.EdFi.ILearningStandardEquivalenceStrengthDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4703,7 +4703,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LearningStandardScopeDescriptors.EdFi.LearningStandardScopeDescriptorGetByExample request, ILearningStandardScopeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LearningStandardScopeDescriptors.EdFi.LearningStandardScopeDescriptorGetByExample request, Entities.Common.EdFi.ILearningStandardScopeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4736,7 +4736,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorGetByExample request, ILevelOfEducationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorGetByExample request, Entities.Common.EdFi.ILevelOfEducationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4769,7 +4769,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LicenseStatusDescriptors.EdFi.LicenseStatusDescriptorGetByExample request, ILicenseStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LicenseStatusDescriptors.EdFi.LicenseStatusDescriptorGetByExample request, Entities.Common.EdFi.ILicenseStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4802,7 +4802,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorGetByExample request, ILicenseTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorGetByExample request, Entities.Common.EdFi.ILicenseTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4835,7 +4835,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorGetByExample request, ILimitedEnglishProficiencyDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorGetByExample request, Entities.Common.EdFi.ILimitedEnglishProficiencyDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4868,7 +4868,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorGetByExample request, ILocaleDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorGetByExample request, Entities.Common.EdFi.ILocaleDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4901,7 +4901,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencies.EdFi.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
+        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencies.EdFi.LocalEducationAgencyGetByExample request, Entities.Common.EdFi.ILocalEducationAgency specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4939,7 +4939,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorGetByExample request, ILocalEducationAgencyCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorGetByExample request, Entities.Common.EdFi.ILocalEducationAgencyCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -4972,7 +4972,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Locations.EdFi.LocationGetByExample request, ILocation specification)
+        protected override void MapAll(Api.Common.Models.Requests.Locations.EdFi.LocationGetByExample request, Entities.Common.EdFi.ILocation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5009,7 +5009,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorGetByExample request, IMagnetSpecialProgramEmphasisSchoolDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorGetByExample request, Entities.Common.EdFi.IMagnetSpecialProgramEmphasisSchoolDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5042,7 +5042,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.MediumOfInstructionDescriptors.EdFi.MediumOfInstructionDescriptorGetByExample request, IMediumOfInstructionDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.MediumOfInstructionDescriptors.EdFi.MediumOfInstructionDescriptorGetByExample request, Entities.Common.EdFi.IMediumOfInstructionDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5075,7 +5075,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorGetByExample request, IMethodCreditEarnedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorGetByExample request, Entities.Common.EdFi.IMethodCreditEarnedDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5108,7 +5108,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.MigrantEducationProgramServiceDescriptors.EdFi.MigrantEducationProgramServiceDescriptorGetByExample request, IMigrantEducationProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.MigrantEducationProgramServiceDescriptors.EdFi.MigrantEducationProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.IMigrantEducationProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5141,7 +5141,7 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.MonitoredDescriptors.EdFi.MonitoredDescriptorGetByExample request, IMonitoredDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.MonitoredDescriptors.EdFi.MonitoredDescriptorGetByExample request, Entities.Common.EdFi.IMonitoredDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5174,7 +5174,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorGetByExample request, INeglectedOrDelinquentProgramDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorGetByExample request, Entities.Common.EdFi.INeglectedOrDelinquentProgramDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5207,7 +5207,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramServiceDescriptors.EdFi.NeglectedOrDelinquentProgramServiceDescriptorGetByExample request, INeglectedOrDelinquentProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramServiceDescriptors.EdFi.NeglectedOrDelinquentProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.INeglectedOrDelinquentProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5240,7 +5240,7 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorGetByExample request, INetworkPurposeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorGetByExample request, Entities.Common.EdFi.INetworkPurposeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5273,7 +5273,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ObjectiveAssessments.EdFi.ObjectiveAssessmentGetByExample request, IObjectiveAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.ObjectiveAssessments.EdFi.ObjectiveAssessmentGetByExample request, Entities.Common.EdFi.IObjectiveAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5315,7 +5315,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorGetByExample request, IOldEthnicityDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorGetByExample request, Entities.Common.EdFi.IOldEthnicityDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5348,7 +5348,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositions.EdFi.OpenStaffPositionGetByExample request, IOpenStaffPosition specification)
+        protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositions.EdFi.OpenStaffPositionGetByExample request, Entities.Common.EdFi.IOpenStaffPosition specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5390,7 +5390,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorGetByExample request, IOperationalStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorGetByExample request, Entities.Common.EdFi.IOperationalStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5423,7 +5423,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorGetByExample request, IOtherNameTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorGetByExample request, Entities.Common.EdFi.IOtherNameTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5456,7 +5456,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Parents.EdFi.ParentGetByExample request, IParent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Parents.EdFi.ParentGetByExample request, Entities.Common.EdFi.IParent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5500,7 +5500,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorGetByExample request, IParticipationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorGetByExample request, Entities.Common.EdFi.IParticipationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5533,7 +5533,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ParticipationStatusDescriptors.EdFi.ParticipationStatusDescriptorGetByExample request, IParticipationStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ParticipationStatusDescriptors.EdFi.ParticipationStatusDescriptorGetByExample request, Entities.Common.EdFi.IParticipationStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5566,7 +5566,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Payrolls.EdFi.PayrollGetByExample request, IPayroll specification)
+        protected override void MapAll(Api.Common.Models.Requests.Payrolls.EdFi.PayrollGetByExample request, Entities.Common.EdFi.IPayroll specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5605,7 +5605,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorGetByExample request, IPerformanceBaseConversionDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorGetByExample request, Entities.Common.EdFi.IPerformanceBaseConversionDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5638,7 +5638,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorGetByExample request, IPerformanceLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorGetByExample request, Entities.Common.EdFi.IPerformanceLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5671,7 +5671,7 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.People.EdFi.PersonGetByExample request, IPerson specification)
+        protected override void MapAll(Api.Common.Models.Requests.People.EdFi.PersonGetByExample request, Entities.Common.EdFi.IPerson specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5706,7 +5706,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorGetByExample request, IPersonalInformationVerificationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorGetByExample request, Entities.Common.EdFi.IPersonalInformationVerificationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5739,7 +5739,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PlatformTypeDescriptors.EdFi.PlatformTypeDescriptorGetByExample request, IPlatformTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PlatformTypeDescriptors.EdFi.PlatformTypeDescriptorGetByExample request, Entities.Common.EdFi.IPlatformTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5772,7 +5772,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorGetByExample request, IPopulationServedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorGetByExample request, Entities.Common.EdFi.IPopulationServedDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5805,7 +5805,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorGetByExample request, IPostingResultDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorGetByExample request, Entities.Common.EdFi.IPostingResultDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5838,7 +5838,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEvents.EdFi.PostSecondaryEventGetByExample request, IPostSecondaryEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEvents.EdFi.PostSecondaryEventGetByExample request, Entities.Common.EdFi.IPostSecondaryEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5875,7 +5875,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorGetByExample request, IPostSecondaryEventCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorGetByExample request, Entities.Common.EdFi.IPostSecondaryEventCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5908,7 +5908,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutions.EdFi.PostSecondaryInstitutionGetByExample request, IPostSecondaryInstitution specification)
+        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutions.EdFi.PostSecondaryInstitutionGetByExample request, Entities.Common.EdFi.IPostSecondaryInstitution specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5943,7 +5943,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorGetByExample request, IPostSecondaryInstitutionLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorGetByExample request, Entities.Common.EdFi.IPostSecondaryInstitutionLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -5976,7 +5976,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorGetByExample request, IProficiencyDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorGetByExample request, Entities.Common.EdFi.IProficiencyDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6009,7 +6009,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Programs.EdFi.ProgramGetByExample request, IProgram specification)
+        protected override void MapAll(Api.Common.Models.Requests.Programs.EdFi.ProgramGetByExample request, Entities.Common.EdFi.IProgram specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6046,7 +6046,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorGetByExample request, IProgramAssignmentDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorGetByExample request, Entities.Common.EdFi.IProgramAssignmentDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6079,7 +6079,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorGetByExample request, IProgramCharacteristicDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.IProgramCharacteristicDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6112,7 +6112,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorGetByExample request, IProgramSponsorDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorGetByExample request, Entities.Common.EdFi.IProgramSponsorDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6145,7 +6145,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgramTypeDescriptors.EdFi.ProgramTypeDescriptorGetByExample request, IProgramTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgramTypeDescriptors.EdFi.ProgramTypeDescriptorGetByExample request, Entities.Common.EdFi.IProgramTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6178,7 +6178,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorGetByExample request, IProgressDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorGetByExample request, Entities.Common.EdFi.IProgressDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6211,7 +6211,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorGetByExample request, IProgressLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorGetByExample request, Entities.Common.EdFi.IProgressLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6244,7 +6244,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorGetByExample request, IProviderCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorGetByExample request, Entities.Common.EdFi.IProviderCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6277,7 +6277,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProviderProfitabilityDescriptors.EdFi.ProviderProfitabilityDescriptorGetByExample request, IProviderProfitabilityDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProviderProfitabilityDescriptors.EdFi.ProviderProfitabilityDescriptorGetByExample request, Entities.Common.EdFi.IProviderProfitabilityDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6310,7 +6310,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorGetByExample request, IProviderStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorGetByExample request, Entities.Common.EdFi.IProviderStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6343,7 +6343,7 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.PublicationStatusDescriptors.EdFi.PublicationStatusDescriptorGetByExample request, IPublicationStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.PublicationStatusDescriptors.EdFi.PublicationStatusDescriptorGetByExample request, Entities.Common.EdFi.IPublicationStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6376,7 +6376,7 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorGetByExample request, IQuestionFormDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorGetByExample request, Entities.Common.EdFi.IQuestionFormDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6409,7 +6409,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RaceDescriptors.EdFi.RaceDescriptorGetByExample request, IRaceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RaceDescriptors.EdFi.RaceDescriptorGetByExample request, Entities.Common.EdFi.IRaceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6442,7 +6442,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorGetByExample request, IReasonExitedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorGetByExample request, Entities.Common.EdFi.IReasonExitedDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6475,7 +6475,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ReasonNotTestedDescriptors.EdFi.ReasonNotTestedDescriptorGetByExample request, IReasonNotTestedDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ReasonNotTestedDescriptors.EdFi.ReasonNotTestedDescriptorGetByExample request, Entities.Common.EdFi.IReasonNotTestedDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6508,7 +6508,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorGetByExample request, IRecognitionTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorGetByExample request, Entities.Common.EdFi.IRecognitionTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6541,7 +6541,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RelationDescriptors.EdFi.RelationDescriptorGetByExample request, IRelationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RelationDescriptors.EdFi.RelationDescriptorGetByExample request, Entities.Common.EdFi.IRelationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6574,7 +6574,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorGetByExample request, IRepeatIdentifierDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorGetByExample request, Entities.Common.EdFi.IRepeatIdentifierDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6607,7 +6607,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ReportCards.EdFi.ReportCardGetByExample request, IReportCard specification)
+        protected override void MapAll(Api.Common.Models.Requests.ReportCards.EdFi.ReportCardGetByExample request, Entities.Common.EdFi.IReportCard specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6651,7 +6651,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorGetByExample request, IReporterDescriptionDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorGetByExample request, Entities.Common.EdFi.IReporterDescriptionDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6684,7 +6684,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorGetByExample request, IResidencyStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorGetByExample request, Entities.Common.EdFi.IResidencyStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6717,7 +6717,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ResponseIndicatorDescriptors.EdFi.ResponseIndicatorDescriptorGetByExample request, IResponseIndicatorDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ResponseIndicatorDescriptors.EdFi.ResponseIndicatorDescriptorGetByExample request, Entities.Common.EdFi.IResponseIndicatorDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6750,7 +6750,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorGetByExample request, IResponsibilityDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorGetByExample request, Entities.Common.EdFi.IResponsibilityDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6783,7 +6783,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RestraintEvents.EdFi.RestraintEventGetByExample request, IRestraintEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.RestraintEvents.EdFi.RestraintEventGetByExample request, Entities.Common.EdFi.IRestraintEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6821,7 +6821,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorGetByExample request, IRestraintEventReasonDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorGetByExample request, Entities.Common.EdFi.IRestraintEventReasonDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6854,7 +6854,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ResultDatatypeTypeDescriptors.EdFi.ResultDatatypeTypeDescriptorGetByExample request, IResultDatatypeTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ResultDatatypeTypeDescriptors.EdFi.ResultDatatypeTypeDescriptorGetByExample request, Entities.Common.EdFi.IResultDatatypeTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6887,7 +6887,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorGetByExample request, IRetestIndicatorDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorGetByExample request, Entities.Common.EdFi.IRetestIndicatorDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6920,7 +6920,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6962,7 +6962,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorGetByExample request, ISchoolCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorGetByExample request, Entities.Common.EdFi.ISchoolCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -6995,7 +6995,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SchoolChoiceImplementStatusDescriptors.EdFi.SchoolChoiceImplementStatusDescriptorGetByExample request, ISchoolChoiceImplementStatusDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SchoolChoiceImplementStatusDescriptors.EdFi.SchoolChoiceImplementStatusDescriptorGetByExample request, Entities.Common.EdFi.ISchoolChoiceImplementStatusDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7028,7 +7028,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorGetByExample request, ISchoolFoodServiceProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.ISchoolFoodServiceProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7061,7 +7061,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorGetByExample request, ISchoolTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorGetByExample request, Entities.Common.EdFi.ISchoolTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7094,7 +7094,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SchoolYearTypes.EdFi.SchoolYearTypeGetByExample request, ISchoolYearType specification)
+        protected override void MapAll(Api.Common.Models.Requests.SchoolYearTypes.EdFi.SchoolYearTypeGetByExample request, Entities.Common.EdFi.ISchoolYearType specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7130,7 +7130,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Sections.EdFi.SectionGetByExample request, ISection specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sections.EdFi.SectionGetByExample request, Entities.Common.EdFi.ISection specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7180,7 +7180,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventGetByExample request, ISectionAttendanceTakenEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventGetByExample request, Entities.Common.EdFi.ISectionAttendanceTakenEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7222,7 +7222,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorGetByExample request, ISectionCharacteristicDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.ISectionCharacteristicDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7255,7 +7255,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SeparationDescriptors.EdFi.SeparationDescriptorGetByExample request, ISeparationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SeparationDescriptors.EdFi.SeparationDescriptorGetByExample request, Entities.Common.EdFi.ISeparationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7288,7 +7288,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorGetByExample request, ISeparationReasonDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorGetByExample request, Entities.Common.EdFi.ISeparationReasonDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7321,7 +7321,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorGetByExample request, IServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorGetByExample request, Entities.Common.EdFi.IServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7354,7 +7354,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Sessions.EdFi.SessionGetByExample request, ISession specification)
+        protected override void MapAll(Api.Common.Models.Requests.Sessions.EdFi.SessionGetByExample request, Entities.Common.EdFi.ISession specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7394,7 +7394,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SexDescriptors.EdFi.SexDescriptorGetByExample request, ISexDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SexDescriptors.EdFi.SexDescriptorGetByExample request, Entities.Common.EdFi.ISexDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7427,7 +7427,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample request, ISourceSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample request, Entities.Common.EdFi.ISourceSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7460,7 +7460,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi.SpecialEducationProgramServiceDescriptorGetByExample request, ISpecialEducationProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi.SpecialEducationProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.ISpecialEducationProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7493,7 +7493,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorGetByExample request, ISpecialEducationSettingDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorGetByExample request, Entities.Common.EdFi.ISpecialEducationSettingDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7526,7 +7526,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7578,7 +7578,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventGetByExample request, IStaffAbsenceEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventGetByExample request, Entities.Common.EdFi.IStaffAbsenceEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7616,7 +7616,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorGetByExample request, IStaffClassificationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorGetByExample request, Entities.Common.EdFi.IStaffClassificationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7649,7 +7649,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffCohortAssociations.EdFi.StaffCohortAssociationGetByExample request, IStaffCohortAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffCohortAssociations.EdFi.StaffCohortAssociationGetByExample request, Entities.Common.EdFi.IStaffCohortAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7688,7 +7688,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationGetByExample request, IStaffDisciplineIncidentAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationGetByExample request, Entities.Common.EdFi.IStaffDisciplineIncidentAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7724,7 +7724,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationAssignmentAssociations.EdFi.StaffEducationOrganizationAssignmentAssociationGetByExample request, IStaffEducationOrganizationAssignmentAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationAssignmentAssociations.EdFi.StaffEducationOrganizationAssignmentAssociationGetByExample request, Entities.Common.EdFi.IStaffEducationOrganizationAssignmentAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7769,7 +7769,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample request, IStaffEducationOrganizationContactAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample request, Entities.Common.EdFi.IStaffEducationOrganizationContactAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7807,7 +7807,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi.StaffEducationOrganizationEmploymentAssociationGetByExample request, IStaffEducationOrganizationEmploymentAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi.StaffEducationOrganizationEmploymentAssociationGetByExample request, Entities.Common.EdFi.IStaffEducationOrganizationEmploymentAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7853,7 +7853,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorGetByExample request, IStaffIdentificationSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.IStaffIdentificationSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7886,7 +7886,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffLeaves.EdFi.StaffLeaveGetByExample request, IStaffLeave specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffLeaves.EdFi.StaffLeaveGetByExample request, Entities.Common.EdFi.IStaffLeave specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7925,7 +7925,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorGetByExample request, IStaffLeaveEventCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorGetByExample request, Entities.Common.EdFi.IStaffLeaveEventCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7958,7 +7958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffProgramAssociations.EdFi.StaffProgramAssociationGetByExample request, IStaffProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffProgramAssociations.EdFi.StaffProgramAssociationGetByExample request, Entities.Common.EdFi.IStaffProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -7998,7 +7998,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationGetByExample request, IStaffSchoolAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationGetByExample request, Entities.Common.EdFi.IStaffSchoolAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8036,7 +8036,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StaffSectionAssociations.EdFi.StaffSectionAssociationGetByExample request, IStaffSectionAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StaffSectionAssociations.EdFi.StaffSectionAssociationGetByExample request, Entities.Common.EdFi.IStaffSectionAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8081,7 +8081,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorGetByExample request, IStateAbbreviationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorGetByExample request, Entities.Common.EdFi.IStateAbbreviationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8114,7 +8114,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyGetByExample request, IStateEducationAgency specification)
+        protected override void MapAll(Api.Common.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyGetByExample request, Entities.Common.EdFi.IStateEducationAgency specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8147,7 +8147,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8198,7 +8198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentAcademicRecords.EdFi.StudentAcademicRecordGetByExample request, IStudentAcademicRecord specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentAcademicRecords.EdFi.StudentAcademicRecordGetByExample request, Entities.Common.EdFi.IStudentAcademicRecord specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8253,7 +8253,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentAssessments.EdFi.StudentAssessmentGetByExample request, IStudentAssessment specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentAssessments.EdFi.StudentAssessmentGetByExample request, Entities.Common.EdFi.IStudentAssessment specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8302,7 +8302,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorGetByExample request, IStudentCharacteristicDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorGetByExample request, Entities.Common.EdFi.IStudentCharacteristicDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8335,7 +8335,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentCohortAssociations.EdFi.StudentCohortAssociationGetByExample request, IStudentCohortAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentCohortAssociations.EdFi.StudentCohortAssociationGetByExample request, Entities.Common.EdFi.IStudentCohortAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8373,7 +8373,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentCompetencyObjectives.EdFi.StudentCompetencyObjectiveGetByExample request, IStudentCompetencyObjective specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentCompetencyObjectives.EdFi.StudentCompetencyObjectiveGetByExample request, Entities.Common.EdFi.IStudentCompetencyObjective specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8416,7 +8416,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationGetByExample request, IStudentCTEProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentCTEProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8457,7 +8457,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationGetByExample request, IStudentDisciplineIncidentAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationGetByExample request, Entities.Common.EdFi.IStudentDisciplineIncidentAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8494,7 +8494,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.StudentEducationOrganizationAssociationGetByExample request, Entities.Common.EdFi.IStudentEducationOrganizationAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8535,7 +8535,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationGetByExample request, IStudentEducationOrganizationResponsibilityAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationGetByExample request, Entities.Common.EdFi.IStudentEducationOrganizationResponsibilityAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8573,7 +8573,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentGradebookEntries.EdFi.StudentGradebookEntryGetByExample request, IStudentGradebookEntry specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentGradebookEntries.EdFi.StudentGradebookEntryGetByExample request, Entities.Common.EdFi.IStudentGradebookEntry specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8620,7 +8620,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationGetByExample request, IStudentHomelessProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentHomelessProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8661,7 +8661,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorGetByExample request, IStudentIdentificationSystemDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorGetByExample request, Entities.Common.EdFi.IStudentIdentificationSystemDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8694,7 +8694,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAssociations.EdFi.StudentInterventionAssociationGetByExample request, IStudentInterventionAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAssociations.EdFi.StudentInterventionAssociationGetByExample request, Entities.Common.EdFi.IStudentInterventionAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8734,7 +8734,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAttendanceEvents.EdFi.StudentInterventionAttendanceEventGetByExample request, IStudentInterventionAttendanceEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAttendanceEvents.EdFi.StudentInterventionAttendanceEventGetByExample request, Entities.Common.EdFi.IStudentInterventionAttendanceEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8776,7 +8776,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationGetByExample request, IStudentLanguageInstructionProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentLanguageInstructionProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8816,7 +8816,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentLearningObjectives.EdFi.StudentLearningObjectiveGetByExample request, IStudentLearningObjective specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentLearningObjectives.EdFi.StudentLearningObjectiveGetByExample request, Entities.Common.EdFi.IStudentLearningObjective specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8858,7 +8858,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentMigrantEducationProgramAssociations.EdFi.StudentMigrantEducationProgramAssociationGetByExample request, IStudentMigrantEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentMigrantEducationProgramAssociations.EdFi.StudentMigrantEducationProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentMigrantEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8905,7 +8905,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationGetByExample request, IStudentNeglectedOrDelinquentProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentNeglectedOrDelinquentProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8946,7 +8946,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentParentAssociations.EdFi.StudentParentAssociationGetByExample request, IStudentParentAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentParentAssociations.EdFi.StudentParentAssociationGetByExample request, Entities.Common.EdFi.IStudentParentAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -8987,7 +8987,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample request, IStudentParticipationCodeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample request, Entities.Common.EdFi.IStudentParticipationCodeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9020,7 +9020,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentProgramAssociations.EdFi.StudentProgramAssociationGetByExample request, IStudentProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentProgramAssociations.EdFi.StudentProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9058,7 +9058,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentProgramAttendanceEvents.EdFi.StudentProgramAttendanceEventGetByExample request, IStudentProgramAttendanceEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentProgramAttendanceEvents.EdFi.StudentProgramAttendanceEventGetByExample request, Entities.Common.EdFi.IStudentProgramAttendanceEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9102,7 +9102,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.StudentSchoolAssociationGetByExample request, Entities.Common.EdFi.IStudentSchoolAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9156,7 +9156,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventGetByExample request, IStudentSchoolAttendanceEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventGetByExample request, Entities.Common.EdFi.IStudentSchoolAttendanceEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9201,7 +9201,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationGetByExample request, IStudentSchoolFoodServiceProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentSchoolFoodServiceProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9240,7 +9240,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSectionAssociations.EdFi.StudentSectionAssociationGetByExample request, IStudentSectionAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSectionAssociations.EdFi.StudentSectionAssociationGetByExample request, Entities.Common.EdFi.IStudentSectionAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9285,7 +9285,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSectionAttendanceEvents.EdFi.StudentSectionAttendanceEventGetByExample request, IStudentSectionAttendanceEvent specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSectionAttendanceEvents.EdFi.StudentSectionAttendanceEventGetByExample request, Entities.Common.EdFi.IStudentSectionAttendanceEvent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9332,7 +9332,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentSpecialEducationProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9380,7 +9380,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationGetByExample request, IStudentTitleIPartAProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationGetByExample request, Entities.Common.EdFi.IStudentTitleIPartAProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9419,7 +9419,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Surveys.EdFi.SurveyGetByExample request, ISurvey specification)
+        protected override void MapAll(Api.Common.Models.Requests.Surveys.EdFi.SurveyGetByExample request, Entities.Common.EdFi.ISurvey specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9461,7 +9461,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorGetByExample request, ISurveyCategoryDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorGetByExample request, Entities.Common.EdFi.ISurveyCategoryDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9494,7 +9494,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyCourseAssociations.EdFi.SurveyCourseAssociationGetByExample request, ISurveyCourseAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyCourseAssociations.EdFi.SurveyCourseAssociationGetByExample request, Entities.Common.EdFi.ISurveyCourseAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9531,7 +9531,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorGetByExample request, ISurveyLevelDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorGetByExample request, Entities.Common.EdFi.ISurveyLevelDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9564,7 +9564,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyProgramAssociations.EdFi.SurveyProgramAssociationGetByExample request, ISurveyProgramAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyProgramAssociations.EdFi.SurveyProgramAssociationGetByExample request, Entities.Common.EdFi.ISurveyProgramAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9602,7 +9602,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyQuestions.EdFi.SurveyQuestionGetByExample request, ISurveyQuestion specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyQuestions.EdFi.SurveyQuestionGetByExample request, Entities.Common.EdFi.ISurveyQuestion specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9641,7 +9641,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponseGetByExample request, ISurveyQuestionResponse specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponseGetByExample request, Entities.Common.EdFi.ISurveyQuestionResponse specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9680,7 +9680,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyResponses.EdFi.SurveyResponseGetByExample request, ISurveyResponse specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyResponses.EdFi.SurveyResponseGetByExample request, Entities.Common.EdFi.ISurveyResponse specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9724,7 +9724,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationGetByExample request, ISurveyResponseEducationOrganizationTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveyResponseEducationOrganizationTargetAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9761,7 +9761,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveyResponseStaffTargetAssociations.EdFi.SurveyResponseStaffTargetAssociationGetByExample request, ISurveyResponseStaffTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveyResponseStaffTargetAssociations.EdFi.SurveyResponseStaffTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveyResponseStaffTargetAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9798,7 +9798,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveySections.EdFi.SurveySectionGetByExample request, ISurveySection specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveySections.EdFi.SurveySectionGetByExample request, Entities.Common.EdFi.ISurveySection specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9834,7 +9834,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveySectionAssociations.EdFi.SurveySectionAssociationGetByExample request, ISurveySectionAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionAssociations.EdFi.SurveySectionAssociationGetByExample request, Entities.Common.EdFi.ISurveySectionAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9874,7 +9874,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponseGetByExample request, ISurveySectionResponse specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponseGetByExample request, Entities.Common.EdFi.ISurveySectionResponse specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9912,7 +9912,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationGetByExample request, ISurveySectionResponseEducationOrganizationTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveySectionResponseEducationOrganizationTargetAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9950,7 +9950,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationGetByExample request, ISurveySectionResponseStaffTargetAssociation specification)
+        protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationGetByExample request, Entities.Common.EdFi.ISurveySectionResponseStaffTargetAssociation specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -9988,7 +9988,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorGetByExample request, ITeachingCredentialBasisDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorGetByExample request, Entities.Common.EdFi.ITeachingCredentialBasisDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10021,7 +10021,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialDescriptors.EdFi.TeachingCredentialDescriptorGetByExample request, ITeachingCredentialDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialDescriptors.EdFi.TeachingCredentialDescriptorGetByExample request, Entities.Common.EdFi.ITeachingCredentialDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10054,7 +10054,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorGetByExample request, ITechnicalSkillsAssessmentDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorGetByExample request, Entities.Common.EdFi.ITechnicalSkillsAssessmentDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10087,7 +10087,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TelephoneNumberTypeDescriptors.EdFi.TelephoneNumberTypeDescriptorGetByExample request, ITelephoneNumberTypeDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TelephoneNumberTypeDescriptors.EdFi.TelephoneNumberTypeDescriptorGetByExample request, Entities.Common.EdFi.ITelephoneNumberTypeDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10120,7 +10120,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TermDescriptors.EdFi.TermDescriptorGetByExample request, ITermDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TermDescriptors.EdFi.TermDescriptorGetByExample request, Entities.Common.EdFi.ITermDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10153,7 +10153,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TitleIPartAParticipantDescriptors.EdFi.TitleIPartAParticipantDescriptorGetByExample request, ITitleIPartAParticipantDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TitleIPartAParticipantDescriptors.EdFi.TitleIPartAParticipantDescriptorGetByExample request, Entities.Common.EdFi.ITitleIPartAParticipantDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10186,7 +10186,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorGetByExample request, ITitleIPartAProgramServiceDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorGetByExample request, Entities.Common.EdFi.ITitleIPartAProgramServiceDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10219,7 +10219,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TitleIPartASchoolDesignationDescriptors.EdFi.TitleIPartASchoolDesignationDescriptorGetByExample request, ITitleIPartASchoolDesignationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TitleIPartASchoolDesignationDescriptors.EdFi.TitleIPartASchoolDesignationDescriptorGetByExample request, Entities.Common.EdFi.ITitleIPartASchoolDesignationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10252,7 +10252,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorGetByExample request, ITribalAffiliationDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorGetByExample request, Entities.Common.EdFi.ITribalAffiliationDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10285,7 +10285,7 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorGetByExample request, IVisaDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorGetByExample request, Entities.Common.EdFi.IVisaDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -10318,7 +10318,7 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.WeaponDescriptors.EdFi.WeaponDescriptorGetByExample request, IWeaponDescriptor specification)
+        protected override void MapAll(Api.Common.Models.Requests.WeaponDescriptors.EdFi.WeaponDescriptorGetByExample request, Entities.Common.EdFi.IWeaponDescriptor specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();

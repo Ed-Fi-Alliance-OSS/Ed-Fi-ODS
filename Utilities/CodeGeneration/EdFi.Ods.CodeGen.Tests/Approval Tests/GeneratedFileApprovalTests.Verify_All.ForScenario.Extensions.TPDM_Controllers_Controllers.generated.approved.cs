@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -10,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.TPDM;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors

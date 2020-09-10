@@ -31,7 +31,6 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return new
             {
-                ConditionalInclude = GetConditionalInclude(),
                 RenderGroups = GetProfileResourceModels()
                     .Select(
                         model => new
@@ -78,7 +77,6 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return new
             {
-                ConditionalInclude = string.Empty,
                 RenderGroups = new object[]
                 {
                     new
@@ -177,14 +175,6 @@ namespace EdFi.Ods.CodeGen.Generators
         private string GetProfileNamespaceName(string profileName)
         {
             return profileName.Replace("-", "_");
-        }
-
-        private string GetConditionalInclude()
-        {
-            return string.Format(
-                "using {0};{1}",
-                Namespaces.Api.Architecture,
-                Environment.NewLine);
         }
 
         private string GetNamespace(Resource resource)

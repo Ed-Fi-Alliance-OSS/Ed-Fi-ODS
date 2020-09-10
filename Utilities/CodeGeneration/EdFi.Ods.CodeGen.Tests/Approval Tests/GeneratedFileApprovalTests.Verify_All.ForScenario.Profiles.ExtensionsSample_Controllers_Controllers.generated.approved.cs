@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -10,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
@@ -18,8 +22,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Writable.BusRoute,
@@ -76,8 +80,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude1")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Writable.BusRoute,
@@ -134,8 +138,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude2")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Writable.BusRoute,
@@ -192,8 +196,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Writable.BusRoute,
@@ -250,8 +254,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Writable.Staff,
@@ -267,7 +271,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -311,8 +315,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude2")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Writable.BusRoute,
@@ -369,8 +373,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude2")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Writable.Staff,
@@ -386,7 +390,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -430,8 +434,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("sample/busRoutes")]
     [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedinclude")]
+    [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Readable.BusRoute,
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Writable.BusRoute,
@@ -488,8 +492,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedinclude")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Writable.Staff,
@@ -505,7 +509,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -549,8 +553,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-entity-extension-excludeonly")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Writable.Staff,
@@ -566,7 +570,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -610,8 +614,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-entity-extension-includeonly")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Writable.Staff,
@@ -627,7 +631,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -671,8 +675,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/staffs")]
     [ProfileContentType("application/vnd.ed-fi.staff.staff-include-all")]
+    [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Include_All_Readable.Staff,
         Api.Common.Models.Resources.Staff.EdFi.Staff_Include_All_Writable.Staff,
@@ -688,7 +692,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -732,8 +736,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/students")]
     [ProfileContentType("application/vnd.ed-fi.student.student-include-all")]
+    [Route("ed-fi/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.EdFi.Student_Include_All_Readable.Student,
         Api.Common.Models.Resources.Student.EdFi.Student_Include_All_Writable.Student,
@@ -749,7 +753,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();

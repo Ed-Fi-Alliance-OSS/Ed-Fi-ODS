@@ -253,7 +253,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -364,7 +364,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -475,7 +475,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -532,7 +532,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -589,7 +589,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -646,7 +646,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -703,7 +703,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
         {
                         // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();

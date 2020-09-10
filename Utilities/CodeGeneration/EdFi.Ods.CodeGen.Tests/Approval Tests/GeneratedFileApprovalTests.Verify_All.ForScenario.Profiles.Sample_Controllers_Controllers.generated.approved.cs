@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -10,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ExcludeOnly
@@ -18,8 +22,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/schools")]
     [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-excludeonly")]
+    [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School,
@@ -35,7 +39,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -69,8 +73,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/schools")]
     [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-includeonly")]
+    [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School,
@@ -86,7 +90,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -123,8 +127,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/schools")]
     [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-readonly")]
+    [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.School,
         SchoolsNullWriteRequest,
@@ -140,7 +144,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, ISchool specification)
+        protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, Entities.Common.EdFi.ISchool specification)
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
@@ -195,8 +199,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("ed-fi/schools")]
     [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly")]
+    [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         SchoolsNullReadRequest,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School,
@@ -212,7 +216,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         {
         }
 
-        protected override void MapAll(SchoolsNullReadRequest request, ISchool specification)
+        protected override void MapAll(SchoolsNullReadRequest request, Entities.Common.EdFi.ISchool specification)
         {
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
         }

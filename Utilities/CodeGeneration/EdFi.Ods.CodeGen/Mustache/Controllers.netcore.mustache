@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -13,13 +16,13 @@ using EdFi.Ods.Entities.Common.{{ProperCaseName}};
 using {{ControllersBaseNamespace}};
 {{/IsExtensionContext}}
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 {{#Controllers}}
 
 namespace {{ControllersNamespace}}
 {
     {{#NullRequests}}
-    [ContentType("{{ContentType}}")]
     [ExcludeFromCodeCoverage]
     public class {{ClassName}} : NullRequestBase { }
 
@@ -28,10 +31,10 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Route("{{RouteTemplate}}")]
     {{#ProfileContentType}}
     [ProfileContentType("{{ContentType}}")]
     {{/ProfileContentType}}
+    [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
         {{ResourceWriteModel}},
@@ -77,7 +80,7 @@ namespace {{ControllersNamespace}}
         {{#OverrideHttpFunctions}}
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
+        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
         {
             return Task.FromResult<IActionResult>(
                 StatusCode(StatusCodes.Status405MethodNotAllowed,
