@@ -130,14 +130,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 IsIncludedExtension = r => r.FullName.Schema.Equals(schema.PhysicalName)
             };
 
-            return new OpenApiMetadataDocumentFactory(
-                new OpenApiMetadataParametersFactory(),
-                CreateOpenApiMetadataDefinitionsFactory(documentContext),
-                new OpenApiMetadataResponsesFactory(),
-                CreateOpenApiMetadataPathsFactory(documentContext),
-                CreateOpenApiMetadataTagsFactory(documentContext),
-                documentContext
-            );
+            return new OpenApiMetadataDocumentFactory();
         }
     }
 }

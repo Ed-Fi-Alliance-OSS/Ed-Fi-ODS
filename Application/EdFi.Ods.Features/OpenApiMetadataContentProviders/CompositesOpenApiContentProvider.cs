@@ -49,13 +49,13 @@ namespace EdFi.Ods.Features.Composites
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
-                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) { CompositeContext = x })
+                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
                 .Select(
                     c =>
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(openApiStrategy)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory().Create(openApiStrategy, c)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }

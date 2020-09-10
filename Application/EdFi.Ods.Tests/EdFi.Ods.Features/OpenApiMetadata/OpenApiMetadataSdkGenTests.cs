@@ -33,10 +33,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "gb";
             private OpenApiMetadataDocument _actualMetadataObject;
+            private EdFiSchema _schemaDefinition;
 
             protected override void Arrange()
             {
-                var schemaDefinition = DomainModelDefinitionsProviderHelper
+                _schemaDefinition = DomainModelDefinitionsProviderHelper
                     .DefinitionProviders
                     .Select(
                         x => x.GetDomainModelDefinitions()
@@ -48,14 +49,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
                     .GetExtensionOnlyOpenApiMetadataDocumentFactory(
                         DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
-                        schemaDefinition);
+                        _schemaDefinition);
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy, new OpenApiMetadataDocumentContext(DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel())
+                {
+                    RenderType = RenderType.ExtensionArtifactsOnly,
+                    IsIncludedExtension = r => r.FullName.Schema.Equals(_schemaDefinition.PhysicalName)
+                });
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 
@@ -160,7 +165,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy, new OpenApiMetadataDocumentContext(DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel())
+                {
+                    RenderType = RenderType.ExtensionArtifactsOnly,
+                    IsIncludedExtension = r => r.FullName.Schema.Equals(requestedExtensionPhysicalName)
+                });
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 

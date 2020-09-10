@@ -151,9 +151,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             x.Key,
                             new Lazy<string>(
                                 () =>
-                                    new OpenApiMetadataDocumentFactory(
-                                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
-                                        .Create(x.Value)),
+                                    new OpenApiMetadataDocumentFactory()
+                                        .Create(x.Value, new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                             _odsDataBasePath));
             }
 
@@ -165,9 +164,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         All,
                         new Lazy<string>(
                             () =>
-                                new OpenApiMetadataDocumentFactory(
-                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
-                                    .Create(_openApiMetadataResourceFilters[All])),
+                                new OpenApiMetadataDocumentFactory()
+                                    .Create(_openApiMetadataResourceFilters[All],new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                         _odsDataBasePath,
                         string.Empty)
                 };

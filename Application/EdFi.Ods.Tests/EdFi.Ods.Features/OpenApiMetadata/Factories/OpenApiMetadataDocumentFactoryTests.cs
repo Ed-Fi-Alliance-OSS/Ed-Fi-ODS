@@ -49,8 +49,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext)
-                    .Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = new OpenApiMetadataDocumentFactory()
+                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
@@ -156,7 +156,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = new OpenApiMetadataDocumentFactory().Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
