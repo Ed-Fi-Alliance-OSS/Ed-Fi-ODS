@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
+#if NETFRAMEWORK
 using System;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -14,7 +14,6 @@ using Dapper;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common.Configuration;
 using log4net;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
@@ -22,9 +21,9 @@ namespace EdFi.Ods.Sandbox.Provisioners
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
 
-        public SqlServerSandboxProvisioner(IConfiguration configuration,
+        public SqlServerSandboxProvisioner(IConfigValueProvider configValueProvider,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
-            : base(configuration, connectionStringsProvider, databaseNameBuilder) { }
+            : base(configValueProvider, connectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection() => new SqlConnection(ConnectionString);
 
