@@ -18,7 +18,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/accreditationStatusDescriptors")]
     public partial class AccreditationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccreditationStatusDescriptor.TPDM.AccreditationStatusDescriptor,
@@ -37,10 +36,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AccreditationStatusDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AccreditationStatusDescriptors.AccreditationStatusDescriptorGetByExample request, Entities.Common.TPDM.IAccreditationStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccreditationStatusDescriptorId = request.AccreditationStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -55,7 +54,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/aidTypeDescriptors")]
     public partial class AidTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AidTypeDescriptor.TPDM.AidTypeDescriptor,
@@ -74,10 +72,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AidTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AidTypeDescriptors.AidTypeDescriptorGetByExample request, Entities.Common.TPDM.IAidTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AidTypeDescriptorId = request.AidTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -92,7 +90,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudents")]
     public partial class AnonymizedStudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudent.TPDM.AnonymizedStudent,
@@ -111,7 +108,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudents.AnonymizedStudentGetByExample request, Entities.Common.TPDM.IAnonymizedStudent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.AtriskIndicator = request.AtriskIndicator;
@@ -129,7 +126,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudents
             specification.SPEDEnrollment = request.SPEDEnrollment;
             specification.TitleIEnrollment = request.TitleIEnrollment;
             specification.ValueTypeDescriptor = request.ValueTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -144,7 +141,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAcademicRecord
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentAcademicRecords")]
     public partial class AnonymizedStudentAcademicRecordsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentAcademicRecord.TPDM.AnonymizedStudentAcademicRecord,
@@ -163,7 +159,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAcademicRecord
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentAcademicRecords.AnonymizedStudentAcademicRecordGetByExample request, Entities.Common.TPDM.IAnonymizedStudentAcademicRecord specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.CumulativeGradePointAverage = request.CumulativeGradePointAverage;
@@ -175,7 +171,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAcademicRecord
             specification.SchoolYear = request.SchoolYear;
             specification.SessionGradePointAverage = request.SessionGradePointAverage;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -190,7 +186,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessments
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentAssessments")]
     public partial class AnonymizedStudentAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentAssessment.TPDM.AnonymizedStudentAssessment,
@@ -209,7 +204,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessments
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentAssessments.AnonymizedStudentAssessmentGetByExample request, Entities.Common.TPDM.IAnonymizedStudentAssessment specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.AdministrationDate = request.AdministrationDate;
@@ -223,7 +218,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessments
             specification.SchoolYear = request.SchoolYear;
             specification.TakenSchoolYear = request.TakenSchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -238,7 +233,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentCour
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentAssessmentCourseAssociations")]
     public partial class AnonymizedStudentAssessmentCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentAssessmentCourseAssociation.TPDM.AnonymizedStudentAssessmentCourseAssociation,
@@ -257,7 +251,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentCour
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentAssessmentCourseAssociations.AnonymizedStudentAssessmentCourseAssociationGetByExample request, Entities.Common.TPDM.IAnonymizedStudentAssessmentCourseAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationDate = request.AdministrationDate;
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
@@ -268,7 +262,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentCour
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
             specification.TakenSchoolYear = request.TakenSchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -283,7 +277,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentSect
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentAssessmentSectionAssociations")]
     public partial class AnonymizedStudentAssessmentSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentAssessmentSectionAssociation.TPDM.AnonymizedStudentAssessmentSectionAssociation,
@@ -302,7 +295,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentSect
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentAssessmentSectionAssociations.AnonymizedStudentAssessmentSectionAssociationGetByExample request, Entities.Common.TPDM.IAnonymizedStudentAssessmentSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationDate = request.AdministrationDate;
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
@@ -315,7 +308,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentAssessmentSect
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.TakenSchoolYear = request.TakenSchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -330,7 +323,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentCourseAssociations")]
     public partial class AnonymizedStudentCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentCourseAssociation.TPDM.AnonymizedStudentCourseAssociation,
@@ -349,7 +341,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseAssociat
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentCourseAssociations.AnonymizedStudentCourseAssociationGetByExample request, Entities.Common.TPDM.IAnonymizedStudentCourseAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.BeginDate = request.BeginDate;
@@ -359,7 +351,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseAssociat
             specification.FactsAsOfDate = request.FactsAsOfDate;
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -374,7 +366,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseTranscri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentCourseTranscripts")]
     public partial class AnonymizedStudentCourseTranscriptsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentCourseTranscript.TPDM.AnonymizedStudentCourseTranscript,
@@ -393,7 +384,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseTranscri
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentCourseTranscripts.AnonymizedStudentCourseTranscriptGetByExample request, Entities.Common.TPDM.IAnonymizedStudentCourseTranscript specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.CourseCode = request.CourseCode;
@@ -407,7 +398,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentCourseTranscri
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -422,7 +413,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentEducationOrgan
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentEducationOrganizationAssociations")]
     public partial class AnonymizedStudentEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentEducationOrganizationAssociation.TPDM.AnonymizedStudentEducationOrganizationAssociation,
@@ -441,7 +431,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentEducationOrgan
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentEducationOrganizationAssociations.AnonymizedStudentEducationOrganizationAssociationGetByExample request, Entities.Common.TPDM.IAnonymizedStudentEducationOrganizationAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.BeginDate = request.BeginDate;
@@ -450,7 +440,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentEducationOrgan
             specification.FactsAsOfDate = request.FactsAsOfDate;
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -465,7 +455,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentSectionAssocia
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/anonymizedStudentSectionAssociations")]
     public partial class AnonymizedStudentSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AnonymizedStudentSectionAssociation.TPDM.AnonymizedStudentSectionAssociation,
@@ -484,7 +473,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentSectionAssocia
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.AnonymizedStudentSectionAssociations.AnonymizedStudentSectionAssociationGetByExample request, Entities.Common.TPDM.IAnonymizedStudentSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AnonymizedStudentIdentifier = request.AnonymizedStudentIdentifier;
             specification.BeginDate = request.BeginDate;
@@ -496,7 +485,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.AnonymizedStudentSectionAssocia
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -511,7 +500,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicants")]
     public partial class ApplicantsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Applicant.TPDM.Applicant,
@@ -530,7 +518,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Applicants.ApplicantGetByExample request, Entities.Common.TPDM.IApplicant specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicantIdentifier = request.ApplicantIdentifier;
             specification.BirthDate = request.BirthDate;
@@ -551,7 +539,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applicants
             specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -566,7 +554,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicantProspectAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicantProspectAssociations")]
     public partial class ApplicantProspectAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicantProspectAssociation.TPDM.ApplicantProspectAssociation,
@@ -585,13 +572,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicantProspectAssociations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicantProspectAssociations.ApplicantProspectAssociationGetByExample request, Entities.Common.TPDM.IApplicantProspectAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicantIdentifier = request.ApplicantIdentifier;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.ProspectIdentifier = request.ProspectIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -606,7 +593,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applications
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applications")]
     public partial class ApplicationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Application.TPDM.Application,
@@ -625,7 +611,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applications
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Applications.ApplicationGetByExample request, Entities.Common.TPDM.IApplication specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.AcceptedDate = request.AcceptedDate;
@@ -648,7 +634,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Applications
             specification.WithdrawReasonDescriptor = request.WithdrawReasonDescriptor;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -663,7 +649,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicationEvents")]
     public partial class ApplicationEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicationEvent.TPDM.ApplicationEvent,
@@ -682,7 +667,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicationEvents.ApplicationEventGetByExample request, Entities.Common.TPDM.IApplicationEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicantIdentifier = request.ApplicantIdentifier;
             specification.ApplicationEvaluationScore = request.ApplicationEvaluationScore;
@@ -696,7 +681,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEvents
             specification.SchoolYear = request.SchoolYear;
             specification.SequenceNumber = request.SequenceNumber;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -711,7 +696,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventResultDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicationEventResultDescriptors")]
     public partial class ApplicationEventResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicationEventResultDescriptor.TPDM.ApplicationEventResultDescriptor,
@@ -730,10 +714,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventResultDescripto
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicationEventResultDescriptors.ApplicationEventResultDescriptorGetByExample request, Entities.Common.TPDM.IApplicationEventResultDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicationEventResultDescriptorId = request.ApplicationEventResultDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -748,7 +732,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicationEventTypeDescriptors")]
     public partial class ApplicationEventTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicationEventTypeDescriptor.TPDM.ApplicationEventTypeDescriptor,
@@ -767,10 +750,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationEventTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicationEventTypeDescriptors.ApplicationEventTypeDescriptorGetByExample request, Entities.Common.TPDM.IApplicationEventTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicationEventTypeDescriptorId = request.ApplicationEventTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -785,7 +768,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationSourceDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicationSourceDescriptors")]
     public partial class ApplicationSourceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicationSourceDescriptor.TPDM.ApplicationSourceDescriptor,
@@ -804,10 +786,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationSourceDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicationSourceDescriptors.ApplicationSourceDescriptorGetByExample request, Entities.Common.TPDM.IApplicationSourceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicationSourceDescriptorId = request.ApplicationSourceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -822,7 +804,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/applicationStatusDescriptors")]
     public partial class ApplicationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ApplicationStatusDescriptor.TPDM.ApplicationStatusDescriptor,
@@ -841,10 +822,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ApplicationStatusDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ApplicationStatusDescriptors.ApplicationStatusDescriptorGetByExample request, Entities.Common.TPDM.IApplicationStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicationStatusDescriptorId = request.ApplicationStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -859,7 +840,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckStatusDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/backgroundCheckStatusDescriptors")]
     public partial class BackgroundCheckStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BackgroundCheckStatusDescriptor.TPDM.BackgroundCheckStatusDescriptor,
@@ -878,10 +858,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckStatusDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.BackgroundCheckStatusDescriptors.BackgroundCheckStatusDescriptorGetByExample request, Entities.Common.TPDM.IBackgroundCheckStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BackgroundCheckStatusDescriptorId = request.BackgroundCheckStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -896,7 +876,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/backgroundCheckTypeDescriptors")]
     public partial class BackgroundCheckTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BackgroundCheckTypeDescriptor.TPDM.BackgroundCheckTypeDescriptor,
@@ -915,10 +894,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.BackgroundCheckTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.BackgroundCheckTypeDescriptors.BackgroundCheckTypeDescriptorGetByExample request, Entities.Common.TPDM.IBackgroundCheckTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BackgroundCheckTypeDescriptorId = request.BackgroundCheckTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -933,7 +912,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certifications")]
     public partial class CertificationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Certification.TPDM.Certification,
@@ -952,7 +930,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Certifications.CertificationGetByExample request, Entities.Common.TPDM.ICertification specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationFieldDescriptor = request.CertificationFieldDescriptor;
             specification.CertificationIdentifier = request.CertificationIdentifier;
@@ -968,7 +946,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Certifications
             specification.MinimumDegreeDescriptor = request.MinimumDegreeDescriptor;
             specification.Namespace = request.Namespace;
             specification.PopulationServedDescriptor = request.PopulationServedDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -983,7 +961,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationExams")]
     public partial class CertificationExamsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationExam.TPDM.CertificationExam,
@@ -1002,7 +979,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationExams.CertificationExamGetByExample request, Entities.Common.TPDM.ICertificationExam specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationExamIdentifier = request.CertificationExamIdentifier;
             specification.CertificationExamTitle = request.CertificationExamTitle;
@@ -1012,7 +989,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExams
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1027,7 +1004,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationExamResults")]
     public partial class CertificationExamResultsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationExamResult.TPDM.CertificationExamResult,
@@ -1046,7 +1022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationExamResults.CertificationExamResultGetByExample request, Entities.Common.TPDM.ICertificationExamResult specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttemptNumber = request.AttemptNumber;
             specification.CertificationExamDate = request.CertificationExamDate;
@@ -1058,7 +1034,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamResults
             specification.Namespace = request.Namespace;
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1073,7 +1049,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamStatusDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationExamStatusDescriptors")]
     public partial class CertificationExamStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationExamStatusDescriptor.TPDM.CertificationExamStatusDescriptor,
@@ -1092,10 +1067,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamStatusDescript
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationExamStatusDescriptors.CertificationExamStatusDescriptorGetByExample request, Entities.Common.TPDM.ICertificationExamStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationExamStatusDescriptorId = request.CertificationExamStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1110,7 +1085,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamTypeDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationExamTypeDescriptors")]
     public partial class CertificationExamTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationExamTypeDescriptor.TPDM.CertificationExamTypeDescriptor,
@@ -1129,10 +1103,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationExamTypeDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationExamTypeDescriptors.CertificationExamTypeDescriptorGetByExample request, Entities.Common.TPDM.ICertificationExamTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationExamTypeDescriptorId = request.CertificationExamTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1147,7 +1121,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationFieldDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationFieldDescriptors")]
     public partial class CertificationFieldDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationFieldDescriptor.TPDM.CertificationFieldDescriptor,
@@ -1166,10 +1139,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationFieldDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationFieldDescriptors.CertificationFieldDescriptorGetByExample request, Entities.Common.TPDM.ICertificationFieldDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationFieldDescriptorId = request.CertificationFieldDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1184,7 +1157,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationLevelDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationLevelDescriptors")]
     public partial class CertificationLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationLevelDescriptor.TPDM.CertificationLevelDescriptor,
@@ -1203,10 +1175,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationLevelDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationLevelDescriptors.CertificationLevelDescriptorGetByExample request, Entities.Common.TPDM.ICertificationLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationLevelDescriptorId = request.CertificationLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1221,7 +1193,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationRouteDescriptors")]
     public partial class CertificationRouteDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM.CertificationRouteDescriptor,
@@ -1240,10 +1211,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationRouteDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationRouteDescriptors.CertificationRouteDescriptorGetByExample request, Entities.Common.TPDM.ICertificationRouteDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationRouteDescriptorId = request.CertificationRouteDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1258,7 +1229,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationStandardDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/certificationStandardDescriptors")]
     public partial class CertificationStandardDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CertificationStandardDescriptor.TPDM.CertificationStandardDescriptor,
@@ -1277,10 +1247,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CertificationStandardDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CertificationStandardDescriptors.CertificationStandardDescriptorGetByExample request, Entities.Common.TPDM.ICertificationStandardDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CertificationStandardDescriptorId = request.CertificationStandardDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1295,7 +1265,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CompleterAsStaffAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/completerAsStaffAssociations")]
     public partial class CompleterAsStaffAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompleterAsStaffAssociation.TPDM.CompleterAsStaffAssociation,
@@ -1314,12 +1283,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CompleterAsStaffAssociations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CompleterAsStaffAssociations.CompleterAsStaffAssociationGetByExample request, Entities.Common.TPDM.ICompleterAsStaffAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1334,7 +1303,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/coteachingStyleObservedDescriptors")]
     public partial class CoteachingStyleObservedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor,
@@ -1353,10 +1321,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CoteachingStyleObservedDescript
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CoteachingStyleObservedDescriptors.CoteachingStyleObservedDescriptorGetByExample request, Entities.Common.TPDM.ICoteachingStyleObservedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CoteachingStyleObservedDescriptorId = request.CoteachingStyleObservedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1371,7 +1339,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/credentialEvents")]
     public partial class CredentialEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialEvent.TPDM.CredentialEvent,
@@ -1390,7 +1357,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CredentialEvents.CredentialEventGetByExample request, Entities.Common.TPDM.ICredentialEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialEventDate = request.CredentialEventDate;
             specification.CredentialEventReason = request.CredentialEventReason;
@@ -1398,7 +1365,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEvents
             specification.CredentialIdentifier = request.CredentialIdentifier;
             specification.Id = request.Id;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1413,7 +1380,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEventTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/credentialEventTypeDescriptors")]
     public partial class CredentialEventTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialEventTypeDescriptor.TPDM.CredentialEventTypeDescriptor,
@@ -1432,10 +1398,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialEventTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CredentialEventTypeDescriptors.CredentialEventTypeDescriptorGetByExample request, Entities.Common.TPDM.ICredentialEventTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialEventTypeDescriptorId = request.CredentialEventTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1450,7 +1416,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/credentialStatusDescriptors")]
     public partial class CredentialStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM.CredentialStatusDescriptor,
@@ -1469,10 +1434,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.CredentialStatusDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.CredentialStatusDescriptors.CredentialStatusDescriptorGetByExample request, Entities.Common.TPDM.ICredentialStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialStatusDescriptorId = request.CredentialStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1487,7 +1452,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.DegreeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/degreeDescriptors")]
     public partial class DegreeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DegreeDescriptor.TPDM.DegreeDescriptor,
@@ -1506,10 +1470,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.DegreeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.DegreeDescriptors.DegreeDescriptorGetByExample request, Entities.Common.TPDM.IDegreeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DegreeDescriptorId = request.DegreeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1524,7 +1488,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/educatorRoleDescriptors")]
     public partial class EducatorRoleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor,
@@ -1543,10 +1506,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EducatorRoleDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EducatorRoleDescriptors.EducatorRoleDescriptorGetByExample request, Entities.Common.TPDM.IEducatorRoleDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducatorRoleDescriptorId = request.EducatorRoleDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1561,7 +1524,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/employmentEvents")]
     public partial class EmploymentEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentEvent.TPDM.EmploymentEvent,
@@ -1580,7 +1542,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EmploymentEvents.EmploymentEventGetByExample request, Entities.Common.TPDM.IEmploymentEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EarlyHire = request.EarlyHire;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -1591,7 +1553,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEvents
             specification.MutualConsent = request.MutualConsent;
             specification.RequisitionNumber = request.RequisitionNumber;
             specification.RestrictedChoice = request.RestrictedChoice;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1606,7 +1568,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEventTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/employmentEventTypeDescriptors")]
     public partial class EmploymentEventTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentEventTypeDescriptor.TPDM.EmploymentEventTypeDescriptor,
@@ -1625,10 +1586,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentEventTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EmploymentEventTypeDescriptors.EmploymentEventTypeDescriptorGetByExample request, Entities.Common.TPDM.IEmploymentEventTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EmploymentEventTypeDescriptorId = request.EmploymentEventTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1643,7 +1604,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/employmentSeparationEvents")]
     public partial class EmploymentSeparationEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentSeparationEvent.TPDM.EmploymentSeparationEvent,
@@ -1662,7 +1622,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EmploymentSeparationEvents.EmploymentSeparationEventGetByExample request, Entities.Common.TPDM.IEmploymentSeparationEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EmploymentSeparationDate = request.EmploymentSeparationDate;
@@ -1672,7 +1632,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationEvents
             specification.Id = request.Id;
             specification.RemainingInDistrict = request.RemainingInDistrict;
             specification.RequisitionNumber = request.RequisitionNumber;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1687,7 +1647,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationReasonDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/employmentSeparationReasonDescriptors")]
     public partial class EmploymentSeparationReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentSeparationReasonDescriptor.TPDM.EmploymentSeparationReasonDescriptor,
@@ -1706,10 +1665,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationReasonDescr
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EmploymentSeparationReasonDescriptors.EmploymentSeparationReasonDescriptorGetByExample request, Entities.Common.TPDM.IEmploymentSeparationReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EmploymentSeparationReasonDescriptorId = request.EmploymentSeparationReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1724,7 +1683,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationTypeDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/employmentSeparationTypeDescriptors")]
     public partial class EmploymentSeparationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentSeparationTypeDescriptor.TPDM.EmploymentSeparationTypeDescriptor,
@@ -1743,10 +1701,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EmploymentSeparationTypeDescrip
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EmploymentSeparationTypeDescriptors.EmploymentSeparationTypeDescriptorGetByExample request, Entities.Common.TPDM.IEmploymentSeparationTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EmploymentSeparationTypeDescriptorId = request.EmploymentSeparationTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1761,7 +1719,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/englishLanguageExamDescriptors")]
     public partial class EnglishLanguageExamDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor,
@@ -1780,10 +1737,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EnglishLanguageExamDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EnglishLanguageExamDescriptors.EnglishLanguageExamDescriptorGetByExample request, Entities.Common.TPDM.IEnglishLanguageExamDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EnglishLanguageExamDescriptorId = request.EnglishLanguageExamDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1798,7 +1755,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluations")]
     public partial class EvaluationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Evaluation.TPDM.Evaluation,
@@ -1817,7 +1773,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Evaluations.EvaluationGetByExample request, Entities.Common.TPDM.IEvaluation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
@@ -1831,7 +1787,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Evaluations
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1846,7 +1802,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationElements")]
     public partial class EvaluationElementsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElement.TPDM.EvaluationElement,
@@ -1865,7 +1820,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElements.EvaluationElementGetByExample request, Entities.Common.TPDM.IEvaluationElement specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
@@ -1881,7 +1836,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElements
             specification.SchoolYear = request.SchoolYear;
             specification.SortOrder = request.SortOrder;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1896,7 +1851,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationElementRatings")]
     public partial class EvaluationElementRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElementRating.TPDM.EvaluationElementRating,
@@ -1915,7 +1869,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElementRatings.EvaluationElementRatingGetByExample request, Entities.Common.TPDM.IEvaluationElementRating specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AreaOfRefinement = request.AreaOfRefinement;
             specification.AreaOfReinforcement = request.AreaOfReinforcement;
@@ -1935,7 +1889,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatings
             specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1950,7 +1904,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationElementRatingLevelDescriptors")]
     public partial class EvaluationElementRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationElementRatingLevelDescriptor.TPDM.EvaluationElementRatingLevelDescriptor,
@@ -1969,10 +1922,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationElementRatingLevelDes
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationElementRatingLevelDescriptors.EvaluationElementRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationElementRatingLevelDescriptorId = request.EvaluationElementRatingLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1987,7 +1940,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationObjectives")]
     public partial class EvaluationObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationObjective.TPDM.EvaluationObjective,
@@ -2006,7 +1958,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationObjectives.EvaluationObjectiveGetByExample request, Entities.Common.TPDM.IEvaluationObjective specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationObjectiveTitle = request.EvaluationObjectiveTitle;
@@ -2021,7 +1973,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectives
             specification.SchoolYear = request.SchoolYear;
             specification.SortOrder = request.SortOrder;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2036,7 +1988,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationObjectiveRatings")]
     public partial class EvaluationObjectiveRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM.EvaluationObjectiveRating,
@@ -2055,7 +2006,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationObjectiveRatings.EvaluationObjectiveRatingGetByExample request, Entities.Common.TPDM.IEvaluationObjectiveRating specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Comments = request.Comments;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -2071,7 +2022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationObjectiveRatings
             specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2086,7 +2037,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationPeriodDescriptors")]
     public partial class EvaluationPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM.EvaluationPeriodDescriptor,
@@ -2105,10 +2055,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationPeriodDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationPeriodDescriptors.EvaluationPeriodDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationPeriodDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationPeriodDescriptorId = request.EvaluationPeriodDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2123,7 +2073,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationRatings")]
     public partial class EvaluationRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRating.TPDM.EvaluationRating,
@@ -2142,7 +2091,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatings.EvaluationRatingGetByExample request, Entities.Common.TPDM.IEvaluationRating specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
@@ -2160,7 +2109,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
             specification.SessionName = request.SessionName;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2175,7 +2124,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationRatingLevelDescriptors")]
     public partial class EvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.TPDM.EvaluationRatingLevelDescriptor,
@@ -2194,10 +2142,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescriptors.EvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationRatingLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationRatingLevelDescriptorId = request.EvaluationRatingLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2212,7 +2160,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/evaluationTypeDescriptors")]
     public partial class EvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor,
@@ -2231,10 +2178,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationTypeDescriptors.EvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationTypeDescriptorId = request.EvaluationTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2249,7 +2196,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FederalLocaleCodeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/federalLocaleCodeDescriptors")]
     public partial class FederalLocaleCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FederalLocaleCodeDescriptor.TPDM.FederalLocaleCodeDescriptor,
@@ -2268,10 +2214,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FederalLocaleCodeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.FederalLocaleCodeDescriptors.FederalLocaleCodeDescriptorGetByExample request, Entities.Common.TPDM.IFederalLocaleCodeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FederalLocaleCodeDescriptorId = request.FederalLocaleCodeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2286,7 +2232,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperiences
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/fieldworkExperiences")]
     public partial class FieldworkExperiencesController : DataManagementControllerBase<
         Api.Common.Models.Resources.FieldworkExperience.TPDM.FieldworkExperience,
@@ -2305,7 +2250,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperiences
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.FieldworkExperiences.FieldworkExperienceGetByExample request, Entities.Common.TPDM.IFieldworkExperience specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -2315,7 +2260,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperiences
             specification.Id = request.Id;
             specification.ProgramGatewayDescriptor = request.ProgramGatewayDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2330,7 +2275,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperienceSectionAssoc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/fieldworkExperienceSectionAssociations")]
     public partial class FieldworkExperienceSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FieldworkExperienceSectionAssociation.TPDM.FieldworkExperienceSectionAssociation,
@@ -2349,7 +2293,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperienceSectionAssoc
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.FieldworkExperienceSectionAssociations.FieldworkExperienceSectionAssociationGetByExample request, Entities.Common.TPDM.IFieldworkExperienceSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.FieldworkIdentifier = request.FieldworkIdentifier;
@@ -2360,7 +2304,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkExperienceSectionAssoc
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2375,7 +2319,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/fieldworkTypeDescriptors")]
     public partial class FieldworkTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FieldworkTypeDescriptor.TPDM.FieldworkTypeDescriptor,
@@ -2394,10 +2337,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FieldworkTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.FieldworkTypeDescriptors.FieldworkTypeDescriptorGetByExample request, Entities.Common.TPDM.IFieldworkTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FieldworkTypeDescriptorId = request.FieldworkTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2412,7 +2355,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FundingSourceDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/fundingSourceDescriptors")]
     public partial class FundingSourceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FundingSourceDescriptor.TPDM.FundingSourceDescriptor,
@@ -2431,10 +2373,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.FundingSourceDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.FundingSourceDescriptors.FundingSourceDescriptorGetByExample request, Entities.Common.TPDM.IFundingSourceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FundingSourceDescriptorId = request.FundingSourceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2449,7 +2391,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/genderDescriptors")]
     public partial class GenderDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GenderDescriptor.TPDM.GenderDescriptor,
@@ -2468,10 +2409,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GenderDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.GenderDescriptors.GenderDescriptorGetByExample request, Entities.Common.TPDM.IGenderDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GenderDescriptorId = request.GenderDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2486,7 +2427,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/goals")]
     public partial class GoalsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Goal.TPDM.Goal,
@@ -2505,7 +2445,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Goals.GoalGetByExample request, Entities.Common.TPDM.IGoal specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssignmentDate = request.AssignmentDate;
             specification.Comments = request.Comments;
@@ -2527,7 +2467,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Goals
             specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2542,7 +2482,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GoalTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/goalTypeDescriptors")]
     public partial class GoalTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GoalTypeDescriptor.TPDM.GoalTypeDescriptor,
@@ -2561,10 +2500,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.GoalTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.GoalTypeDescriptors.GoalTypeDescriptorGetByExample request, Entities.Common.TPDM.IGoalTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GoalTypeDescriptorId = request.GoalTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2579,7 +2518,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.HireStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/hireStatusDescriptors")]
     public partial class HireStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HireStatusDescriptor.TPDM.HireStatusDescriptor,
@@ -2598,10 +2536,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.HireStatusDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.HireStatusDescriptors.HireStatusDescriptorGetByExample request, Entities.Common.TPDM.IHireStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.HireStatusDescriptorId = request.HireStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2616,7 +2554,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.HiringSourceDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/hiringSourceDescriptors")]
     public partial class HiringSourceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HiringSourceDescriptor.TPDM.HiringSourceDescriptor,
@@ -2635,10 +2572,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.HiringSourceDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.HiringSourceDescriptors.HiringSourceDescriptorGetByExample request, Entities.Common.TPDM.IHiringSourceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.HiringSourceDescriptorId = request.HiringSourceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2653,7 +2590,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.InstructionalSettingDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/instructionalSettingDescriptors")]
     public partial class InstructionalSettingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstructionalSettingDescriptor.TPDM.InstructionalSettingDescriptor,
@@ -2672,10 +2608,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.InstructionalSettingDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.InstructionalSettingDescriptors.InstructionalSettingDescriptorGetByExample request, Entities.Common.TPDM.IInstructionalSettingDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InstructionalSettingDescriptorId = request.InstructionalSettingDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2690,7 +2626,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.InternalExternalHireDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/internalExternalHireDescriptors")]
     public partial class InternalExternalHireDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternalExternalHireDescriptor.TPDM.InternalExternalHireDescriptor,
@@ -2709,10 +2644,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.InternalExternalHireDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.InternalExternalHireDescriptors.InternalExternalHireDescriptorGetByExample request, Entities.Common.TPDM.IInternalExternalHireDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InternalExternalHireDescriptorId = request.InternalExternalHireDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2727,7 +2662,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/levelOfDegreeAwardedDescriptors")]
     public partial class LevelOfDegreeAwardedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LevelOfDegreeAwardedDescriptor.TPDM.LevelOfDegreeAwardedDescriptor,
@@ -2746,10 +2680,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.LevelOfDegreeAwardedDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.LevelOfDegreeAwardedDescriptors.LevelOfDegreeAwardedDescriptorGetByExample request, Entities.Common.TPDM.ILevelOfDegreeAwardedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LevelOfDegreeAwardedDescriptorId = request.LevelOfDegreeAwardedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2764,7 +2698,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/objectiveRatingLevelDescriptors")]
     public partial class ObjectiveRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TPDM.ObjectiveRatingLevelDescriptor,
@@ -2783,10 +2716,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ObjectiveRatingLevelDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ObjectiveRatingLevelDescriptors.ObjectiveRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IObjectiveRatingLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ObjectiveRatingLevelDescriptorId = request.ObjectiveRatingLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2801,7 +2734,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/openStaffPositionEvents")]
     public partial class OpenStaffPositionEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPositionEvent.TPDM.OpenStaffPositionEvent,
@@ -2820,7 +2752,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.OpenStaffPositionEvents.OpenStaffPositionEventGetByExample request, Entities.Common.TPDM.IOpenStaffPositionEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EventDate = request.EventDate;
@@ -2828,7 +2760,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEvents
             specification.OpenStaffPositionEventStatusDescriptor = request.OpenStaffPositionEventStatusDescriptor;
             specification.OpenStaffPositionEventTypeDescriptor = request.OpenStaffPositionEventTypeDescriptor;
             specification.RequisitionNumber = request.RequisitionNumber;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2843,7 +2775,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventStatusDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/openStaffPositionEventStatusDescriptors")]
     public partial class OpenStaffPositionEventStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPositionEventStatusDescriptor.TPDM.OpenStaffPositionEventStatusDescriptor,
@@ -2862,10 +2793,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventStatusDes
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.OpenStaffPositionEventStatusDescriptors.OpenStaffPositionEventStatusDescriptorGetByExample request, Entities.Common.TPDM.IOpenStaffPositionEventStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OpenStaffPositionEventStatusDescriptorId = request.OpenStaffPositionEventStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2880,7 +2811,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventTypeDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/openStaffPositionEventTypeDescriptors")]
     public partial class OpenStaffPositionEventTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPositionEventTypeDescriptor.TPDM.OpenStaffPositionEventTypeDescriptor,
@@ -2899,10 +2829,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionEventTypeDescr
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.OpenStaffPositionEventTypeDescriptors.OpenStaffPositionEventTypeDescriptorGetByExample request, Entities.Common.TPDM.IOpenStaffPositionEventTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OpenStaffPositionEventTypeDescriptorId = request.OpenStaffPositionEventTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2917,7 +2847,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionReasonDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/openStaffPositionReasonDescriptors")]
     public partial class OpenStaffPositionReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPositionReasonDescriptor.TPDM.OpenStaffPositionReasonDescriptor,
@@ -2936,10 +2865,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.OpenStaffPositionReasonDescript
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.OpenStaffPositionReasonDescriptors.OpenStaffPositionReasonDescriptorGetByExample request, Entities.Common.TPDM.IOpenStaffPositionReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OpenStaffPositionReasonDescriptorId = request.OpenStaffPositionReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2954,7 +2883,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/performanceEvaluations")]
     public partial class PerformanceEvaluationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluation.TPDM.PerformanceEvaluation,
@@ -2973,7 +2901,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluations.PerformanceEvaluationGetByExample request, Entities.Common.TPDM.IPerformanceEvaluation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -2983,7 +2911,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluations
             specification.PerformanceEvaluationTypeDescriptor = request.PerformanceEvaluationTypeDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2998,7 +2926,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/performanceEvaluationRatings")]
     public partial class PerformanceEvaluationRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM.PerformanceEvaluationRating,
@@ -3017,7 +2944,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatings.PerformanceEvaluationRatingGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRating specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ActualDate = request.ActualDate;
             specification.ActualDuration = request.ActualDuration;
@@ -3036,7 +2963,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatings
             specification.SchoolYear = request.SchoolYear;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3051,7 +2978,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/performanceEvaluationRatingLevelDescriptors")]
     public partial class PerformanceEvaluationRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationRatingLevelDescriptor.TPDM.PerformanceEvaluationRatingLevelDescriptor,
@@ -3070,10 +2996,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationRatingLeve
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationRatingLevelDescriptors.PerformanceEvaluationRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceEvaluationRatingLevelDescriptorId = request.PerformanceEvaluationRatingLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3088,7 +3014,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/performanceEvaluationTypeDescriptors")]
     public partial class PerformanceEvaluationTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceEvaluationTypeDescriptor.TPDM.PerformanceEvaluationTypeDescriptor,
@@ -3107,10 +3032,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PerformanceEvaluationTypeDescri
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.PerformanceEvaluationTypeDescriptors.PerformanceEvaluationTypeDescriptorGetByExample request, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceEvaluationTypeDescriptorId = request.PerformanceEvaluationTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3125,7 +3050,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PreviousCareerDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/previousCareerDescriptors")]
     public partial class PreviousCareerDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PreviousCareerDescriptor.TPDM.PreviousCareerDescriptor,
@@ -3144,10 +3068,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.PreviousCareerDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.PreviousCareerDescriptors.PreviousCareerDescriptorGetByExample request, Entities.Common.TPDM.IPreviousCareerDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PreviousCareerDescriptorId = request.PreviousCareerDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3162,7 +3086,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/professionalDevelopmentEvents")]
     public partial class ProfessionalDevelopmentEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProfessionalDevelopmentEvent.TPDM.ProfessionalDevelopmentEvent,
@@ -3181,7 +3104,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentEvents.ProfessionalDevelopmentEventGetByExample request, Entities.Common.TPDM.IProfessionalDevelopmentEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.MultipleSession = request.MultipleSession;
@@ -3191,7 +3114,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEvents
             specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
             specification.Required = request.Required;
             specification.TotalHours = request.TotalHours;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3206,7 +3129,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEventAtt
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/professionalDevelopmentEventAttendances")]
     public partial class ProfessionalDevelopmentEventAttendancesController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProfessionalDevelopmentEventAttendance.TPDM.ProfessionalDevelopmentEventAttendance,
@@ -3225,7 +3147,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEventAtt
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentEventAttendances.ProfessionalDevelopmentEventAttendanceGetByExample request, Entities.Common.TPDM.IProfessionalDevelopmentEventAttendance specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceDate = request.AttendanceDate;
             specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
@@ -3235,7 +3157,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentEventAtt
             specification.PersonId = request.PersonId;
             specification.ProfessionalDevelopmentTitle = request.ProfessionalDevelopmentTitle;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3250,7 +3172,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentOfferedB
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/professionalDevelopmentOfferedByDescriptors")]
     public partial class ProfessionalDevelopmentOfferedByDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProfessionalDevelopmentOfferedByDescriptor.TPDM.ProfessionalDevelopmentOfferedByDescriptor,
@@ -3269,10 +3190,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProfessionalDevelopmentOfferedB
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ProfessionalDevelopmentOfferedByDescriptors.ProfessionalDevelopmentOfferedByDescriptorGetByExample request, Entities.Common.TPDM.IProfessionalDevelopmentOfferedByDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProfessionalDevelopmentOfferedByDescriptorId = request.ProfessionalDevelopmentOfferedByDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3287,7 +3208,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProgramGatewayDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/programGatewayDescriptors")]
     public partial class ProgramGatewayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramGatewayDescriptor.TPDM.ProgramGatewayDescriptor,
@@ -3306,10 +3226,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProgramGatewayDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ProgramGatewayDescriptors.ProgramGatewayDescriptorGetByExample request, Entities.Common.TPDM.IProgramGatewayDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramGatewayDescriptorId = request.ProgramGatewayDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3324,7 +3244,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/prospects")]
     public partial class ProspectsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Prospect.TPDM.Prospect,
@@ -3343,7 +3262,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Prospects.ProspectGetByExample request, Entities.Common.TPDM.IProspect specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Applied = request.Applied;
             specification.EconomicDisadvantaged = request.EconomicDisadvantaged;
@@ -3372,7 +3291,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Prospects
             specification.SocialMediaUserName = request.SocialMediaUserName;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3387,7 +3306,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/prospectTypeDescriptors")]
     public partial class ProspectTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProspectTypeDescriptor.TPDM.ProspectTypeDescriptor,
@@ -3406,10 +3324,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ProspectTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ProspectTypeDescriptors.ProspectTypeDescriptorGetByExample request, Entities.Common.TPDM.IProspectTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProspectTypeDescriptorId = request.ProspectTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3424,7 +3342,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/quantitativeMeasures")]
     public partial class QuantitativeMeasuresController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure,
@@ -3443,7 +3360,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.QuantitativeMeasures.QuantitativeMeasureGetByExample request, Entities.Common.TPDM.IQuantitativeMeasure specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationElementTitle = request.EvaluationElementTitle;
@@ -3458,7 +3375,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasures
             specification.QuantitativeMeasureTypeDescriptor = request.QuantitativeMeasureTypeDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3473,7 +3390,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureDatatypeDesc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/quantitativeMeasureDatatypeDescriptors")]
     public partial class QuantitativeMeasureDatatypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuantitativeMeasureDatatypeDescriptor.TPDM.QuantitativeMeasureDatatypeDescriptor,
@@ -3492,10 +3408,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureDatatypeDesc
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.QuantitativeMeasureDatatypeDescriptors.QuantitativeMeasureDatatypeDescriptorGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureDatatypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.QuantitativeMeasureDatatypeDescriptorId = request.QuantitativeMeasureDatatypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3510,7 +3426,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/quantitativeMeasureScores")]
     public partial class QuantitativeMeasureScoresController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuantitativeMeasureScore.TPDM.QuantitativeMeasureScore,
@@ -3529,7 +3444,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.QuantitativeMeasureScores.QuantitativeMeasureScoreGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureScore specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
@@ -3547,7 +3462,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureScores
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StandardError = request.StandardError;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3562,7 +3477,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureTypeDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/quantitativeMeasureTypeDescriptors")]
     public partial class QuantitativeMeasureTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuantitativeMeasureTypeDescriptor.TPDM.QuantitativeMeasureTypeDescriptor,
@@ -3581,10 +3495,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.QuantitativeMeasureTypeDescript
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.QuantitativeMeasureTypeDescriptors.QuantitativeMeasureTypeDescriptorGetByExample request, Entities.Common.TPDM.IQuantitativeMeasureTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.QuantitativeMeasureTypeDescriptorId = request.QuantitativeMeasureTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3599,7 +3513,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEvents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/recruitmentEvents")]
     public partial class RecruitmentEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RecruitmentEvent.TPDM.RecruitmentEvent,
@@ -3618,7 +3531,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEvents
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.RecruitmentEvents.RecruitmentEventGetByExample request, Entities.Common.TPDM.IRecruitmentEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EventDate = request.EventDate;
             specification.EventDescription = request.EventDescription;
@@ -3626,7 +3539,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEvents
             specification.EventTitle = request.EventTitle;
             specification.Id = request.Id;
             specification.RecruitmentEventTypeDescriptor = request.RecruitmentEventTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3641,7 +3554,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEventTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/recruitmentEventTypeDescriptors")]
     public partial class RecruitmentEventTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RecruitmentEventTypeDescriptor.TPDM.RecruitmentEventTypeDescriptor,
@@ -3660,10 +3572,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RecruitmentEventTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.RecruitmentEventTypeDescriptors.RecruitmentEventTypeDescriptorGetByExample request, Entities.Common.TPDM.IRecruitmentEventTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RecruitmentEventTypeDescriptorId = request.RecruitmentEventTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3678,7 +3590,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/rubricDimensions")]
     public partial class RubricDimensionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RubricDimension.TPDM.RubricDimension,
@@ -3697,7 +3608,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.RubricDimensions.RubricDimensionGetByExample request, Entities.Common.TPDM.IRubricDimension specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CriterionDescription = request.CriterionDescription;
             specification.DimensionOrder = request.DimensionOrder;
@@ -3713,7 +3624,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricDimensions
             specification.RubricRatingLevelDescriptor = request.RubricRatingLevelDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3728,7 +3639,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/rubricRatingLevelDescriptors")]
     public partial class RubricRatingLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM.RubricRatingLevelDescriptor,
@@ -3747,10 +3657,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.RubricRatingLevelDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.RubricRatingLevelDescriptors.RubricRatingLevelDescriptorGetByExample request, Entities.Common.TPDM.IRubricRatingLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RubricRatingLevelDescriptorId = request.RubricRatingLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3765,7 +3675,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SalaryTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/salaryTypeDescriptors")]
     public partial class SalaryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SalaryTypeDescriptor.TPDM.SalaryTypeDescriptor,
@@ -3784,10 +3693,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SalaryTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.SalaryTypeDescriptors.SalaryTypeDescriptorGetByExample request, Entities.Common.TPDM.ISalaryTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SalaryTypeDescriptorId = request.SalaryTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3802,7 +3711,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SchoolStatusDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/schoolStatusDescriptors")]
     public partial class SchoolStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolStatusDescriptor.TPDM.SchoolStatusDescriptor,
@@ -3821,10 +3729,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SchoolStatusDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.SchoolStatusDescriptors.SchoolStatusDescriptorGetByExample request, Entities.Common.TPDM.ISchoolStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolStatusDescriptorId = request.SchoolStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3839,7 +3747,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffApplicantAssociations")]
     public partial class StaffApplicantAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffApplicantAssociation.TPDM.StaffApplicantAssociation,
@@ -3858,12 +3765,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffApplicantAssociations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffApplicantAssociations.StaffApplicantAssociationGetByExample request, Entities.Common.TPDM.IStaffApplicantAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ApplicantIdentifier = request.ApplicantIdentifier;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3878,7 +3785,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffProspectAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffProspectAssociations")]
     public partial class StaffProspectAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffProspectAssociation.TPDM.StaffProspectAssociation,
@@ -3897,13 +3803,13 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffProspectAssociations
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffProspectAssociations.StaffProspectAssociationGetByExample request, Entities.Common.TPDM.IStaffProspectAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.ProspectIdentifier = request.ProspectIdentifier;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3918,7 +3824,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasures
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffStudentGrowthMeasures")]
     public partial class StaffStudentGrowthMeasuresController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffStudentGrowthMeasure.TPDM.StaffStudentGrowthMeasure,
@@ -3937,7 +3842,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasures
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffStudentGrowthMeasures.StaffStudentGrowthMeasureGetByExample request, Entities.Common.TPDM.IStaffStudentGrowthMeasure specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FactAsOfDate = request.FactAsOfDate;
             specification.Id = request.Id;
@@ -3952,7 +3857,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasures
             specification.StudentGrowthNCount = request.StudentGrowthNCount;
             specification.StudentGrowthTargetScore = request.StudentGrowthTargetScore;
             specification.StudentGrowthTypeDescriptor = request.StudentGrowthTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3967,7 +3872,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureCourse
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffStudentGrowthMeasureCourseAssociations")]
     public partial class StaffStudentGrowthMeasureCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffStudentGrowthMeasureCourseAssociation.TPDM.StaffStudentGrowthMeasureCourseAssociation,
@@ -3986,7 +3890,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureCourse
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffStudentGrowthMeasureCourseAssociations.StaffStudentGrowthMeasureCourseAssociationGetByExample request, Entities.Common.TPDM.IStaffStudentGrowthMeasureCourseAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CourseCode = request.CourseCode;
@@ -3997,7 +3901,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureCourse
             specification.SchoolYear = request.SchoolYear;
             specification.StaffStudentGrowthMeasureIdentifier = request.StaffStudentGrowthMeasureIdentifier;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4012,7 +3916,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureEducat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffStudentGrowthMeasureEducationOrganizationAssociations")]
     public partial class StaffStudentGrowthMeasureEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffStudentGrowthMeasureEducationOrganizationAssociation.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociation,
@@ -4031,7 +3934,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureEducat
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociations.StaffStudentGrowthMeasureEducationOrganizationAssociationGetByExample request, Entities.Common.TPDM.IStaffStudentGrowthMeasureEducationOrganizationAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4041,7 +3944,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureEducat
             specification.SchoolYear = request.SchoolYear;
             specification.StaffStudentGrowthMeasureIdentifier = request.StaffStudentGrowthMeasureIdentifier;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4056,7 +3959,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureSectio
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffStudentGrowthMeasureSectionAssociations")]
     public partial class StaffStudentGrowthMeasureSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffStudentGrowthMeasureSectionAssociation.TPDM.StaffStudentGrowthMeasureSectionAssociation,
@@ -4075,7 +3977,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureSectio
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffStudentGrowthMeasureSectionAssociations.StaffStudentGrowthMeasureSectionAssociationGetByExample request, Entities.Common.TPDM.IStaffStudentGrowthMeasureSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -4088,7 +3990,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffStudentGrowthMeasureSectio
             specification.SessionName = request.SessionName;
             specification.StaffStudentGrowthMeasureIdentifier = request.StaffStudentGrowthMeasureIdentifier;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4103,7 +4005,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProvider
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffTeacherPreparationProviderAssociations")]
     public partial class StaffTeacherPreparationProviderAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffTeacherPreparationProviderAssociation.TPDM.StaffTeacherPreparationProviderAssociation,
@@ -4122,14 +4023,14 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProvider
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffTeacherPreparationProviderAssociations.StaffTeacherPreparationProviderAssociationGetByExample request, Entities.Common.TPDM.IStaffTeacherPreparationProviderAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.ProgramAssignmentDescriptor = request.ProgramAssignmentDescriptor;
             specification.SchoolYear = request.SchoolYear;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.TeacherPreparationProviderId = request.TeacherPreparationProviderId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4144,7 +4045,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProvider
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/staffTeacherPreparationProviderProgramAssociations")]
     public partial class StaffTeacherPreparationProviderProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffTeacherPreparationProviderProgramAssociation.TPDM.StaffTeacherPreparationProviderProgramAssociation,
@@ -4163,7 +4063,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProvider
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StaffTeacherPreparationProviderProgramAssociations.StaffTeacherPreparationProviderProgramAssociationGetByExample request, Entities.Common.TPDM.IStaffTeacherPreparationProviderProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4173,7 +4073,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StaffTeacherPreparationProvider
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentRecordAccess = request.StudentRecordAccess;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4188,7 +4088,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StudentGrowthTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/studentGrowthTypeDescriptors")]
     public partial class StudentGrowthTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentGrowthTypeDescriptor.TPDM.StudentGrowthTypeDescriptor,
@@ -4207,10 +4106,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.StudentGrowthTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.StudentGrowthTypeDescriptors.StudentGrowthTypeDescriptorGetByExample request, Entities.Common.TPDM.IStudentGrowthTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentGrowthTypeDescriptorId = request.StudentGrowthTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4225,7 +4124,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponseTeacherCandidateT
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/surveyResponseTeacherCandidateTargetAssociations")]
     public partial class SurveyResponseTeacherCandidateTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation,
@@ -4244,14 +4142,14 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveyResponseTeacherCandidateT
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.SurveyResponseTeacherCandidateTargetAssociations.SurveyResponseTeacherCandidateTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveyResponseTeacherCandidateTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4266,7 +4164,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/surveySectionAggregateResponses")]
     public partial class SurveySectionAggregateResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionAggregateResponse.TPDM.SurveySectionAggregateResponse,
@@ -4285,7 +4182,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.SurveySectionAggregateResponses.SurveySectionAggregateResponseGetByExample request, Entities.Common.TPDM.ISurveySectionAggregateResponse specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.EvaluationDate = request.EvaluationDate;
@@ -4304,7 +4201,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionAggregateResponses
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4319,7 +4216,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponseTeacherCan
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/surveySectionResponseTeacherCandidateTargetAssociations")]
     public partial class SurveySectionResponseTeacherCandidateTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation,
@@ -4338,7 +4234,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponseTeacherCan
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.SurveySectionResponseTeacherCandidateTargetAssociations.SurveySectionResponseTeacherCandidateTargetAssociationGetByExample request, Entities.Common.TPDM.ISurveySectionResponseTeacherCandidateTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
@@ -4346,7 +4242,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.SurveySectionResponseTeacherCan
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4361,7 +4257,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidates
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidates")]
     public partial class TeacherCandidatesController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidate.TPDM.TeacherCandidate,
@@ -4380,7 +4275,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidates
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidates.TeacherCandidateGetByExample request, Entities.Common.TPDM.ITeacherCandidate specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthCity = request.BirthCity;
             specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
@@ -4416,7 +4311,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidates
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TuitionCost = request.TuitionCost;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4431,7 +4326,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateAcademicRecords
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateAcademicRecords")]
     public partial class TeacherCandidateAcademicRecordsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateAcademicRecord.TPDM.TeacherCandidateAcademicRecord,
@@ -4450,7 +4344,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateAcademicRecords
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateAcademicRecords.TeacherCandidateAcademicRecordGetByExample request, Entities.Common.TPDM.ITeacherCandidateAcademicRecord specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContentGradePointAverage = request.ContentGradePointAverage;
             specification.ContentGradePointEarned = request.ContentGradePointEarned;
@@ -4479,7 +4373,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateAcademicRecords
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TermDescriptor = request.TermDescriptor;
             specification.TPPDegreeTypeDescriptor = request.TPPDegreeTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4494,7 +4388,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCharacteristicD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateCharacteristicDescriptors")]
     public partial class TeacherCandidateCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateCharacteristicDescriptor.TPDM.TeacherCandidateCharacteristicDescriptor,
@@ -4513,10 +4406,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCharacteristicD
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateCharacteristicDescriptors.TeacherCandidateCharacteristicDescriptorGetByExample request, Entities.Common.TPDM.ITeacherCandidateCharacteristicDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TeacherCandidateCharacteristicDescriptorId = request.TeacherCandidateCharacteristicDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4531,7 +4424,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCourseTranscrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateCourseTranscripts")]
     public partial class TeacherCandidateCourseTranscriptsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateCourseTranscript.TPDM.TeacherCandidateCourseTranscript,
@@ -4550,7 +4442,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCourseTranscrip
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateCourseTranscripts.TeacherCandidateCourseTranscriptGetByExample request, Entities.Common.TPDM.ITeacherCandidateCourseTranscript specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AlternativeCourseCode = request.AlternativeCourseCode;
             specification.AlternativeCourseTitle = request.AlternativeCourseTitle;
@@ -4575,7 +4467,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateCourseTranscrip
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TermDescriptor = request.TermDescriptor;
             specification.WhenTakenGradeLevelDescriptor = request.WhenTakenGradeLevelDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4590,7 +4482,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStaffAssociatio
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateStaffAssociations")]
     public partial class TeacherCandidateStaffAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateStaffAssociation.TPDM.TeacherCandidateStaffAssociation,
@@ -4609,14 +4500,14 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStaffAssociatio
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateStaffAssociations.TeacherCandidateStaffAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateStaffAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4631,7 +4522,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateStudentGrowthMeasures")]
     public partial class TeacherCandidateStudentGrowthMeasuresController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateStudentGrowthMeasure.TPDM.TeacherCandidateStudentGrowthMeasure,
@@ -4650,7 +4540,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateStudentGrowthMeasures.TeacherCandidateStudentGrowthMeasureGetByExample request, Entities.Common.TPDM.ITeacherCandidateStudentGrowthMeasure specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FactAsOfDate = request.FactAsOfDate;
             specification.Id = request.Id;
@@ -4665,7 +4555,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
             specification.StudentGrowthTypeDescriptor = request.StudentGrowthTypeDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TeacherCandidateStudentGrowthMeasureIdentifier = request.TeacherCandidateStudentGrowthMeasureIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4680,7 +4570,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateStudentGrowthMeasureCourseAssociations")]
     public partial class TeacherCandidateStudentGrowthMeasureCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateStudentGrowthMeasureCourseAssociation.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociation,
@@ -4699,7 +4588,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociations.TeacherCandidateStudentGrowthMeasureCourseAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateStudentGrowthMeasureCourseAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CourseCode = request.CourseCode;
@@ -4710,7 +4599,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
             specification.SchoolYear = request.SchoolYear;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TeacherCandidateStudentGrowthMeasureIdentifier = request.TeacherCandidateStudentGrowthMeasureIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4725,7 +4614,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociations")]
     public partial class TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation,
@@ -4744,7 +4632,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociations.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4754,7 +4642,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
             specification.SchoolYear = request.SchoolYear;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TeacherCandidateStudentGrowthMeasureIdentifier = request.TeacherCandidateStudentGrowthMeasureIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4769,7 +4657,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateStudentGrowthMeasureSectionAssociations")]
     public partial class TeacherCandidateStudentGrowthMeasureSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateStudentGrowthMeasureSectionAssociation.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociation,
@@ -4788,7 +4675,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociations.TeacherCandidateStudentGrowthMeasureSectionAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateStudentGrowthMeasureSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -4801,7 +4688,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateStudentGrowthMe
             specification.SessionName = request.SessionName;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TeacherCandidateStudentGrowthMeasureIdentifier = request.TeacherCandidateStudentGrowthMeasureIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4816,7 +4703,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateTeacherPreparationProviderAssociations")]
     public partial class TeacherCandidateTeacherPreparationProviderAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateTeacherPreparationProviderAssociation.TPDM.TeacherCandidateTeacherPreparationProviderAssociation,
@@ -4835,7 +4721,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateTeacherPreparationProviderAssociations.TeacherCandidateTeacherPreparationProviderAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateTeacherPreparationProviderAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassOfSchoolYear = request.ClassOfSchoolYear;
             specification.EntryDate = request.EntryDate;
@@ -4846,7 +4732,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
             specification.SchoolYear = request.SchoolYear;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
             specification.TeacherPreparationProviderId = request.TeacherPreparationProviderId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4861,7 +4747,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations")]
     public partial class TeacherCandidateTeacherPreparationProviderProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherCandidateTeacherPreparationProviderProgramAssociation.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociation,
@@ -4880,7 +4765,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociations.TeacherCandidateTeacherPreparationProviderProgramAssociationGetByExample request, Entities.Common.TPDM.ITeacherCandidateTeacherPreparationProviderProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4890,7 +4775,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherCandidateTeacherPreparat
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.ReasonExitedDescriptor = request.ReasonExitedDescriptor;
             specification.TeacherCandidateIdentifier = request.TeacherCandidateIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4905,7 +4790,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProgramTypeDe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherPreparationProgramTypeDescriptors")]
     public partial class TeacherPreparationProgramTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherPreparationProgramTypeDescriptor.TPDM.TeacherPreparationProgramTypeDescriptor,
@@ -4924,10 +4808,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProgramTypeDe
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherPreparationProgramTypeDescriptors.TeacherPreparationProgramTypeDescriptorGetByExample request, Entities.Common.TPDM.ITeacherPreparationProgramTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TeacherPreparationProgramTypeDescriptorId = request.TeacherPreparationProgramTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4942,7 +4826,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviders
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherPreparationProviders")]
     public partial class TeacherPreparationProvidersController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherPreparationProvider.TPDM.TeacherPreparationProvider,
@@ -4961,14 +4844,14 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviders
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherPreparationProviders.TeacherPreparationProviderGetByExample request, Entities.Common.TPDM.ITeacherPreparationProvider specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccreditationStatusDescriptor = request.AccreditationStatusDescriptor;
             specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.SchoolId = request.SchoolId;
             specification.TeacherPreparationProviderId = request.TeacherPreparationProviderId;
             specification.UniversityId = request.UniversityId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4983,7 +4866,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviderProgr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/teacherPreparationProviderPrograms")]
     public partial class TeacherPreparationProviderProgramsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeacherPreparationProviderProgram.TPDM.TeacherPreparationProviderProgram,
@@ -5002,7 +4884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviderProgr
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TeacherPreparationProviderPrograms.TeacherPreparationProviderProgramGetByExample request, Entities.Common.TPDM.ITeacherPreparationProviderProgram specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
@@ -5013,7 +4895,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TeacherPreparationProviderProgr
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.TeacherPreparationProgramTypeDescriptor = request.TeacherPreparationProgramTypeDescriptor;
             specification.TPPProgramPathwayDescriptor = request.TPPProgramPathwayDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5028,7 +4910,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPDegreeTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/tppDegreeTypeDescriptors")]
     public partial class TPPDegreeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TPPDegreeTypeDescriptor.TPDM.TPPDegreeTypeDescriptor,
@@ -5047,10 +4928,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPDegreeTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TPPDegreeTypeDescriptors.TPPDegreeTypeDescriptorGetByExample request, Entities.Common.TPDM.ITPPDegreeTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TPPDegreeTypeDescriptorId = request.TPPDegreeTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5065,7 +4946,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPProgramPathwayDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/tppProgramPathwayDescriptors")]
     public partial class TPPProgramPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TPPProgramPathwayDescriptor.TPDM.TPPProgramPathwayDescriptor,
@@ -5084,10 +4964,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.TPPProgramPathwayDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.TPPProgramPathwayDescriptors.TPPProgramPathwayDescriptorGetByExample request, Entities.Common.TPDM.ITPPProgramPathwayDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TPPProgramPathwayDescriptorId = request.TPPProgramPathwayDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5102,7 +4982,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Universities
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/universities")]
     public partial class UniversitiesController : DataManagementControllerBase<
         Api.Common.Models.Resources.University.TPDM.University,
@@ -5121,12 +5000,12 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.Universities
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.Universities.UniversityGetByExample request, Entities.Common.TPDM.IUniversity specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FederalLocaleCodeDescriptor = request.FederalLocaleCodeDescriptor;
             specification.SchoolId = request.SchoolId;
             specification.UniversityId = request.UniversityId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5141,7 +5020,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ValueTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/valueTypeDescriptors")]
     public partial class ValueTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ValueTypeDescriptor.TPDM.ValueTypeDescriptor,
@@ -5160,10 +5038,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.ValueTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.ValueTypeDescriptors.ValueTypeDescriptorGetByExample request, Entities.Common.TPDM.IValueTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ValueTypeDescriptorId = request.ValueTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5178,7 +5056,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.WithdrawReasonDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("tpdm/withdrawReasonDescriptors")]
     public partial class WithdrawReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.WithdrawReasonDescriptor.TPDM.WithdrawReasonDescriptor,
@@ -5197,10 +5074,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.WithdrawReasonDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TPDM.WithdrawReasonDescriptors.WithdrawReasonDescriptorGetByExample request, Entities.Common.TPDM.IWithdrawReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.WithdrawReasonDescriptorId = request.WithdrawReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {

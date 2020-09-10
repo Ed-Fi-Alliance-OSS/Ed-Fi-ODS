@@ -28,8 +28,10 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("{{RouteTemplate}}")]
+    {{#ProfileContentType}}
+    [ProfileContentType("{{ContentType}}")]
+    {{/ProfileContentType}}
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
         {{ResourceWriteModel}},
@@ -49,7 +51,7 @@ namespace {{ControllersNamespace}}
         {
         {{#MapAllExpression}}
             {{#HasProperties}}
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             {{/HasProperties}}
             {{#Properties}}
@@ -59,7 +61,7 @@ namespace {{ControllersNamespace}}
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
             {{/HasProperties}}
         {{/MapAllExpression}}
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -77,8 +79,10 @@ namespace {{ControllersNamespace}}
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
         public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
         }
         {{/OverrideHttpFunctions}}
     }

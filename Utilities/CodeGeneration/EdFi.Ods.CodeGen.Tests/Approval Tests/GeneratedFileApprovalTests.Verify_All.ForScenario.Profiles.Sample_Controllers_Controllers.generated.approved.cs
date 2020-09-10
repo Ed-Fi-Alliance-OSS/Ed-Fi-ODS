@@ -18,8 +18,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schools")]
+    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-excludeonly")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.School,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School,
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
 
         protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ExcludeOnly.SchoolGetByExample request, ISchool specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -69,8 +69,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schools")]
+    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-includeonly")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_IncludeOnly_Writable.School,
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
 
         protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_IncludeOnly.SchoolGetByExample request, ISchool specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -116,7 +116,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_ReadOnly
 {
-    [ContentType("application/vnd.ed-fi.school.test-profile-resource-readonly.writable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolsNullWriteRequest : NullRequestBase { }
 
@@ -124,8 +123,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schools")]
+    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-readonly")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.School,
         SchoolsNullWriteRequest,
@@ -143,7 +142,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
 
         protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.Test_Profile_Resource_ReadOnly.SchoolGetByExample request, ISchool specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
@@ -155,7 +154,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -168,24 +167,27 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> Post(SchoolsNullWriteRequest request)
+        public override Task<IActionResult> Post(SchoolsNullWriteRequest request)
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> Put(SchoolsNullWriteRequest request, Guid id)
+        public override Task<IActionResult> Put(SchoolsNullWriteRequest request, Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-ReadOnly' profile are GET, DELETE and OPTIONS.")));
         }
     }
 }
 
 namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_WriteOnly
 {
-    [ContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly.readable+json")]
     [ExcludeFromCodeCoverage]
     public class SchoolsNullReadRequest : NullRequestBase { }
 
@@ -193,8 +195,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schools")]
+    [ProfileContentType("application/vnd.ed-fi.school.test-profile-resource-writeonly")]
     public partial class SchoolsController : DataManagementControllerBase<
         SchoolsNullReadRequest,
         Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.School,
@@ -213,7 +215,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         protected override void MapAll(SchoolsNullReadRequest request, ISchool specification)
         {
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -226,17 +228,21 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> Get(Guid id)
+        public override Task<IActionResult> Get(Guid id)
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
         }
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
+        public override Task<IActionResult> GetAll(UrlQueryParametersRequest urlQueryParametersRequest, SchoolsNullReadRequest specification = null)
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the 'Test-Profile-Resource-WriteOnly' profile are PUT, POST, DELETE and OPTIONS.")));
         }
     }
 }

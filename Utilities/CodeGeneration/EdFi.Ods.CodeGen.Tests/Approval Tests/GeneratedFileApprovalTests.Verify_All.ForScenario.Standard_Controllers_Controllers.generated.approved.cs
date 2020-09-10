@@ -18,7 +18,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/absenceEventCategoryDescriptors")]
     public partial class AbsenceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AbsenceEventCategoryDescriptor.EdFi.AbsenceEventCategoryDescriptor,
@@ -37,10 +36,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AbsenceEventCategoryDescriptors.EdFi.AbsenceEventCategoryDescriptorGetByExample request, IAbsenceEventCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AbsenceEventCategoryDescriptorId = request.AbsenceEventCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -55,7 +54,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/academicHonorCategoryDescriptors")]
     public partial class AcademicHonorCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicHonorCategoryDescriptor.EdFi.AcademicHonorCategoryDescriptor,
@@ -74,10 +72,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.AcademicHonorCategoryDescriptors.EdFi.AcademicHonorCategoryDescriptorGetByExample request, IAcademicHonorCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicHonorCategoryDescriptorId = request.AcademicHonorCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -92,7 +90,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/academicSubjectDescriptors")]
     public partial class AcademicSubjectDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicSubjectDescriptor.EdFi.AcademicSubjectDescriptor,
@@ -111,10 +108,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AcademicSubjectDescriptors.EdFi.AcademicSubjectDescriptorGetByExample request, IAcademicSubjectDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptorId = request.AcademicSubjectDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -129,7 +126,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/academicWeeks")]
     public partial class AcademicWeeksController : DataManagementControllerBase<
         Api.Common.Models.Resources.AcademicWeek.EdFi.AcademicWeek,
@@ -148,7 +144,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AcademicWeeks.EdFi.AcademicWeekGetByExample request, IAcademicWeek specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -156,7 +152,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
             specification.SchoolId = request.SchoolId;
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
             specification.WeekIdentifier = request.WeekIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -171,7 +167,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/accommodationDescriptors")]
     public partial class AccommodationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccommodationDescriptor.EdFi.AccommodationDescriptor,
@@ -190,10 +185,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AccommodationDescriptors.EdFi.AccommodationDescriptorGetByExample request, IAccommodationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccommodationDescriptorId = request.AccommodationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -208,7 +203,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/accounts")]
     public partial class AccountsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Account.EdFi.Account,
@@ -227,14 +221,14 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Accounts.EdFi.AccountGetByExample request, IAccount specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountIdentifier = request.AccountIdentifier;
             specification.AccountName = request.AccountName;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -249,7 +243,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/accountabilityRatings")]
     public partial class AccountabilityRatingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountabilityRating.EdFi.AccountabilityRating,
@@ -268,7 +261,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AccountabilityRatings.EdFi.AccountabilityRatingGetByExample request, IAccountabilityRating specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
@@ -278,7 +271,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
             specification.RatingProgram = request.RatingProgram;
             specification.RatingTitle = request.RatingTitle;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -293,7 +286,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/accountClassificationDescriptors")]
     public partial class AccountClassificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountClassificationDescriptor.EdFi.AccountClassificationDescriptor,
@@ -312,10 +304,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.AccountClassificationDescriptors.EdFi.AccountClassificationDescriptorGetByExample request, IAccountClassificationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountClassificationDescriptorId = request.AccountClassificationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -330,7 +322,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/accountCodes")]
     public partial class AccountCodesController : DataManagementControllerBase<
         Api.Common.Models.Resources.AccountCode.EdFi.AccountCode,
@@ -349,7 +340,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AccountCodes.EdFi.AccountCodeGetByExample request, IAccountCode specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountClassificationDescriptor = request.AccountClassificationDescriptor;
             specification.AccountCodeDescription = request.AccountCodeDescription;
@@ -357,7 +348,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -372,7 +363,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/achievementCategoryDescriptors")]
     public partial class AchievementCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AchievementCategoryDescriptor.EdFi.AchievementCategoryDescriptor,
@@ -391,10 +381,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AchievementCategoryDescriptors.EdFi.AchievementCategoryDescriptorGetByExample request, IAchievementCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AchievementCategoryDescriptorId = request.AchievementCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -409,7 +399,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/actuals")]
     public partial class ActualsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Actual.EdFi.Actual,
@@ -428,7 +417,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Actuals.EdFi.ActualGetByExample request, IActual specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountIdentifier = request.AccountIdentifier;
             specification.AmountToDate = request.AmountToDate;
@@ -436,7 +425,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -451,7 +440,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/additionalCreditTypeDescriptors")]
     public partial class AdditionalCreditTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdditionalCreditTypeDescriptor.EdFi.AdditionalCreditTypeDescriptor,
@@ -470,10 +458,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AdditionalCreditTypeDescriptors.EdFi.AdditionalCreditTypeDescriptorGetByExample request, IAdditionalCreditTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdditionalCreditTypeDescriptorId = request.AdditionalCreditTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -488,7 +476,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/addressTypeDescriptors")]
     public partial class AddressTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AddressTypeDescriptor.EdFi.AddressTypeDescriptor,
@@ -507,10 +494,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AddressTypeDescriptors.EdFi.AddressTypeDescriptorGetByExample request, IAddressTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AddressTypeDescriptorId = request.AddressTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -525,7 +512,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/administrationEnvironmentDescriptors")]
     public partial class AdministrationEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdministrationEnvironmentDescriptor.EdFi.AdministrationEnvironmentDescriptor,
@@ -544,10 +530,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.AdministrationEnvironmentDescriptors.EdFi.AdministrationEnvironmentDescriptorGetByExample request, IAdministrationEnvironmentDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationEnvironmentDescriptorId = request.AdministrationEnvironmentDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -562,7 +548,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/administrativeFundingControlDescriptors")]
     public partial class AdministrativeFundingControlDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AdministrativeFundingControlDescriptor.EdFi.AdministrativeFundingControlDescriptor,
@@ -581,10 +566,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
 
         protected override void MapAll(Api.Common.Models.Requests.AdministrativeFundingControlDescriptors.EdFi.AdministrativeFundingControlDescriptorGetByExample request, IAdministrativeFundingControlDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptorId = request.AdministrativeFundingControlDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -599,7 +584,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessments")]
     public partial class AssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Assessment.EdFi.Assessment,
@@ -618,7 +602,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Assessments.EdFi.AssessmentGetByExample request, IAssessment specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdaptiveAssessment = request.AdaptiveAssessment;
             specification.AssessmentCategoryDescriptor = request.AssessmentCategoryDescriptor;
@@ -633,7 +617,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
             specification.Namespace = request.Namespace;
             specification.Nomenclature = request.Nomenclature;
             specification.RevisionDate = request.RevisionDate;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -648,7 +632,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentCategoryDescriptors")]
     public partial class AssessmentCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentCategoryDescriptor.EdFi.AssessmentCategoryDescriptor,
@@ -667,10 +650,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentCategoryDescriptors.EdFi.AssessmentCategoryDescriptorGetByExample request, IAssessmentCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentCategoryDescriptorId = request.AssessmentCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -685,7 +668,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentIdentificationSystemDescriptors")]
     public partial class AssessmentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentIdentificationSystemDescriptor.EdFi.AssessmentIdentificationSystemDescriptor,
@@ -704,10 +686,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentIdentificationSystemDescriptors.EdFi.AssessmentIdentificationSystemDescriptorGetByExample request, IAssessmentIdentificationSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentIdentificationSystemDescriptorId = request.AssessmentIdentificationSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -722,7 +704,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentItems")]
     public partial class AssessmentItemsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItem.EdFi.AssessmentItem,
@@ -741,7 +722,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentItems.EdFi.AssessmentItemGetByExample request, IAssessmentItem specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.AssessmentItemCategoryDescriptor = request.AssessmentItemCategoryDescriptor;
@@ -754,7 +735,7 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
             specification.MaxRawScore = request.MaxRawScore;
             specification.Namespace = request.Namespace;
             specification.Nomenclature = request.Nomenclature;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -769,7 +750,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentItemCategoryDescriptors")]
     public partial class AssessmentItemCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItemCategoryDescriptor.EdFi.AssessmentItemCategoryDescriptor,
@@ -788,10 +768,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentItemCategoryDescriptors.EdFi.AssessmentItemCategoryDescriptorGetByExample request, IAssessmentItemCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemCategoryDescriptorId = request.AssessmentItemCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -806,7 +786,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentItemResultDescriptors")]
     public partial class AssessmentItemResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentItemResultDescriptor.EdFi.AssessmentItemResultDescriptor,
@@ -825,10 +804,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentItemResultDescriptors.EdFi.AssessmentItemResultDescriptorGetByExample request, IAssessmentItemResultDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemResultDescriptorId = request.AssessmentItemResultDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -843,7 +822,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentPeriodDescriptors")]
     public partial class AssessmentPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentPeriodDescriptor.EdFi.AssessmentPeriodDescriptor,
@@ -862,10 +840,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentPeriodDescriptors.EdFi.AssessmentPeriodDescriptorGetByExample request, IAssessmentPeriodDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentPeriodDescriptorId = request.AssessmentPeriodDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -880,7 +858,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/assessmentReportingMethodDescriptors")]
     public partial class AssessmentReportingMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AssessmentReportingMethodDescriptor.EdFi.AssessmentReportingMethodDescriptor,
@@ -899,10 +876,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.AssessmentReportingMethodDescriptors.EdFi.AssessmentReportingMethodDescriptorGetByExample request, IAssessmentReportingMethodDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentReportingMethodDescriptorId = request.AssessmentReportingMethodDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -917,7 +894,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/attemptStatusDescriptors")]
     public partial class AttemptStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor,
@@ -936,10 +912,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.AttemptStatusDescriptors.EdFi.AttemptStatusDescriptorGetByExample request, IAttemptStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttemptStatusDescriptorId = request.AttemptStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -954,7 +930,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/attendanceEventCategoryDescriptors")]
     public partial class AttendanceEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.AttendanceEventCategoryDescriptor.EdFi.AttendanceEventCategoryDescriptor,
@@ -973,10 +948,10 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
 
         protected override void MapAll(Api.Common.Models.Requests.AttendanceEventCategoryDescriptors.EdFi.AttendanceEventCategoryDescriptorGetByExample request, IAttendanceEventCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceEventCategoryDescriptorId = request.AttendanceEventCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -991,7 +966,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/behaviorDescriptors")]
     public partial class BehaviorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.BehaviorDescriptor.EdFi.BehaviorDescriptor,
@@ -1010,10 +984,10 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.BehaviorDescriptors.EdFi.BehaviorDescriptorGetByExample request, IBehaviorDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BehaviorDescriptorId = request.BehaviorDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1028,7 +1002,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/bellSchedules")]
     public partial class BellSchedulesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BellSchedule.EdFi.BellSchedule,
@@ -1047,7 +1020,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.BellSchedules.EdFi.BellScheduleGetByExample request, IBellSchedule specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AlternateDayName = request.AlternateDayName;
             specification.BellScheduleName = request.BellScheduleName;
@@ -1056,7 +1029,7 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
             specification.SchoolId = request.SchoolId;
             specification.StartTime = request.StartTime;
             specification.TotalInstructionalTime = request.TotalInstructionalTime;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1071,7 +1044,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/budgets")]
     public partial class BudgetsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Budget.EdFi.Budget,
@@ -1090,7 +1062,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Budgets.EdFi.BudgetGetByExample request, IBudget specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountIdentifier = request.AccountIdentifier;
             specification.Amount = request.Amount;
@@ -1098,7 +1070,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1113,7 +1085,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/calendars")]
     public partial class CalendarsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Calendar.EdFi.Calendar,
@@ -1132,14 +1103,14 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Calendars.EdFi.CalendarGetByExample request, ICalendar specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarCode = request.CalendarCode;
             specification.CalendarTypeDescriptor = request.CalendarTypeDescriptor;
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1154,7 +1125,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/calendarDates")]
     public partial class CalendarDatesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarDate.EdFi.CalendarDate,
@@ -1173,14 +1143,14 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CalendarDates.EdFi.CalendarDateGetByExample request, ICalendarDate specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarCode = request.CalendarCode;
             specification.Date = request.Date;
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1195,7 +1165,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/calendarEventDescriptors")]
     public partial class CalendarEventDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarEventDescriptor.EdFi.CalendarEventDescriptor,
@@ -1214,10 +1183,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CalendarEventDescriptors.EdFi.CalendarEventDescriptorGetByExample request, ICalendarEventDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarEventDescriptorId = request.CalendarEventDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1232,7 +1201,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/calendarTypeDescriptors")]
     public partial class CalendarTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CalendarTypeDescriptor.EdFi.CalendarTypeDescriptor,
@@ -1251,10 +1219,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CalendarTypeDescriptors.EdFi.CalendarTypeDescriptorGetByExample request, ICalendarTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarTypeDescriptorId = request.CalendarTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1269,7 +1237,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/careerPathwayDescriptors")]
     public partial class CareerPathwayDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CareerPathwayDescriptor.EdFi.CareerPathwayDescriptor,
@@ -1288,10 +1255,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CareerPathwayDescriptors.EdFi.CareerPathwayDescriptorGetByExample request, ICareerPathwayDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CareerPathwayDescriptorId = request.CareerPathwayDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1306,7 +1273,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/charterApprovalAgencyTypeDescriptors")]
     public partial class CharterApprovalAgencyTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CharterApprovalAgencyTypeDescriptor.EdFi.CharterApprovalAgencyTypeDescriptor,
@@ -1325,10 +1291,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.CharterApprovalAgencyTypeDescriptors.EdFi.CharterApprovalAgencyTypeDescriptorGetByExample request, ICharterApprovalAgencyTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterApprovalAgencyTypeDescriptorId = request.CharterApprovalAgencyTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1343,7 +1309,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/charterStatusDescriptors")]
     public partial class CharterStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CharterStatusDescriptor.EdFi.CharterStatusDescriptor,
@@ -1362,10 +1327,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CharterStatusDescriptors.EdFi.CharterStatusDescriptorGetByExample request, ICharterStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptorId = request.CharterStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1380,7 +1345,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/citizenshipStatusDescriptors")]
     public partial class CitizenshipStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CitizenshipStatusDescriptor.EdFi.CitizenshipStatusDescriptor,
@@ -1399,10 +1363,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CitizenshipStatusDescriptors.EdFi.CitizenshipStatusDescriptorGetByExample request, ICitizenshipStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CitizenshipStatusDescriptorId = request.CitizenshipStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1417,7 +1381,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/classPeriods")]
     public partial class ClassPeriodsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ClassPeriod.EdFi.ClassPeriod,
@@ -1436,13 +1399,13 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ClassPeriods.EdFi.ClassPeriodGetByExample request, IClassPeriod specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassPeriodName = request.ClassPeriodName;
             specification.Id = request.Id;
             specification.OfficialAttendancePeriod = request.OfficialAttendancePeriod;
             specification.SchoolId = request.SchoolId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1457,7 +1420,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/classroomPositionDescriptors")]
     public partial class ClassroomPositionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ClassroomPositionDescriptor.EdFi.ClassroomPositionDescriptor,
@@ -1476,10 +1438,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ClassroomPositionDescriptors.EdFi.ClassroomPositionDescriptorGetByExample request, IClassroomPositionDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassroomPositionDescriptorId = request.ClassroomPositionDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1494,7 +1456,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/cohorts")]
     public partial class CohortsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Cohort.EdFi.Cohort,
@@ -1513,7 +1474,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Cohorts.EdFi.CohortGetByExample request, ICohort specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.CohortDescription = request.CohortDescription;
@@ -1522,7 +1483,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
             specification.CohortTypeDescriptor = request.CohortTypeDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1537,7 +1498,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/cohortScopeDescriptors")]
     public partial class CohortScopeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortScopeDescriptor.EdFi.CohortScopeDescriptor,
@@ -1556,10 +1516,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CohortScopeDescriptors.EdFi.CohortScopeDescriptorGetByExample request, ICohortScopeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortScopeDescriptorId = request.CohortScopeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1574,7 +1534,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/cohortTypeDescriptors")]
     public partial class CohortTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortTypeDescriptor.EdFi.CohortTypeDescriptor,
@@ -1593,10 +1552,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CohortTypeDescriptors.EdFi.CohortTypeDescriptorGetByExample request, ICohortTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortTypeDescriptorId = request.CohortTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1611,7 +1570,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/cohortYearTypeDescriptors")]
     public partial class CohortYearTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CohortYearTypeDescriptor.EdFi.CohortYearTypeDescriptor,
@@ -1630,10 +1588,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CohortYearTypeDescriptors.EdFi.CohortYearTypeDescriptorGetByExample request, ICohortYearTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortYearTypeDescriptorId = request.CohortYearTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1648,7 +1606,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/communityOrganizations")]
     public partial class CommunityOrganizationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityOrganization.EdFi.CommunityOrganization,
@@ -1667,10 +1624,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CommunityOrganizations.EdFi.CommunityOrganizationGetByExample request, ICommunityOrganization specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CommunityOrganizationId = request.CommunityOrganizationId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1685,7 +1642,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/communityProviders")]
     public partial class CommunityProvidersController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityProvider.EdFi.CommunityProvider,
@@ -1704,7 +1660,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CommunityProviders.EdFi.CommunityProviderGetByExample request, ICommunityProvider specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CommunityOrganizationId = request.CommunityOrganizationId;
             specification.CommunityProviderId = request.CommunityProviderId;
@@ -1713,7 +1669,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
             specification.ProviderProfitabilityDescriptor = request.ProviderProfitabilityDescriptor;
             specification.ProviderStatusDescriptor = request.ProviderStatusDescriptor;
             specification.SchoolIndicator = request.SchoolIndicator;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1728,7 +1684,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/communityProviderLicenses")]
     public partial class CommunityProviderLicensesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CommunityProviderLicense.EdFi.CommunityProviderLicense,
@@ -1747,7 +1702,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CommunityProviderLicenses.EdFi.CommunityProviderLicenseGetByExample request, ICommunityProviderLicense specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AuthorizedFacilityCapacity = request.AuthorizedFacilityCapacity;
             specification.CommunityProviderId = request.CommunityProviderId;
@@ -1761,7 +1716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
             specification.LicensingOrganization = request.LicensingOrganization;
             specification.OldestAgeAuthorizedToServe = request.OldestAgeAuthorizedToServe;
             specification.YoungestAgeAuthorizedToServe = request.YoungestAgeAuthorizedToServe;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1776,7 +1731,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/competencyLevelDescriptors")]
     public partial class CompetencyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompetencyLevelDescriptor.EdFi.CompetencyLevelDescriptor,
@@ -1795,10 +1749,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CompetencyLevelDescriptors.EdFi.CompetencyLevelDescriptorGetByExample request, ICompetencyLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CompetencyLevelDescriptorId = request.CompetencyLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1813,7 +1767,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/competencyObjectives")]
     public partial class CompetencyObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.CompetencyObjective.EdFi.CompetencyObjective,
@@ -1832,7 +1785,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CompetencyObjectives.EdFi.CompetencyObjectiveGetByExample request, ICompetencyObjective specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CompetencyObjectiveId = request.CompetencyObjectiveId;
             specification.Description = request.Description;
@@ -1841,7 +1794,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
             specification.Objective = request.Objective;
             specification.ObjectiveGradeLevelDescriptor = request.ObjectiveGradeLevelDescriptor;
             specification.SuccessCriteria = request.SuccessCriteria;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1856,7 +1809,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/contactTypeDescriptors")]
     public partial class ContactTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContactTypeDescriptor.EdFi.ContactTypeDescriptor,
@@ -1875,10 +1827,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ContactTypeDescriptors.EdFi.ContactTypeDescriptorGetByExample request, IContactTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContactTypeDescriptorId = request.ContactTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1893,7 +1845,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/contentClassDescriptors")]
     public partial class ContentClassDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContentClassDescriptor.EdFi.ContentClassDescriptor,
@@ -1912,10 +1863,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ContentClassDescriptors.EdFi.ContentClassDescriptorGetByExample request, IContentClassDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContentClassDescriptorId = request.ContentClassDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1930,7 +1881,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/continuationOfServicesReasonDescriptors")]
     public partial class ContinuationOfServicesReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContinuationOfServicesReasonDescriptor.EdFi.ContinuationOfServicesReasonDescriptor,
@@ -1949,10 +1899,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
 
         protected override void MapAll(Api.Common.Models.Requests.ContinuationOfServicesReasonDescriptors.EdFi.ContinuationOfServicesReasonDescriptorGetByExample request, IContinuationOfServicesReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContinuationOfServicesReasonDescriptorId = request.ContinuationOfServicesReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -1967,7 +1917,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/contractedStaffs")]
     public partial class ContractedStaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ContractedStaff.EdFi.ContractedStaff,
@@ -1986,7 +1935,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ContractedStaffs.EdFi.ContractedStaffGetByExample request, IContractedStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountIdentifier = request.AccountIdentifier;
             specification.AmountToDate = request.AmountToDate;
@@ -1995,7 +1944,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2010,7 +1959,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/costRateDescriptors")]
     public partial class CostRateDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CostRateDescriptor.EdFi.CostRateDescriptor,
@@ -2029,10 +1977,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CostRateDescriptors.EdFi.CostRateDescriptorGetByExample request, ICostRateDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CostRateDescriptorId = request.CostRateDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2047,7 +1995,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/countryDescriptors")]
     public partial class CountryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CountryDescriptor.EdFi.CountryDescriptor,
@@ -2066,10 +2013,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CountryDescriptors.EdFi.CountryDescriptorGetByExample request, ICountryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CountryDescriptorId = request.CountryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2084,7 +2031,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courses")]
     public partial class CoursesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Course.EdFi.Course,
@@ -2103,7 +2049,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Courses.EdFi.CourseGetByExample request, ICourse specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.CareerPathwayDescriptor = request.CareerPathwayDescriptor;
@@ -2125,7 +2071,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
             specification.MinimumAvailableCreditTypeDescriptor = request.MinimumAvailableCreditTypeDescriptor;
             specification.NumberOfParts = request.NumberOfParts;
             specification.TimeRequiredForCompletion = request.TimeRequiredForCompletion;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2140,7 +2086,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseAttemptResultDescriptors")]
     public partial class CourseAttemptResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseAttemptResultDescriptor.EdFi.CourseAttemptResultDescriptor,
@@ -2159,10 +2104,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CourseAttemptResultDescriptors.EdFi.CourseAttemptResultDescriptorGetByExample request, ICourseAttemptResultDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseAttemptResultDescriptorId = request.CourseAttemptResultDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2177,7 +2122,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseDefinedByDescriptors")]
     public partial class CourseDefinedByDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseDefinedByDescriptor.EdFi.CourseDefinedByDescriptor,
@@ -2196,10 +2140,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CourseDefinedByDescriptors.EdFi.CourseDefinedByDescriptorGetByExample request, ICourseDefinedByDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseDefinedByDescriptorId = request.CourseDefinedByDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2214,7 +2158,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseGPAApplicabilityDescriptors")]
     public partial class CourseGPAApplicabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseGPAApplicabilityDescriptor.EdFi.CourseGPAApplicabilityDescriptor,
@@ -2233,10 +2176,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
 
         protected override void MapAll(Api.Common.Models.Requests.CourseGPAApplicabilityDescriptors.EdFi.CourseGPAApplicabilityDescriptorGetByExample request, ICourseGPAApplicabilityDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseGPAApplicabilityDescriptorId = request.CourseGPAApplicabilityDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2251,7 +2194,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseIdentificationSystemDescriptors")]
     public partial class CourseIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseIdentificationSystemDescriptor.EdFi.CourseIdentificationSystemDescriptor,
@@ -2270,10 +2212,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.CourseIdentificationSystemDescriptors.EdFi.CourseIdentificationSystemDescriptorGetByExample request, ICourseIdentificationSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseIdentificationSystemDescriptorId = request.CourseIdentificationSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2288,7 +2230,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseLevelCharacteristicDescriptors")]
     public partial class CourseLevelCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseLevelCharacteristicDescriptor.EdFi.CourseLevelCharacteristicDescriptor,
@@ -2307,10 +2248,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.CourseLevelCharacteristicDescriptors.EdFi.CourseLevelCharacteristicDescriptorGetByExample request, ICourseLevelCharacteristicDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseLevelCharacteristicDescriptorId = request.CourseLevelCharacteristicDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2325,7 +2266,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseOfferings")]
     public partial class CourseOfferingsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseOffering.EdFi.CourseOffering,
@@ -2344,7 +2284,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CourseOfferings.EdFi.CourseOfferingGetByExample request, ICourseOffering specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseCode = request.CourseCode;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -2355,7 +2295,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.SessionName = request.SessionName;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2370,7 +2310,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseRepeatCodeDescriptors")]
     public partial class CourseRepeatCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseRepeatCodeDescriptor.EdFi.CourseRepeatCodeDescriptor,
@@ -2389,10 +2328,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CourseRepeatCodeDescriptors.EdFi.CourseRepeatCodeDescriptorGetByExample request, ICourseRepeatCodeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseRepeatCodeDescriptorId = request.CourseRepeatCodeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2407,7 +2346,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/courseTranscripts")]
     public partial class CourseTranscriptsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CourseTranscript.EdFi.CourseTranscript,
@@ -2426,7 +2364,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CourseTranscripts.EdFi.CourseTranscriptGetByExample request, ICourseTranscript specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AlternativeCourseCode = request.AlternativeCourseCode;
             specification.AlternativeCourseTitle = request.AlternativeCourseTitle;
@@ -2453,7 +2391,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermDescriptor = request.TermDescriptor;
             specification.WhenTakenGradeLevelDescriptor = request.WhenTakenGradeLevelDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2468,7 +2406,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/credentials")]
     public partial class CredentialsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Credential.EdFi.Credential,
@@ -2487,7 +2424,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Credentials.EdFi.CredentialGetByExample request, ICredential specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialFieldDescriptor = request.CredentialFieldDescriptor;
             specification.CredentialIdentifier = request.CredentialIdentifier;
@@ -2500,7 +2437,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
             specification.TeachingCredentialBasisDescriptor = request.TeachingCredentialBasisDescriptor;
             specification.TeachingCredentialDescriptor = request.TeachingCredentialDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2515,7 +2452,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/credentialFieldDescriptors")]
     public partial class CredentialFieldDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialFieldDescriptor.EdFi.CredentialFieldDescriptor,
@@ -2534,10 +2470,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CredentialFieldDescriptors.EdFi.CredentialFieldDescriptorGetByExample request, ICredentialFieldDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialFieldDescriptorId = request.CredentialFieldDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2552,7 +2488,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/credentialTypeDescriptors")]
     public partial class CredentialTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CredentialTypeDescriptor.EdFi.CredentialTypeDescriptor,
@@ -2571,10 +2506,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CredentialTypeDescriptors.EdFi.CredentialTypeDescriptorGetByExample request, ICredentialTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialTypeDescriptorId = request.CredentialTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2589,7 +2524,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/creditCategoryDescriptors")]
     public partial class CreditCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CreditCategoryDescriptor.EdFi.CreditCategoryDescriptor,
@@ -2608,10 +2542,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CreditCategoryDescriptors.EdFi.CreditCategoryDescriptorGetByExample request, ICreditCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CreditCategoryDescriptorId = request.CreditCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2626,7 +2560,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/creditTypeDescriptors")]
     public partial class CreditTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CreditTypeDescriptor.EdFi.CreditTypeDescriptor,
@@ -2645,10 +2578,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CreditTypeDescriptors.EdFi.CreditTypeDescriptorGetByExample request, ICreditTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CreditTypeDescriptorId = request.CreditTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2663,7 +2596,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/cteProgramServiceDescriptors")]
     public partial class CTEProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CTEProgramServiceDescriptor.EdFi.CTEProgramServiceDescriptor,
@@ -2682,10 +2614,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CTEProgramServiceDescriptors.EdFi.CTEProgramServiceDescriptorGetByExample request, ICTEProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CTEProgramServiceDescriptorId = request.CTEProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2700,7 +2632,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/curriculumUsedDescriptors")]
     public partial class CurriculumUsedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.CurriculumUsedDescriptor.EdFi.CurriculumUsedDescriptor,
@@ -2719,10 +2650,10 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.CurriculumUsedDescriptors.EdFi.CurriculumUsedDescriptorGetByExample request, ICurriculumUsedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CurriculumUsedDescriptorId = request.CurriculumUsedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2737,7 +2668,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/deliveryMethodDescriptors")]
     public partial class DeliveryMethodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DeliveryMethodDescriptor.EdFi.DeliveryMethodDescriptor,
@@ -2756,10 +2686,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DeliveryMethodDescriptors.EdFi.DeliveryMethodDescriptorGetByExample request, IDeliveryMethodDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DeliveryMethodDescriptorId = request.DeliveryMethodDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2774,7 +2704,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/diagnosisDescriptors")]
     public partial class DiagnosisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiagnosisDescriptor.EdFi.DiagnosisDescriptor,
@@ -2793,10 +2722,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DiagnosisDescriptors.EdFi.DiagnosisDescriptorGetByExample request, IDiagnosisDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DiagnosisDescriptorId = request.DiagnosisDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2811,7 +2740,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/diplomaLevelDescriptors")]
     public partial class DiplomaLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiplomaLevelDescriptor.EdFi.DiplomaLevelDescriptor,
@@ -2830,10 +2758,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DiplomaLevelDescriptors.EdFi.DiplomaLevelDescriptorGetByExample request, IDiplomaLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DiplomaLevelDescriptorId = request.DiplomaLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2848,7 +2776,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/diplomaTypeDescriptors")]
     public partial class DiplomaTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DiplomaTypeDescriptor.EdFi.DiplomaTypeDescriptor,
@@ -2867,10 +2794,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DiplomaTypeDescriptors.EdFi.DiplomaTypeDescriptorGetByExample request, IDiplomaTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DiplomaTypeDescriptorId = request.DiplomaTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2885,7 +2812,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disabilityDescriptors")]
     public partial class DisabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDescriptor.EdFi.DisabilityDescriptor,
@@ -2904,10 +2830,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DisabilityDescriptors.EdFi.DisabilityDescriptorGetByExample request, IDisabilityDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDescriptorId = request.DisabilityDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2922,7 +2848,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disabilityDesignationDescriptors")]
     public partial class DisabilityDesignationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDesignationDescriptor.EdFi.DisabilityDesignationDescriptor,
@@ -2941,10 +2866,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.DisabilityDesignationDescriptors.EdFi.DisabilityDesignationDescriptorGetByExample request, IDisabilityDesignationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDesignationDescriptorId = request.DisabilityDesignationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2959,7 +2884,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disabilityDeterminationSourceTypeDescriptors")]
     public partial class DisabilityDeterminationSourceTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisabilityDeterminationSourceTypeDescriptor.EdFi.DisabilityDeterminationSourceTypeDescriptor,
@@ -2978,10 +2902,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
 
         protected override void MapAll(Api.Common.Models.Requests.DisabilityDeterminationSourceTypeDescriptors.EdFi.DisabilityDeterminationSourceTypeDescriptorGetByExample request, IDisabilityDeterminationSourceTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDeterminationSourceTypeDescriptorId = request.DisabilityDeterminationSourceTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -2996,7 +2920,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disciplineActions")]
     public partial class DisciplineActionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineAction.EdFi.DisciplineAction,
@@ -3015,7 +2938,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DisciplineActions.EdFi.DisciplineActionGetByExample request, IDisciplineAction specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ActualDisciplineActionLength = request.ActualDisciplineActionLength;
             specification.AssignmentSchoolId = request.AssignmentSchoolId;
@@ -3029,7 +2952,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
             specification.RelatedToZeroTolerancePolicy = request.RelatedToZeroTolerancePolicy;
             specification.ResponsibilitySchoolId = request.ResponsibilitySchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3044,7 +2967,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disciplineActionLengthDifferenceReasonDescriptors")]
     public partial class DisciplineActionLengthDifferenceReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineActionLengthDifferenceReasonDescriptor.EdFi.DisciplineActionLengthDifferenceReasonDescriptor,
@@ -3063,10 +2985,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
 
         protected override void MapAll(Api.Common.Models.Requests.DisciplineActionLengthDifferenceReasonDescriptors.EdFi.DisciplineActionLengthDifferenceReasonDescriptorGetByExample request, IDisciplineActionLengthDifferenceReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineActionLengthDifferenceReasonDescriptorId = request.DisciplineActionLengthDifferenceReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3081,7 +3003,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disciplineDescriptors")]
     public partial class DisciplineDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineDescriptor.EdFi.DisciplineDescriptor,
@@ -3100,10 +3021,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DisciplineDescriptors.EdFi.DisciplineDescriptorGetByExample request, IDisciplineDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineDescriptorId = request.DisciplineDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3118,7 +3039,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disciplineIncidents")]
     public partial class DisciplineIncidentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineIncident.EdFi.DisciplineIncident,
@@ -3137,7 +3057,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidents.EdFi.DisciplineIncidentGetByExample request, IDisciplineIncident specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CaseNumber = request.CaseNumber;
             specification.Id = request.Id;
@@ -3152,7 +3072,7 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
             specification.ReporterName = request.ReporterName;
             specification.SchoolId = request.SchoolId;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3167,7 +3087,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/disciplineIncidentParticipationCodeDescriptors")]
     public partial class DisciplineIncidentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.DisciplineIncidentParticipationCodeDescriptor.EdFi.DisciplineIncidentParticipationCodeDescriptor,
@@ -3186,10 +3105,10 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
 
         protected override void MapAll(Api.Common.Models.Requests.DisciplineIncidentParticipationCodeDescriptors.EdFi.DisciplineIncidentParticipationCodeDescriptorGetByExample request, IDisciplineIncidentParticipationCodeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineIncidentParticipationCodeDescriptorId = request.DisciplineIncidentParticipationCodeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3204,7 +3123,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationalEnvironmentDescriptors")]
     public partial class EducationalEnvironmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationalEnvironmentDescriptor.EdFi.EducationalEnvironmentDescriptor,
@@ -3223,10 +3141,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
 
         protected override void MapAll(Api.Common.Models.Requests.EducationalEnvironmentDescriptors.EdFi.EducationalEnvironmentDescriptorGetByExample request, IEducationalEnvironmentDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationalEnvironmentDescriptorId = request.EducationalEnvironmentDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3241,7 +3159,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationContents")]
     public partial class EducationContentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationContent.EdFi.EducationContent,
@@ -3260,7 +3177,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EducationContents.EdFi.EducationContentGetByExample request, IEducationContent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdditionalAuthorsIndicator = request.AdditionalAuthorsIndicator;
             specification.ContentClassDescriptor = request.ContentClassDescriptor;
@@ -3280,7 +3197,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
             specification.TimeRequired = request.TimeRequired;
             specification.UseRightsURL = request.UseRightsURL;
             specification.Version = request.Version;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3295,7 +3212,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationCategoryDescriptors")]
     public partial class EducationOrganizationCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationCategoryDescriptor.EdFi.EducationOrganizationCategoryDescriptor,
@@ -3314,10 +3230,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationCategoryDescriptors.EdFi.EducationOrganizationCategoryDescriptorGetByExample request, IEducationOrganizationCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationCategoryDescriptorId = request.EducationOrganizationCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3332,7 +3248,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationIdentificationSystemDescriptors")]
     public partial class EducationOrganizationIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationIdentificationSystemDescriptor.EdFi.EducationOrganizationIdentificationSystemDescriptor,
@@ -3351,10 +3266,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationIdentificationSystemDescriptors.EdFi.EducationOrganizationIdentificationSystemDescriptorGetByExample request, IEducationOrganizationIdentificationSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationIdentificationSystemDescriptorId = request.EducationOrganizationIdentificationSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3369,7 +3284,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationInterventionPrescriptionAssociations")]
     public partial class EducationOrganizationInterventionPrescriptionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationInterventionPrescriptionAssociation.EdFi.EducationOrganizationInterventionPrescriptionAssociation,
@@ -3388,7 +3302,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationInterventionPrescriptionAssociations.EdFi.EducationOrganizationInterventionPrescriptionAssociationGetByExample request, IEducationOrganizationInterventionPrescriptionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -3396,7 +3310,7 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
             specification.Id = request.Id;
             specification.InterventionPrescriptionEducationOrganizationId = request.InterventionPrescriptionEducationOrganizationId;
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3411,7 +3325,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationNetworks")]
     public partial class EducationOrganizationNetworksController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationNetwork.EdFi.EducationOrganizationNetwork,
@@ -3430,11 +3343,11 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworks.EdFi.EducationOrganizationNetworkGetByExample request, IEducationOrganizationNetwork specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationNetworkId = request.EducationOrganizationNetworkId;
             specification.NetworkPurposeDescriptor = request.NetworkPurposeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3449,7 +3362,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationNetworkAssociations")]
     public partial class EducationOrganizationNetworkAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationNetworkAssociation.EdFi.EducationOrganizationNetworkAssociation,
@@ -3468,14 +3380,14 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationNetworkAssociations.EdFi.EducationOrganizationNetworkAssociationGetByExample request, IEducationOrganizationNetworkAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationNetworkId = request.EducationOrganizationNetworkId;
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.MemberEducationOrganizationId = request.MemberEducationOrganizationId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3490,7 +3402,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationOrganizationPeerAssociations")]
     public partial class EducationOrganizationPeerAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationOrganizationPeerAssociation.EdFi.EducationOrganizationPeerAssociation,
@@ -3509,12 +3420,12 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
 
         protected override void MapAll(Api.Common.Models.Requests.EducationOrganizationPeerAssociations.EdFi.EducationOrganizationPeerAssociationGetByExample request, IEducationOrganizationPeerAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.PeerEducationOrganizationId = request.PeerEducationOrganizationId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3529,7 +3440,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationPlanDescriptors")]
     public partial class EducationPlanDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationPlanDescriptor.EdFi.EducationPlanDescriptor,
@@ -3548,10 +3458,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EducationPlanDescriptors.EdFi.EducationPlanDescriptorGetByExample request, IEducationPlanDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationPlanDescriptorId = request.EducationPlanDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3566,7 +3476,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/educationServiceCenters")]
     public partial class EducationServiceCentersController : DataManagementControllerBase<
         Api.Common.Models.Resources.EducationServiceCenter.EdFi.EducationServiceCenter,
@@ -3585,11 +3494,11 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EducationServiceCenters.EdFi.EducationServiceCenterGetByExample request, IEducationServiceCenter specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3604,7 +3513,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/electronicMailTypeDescriptors")]
     public partial class ElectronicMailTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ElectronicMailTypeDescriptor.EdFi.ElectronicMailTypeDescriptor,
@@ -3623,10 +3531,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ElectronicMailTypeDescriptors.EdFi.ElectronicMailTypeDescriptorGetByExample request, IElectronicMailTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ElectronicMailTypeDescriptorId = request.ElectronicMailTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3641,7 +3549,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/employmentStatusDescriptors")]
     public partial class EmploymentStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EmploymentStatusDescriptor.EdFi.EmploymentStatusDescriptor,
@@ -3660,10 +3567,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EmploymentStatusDescriptors.EdFi.EmploymentStatusDescriptorGetByExample request, IEmploymentStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EmploymentStatusDescriptorId = request.EmploymentStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3678,7 +3585,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/entryGradeLevelReasonDescriptors")]
     public partial class EntryGradeLevelReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EntryGradeLevelReasonDescriptor.EdFi.EntryGradeLevelReasonDescriptor,
@@ -3697,10 +3603,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.EntryGradeLevelReasonDescriptors.EdFi.EntryGradeLevelReasonDescriptorGetByExample request, IEntryGradeLevelReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EntryGradeLevelReasonDescriptorId = request.EntryGradeLevelReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3715,7 +3621,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/entryTypeDescriptors")]
     public partial class EntryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EntryTypeDescriptor.EdFi.EntryTypeDescriptor,
@@ -3734,10 +3639,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EntryTypeDescriptors.EdFi.EntryTypeDescriptorGetByExample request, IEntryTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EntryTypeDescriptorId = request.EntryTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3752,7 +3657,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/eventCircumstanceDescriptors")]
     public partial class EventCircumstanceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.EventCircumstanceDescriptor.EdFi.EventCircumstanceDescriptor,
@@ -3771,10 +3675,10 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.EventCircumstanceDescriptors.EdFi.EventCircumstanceDescriptorGetByExample request, IEventCircumstanceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EventCircumstanceDescriptorId = request.EventCircumstanceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3789,7 +3693,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/exitWithdrawTypeDescriptors")]
     public partial class ExitWithdrawTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ExitWithdrawTypeDescriptor.EdFi.ExitWithdrawTypeDescriptor,
@@ -3808,10 +3711,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ExitWithdrawTypeDescriptors.EdFi.ExitWithdrawTypeDescriptorGetByExample request, IExitWithdrawTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ExitWithdrawTypeDescriptorId = request.ExitWithdrawTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3826,7 +3729,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/feederSchoolAssociations")]
     public partial class FeederSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.FeederSchoolAssociation.EdFi.FeederSchoolAssociation,
@@ -3845,7 +3747,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.FeederSchoolAssociations.EdFi.FeederSchoolAssociationGetByExample request, IFeederSchoolAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -3853,7 +3755,7 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
             specification.FeederSchoolId = request.FeederSchoolId;
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3868,7 +3770,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/grades")]
     public partial class GradesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Grade.EdFi.Grade,
@@ -3887,7 +3788,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Grades.EdFi.GradeGetByExample request, IGrade specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.DiagnosticStatement = request.DiagnosticStatement;
@@ -3905,7 +3806,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3920,7 +3821,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradebookEntries")]
     public partial class GradebookEntriesController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntry.EdFi.GradebookEntry,
@@ -3939,7 +3839,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradebookEntries.EdFi.GradebookEntryGetByExample request, IGradebookEntry specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DateAssigned = request.DateAssigned;
             specification.Description = request.Description;
@@ -3954,7 +3854,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -3969,7 +3869,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradebookEntryTypeDescriptors")]
     public partial class GradebookEntryTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradebookEntryTypeDescriptor.EdFi.GradebookEntryTypeDescriptor,
@@ -3988,10 +3887,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradebookEntryTypeDescriptors.EdFi.GradebookEntryTypeDescriptorGetByExample request, IGradebookEntryTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradebookEntryTypeDescriptorId = request.GradebookEntryTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4006,7 +3905,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradeLevelDescriptors")]
     public partial class GradeLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradeLevelDescriptor.EdFi.GradeLevelDescriptor,
@@ -4025,10 +3923,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradeLevelDescriptors.EdFi.GradeLevelDescriptorGetByExample request, IGradeLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradeLevelDescriptorId = request.GradeLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4043,7 +3941,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradePointAverageTypeDescriptors")]
     public partial class GradePointAverageTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradePointAverageTypeDescriptor.EdFi.GradePointAverageTypeDescriptor,
@@ -4062,10 +3959,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.GradePointAverageTypeDescriptors.EdFi.GradePointAverageTypeDescriptorGetByExample request, IGradePointAverageTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradePointAverageTypeDescriptorId = request.GradePointAverageTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4080,7 +3977,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradeTypeDescriptors")]
     public partial class GradeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradeTypeDescriptor.EdFi.GradeTypeDescriptor,
@@ -4099,10 +3995,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradeTypeDescriptors.EdFi.GradeTypeDescriptorGetByExample request, IGradeTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradeTypeDescriptorId = request.GradeTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4117,7 +4013,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradingPeriods")]
     public partial class GradingPeriodsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradingPeriod.EdFi.GradingPeriod,
@@ -4136,7 +4031,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradingPeriods.EdFi.GradingPeriodGetByExample request, IGradingPeriod specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -4146,7 +4041,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4161,7 +4056,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gradingPeriodDescriptors")]
     public partial class GradingPeriodDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GradingPeriodDescriptor.EdFi.GradingPeriodDescriptor,
@@ -4180,10 +4074,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GradingPeriodDescriptors.EdFi.GradingPeriodDescriptorGetByExample request, IGradingPeriodDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradingPeriodDescriptorId = request.GradingPeriodDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4198,7 +4092,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/graduationPlans")]
     public partial class GraduationPlansController : DataManagementControllerBase<
         Api.Common.Models.Resources.GraduationPlan.EdFi.GraduationPlan,
@@ -4217,7 +4110,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GraduationPlans.EdFi.GraduationPlanGetByExample request, IGraduationPlan specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.GraduationPlanTypeDescriptor = request.GraduationPlanTypeDescriptor;
@@ -4227,7 +4120,7 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
             specification.TotalRequiredCreditConversion = request.TotalRequiredCreditConversion;
             specification.TotalRequiredCredits = request.TotalRequiredCredits;
             specification.TotalRequiredCreditTypeDescriptor = request.TotalRequiredCreditTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4242,7 +4135,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/graduationPlanTypeDescriptors")]
     public partial class GraduationPlanTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GraduationPlanTypeDescriptor.EdFi.GraduationPlanTypeDescriptor,
@@ -4261,10 +4153,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.GraduationPlanTypeDescriptors.EdFi.GraduationPlanTypeDescriptorGetByExample request, IGraduationPlanTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GraduationPlanTypeDescriptorId = request.GraduationPlanTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4279,7 +4171,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/gunFreeSchoolsActReportingStatusDescriptors")]
     public partial class GunFreeSchoolsActReportingStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.GunFreeSchoolsActReportingStatusDescriptor.EdFi.GunFreeSchoolsActReportingStatusDescriptor,
@@ -4298,10 +4189,10 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
 
         protected override void MapAll(Api.Common.Models.Requests.GunFreeSchoolsActReportingStatusDescriptors.EdFi.GunFreeSchoolsActReportingStatusDescriptorGetByExample request, IGunFreeSchoolsActReportingStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GunFreeSchoolsActReportingStatusDescriptorId = request.GunFreeSchoolsActReportingStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4316,7 +4207,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/homelessPrimaryNighttimeResidenceDescriptors")]
     public partial class HomelessPrimaryNighttimeResidenceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HomelessPrimaryNighttimeResidenceDescriptor.EdFi.HomelessPrimaryNighttimeResidenceDescriptor,
@@ -4335,10 +4225,10 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
 
         protected override void MapAll(Api.Common.Models.Requests.HomelessPrimaryNighttimeResidenceDescriptors.EdFi.HomelessPrimaryNighttimeResidenceDescriptorGetByExample request, IHomelessPrimaryNighttimeResidenceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.HomelessPrimaryNighttimeResidenceDescriptorId = request.HomelessPrimaryNighttimeResidenceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4353,7 +4243,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/homelessProgramServiceDescriptors")]
     public partial class HomelessProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.HomelessProgramServiceDescriptor.EdFi.HomelessProgramServiceDescriptor,
@@ -4372,10 +4261,10 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
 
         protected override void MapAll(Api.Common.Models.Requests.HomelessProgramServiceDescriptors.EdFi.HomelessProgramServiceDescriptorGetByExample request, IHomelessProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.HomelessProgramServiceDescriptorId = request.HomelessProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4390,7 +4279,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/identificationDocumentUseDescriptors")]
     public partial class IdentificationDocumentUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IdentificationDocumentUseDescriptor.EdFi.IdentificationDocumentUseDescriptor,
@@ -4409,10 +4297,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.IdentificationDocumentUseDescriptors.EdFi.IdentificationDocumentUseDescriptorGetByExample request, IIdentificationDocumentUseDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IdentificationDocumentUseDescriptorId = request.IdentificationDocumentUseDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4427,7 +4315,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/incidentLocationDescriptors")]
     public partial class IncidentLocationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IncidentLocationDescriptor.EdFi.IncidentLocationDescriptor,
@@ -4446,10 +4333,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.IncidentLocationDescriptors.EdFi.IncidentLocationDescriptorGetByExample request, IIncidentLocationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IncidentLocationDescriptorId = request.IncidentLocationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4464,7 +4351,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/indicatorDescriptors")]
     public partial class IndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorDescriptor.EdFi.IndicatorDescriptor,
@@ -4483,10 +4369,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.IndicatorDescriptors.EdFi.IndicatorDescriptorGetByExample request, IIndicatorDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorDescriptorId = request.IndicatorDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4501,7 +4387,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/indicatorGroupDescriptors")]
     public partial class IndicatorGroupDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorGroupDescriptor.EdFi.IndicatorGroupDescriptor,
@@ -4520,10 +4405,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.IndicatorGroupDescriptors.EdFi.IndicatorGroupDescriptorGetByExample request, IIndicatorGroupDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorGroupDescriptorId = request.IndicatorGroupDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4538,7 +4423,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/indicatorLevelDescriptors")]
     public partial class IndicatorLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.IndicatorLevelDescriptor.EdFi.IndicatorLevelDescriptor,
@@ -4557,10 +4441,10 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.IndicatorLevelDescriptors.EdFi.IndicatorLevelDescriptorGetByExample request, IIndicatorLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorLevelDescriptorId = request.IndicatorLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4575,7 +4459,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/institutionTelephoneNumberTypeDescriptors")]
     public partial class InstitutionTelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InstitutionTelephoneNumberTypeDescriptor.EdFi.InstitutionTelephoneNumberTypeDescriptor,
@@ -4594,10 +4477,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
 
         protected override void MapAll(Api.Common.Models.Requests.InstitutionTelephoneNumberTypeDescriptors.EdFi.InstitutionTelephoneNumberTypeDescriptorGetByExample request, IInstitutionTelephoneNumberTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InstitutionTelephoneNumberTypeDescriptorId = request.InstitutionTelephoneNumberTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4612,7 +4495,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interactivityStyleDescriptors")]
     public partial class InteractivityStyleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InteractivityStyleDescriptor.EdFi.InteractivityStyleDescriptor,
@@ -4631,10 +4513,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.InteractivityStyleDescriptors.EdFi.InteractivityStyleDescriptorGetByExample request, IInteractivityStyleDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InteractivityStyleDescriptorId = request.InteractivityStyleDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4649,7 +4531,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/internetAccessDescriptors")]
     public partial class InternetAccessDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InternetAccessDescriptor.EdFi.InternetAccessDescriptor,
@@ -4668,10 +4549,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.InternetAccessDescriptors.EdFi.InternetAccessDescriptorGetByExample request, IInternetAccessDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InternetAccessDescriptorId = request.InternetAccessDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4686,7 +4567,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interventions")]
     public partial class InterventionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Intervention.EdFi.Intervention,
@@ -4705,7 +4585,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Interventions.EdFi.InterventionGetByExample request, IIntervention specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.DeliveryMethodDescriptor = request.DeliveryMethodDescriptor;
@@ -4716,7 +4596,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4731,7 +4611,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interventionClassDescriptors")]
     public partial class InterventionClassDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionClassDescriptor.EdFi.InterventionClassDescriptor,
@@ -4750,10 +4629,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.InterventionClassDescriptors.EdFi.InterventionClassDescriptorGetByExample request, IInterventionClassDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InterventionClassDescriptorId = request.InterventionClassDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4768,7 +4647,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interventionEffectivenessRatingDescriptors")]
     public partial class InterventionEffectivenessRatingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionEffectivenessRatingDescriptor.EdFi.InterventionEffectivenessRatingDescriptor,
@@ -4787,10 +4665,10 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
 
         protected override void MapAll(Api.Common.Models.Requests.InterventionEffectivenessRatingDescriptors.EdFi.InterventionEffectivenessRatingDescriptorGetByExample request, IInterventionEffectivenessRatingDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InterventionEffectivenessRatingDescriptorId = request.InterventionEffectivenessRatingDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4805,7 +4683,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interventionPrescriptions")]
     public partial class InterventionPrescriptionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionPrescription.EdFi.InterventionPrescription,
@@ -4824,7 +4701,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.InterventionPrescriptions.EdFi.InterventionPrescriptionGetByExample request, IInterventionPrescription specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DeliveryMethodDescriptor = request.DeliveryMethodDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4833,7 +4710,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4848,7 +4725,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/interventionStudies")]
     public partial class InterventionStudiesController : DataManagementControllerBase<
         Api.Common.Models.Resources.InterventionStudy.EdFi.InterventionStudy,
@@ -4867,7 +4743,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.InterventionStudies.EdFi.InterventionStudyGetByExample request, IInterventionStudy specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DeliveryMethodDescriptor = request.DeliveryMethodDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -4877,7 +4753,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
             specification.InterventionStudyIdentificationCode = request.InterventionStudyIdentificationCode;
             specification.Participants = request.Participants;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4892,7 +4768,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/languageDescriptors")]
     public partial class LanguageDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageDescriptor.EdFi.LanguageDescriptor,
@@ -4911,10 +4786,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LanguageDescriptors.EdFi.LanguageDescriptorGetByExample request, ILanguageDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageDescriptorId = request.LanguageDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4929,7 +4804,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/languageInstructionProgramServiceDescriptors")]
     public partial class LanguageInstructionProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageInstructionProgramServiceDescriptor.EdFi.LanguageInstructionProgramServiceDescriptor,
@@ -4948,10 +4822,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
 
         protected override void MapAll(Api.Common.Models.Requests.LanguageInstructionProgramServiceDescriptors.EdFi.LanguageInstructionProgramServiceDescriptorGetByExample request, ILanguageInstructionProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageInstructionProgramServiceDescriptorId = request.LanguageInstructionProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -4966,7 +4840,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/languageUseDescriptors")]
     public partial class LanguageUseDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LanguageUseDescriptor.EdFi.LanguageUseDescriptor,
@@ -4985,10 +4858,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LanguageUseDescriptors.EdFi.LanguageUseDescriptorGetByExample request, ILanguageUseDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageUseDescriptorId = request.LanguageUseDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5003,7 +4876,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningObjectives")]
     public partial class LearningObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningObjective.EdFi.LearningObjective,
@@ -5022,7 +4894,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LearningObjectives.EdFi.LearningObjectiveGetByExample request, ILearningObjective specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Description = request.Description;
             specification.Id = request.Id;
@@ -5033,7 +4905,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
             specification.ParentLearningObjectiveId = request.ParentLearningObjectiveId;
             specification.ParentNamespace = request.ParentNamespace;
             specification.SuccessCriteria = request.SuccessCriteria;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5048,7 +4920,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningStandards")]
     public partial class LearningStandardsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandard.EdFi.LearningStandard,
@@ -5067,7 +4938,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LearningStandards.EdFi.LearningStandardGetByExample request, ILearningStandard specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseTitle = request.CourseTitle;
             specification.Description = request.Description;
@@ -5080,7 +4951,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
             specification.ParentLearningStandardId = request.ParentLearningStandardId;
             specification.SuccessCriteria = request.SuccessCriteria;
             specification.URI = request.URI;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5095,7 +4966,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningStandardCategoryDescriptors")]
     public partial class LearningStandardCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardCategoryDescriptor.EdFi.LearningStandardCategoryDescriptor,
@@ -5114,10 +4984,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
 
         protected override void MapAll(Api.Common.Models.Requests.LearningStandardCategoryDescriptors.EdFi.LearningStandardCategoryDescriptorGetByExample request, ILearningStandardCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardCategoryDescriptorId = request.LearningStandardCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5132,7 +5002,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningStandardEquivalenceAssociations")]
     public partial class LearningStandardEquivalenceAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardEquivalenceAssociation.EdFi.LearningStandardEquivalenceAssociation,
@@ -5151,7 +5020,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
 
         protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceAssociations.EdFi.LearningStandardEquivalenceAssociationGetByExample request, ILearningStandardEquivalenceAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EffectiveDate = request.EffectiveDate;
             specification.Id = request.Id;
@@ -5160,7 +5029,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
             specification.Namespace = request.Namespace;
             specification.SourceLearningStandardId = request.SourceLearningStandardId;
             specification.TargetLearningStandardId = request.TargetLearningStandardId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5175,7 +5044,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningStandardEquivalenceStrengthDescriptors")]
     public partial class LearningStandardEquivalenceStrengthDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardEquivalenceStrengthDescriptor.EdFi.LearningStandardEquivalenceStrengthDescriptor,
@@ -5194,10 +5062,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
 
         protected override void MapAll(Api.Common.Models.Requests.LearningStandardEquivalenceStrengthDescriptors.EdFi.LearningStandardEquivalenceStrengthDescriptorGetByExample request, ILearningStandardEquivalenceStrengthDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardEquivalenceStrengthDescriptorId = request.LearningStandardEquivalenceStrengthDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5212,7 +5080,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/learningStandardScopeDescriptors")]
     public partial class LearningStandardScopeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LearningStandardScopeDescriptor.EdFi.LearningStandardScopeDescriptor,
@@ -5231,10 +5098,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.LearningStandardScopeDescriptors.EdFi.LearningStandardScopeDescriptorGetByExample request, ILearningStandardScopeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardScopeDescriptorId = request.LearningStandardScopeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5249,7 +5116,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/levelOfEducationDescriptors")]
     public partial class LevelOfEducationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LevelOfEducationDescriptor.EdFi.LevelOfEducationDescriptor,
@@ -5268,10 +5134,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LevelOfEducationDescriptors.EdFi.LevelOfEducationDescriptorGetByExample request, ILevelOfEducationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LevelOfEducationDescriptorId = request.LevelOfEducationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5286,7 +5152,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/licenseStatusDescriptors")]
     public partial class LicenseStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LicenseStatusDescriptor.EdFi.LicenseStatusDescriptor,
@@ -5305,10 +5170,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LicenseStatusDescriptors.EdFi.LicenseStatusDescriptorGetByExample request, ILicenseStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LicenseStatusDescriptorId = request.LicenseStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5323,7 +5188,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/licenseTypeDescriptors")]
     public partial class LicenseTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LicenseTypeDescriptor.EdFi.LicenseTypeDescriptor,
@@ -5342,10 +5206,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LicenseTypeDescriptors.EdFi.LicenseTypeDescriptorGetByExample request, ILicenseTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LicenseTypeDescriptorId = request.LicenseTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5360,7 +5224,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/limitedEnglishProficiencyDescriptors")]
     public partial class LimitedEnglishProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LimitedEnglishProficiencyDescriptor.EdFi.LimitedEnglishProficiencyDescriptor,
@@ -5379,10 +5242,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.LimitedEnglishProficiencyDescriptors.EdFi.LimitedEnglishProficiencyDescriptorGetByExample request, ILimitedEnglishProficiencyDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LimitedEnglishProficiencyDescriptorId = request.LimitedEnglishProficiencyDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5397,7 +5260,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/localeDescriptors")]
     public partial class LocaleDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocaleDescriptor.EdFi.LocaleDescriptor,
@@ -5416,10 +5278,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LocaleDescriptors.EdFi.LocaleDescriptorGetByExample request, ILocaleDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LocaleDescriptorId = request.LocaleDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5434,7 +5296,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/localEducationAgencies")]
     public partial class LocalEducationAgenciesController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEducationAgency.EdFi.LocalEducationAgency,
@@ -5453,7 +5314,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencies.EdFi.LocalEducationAgencyGetByExample request, ILocalEducationAgency specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptor = request.CharterStatusDescriptor;
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
@@ -5461,7 +5322,7 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.ParentLocalEducationAgencyId = request.ParentLocalEducationAgencyId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5476,7 +5337,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/localEducationAgencyCategoryDescriptors")]
     public partial class LocalEducationAgencyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.LocalEducationAgencyCategoryDescriptor.EdFi.LocalEducationAgencyCategoryDescriptor,
@@ -5495,10 +5355,10 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
 
         protected override void MapAll(Api.Common.Models.Requests.LocalEducationAgencyCategoryDescriptors.EdFi.LocalEducationAgencyCategoryDescriptorGetByExample request, ILocalEducationAgencyCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LocalEducationAgencyCategoryDescriptorId = request.LocalEducationAgencyCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5513,7 +5373,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/locations")]
     public partial class LocationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Location.EdFi.Location,
@@ -5532,14 +5391,14 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Locations.EdFi.LocationGetByExample request, ILocation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassroomIdentificationCode = request.ClassroomIdentificationCode;
             specification.Id = request.Id;
             specification.MaximumNumberOfSeats = request.MaximumNumberOfSeats;
             specification.OptimalNumberOfSeats = request.OptimalNumberOfSeats;
             specification.SchoolId = request.SchoolId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5554,7 +5413,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/magnetSpecialProgramEmphasisSchoolDescriptors")]
     public partial class MagnetSpecialProgramEmphasisSchoolDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MagnetSpecialProgramEmphasisSchoolDescriptor.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptor,
@@ -5573,10 +5431,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
 
         protected override void MapAll(Api.Common.Models.Requests.MagnetSpecialProgramEmphasisSchoolDescriptors.EdFi.MagnetSpecialProgramEmphasisSchoolDescriptorGetByExample request, IMagnetSpecialProgramEmphasisSchoolDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MagnetSpecialProgramEmphasisSchoolDescriptorId = request.MagnetSpecialProgramEmphasisSchoolDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5591,7 +5449,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/mediumOfInstructionDescriptors")]
     public partial class MediumOfInstructionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MediumOfInstructionDescriptor.EdFi.MediumOfInstructionDescriptor,
@@ -5610,10 +5467,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.MediumOfInstructionDescriptors.EdFi.MediumOfInstructionDescriptorGetByExample request, IMediumOfInstructionDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MediumOfInstructionDescriptorId = request.MediumOfInstructionDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5628,7 +5485,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/methodCreditEarnedDescriptors")]
     public partial class MethodCreditEarnedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MethodCreditEarnedDescriptor.EdFi.MethodCreditEarnedDescriptor,
@@ -5647,10 +5503,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.MethodCreditEarnedDescriptors.EdFi.MethodCreditEarnedDescriptorGetByExample request, IMethodCreditEarnedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MethodCreditEarnedDescriptorId = request.MethodCreditEarnedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5665,7 +5521,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/migrantEducationProgramServiceDescriptors")]
     public partial class MigrantEducationProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MigrantEducationProgramServiceDescriptor.EdFi.MigrantEducationProgramServiceDescriptor,
@@ -5684,10 +5539,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
 
         protected override void MapAll(Api.Common.Models.Requests.MigrantEducationProgramServiceDescriptors.EdFi.MigrantEducationProgramServiceDescriptorGetByExample request, IMigrantEducationProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MigrantEducationProgramServiceDescriptorId = request.MigrantEducationProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5702,7 +5557,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/monitoredDescriptors")]
     public partial class MonitoredDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.MonitoredDescriptor.EdFi.MonitoredDescriptor,
@@ -5721,10 +5575,10 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.MonitoredDescriptors.EdFi.MonitoredDescriptorGetByExample request, IMonitoredDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MonitoredDescriptorId = request.MonitoredDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5739,7 +5593,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/neglectedOrDelinquentProgramDescriptors")]
     public partial class NeglectedOrDelinquentProgramDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramDescriptor.EdFi.NeglectedOrDelinquentProgramDescriptor,
@@ -5758,10 +5611,10 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
 
         protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramDescriptors.EdFi.NeglectedOrDelinquentProgramDescriptorGetByExample request, INeglectedOrDelinquentProgramDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.NeglectedOrDelinquentProgramDescriptorId = request.NeglectedOrDelinquentProgramDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5776,7 +5629,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/neglectedOrDelinquentProgramServiceDescriptors")]
     public partial class NeglectedOrDelinquentProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NeglectedOrDelinquentProgramServiceDescriptor.EdFi.NeglectedOrDelinquentProgramServiceDescriptor,
@@ -5795,10 +5647,10 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
 
         protected override void MapAll(Api.Common.Models.Requests.NeglectedOrDelinquentProgramServiceDescriptors.EdFi.NeglectedOrDelinquentProgramServiceDescriptorGetByExample request, INeglectedOrDelinquentProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.NeglectedOrDelinquentProgramServiceDescriptorId = request.NeglectedOrDelinquentProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5813,7 +5665,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/networkPurposeDescriptors")]
     public partial class NetworkPurposeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.NetworkPurposeDescriptor.EdFi.NetworkPurposeDescriptor,
@@ -5832,10 +5683,10 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.NetworkPurposeDescriptors.EdFi.NetworkPurposeDescriptorGetByExample request, INetworkPurposeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.NetworkPurposeDescriptorId = request.NetworkPurposeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5850,7 +5701,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/objectiveAssessments")]
     public partial class ObjectiveAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ObjectiveAssessment.EdFi.ObjectiveAssessment,
@@ -5869,7 +5719,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ObjectiveAssessments.EdFi.ObjectiveAssessmentGetByExample request, IObjectiveAssessment specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
@@ -5881,7 +5731,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
             specification.Nomenclature = request.Nomenclature;
             specification.ParentIdentificationCode = request.ParentIdentificationCode;
             specification.PercentOfAssessment = request.PercentOfAssessment;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5896,7 +5746,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/oldEthnicityDescriptors")]
     public partial class OldEthnicityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OldEthnicityDescriptor.EdFi.OldEthnicityDescriptor,
@@ -5915,10 +5764,10 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.OldEthnicityDescriptors.EdFi.OldEthnicityDescriptorGetByExample request, IOldEthnicityDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OldEthnicityDescriptorId = request.OldEthnicityDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5933,7 +5782,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/openStaffPositions")]
     public partial class OpenStaffPositionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OpenStaffPosition.EdFi.OpenStaffPosition,
@@ -5952,7 +5800,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.OpenStaffPositions.EdFi.OpenStaffPositionGetByExample request, IOpenStaffPosition specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DatePosted = request.DatePosted;
             specification.DatePostingRemoved = request.DatePostingRemoved;
@@ -5964,7 +5812,7 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
             specification.ProgramAssignmentDescriptor = request.ProgramAssignmentDescriptor;
             specification.RequisitionNumber = request.RequisitionNumber;
             specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -5979,7 +5827,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/operationalStatusDescriptors")]
     public partial class OperationalStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OperationalStatusDescriptor.EdFi.OperationalStatusDescriptor,
@@ -5998,10 +5845,10 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi.OperationalStatusDescriptorGetByExample request, IOperationalStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OperationalStatusDescriptorId = request.OperationalStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6016,7 +5863,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/otherNameTypeDescriptors")]
     public partial class OtherNameTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.OtherNameTypeDescriptor.EdFi.OtherNameTypeDescriptor,
@@ -6035,10 +5881,10 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.OtherNameTypeDescriptors.EdFi.OtherNameTypeDescriptorGetByExample request, IOtherNameTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OtherNameTypeDescriptorId = request.OtherNameTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6053,7 +5899,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/parents")]
     public partial class ParentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Parent.EdFi.Parent,
@@ -6072,7 +5917,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Parents.EdFi.ParentGetByExample request, IParent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FirstName = request.FirstName;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
@@ -6086,7 +5931,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             specification.PersonId = request.PersonId;
             specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6101,7 +5946,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/participationDescriptors")]
     public partial class ParticipationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ParticipationDescriptor.EdFi.ParticipationDescriptor,
@@ -6120,10 +5964,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ParticipationDescriptors.EdFi.ParticipationDescriptorGetByExample request, IParticipationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ParticipationDescriptorId = request.ParticipationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6138,7 +5982,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/participationStatusDescriptors")]
     public partial class ParticipationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ParticipationStatusDescriptor.EdFi.ParticipationStatusDescriptor,
@@ -6157,10 +6000,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ParticipationStatusDescriptors.EdFi.ParticipationStatusDescriptorGetByExample request, IParticipationStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ParticipationStatusDescriptorId = request.ParticipationStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6175,7 +6018,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/payrolls")]
     public partial class PayrollsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Payroll.EdFi.Payroll,
@@ -6194,7 +6036,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Payrolls.EdFi.PayrollGetByExample request, IPayroll specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountIdentifier = request.AccountIdentifier;
             specification.AmountToDate = request.AmountToDate;
@@ -6203,7 +6045,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6218,7 +6060,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/performanceBaseConversionDescriptors")]
     public partial class PerformanceBaseConversionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceBaseConversionDescriptor.EdFi.PerformanceBaseConversionDescriptor,
@@ -6237,10 +6078,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.PerformanceBaseConversionDescriptors.EdFi.PerformanceBaseConversionDescriptorGetByExample request, IPerformanceBaseConversionDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceBaseConversionDescriptorId = request.PerformanceBaseConversionDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6255,7 +6096,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/performanceLevelDescriptors")]
     public partial class PerformanceLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PerformanceLevelDescriptor.EdFi.PerformanceLevelDescriptor,
@@ -6274,10 +6114,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PerformanceLevelDescriptors.EdFi.PerformanceLevelDescriptorGetByExample request, IPerformanceLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceLevelDescriptorId = request.PerformanceLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6292,7 +6132,6 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/people")]
     public partial class PeopleController : DataManagementControllerBase<
         Api.Common.Models.Resources.Person.EdFi.Person,
@@ -6311,12 +6150,12 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.People.EdFi.PersonGetByExample request, IPerson specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6331,7 +6170,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/personalInformationVerificationDescriptors")]
     public partial class PersonalInformationVerificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PersonalInformationVerificationDescriptor.EdFi.PersonalInformationVerificationDescriptor,
@@ -6350,10 +6188,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
 
         protected override void MapAll(Api.Common.Models.Requests.PersonalInformationVerificationDescriptors.EdFi.PersonalInformationVerificationDescriptorGetByExample request, IPersonalInformationVerificationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PersonalInformationVerificationDescriptorId = request.PersonalInformationVerificationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6368,7 +6206,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/platformTypeDescriptors")]
     public partial class PlatformTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PlatformTypeDescriptor.EdFi.PlatformTypeDescriptor,
@@ -6387,10 +6224,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PlatformTypeDescriptors.EdFi.PlatformTypeDescriptorGetByExample request, IPlatformTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PlatformTypeDescriptorId = request.PlatformTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6405,7 +6242,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/populationServedDescriptors")]
     public partial class PopulationServedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PopulationServedDescriptor.EdFi.PopulationServedDescriptor,
@@ -6424,10 +6260,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PopulationServedDescriptors.EdFi.PopulationServedDescriptorGetByExample request, IPopulationServedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PopulationServedDescriptorId = request.PopulationServedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6442,7 +6278,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/postingResultDescriptors")]
     public partial class PostingResultDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostingResultDescriptor.EdFi.PostingResultDescriptor,
@@ -6461,10 +6296,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PostingResultDescriptors.EdFi.PostingResultDescriptorGetByExample request, IPostingResultDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostingResultDescriptorId = request.PostingResultDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6479,7 +6314,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/postSecondaryEvents")]
     public partial class PostSecondaryEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryEvent.EdFi.PostSecondaryEvent,
@@ -6498,14 +6332,14 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEvents.EdFi.PostSecondaryEventGetByExample request, IPostSecondaryEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EventDate = request.EventDate;
             specification.Id = request.Id;
             specification.PostSecondaryEventCategoryDescriptor = request.PostSecondaryEventCategoryDescriptor;
             specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6520,7 +6354,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/postSecondaryEventCategoryDescriptors")]
     public partial class PostSecondaryEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryEventCategoryDescriptor.EdFi.PostSecondaryEventCategoryDescriptor,
@@ -6539,10 +6372,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
 
         protected override void MapAll(Api.Common.Models.Requests.PostSecondaryEventCategoryDescriptors.EdFi.PostSecondaryEventCategoryDescriptorGetByExample request, IPostSecondaryEventCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostSecondaryEventCategoryDescriptorId = request.PostSecondaryEventCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6557,7 +6390,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/postSecondaryInstitutions")]
     public partial class PostSecondaryInstitutionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryInstitution.EdFi.PostSecondaryInstitution,
@@ -6576,12 +6408,12 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutions.EdFi.PostSecondaryInstitutionGetByExample request, IPostSecondaryInstitution specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.PostSecondaryInstitutionLevelDescriptor = request.PostSecondaryInstitutionLevelDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6596,7 +6428,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/postSecondaryInstitutionLevelDescriptors")]
     public partial class PostSecondaryInstitutionLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PostSecondaryInstitutionLevelDescriptor.EdFi.PostSecondaryInstitutionLevelDescriptor,
@@ -6615,10 +6446,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
 
         protected override void MapAll(Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescriptors.EdFi.PostSecondaryInstitutionLevelDescriptorGetByExample request, IPostSecondaryInstitutionLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostSecondaryInstitutionLevelDescriptorId = request.PostSecondaryInstitutionLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6633,7 +6464,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/proficiencyDescriptors")]
     public partial class ProficiencyDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProficiencyDescriptor.EdFi.ProficiencyDescriptor,
@@ -6652,10 +6482,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProficiencyDescriptors.EdFi.ProficiencyDescriptorGetByExample request, IProficiencyDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProficiencyDescriptorId = request.ProficiencyDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6670,7 +6500,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/programs")]
     public partial class ProgramsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Program.EdFi.Program,
@@ -6689,14 +6518,14 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Programs.EdFi.ProgramGetByExample request, IProgram specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.ProgramId = request.ProgramId;
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6711,7 +6540,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/programAssignmentDescriptors")]
     public partial class ProgramAssignmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramAssignmentDescriptor.EdFi.ProgramAssignmentDescriptor,
@@ -6730,10 +6558,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProgramAssignmentDescriptors.EdFi.ProgramAssignmentDescriptorGetByExample request, IProgramAssignmentDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramAssignmentDescriptorId = request.ProgramAssignmentDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6748,7 +6576,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/programCharacteristicDescriptors")]
     public partial class ProgramCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramCharacteristicDescriptor.EdFi.ProgramCharacteristicDescriptor,
@@ -6767,10 +6594,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.ProgramCharacteristicDescriptors.EdFi.ProgramCharacteristicDescriptorGetByExample request, IProgramCharacteristicDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramCharacteristicDescriptorId = request.ProgramCharacteristicDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6785,7 +6612,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/programSponsorDescriptors")]
     public partial class ProgramSponsorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramSponsorDescriptor.EdFi.ProgramSponsorDescriptor,
@@ -6804,10 +6630,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProgramSponsorDescriptors.EdFi.ProgramSponsorDescriptorGetByExample request, IProgramSponsorDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramSponsorDescriptorId = request.ProgramSponsorDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6822,7 +6648,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/programTypeDescriptors")]
     public partial class ProgramTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgramTypeDescriptor.EdFi.ProgramTypeDescriptor,
@@ -6841,10 +6666,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProgramTypeDescriptors.EdFi.ProgramTypeDescriptorGetByExample request, IProgramTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramTypeDescriptorId = request.ProgramTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6859,7 +6684,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/progressDescriptors")]
     public partial class ProgressDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressDescriptor.EdFi.ProgressDescriptor,
@@ -6878,10 +6702,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProgressDescriptors.EdFi.ProgressDescriptorGetByExample request, IProgressDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgressDescriptorId = request.ProgressDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6896,7 +6720,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/progressLevelDescriptors")]
     public partial class ProgressLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProgressLevelDescriptor.EdFi.ProgressLevelDescriptor,
@@ -6915,10 +6738,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProgressLevelDescriptors.EdFi.ProgressLevelDescriptorGetByExample request, IProgressLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgressLevelDescriptorId = request.ProgressLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6933,7 +6756,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/providerCategoryDescriptors")]
     public partial class ProviderCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderCategoryDescriptor.EdFi.ProviderCategoryDescriptor,
@@ -6952,10 +6774,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProviderCategoryDescriptors.EdFi.ProviderCategoryDescriptorGetByExample request, IProviderCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderCategoryDescriptorId = request.ProviderCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -6970,7 +6792,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/providerProfitabilityDescriptors")]
     public partial class ProviderProfitabilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderProfitabilityDescriptor.EdFi.ProviderProfitabilityDescriptor,
@@ -6989,10 +6810,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.ProviderProfitabilityDescriptors.EdFi.ProviderProfitabilityDescriptorGetByExample request, IProviderProfitabilityDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderProfitabilityDescriptorId = request.ProviderProfitabilityDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7007,7 +6828,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/providerStatusDescriptors")]
     public partial class ProviderStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ProviderStatusDescriptor.EdFi.ProviderStatusDescriptor,
@@ -7026,10 +6846,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ProviderStatusDescriptors.EdFi.ProviderStatusDescriptorGetByExample request, IProviderStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderStatusDescriptorId = request.ProviderStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7044,7 +6864,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/publicationStatusDescriptors")]
     public partial class PublicationStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.PublicationStatusDescriptor.EdFi.PublicationStatusDescriptor,
@@ -7063,10 +6882,10 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.PublicationStatusDescriptors.EdFi.PublicationStatusDescriptorGetByExample request, IPublicationStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PublicationStatusDescriptorId = request.PublicationStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7081,7 +6900,6 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/questionFormDescriptors")]
     public partial class QuestionFormDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.QuestionFormDescriptor.EdFi.QuestionFormDescriptor,
@@ -7100,10 +6918,10 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.QuestionFormDescriptors.EdFi.QuestionFormDescriptorGetByExample request, IQuestionFormDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.QuestionFormDescriptorId = request.QuestionFormDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7118,7 +6936,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/raceDescriptors")]
     public partial class RaceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RaceDescriptor.EdFi.RaceDescriptor,
@@ -7137,10 +6954,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RaceDescriptors.EdFi.RaceDescriptorGetByExample request, IRaceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RaceDescriptorId = request.RaceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7155,7 +6972,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/reasonExitedDescriptors")]
     public partial class ReasonExitedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReasonExitedDescriptor.EdFi.ReasonExitedDescriptor,
@@ -7174,10 +6990,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ReasonExitedDescriptors.EdFi.ReasonExitedDescriptorGetByExample request, IReasonExitedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReasonExitedDescriptorId = request.ReasonExitedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7192,7 +7008,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/reasonNotTestedDescriptors")]
     public partial class ReasonNotTestedDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReasonNotTestedDescriptor.EdFi.ReasonNotTestedDescriptor,
@@ -7211,10 +7026,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ReasonNotTestedDescriptors.EdFi.ReasonNotTestedDescriptorGetByExample request, IReasonNotTestedDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReasonNotTestedDescriptorId = request.ReasonNotTestedDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7229,7 +7044,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/recognitionTypeDescriptors")]
     public partial class RecognitionTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RecognitionTypeDescriptor.EdFi.RecognitionTypeDescriptor,
@@ -7248,10 +7062,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RecognitionTypeDescriptors.EdFi.RecognitionTypeDescriptorGetByExample request, IRecognitionTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RecognitionTypeDescriptorId = request.RecognitionTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7266,7 +7080,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/relationDescriptors")]
     public partial class RelationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RelationDescriptor.EdFi.RelationDescriptor,
@@ -7285,10 +7098,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RelationDescriptors.EdFi.RelationDescriptorGetByExample request, IRelationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RelationDescriptorId = request.RelationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7303,7 +7116,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/repeatIdentifierDescriptors")]
     public partial class RepeatIdentifierDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RepeatIdentifierDescriptor.EdFi.RepeatIdentifierDescriptor,
@@ -7322,10 +7134,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RepeatIdentifierDescriptors.EdFi.RepeatIdentifierDescriptorGetByExample request, IRepeatIdentifierDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RepeatIdentifierDescriptorId = request.RepeatIdentifierDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7340,7 +7152,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/reportCards")]
     public partial class ReportCardsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReportCard.EdFi.ReportCard,
@@ -7359,7 +7170,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ReportCards.EdFi.ReportCardGetByExample request, IReportCard specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.GPACumulative = request.GPACumulative;
@@ -7373,7 +7184,7 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
             specification.NumberOfDaysInAttendance = request.NumberOfDaysInAttendance;
             specification.NumberOfDaysTardy = request.NumberOfDaysTardy;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7388,7 +7199,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/reporterDescriptionDescriptors")]
     public partial class ReporterDescriptionDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ReporterDescriptionDescriptor.EdFi.ReporterDescriptionDescriptor,
@@ -7407,10 +7217,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ReporterDescriptionDescriptors.EdFi.ReporterDescriptionDescriptorGetByExample request, IReporterDescriptionDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReporterDescriptionDescriptorId = request.ReporterDescriptionDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7425,7 +7235,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/residencyStatusDescriptors")]
     public partial class ResidencyStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResidencyStatusDescriptor.EdFi.ResidencyStatusDescriptor,
@@ -7444,10 +7253,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ResidencyStatusDescriptors.EdFi.ResidencyStatusDescriptorGetByExample request, IResidencyStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ResidencyStatusDescriptorId = request.ResidencyStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7462,7 +7271,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/responseIndicatorDescriptors")]
     public partial class ResponseIndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResponseIndicatorDescriptor.EdFi.ResponseIndicatorDescriptor,
@@ -7481,10 +7289,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ResponseIndicatorDescriptors.EdFi.ResponseIndicatorDescriptorGetByExample request, IResponseIndicatorDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ResponseIndicatorDescriptorId = request.ResponseIndicatorDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7499,7 +7307,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/responsibilityDescriptors")]
     public partial class ResponsibilityDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResponsibilityDescriptor.EdFi.ResponsibilityDescriptor,
@@ -7518,10 +7325,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ResponsibilityDescriptors.EdFi.ResponsibilityDescriptorGetByExample request, IResponsibilityDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ResponsibilityDescriptorId = request.ResponsibilityDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7536,7 +7343,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/restraintEvents")]
     public partial class RestraintEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RestraintEvent.EdFi.RestraintEvent,
@@ -7555,7 +7361,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RestraintEvents.EdFi.RestraintEventGetByExample request, IRestraintEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationalEnvironmentDescriptor = request.EducationalEnvironmentDescriptor;
             specification.EventDate = request.EventDate;
@@ -7563,7 +7369,7 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
             specification.RestraintEventIdentifier = request.RestraintEventIdentifier;
             specification.SchoolId = request.SchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7578,7 +7384,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/restraintEventReasonDescriptors")]
     public partial class RestraintEventReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RestraintEventReasonDescriptor.EdFi.RestraintEventReasonDescriptor,
@@ -7597,10 +7402,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RestraintEventReasonDescriptors.EdFi.RestraintEventReasonDescriptorGetByExample request, IRestraintEventReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RestraintEventReasonDescriptorId = request.RestraintEventReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7615,7 +7420,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/resultDatatypeTypeDescriptors")]
     public partial class ResultDatatypeTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ResultDatatypeTypeDescriptor.EdFi.ResultDatatypeTypeDescriptor,
@@ -7634,10 +7438,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ResultDatatypeTypeDescriptors.EdFi.ResultDatatypeTypeDescriptorGetByExample request, IResultDatatypeTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ResultDatatypeTypeDescriptorId = request.ResultDatatypeTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7652,7 +7456,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/retestIndicatorDescriptors")]
     public partial class RetestIndicatorDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.RetestIndicatorDescriptor.EdFi.RetestIndicatorDescriptor,
@@ -7671,10 +7474,10 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.RetestIndicatorDescriptors.EdFi.RetestIndicatorDescriptorGetByExample request, IRetestIndicatorDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RetestIndicatorDescriptorId = request.RetestIndicatorDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7689,7 +7492,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.EdFi.School,
@@ -7708,7 +7510,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Schools.EdFi.SchoolGetByExample request, ISchool specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptor = request.AdministrativeFundingControlDescriptor;
             specification.CharterApprovalAgencyTypeDescriptor = request.CharterApprovalAgencyTypeDescriptor;
@@ -7720,7 +7522,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7735,7 +7537,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schoolCategoryDescriptors")]
     public partial class SchoolCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolCategoryDescriptor.EdFi.SchoolCategoryDescriptor,
@@ -7754,10 +7555,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SchoolCategoryDescriptors.EdFi.SchoolCategoryDescriptorGetByExample request, ISchoolCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolCategoryDescriptorId = request.SchoolCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7772,7 +7573,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schoolChoiceImplementStatusDescriptors")]
     public partial class SchoolChoiceImplementStatusDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolChoiceImplementStatusDescriptor.EdFi.SchoolChoiceImplementStatusDescriptor,
@@ -7791,10 +7591,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
 
         protected override void MapAll(Api.Common.Models.Requests.SchoolChoiceImplementStatusDescriptors.EdFi.SchoolChoiceImplementStatusDescriptorGetByExample request, ISchoolChoiceImplementStatusDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolChoiceImplementStatusDescriptorId = request.SchoolChoiceImplementStatusDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7809,7 +7609,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schoolFoodServiceProgramServiceDescriptors")]
     public partial class SchoolFoodServiceProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolFoodServiceProgramServiceDescriptor.EdFi.SchoolFoodServiceProgramServiceDescriptor,
@@ -7828,10 +7627,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
 
         protected override void MapAll(Api.Common.Models.Requests.SchoolFoodServiceProgramServiceDescriptors.EdFi.SchoolFoodServiceProgramServiceDescriptorGetByExample request, ISchoolFoodServiceProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolFoodServiceProgramServiceDescriptorId = request.SchoolFoodServiceProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7846,7 +7645,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schoolTypeDescriptors")]
     public partial class SchoolTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolTypeDescriptor.EdFi.SchoolTypeDescriptor,
@@ -7865,10 +7663,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SchoolTypeDescriptors.EdFi.SchoolTypeDescriptorGetByExample request, ISchoolTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolTypeDescriptorId = request.SchoolTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7883,7 +7681,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolYearType.EdFi.SchoolYearType,
@@ -7902,13 +7699,13 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SchoolYearTypes.EdFi.SchoolYearTypeGetByExample request, ISchoolYearType specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CurrentSchoolYear = request.CurrentSchoolYear;
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
             specification.SchoolYearDescription = request.SchoolYearDescription;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7923,7 +7720,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sections")]
     public partial class SectionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Section.EdFi.Section,
@@ -7942,7 +7738,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Sections.EdFi.SectionGetByExample request, ISection specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AvailableCreditConversion = request.AvailableCreditConversion;
             specification.AvailableCredits = request.AvailableCredits;
@@ -7962,7 +7758,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
             specification.SectionName = request.SectionName;
             specification.SequenceOfCourse = request.SequenceOfCourse;
             specification.SessionName = request.SessionName;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -7977,7 +7773,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sectionAttendanceTakenEvents")]
     public partial class SectionAttendanceTakenEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionAttendanceTakenEvent.EdFi.SectionAttendanceTakenEvent,
@@ -7996,7 +7791,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SectionAttendanceTakenEvents.EdFi.SectionAttendanceTakenEventGetByExample request, ISectionAttendanceTakenEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarCode = request.CalendarCode;
             specification.Date = request.Date;
@@ -8008,7 +7803,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8023,7 +7818,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sectionCharacteristicDescriptors")]
     public partial class SectionCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SectionCharacteristicDescriptor.EdFi.SectionCharacteristicDescriptor,
@@ -8042,10 +7836,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.SectionCharacteristicDescriptors.EdFi.SectionCharacteristicDescriptorGetByExample request, ISectionCharacteristicDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SectionCharacteristicDescriptorId = request.SectionCharacteristicDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8060,7 +7854,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/separationDescriptors")]
     public partial class SeparationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SeparationDescriptor.EdFi.SeparationDescriptor,
@@ -8079,10 +7872,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SeparationDescriptors.EdFi.SeparationDescriptorGetByExample request, ISeparationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SeparationDescriptorId = request.SeparationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8097,7 +7890,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/separationReasonDescriptors")]
     public partial class SeparationReasonDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SeparationReasonDescriptor.EdFi.SeparationReasonDescriptor,
@@ -8116,10 +7908,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SeparationReasonDescriptors.EdFi.SeparationReasonDescriptorGetByExample request, ISeparationReasonDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SeparationReasonDescriptorId = request.SeparationReasonDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8134,7 +7926,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/serviceDescriptors")]
     public partial class ServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.ServiceDescriptor.EdFi.ServiceDescriptor,
@@ -8153,10 +7944,10 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.ServiceDescriptors.EdFi.ServiceDescriptorGetByExample request, IServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ServiceDescriptorId = request.ServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8171,7 +7962,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sessions")]
     public partial class SessionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Session.EdFi.Session,
@@ -8190,7 +7980,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Sessions.EdFi.SessionGetByExample request, ISession specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -8200,7 +7990,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
             specification.SessionName = request.SessionName;
             specification.TermDescriptor = request.TermDescriptor;
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8215,7 +8005,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sexDescriptors")]
     public partial class SexDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SexDescriptor.EdFi.SexDescriptor,
@@ -8234,10 +8023,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SexDescriptors.EdFi.SexDescriptorGetByExample request, ISexDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SexDescriptorId = request.SexDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8252,7 +8041,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/sourceSystemDescriptors")]
     public partial class SourceSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SourceSystemDescriptor.EdFi.SourceSystemDescriptor,
@@ -8271,10 +8059,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SourceSystemDescriptors.EdFi.SourceSystemDescriptorGetByExample request, ISourceSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SourceSystemDescriptorId = request.SourceSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8289,7 +8077,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/specialEducationProgramServiceDescriptors")]
     public partial class SpecialEducationProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationProgramServiceDescriptor.EdFi.SpecialEducationProgramServiceDescriptor,
@@ -8308,10 +8095,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
 
         protected override void MapAll(Api.Common.Models.Requests.SpecialEducationProgramServiceDescriptors.EdFi.SpecialEducationProgramServiceDescriptorGetByExample request, ISpecialEducationProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SpecialEducationProgramServiceDescriptorId = request.SpecialEducationProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8326,7 +8113,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/specialEducationSettingDescriptors")]
     public partial class SpecialEducationSettingDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SpecialEducationSettingDescriptor.EdFi.SpecialEducationSettingDescriptor,
@@ -8345,10 +8131,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
 
         protected override void MapAll(Api.Common.Models.Requests.SpecialEducationSettingDescriptors.EdFi.SpecialEducationSettingDescriptorGetByExample request, ISpecialEducationSettingDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SpecialEducationSettingDescriptorId = request.SpecialEducationSettingDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8363,7 +8149,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff,
@@ -8382,7 +8167,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.StaffGetByExample request, IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -8404,7 +8189,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8419,7 +8204,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffAbsenceEvents")]
     public partial class StaffAbsenceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffAbsenceEvent.EdFi.StaffAbsenceEvent,
@@ -8438,7 +8222,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffAbsenceEvents.EdFi.StaffAbsenceEventGetByExample request, IStaffAbsenceEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AbsenceEventCategoryDescriptor = request.AbsenceEventCategoryDescriptor;
             specification.AbsenceEventReason = request.AbsenceEventReason;
@@ -8446,7 +8230,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
             specification.HoursAbsent = request.HoursAbsent;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8461,7 +8245,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffClassificationDescriptors")]
     public partial class StaffClassificationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffClassificationDescriptor.EdFi.StaffClassificationDescriptor,
@@ -8480,10 +8263,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffClassificationDescriptors.EdFi.StaffClassificationDescriptorGetByExample request, IStaffClassificationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffClassificationDescriptorId = request.StaffClassificationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8498,7 +8281,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffCohortAssociations")]
     public partial class StaffCohortAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffCohortAssociation.EdFi.StaffCohortAssociation,
@@ -8517,7 +8299,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffCohortAssociations.EdFi.StaffCohortAssociationGetByExample request, IStaffCohortAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CohortIdentifier = request.CohortIdentifier;
@@ -8526,7 +8308,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentRecordAccess = request.StudentRecordAccess;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8541,7 +8323,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffDisciplineIncidentAssociations")]
     public partial class StaffDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffDisciplineIncidentAssociation.EdFi.StaffDisciplineIncidentAssociation,
@@ -8560,13 +8341,13 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
 
         protected override void MapAll(Api.Common.Models.Requests.StaffDisciplineIncidentAssociations.EdFi.StaffDisciplineIncidentAssociationGetByExample request, IStaffDisciplineIncidentAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.IncidentIdentifier = request.IncidentIdentifier;
             specification.SchoolId = request.SchoolId;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8581,7 +8362,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffEducationOrganizationAssignmentAssociations")]
     public partial class StaffEducationOrganizationAssignmentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationAssignmentAssociation.EdFi.StaffEducationOrganizationAssignmentAssociation,
@@ -8600,7 +8380,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
 
         protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationAssignmentAssociations.EdFi.StaffEducationOrganizationAssignmentAssociationGetByExample request, IStaffEducationOrganizationAssignmentAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CredentialIdentifier = request.CredentialIdentifier;
@@ -8615,7 +8395,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8630,7 +8410,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffEducationOrganizationContactAssociations")]
     public partial class StaffEducationOrganizationContactAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationContactAssociation.EdFi.StaffEducationOrganizationContactAssociation,
@@ -8649,7 +8428,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
 
         protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationContactAssociations.EdFi.StaffEducationOrganizationContactAssociationGetByExample request, IStaffEducationOrganizationContactAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContactTitle = request.ContactTitle;
             specification.ContactTypeDescriptor = request.ContactTypeDescriptor;
@@ -8657,7 +8436,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
             specification.ElectronicMailAddress = request.ElectronicMailAddress;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8672,7 +8451,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffEducationOrganizationEmploymentAssociations")]
     public partial class StaffEducationOrganizationEmploymentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffEducationOrganizationEmploymentAssociation.EdFi.StaffEducationOrganizationEmploymentAssociation,
@@ -8691,7 +8469,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
 
         protected override void MapAll(Api.Common.Models.Requests.StaffEducationOrganizationEmploymentAssociations.EdFi.StaffEducationOrganizationEmploymentAssociationGetByExample request, IStaffEducationOrganizationEmploymentAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialIdentifier = request.CredentialIdentifier;
             specification.Department = request.Department;
@@ -8707,7 +8485,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
             specification.SeparationReasonDescriptor = request.SeparationReasonDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8722,7 +8500,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffIdentificationSystemDescriptors")]
     public partial class StaffIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffIdentificationSystemDescriptor.EdFi.StaffIdentificationSystemDescriptor,
@@ -8741,10 +8518,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.StaffIdentificationSystemDescriptors.EdFi.StaffIdentificationSystemDescriptorGetByExample request, IStaffIdentificationSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffIdentificationSystemDescriptorId = request.StaffIdentificationSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8759,7 +8536,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffLeaves")]
     public partial class StaffLeavesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffLeave.EdFi.StaffLeave,
@@ -8778,7 +8554,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffLeaves.EdFi.StaffLeaveGetByExample request, IStaffLeave specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -8787,7 +8563,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
             specification.StaffLeaveEventCategoryDescriptor = request.StaffLeaveEventCategoryDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.SubstituteAssigned = request.SubstituteAssigned;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8802,7 +8578,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffLeaveEventCategoryDescriptors")]
     public partial class StaffLeaveEventCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffLeaveEventCategoryDescriptor.EdFi.StaffLeaveEventCategoryDescriptor,
@@ -8821,10 +8596,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
 
         protected override void MapAll(Api.Common.Models.Requests.StaffLeaveEventCategoryDescriptors.EdFi.StaffLeaveEventCategoryDescriptorGetByExample request, IStaffLeaveEventCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffLeaveEventCategoryDescriptorId = request.StaffLeaveEventCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8839,7 +8614,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffProgramAssociations")]
     public partial class StaffProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffProgramAssociation.EdFi.StaffProgramAssociation,
@@ -8858,7 +8632,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffProgramAssociations.EdFi.StaffProgramAssociationGetByExample request, IStaffProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EndDate = request.EndDate;
@@ -8868,7 +8642,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentRecordAccess = request.StudentRecordAccess;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8883,7 +8657,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffSchoolAssociations")]
     public partial class StaffSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffSchoolAssociation.EdFi.StaffSchoolAssociation,
@@ -8902,7 +8675,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffSchoolAssociations.EdFi.StaffSchoolAssociationGetByExample request, IStaffSchoolAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarCode = request.CalendarCode;
             specification.Id = request.Id;
@@ -8910,7 +8683,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.StaffUniqueId = request.StaffUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8925,7 +8698,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/staffSectionAssociations")]
     public partial class StaffSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StaffSectionAssociation.EdFi.StaffSectionAssociation,
@@ -8944,7 +8716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StaffSectionAssociations.EdFi.StaffSectionAssociationGetByExample request, IStaffSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.ClassroomPositionDescriptor = request.ClassroomPositionDescriptor;
@@ -8959,7 +8731,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
             specification.SessionName = request.SessionName;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.TeacherStudentDataLinkExclusion = request.TeacherStudentDataLinkExclusion;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -8974,7 +8746,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/stateAbbreviationDescriptors")]
     public partial class StateAbbreviationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateAbbreviationDescriptor.EdFi.StateAbbreviationDescriptor,
@@ -8993,10 +8764,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StateAbbreviationDescriptors.EdFi.StateAbbreviationDescriptorGetByExample request, IStateAbbreviationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StateAbbreviationDescriptorId = request.StateAbbreviationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9011,7 +8782,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/stateEducationAgencies")]
     public partial class StateEducationAgenciesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StateEducationAgency.EdFi.StateEducationAgency,
@@ -9030,10 +8800,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StateEducationAgencies.EdFi.StateEducationAgencyGetByExample request, IStateEducationAgency specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9048,7 +8818,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.EdFi.Student,
@@ -9067,7 +8836,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.StudentGetByExample request, IStudent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthCity = request.BirthCity;
             specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
@@ -9088,7 +8857,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9103,7 +8872,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentAcademicRecords")]
     public partial class StudentAcademicRecordsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAcademicRecord.EdFi.StudentAcademicRecord,
@@ -9122,7 +8890,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentAcademicRecords.EdFi.StudentAcademicRecordGetByExample request, IStudentAcademicRecord specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CumulativeAttemptedCreditConversion = request.CumulativeAttemptedCreditConversion;
             specification.CumulativeAttemptedCredits = request.CumulativeAttemptedCredits;
@@ -9147,7 +8915,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
             specification.SessionGradePointsEarned = request.SessionGradePointsEarned;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermDescriptor = request.TermDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9162,7 +8930,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentAssessments")]
     public partial class StudentAssessmentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentAssessment.EdFi.StudentAssessment,
@@ -9181,7 +8948,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentAssessments.EdFi.StudentAssessmentGetByExample request, IStudentAssessment specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationDate = request.AdministrationDate;
             specification.AdministrationEndDate = request.AdministrationEndDate;
@@ -9200,7 +8967,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             specification.StudentAssessmentIdentifier = request.StudentAssessmentIdentifier;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.WhenAssessedGradeLevelDescriptor = request.WhenAssessedGradeLevelDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9215,7 +8982,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentCharacteristicDescriptors")]
     public partial class StudentCharacteristicDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCharacteristicDescriptor.EdFi.StudentCharacteristicDescriptor,
@@ -9234,10 +9000,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
 
         protected override void MapAll(Api.Common.Models.Requests.StudentCharacteristicDescriptors.EdFi.StudentCharacteristicDescriptorGetByExample request, IStudentCharacteristicDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentCharacteristicDescriptorId = request.StudentCharacteristicDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9252,7 +9018,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentCohortAssociations")]
     public partial class StudentCohortAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCohortAssociation.EdFi.StudentCohortAssociation,
@@ -9271,7 +9036,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentCohortAssociations.EdFi.StudentCohortAssociationGetByExample request, IStudentCohortAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CohortIdentifier = request.CohortIdentifier;
@@ -9279,7 +9044,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9294,7 +9059,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentCompetencyObjectives")]
     public partial class StudentCompetencyObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCompetencyObjective.EdFi.StudentCompetencyObjective,
@@ -9313,7 +9077,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentCompetencyObjectives.EdFi.StudentCompetencyObjectiveGetByExample request, IStudentCompetencyObjective specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
             specification.DiagnosticStatement = request.DiagnosticStatement;
@@ -9326,7 +9090,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
             specification.ObjectiveEducationOrganizationId = request.ObjectiveEducationOrganizationId;
             specification.ObjectiveGradeLevelDescriptor = request.ObjectiveGradeLevelDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9341,7 +9105,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentCTEProgramAssociations")]
     public partial class StudentCTEProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi.StudentCTEProgramAssociation,
@@ -9360,7 +9123,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentCTEProgramAssociations.EdFi.StudentCTEProgramAssociationGetByExample request, IStudentCTEProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -9371,7 +9134,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TechnicalSkillsAssessmentDescriptor = request.TechnicalSkillsAssessmentDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9386,7 +9149,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentDisciplineIncidentAssociations")]
     public partial class StudentDisciplineIncidentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentDisciplineIncidentAssociation.EdFi.StudentDisciplineIncidentAssociation,
@@ -9405,14 +9167,14 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
 
         protected override void MapAll(Api.Common.Models.Requests.StudentDisciplineIncidentAssociations.EdFi.StudentDisciplineIncidentAssociationGetByExample request, IStudentDisciplineIncidentAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.IncidentIdentifier = request.IncidentIdentifier;
             specification.SchoolId = request.SchoolId;
             specification.StudentParticipationCodeDescriptor = request.StudentParticipationCodeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9427,7 +9189,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentEducationOrganizationAssociations")]
     public partial class StudentEducationOrganizationAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentEducationOrganizationAssociation.EdFi.StudentEducationOrganizationAssociation,
@@ -9446,7 +9207,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
 
         protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi.StudentEducationOrganizationAssociationGetByExample request, IStudentEducationOrganizationAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
@@ -9457,7 +9218,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9472,7 +9233,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentEducationOrganizationResponsibilityAssociations")]
     public partial class StudentEducationOrganizationResponsibilityAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentEducationOrganizationResponsibilityAssociation.EdFi.StudentEducationOrganizationResponsibilityAssociation,
@@ -9491,7 +9251,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentEducationOrganizationResponsibilityAssociations.EdFi.StudentEducationOrganizationResponsibilityAssociationGetByExample request, IStudentEducationOrganizationResponsibilityAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -9499,7 +9259,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
             specification.Id = request.Id;
             specification.ResponsibilityDescriptor = request.ResponsibilityDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9514,7 +9274,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentGradebookEntries")]
     public partial class StudentGradebookEntriesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentGradebookEntry.EdFi.StudentGradebookEntry,
@@ -9533,7 +9292,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentGradebookEntries.EdFi.StudentGradebookEntryGetByExample request, IStudentGradebookEntry specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
@@ -9550,7 +9309,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9565,7 +9324,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentHomelessProgramAssociations")]
     public partial class StudentHomelessProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentHomelessProgramAssociation.EdFi.StudentHomelessProgramAssociation,
@@ -9584,7 +9342,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
 
         protected override void MapAll(Api.Common.Models.Requests.StudentHomelessProgramAssociations.EdFi.StudentHomelessProgramAssociationGetByExample request, IStudentHomelessProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AwaitingFosterCare = request.AwaitingFosterCare;
             specification.BeginDate = request.BeginDate;
@@ -9595,7 +9353,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9610,7 +9368,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentIdentificationSystemDescriptors")]
     public partial class StudentIdentificationSystemDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentIdentificationSystemDescriptor.EdFi.StudentIdentificationSystemDescriptor,
@@ -9629,10 +9386,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
 
         protected override void MapAll(Api.Common.Models.Requests.StudentIdentificationSystemDescriptors.EdFi.StudentIdentificationSystemDescriptorGetByExample request, IStudentIdentificationSystemDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9647,7 +9404,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentInterventionAssociations")]
     public partial class StudentInterventionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentInterventionAssociation.EdFi.StudentInterventionAssociation,
@@ -9666,7 +9422,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAssociations.EdFi.StudentInterventionAssociationGetByExample request, IStudentInterventionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortEducationOrganizationId = request.CohortEducationOrganizationId;
             specification.CohortIdentifier = request.CohortIdentifier;
@@ -9676,7 +9432,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
             specification.Id = request.Id;
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9691,7 +9447,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentInterventionAttendanceEvents")]
     public partial class StudentInterventionAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentInterventionAttendanceEvent.EdFi.StudentInterventionAttendanceEvent,
@@ -9710,7 +9465,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
 
         protected override void MapAll(Api.Common.Models.Requests.StudentInterventionAttendanceEvents.EdFi.StudentInterventionAttendanceEventGetByExample request, IStudentInterventionAttendanceEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
             specification.AttendanceEventReason = request.AttendanceEventReason;
@@ -9722,7 +9477,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
             specification.InterventionDuration = request.InterventionDuration;
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9737,7 +9492,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentLanguageInstructionProgramAssociations")]
     public partial class StudentLanguageInstructionProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentLanguageInstructionProgramAssociation.EdFi.StudentLanguageInstructionProgramAssociation,
@@ -9756,7 +9510,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
 
         protected override void MapAll(Api.Common.Models.Requests.StudentLanguageInstructionProgramAssociations.EdFi.StudentLanguageInstructionProgramAssociationGetByExample request, IStudentLanguageInstructionProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.Dosage = request.Dosage;
@@ -9766,7 +9520,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9781,7 +9535,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentLearningObjectives")]
     public partial class StudentLearningObjectivesController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentLearningObjective.EdFi.StudentLearningObjective,
@@ -9800,7 +9553,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentLearningObjectives.EdFi.StudentLearningObjectiveGetByExample request, IStudentLearningObjective specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
             specification.DiagnosticStatement = request.DiagnosticStatement;
@@ -9812,7 +9565,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
             specification.LearningObjectiveId = request.LearningObjectiveId;
             specification.Namespace = request.Namespace;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9827,7 +9580,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentMigrantEducationProgramAssociations")]
     public partial class StudentMigrantEducationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentMigrantEducationProgramAssociation.EdFi.StudentMigrantEducationProgramAssociation,
@@ -9846,7 +9598,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
 
         protected override void MapAll(Api.Common.Models.Requests.StudentMigrantEducationProgramAssociations.EdFi.StudentMigrantEducationProgramAssociationGetByExample request, IStudentMigrantEducationProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.ContinuationOfServicesReasonDescriptor = request.ContinuationOfServicesReasonDescriptor;
@@ -9863,7 +9615,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
             specification.USInitialEntry = request.USInitialEntry;
             specification.USInitialSchoolEntry = request.USInitialSchoolEntry;
             specification.USMostRecentEntry = request.USMostRecentEntry;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9878,7 +9630,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentNeglectedOrDelinquentProgramAssociations")]
     public partial class StudentNeglectedOrDelinquentProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentNeglectedOrDelinquentProgramAssociation.EdFi.StudentNeglectedOrDelinquentProgramAssociation,
@@ -9897,7 +9648,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
 
         protected override void MapAll(Api.Common.Models.Requests.StudentNeglectedOrDelinquentProgramAssociations.EdFi.StudentNeglectedOrDelinquentProgramAssociationGetByExample request, IStudentNeglectedOrDelinquentProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -9908,7 +9659,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9923,7 +9674,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentParentAssociations")]
     public partial class StudentParentAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentParentAssociation.EdFi.StudentParentAssociation,
@@ -9942,7 +9692,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentParentAssociations.EdFi.StudentParentAssociationGetByExample request, IStudentParentAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContactPriority = request.ContactPriority;
             specification.ContactRestrictions = request.ContactRestrictions;
@@ -9953,7 +9703,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
             specification.PrimaryContactStatus = request.PrimaryContactStatus;
             specification.RelationDescriptor = request.RelationDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -9968,7 +9718,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentParticipationCodeDescriptors")]
     public partial class StudentParticipationCodeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentParticipationCodeDescriptor.EdFi.StudentParticipationCodeDescriptor,
@@ -9987,10 +9736,10 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
 
         protected override void MapAll(Api.Common.Models.Requests.StudentParticipationCodeDescriptors.EdFi.StudentParticipationCodeDescriptorGetByExample request, IStudentParticipationCodeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentParticipationCodeDescriptorId = request.StudentParticipationCodeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10005,7 +9754,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentProgramAssociations")]
     public partial class StudentProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentProgramAssociation.EdFi.StudentProgramAssociation,
@@ -10024,7 +9772,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentProgramAssociations.EdFi.StudentProgramAssociationGetByExample request, IStudentProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -10032,7 +9780,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10047,7 +9795,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentProgramAttendanceEvents")]
     public partial class StudentProgramAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentProgramAttendanceEvent.EdFi.StudentProgramAttendanceEvent,
@@ -10066,7 +9813,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentProgramAttendanceEvents.EdFi.StudentProgramAttendanceEventGetByExample request, IStudentProgramAttendanceEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
             specification.AttendanceEventReason = request.AttendanceEventReason;
@@ -10080,7 +9827,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10095,7 +9842,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.StudentSchoolAssociation,
@@ -10114,7 +9860,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAssociations.EdFi.StudentSchoolAssociationGetByExample request, IStudentSchoolAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarCode = request.CalendarCode;
             specification.ClassOfSchoolYear = request.ClassOfSchoolYear;
@@ -10138,7 +9884,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermCompletionIndicator = request.TermCompletionIndicator;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10153,7 +9899,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSchoolAttendanceEvents")]
     public partial class StudentSchoolAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAttendanceEvent.EdFi.StudentSchoolAttendanceEvent,
@@ -10172,7 +9917,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSchoolAttendanceEvents.EdFi.StudentSchoolAttendanceEventGetByExample request, IStudentSchoolAttendanceEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ArrivalTime = request.ArrivalTime;
             specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
@@ -10187,7 +9932,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10202,7 +9947,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSchoolFoodServiceProgramAssociations")]
     public partial class StudentSchoolFoodServiceProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolFoodServiceProgramAssociation.EdFi.StudentSchoolFoodServiceProgramAssociation,
@@ -10221,7 +9965,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSchoolFoodServiceProgramAssociations.EdFi.StudentSchoolFoodServiceProgramAssociationGetByExample request, IStudentSchoolFoodServiceProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.DirectCertification = request.DirectCertification;
@@ -10230,7 +9974,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10245,7 +9989,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSectionAssociations")]
     public partial class StudentSectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSectionAssociation.EdFi.StudentSectionAssociation,
@@ -10264,7 +10007,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSectionAssociations.EdFi.StudentSectionAssociationGetByExample request, IStudentSectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttemptStatusDescriptor = request.AttemptStatusDescriptor;
             specification.BeginDate = request.BeginDate;
@@ -10279,7 +10022,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TeacherStudentDataLinkExclusion = request.TeacherStudentDataLinkExclusion;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10294,7 +10037,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSectionAttendanceEvents")]
     public partial class StudentSectionAttendanceEventsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSectionAttendanceEvent.EdFi.StudentSectionAttendanceEvent,
@@ -10313,7 +10055,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSectionAttendanceEvents.EdFi.StudentSectionAttendanceEventGetByExample request, IStudentSectionAttendanceEvent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ArrivalTime = request.ArrivalTime;
             specification.AttendanceEventCategoryDescriptor = request.AttendanceEventCategoryDescriptor;
@@ -10330,7 +10072,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10345,7 +10087,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentSpecialEducationProgramAssociations")]
     public partial class StudentSpecialEducationProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSpecialEducationProgramAssociation.EdFi.StudentSpecialEducationProgramAssociation,
@@ -10364,7 +10105,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
 
         protected override void MapAll(Api.Common.Models.Requests.StudentSpecialEducationProgramAssociations.EdFi.StudentSpecialEducationProgramAssociationGetByExample request, IStudentSpecialEducationProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -10382,7 +10123,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.SpecialEducationHoursPerWeek = request.SpecialEducationHoursPerWeek;
             specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10397,7 +10138,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/studentTitleIPartAProgramAssociations")]
     public partial class StudentTitleIPartAProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentTitleIPartAProgramAssociation.EdFi.StudentTitleIPartAProgramAssociation,
@@ -10416,7 +10156,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
 
         protected override void MapAll(Api.Common.Models.Requests.StudentTitleIPartAProgramAssociations.EdFi.StudentTitleIPartAProgramAssociationGetByExample request, IStudentTitleIPartAProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.EducationOrganizationId = request.EducationOrganizationId;
@@ -10425,7 +10165,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TitleIPartAParticipantDescriptor = request.TitleIPartAParticipantDescriptor;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10440,7 +10180,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveys")]
     public partial class SurveysController : DataManagementControllerBase<
         Api.Common.Models.Resources.Survey.EdFi.Survey,
@@ -10459,7 +10198,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.Surveys.EdFi.SurveyGetByExample request, ISurvey specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
@@ -10471,7 +10210,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
             specification.SurveyCategoryDescriptor = request.SurveyCategoryDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyTitle = request.SurveyTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10486,7 +10225,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyCategoryDescriptors")]
     public partial class SurveyCategoryDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyCategoryDescriptor.EdFi.SurveyCategoryDescriptor,
@@ -10505,10 +10243,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyCategoryDescriptors.EdFi.SurveyCategoryDescriptorGetByExample request, ISurveyCategoryDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SurveyCategoryDescriptorId = request.SurveyCategoryDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10523,7 +10261,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyCourseAssociations")]
     public partial class SurveyCourseAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyCourseAssociation.EdFi.SurveyCourseAssociation,
@@ -10542,14 +10279,14 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyCourseAssociations.EdFi.SurveyCourseAssociationGetByExample request, ISurveyCourseAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseCode = request.CourseCode;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10564,7 +10301,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyLevelDescriptors")]
     public partial class SurveyLevelDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyLevelDescriptor.EdFi.SurveyLevelDescriptor,
@@ -10583,10 +10319,10 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyLevelDescriptors.EdFi.SurveyLevelDescriptorGetByExample request, ISurveyLevelDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SurveyLevelDescriptorId = request.SurveyLevelDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10601,7 +10337,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyProgramAssociations")]
     public partial class SurveyProgramAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyProgramAssociation.EdFi.SurveyProgramAssociation,
@@ -10620,7 +10355,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyProgramAssociations.EdFi.SurveyProgramAssociationGetByExample request, ISurveyProgramAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
@@ -10628,7 +10363,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10643,7 +10378,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyQuestions")]
     public partial class SurveyQuestionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyQuestion.EdFi.SurveyQuestion,
@@ -10662,7 +10396,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyQuestions.EdFi.SurveyQuestionGetByExample request, ISurveyQuestion specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
@@ -10671,7 +10405,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
             specification.QuestionText = request.QuestionText;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10686,7 +10420,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyQuestionResponses")]
     public partial class SurveyQuestionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyQuestionResponse.EdFi.SurveyQuestionResponse,
@@ -10705,7 +10438,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyQuestionResponses.EdFi.SurveyQuestionResponseGetByExample request, ISurveyQuestionResponse specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Comment = request.Comment;
             specification.Id = request.Id;
@@ -10714,7 +10447,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
             specification.QuestionCode = request.QuestionCode;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10729,7 +10462,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyResponses")]
     public partial class SurveyResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponse.EdFi.SurveyResponse,
@@ -10748,7 +10480,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyResponses.EdFi.SurveyResponseGetByExample request, ISurveyResponse specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ElectronicMailAddress = request.ElectronicMailAddress;
             specification.FullName = request.FullName;
@@ -10762,7 +10494,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10777,7 +10509,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyResponseEducationOrganizationTargetAssociations")]
     public partial class SurveyResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseEducationOrganizationTargetAssociation.EdFi.SurveyResponseEducationOrganizationTargetAssociation,
@@ -10796,14 +10527,14 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyResponseEducationOrganizationTargetAssociations.EdFi.SurveyResponseEducationOrganizationTargetAssociationGetByExample request, ISurveyResponseEducationOrganizationTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10818,7 +10549,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveyResponseStaffTargetAssociations")]
     public partial class SurveyResponseStaffTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveyResponseStaffTargetAssociation.EdFi.SurveyResponseStaffTargetAssociation,
@@ -10837,14 +10567,14 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
 
         protected override void MapAll(Api.Common.Models.Requests.SurveyResponseStaffTargetAssociations.EdFi.SurveyResponseStaffTargetAssociationGetByExample request, ISurveyResponseStaffTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10859,7 +10589,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveySections")]
     public partial class SurveySectionsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySection.EdFi.SurveySection,
@@ -10878,13 +10607,13 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveySections.EdFi.SurveySectionGetByExample request, ISurveySection specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10899,7 +10628,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveySectionAssociations")]
     public partial class SurveySectionAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionAssociation.EdFi.SurveySectionAssociation,
@@ -10918,7 +10646,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveySectionAssociations.EdFi.SurveySectionAssociationGetByExample request, ISurveySectionAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.LocalCourseCode = request.LocalCourseCode;
@@ -10928,7 +10656,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.SurveyIdentifier = request.SurveyIdentifier;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10943,7 +10671,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveySectionResponses")]
     public partial class SurveySectionResponsesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponse.EdFi.SurveySectionResponse,
@@ -10962,7 +10689,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponses.EdFi.SurveySectionResponseGetByExample request, ISurveySectionResponse specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
@@ -10970,7 +10697,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -10985,7 +10712,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveySectionResponseEducationOrganizationTargetAssociations")]
     public partial class SurveySectionResponseEducationOrganizationTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseEducationOrganizationTargetAssociation.EdFi.SurveySectionResponseEducationOrganizationTargetAssociation,
@@ -11004,7 +10730,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
 
         protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseEducationOrganizationTargetAssociations.EdFi.SurveySectionResponseEducationOrganizationTargetAssociationGetByExample request, ISurveySectionResponseEducationOrganizationTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
@@ -11012,7 +10738,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11027,7 +10753,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/surveySectionResponseStaffTargetAssociations")]
     public partial class SurveySectionResponseStaffTargetAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.SurveySectionResponseStaffTargetAssociation.EdFi.SurveySectionResponseStaffTargetAssociation,
@@ -11046,7 +10771,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
 
         protected override void MapAll(Api.Common.Models.Requests.SurveySectionResponseStaffTargetAssociations.EdFi.SurveySectionResponseStaffTargetAssociationGetByExample request, ISurveySectionResponseStaffTargetAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.Namespace = request.Namespace;
@@ -11054,7 +10779,7 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11069,7 +10794,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/teachingCredentialBasisDescriptors")]
     public partial class TeachingCredentialBasisDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeachingCredentialBasisDescriptor.EdFi.TeachingCredentialBasisDescriptor,
@@ -11088,10 +10812,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
 
         protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialBasisDescriptors.EdFi.TeachingCredentialBasisDescriptorGetByExample request, ITeachingCredentialBasisDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TeachingCredentialBasisDescriptorId = request.TeachingCredentialBasisDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11106,7 +10830,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/teachingCredentialDescriptors")]
     public partial class TeachingCredentialDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TeachingCredentialDescriptor.EdFi.TeachingCredentialDescriptor,
@@ -11125,10 +10848,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.TeachingCredentialDescriptors.EdFi.TeachingCredentialDescriptorGetByExample request, ITeachingCredentialDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TeachingCredentialDescriptorId = request.TeachingCredentialDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11143,7 +10866,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/technicalSkillsAssessmentDescriptors")]
     public partial class TechnicalSkillsAssessmentDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TechnicalSkillsAssessmentDescriptor.EdFi.TechnicalSkillsAssessmentDescriptor,
@@ -11162,10 +10884,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TechnicalSkillsAssessmentDescriptors.EdFi.TechnicalSkillsAssessmentDescriptorGetByExample request, ITechnicalSkillsAssessmentDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TechnicalSkillsAssessmentDescriptorId = request.TechnicalSkillsAssessmentDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11180,7 +10902,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/telephoneNumberTypeDescriptors")]
     public partial class TelephoneNumberTypeDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TelephoneNumberTypeDescriptor.EdFi.TelephoneNumberTypeDescriptor,
@@ -11199,10 +10920,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.TelephoneNumberTypeDescriptors.EdFi.TelephoneNumberTypeDescriptorGetByExample request, ITelephoneNumberTypeDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TelephoneNumberTypeDescriptorId = request.TelephoneNumberTypeDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11217,7 +10938,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/termDescriptors")]
     public partial class TermDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TermDescriptor.EdFi.TermDescriptor,
@@ -11236,10 +10956,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.TermDescriptors.EdFi.TermDescriptorGetByExample request, ITermDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TermDescriptorId = request.TermDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11254,7 +10974,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/titleIPartAParticipantDescriptors")]
     public partial class TitleIPartAParticipantDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartAParticipantDescriptor.EdFi.TitleIPartAParticipantDescriptor,
@@ -11273,10 +10992,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
 
         protected override void MapAll(Api.Common.Models.Requests.TitleIPartAParticipantDescriptors.EdFi.TitleIPartAParticipantDescriptorGetByExample request, ITitleIPartAParticipantDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartAParticipantDescriptorId = request.TitleIPartAParticipantDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11291,7 +11010,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/titleIPartAProgramServiceDescriptors")]
     public partial class TitleIPartAProgramServiceDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartAProgramServiceDescriptor.EdFi.TitleIPartAProgramServiceDescriptor,
@@ -11310,10 +11028,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
 
         protected override void MapAll(Api.Common.Models.Requests.TitleIPartAProgramServiceDescriptors.EdFi.TitleIPartAProgramServiceDescriptorGetByExample request, ITitleIPartAProgramServiceDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartAProgramServiceDescriptorId = request.TitleIPartAProgramServiceDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11328,7 +11046,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/titleIPartASchoolDesignationDescriptors")]
     public partial class TitleIPartASchoolDesignationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TitleIPartASchoolDesignationDescriptor.EdFi.TitleIPartASchoolDesignationDescriptor,
@@ -11347,10 +11064,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
 
         protected override void MapAll(Api.Common.Models.Requests.TitleIPartASchoolDesignationDescriptors.EdFi.TitleIPartASchoolDesignationDescriptorGetByExample request, ITitleIPartASchoolDesignationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartASchoolDesignationDescriptorId = request.TitleIPartASchoolDesignationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11365,7 +11082,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/tribalAffiliationDescriptors")]
     public partial class TribalAffiliationDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.TribalAffiliationDescriptor.EdFi.TribalAffiliationDescriptor,
@@ -11384,10 +11100,10 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.TribalAffiliationDescriptors.EdFi.TribalAffiliationDescriptorGetByExample request, ITribalAffiliationDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TribalAffiliationDescriptorId = request.TribalAffiliationDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11402,7 +11118,6 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/visaDescriptors")]
     public partial class VisaDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.VisaDescriptor.EdFi.VisaDescriptor,
@@ -11421,10 +11136,10 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.VisaDescriptors.EdFi.VisaDescriptorGetByExample request, IVisaDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.VisaDescriptorId = request.VisaDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -11439,7 +11154,6 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("ed-fi/weaponDescriptors")]
     public partial class WeaponDescriptorsController : DataManagementControllerBase<
         Api.Common.Models.Resources.WeaponDescriptor.EdFi.WeaponDescriptor,
@@ -11458,10 +11172,10 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
 
         protected override void MapAll(Api.Common.Models.Requests.WeaponDescriptors.EdFi.WeaponDescriptorGetByExample request, IWeaponDescriptor specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.WeaponDescriptorId = request.WeaponDescriptorId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
