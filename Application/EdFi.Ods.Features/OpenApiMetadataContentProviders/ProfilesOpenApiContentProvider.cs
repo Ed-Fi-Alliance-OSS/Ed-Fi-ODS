@@ -69,7 +69,7 @@ namespace EdFi.Ods.Features.Profiles
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(openApiStrategy)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory().Create(openApiStrategy, c)),
                             RouteConstants.DataManagementRoutePrefix,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }

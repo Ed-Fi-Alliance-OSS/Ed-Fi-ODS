@@ -22,9 +22,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     [TestFixture]
     public class OpenApiMetadataDocumentFactoryTests
     {
-        protected static IResourceModelProvider ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
+        protected static IResourceModelProvider
+            ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
-        protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+        protected static ISchemaNameMapProvider
+            SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
 
         public class When_creating_a_openapimetadata_document_for_list_of_resources_for_a_single_instance_ods : TestFixtureBase
         {
@@ -49,15 +51,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext)
-                    .Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = new OpenApiMetadataDocumentFactory()
+                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings
-                    {
-                        MetadataPropertyHandling = MetadataPropertyHandling.Ignore
-                    });
+                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
             }
 
             [Assert]
@@ -75,7 +74,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_filter_the_resources()
             {
-                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_openApiMetadataDocumentContext)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_openApiMetadataDocumentContext))
+                    .MustHaveHappenedOnceExactly();
             }
 
             [Assert]
@@ -156,14 +156,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = new OpenApiMetadataDocumentFactory().Create(
+                    _stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings
-                    {
-                        MetadataPropertyHandling = MetadataPropertyHandling.Ignore
-                    });
+                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
             }
 
             [Assert]
@@ -182,7 +180,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_filter_the_resources()
             {
                 A.CallTo(
-                    () => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>.That.IsEqualTo(_openApiMetadataDocumentContext))).MustHaveHappened();
+                    () => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(
+                        A<OpenApiMetadataDocumentContext>.That.IsEqualTo(_openApiMetadataDocumentContext))).MustHaveHappened();
             }
 
             [Assert]

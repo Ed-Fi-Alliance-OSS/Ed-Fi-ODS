@@ -18,7 +18,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         // that would create the entire OpenApiMetadataDocumentFactory with the correct strategies for that use case rather 
         // than using conditional checks on the context.
 
-        public static OpenApiMetadataDefinitionsFactory CreateOpenApiMetadataDefinitionsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
+        public static OpenApiMetadataDefinitionsFactory CreateOpenApiMetadataDefinitionsFactory(
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
             switch (openApiMetadataDocumentContext.RenderType)
             {
@@ -47,7 +48,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy(),
                         new OpenApiMetadataFactoryResourceFilterSchemaStrategy(openApiMetadataDocumentContext));
                 default:
-                    var bridgeStrategy = new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
+                    var bridgeStrategy =
+                        new OpenApiMetadataDefinitionsFactoryDefaultEdFiExtensionBridgeStrategy(openApiMetadataDocumentContext);
+
                     var filterStrategy = new OpenApiMetadataFactoryResourceFilterDefaultStrategy();
 
                     var namingStrategy = GetOpenApiMetadataDefinitionsFactoryNamingStrategy(openApiMetadataDocumentContext);
@@ -65,7 +68,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
         }
 
-        public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
+        public static OpenApiMetadataPathsFactory CreateOpenApiMetadataPathsFactory(
+            OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
         {
             if (openApiMetadataDocumentContext.IsProfileContext)
             {
@@ -103,7 +107,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public static OpenApiMetadataTagsFactory CreateOpenApiMetadataTagsFactory(OpenApiMetadataDocumentContext documentContext)
         {
             var filter = documentContext.RenderType == RenderType.ExtensionArtifactsOnly
-                ? new OpenApiMetadataFactoryResourceFilterSchemaStrategy(documentContext) as IOpenApiMetadataFactoryResourceFilterStrategy
+                ? new OpenApiMetadataFactoryResourceFilterSchemaStrategy(documentContext) as
+                    IOpenApiMetadataFactoryResourceFilterStrategy
                 : new OpenApiMetadataFactoryResourceFilterDefaultStrategy();
 
             return new OpenApiMetadataTagsFactory(filter);
@@ -118,11 +123,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             }
 
             return openApiMetadataDocumentContext.IsProfileContext
-                ? (IOpenApiMetadataDefinitionsFactoryNamingStrategy)new OpenApiMetadataDefinitionsFactoryProfileNamingStrategy()
+                ? (IOpenApiMetadataDefinitionsFactoryNamingStrategy) new OpenApiMetadataDefinitionsFactoryProfileNamingStrategy()
                 : new OpenApiMetadataDefinitionsFactoryDefaultNamingStrategy();
         }
 
-        public static OpenApiMetadataDocumentFactory GetExtensionOnlyOpenApiMetadataDocumentFactory(IResourceModel resourceModel, Schema schema)
+        public static OpenApiMetadataDocumentFactory GetExtensionOnlyOpenApiMetadataDocumentFactory(IResourceModel resourceModel,
+            Schema schema)
         {
             var documentContext = new OpenApiMetadataDocumentContext(resourceModel)
             {
@@ -130,14 +136,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 IsIncludedExtension = r => r.FullName.Schema.Equals(schema.PhysicalName)
             };
 
-            return new OpenApiMetadataDocumentFactory(
-                new OpenApiMetadataParametersFactory(),
-                CreateOpenApiMetadataDefinitionsFactory(documentContext),
-                new OpenApiMetadataResponsesFactory(),
-                CreateOpenApiMetadataPathsFactory(documentContext),
-                CreateOpenApiMetadataTagsFactory(documentContext),
-                documentContext
-            );
+            return new OpenApiMetadataDocumentFactory();
         }
     }
 }

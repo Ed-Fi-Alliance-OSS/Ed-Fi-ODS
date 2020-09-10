@@ -34,19 +34,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             private IApiClientIdentityProvider _apiClientIdentityProvider;
             private readonly int[] _expectedEducationOrganizations =
             {
-                 123, 321
-             };
+                123,
+                321
+            };
             private readonly string[] _expectedProfiles =
             {
-                 "profile1", "profile2", "profile3"
-             };
+                "profile1",
+                "profile2",
+                "profile3"
+            };
             private ApiClientIdentity _actualApiClientIdentity;
 
             protected override void Arrange()
             {
                 _transaction = new TransactionScope();
-
-                var configValueProviderStub = Stub<IConfigValueProvider>();
 
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -58,6 +59,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 
@@ -66,17 +68,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 var edOrgs = _expectedEducationOrganizations
                     .Select(
                         edOrgId =>
-                            new ApplicationEducationOrganization
-                            {
-                                EducationOrganizationId = edOrgId
-                            })
+                            new ApplicationEducationOrganization {EducationOrganizationId = edOrgId})
                     .ToList();
 
                 var profiles = _expectedProfiles.Select(
-                        profile => new Profile
-                        {
-                            ProfileName = profile
-                        })
+                        profile => new Profile {ProfileName = profile})
                     .ToList();
 
                 var application = new Application
@@ -88,11 +84,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                         VendorNamespacePrefixes =
                             new List<VendorNamespacePrefix>
                             {
-                                 new VendorNamespacePrefix
-                                 {
-                                     NamespacePrefix =
-                                         "MyTestNamespacePrefix"
-                                 }
+                                new VendorNamespacePrefix
+                                {
+                                    NamespacePrefix =
+                                        "MyTestNamespacePrefix"
+                                }
                             }
                     },
                     OperationalContextUri = "uri://ed-fi-api-host.org"
@@ -150,8 +146,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
-
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -162,6 +156,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = Stub<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 
@@ -197,8 +192,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
-
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -209,6 +202,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 
@@ -244,7 +238,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
 
                 var config = new ConfigurationBuilder()
@@ -293,7 +286,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -304,6 +296,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 
@@ -352,7 +345,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
 
                 var config = new ConfigurationBuilder()
@@ -399,7 +391,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -410,6 +401,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 
@@ -445,7 +437,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 _transaction = new TransactionScope();
 
-                var configValueProviderStub = Stub<IConfigValueProvider>();
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)
@@ -456,6 +447,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
                 string connectionstring = connectionStringProvider.GetConnectionString("EdFi_Admin");
 
                 var usersContextFactory = A.Fake<IUsersContextFactory>();
+
                 A.CallTo(() => usersContextFactory.CreateContext())
                     .Returns(new SqlServerUsersContext(connectionstring));
 

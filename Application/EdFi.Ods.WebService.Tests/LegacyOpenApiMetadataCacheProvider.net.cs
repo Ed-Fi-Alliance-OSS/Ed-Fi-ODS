@@ -216,16 +216,13 @@ namespace EdFi.Ods.WebService.Tests
                         CategoryName = x.Name
                     })
                 .Select(
-                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
-                    {
-                        CompositeContext = x
-                    })
+                    x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
                 .Select(
                     c =>
                         new OpenApiContent(
                             OpenApiMetadataSections.Composites,
                             c.CompositeContext.CategoryName,
-                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory().Create(resourceFilter.Value, c)),
                             $"{OpenApiMetadataSections.Composites.ToLowerInvariant()}/v{ApiVersionConstants.Composite}",
                             $"{c.CompositeContext.OrganizationCode}/{c.CompositeContext.CategoryName}"));
         }
@@ -257,7 +254,7 @@ namespace EdFi.Ods.WebService.Tests
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(resourceFilter.Value)),
+                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory().Create(resourceFilter.Value, c)),
                             _odsDataBasePath,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }
@@ -281,7 +278,9 @@ namespace EdFi.Ods.WebService.Tests
                             x.Key,
                             new Lazy<string>(
                                 () => new OpenApiMetadataDocumentFactory(
-                                    new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())).Create(x.Value)),
+                                    )
+                                    .Create(
+                                        x.Value, new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                             _odsDataBasePath);
                     });
         }
@@ -294,9 +293,9 @@ namespace EdFi.Ods.WebService.Tests
                     OpenApiMetadataSections.SdkGen,
                     All,
                     new Lazy<string>(
-                        () => new OpenApiMetadataDocumentFactory(
-                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
-                        ).Create(_openApiMetadataResourceFilters[All])),
+                        () => new OpenApiMetadataDocumentFactory().Create(
+                            _openApiMetadataResourceFilters[All],
+                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                     _odsDataBasePath,
                     string.Empty)
             };
@@ -311,12 +310,13 @@ namespace EdFi.Ods.WebService.Tests
                     EdFi,
                     new Lazy<string>(
                         () =>
-                            new OpenApiMetadataDocumentFactory(
+                            new OpenApiMetadataDocumentFactory().Create(
+                                _openApiMetadataResourceFilters[EdFi],
                                 new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                 {
                                     RenderType = RenderType.GeneralizedExtensions,
                                     IsIncludedExtension = x => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
-                                }).Create(_openApiMetadataResourceFilters[EdFi])),
+                                })),
                     _odsDataBasePath)
             }.Concat(
                 _domainModelProvider.GetDomainModel()
@@ -340,7 +340,15 @@ namespace EdFi.Ods.WebService.Tests
                             new OpenApiContent(
                                 OpenApiMetadataSections.Extensions,
                                 sf.UriSegment,
-                                new Lazy<string>(() => sf.Factory.Create(_openApiMetadataResourceFilters[Extensions])),
+                                new Lazy<string>(
+                                    () => sf.Factory.Create(
+                                        _openApiMetadataResourceFilters[Extensions],
+                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
+                                        {
+                                            RenderType = RenderType.ExtensionArtifactsOnly,
+                                            IsIncludedExtension = r => r.FullName.Schema.Equals(
+                                                _schemaNameMapProvider.GetSchemaMapByUriSegment(sf.UriSegment).PhysicalName)
+                                        })),
                                 _odsDataBasePath))
             );
         }

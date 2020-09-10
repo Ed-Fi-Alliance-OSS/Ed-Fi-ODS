@@ -40,14 +40,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata
                     EdFiConventions.UriSegment,
                     new Lazy<string>(
                         () =>
-                            new OpenApiMetadataDocumentFactory(
+                            new OpenApiMetadataDocumentFactory()
+                                .Create(
+                                    new SdkGenAllEdFiResourceStrategy(),
                                     new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                     {
                                         RenderType = RenderType.GeneralizedExtensions,
                                         IsIncludedExtension = x
                                             => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
-                                    })
-                                .Create(new SdkGenAllEdFiResourceStrategy())),
+                                    })),
                     RouteConstants.DataManagementRoutePrefix)
             };
     }
