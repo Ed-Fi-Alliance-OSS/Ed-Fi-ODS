@@ -37,17 +37,14 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<AllOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>()
-                .SingleInstance();
+                .As<IOpenApiMetadataRouteInformation>();
 
             builder.RegisterType<ResourceTypeOpenMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>()
-                .SingleInstance();
+                .As<IOpenApiMetadataRouteInformation>();
 
             // this is required to for ed-fi default
             builder.RegisterType<SchemaOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>()
-                .SingleInstance();
+                .As<IOpenApiMetadataRouteInformation>();
 
             builder.RegisterType<EdFiOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>();
