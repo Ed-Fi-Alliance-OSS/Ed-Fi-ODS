@@ -1,11 +1,12 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
 using System;
-using System.Net.Http.Headers;
+using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Constants;
@@ -27,6 +28,7 @@ using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -38,7 +40,6 @@ namespace EdFi.Ods.Api.Controllers
     // TDeleteRequest,  (TDeleteRequest)
     // TPatchRequest (Requests.Students.StudentPatch)
 
-    [Produces("application/json")]
     public abstract class DataManagementControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot,
             TPutRequest, TPostRequest,
             TDeleteRequest, TGetByExampleRequest>
@@ -131,6 +132,9 @@ namespace EdFi.Ods.Api.Controllers
 
         protected abstract void MapAll(TGetByExampleRequest request, TEntityInterface specification);
 
+        // This is overriden when profiles are used, and passed back the constrained profile
+        protected virtual string GetReadContentType() => MediaTypeNames.Application.Json;
+
         [HttpGet]
         public virtual async Task<IActionResult> GetAll(
             [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest,
@@ -178,6 +182,8 @@ namespace EdFi.Ods.Api.Controllers
                 Response.Headers.Add(HeaderConstants.TotalCount, result.ResultMetadata.TotalCount.ToString());
             }
 
+            Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
+
             return Ok(result.Resources);
         }
 
@@ -204,6 +210,8 @@ namespace EdFi.Ods.Api.Controllers
             // Add ETag header for the resource
             Response.Headers[HeaderConstants.ETag] = GetEtag(result.Resource.ETag).ToString();
 
+            Request.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(GetReadContentType());
+
             return Ok(result.Resource);
         }
 
@@ -213,6 +221,7 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+        [Produces(MediaTypeNames.Application.Json)]
         public virtual async Task<IActionResult> Put([FromBody] TPutRequest request, Guid id)
         {
             // Manual binding of Id to main request model
@@ -239,6 +248,7 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             Response.Headers[HeaderConstants.ETag] = GetEtag(result.ETag).ToString();
+            Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Json);
 
             return result.ResourceWasCreated
                 ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)
@@ -251,6 +261,7 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+        [Produces(MediaTypeNames.Application.Json)]
         public virtual async Task<IActionResult> Post([FromBody] TPostRequest request)
         {
             var validationState = new ValidationState();
@@ -275,6 +286,7 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             Response.Headers[HeaderConstants.ETag] = GetEtag(result.ETag).ToString();
+            Response.GetTypedHeaders().ContentType = new MediaTypeHeaderValue(MediaTypeNames.Application.Json);
 
             return result.ResourceWasCreated
                 ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)
@@ -285,6 +297,7 @@ namespace EdFi.Ods.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
+        [Produces(MediaTypeNames.Application.Json)]
         public async Task<IActionResult> Delete(Guid id)
         {
             // Read the If-Match header and populate the delete context based on the value (or lack of one)

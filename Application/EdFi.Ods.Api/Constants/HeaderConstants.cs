@@ -14,5 +14,6 @@ namespace EdFi.Ods.Api.Constants
         public const string XForwardedProto = "X-Forwarded-Proto";
         public const string XForwardedHost = "X-Forwarded-Host";
         public const string XForwardedPort = "X-Forwarded-Port";
+        public const string ContentType = "Content-Type";
     }
 }
