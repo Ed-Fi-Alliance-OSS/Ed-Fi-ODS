@@ -3,15 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Api.Services.Metadata;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
@@ -75,4 +72,3 @@ namespace EdFi.Ods.Features.Profiles
         }
     }
 }
-#endif
