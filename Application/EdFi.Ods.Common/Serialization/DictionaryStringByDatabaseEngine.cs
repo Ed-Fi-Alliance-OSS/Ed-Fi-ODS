@@ -40,7 +40,7 @@ namespace EdFi.Ods.Common.Serialization
 
             while (reader.TokenType == JsonToken.PropertyName)
             {
-                var engine = DatabaseEngine.FromValue((string) reader.Value);
+                var engine = DatabaseEngine.TryParseEngine((string) reader.Value);
                 reader.Read();
 
                 string value = (string) reader.Value;

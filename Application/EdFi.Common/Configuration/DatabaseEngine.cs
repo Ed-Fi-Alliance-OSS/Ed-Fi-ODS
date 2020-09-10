@@ -21,6 +21,17 @@ namespace EdFi.Ods.Common.Configuration
         }
 
         public string ScriptsFolderName { get; private set; }
+
+        public static DatabaseEngine TryParseEngine(string value)
+        {
+            if (TryParse(x => x.Value.EqualsIgnoreCase(value), out DatabaseEngine engine))
+            {
+                return engine;
+            }
+
+            throw new NotSupportedException(
+                $"Not supported DatabaseEngine \"{value}\". Supported engines: {ApiConfigurationConstants.SqlServer}, and {ApiConfigurationConstants.PostgreSQL}.");
+        }
     }
 }
 #endif

@@ -27,7 +27,7 @@ namespace EdFi.Ods.Common.Serialization
 
             string source = (string) reader.Value;
 
-            return DatabaseEngine.FromValue(source);
+            return DatabaseEngine.TryParseEngine(source);
         }
     }
 }
