@@ -5,6 +5,7 @@
 
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Modules;
 using Microsoft.Extensions.DependencyInjection;
 

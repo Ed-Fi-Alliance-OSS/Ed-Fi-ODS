@@ -8,7 +8,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EdFi.Ods.CodeGen.Modules
+namespace EdFi.Ods.CodeGen.Extensions
 {
     public static class ServiceCollectionExtensions
     {

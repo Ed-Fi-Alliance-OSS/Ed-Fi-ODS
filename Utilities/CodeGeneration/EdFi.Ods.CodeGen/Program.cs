@@ -13,6 +13,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using CommandLine;
 using EdFi.Ods.CodeGen.Conventions;
+using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Modules;
 using log4net;
 using log4net.Config;
