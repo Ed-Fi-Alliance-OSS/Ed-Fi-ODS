@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Constants;
@@ -22,12 +22,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata
     public class EdFiOpenApiContentProvider : IOpenApiContentProvider
     {
         private readonly IResourceModelProvider _resourceModelProvider;
-        private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
-        public EdFiOpenApiContentProvider(IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
+        public EdFiOpenApiContentProvider(IResourceModelProvider resourceModelProvider)
         {
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
-            _openApiMetadataDocumentFactory= Preconditions.ThrowIfNull(openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
         }
 
         public string RouteName
@@ -43,15 +41,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata
                     EdFiConventions.UriSegment,
                     new Lazy<string>(
                         () =>
-                            _openApiMetadataDocumentFactory
-                                .Create(
-                                    new SdkGenAllEdFiResourceStrategy(),
+                            new OpenApiMetadataDocumentFactory(
                                     new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel())
                                     {
                                         RenderType = RenderType.GeneralizedExtensions,
                                         IsIncludedExtension = x
                                             => x.FullName.Schema.Equals(EdFiConventions.PhysicalSchemaName)
-                                    })),
+                                    })
+                                .Create(new SdkGenAllEdFiResourceStrategy())),
                     RouteConstants.DataManagementRoutePrefix)
             };
     }

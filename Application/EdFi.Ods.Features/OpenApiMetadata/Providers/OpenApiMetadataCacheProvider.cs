@@ -35,6 +35,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiContentProvider> _openApiContentProviders;
         private readonly IDictionary<string, IOpenApiMetadataResourceStrategy> _openApiMetadataResourceFilters;
         private readonly IList<IOpenApiMetadataRouteInformation> _openApiMetadataRouteInformations;
+        private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
         // private readonly IOpenApiMetadataRouteProvider _openApiMetadataRouteProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
@@ -52,7 +53,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         public OpenApiMetadataCacheProvider(
             IResourceModelProvider resourceModelProvider,
             IList<IOpenApiMetadataRouteInformation> openApiMetadataRouteInformations,
-            IList<IOpenApiContentProvider> openApiContentProviders)
+            IList<IOpenApiContentProvider> openApiContentProviders,
+            IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
         {
             _openApiMetadataRouteInformations = openApiMetadataRouteInformations;
             _openApiContentProviders = openApiContentProviders;
@@ -66,7 +68,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                     {All, new SdkGenAllResourceStrategy()}
                 };
 
-            _openApiMetadataMetadataCache = new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
+            _openApiMetadataMetadataCache =
+                new ConcurrentDictionary<string, OpenApiContent>(StringComparer.InvariantCultureIgnoreCase);
+
+            _openApiMetadataDocumentFactory = openApiMetadataDocumentFactory;
         }
 
         public IList<OpenApiContent> GetAllSectionDocuments(bool sdk)
@@ -151,9 +156,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             x.Key,
                             new Lazy<string>(
                                 () =>
-                                    new OpenApiMetadataDocumentFactory(
-                                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
-                                        .Create(x.Value)),
+                                    _openApiMetadataDocumentFactory
+                                        .Create(
+                                            x.Value,
+                                            new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                             _odsDataBasePath));
             }
 
@@ -165,9 +171,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         All,
                         new Lazy<string>(
                             () =>
-                                new OpenApiMetadataDocumentFactory(
-                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))
-                                    .Create(_openApiMetadataResourceFilters[All])),
+                                _openApiMetadataDocumentFactory
+                                    .Create(
+                                        _openApiMetadataResourceFilters[All],
+                                        new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()))),
                         _odsDataBasePath,
                         string.Empty)
                 };

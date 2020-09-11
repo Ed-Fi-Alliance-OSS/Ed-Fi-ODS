@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
@@ -13,6 +15,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Test.Common;
@@ -22,9 +25,56 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     [TestFixture]
     public class OpenApiMetadataDocumentFactoryTests
     {
-        protected static IResourceModelProvider ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
+        protected static IResourceModelProvider
+            ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
 
-        protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+        protected static ISchemaNameMapProvider
+            SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+
+        private static IConfiguration GetConfiguration()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
+        private static ApiSettings CreateApiSettings()
+        {
+            return new ApiSettings
+            {
+                Mode = "sandbox",
+                Features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Name = "Composites",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Profiles",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Extensions",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "ChangeQueries",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "OpenApiMetadata",
+                        IsEnabled = true
+                    }
+                }
+            };
+        }
 
         public class When_creating_a_openapimetadata_document_for_list_of_resources_for_a_single_instance_ods : TestFixtureBase
         {
@@ -32,6 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             private string _actualJson;
             private OpenApiMetadataDocument _openApiMetadataDoc;
             private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
+            private IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
             protected override void Arrange()
             {
@@ -45,19 +96,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
                     .Returns(openApiMetadataResources);
+
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+
+                _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSizeLimitProvider);
             }
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext)
-                    .Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = _openApiMetadataDocumentFactory
+                    .Create(_stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings
-                    {
-                        MetadataPropertyHandling = MetadataPropertyHandling.Ignore
-                    });
+                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
             }
 
             [Assert]
@@ -75,7 +128,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             [Assert]
             public void Should_filter_the_resources()
             {
-                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_openApiMetadataDocumentContext)).MustHaveHappenedOnceExactly();
+                A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(_openApiMetadataDocumentContext))
+                    .MustHaveHappenedOnceExactly();
             }
 
             [Assert]
@@ -139,6 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             private string _actualJson;
             private OpenApiMetadataDocument _openApiMetadataDoc;
             private OpenApiMetadataDocumentContext _openApiMetadataDocumentContext;
+            private OpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
             protected override void Arrange()
             {
@@ -152,18 +207,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
                 A.CallTo(() => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>._))
                     .Returns(openApiMetadataResources);
+
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+
+                _openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSizeLimitProvider);
             }
 
             protected override void Act()
             {
-                _actualJson = new OpenApiMetadataDocumentFactory(_openApiMetadataDocumentContext).Create(_stubbedOpenApiMetadataResourceStrategy);
+                _actualJson = _openApiMetadataDocumentFactory.Create(
+                    _stubbedOpenApiMetadataResourceStrategy, _openApiMetadataDocumentContext);
 
                 _openApiMetadataDoc = JsonConvert.DeserializeObject<OpenApiMetadataDocument>(
                     _actualJson,
-                    new JsonSerializerSettings
-                    {
-                        MetadataPropertyHandling = MetadataPropertyHandling.Ignore
-                    });
+                    new JsonSerializerSettings {MetadataPropertyHandling = MetadataPropertyHandling.Ignore});
             }
 
             [Assert]
@@ -182,7 +240,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_filter_the_resources()
             {
                 A.CallTo(
-                    () => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(A<OpenApiMetadataDocumentContext>.That.IsEqualTo(_openApiMetadataDocumentContext))).MustHaveHappened();
+                    () => _stubbedOpenApiMetadataResourceStrategy.GetFilteredResources(
+                        A<OpenApiMetadataDocumentContext>.That.IsEqualTo(_openApiMetadataDocumentContext))).MustHaveHappened();
             }
 
             [Assert]

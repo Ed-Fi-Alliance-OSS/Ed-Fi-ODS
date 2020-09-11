@@ -45,7 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             protected override void Arrange()
             {
                 _transaction = new TransactionScope();
-
+              
                 var config = new ConfigurationBuilder()
                     .SetBasePath(TestContext.CurrentContext.TestDirectory)
                     .AddJsonFile("appsettings.json", optional: true)

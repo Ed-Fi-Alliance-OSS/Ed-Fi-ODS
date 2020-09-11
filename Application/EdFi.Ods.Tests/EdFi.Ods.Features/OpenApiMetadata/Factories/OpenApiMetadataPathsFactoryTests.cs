@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models;
@@ -33,6 +34,41 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
         protected static ISchemaNameMapProvider SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
 
+        private static ApiSettings CreateApiSettings()
+        {
+            return new ApiSettings
+            {
+                Mode = "sandbox",
+                Features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Name = "Composites",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Profiles",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Extensions",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "ChangeQueries",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "OpenApiMetadata",
+                        IsEnabled = true
+                    }
+                }
+            };
+        }
         public class When_creating_paths_for_a_list_of_resources_using_a_single_instance_or_a_year_specific_ods : TestFixtureBase
         {
             private IDictionary<string, PathItem> _actualPaths;
@@ -45,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                     .ToList();
 
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
-                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext)
+                        DomainModelDefinitionsProviderHelper.DefaultopenApiMetadataDocumentContext, CreateApiSettings())
                     .Create(openApiMetadataResources, false);
             }
 
@@ -212,7 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             protected override void Act()
             {
                 _actualPaths = OpenApiMetadataDocumentFactoryHelper
-                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext)
+                    .CreateOpenApiMetadataPathsFactory(_openApiMetadataDocumentContext, CreateApiSettings())
                     .Create(_openApiMetadataResources, false);
             }
 
