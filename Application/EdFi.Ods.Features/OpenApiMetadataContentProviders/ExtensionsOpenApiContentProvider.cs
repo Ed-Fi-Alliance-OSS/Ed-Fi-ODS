@@ -30,14 +30,12 @@ namespace EdFi.Ods.Features.Extensions
 
         public ExtensionsOpenApiContentProvider(IDomainModelProvider domainModelProvider,
             IResourceModelProvider resourceModelProvider, ISchemaNameMapProvider schemaNameMapProvider,
-            IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
+            IOpenApiMetadataDocumentFactory documentFactory)
         {
             _domainModelProvider = Preconditions.ThrowIfNull(domainModelProvider, nameof(domainModelProvider));
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
             _schemaNameMapProvider = Preconditions.ThrowIfNull(schemaNameMapProvider, nameof(schemaNameMapProvider));
-
-            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(
-                openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
+            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(documentFactory, nameof(documentFactory));
         }
 
         public string RouteName

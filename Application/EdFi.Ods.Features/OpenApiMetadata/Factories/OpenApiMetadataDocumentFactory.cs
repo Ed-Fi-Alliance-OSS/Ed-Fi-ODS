@@ -17,7 +17,7 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
-    public class OpenApiMetadataDocumentFactory: IOpenApiMetadataDocumentFactory
+    public class OpenApiMetadataDocumentFactory : IOpenApiMetadataDocumentFactory
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataDocumentFactory));
         private readonly ApiSettings _apiSettings;
@@ -29,25 +29,25 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
         }
 
-        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy,
-            OpenApiMetadataDocumentContext openApiMetadataDocumentContext)
+        public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext)
         {
             try
             {
-                OpenApiMetadataParametersFactory parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
+                var parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
 
-                OpenApiMetadataDefinitionsFactory definitionsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(openApiMetadataDocumentContext);
+                var definitionsFactory =
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext);
 
-                OpenApiMetadataResponsesFactory responsesFactory = new OpenApiMetadataResponsesFactory();
+                var responsesFactory = new OpenApiMetadataResponsesFactory();
 
-                OpenApiMetadataPathsFactory pathsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(openApiMetadataDocumentContext, _apiSettings);
+                var pathsFactory =
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataPathsFactory(
+                        documentContext, _apiSettings);
 
-                OpenApiMetadataTagsFactory tagsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(openApiMetadataDocumentContext);
+                var tagsFactory =
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataTagsFactory(documentContext);
 
-                var resources = resourceStrategy.GetFilteredResources(openApiMetadataDocumentContext)
+                var resources = resourceStrategy.GetFilteredResources(documentContext)
                     .ToList();
 
                 var openApiMetadataDocument = new OpenApiMetadataDocument
@@ -81,14 +81,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         {
                             new Dictionary<string, IEnumerable<string>> {{"oauth2_client_credentials", new string[0]}}
                         },
-                    consumes = openApiMetadataDocumentContext.IsCompositeContext
+                    consumes = documentContext.IsCompositeContext
                         ? null
                         : OpenApiMetadataDocumentHelper.GetConsumes(),
                     produces = OpenApiMetadataDocumentHelper.GetProduces(),
                     tags = tagsFactory.Create(resources),
-                    paths = pathsFactory.Create(resources, openApiMetadataDocumentContext.IsCompositeContext),
+                    paths = pathsFactory.Create(resources, documentContext.IsCompositeContext),
                     definitions = definitionsFactory.Create(resources),
-                    parameters = parametersFactory.Create(openApiMetadataDocumentContext.IsCompositeContext),
+                    parameters = parametersFactory.Create(documentContext.IsCompositeContext),
                     responses = responsesFactory.Create()
                 };
 

@@ -28,18 +28,13 @@ namespace EdFi.Ods.Features.Profiles
 
         public ProfilesOpenApiContentProvider(IProfileResourceModelProvider profileResourceModelProvider,
             IProfileResourceNamesProvider profileResourceNamesProvider,
-            IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
+            IResourceModelProvider resourceModelProvider,
+            IOpenApiMetadataDocumentFactory documentFactory)
         {
-            _profileResourceModelProvider =
-                Preconditions.ThrowIfNull(profileResourceModelProvider, nameof(profileResourceModelProvider));
-
-            _profileResourceNamesProvider =
-                Preconditions.ThrowIfNull(profileResourceNamesProvider, nameof(profileResourceNamesProvider));
-
+            _profileResourceModelProvider = Preconditions.ThrowIfNull(profileResourceModelProvider, nameof(profileResourceModelProvider));
+            _profileResourceNamesProvider = Preconditions.ThrowIfNull(profileResourceNamesProvider, nameof(profileResourceNamesProvider));
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
-
-            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(
-                openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
+            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(documentFactory, nameof(documentFactory));
         }
 
         public string RouteName

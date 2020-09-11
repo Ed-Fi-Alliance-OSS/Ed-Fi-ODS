@@ -24,10 +24,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
-        public EdFiOpenApiContentProvider(IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory openApiMetadataDocumentFactory)
+        public EdFiOpenApiContentProvider(IResourceModelProvider resourceModelProvider, IOpenApiMetadataDocumentFactory documentFactory)
         {
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
-            _openApiMetadataDocumentFactory= Preconditions.ThrowIfNull(openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
+            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(documentFactory, nameof(documentFactory));
         }
 
         public string RouteName
