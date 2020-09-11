@@ -34,7 +34,8 @@ namespace EdFi.Ods.Features.Composites
 
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
 
-            _openApiMetadataDocumentFactory= Preconditions.ThrowIfNull(openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
+            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(
+                openApiMetadataDocumentFactory, nameof(openApiMetadataDocumentFactory));
         }
 
         public string RouteName
@@ -45,7 +46,6 @@ namespace EdFi.Ods.Features.Composites
         public IEnumerable<OpenApiContent> GetOpenApiContent()
         {
             var openApiStrategy = new OpenApiCompositeStrategy(_compositesMetadataProvider);
-         
             return _compositesMetadataProvider
                 .GetAllCategories()
                 .Select(
@@ -54,8 +54,7 @@ namespace EdFi.Ods.Features.Composites
                         OrganizationCode = x.OrganizationCode,
                         CategoryName = x.Name
                     })
-                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) { CompositeContext =
- x })
+                .Select(x => new OpenApiMetadataDocumentContext(_resourceModelProvider.GetResourceModel()) {CompositeContext = x})
                 .Select(
                     c =>
                         new OpenApiContent(

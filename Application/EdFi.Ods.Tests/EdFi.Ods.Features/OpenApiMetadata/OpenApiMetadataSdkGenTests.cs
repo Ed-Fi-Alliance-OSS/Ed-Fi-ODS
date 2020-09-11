@@ -25,7 +25,6 @@ using EdFiSchema = EdFi.Ods.Common.Models.Domain.Schema;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 {
-
     [TestFixture]
     public class OpenApiMetadataSdkGenTests
     {

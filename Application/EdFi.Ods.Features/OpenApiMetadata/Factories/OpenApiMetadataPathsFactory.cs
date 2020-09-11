@@ -69,7 +69,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                     PathItem = CreatePathItemForAccessByIdsOperations(r)
                                 }
                                 : null,
-                            _apiSettings.Features.Where(s => s.Name == "ChangeQueries").SingleOrDefault().IsEnabled &&
+                            _apiSettings.IsFeatureEnabled("ChangeQueries") &&
                             !isCompositeContext
                                 ? new
                                 {
@@ -188,7 +188,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")}
             };
 
-            if (_apiSettings.Features.Where(s => s.Name == "ChangeQueries").SingleOrDefault().IsEnabled && !isCompositeContext)
+            if (_apiSettings.IsFeatureEnabled("ChangeQueries") && !isCompositeContext)
             {
                 parameterList.Add(
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")});
