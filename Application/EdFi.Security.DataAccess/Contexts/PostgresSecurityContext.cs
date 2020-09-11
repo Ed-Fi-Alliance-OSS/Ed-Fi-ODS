@@ -9,9 +9,22 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Utils.Extensions;
+using Npgsql;
 
 namespace EdFi.Security.DataAccess.Contexts
 {
+    class NpgsqlConfiguration : DbConfiguration
+    {
+        public NpgsqlConfiguration()
+        {
+            var name = "Npgsql";
+            SetProviderFactory(providerInvariantName: name, NpgsqlFactory.Instance);
+            SetProviderServices(providerInvariantName: name, NpgsqlServices.Instance);
+            SetDefaultConnectionFactory(connectionFactory: new NpgsqlConnectionFactory());
+        }
+    }
+
+    [DbConfigurationType(typeof(NpgsqlConfiguration))]
     public class PostgresSecurityContext : SecurityContext
     {
 #if NETSTANDARD
