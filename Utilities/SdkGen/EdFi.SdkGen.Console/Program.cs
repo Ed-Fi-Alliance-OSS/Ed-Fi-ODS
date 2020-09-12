@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.IO;
 using System.Net;
+using System.Reflection;
 using CommandLine;
 using CommandLine.Text;
 using log4net;
@@ -20,10 +22,10 @@ namespace EdFi.SdkGen.Console
         private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
         private static void Main(string[] args)
         {
-            XmlConfigurator.Configure();
+            ConfigureLogging();
             ConfigureTls();
-                  
-            var result = Parser.Default.ParseArguments<Options>(args);           
+
+            var result = Parser.Default.ParseArguments<Options>(args);
 
             result.WithParsed(options =>
             {
@@ -44,15 +46,15 @@ namespace EdFi.SdkGen.Console
             });
 
             result.WithNotParsed(errs =>
-            {          
+            {
                 var helpText = HelpText.AutoBuild(result, h =>
-                {                          
+                {
                     return HelpText.DefaultParsingErrorsHandler(result, h);
                 }, e =>
                 {
                     return e;
                 });
-                _log.Info(helpText);             
+                _log.Info(helpText);
             });
         }
 
@@ -64,6 +66,15 @@ namespace EdFi.SdkGen.Console
         {
             // TLS 1.2 is not available by default for version of the frameworks less that .NET 4.6.2
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+        }
+
+        private static void ConfigureLogging()
+        {
+            var assembly = typeof(Program).GetTypeInfo().Assembly;
+
+            string configPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "log4net.config");
+
+            XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
         }
     }
 }
