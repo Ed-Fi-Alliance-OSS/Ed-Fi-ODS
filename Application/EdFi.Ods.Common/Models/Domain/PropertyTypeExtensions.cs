@@ -416,177 +416,73 @@ namespace EdFi.Ods.Common.Models.Domain
             }
         }
 
-        public static string ToSql(this PropertyType propertyType)
+        public static string ToNHibernateType(this PropertyType propertyType)
         {
             switch (propertyType.DbType)
             {
-                case DbType.Int64:
-                    return "bigint";
-
-                case DbType.Binary:
-                    return "varbinary"; // or binary, timestamp, rowversion, image
-
-                case DbType.Boolean:
-                    return "bit";
+                case DbType.AnsiString:
+                    return "AnsiString";
 
                 case DbType.AnsiStringFixedLength:
+                    return "char";
 
-                    return string.Format(
-                        "char({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
+                case DbType.Binary:
+                    return "byte[]"; // Is this right? Should it be "binary"?
 
-                case DbType.String:
+                case DbType.Boolean:
+                    return "bool";
+                
+                case DbType.Byte:
+                    return "byte";
 
-                    return string.Format(
-                        "nvarchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                // or ntext, text, varchar
-
+                case DbType.Currency:
+                    return "Currency";
+                
                 case DbType.Date:
                     return "date";
 
                 case DbType.DateTime:
-                    return "datetime";
+                    return "timestamp"; // Should we use DateTime?
 
                 case DbType.DateTime2:
-                    return "datetime2";
+                    return "UtcDateTime";
 
                 case DbType.DateTimeOffset:
                     return "datetimeoffset";
-
-                case DbType.Time:
-                    return "time";
-
-                case DbType.Currency:
-                    return "money";
-
+                
                 case DbType.Decimal:
-                    return string.Format("decimal({0},{1})", propertyType.Precision, propertyType.Scale);
-
-                // or money, smallmoney
-
+                    return "decimal";
+                
                 case DbType.Double:
-                    return "float";
+                    return "double";
+
+                case DbType.Guid:
+                    return "Guid";
+
+                case DbType.Int16:
+                    return "short";
 
                 case DbType.Int32:
                     return "int";
 
-                case DbType.Int16:
-                    return "smallint";
+                case DbType.Int64:
+                    return "long";
+
+                case DbType.Single:
+                    return "single";
+
+                case DbType.String:
+                    return "string";
 
                 case DbType.StringFixedLength:
+                    return "char";
 
-                    return string.Format(
-                        "nchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                case DbType.Byte:
-                    return "tinyint";
-
-                case DbType.Guid:
-                    return "uniqueidentifier";
-
-                case DbType.AnsiString:
-
-                    return string.Format(
-                        "varchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                case DbType.Xml:
-                    return "xml";
+                case DbType.Time:
+                    return "TimeAsTimeSpan";
 
                 default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            "SQL Server type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
+                    throw new NotSupportedException($"NHibernate type mapping from DbType '{propertyType.DbType}' is not supported.");
             }
-        }
-
-        public static string ToNHibernateType(this PropertyType propertyType)
-        {
-            // TODO: Rewrite this logic to convert directly from DbType instead of through SQL Server datatype
-            string sqlType = propertyType.ToSql()
-                                         .Split('(')[0];
-
-            string nhType;
-
-            switch (sqlType)
-            {
-                case "bigint":
-                    nhType = "long";
-                    break;
-                case "tinyint":
-                case "smallint":
-                    nhType = "short";
-                    break;
-                case "int":
-                    nhType = "int";
-                    break;
-                case "uniqueidentifier":
-                    nhType = "Guid";
-                    break;
-                case "datetimeoffset":
-                    nhType = "datetimeoffset";
-                    break;
-                case "datetime2":
-                    nhType = "UtcDateTime";
-                    break;
-                case "smalldatetime":
-                case "datetime":
-                    nhType = "timestamp"; //"datetime";
-                    break;
-                case "date":
-                    nhType = "date";
-                    break;
-                case "float":
-                    nhType = "double";
-                    break;
-                case "real":
-                case "numeric":
-                case "smallmoney":
-                case "decimal":
-                case "money":
-                    nhType = "decimal";
-                    break;
-                case "bit":
-                    nhType = "bool";
-                    break;
-                case "image":
-                case "binary":
-                case "varbinary":
-                    nhType = "byte[]";
-                    break;
-                case "time":
-                    nhType = "TimeAsTimeSpan";
-                    break;
-                case "text":
-                case "varchar":
-                    nhType = "AnsiString";
-                    break;
-                case "ntext":
-                case "nvarchar":
-                    nhType = "string";
-                    break;
-                default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            "NHibernate type mapping from SQL Server type '{0}' is not supported.",
-                            sqlType));
-            }
-
-            return nhType;
         }
     }
 }
