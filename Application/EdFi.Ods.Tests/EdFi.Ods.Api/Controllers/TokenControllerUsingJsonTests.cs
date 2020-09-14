@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Api.Controllers;
@@ -22,658 +21,1161 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
+// ReSharper disable InconsistentNaming
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
     [TestFixture]
     public class TokenControllerUsingJsonTests
-    {      
-        public class With_No_Header_Request : TestFixtureAsyncBase
+    {
+        [TestFixture]
+        public class When_posting_with_the_client_id_and_secret_in_the_body
         {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-
-            private TimeSpan _suppliedTTL;
-            private IActionResult _actionResult;
-
-            protected override Task ArrangeAsync()
+            public class With_valid_key_and_secret_in_the_body : TestFixtureAsyncBase
             {
-                _suppliedClient = new ApiClient {ApiClientId = 1 };
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
 
-                _suppliedAccessToken = Guid.NewGuid();
-                _suppliedTTL = TimeSpan.FromMinutes(30);
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
 
-                _clientAppRepo = Stub<IClientAppRepo>();
+                private TimeSpan _suppliedTTL;
+                private IActionResult _actionResult;
+                private TokenResponse _tokenResponse;
 
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
-
-                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
-
-                var accessToken = new ClientAccessToken(_suppliedTTL)
+                protected override Task ArrangeAsync()
                 {
-                    ApiClient = _suppliedClient,
-                    Id = _suppliedAccessToken
-                };
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(accessToken);
+                    _suppliedAccessToken = Guid.NewGuid();
+                    _suppliedTTL = TimeSpan.FromMinutes(30);
 
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));               
+                    _clientAppRepo = Stub<IClientAppRepo>();
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
 
-                return Task.CompletedTask;
-            }
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
 
-            protected override async Task ActAsync()
-            {
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_UnAuthorised()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
-                    () => ((UnauthorizedResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
-            }
-
-            [Test]
-            public void Should_Not_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustNotHaveHappened();
-            }
-
-            [Test]
-            public void Should_Not_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustNotHaveHappened();
-            }
-
-            [Test]
-            public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustNotHaveHappened();
-            }
-        }
-
-        public class With_Header_Invalid_Bearer_Token_Request : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-
-            private TimeSpan _suppliedTTL;
-            private IActionResult _actionResult;
-
-            protected override Task ArrangeAsync()
-            {
-                _suppliedClient = new ApiClient { ApiClientId = 1 };
-
-                _suppliedAccessToken = Guid.NewGuid();
-                _suppliedTTL = TimeSpan.FromMinutes(30);
-
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
-
-                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
-
-                var accessToken = new ClientAccessToken(_suppliedTTL)
-                {
-                    ApiClient = _suppliedClient,
-                    Id = _suppliedAccessToken
-                };
-
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(accessToken);
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity {Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(new TokenRequest());
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_UnAuthorised()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_Not_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustNotHaveHappened();
-            }
-
-            [Test]
-            public void Should_Not_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustNotHaveHappened();
-            }
-
-            [Test]
-            public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustNotHaveHappened();
-            }
-        }
-
-        public class With_valid_key_and_secret : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-
-            private TimeSpan _suppliedTTL;
-            private IActionResult _actionResult;
-            private TokenResponse _tokenResponse;
-
-            protected override Task ArrangeAsync()
-            {
-                _suppliedClient = new ApiClient { ApiClientId = 1 };
-
-                _suppliedAccessToken = Guid.NewGuid();
-                _suppliedTTL = TimeSpan.FromMinutes(30);
-
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
-
-                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
-
-                var accessToken = new ClientAccessToken(_suppliedTTL)
-                {
-                    ApiClient = _suppliedClient,
-                    Id = _suppliedAccessToken
-                };
-
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(accessToken);
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(new TokenRequest { Grant_type = "client_credentials" });           
-
-                _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_OK()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                    () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
-            }
-
-            [Test]
-            public void Should_include_the_generated_access_token_value_in_the_response()
-            {
-                Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
-            }
-
-            [Test]
-            public void Should_indicate_the_access_token_is_a_bearer_token()
-            {
-                _tokenResponse.Token_type.ShouldBe("bearer");
-            }
-
-            [Test]
-            public void Should_indicate_the_access_token_expires_within_1_second_of_the_supplied_expiration_time()
-            {
-                var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
-
-                var expectedBegin = _suppliedTTL.Add(TimeSpan.FromSeconds(-1));
-
-                var expectedEnd = _suppliedTTL;
-
-                Assert.That(actualTTL, Is.InRange(expectedBegin, expectedEnd));
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
-
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustHaveHappened();
-            }
-        }
-
-        public class With_a_scope_matching_an_associated_EdOrgId : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-            private string _requestedScope;
-
-            private IActionResult _actionResult;
-            private TokenResponse _tokenResponse;
-
-            protected override Task ArrangeAsync()
-            {
-                _suppliedClient = new ApiClient
-                {
-                    ApiClientId = 1,
-                    ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                    var accessToken = new ClientAccessToken(_suppliedTTL)
                     {
-                        new ApplicationEducationOrganization {EducationOrganizationId = 997},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 998},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 999},
-                    }
-                };
+                        ApiClient = _suppliedClient,
+                        Id = _suppliedAccessToken
+                    };
 
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                        .Returns(accessToken);
 
-                // Scope the request to the first associated EdOrg
-                _requestedScope = _suppliedClient.ApplicationEducationOrganizations
-                    .Select(x => x.EducationOrganizationId)
-                    .First()
-                    .ToString();
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
-                _suppliedAccessToken = Guid.NewGuid();
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
-                _clientAppRepo = Stub<IClientAppRepo>();
+                    return Task.CompletedTask;
+                }
 
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
-
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
-                    .Returns(
-                        new ClientAccessToken(new TimeSpan(0, 10, 0))
+                protected override async Task ActAsync()
+                {
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest
                         {
-                            ApiClient = _suppliedClient,
-                            Id = _suppliedAccessToken
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret",
+                            Grant_type = "client_credentials"
                         });
 
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
+                }
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                [Test]
+                public void Should_return_HTTP_status_of_OK()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                }
 
-                return Task.CompletedTask;
+                [Test]
+                public void Should_include_the_generated_access_token_value_in_the_response()
+                {
+                    Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_is_a_bearer_token()
+                {
+                    _tokenResponse.Token_type.ShouldBe("bearer");
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_expires_within_1_second_of_the_supplied_expiration_time()
+                {
+                    var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
+
+                    var expectedBegin = _suppliedTTL.Add(TimeSpan.FromSeconds(-1));
+
+                    var expectedEnd = _suppliedTTL;
+
+                    Assert.That(actualTTL, Is.InRange(expectedBegin, expectedEnd));
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
+                }
+
+                [Test]
+                public void Should_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustHaveHappened();
+                }
             }
 
-            protected override async Task ActAsync()
+            public class With_a_scope_matching_an_associated_EdOrgId : TestFixtureAsyncBase
             {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
 
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
+                private string _requestedScope;
+
+                private IActionResult _actionResult;
+                private TokenResponse _tokenResponse;
+
+                protected override Task ArrangeAsync()
+                {
+                    _suppliedClient = new ApiClient
                     {
-                        Grant_type = "client_credentials",
-                        Scope = _requestedScope
-                    });
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
+                    };
 
-                _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    // Scope the request to the first associated EdOrg
+                    _requestedScope = _suppliedClient.ApplicationEducationOrganizations
+                        .Select(x => x.EducationOrganizationId)
+                        .First()
+                        .ToString();
+
+                    _suppliedAccessToken = Guid.NewGuid();
+
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                        .Returns(
+                            new ClientAccessToken(new TimeSpan(0, 10, 0))
+                            {
+                                ApiClient = _suppliedClient,
+                                Id = _suppliedAccessToken
+                            });
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}"}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest
+                        {
+                            Grant_type = "client_credentials",
+                            Scope = _requestedScope
+                        });
+
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_OK()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                }
+
+                [Test]
+                public void Should_include_the_generated_access_token_value_in_the_response()
+                {
+                    Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_is_a_bearer_token()
+                {
+                    _tokenResponse.Token_type.ShouldBe("bearer");
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_expires_in_10_minutes()
+                {
+                    var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
+
+                    var tenMinutes = TimeSpan.FromMinutes(10);
+                    var tenMinutesMinus1Second = tenMinutes.Add(TimeSpan.FromSeconds(-1));
+
+                    Assert.That(actualTTL, Is.InRange(tenMinutesMinus1Second, tenMinutes));
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
+                }
+
+                [Test]
+                public void Should_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId_and_scope()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
+                        .MustHaveHappened();
+                }
             }
 
-            [Test]
-            public void Should_return_HTTP_status_of_OK()
+            public class With_a_scope_not_matching_an_associated_EdOrgId : TestFixtureAsyncBase
             {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                    () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private ApiClient _suppliedClient;
+                private string _requestedScope;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _suppliedClient = new ApiClient
+                    {
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
+                    };
+
+                    // Scope the request to something not in list above
+                    _requestedScope = "1000";
+
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret",
+                            Grant_type = "client_credentials",
+                            Scope = _requestedScope
+                        });
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_an_error_body_indicating_an_invalid_scope_was_supplied()
+                {
+                    AssertHelper.All(
+                        () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidScope),
+                        () => _tokenError.Error_description.ShouldBe(
+                            "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'."));
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
+                }
+
+                [Test]
+                public void Should_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
+                }
+
+                [Test]
+                public void Should_NOT_use_ClientAppRepo_to_create_token()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustNotHaveHappened();
+                }
             }
 
-            [Test]
-            public void Should_include_the_generated_access_token_value_in_the_response()
+            public class With_a_scope_that_is_not_a_number : TestFixtureAsyncBase
             {
-                Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
+                private string _requestedScope;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _suppliedClient = new ApiClient
+                    {
+                        ApiClientId = 1,
+                        ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                        {
+                            new ApplicationEducationOrganization {EducationOrganizationId = 997},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 998},
+                            new ApplicationEducationOrganization {EducationOrganizationId = 999},
+                        }
+                    };
+
+                    // Scope the request to something not in list above
+                    _requestedScope = "9a9";
+
+                    _suppliedAccessToken = Guid.NewGuid();
+
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret",
+                            Grant_type = "client_credentials",
+                            Scope = _requestedScope
+                        });
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_an_error_body_indicating_an_invalid_scope_was_supplied()
+                {
+                    AssertHelper.All(
+                        () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidScope),
+                        () => _tokenError.Error_description.ShouldBe(
+                            "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client)."));
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
+                }
+
+                [Test]
+                public void Should_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
+                }
+
+                [Test]
+                public void Should_NOT_use_ClientAppRepo_to_create_token()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustNotHaveHappened();
+                }
             }
 
-            [Test]
-            public void Should_indicate_the_access_token_is_a_bearer_token()
+            public class With_no_client_and_secret : TestFixtureAsyncBase
             {
-                _tokenResponse.Token_type.ShouldBe("bearer");
-            }
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
 
-            [Test]
-            public void Should_indicate_the_access_token_expires_in_10_minutes()
-            {
-                var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
 
-                var tenMinutes = TimeSpan.FromMinutes(10);
-                var tenMinutesMinus1Second = tenMinutes.Add(TimeSpan.FromSeconds(-1));
+                private TimeSpan _suppliedTTL;
+                private IActionResult _actionResult;
 
-                Assert.That(actualTTL, Is.InRange(tenMinutesMinus1Second, tenMinutes));
-            }
+                protected override Task ArrangeAsync()
+                {
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
 
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
+                    _suppliedAccessToken = Guid.NewGuid();
+                    _suppliedTTL = TimeSpan.FromMinutes(30);
 
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
-            }
+                    _clientAppRepo = Stub<IClientAppRepo>();
 
-            [Test]
-            public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId_and_scope()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
-                    .MustHaveHappened();
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                    var accessToken = new ClientAccessToken(_suppliedTTL)
+                    {
+                        ApiClient = _suppliedClient,
+                        Id = _suppliedAccessToken
+                    };
+
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                        .Returns(accessToken);
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_UnAuthorised()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
+                        () => ((UnauthorizedResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
+                }
+
+                [Test]
+                public void Should_Not_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustNotHaveHappened();
+                }
+
+                [Test]
+                public void Should_Not_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustNotHaveHappened();
+                }
+
+                [Test]
+                public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustNotHaveHappened();
+                }
             }
         }
 
-        public class With_a_scope_not_matching_an_associated_EdOrgId : TestFixtureAsyncBase
+        [TestFixture]
+        public class When_posting_with_the_client_id_and_secret_in_the_header
         {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-            private string _requestedScope;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
+            public class With_Header_Invalid_Bearer_Token_Request : TestFixtureAsyncBase
             {
-                _suppliedClient = new ApiClient
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
+
+                private TimeSpan _suppliedTTL;
+                private IActionResult _actionResult;
+
+                protected override Task ArrangeAsync()
                 {
-                    ApiClientId = 1,
-                    ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
+
+                    _suppliedAccessToken = Guid.NewGuid();
+                    _suppliedTTL = TimeSpan.FromMinutes(30);
+
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                    var accessToken = new ClientAccessToken(_suppliedTTL)
                     {
-                        new ApplicationEducationOrganization {EducationOrganizationId = 997},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 998},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 999},
-                    }
-                };
+                        ApiClient = _suppliedClient,
+                        Id = _suppliedAccessToken
+                    };
 
-                // Scope the request to something not in list above
-                _requestedScope = "1000";
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                        .Returns(accessToken);
 
-                _suppliedAccessToken = Guid.NewGuid();
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
 
-                _clientAppRepo = Stub<IClientAppRepo>();
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
+                    return Task.CompletedTask;
+                }
 
-                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}"}});
 
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
+                    _actionResult = await _controller.PostFromJsonAsync(new TokenRequest());
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_UnAuthorised()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_Not_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustNotHaveHappened();
+                }
+
+                [Test]
+                public void Should_Not_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustNotHaveHappened();
+                }
+
+                [Test]
+                public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustNotHaveHappened();
+                }
+            }
+
+            public class With_valid_key_and_secret_in_the_header : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private ApiClient _suppliedClient;
+                private Guid _suppliedAccessToken;
+
+                private TimeSpan _suppliedTTL;
+                private IActionResult _actionResult;
+                private TokenResponse _tokenResponse;
+
+                protected override Task ArrangeAsync()
+                {
+                    _suppliedClient = new ApiClient {ApiClientId = 1};
+
+                    _suppliedAccessToken = Guid.NewGuid();
+                    _suppliedTTL = TimeSpan.FromMinutes(30);
+
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    // Simulate a successful lookup of the client id/secret
+                    A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
+                        .Returns(Task.FromResult(_suppliedClient));
+
+                    _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                    var accessToken = new ClientAccessToken(_suppliedTTL)
+                    {
+                        ApiClient = _suppliedClient,
+                        Id = _suppliedAccessToken
+                    };
+
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                        .Returns(accessToken);
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}"}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_OK()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                        () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                }
+
+                [Test]
+                public void Should_include_the_generated_access_token_value_in_the_response()
+                {
+                    Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_is_a_bearer_token()
+                {
+                    _tokenResponse.Token_type.ShouldBe("bearer");
+                }
+
+                [Test]
+                public void Should_indicate_the_access_token_expires_within_1_second_of_the_supplied_expiration_time()
+                {
+                    var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
+
+                    var expectedBegin = _suppliedTTL.Add(TimeSpan.FromSeconds(-1));
+
+                    var expectedEnd = _suppliedTTL;
+
+                    Assert.That(actualTTL, Is.InRange(expectedBegin, expectedEnd));
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_both_the_key_and_secret()
+                {
+                    A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
+                }
+
+                [Test]
+                public void Should_call_try_authenticate_from_the_database_once()
+                {
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                        .MustHaveHappenedOnceExactly();
+                }
+
+                [Test]
+                public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
+                {
+                    A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                        .MustHaveHappened();
+                }
+            }
+
+            public class Using_digest_authorization : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext =
+                        ControllerHelper.CreateControllerContext(new HeaderDictionary {{"Authorization", "Digest some-value"}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_Unauthorized()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                        () => ((UnauthorizedObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
+                }
+
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                }
+            }
+
+            public class Using_basic_authorization_with_no_value : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext =
+                        ControllerHelper.CreateControllerContext(new HeaderDictionary {{"Authorization", "Basic "}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                }
+            }
+
+            public class Using_basic_authorization_with_invalid_value : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext =
+                        ControllerHelper.CreateControllerContext(
+                            new HeaderDictionary {{"Authorization", "Basic Tm9Db2xvbkhlcmU="}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_not_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                }
+            }
+
+            public class Using_basic_authorization_with_unencoded_value : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext =
+                        ControllerHelper.CreateControllerContext(
+                            new HeaderDictionary {{"Authorization", "Basic ThisIsNotBase64Encoded"}});
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
+                }
+            }
+
+            public class With_an_incorrect_client_id_and_secret : TestFixtureAsyncBase
+            {
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult {IsAuthenticated = false}));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary
+                        {
                             {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
+                                "Authorization",
+                                $"Basic {ControllerHelper.CreateEncodedAuthentication("badClientId", "badClientSecret")}"
+                            }
+                        });
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
 
-                return Task.CompletedTask;
-            }
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
 
-            protected override async Task ActAsync()
-            {
-                var headerDictionary = new HeaderDictionary
+                [Test]
+                public void Should_return_HTTP_status_of_Ok()
                 {
-                    {"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication("clientId", "clientSecret")}"}
-                };
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
 
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(headerDictionary);
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest
-                    {
-                        Grant_type = "client_credentials",
-                        Scope = _requestedScope
-                    });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                }
             }
 
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
+            public class With_an_empty_secret : TestFixtureAsyncBase
             {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
+
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
+
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary
+                        {
+                            {
+                                "Authorization",
+                                $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}"
+                            }
+                        });
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest
+                        {
+                            Client_id = "clientId",
+                            Client_secret = string.Empty,
+                            Grant_type = "client_credentials"
+                        });
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.Equals(TokenErrorType.InvalidClient);
+                }
             }
 
-            [Test]
-            public void Should_return_an_error_body_indicating_an_invalid_scope_was_supplied()
+            public class With_a_missing_secret : TestFixtureAsyncBase
             {
-                AssertHelper.All(
-                    () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidScope),
-                    () => _tokenError.Error_description.ShouldBe(
-                        "The client is not explicitly associated with the EducationOrganizationId specified in the requested 'scope'."));
-            }
+                private IClientAppRepo _clientAppRepo;
+                private IApiClientAuthenticator _apiClientAuthenticator;
+                private TokenController _controller;
 
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
+                private IActionResult _actionResult;
+                private TokenError _tokenError;
 
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
-            }
+                protected override Task ArrangeAsync()
+                {
+                    _clientAppRepo = Stub<IClientAppRepo>();
+                    _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
-            [Test]
-            public void Should_NOT_use_ClientAppRepo_to_create_token()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustNotHaveHappened();
+                    A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                        .Returns(
+                            Task.FromResult(
+                                new ApiClientAuthenticator.AuthenticationResult
+                                {
+                                    IsAuthenticated = true,
+                                    ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
+                                }));
+
+                    _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+
+                    return Task.CompletedTask;
+                }
+
+                protected override async Task ActAsync()
+                {
+                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary
+                        {
+                            {"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: null)}"}
+                        });
+
+                    _actionResult = await _controller.PostFromJsonAsync(
+                        new TokenRequest {Grant_type = "client_credentials"});
+
+                    _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
+                }
+
+                [Test]
+                public void Should_return_HTTP_status_of_BadRequest()
+                {
+                    AssertHelper.All(
+                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                        () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                }
+
+                [Test]
+                public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+                {
+                    _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                }
             }
         }
 
-        public class With_a_scope_that_is_not_a_number : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private ApiClient _suppliedClient;
-            private Guid _suppliedAccessToken;
-            private string _requestedScope;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _suppliedClient = new ApiClient
-                {
-                    ApiClientId = 1,
-                    ApplicationEducationOrganizations = new List<ApplicationEducationOrganization>()
-                    {
-                        new ApplicationEducationOrganization {EducationOrganizationId = 997},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 998},
-                        new ApplicationEducationOrganization {EducationOrganizationId = 999},
-                    }
-                };
-
-                // Scope the request to something not in list above
-                _requestedScope = "9a9";
-
-                _suppliedAccessToken = Guid.NewGuid();
-
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                // Simulate a successful lookup of the client id/secret
-                A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
-                    .Returns(Task.FromResult(_suppliedClient));
-
-                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                var request = A.Fake<HttpRequest>();
-
-                var headerDictionary = new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } };
-
-                A.CallTo(() => request.Headers).Returns(headerDictionary);
-
-                var httpContext = A.Fake<HttpContext>();
-                A.CallTo(() => httpContext.Request).Returns(request);
-
-                var controllerContext = new ControllerContext()
-                {
-                    HttpContext = httpContext,
-                };
-
-                _controller.ControllerContext = controllerContext;
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest
-                    {
-                        Grant_type = "client_credentials",
-                        Scope = _requestedScope
-                    });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_an_error_body_indicating_an_invalid_scope_was_supplied()
-            {
-                AssertHelper.All(
-                    () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidScope),
-                    () => _tokenError.Error_description.ShouldBe(
-                        "The supplied 'scope' was not a number (it should be an EducationOrganizationId that is explicitly associated with the client)."));
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
-
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
-            }
-
-            [Test]
-            public void Should_NOT_use_ClientAppRepo_to_create_token()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustNotHaveHappened();
-            }
-        }
-
-        public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
+        public class
+            With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
@@ -682,12 +1184,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             private ApiClient _suppliedClient;
             private Guid _suppliedAccessToken;
-            private IActionResult _actionResult;   
+            private IActionResult _actionResult;
             private TokenError _tokenError;
 
             protected override Task ArrangeAsync()
             {
-                _suppliedClient = new ApiClient { ApiClientId = 1 };
+                _suppliedClient = new ApiClient {ApiClientId = 1};
 
                 _suppliedAccessToken = Guid.NewGuid();
 
@@ -713,7 +1215,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
                 _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -725,7 +1227,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             {
                 var request = A.Fake<HttpRequest>();
 
-                var headerDictionary = new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } };
+                var headerDictionary = new HeaderDictionary {{"Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"}};
 
                 A.CallTo(() => request.Headers).Returns(headerDictionary);
 
@@ -746,15 +1248,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         Grant_type = "client_credentials"
                     });
 
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
             }
 
             [Test]
             public void Should_return_HTTP_status_of_BadRequest()
             {
                 AssertHelper.All(
-                   () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                   () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
             }
 
             [Test]
@@ -776,12 +1278,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
-
-
-
         }
 
-        public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
+        public class
+            With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
@@ -796,7 +1296,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override Task ArrangeAsync()
             {
-                _suppliedClient = new ApiClient { ApiClientId = 1 };
+                _suppliedClient = new ApiClient {ApiClientId = 1};
 
                 _suppliedAccessToken = Guid.NewGuid();
 
@@ -822,7 +1322,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
                 _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -832,467 +1332,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                var request = A.Fake<HttpRequest>();
-
-                var headerDictionary = new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } };
-
-                A.CallTo(() => request.Headers).Returns(headerDictionary);
-
-                var httpContext = A.Fake<HttpContext>();
-                A.CallTo(() => httpContext.Request).Returns(request);
-
-                var controllerContext = new ControllerContext()
-                {
-                    HttpContext = httpContext,
-                };
-
-                _controller.ControllerContext = controllerContext;
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary {{"Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0"}});
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest
                     {
+                        Client_id = "clientId",
                         Client_secret = "clientSecret",
                         Grant_type = "client_credentials"
                     });
 
-                _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_OK()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                    () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
-            }
-
-            [Test]
-            public void Should_include_the_generated_access_token_value_in_the_response()
-            {
-                Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
-            }
-
-            [Test]
-            public void Should_indicate_the_access_token_is_a_bearer_token()
-            {
-                _tokenResponse.Token_type.ShouldBe("bearer");
-            }
-
-            [Test]
-            public void Should_indicate_the_access_token_expires_in_10_minutes()
-            {
-                var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
-
-                var tenMinutes = TimeSpan.FromMinutes(10);
-                var tenMinutesMinus1Second = tenMinutes.Add(TimeSpan.FromSeconds(-1));
-
-                Assert.That(actualTTL, Is.InRange(tenMinutesMinus1Second, tenMinutes));
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
-
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
-            {
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
-            {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustHaveHappened();
-            }
-        }
-
-        public class Using_digest_authorization : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext =
-                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Digest some-value" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_Unauthorized()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
-                    () => ((UnauthorizedObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
-            }
-        }
-
-        public class Using_basic_authorization_with_no_value : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic " } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+                _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
             }
 
             [Test]
             public void Should_return_HTTP_status_of_BadRequest()
             {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
-            }
-        }
-
-        public class Using_basic_authorization_with_invalid_value : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext =
-                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Tm9Db2xvbkhlcmU=" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_not_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
-            }
-        }
-
-        public class Using_basic_authorization_with_unencoded_value : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext =
-                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic ThisIsNotBase64Encoded" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
-            }
-        }
-
-        public class With_an_incorrect_client_id_and_secret : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = false
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication("badClientId", "badClientSecret")}" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest
-                    {
-                        Grant_type = "client_credentials"
-                    });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_Ok()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
-            }
-        }
-
-        public class With_an_empty_secret : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest
-                    {
-                        Client_id = "clientId",
-                        Client_secret = string.Empty,
-                        Grant_type = "client_credentials"
-                    });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.Equals(TokenErrorType.InvalidClient);
-            }
-        }
-
-        public class With_a_missing_secret : TestFixtureAsyncBase
-        {
-            private IClientAppRepo _clientAppRepo;
-            private IApiClientAuthenticator _apiClientAuthenticator;
-            private TokenController _controller;
-
-            private IActionResult _actionResult;
-            private TokenError _tokenError;
-
-            protected override Task ArrangeAsync()
-            {
-                _clientAppRepo = Stub<IClientAppRepo>();
-                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
-
-                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
-                    .Returns(
-                        Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
-                            }));
-
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
-
-                return Task.CompletedTask;
-            }
-
-            protected override async Task ActAsync()
-            {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: null)}" } });
-
-                _actionResult = await _controller.PostFromJsonAsync(
-                    new TokenRequest { Grant_type = "client_credentials" });
-
-                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
-            }
-
-            [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
-            {
-                AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
-            }
-
-            [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
-            {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                _actionResult.ShouldBeOfType<BadRequestObjectResult>();
             }
         }
     }

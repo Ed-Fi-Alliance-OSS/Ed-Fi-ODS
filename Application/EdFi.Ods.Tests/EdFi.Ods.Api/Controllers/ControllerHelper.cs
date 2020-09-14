@@ -19,9 +19,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
     public static class ControllerHelper
     {
-        public static TokenController CreateTokenController(IClientAppRepo clientAppRepo,IApiClientAuthenticator apiClientAuthenticator)
+        public static TokenController CreateTokenController(IClientAppRepo clientAppRepo,
+            IApiClientAuthenticator apiClientAuthenticator)
         {
-            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo,apiClientAuthenticator);
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo, apiClientAuthenticator);
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";
@@ -41,8 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             };
 
             var routeData = A.Fake<RouteData>();
-            RouteValueDictionary dictionary = new RouteValueDictionary();
-            dictionary.Add("controller", "authorize");
+            RouteValueDictionary dictionary = new RouteValueDictionary {{"controller", "authorize"}};
 
             controllerContext.RouteData = new RouteData(dictionary);
             controller.ControllerContext = controllerContext;
@@ -59,14 +59,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             var httpContext = A.Fake<HttpContext>();
             A.CallTo(() => httpContext.Request).Returns(request);
 
-            return new ControllerContext { HttpContext = httpContext };
+            return new ControllerContext {HttpContext = httpContext};
         }
 
         public static string CreateEncodedAuthentication(string clientKey = "clientId", string clientSecret = "clientSecret")
         {
             return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientKey}:{clientSecret}"));
         }
-
     }
 }
 #endif
