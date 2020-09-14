@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
@@ -17,6 +18,7 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Test.Common;
 using EdFiSchema = EdFi.Ods.Common.Models.Domain.Schema;
@@ -26,6 +28,51 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
     [TestFixture]
     public class OpenApiMetadataSdkGenTests
     {
+        private static IConfiguration GetConfiguration()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
+        private static ApiSettings CreateApiSettings()
+        {
+            return new ApiSettings
+            {
+                Mode = "sandbox",
+                Features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Name = "Composites",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Profiles",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Extensions",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "ChangeQueries",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "OpenApiMetadata",
+                        IsEnabled = true
+                    }
+                }
+            };
+        }
+
         public class When_Generating_Extension_Only_As_Root_Aggregate_Document : TestFixtureBase
         {
             private OpenApiMetadataDocumentFactory _extensionOnlyOpenApiMetadataDocumentFactory;
@@ -33,10 +80,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
             private string _actualMetadataText;
             private readonly string requestedExtensionPhysicalName = "gb";
             private OpenApiMetadataDocument _actualMetadataObject;
+            private EdFiSchema _schemaDefinition;
 
             protected override void Arrange()
             {
-                var schemaDefinition = DomainModelDefinitionsProviderHelper
+                _schemaDefinition = DomainModelDefinitionsProviderHelper
                     .DefinitionProviders
                     .Select(
                         x => x.GetDomainModelDefinitions()
@@ -45,17 +93,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
-                    .GetExtensionOnlyOpenApiMetadataDocumentFactory(
-                        DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
-                        schemaDefinition);
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+
+                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(),defaultPageSieLimitProvider);
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(
+                    _resourceStrategy,
+                    new OpenApiMetadataDocumentContext(
+                        DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel())
+                    {
+                        RenderType = RenderType.ExtensionArtifactsOnly,
+                        IsIncludedExtension = r => r.FullName.Schema.Equals(_schemaDefinition.PhysicalName)
+                    });
+
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 
@@ -112,10 +167,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                             x.Name)
                                         .ToUpperInvariant())
                             .Concat(
-                                new[]
-                                {
-                                    "LINK"
-                                }));
+                                new[] {"LINK"}));
 
                 Assert.That(
                     entityDefinitions.Select(
@@ -150,17 +202,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                     .Select(s => new EdFiSchema(s.LogicalName, s.PhysicalName))
                     .First();
 
-                _extensionOnlyOpenApiMetadataDocumentFactory = OpenApiMetadataDocumentFactoryHelper
-                    .GetExtensionOnlyOpenApiMetadataDocumentFactory(
-                        DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel(),
-                        schemaDefinition);
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+
+                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
 
             protected override void Act()
             {
-                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(_resourceStrategy);
+                _actualMetadataText = _extensionOnlyOpenApiMetadataDocumentFactory.Create(
+                    _resourceStrategy,
+                    new OpenApiMetadataDocumentContext(
+                        DomainModelDefinitionsProviderHelper.ResourceModelProvider.GetResourceModel())
+                    {
+                        RenderType = RenderType.ExtensionArtifactsOnly,
+                        IsIncludedExtension = r => r.FullName.Schema.Equals(requestedExtensionPhysicalName)
+                    });
+
                 _actualMetadataObject = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(_actualMetadataText);
             }
 
@@ -189,10 +248,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                             x.Name)
                                         .ToUpperInvariant())
                             .Concat(
-                                new[]
-                                {
-                                    "LINK"
-                                }));
+                                new[] {"LINK"}));
 
                 Assert.That(
                     entityDefinitions.Select(
@@ -235,10 +291,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                         x.Name)
                                     .ToUpperInvariant())
                             .Concat(
-                                new[]
-                                {
-                                    "LINK"
-                                }));
+                                new[] {"LINK"}));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
@@ -288,10 +341,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 AssertHelper.All(
                     _actualDefinitions.Keys
                         .Except(
-                            new[]
-                            {
-                                "link"
-                            })
+                            new[] {"link"})
                         .Select(
                             d =>
                                 (Action)
@@ -382,10 +432,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                             !d.EndsWithIgnoreCase(
                                 "Extensions"))
                     .Except(
-                        new[]
-                        {
-                            "link"
-                        })
+                        new[] {"link"})
                     .Select(
                         d => d.Split('_')
                             .First())

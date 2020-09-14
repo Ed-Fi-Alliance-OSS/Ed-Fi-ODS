@@ -16,5 +16,7 @@ namespace EdFi.Ods.ChangeQueries
         /// Metadata Route name for Change Queries
         /// </summary>
         public static readonly string ChangeQueriesMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
+
+        public static string SchoolYearTypesResourceName = "SchoolYearType";
     }
 }

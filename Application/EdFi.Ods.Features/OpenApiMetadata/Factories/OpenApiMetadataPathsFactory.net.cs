@@ -3,12 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using EdFi.Ods.ChangeQueries;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Api.ChangeQueries;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Extensions;
@@ -16,31 +15,26 @@ using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
-using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
     public class OpenApiMetadataPathsFactory
     {
-        private readonly ApiSettings _apiSettings;
         private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
-        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
+        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
             IOpenApiMetadataPathsFactoryContentTypeStrategy contentTypeStrategy,
-            IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy,
-            ApiSettings apiSettings)
+            IOpenApiMetadataPathsFactoryNamingStrategy pathsFactoryNamingStrategy)
         {
             _openApiMetadataPathsFactorySelectorStrategy = openApiMetadataPathsFactorySelectorStrategy;
             _contentTypeStrategy = contentTypeStrategy;
             _pathsFactoryNamingStrategy = pathsFactoryNamingStrategy;
-            _apiSettings = apiSettings;
         }
 
-        public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> openApiMetadataResources,
-            bool isCompositeContext)
+        public IDictionary<string, PathItem> Create(IList<OpenApiMetadataResource> openApiMetadataResources, bool isCompositeContext)
         {
             return _openApiMetadataPathsFactorySelectorStrategy
                 .ApplyStrategy(openApiMetadataResources)
@@ -70,10 +64,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                     Path = $"{resourcePath}/{{id}}",
                                     PathItem = CreatePathItemForAccessByIdsOperations(r)
                                 }
-                                : null,
-                            _apiSettings.IsFeatureEnabled("ChangeQueries")
-                            && !r.Name.Equals(ChangeQueriesConstants.SchoolYearTypesResourceName)
-                            && !isCompositeContext
+                                : null
+                            ,
+                            ChangeQueryFeature.IsEnabled && !r.Name.Equals(ChangeQueryFeature.SchoolYearTypesResourceName) && !isCompositeContext
                                 ? new
                                 {
                                     Path = $"{resourcePath}/deletes",
@@ -89,8 +82,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 .ToDictionary(p => p.Path, p => p.PathItem);
         }
 
-        private PathItem CreatePathItemForNonIdAccessedOperations(OpenApiMetadataPathsResource openApiMetadataResource,
-            bool isCompositeContext)
+        private PathItem CreatePathItemForNonIdAccessedOperations(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
             => new PathItem
             {
                 get = openApiMetadataResource.Readable
@@ -137,10 +129,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "This GET operation provides access to resources using the \"Get\" search pattern.  The values of any properties of the resource that are specified will be used to return all matching results (if it exists).",
                 operationId = openApiMetadataResource.OperationId ?? $"get{openApiMetadataResource.Resource.PluralName}",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                produces = new[]
-                {
-                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
-                },
+                produces =
+ new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable) },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
                 responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                     _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
@@ -163,10 +153,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 description = "This GET operation retrieves a resource by the specified resource identifier.",
                 operationId = $"get{openApiMetadataResource.Resource.PluralName}ById",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                produces = new[]
-                {
-                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
-                },
+                produces =
+ new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable) },
                 parameters = new[]
                     {
                         // Path parameters need to be inline in the operation, and not referenced.
@@ -174,7 +162,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match")}
                     }.Concat(
                         openApiMetadataResource.DefaultGetByIdParameters
-                            .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
+                            .Select(p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                     .ToList(),
                 responses =
                     OpenApiMetadataDocumentHelper.GetReadOperationResponses(
@@ -191,31 +179,30 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")}
             };
 
-            if (_apiSettings.IsFeatureEnabled("ChangeQueries") && !isCompositeContext)
+            if (ChangeQueryFeature.IsEnabled && !isCompositeContext)
             {
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion") });
 
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion") });
             }
 
             if (_openApiMetadataPathsFactorySelectorStrategy.HasTotalCount)
             {
                 parameterList.Add(
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount")});
+                    new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference("totalCount") });
             }
 
             return parameterList;
         }
 
-        private IList<Parameter> CreateGetByExampleParameters(OpenApiMetadataPathsResource openApiMetadataResource,
-            bool isCompositeContext)
+        private IList<Parameter> CreateGetByExampleParameters(OpenApiMetadataPathsResource openApiMetadataResource, bool isCompositeContext)
         {
             var parameterList = CreateQueryParameters(isCompositeContext)
                 .Concat(
                     openApiMetadataResource.DefaultGetByExampleParameters.Select(
-                        p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
+                        p => new Parameter { @ref = OpenApiMetadataDocumentHelper.GetParameterReference(p) }))
                 .ToList();
 
             openApiMetadataResource.RequestProperties.ForEach(
@@ -256,10 +243,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "The PUT operation is used to update or create a resource by identifier. If the resource doesn't exist, the resource will be created using that identifier. Additionally, natural key values cannot be changed using this operation, and will not be modified in the database.  If the resource \"id\" is provided in the JSON body, it will be ignored as well.",
                 operationId = $"put{openApiMetadataResource.Name}",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                consumes = new[]
-                {
-                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
-                },
+                consumes =
+ new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
                 parameters = CreatePutParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put)
             };
@@ -291,10 +276,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "The DELETE operation is used to delete an existing resource by identifier. If the resource doesn't exist, an error will result (the resource will not be found).",
                 operationId = $"delete{openApiMetadataResource.Name}ById",
                 deprecated = openApiMetadataResource.IsDeprecated,
-                consumes = new[]
-                {
-                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
-                },
+                consumes =
+ new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
                 parameters = new[]
                 {
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
@@ -350,10 +333,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error (you must use a PUT operation to update a resource by \"id\"). The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately.",
                 operationId = "post" + openApiMetadataResource.Name,
                 deprecated = openApiMetadataResource.IsDeprecated,
-                consumes = new[]
-                {
-                    _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
-                },
+                consumes =
+ new[] { _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable) },
                 parameters = CreatePostParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post)
             };
@@ -361,7 +342,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private IList<Parameter> CreatePostParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            return new List<Parameter> {CreateBodyParameter(openApiMetadataResource)};
+            return new List<Parameter> { CreateBodyParameter(openApiMetadataResource) };
         }
 
         private Parameter CreateIfMatchParameter(string operationText)
@@ -388,7 +369,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     $"The JSON representation of the \"{camelCaseName}\" resource to be created or updated.",
                 @in = "body",
                 required = true,
-                schema = new Schema {@ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName)}
+                schema = new Models.Schema { @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName) }
             };
         }
     }

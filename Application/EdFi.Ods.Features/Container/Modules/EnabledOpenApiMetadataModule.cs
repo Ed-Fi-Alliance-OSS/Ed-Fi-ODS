@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.OpenApiMetadata;
+using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.RouteInformations;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,9 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<OpenApiMetadataMiddleware>()
                 .As<IMiddleware>()
                 .AsSelf();
+
+            builder.RegisterType<OpenApiMetadataDocumentFactory>()
+                .As<IOpenApiMetadataDocumentFactory>();
         }
     }
 }

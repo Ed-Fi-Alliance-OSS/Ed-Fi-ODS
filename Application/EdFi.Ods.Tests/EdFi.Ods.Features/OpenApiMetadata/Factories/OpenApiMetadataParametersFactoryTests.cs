@@ -5,9 +5,11 @@
 
 #if NETCOREAPP
 using System.Collections.Generic;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.TestFixture;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -17,14 +19,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
     [TestFixture]
     public class OpenApiMetadataParametersFactoryTests
     {
+        private static IConfiguration GetConfiguration()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
         public class When_creating_parameters_for_a_single_instance_or_year_specific_ods : TestFixtureBase
         {
             private IDictionary<string, Parameter> _swaggerParameters;
 
             protected override void Act()
             {
+                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+
                 _swaggerParameters =
-                    new OpenApiMetadataParametersFactory().Create(false);
+                    new OpenApiMetadataParametersFactory(defaultPageSieLimitProvider).Create(false);
             }
 
             [Assert]

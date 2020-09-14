@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
+#if NETFRAMEWORK
 using System.Collections.Generic;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -12,13 +12,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
     public class OpenApiMetadataParametersFactory
     {
-        private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
-
-        public OpenApiMetadataParametersFactory(IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-        {
-            _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
-        }
-       
         public IDictionary<string, Parameter> Create(bool isCompositeContext)
         {
             var parameters = new Dictionary<string, Parameter>
@@ -45,7 +38,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         type = "integer",
                         format = "int32",
                         minimum = 1,
-                        maximum  = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit(),
+#if NETFRAMEWORK
+                        maximum  = new DefaultPageSizeLimitProvider().GetDefaultPageSizeLimit(),
+#endif
                         required = false,
                         @default = 25
                     }
