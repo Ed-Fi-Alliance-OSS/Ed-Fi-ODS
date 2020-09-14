@@ -32,6 +32,11 @@ namespace EdFi.Ods.Api.IdentityValueMappers
         public Guid Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the operational context URI for the <see cref="UniqueId" /> value.
+        /// </summary>
+        public string OperationalContextUri { get; set; }
+        
+        /// <summary>
         /// The character-based unique identifier for the person.
         /// </summary>
         /// <remarks>

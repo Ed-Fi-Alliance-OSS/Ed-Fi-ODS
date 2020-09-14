@@ -14,7 +14,9 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Providers;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
+using EdFi.Ods.Tests._Builders;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Memory;
@@ -47,6 +49,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IEdFiOdsInstanceIdentificationProvider _edfiOdsInstanceIdentificationProvider;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private Guid _actualId;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
@@ -96,6 +99,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) _suppliedPersonIdentifiers));
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -115,6 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
@@ -176,6 +183,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private IEdFiOdsInstanceIdentificationProvider _edfiOdsInstanceIdentificationProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private PersonIdentifiersValueMap _suppliedPersonIdentifiersValueMap;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
@@ -226,6 +234,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         }
                     ));
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 var memorycacheoption = A.Fake<IOptions<MemoryCacheOptions>>();
 
                 MemoryCache memoryCache = new MemoryCache(memorycacheoption);
@@ -241,6 +252,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _edfiOdsInstanceIdentificationProvider,
                     _usiValueMapper,
                     _personIdentifiersProvider,
+                    _apiKeyContextProvider,
                     TimeSpan.Zero,
                     TimeSpan.Zero,
                     synchronousInitialization: true);
@@ -330,6 +342,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
             private IEdFiOdsInstanceIdentificationProvider _edfiOdsInstanceIdentificationProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private PersonIdentifiersValueMap _suppliedPersonIdentifiersValueMap;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToIdCache _idCache;
@@ -383,6 +396,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                             }
                         ));
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -397,7 +413,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                        TimeSpan.Zero, TimeSpan.Zero,
+                        _apiKeyContextProvider, TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: false);
                 }
             }
@@ -481,6 +497,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
+
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -501,6 +519,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _idValueMapper.GetId(A<string>._, A<string>._))
                     .Returns(new PersonIdentifiersValueMap());
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+                
                 var memorycacheoption = A.Fake<IOptions<MemoryCacheOptions>>();
 
                 MemoryCache memoryCache = new MemoryCache(memorycacheoption);
@@ -508,7 +529,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                 _usiCache = new PersonUniqueIdToUsiCache(
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                    TimeSpan.Zero, TimeSpan.Zero,
+                    _apiKeyContextProvider, TimeSpan.Zero, TimeSpan.Zero,
                     synchronousInitialization: true);
             }
 
@@ -541,6 +562,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -562,6 +584,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _idValueMapper.GetId(A<string>._, A<string>._))
                     .Returns(new PersonIdentifiersValueMap());
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -573,7 +598,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
 
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
-                        TimeSpan.Zero, TimeSpan.Zero,
+                        _apiKeyContextProvider, TimeSpan.Zero, TimeSpan.Zero,
                         synchronousInitialization: true);
                 }
             }
@@ -608,6 +633,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IEdFiOdsInstanceIdentificationProvider _edfiOdsInstanceIdentificationProvider;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -632,6 +658,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -646,6 +675,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
@@ -700,6 +730,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IEdFiOdsInstanceIdentificationProvider _edfiOdsInstanceIdentificationProvider;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -724,6 +755,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
                     .Returns(Task.Run(() => (IEnumerable<PersonIdentifiersValueMap>) new PersonIdentifiersValueMap[0]));
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -738,6 +772,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edfiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
@@ -803,6 +838,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private FakeEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -833,6 +869,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                             Usi = 11
                         }).Once();
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 SetupCaching();
 
                 void SetupCaching()
@@ -847,6 +886,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
@@ -891,6 +931,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private FakeEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private MemoryCacheProvider _memoryCacheProvider;
             private PersonUniqueIdToUsiCache _usiCache;
 
@@ -928,6 +969,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                                     }
                                 })).Once();
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+
                 // USI value mapper gets call twice during Act step, with first value on ODS instance 1, and second on ODS instance 2
                 _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
 
@@ -945,6 +989,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);
@@ -985,6 +1030,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             private IUniqueIdToUsiValueMapper _usiValueMapper;
             private IUniqueIdToIdValueMapper _idValueMapper;
             private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private IApiKeyContextProvider _apiKeyContextProvider;
             private Guid _actualIdFromOds1;
             private Guid _actualIdFromOds2;
             private MemoryCacheProvider _memoryCacheProvider;
@@ -1030,6 +1076,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                             Id = _suppliedIdForUniqueIdABC123
                         }).Once();
 
+                _apiKeyContextProvider = Stub<IApiKeyContextProvider>();
+                A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(new ApiKeyContext());
+                
                 SetupCaching();
 
                 void SetupCaching()
@@ -1049,6 +1098,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _edFiOdsInstanceIdentificationProvider,
                         _usiValueMapper,
                         _personIdentifiersProvider,
+                        _apiKeyContextProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
                         synchronousInitialization: true);

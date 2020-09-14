@@ -54,19 +54,41 @@ namespace EdFi.Ods.Api.IdentityValueMappers
 
             using (var session = _openStatelessSession())
             {
-                string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
-                    personType, EdFiConventions.ProperCaseName);
+                ICriteria criteria;
 
-                string entityName = $"{aggregateNamespace}.{personType}";
+                if (personType == "Student")
+                {
+                    string entityName = $"{personType}Identifier";
+                    
+                    string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
+                        entityName, "Identification");
 
-                var criteria = session.CreateCriteria(entityName)
-                    .SetProjection(
-                        Projections.ProjectionList()
-                            .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
-                            .Add(Projections.Alias(Projections.Property($"{personType}UniqueId"), "UniqueId"))
-                    )
-                    .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
+                    string entityFullName = $"{aggregateNamespace}.{entityName}";
 
+                    criteria = session.CreateCriteria(entityFullName)
+                        .SetProjection(
+                            Projections.ProjectionList()
+                                .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
+                                .Add(Projections.Alias(Projections.Property($"Namespace"), "Namespace"))
+                                .Add(Projections.Alias(Projections.Property($"Identifier"), "UniqueId"))
+                        )
+                        .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
+                }
+                else
+                {
+                    string aggregateNamespace = Namespaces.Entities.NHibernate.GetAggregateNamespace(
+                        personType, EdFiConventions.ProperCaseName);
+
+                    string entityFullName = $"{aggregateNamespace}.{personType}";
+
+                    criteria = session.CreateCriteria(entityFullName)
+                        .SetProjection(
+                            Projections.ProjectionList()
+                                .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
+                                .Add(Projections.Alias(Projections.Property($"{personType}UniqueId"), "UniqueId"))
+                        )
+                        .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());
+                }
                 return await criteria.ListAsync<PersonIdentifiersValueMap>();
             }
         }
