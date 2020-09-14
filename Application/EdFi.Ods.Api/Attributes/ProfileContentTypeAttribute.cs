@@ -37,17 +37,20 @@ namespace EdFi.Ods.Api.Attributes
 
             // Route to the controller for get requests
             bool isReadable = requestHeaders.Accept != null
-                 && requestHeaders.Accept
-                .Where(x => x.MediaType.HasValue)
-                .Select(x => x.MediaType.Value)
-                .Any(x => x.Contains(MediaTypeName, StringComparison.InvariantCultureIgnoreCase));
+                              && requestHeaders.Accept
+                                  .Where(x => x.MediaType.HasValue)
+                                  .Select(x => x.MediaType.Value)
+                                  .Any(x => x.Contains(MediaTypeName, StringComparison.InvariantCultureIgnoreCase))
+                              && context.RouteContext.HttpContext.Request.Method == HttpMethods.Get;
 
             // Ideally we want to use the consumes attribute, however, this does not work in this use case because we do not
             // augment the original controller. Instead we will just route to the controller for put and post requests.
             bool isWritable = requestHeaders.ContentType?.MediaType != null
                               && requestHeaders.ContentType.MediaType.HasValue
                               && requestHeaders.ContentType.MediaType.Value
-                                  .Contains(MediaTypeName, StringComparison.InvariantCultureIgnoreCase);
+                                  .Contains(MediaTypeName, StringComparison.InvariantCultureIgnoreCase)
+                              && (context.RouteContext.HttpContext.Request.Method == HttpMethods.Post
+                                  || context.RouteContext.HttpContext.Request.Method == HttpMethods.Put);
 
             if (isReadable || isWritable)
             {
