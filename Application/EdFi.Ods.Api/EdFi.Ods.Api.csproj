@@ -16,7 +16,6 @@
   <ItemGroup>
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
-    <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="FluentValidation" Version="8.6.2" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.8" />

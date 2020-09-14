@@ -6,12 +6,6 @@
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity;
-using System.Data.Entity.Core.Common;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServer;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using Autofac;
@@ -35,7 +29,6 @@ using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Security.DataAccess.Contexts;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -48,7 +41,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Npgsql;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -124,22 +116,6 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
-
-            DbConfiguration.Loaded += (_, a) =>
-            {
-                if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
-                {
-                    a.ReplaceService<DbProviderFactory>((s, k) => SqlClientFactory.Instance);
-                    a.ReplaceService<DbProviderServices>((s, k) => SqlProviderServices.Instance);
-                    a.ReplaceService<IDbConnectionFactory>((s, k) => new SqlConnectionFactory());
-                }
-                else if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.Postgres)
-                {
-                    a.ReplaceService<DbProviderFactory>((s, k) => NpgsqlFactory.Instance);
-                    a.ReplaceService<DbProviderServices>((s, k) => NpgsqlServices.Instance);
-                    a.ReplaceService<IDbConnectionFactory>((s, k) => new NpgsqlConnectionFactory());
-                }
-            };
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -174,11 +150,11 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
                     }
                 }
             }
