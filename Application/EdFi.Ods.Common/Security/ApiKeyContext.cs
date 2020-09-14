@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EdFi.Ods.Common.Security
 {
@@ -55,6 +56,11 @@ namespace EdFi.Ods.Common.Security
         public IEnumerable<string> Profiles { get; }
 
         public string StudentIdentificationSystemDescriptor { get; }
+
+        public string StudentIdentificationOperationalContextUri
+        {
+            get => $"uri://grandbendisd.org/identification/student/{EducationOrganizationIds.First()}";
+        }
 
         /// <summary>
         /// Returns an empty, uninitialized <see cref="ApiKeyContext"/> instance.
