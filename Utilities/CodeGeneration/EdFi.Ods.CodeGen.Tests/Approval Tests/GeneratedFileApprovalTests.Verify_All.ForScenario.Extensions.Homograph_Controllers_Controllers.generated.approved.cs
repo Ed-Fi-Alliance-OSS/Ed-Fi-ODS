@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -10,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.Homograph;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
@@ -18,7 +22,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/names")]
     public partial class NamesController : DataManagementControllerBase<
         Api.Common.Models.Resources.Name.Homograph.Name,
@@ -37,12 +40,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.Names.NameGetByExample request, Entities.Common.Homograph.IName specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.FirstName = request.FirstName;
             specification.Id = request.Id;
             specification.LastSurname = request.LastSurname;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -57,7 +60,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/parents")]
     public partial class ParentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Parent.Homograph.Parent,
@@ -76,12 +78,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.Parents.ParentGetByExample request, Entities.Common.Homograph.IParent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.ParentFirstName = request.ParentFirstName;
             specification.ParentLastSurname = request.ParentLastSurname;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -96,7 +98,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/schools")]
     public partial class SchoolsController : DataManagementControllerBase<
         Api.Common.Models.Resources.School.Homograph.School,
@@ -115,12 +116,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.Schools.SchoolGetByExample request, Entities.Common.Homograph.ISchool specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.SchoolName = request.SchoolName;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -135,7 +136,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/schoolYearTypes")]
     public partial class SchoolYearTypesController : DataManagementControllerBase<
         Api.Common.Models.Resources.SchoolYearType.Homograph.SchoolYearType,
@@ -154,11 +154,11 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypeGetByExample request, Entities.Common.Homograph.ISchoolYearType specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -173,7 +173,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.Homograph.Staff,
@@ -192,12 +191,12 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.Staffs.StaffGetByExample request, Entities.Common.Homograph.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.StaffFirstName = request.StaffFirstName;
             specification.StaffLastSurname = request.StaffLastSurname;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -212,7 +211,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.Homograph.Student,
@@ -231,13 +229,13 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.Students.StudentGetByExample request, Entities.Common.Homograph.IStudent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
             specification.StudentFirstName = request.StudentFirstName;
             specification.StudentLastSurname = request.StudentLastSurname;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -252,7 +250,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
     [Route("homograph/studentSchoolAssociations")]
     public partial class StudentSchoolAssociationsController : DataManagementControllerBase<
         Api.Common.Models.Resources.StudentSchoolAssociation.Homograph.StudentSchoolAssociation,
@@ -271,13 +268,13 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
 
         protected override void MapAll(Api.Common.Models.Requests.Homograph.StudentSchoolAssociations.StudentSchoolAssociationGetByExample request, Entities.Common.Homograph.IStudentSchoolAssociation specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.SchoolName = request.SchoolName;
             specification.StudentFirstName = request.StudentFirstName;
             specification.StudentLastSurname = request.StudentLastSurname;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {

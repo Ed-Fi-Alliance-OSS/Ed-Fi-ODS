@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -13,13 +16,13 @@ using EdFi.Ods.Entities.Common.{{ProperCaseName}};
 using {{ControllersBaseNamespace}};
 {{/IsExtensionContext}}
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 {{#Controllers}}
 
 namespace {{ControllersNamespace}}
 {
     {{#NullRequests}}
-    [ContentType("{{ContentType}}")]
     [ExcludeFromCodeCoverage]
     public class {{ClassName}} : NullRequestBase { }
 
@@ -28,7 +31,9 @@ namespace {{ControllersNamespace}}
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    {{#ProfileContentType}}
+    [ProfileContentType("{{ContentType}}")]
+    {{/ProfileContentType}}
     [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
@@ -49,7 +54,7 @@ namespace {{ControllersNamespace}}
         {
         {{#MapAllExpression}}
             {{#HasProperties}}
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             {{/HasProperties}}
             {{#Properties}}
@@ -59,7 +64,7 @@ namespace {{ControllersNamespace}}
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
             {{/HasProperties}}
         {{/MapAllExpression}}
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -75,10 +80,12 @@ namespace {{ControllersNamespace}}
         {{#OverrideHttpFunctions}}
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
+        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
         {
-            return Task.FromResult(new StatusCodeResult(StatusCodes.Status405MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
         }
         {{/OverrideHttpFunctions}}
     }

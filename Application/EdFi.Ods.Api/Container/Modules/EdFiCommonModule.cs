@@ -9,6 +9,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.IO;
+using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -21,6 +22,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
             builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
             builder.RegisterType<SystemDateProvider>().As<ISystemDateProvider>();
+
+            builder.RegisterType<ProfilePassthroughResourceModelProvider>()
+                .As<IProfileResourceModelProvider>()
+                .PreserveExistingDefaults();
         }
     }
 }

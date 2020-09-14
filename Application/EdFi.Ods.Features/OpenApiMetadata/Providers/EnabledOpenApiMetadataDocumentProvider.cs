@@ -132,6 +132,12 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                             .ToString();
                     }
 
+                    if (values.ContainsKey("profileName"))
+                    {
+                        openApiMetadataRequest.ProfileName = values["profileName"]
+                            .ToString();
+                    }
+
                     if (values.ContainsKey("other"))
                     {
                         openApiMetadataRequest.OtherName = values["other"]

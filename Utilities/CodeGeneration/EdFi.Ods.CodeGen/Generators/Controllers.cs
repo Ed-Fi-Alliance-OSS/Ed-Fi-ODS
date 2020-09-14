@@ -68,7 +68,8 @@ namespace EdFi.Ods.CodeGen.Generators
                 ReadContentType = FormatReadContentType(resourceData),
                 OverrideHttpFunctions = FormatHttpFunctionOverides(resourceData),
                 ExtensionNamespacePrefix = FormatExtensionNamespacePrefix(resourceData),
-                IsExtensionContext = TemplateContext.IsExtension
+                IsExtensionContext = TemplateContext.IsExtension,
+                ProfileContentType = FormatProfileContentType(resourceData)
             };
         }
 
@@ -155,6 +156,13 @@ namespace EdFi.Ods.CodeGen.Generators
                             RequestProperty = y.PropertyName
                         })
             };
+        }
+
+        private static object FormatProfileContentType(StandardizedResourceProfileData resourceData)
+        {
+            return resourceData.ProfileName == null
+                ? null
+                : new {ContentType = $"application/vnd.ed-fi.{resourceData.ResolvedResource}.{resourceData.ProfileName}".ToLower()};
         }
 
         private static string FormatReadContentType(StandardizedResourceProfileData resourceData)
@@ -401,11 +409,6 @@ namespace EdFi.Ods.CodeGen.Generators
             Resource resource = profileData.Readable != null
                 ? profileData.Readable
                 : profileData.Writable;
-
-            if (resource.IsEdFiResource())
-            {
-                return string.Empty;
-            }
 
             var extensionsName = resource.ResourceModel.SchemaNameMapProvider
                 .GetSchemaMapByPhysicalName(resource.Entity.Schema)

@@ -1,5 +1,8 @@
 #if NETCOREAPP
+using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
@@ -10,6 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Entities.Common.EdFi;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclude
@@ -18,7 +22,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude_Readable.BusRoute,
@@ -37,7 +41,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -56,7 +60,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -76,7 +80,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude1")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude1_Readable.BusRoute,
@@ -95,7 +99,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude1.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -114,7 +118,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -134,7 +138,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.busroute-mixedinclude2")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.BusRoute_MixedInclude2_Readable.BusRoute,
@@ -153,7 +157,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.BusRoute_MixedInclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -172,7 +176,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.BusRoute_MixedInclu
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -192,7 +196,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude_Readable.BusRoute,
@@ -211,7 +215,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -230,7 +234,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -250,7 +254,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude_Readable.Staff,
@@ -267,9 +271,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -291,7 +295,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -311,7 +315,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedexclude2")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedExclude2_Readable.BusRoute,
@@ -330,7 +334,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedExclude2.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -349,7 +353,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -369,7 +373,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedexclude2")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedExclude2_Readable.Staff,
@@ -386,9 +390,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedExclude2.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -410,7 +414,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -430,7 +434,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.busroute.staff-and-prospect-mixedinclude")]
     [Route("sample/busRoutes")]
     public partial class BusRoutesController : DataManagementControllerBase<
         Api.Common.Models.Resources.BusRoute.Sample.Staff_and_Prospect_MixedInclude_Readable.BusRoute,
@@ -449,7 +453,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
 
         protected override void MapAll(Api.Common.Models.Requests.Sample.BusRoutes.Staff_and_Prospect_MixedInclude.BusRouteGetByExample request, Entities.Common.Sample.IBusRoute specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
             specification.BusId = request.BusId;
@@ -468,7 +472,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes.Staff_and_Prospect_
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -488,7 +492,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-and-prospect-mixedinclude")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_and_Prospect_MixedInclude_Readable.Staff,
@@ -505,9 +509,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_and_Prospect_MixedInclude.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -529,7 +533,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_and_Prospect_Mixed
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -549,7 +553,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-entity-extension-excludeonly")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_ExcludeOnly_Readable.Staff,
@@ -566,9 +570,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_ExcludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -590,7 +594,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_E
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -610,7 +614,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-entity-extension-includeonly")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Entity_Extension_IncludeOnly_Readable.Staff,
@@ -627,9 +631,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Entity_Extension_IncludeOnly.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -651,7 +655,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Entity_Extension_I
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -671,7 +675,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.staff.staff-include-all")]
     [Route("ed-fi/staffs")]
     public partial class StaffsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Staff.EdFi.Staff_Include_All_Readable.Staff,
@@ -688,9 +692,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, IStaff specification)
+        protected override void MapAll(Api.Common.Models.Requests.Staffs.EdFi.Staff_Include_All.StaffGetByExample request, Entities.Common.EdFi.IStaff specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthDate = request.BirthDate;
             specification.CitizenshipStatusDescriptor = request.CitizenshipStatusDescriptor;
@@ -712,7 +716,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Staff_Include_All
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -732,7 +736,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    [Produces("application/json")]
+    [ProfileContentType("application/vnd.ed-fi.student.student-include-all")]
     [Route("ed-fi/students")]
     public partial class StudentsController : DataManagementControllerBase<
         Api.Common.Models.Resources.Student.EdFi.Student_Include_All_Readable.Student,
@@ -749,9 +753,9 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
         {
         }
 
-        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, IStudent specification)
+        protected override void MapAll(Api.Common.Models.Requests.Students.EdFi.Student_Include_All.StudentGetByExample request, Entities.Common.EdFi.IStudent specification)
         {
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BirthCity = request.BirthCity;
             specification.BirthCountryDescriptor = request.BirthCountryDescriptor;
@@ -772,7 +776,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
