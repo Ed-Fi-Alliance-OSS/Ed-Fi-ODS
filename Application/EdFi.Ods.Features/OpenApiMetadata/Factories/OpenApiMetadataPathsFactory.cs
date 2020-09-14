@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using EdFi.Ods.ChangeQueries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -15,15 +16,16 @@ using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
+using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 {
     public class OpenApiMetadataPathsFactory
     {
-        private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
-        private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
-        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
         private readonly ApiSettings _apiSettings;
+        private readonly IOpenApiMetadataPathsFactoryContentTypeStrategy _contentTypeStrategy;
+        private readonly IOpenApiMetadataPathsFactorySelectorStrategy _openApiMetadataPathsFactorySelectorStrategy;
+        private readonly IOpenApiMetadataPathsFactoryNamingStrategy _pathsFactoryNamingStrategy;
 
         public OpenApiMetadataPathsFactory(
             IOpenApiMetadataPathsFactorySelectorStrategy openApiMetadataPathsFactorySelectorStrategy,
@@ -69,8 +71,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                     PathItem = CreatePathItemForAccessByIdsOperations(r)
                                 }
                                 : null,
-                            _apiSettings.IsFeatureEnabled("ChangeQueries") &&
-                            !isCompositeContext
+                            _apiSettings.IsFeatureEnabled("ChangeQueries")
+                            && !r.Name.Equals(ChangeQueriesConstants.SchoolYearTypesResourceName)
+                            && !isCompositeContext
                                 ? new
                                 {
                                     Path = $"{resourcePath}/deletes",
@@ -385,7 +388,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     $"The JSON representation of the \"{camelCaseName}\" resource to be created or updated.",
                 @in = "body",
                 required = true,
-                schema = new Models.Schema {@ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName)}
+                schema = new Schema {@ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(referenceName)}
             };
         }
     }
