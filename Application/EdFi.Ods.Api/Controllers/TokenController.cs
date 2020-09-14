@@ -5,10 +5,7 @@
 
 #if NETCOREAPP
 using System;
-using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
@@ -72,8 +69,7 @@ namespace EdFi.Ods.Api.Controllers
 
             try
             {
-                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]))
-                    .Split(':');
+                clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
             }
             catch (Exception)
             {
@@ -100,13 +96,13 @@ namespace EdFi.Ods.Api.Controllers
                 return BadRequest(authenticationResult.TokenError);
             }
 
-                return Ok(authenticationResult.TokenResponse);
+            return Ok(authenticationResult.TokenResponse);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<IActionResult> PostFromForm([FromForm] TokenRequest tokenRequest)
+        public async Task<IActionResult> PostFromFormAsync([FromForm] TokenRequest tokenRequest)
         {
             // Look for the authorization header, since we MUST support this method of authorization
             // https://tools.ietf.org/html/rfc6749#section-2.3.1
@@ -140,8 +136,7 @@ namespace EdFi.Ods.Api.Controllers
 
             try
             {
-                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]))
-                    .Split(':');
+                clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
             }
             catch (Exception )
             {
@@ -170,6 +165,16 @@ namespace EdFi.Ods.Api.Controllers
 
             return Ok(authenticationResult.TokenResponse);
         }
+
+        private string[] GetClientIdAndSecret(string encodedClientAndSecret)
+        {
+            string[] clientIdAndSecret;
+
+                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret))
+                    .Split(':');
+                return clientIdAndSecret;         
+        }
+            
     }
 }
 #endif

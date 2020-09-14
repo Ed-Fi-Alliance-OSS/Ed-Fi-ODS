@@ -12,6 +12,8 @@ using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Text;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
@@ -47,6 +49,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             return controller;
         }
+
+        public static ControllerContext CreateControllerContext(HeaderDictionary headerDictionary)
+        {
+            var request = A.Fake<HttpRequest>();
+
+            A.CallTo(() => request.Headers).Returns(headerDictionary);
+
+            var httpContext = A.Fake<HttpContext>();
+            A.CallTo(() => httpContext.Request).Returns(request);
+
+            return new ControllerContext { HttpContext = httpContext };
+        }
+
+        public static string CreateEncodedAuthentication(string clientKey = "clientId", string clientSecret = "clientSecret")
+        {
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientKey}:{clientSecret}"));
+        }
+
     }
 }
 #endif

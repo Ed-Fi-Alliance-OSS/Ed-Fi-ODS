@@ -26,24 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
     [TestFixture]
     public class TokenControllerUsingJsonTests
-    {
-        private static ControllerContext CreateControllerContext(HeaderDictionary headerDictionary)
-        {
-            var request = A.Fake<HttpRequest>();
-
-            A.CallTo(() => request.Headers).Returns(headerDictionary);
-
-            var httpContext = A.Fake<HttpContext>();
-            A.CallTo(() => httpContext.Request).Returns(request);
-
-            return new ControllerContext { HttpContext = httpContext };
-        }
-
-        private static string CreateEncodedAuthentication(string clientKey = "clientId", string clientSecret = "clientSecret")
-        {
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes($"{clientKey}:{clientSecret}"));
-        }
-
+    {      
         public class With_No_Header_Request : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
@@ -58,14 +41,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override Task ArrangeAsync()
             {
-                _suppliedClient = new ApiClient { ApiClientId = 1 };
+                _suppliedClient = new ApiClient {ApiClientId = 1 };
 
                 _suppliedAccessToken = Guid.NewGuid();
                 _suppliedTTL = TimeSpan.FromMinutes(30);
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
-                //// Simulate a successful lookup of the client id/secret
+                // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
@@ -150,7 +133,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
-                //// Simulate a successful lookup of the client id/secret
+                // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
@@ -171,7 +154,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                             new ApiClientAuthenticator.AuthenticationResult
                             {
                                 IsAuthenticated = true,
-                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                                ApiClientIdentity = new ApiClientIdentity {Key = "clientId" }
                             }));
 
                 _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
@@ -181,8 +164,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication()}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(new TokenRequest());
             }
@@ -238,7 +221,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
-                //// Simulate a successful lookup of the client id/secret
+                // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
@@ -269,8 +252,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication()}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(new TokenRequest { Grant_type = "client_credentials" });           
 
@@ -396,8 +379,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication()}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest
@@ -518,10 +501,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             {
                 var headerDictionary = new HeaderDictionary
                 {
-                    {"Authorization", $"Basic {CreateEncodedAuthentication("clientId", "clientSecret")}"}
+                    {"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication("clientId", "clientSecret")}"}
                 };
 
-                _controller.ControllerContext = CreateControllerContext(headerDictionary);
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(headerDictionary);
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest
@@ -958,7 +941,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext =
-                    CreateControllerContext(new HeaderDictionary { { "Authorization", "Digest some-value" } });
+                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Digest some-value" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest { Grant_type = "client_credentials" });
@@ -1012,7 +995,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic " } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic " } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest { Grant_type = "client_credentials" });
@@ -1066,7 +1049,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext =
-                    CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Tm9Db2xvbkhlcmU=" } });
+                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Tm9Db2xvbkhlcmU=" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest { Grant_type = "client_credentials" });
@@ -1121,7 +1104,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext =
-                    CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic ThisIsNotBase64Encoded" } });
+                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic ThisIsNotBase64Encoded" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest { Grant_type = "client_credentials" });
@@ -1172,8 +1155,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication("badClientId", "badClientSecret")}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication("badClientId", "badClientSecret")}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest
@@ -1230,8 +1213,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication(clientSecret: string.Empty)}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest
@@ -1289,8 +1272,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = CreateControllerContext(
-                    new HeaderDictionary { { "Authorization", $"Basic {CreateEncodedAuthentication(clientSecret: null)}" } });
+                _controller.ControllerContext = ControllerHelper.CreateControllerContext(
+                    new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: null)}" } });
 
                 _actionResult = await _controller.PostFromJsonAsync(
                     new TokenRequest { Grant_type = "client_credentials" });
