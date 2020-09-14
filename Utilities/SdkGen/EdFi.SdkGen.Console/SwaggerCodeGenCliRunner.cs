@@ -70,7 +70,7 @@ namespace EdFi.SdkGen.Console
                 {
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-l csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace}", "-DmodelTests=false -DapiTests=false",
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true", "-DmodelTests=false -DapiTests=false",
                     "-Dhttps.protocols=TLSv1.2"
                 };
 

@@ -28,7 +28,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'v',
             "cliVersion",
-            Default = "2.4.13",
+            Default = "2.4.15",
             HelpText = "the version of swagger-codegen-cli to download")]
         public string CliVersion { get; set; }
 

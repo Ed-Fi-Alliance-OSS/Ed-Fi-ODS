@@ -15,11 +15,12 @@
     <dependencies>
       <dependency id="NewtonSoft.Json" version="10.0.3" />
       <dependency id="JsonSubTypes" version="1.2.0" />
-      <dependency id="RestSharp" version="105.1.0" />
+      <dependency id="FubarCoder.RestSharp.Portable.Core" Version="4.0.7" />
+      <dependency id="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.7" />
     </dependencies>
   </metadata>
   <files>
     <file src="readme.txt" target="" />
-    <file src="csharp\src\EdFi.OdsApi.Sdk\bin\$configuration$\EdFi.OdsApi.Sdk.dll" target="lib" />
+    <file src="csharp\src\EdFi.OdsApi.Sdk\bin\$configuration$\netstandard1.3\EdFi.OdsApi.Sdk.dll" target="lib" />
   </files>
 </package>
