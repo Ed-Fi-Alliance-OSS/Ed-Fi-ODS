@@ -1,7 +1,6 @@
-# Ed-Fi-ODS-Implementation
+# Ed-Fi-ODS
 
-This product includes software developed at the [Ed-Fi
-Alliance](https://www.ed-fi.org).
+This product includes software developed at the [Ed-FiAlliance](https://www.ed-fi.org).
 
 Copyright (c) 2020 Ed-Fi Alliance, LLC and contributors.
 
