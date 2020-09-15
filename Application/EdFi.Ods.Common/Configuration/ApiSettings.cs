@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public ApiSettings()
         {
-            _databaseEngine = new Lazy<DatabaseEngine>(() => DatabaseEngine.FromValue(Engine));
+            _databaseEngine = new Lazy<DatabaseEngine>(() => DatabaseEngine.TryParseEngine(Engine));
 
             _apiMode = new Lazy<ApiMode>(
                 () =>
