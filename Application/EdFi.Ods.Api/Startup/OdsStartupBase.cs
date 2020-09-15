@@ -6,12 +6,14 @@
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
@@ -232,6 +234,8 @@ namespace EdFi.Ods.Api.Startup
                             .GetResourceModel());
 
                 EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
+
+                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
             }
         }
 
