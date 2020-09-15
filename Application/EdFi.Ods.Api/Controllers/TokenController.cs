@@ -6,7 +6,6 @@
 #if NETCOREAPP
 using System;
 using System.Text;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Providers;
@@ -36,8 +35,69 @@ namespace EdFi.Ods.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/json")]
-        public async Task<IActionResult> Post([FromBody] TokenRequest tokenRequest)
+        public async Task<IActionResult> PostFromJsonAsync([FromBody] TokenRequest tokenRequest)
         {
+            // Look for the authorization header, since we MUST support this method of authorization
+            // https://tools.ietf.org/html/rfc6749#section-2.3.1
+            // Decode and parse the client id/secret from the header
+            // Authorization is in a form of Bearer <encoded client and secret>
+            // We accept two cases for the json post, if the json post contains the client secret and client credentials
+            // then we process with that information, other we look for a header with a bearer token
+            // and parse the response then. We fail when there is a client_secret or client_id in the header and json at the
+            // same time.
+            string[] clientIdAndSecret = new string[0];
+
+            if (Request.Headers.ContainsKey("Authorization"))
+            {
+                string[] encodedClientAndSecret = Request.Headers["Authorization"]
+                    .ToString()
+                    .Split(' ');
+
+                if (encodedClientAndSecret.Length != 2)
+                {
+                    _logger.Debug("Header is not in the form of Basic <encoded credentials>");
+                    return Unauthorized();
+                }
+
+                if (!encodedClientAndSecret[0].EqualsIgnoreCase("Basic"))
+                {
+                    _logger.Debug("Authorization scheme is not Basic");
+                    return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+                }
+
+                try
+                {
+                    clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
+
+                    if (clientIdAndSecret.Length != 2)
+                    {
+                        return BadRequest(new TokenError(TokenErrorType.InvalidClient));
+                    }
+                }
+                catch (Exception)
+                {
+                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+                }
+            }
+
+            if (clientIdAndSecret.Length == 2)
+            {
+                if (tokenRequest.Client_id != null || tokenRequest.Client_secret != null)
+                {
+                    return BadRequest(new TokenError(TokenErrorType.InvalidClient));
+                }
+
+                // Correct format will include 2 entries
+                // format of the string is <client_id>:<client_secret>
+                tokenRequest.Client_id = clientIdAndSecret[0];
+                tokenRequest.Client_secret = clientIdAndSecret[1];
+            }
+
+            if (tokenRequest.Client_id == null && tokenRequest.Client_secret == null)
+            {
+                return Unauthorized();
+            }
+
             // Handle token request
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
 
@@ -52,7 +112,7 @@ namespace EdFi.Ods.Api.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<IActionResult> PostFromForm([FromForm] TokenRequest tokenRequest)
+        public async Task<IActionResult> PostAsync([FromForm] TokenRequest tokenRequest)
         {
             // Look for the authorization header, since we MUST support this method of authorization
             // https://tools.ietf.org/html/rfc6749#section-2.3.1
@@ -86,21 +146,27 @@ namespace EdFi.Ods.Api.Controllers
 
             try
             {
-                clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret[1]))
-                    .Split(':');
+                clientIdAndSecret = GetClientIdAndSecret(encodedClientAndSecret[1]);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
             }
 
+            if (clientIdAndSecret.Length == 2 && tokenRequest.Client_id != null)
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
+
+            if (clientIdAndSecret.Length != 2)
+            {
+                return BadRequest(new TokenError(TokenErrorType.InvalidClient));
+            }
+
             // Correct format will include 2 entries
             // format of the string is <client_id>:<client_secret>
-            if (clientIdAndSecret.Length == 2)
-            {
-                tokenRequest.Client_id = clientIdAndSecret[0];
-                tokenRequest.Client_secret = clientIdAndSecret[1];
-            }
+            tokenRequest.Client_id = clientIdAndSecret[0];
+            tokenRequest.Client_secret = clientIdAndSecret[1];
 
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
 
@@ -110,6 +176,14 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             return Ok(authenticationResult.TokenResponse);
+        }
+
+        private static string[] GetClientIdAndSecret(string encodedClientAndSecret)
+        {
+            string[] clientIdAndSecret = Encoding.UTF8.GetString(Convert.FromBase64String(encodedClientAndSecret))
+                .Split(':');
+
+            return clientIdAndSecret;
         }
     }
 }
