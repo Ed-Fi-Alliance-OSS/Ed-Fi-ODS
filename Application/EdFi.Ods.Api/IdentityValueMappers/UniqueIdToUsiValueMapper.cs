@@ -9,6 +9,7 @@ using System.Linq;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
@@ -23,10 +24,14 @@ namespace EdFi.Ods.Api.IdentityValueMappers
     /// </summary>
     public class UniqueIdToUsiValueMapper : IUniqueIdToUsiValueMapper
     {
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly Func<IStatelessSession> _openStatelessSession;
 
-        public UniqueIdToUsiValueMapper(Func<IStatelessSession> openStatelessSession)
+        public UniqueIdToUsiValueMapper(
+            Func<IStatelessSession> openStatelessSession,
+            IApiKeyContextProvider apiKeyContextProvider)
         {
+            _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
             _openStatelessSession = Preconditions.ThrowIfNull(openStatelessSession, nameof(openStatelessSession));
         }
 
@@ -99,7 +104,19 @@ namespace EdFi.Ods.Api.IdentityValueMappers
 
                 if (searchField != null)
                 {
-                    criteria.Add(Expression.Eq($"{searchField}", searchValue));
+                    if (personType == "Student")
+                    {
+                        string operationalContextUri = _apiKeyContextProvider.GetApiKeyContext().StudentIdentificationOperationalContextUri;
+
+                        criteria.Add(
+                            Restrictions.And(
+                                Restrictions.Eq("Namespace", operationalContextUri),
+                                Restrictions.Eq(searchField == "StudentUSI" ? "StudentUSI" : "Identifier", searchValue)));
+                    }
+                    else
+                    {
+                        criteria.Add(Restrictions.Eq($"{searchField}", searchValue));
+                    }
                 }
 
                 criteria.SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());

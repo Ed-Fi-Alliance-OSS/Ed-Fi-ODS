@@ -133,11 +133,23 @@ namespace EdFi.Ods.Common.Providers.Criteria
                 return false;
             }
 
+            var entityType = entity.GetType();
+
+            // If property is the defining UniqueId on a known Person-type entity
+            if (_uniqueIdProperties.Contains(property.Name) 
+                && PersonEntitySpecification.IsPersonEntity(entityType)
+                && UniqueIdSpecification.GetUniqueIdPersonType(property.Name) == entityType.Name)
+            {
+                // Don't apply the UniqueId criteria - use the USI only, which will be populated from cache
+                return false;
+            }
+            
             Type valueType = value.GetType();
 
             // Only use value types (or strings), and non-default values (i.e. ignore 0's)
             var result = (valueType.IsValueType || valueType == typeof(string))
                 && (!value.Equals(valueType.GetDefaultValue())
+                    // NOTE: Review this logic - Is it correct?
                     || UniqueIdSpecification.IsUSI(property.Name)
                     && GetPropertyValue(entity, UniqueIdSpecification.GetUniqueIdPropertyName(property.Name)) != null);
 
@@ -145,8 +157,9 @@ namespace EdFi.Ods.Common.Providers.Criteria
             result = result && !_propertiesToIgnore.Contains(property.Name);
 
             // Don't include UniqueId properties when they appear on a Person entity
+            // NOTE: Review this logic - Is it correct?
             result = result
-                && (!_uniqueIdProperties.Contains(property.Name) || PersonEntitySpecification.IsPersonEntity(entity.GetType()));
+                && (!_uniqueIdProperties.Contains(property.Name) || PersonEntitySpecification.IsPersonEntity(entityType));
 
             return result;
         }

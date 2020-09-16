@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -20,8 +21,14 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
     public class CreateEntity<TEntity> : ValidatingNHibernateRepositoryOperationBase, ICreateEntity<TEntity>
         where TEntity : AggregateRootWithCompositeKey
     {
-        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators)
-            : base(sessionFactory, validators) { }
+        private readonly IHttpContextStorageTransfer _httpContextStorageTransfer;
+
+        public CreateEntity(ISessionFactory sessionFactory, IEnumerable<IEntityValidator> validators,
+            IHttpContextStorageTransfer httpContextStorageTransfer)
+            : base(sessionFactory, validators)
+        {
+            _httpContextStorageTransfer = httpContextStorageTransfer;
+        }
 
         public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
@@ -89,6 +96,12 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                 {
                     try
                     {
+                        // In web application scenarios, copy pertinent context from HttpContext to CallContext
+                        if (_httpContextStorageTransfer != null)
+                        {
+                            _httpContextStorageTransfer.TransferContext();
+                        }
+
                         await Session.SaveAsync(entity, cancellationToken);
                     }
                     catch (Exception)

@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Utils.Extensions;
 using NHibernate;
 using NHibernate.Cfg;
@@ -39,6 +40,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IFilterCriteriaApplicatorProvider _filterCriteriaApplicatorProvider;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
         private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
@@ -46,9 +48,13 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             IFilterCriteriaApplicatorProvider filterCriteriaApplicatorProvider,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
-            IOdsDatabaseConnectionStringProvider connectionStringProvider)
+            IOdsDatabaseConnectionStringProvider connectionStringProvider,
+            IApiKeyContextProvider apiKeyContextProvider)
         {
             _connectionStringProvider = connectionStringProvider;
+            
+            _apiKeyContextProvider = Preconditions.ThrowIfNull(
+                apiKeyContextProvider, nameof(apiKeyContextProvider));
 
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
@@ -184,7 +190,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 }
             }
 
-            configuration.AddCreateDateHooks();
+            configuration.AddCreateDateHooks(_apiKeyContextProvider);
 
             return configuration;
 

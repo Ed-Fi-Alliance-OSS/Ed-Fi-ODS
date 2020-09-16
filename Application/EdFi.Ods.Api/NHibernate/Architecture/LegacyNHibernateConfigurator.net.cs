@@ -24,6 +24,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
+using EdFi.Ods.Common.Security;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -45,8 +46,12 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
         private IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
         private IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
 
+        private IApiKeyContextProvider _apiKeyContextProvider;
+
         public Configuration Configure(IWindsorContainer container)
         {
+            _apiKeyContextProvider = container.Resolve<IApiKeyContextProvider>();
+
             //Resolve all extensions to include in core mapping
             var extensionConfigurationProviders = Enumerable.ToList(container.ResolveAll<IExtensionNHibernateConfigurationProvider>());
 
@@ -174,7 +179,7 @@ namespace EdFi.Ods.Api.NHibernate.Architecture
             // NHibernate Dependency Injection
             Environment.ObjectsFactory = new WindsorObjectsFactory(container);
 
-            configuration.AddCreateDateHooks();
+            configuration.AddCreateDateHooks(_apiKeyContextProvider);
 
             // Build and register the session factory with the container
             container.Register(

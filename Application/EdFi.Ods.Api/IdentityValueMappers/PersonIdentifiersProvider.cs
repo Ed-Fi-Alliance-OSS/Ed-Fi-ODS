@@ -69,7 +69,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                         .SetProjection(
                             Projections.ProjectionList()
                                 .Add(Projections.Alias(Projections.Property($"{personType}USI"), "Usi"))
-                                .Add(Projections.Alias(Projections.Property($"Namespace"), "Namespace"))
+                                .Add(Projections.Alias(Projections.Property($"Namespace"), "OperationalContextUri"))
                                 .Add(Projections.Alias(Projections.Property($"Identifier"), "UniqueId"))
                         )
                         .SetResultTransformer(Transformers.AliasToBean<PersonIdentifiersValueMap>());

@@ -5,17 +5,18 @@
 
 using EdFi.Ods.Common.Infrastructure.Interceptors;
 using EdFi.Ods.Common.Infrastructure.Listeners;
+using EdFi.Ods.Common.Security;
 using NHibernate.Event;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
     public static class NHibernateConfigurationExtensions
     {
-        public static void AddCreateDateHooks(this NHibernate.Cfg.Configuration configuration)
+        public static void AddCreateDateHooks(this NHibernate.Cfg.Configuration configuration, IApiKeyContextProvider apiKeyContextProvider)
         {
             configuration.Interceptor = new CreateDateBasedTransientInterceptor();
             configuration.SetListener(ListenerType.PreInsert, new EdFiOdsPreInsertListener());
-            configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener());
+            configuration.SetListener(ListenerType.PostInsert, new EdFiOdsPostInsertListener(apiKeyContextProvider));
             configuration.SetListener(ListenerType.PostUpdate, new EdFiOdsPostUpdateEventListener());
         }
     }
