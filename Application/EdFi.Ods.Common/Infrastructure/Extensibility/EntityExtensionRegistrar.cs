@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using log4net;
 
@@ -25,9 +26,9 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(EntityExtensionRegistrar));
 
-        public EntityExtensionRegistrar(IEnumerable<Assembly> extensionAssemblies, DomainModel domainModel)
+        public EntityExtensionRegistrar(IEnumerable<Assembly> extensionAssemblies, IDomainModelProvider domainModelProvider)
         {
-            _domainModel = domainModel;
+            _domainModel = domainModelProvider.GetDomainModel();
 
             foreach (Assembly extensionAssembly in extensionAssemblies)
             {
@@ -67,7 +68,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
             _aggregateExtensionEntityNamesByType.AddOrUpdate(
                 edFiStandardEntityType,
-                t => new List<string> {ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity)},
+                t => new List<string> { ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity) },
                 (t, n) =>
                 {
                     string extensionCollectionName =

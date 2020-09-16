@@ -24,14 +24,13 @@ namespace EdFi.Ods.Api.Container.Modules
         {
             builder.RegisterType<DomainModelProvider>().As<IDomainModelProvider>();
 
-            // Domain Model
-            builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel()).As<DomainModel>();
-
             // Schemas
-            builder.Register(c => c.Resolve<DomainModel>().Schemas.ToArray()).As<Schema[]>();
+            builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel().Schemas.ToArray())
+                .As<Schema[]>();
 
             // Schema Name Map Provider
-            builder.Register(c => c.Resolve<DomainModel>().SchemaNameMapProvider).As<ISchemaNameMapProvider>();
+            builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel().SchemaNameMapProvider)
+                .As<ISchemaNameMapProvider>();
 
             // Resource Model Provider
             builder.RegisterType<ResourceModelProvider>().As<IResourceModelProvider>();
