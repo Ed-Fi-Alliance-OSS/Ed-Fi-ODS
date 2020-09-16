@@ -3,20 +3,19 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETFRAMEWORK
+#if NETCOREAPP
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Api.Services.Metadata;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
+using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
 
 namespace EdFi.Ods.Features.Profiles
@@ -26,18 +25,17 @@ namespace EdFi.Ods.Features.Profiles
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
         private readonly IProfileResourceNamesProvider _profileResourceNamesProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
+        private readonly IOpenApiMetadataDocumentFactory _openApiMetadataDocumentFactory;
 
         public ProfilesOpenApiContentProvider(IProfileResourceModelProvider profileResourceModelProvider,
             IProfileResourceNamesProvider profileResourceNamesProvider,
-            IResourceModelProvider resourceModelProvider)
+            IResourceModelProvider resourceModelProvider,
+            IOpenApiMetadataDocumentFactory documentFactory)
         {
-            _profileResourceModelProvider =
-                Preconditions.ThrowIfNull(profileResourceModelProvider, nameof(profileResourceModelProvider));
-
-            _profileResourceNamesProvider =
-                Preconditions.ThrowIfNull(profileResourceNamesProvider, nameof(profileResourceNamesProvider));
-
+            _profileResourceModelProvider = Preconditions.ThrowIfNull(profileResourceModelProvider, nameof(profileResourceModelProvider));
+            _profileResourceNamesProvider = Preconditions.ThrowIfNull(profileResourceNamesProvider, nameof(profileResourceNamesProvider));
             _resourceModelProvider = Preconditions.ThrowIfNull(resourceModelProvider, nameof(resourceModelProvider));
+            _openApiMetadataDocumentFactory = Preconditions.ThrowIfNull(documentFactory, nameof(documentFactory));
         }
 
         public string RouteName
@@ -69,7 +67,7 @@ namespace EdFi.Ods.Features.Profiles
                         new OpenApiContent(
                             OpenApiMetadataSections.Profiles,
                             c.ProfileContext.ProfileName,
-                            new Lazy<string>(() => new OpenApiMetadataDocumentFactory(c).Create(openApiStrategy)),
+                            new Lazy<string>(() => _openApiMetadataDocumentFactory.Create(openApiStrategy, c)),
                             RouteConstants.DataManagementRoutePrefix,
                             $"{OpenApiMetadataSections.Profiles}/{c.ProfileContext.ProfileName}"));
         }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Conventions;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Models

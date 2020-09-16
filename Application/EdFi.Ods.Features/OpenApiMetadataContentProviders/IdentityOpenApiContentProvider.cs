@@ -10,7 +10,7 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
-using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
+using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.IdentityManagement
 {

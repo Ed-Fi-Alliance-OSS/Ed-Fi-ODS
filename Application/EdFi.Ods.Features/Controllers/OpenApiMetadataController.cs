@@ -20,7 +20,6 @@ using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OpenApiMetadataSections = EdFi.Ods.Features.OpenApiMetadata.Models.OpenApiMetadataSections;
 
 namespace EdFi.Ods.Features.Controllers
 {
