@@ -18,6 +18,7 @@ namespace EdFi.Ods.Api.Configuration
             {
                 return;
             }
+
             const string name = "Npgsql";
 
             SetProviderFactory(
