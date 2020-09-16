@@ -67,6 +67,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 .SingleInstance();
 
+            builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
+
             builder.RegisterModule(new NHibernateConfigurationModule());
             builder.RegisterModule(new RepositoryFilterProvidersModule());
             builder.RegisterModule(new OdsConnectionStringProviderModule());
