@@ -70,7 +70,7 @@ namespace EdFi.Ods.WebService.Tests
 
     public static class TestConstants
     {
-        public const string BaseUrl = "http://localhost:49745/";
+        public const string BaseUrl = "http://localhost:5449/";
     }
 }
 #endif
