@@ -379,7 +379,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             {
                 var builder = new ContainerBuilder();
 
-                //var apiSettings = new ApiSettings { DisableSecurity = false};
+                //var apiSettings = new ApiSettings();
                 //builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 //    .SingleInstance();
 

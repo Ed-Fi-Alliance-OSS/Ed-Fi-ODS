@@ -6,21 +6,14 @@
 #if NETSTANDARD
 using System;
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class RelationshipsAuthorizationContextModule : ConditionalModule
+    public class RelationshipsAuthorizationContextModule : Module
     {
-        public RelationshipsAuthorizationContextModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(RelationshipsAuthorizationContextModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             // RelationshipsAuthorizationContextDataProviderFactory
             builder.RegisterType(

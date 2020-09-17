@@ -5,21 +5,16 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class AuthorizationSegmentsToFiltersConverterModule : ConditionalModule
+    public class AuthorizationSegmentsToFiltersConverterModule : Module
     {
-        public AuthorizationSegmentsToFiltersConverterModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(AuthorizationSegmentsToFiltersConverterModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
-            => builder.RegisterType<AuthorizationSegmentsToFiltersConverter>().As<IAuthorizationSegmentsToFiltersConverter>();
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<AuthorizationSegmentsToFiltersConverter>().As<IAuthorizationSegmentsToFiltersConverter>();
+        }
     }
 }
 #endif

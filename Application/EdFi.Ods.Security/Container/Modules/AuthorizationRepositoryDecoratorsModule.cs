@@ -7,8 +7,6 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
@@ -17,7 +15,7 @@ using EdFi.Ods.Security.Authorization.Repositories;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class AuthorizationRepositoryDecoratorsModule : ConditionalModule
+    public class AuthorizationRepositoryDecoratorsModule : Module
     {
         private readonly IDictionary<Type, Type> _genericServiceByAuthorizationDecorator = new Dictionary<Type, Type>
         {
@@ -46,12 +44,7 @@ namespace EdFi.Ods.Security.Container.Modules
             {typeof(IDeletePipelineStepsProvider), typeof(AuthorizationContextDeletePipelineStepsProviderDecorator)}
         };
 
-        public AuthorizationRepositoryDecoratorsModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(AuthorizationRepositoryDecoratorsModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             foreach (var decoratorRegistration in _genericServiceByAuthorizationDecorator)
             {

@@ -7,22 +7,15 @@
 using System;
 using System.Linq;
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class AuthorizationStrategyModule : ConditionalModule
+    public class AuthorizationStrategyModule : Module
     {
-        public AuthorizationStrategyModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(AuthorizationStrategyModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             var assembly = GetType().Assembly;
 
