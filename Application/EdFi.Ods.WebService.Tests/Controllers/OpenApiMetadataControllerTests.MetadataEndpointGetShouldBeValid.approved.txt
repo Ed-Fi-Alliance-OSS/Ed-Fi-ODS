@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Descriptors",
+    "endpointUri": "http://localhost:5449/metadata/data/v3/descriptors/swagger.json",
+    "prefix": ""
+  },
+  {
+    "name": "Resources",
+    "endpointUri": "http://localhost:5449/metadata/data/v3/resources/swagger.json",
+    "prefix": ""
+  }
+]

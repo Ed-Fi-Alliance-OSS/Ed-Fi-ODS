@@ -4,17 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
-using EdFi.Ods.Features.OpenApiMetadata.Models;
-using Newtonsoft.Json;
+using ApprovalTests;
+using ApprovalTests.Reporters;
+using ApprovalTests.Reporters.TestFrameworks;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebService.Tests.Controllers
+namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
+    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class OpenApiMetadataControllerTests : HttpClientTestsBase
     {
         [Test]
@@ -27,10 +28,7 @@ namespace EdFi.Ods.WebService.Tests.Controllers
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-
-            var results = JsonConvert.DeserializeObject<List<OpenApiMetadataSectionDetails>>(json);
-
-            results.Count.ShouldNotBe(0);
+            Approvals.Verify(json);
         }
     }
 }

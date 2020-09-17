@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.WebService.Tests._Helpers;
 using NUnit.Framework;
@@ -18,7 +19,7 @@ using Shouldly;
 namespace EdFi.Ods.WebService.Tests.ApprovalTests
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
+    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class AggregateDependencyControllerTests : HttpClientTestsBase
     {
         [Test]

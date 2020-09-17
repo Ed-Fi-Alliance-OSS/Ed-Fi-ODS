@@ -29,11 +29,11 @@ namespace EdFi.Ods.Features.Controllers
     [AllowAnonymous]
     public class OpenApiMetadataController : ControllerBase
     {
+        private readonly bool _isEnabled;
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly bool _useProxyHeaders;
-        private readonly bool _isEnabled;
 
         public OpenApiMetadataController(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -54,8 +54,10 @@ namespace EdFi.Ods.Features.Controllers
             }
 
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
-                    .Select(GetSwaggerSectionDetailsForCacheItem)
-                    .ToList();
+                .OrderBy(x => x.Section)
+                .ThenBy(x => x.Name)
+                .Select(GetSwaggerSectionDetailsForCacheItem)
+                .ToList();
 
             var eTag = HashHelper.GetSha256Hash(content.ToString())
                 .ToHexString()
