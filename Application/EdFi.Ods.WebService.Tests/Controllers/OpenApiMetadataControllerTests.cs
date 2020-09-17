@@ -28,7 +28,7 @@ namespace EdFi.Ods.WebService.Tests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(json);
+            Approvals.Verify(json, s => s.Replace(@"\r\n", @"\n"));
         }
     }
 }
