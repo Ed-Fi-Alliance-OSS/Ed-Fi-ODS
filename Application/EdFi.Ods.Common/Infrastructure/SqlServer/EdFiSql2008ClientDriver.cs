@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using NHibernate.Driver;
+using NHibernate.SqlTypes;
 
 namespace EdFi.Ods.Common.Infrastructure.SqlServer
 {
@@ -47,6 +48,26 @@ namespace EdFi.Ods.Common.Infrastructure.SqlServer
                                                       $"(SELECT Id FROM {parameterName})");
                 }
             }
+        }
+        
+        protected override void InitializeParameter(DbParameter dbParam, string name, SqlType sqlType)
+        {
+            base.InitializeParameter(dbParam, name, sqlType);
+        
+            // DbType.Currency is provided in the API model produced by MetaEd, but it uses the SQL Server decimal
+            // type for currency values in the generated database scripts, and the 'money' type in the PostgreSQL
+            // scripts. To support money type already in use with the PostgreSQL ODS, we had to modify the NHibernate
+            // mappings to use 'Currency' instead of 'Decimal' and remove the logic (now seen below) from the out-of-the-box
+            // PostgreSQL driver class.
+            //
+            // But this then leaves the NHibernate mappings for SQL Server using the 'Currency' type (unless we implement
+            // database engine-specific conversions from DbType to NHibernate type, which is a bit nonsensical).
+            //
+            // The best option seems to be to move the logic seen below over from the PostgreSQL driver class to our
+            // custom SQL Server driver class and override the SQL Server mappings back to decimal to match what is
+            // actually used for our SQL Server Ed-Fi ODS.
+            if (sqlType.DbType == DbType.Currency)
+                dbParam.DbType = DbType.Decimal;
         }
     }
 }
