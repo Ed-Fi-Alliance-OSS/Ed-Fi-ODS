@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,12 +10,10 @@ using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
-using Microsoft.Owin.Hosting;
 using NUnit.Framework;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Owin;
 using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.Test.SmokeTests
@@ -196,3 +194,4 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
     }
 }
+#endif

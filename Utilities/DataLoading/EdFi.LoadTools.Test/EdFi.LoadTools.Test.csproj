@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <AssemblyName>EdFi.LoadTools.Test</AssemblyName>
         <RootNamespace>EdFi.LoadTools.Test</RootNamespace>
         <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -42,22 +42,23 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
-        <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
-        <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.0.0" />
-        <PackageReference Include="JsonSubTypes" Version="1.3.0" />
-        <PackageReference Include="log4net" Version="2.0.8" />
-        <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.1.0" />
-        <PackageReference Include="Microsoft.Owin.Testing" Version="4.1.0" />
-        <PackageReference Include="Microsoft.Tpl.Dataflow" Version="4.5.24" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-        <PackageReference Include="Moq" Version="4.14.3" />
-        <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-        <PackageReference Include="NUnit" Version="3.12.0" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+      <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
+      <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
+    
+      <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
+      <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
+      <PackageReference Include="JsonSubTypes" Version="1.3.0" />
+      <PackageReference Include="log4net" Version="2.0.10" />
+      <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.1.8" />
+      <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.8" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+      <PackageReference Include="Moq" Version="4.14.3" />
+      <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+      <PackageReference Include="NUnit" Version="3.12.0" />
+      <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="RestSharp" Version="105.2.3" />
+      <PackageReference Include="RestSharp" Version="106.11.4" />
     </ItemGroup>
 </Project>
