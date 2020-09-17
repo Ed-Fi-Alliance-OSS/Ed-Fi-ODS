@@ -44,14 +44,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var client = host.GetTestClient();
             client.BaseAddress = new System.Uri(address);
 
-            var request = new HttpRequestMessage(HttpMethod.Get, address);
-            var response = await client.SendAsync(request).ConfigureAwait(false);
-
-            response.EnsureSuccessStatusCode();
-            var responseString = await response.Content.ReadAsStringAsync();
-
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            Assert.AreEqual("successful result", responseString);
+            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == address);
+            var subject = new GetStaticVersionTest(configuration, client);
+            var result = subject.PerformTest().Result;
+            Assert.IsTrue(result);
         }
 
         [Test]
@@ -59,7 +55,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             const string Url = "http://localhost:12345";
             var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == Url);
-            var subject = new GetStaticVersionTest(configuration);
+            var subject = new GetStaticVersionTest(configuration, null);
             var result = subject.PerformTest().Result;
             Assert.IsFalse(result);
         }

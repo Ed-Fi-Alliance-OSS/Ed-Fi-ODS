@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Net.Http;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
@@ -34,16 +35,16 @@ namespace EdFi.SmokeTest.Console
                 {
                     r => new GetAllTest(
                         r, c.GetInstance<Dictionary<string, JArray>>(),
-                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>()),
+                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>(),null),
                     r => new GetAllSkipLimitTest(
                         r, c.GetInstance<Dictionary<string, JArray>>(),
-                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>()),
+                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>(),null),
                     r => new GetByIdTest(
                         r, c.GetInstance<Dictionary<string, JArray>>(),
-                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>()),
+                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>(),null),
                     r => new GetByExampleTest(
                         r, c.GetInstance<Dictionary<string, JArray>>(),
-                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>())
+                        c.GetInstance<IApiConfiguration>(), c.GetInstance<IOAuthTokenHandler>(),null)
                 });
 
             c.Register<SwaggerRetriever>();

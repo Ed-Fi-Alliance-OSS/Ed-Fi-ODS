@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using Newtonsoft.Json.Linq;
@@ -20,8 +21,9 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Resource resource,
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
-            IOAuthTokenHandler tokenHandler)
-            : base(resource, resultsDictionary, configuration, tokenHandler) { }
+            IOAuthTokenHandler tokenHandler,
+            HttpClient client)
+            : base(resource, resultsDictionary, configuration, tokenHandler,client) { }
 
         protected override bool ShouldPerformTest()
         {

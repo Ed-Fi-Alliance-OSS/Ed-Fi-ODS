@@ -26,6 +26,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         protected readonly Resource Resource;
         protected readonly Dictionary<string, JArray> ResultsDictionary;
         protected readonly IOAuthTokenHandler TokenHandler;
+        protected static HttpClient Client;
 
         static GetBaseTest()
         {
@@ -37,12 +38,14 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Resource resource,
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
-            IOAuthTokenHandler tokenHandler)
+            IOAuthTokenHandler tokenHandler,
+            HttpClient httpClient)
         {
             Resource = resource;
             ResultsDictionary = resultsDictionary;
             Configuration = configuration;
             TokenHandler = tokenHandler;
+            Client = httpClient;
         }
 
         protected ILog Log => LogManager.GetLogger(GetType().Name);
@@ -73,8 +76,13 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         Log.Info("Skipped");
                         return true;
                     }
-
-                    using (var client = GetHttpClient())
+                   
+                    if (Client == null)
+                    {
+                        Client = GetHttpClient();
+                    }
+                    
+                    using (var client = Client)
                     {
                         var path = GetPath().PathAndQuery;
                         var response = await client.GetAsync(path).ConfigureAwait(false);

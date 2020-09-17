@@ -20,6 +20,7 @@ using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Swashbuckle.Swagger;
+using System.Net.Http;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
@@ -169,7 +170,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var dictionary = new Dictionary<string, JArray>();
 
-            var subject = new GetAllTest(_resource, dictionary, _configuration, tokenHandler);
+            var client = Host.GetTestClient();
+            client.BaseAddress = new System.Uri(Address);
+
+            var subject = new GetAllTest(_resource, dictionary, _configuration, tokenHandler, client);
             var result = subject.PerformTest().Result;
 
             Assert.IsNotNull(dictionary[ResourceName]);
@@ -180,8 +184,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public void GetSkipLimitTest_should_retrieve_second_object()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
+            var client = Host.GetTestClient();
+            client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, _configuration, tokenHandler);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, _configuration, tokenHandler, client);
             var result = subject.PerformTest().Result;
 
             Assert.IsTrue(result);
@@ -191,8 +197,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public void GetByIdTest_should_retrieve_single_object()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
+            var client = Host.GetTestClient();
+            client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetByIdTest(_resource, dictionary, _configuration, tokenHandler);
+            var subject = new GetByIdTest(_resource, dictionary, _configuration, tokenHandler, client);
             var result = subject.PerformTest().Result;
 
             Assert.IsTrue(result);
@@ -202,8 +210,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public void GetByExampleTest_should_retrieve_array()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
+            var client = Host.GetTestClient();
+            client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetByExampleTest(_resource, dictionary, _configuration, tokenHandler);
+            var subject = new GetByExampleTest(_resource, dictionary, _configuration, tokenHandler, client);
             var result = subject.PerformTest().Result;
 
             Assert.IsTrue(result);

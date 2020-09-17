@@ -18,8 +18,9 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Resource resource,
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
-            IOAuthTokenHandler tokenHandler)
-            : base(resource, resultsDictionary, configuration, tokenHandler) { }
+            IOAuthTokenHandler tokenHandler,
+            HttpClient client)
+            : base(resource, resultsDictionary, configuration, tokenHandler, client) { }
 
         protected override bool ShouldPerformTest()
         {
