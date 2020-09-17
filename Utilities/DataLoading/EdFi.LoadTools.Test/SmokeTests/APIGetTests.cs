@@ -27,6 +27,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
     public class ApiGetTests
     {
         public static IHost Host { get; private set; }
+
         private const string ResourceName = "testResource";
         private const string IdName = "id";
         private const string KeyName = "aKey";
@@ -79,7 +80,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
         private Resource _resource;
-        
+
         [OneTimeSetUp]
         public void Setup()
         {
@@ -93,60 +94,65 @@ namespace EdFi.LoadTools.Test.SmokeTests
             var address = "http://localhost:23456/";
 
             var hostBuilder = new HostBuilder()
-                .ConfigureWebHost(
-                    webHost =>
-                    {
-                        // Add TestServer
-                        webHost.UseTestServer();
-                        webHost.UseUrls(address);
-                        webHost.Configure(
-                            app => app.Run(
-                                async context =>
-                                {
-                                    context.Response.ContentType = "application/json";
-                                    var pathSegments = context.Request.Path.Value.Split('/');
-                                   
-                                    if (pathSegments.Last() != ResourceName)
-                                    {
-                                        var id = int.Parse(pathSegments.Last());
+                    .ConfigureWebHost(
+                        webHost =>
+                        {
+                            // Add TestServer
+                            webHost.UseTestServer();
+                            webHost.UseUrls(address);
 
-                                        await context.Response.WriteAsync(
-                                            JsonConvert.SerializeObject(_data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
-                                    }
-                                    else if (!string.IsNullOrEmpty(context.Request.Query["offset"]) && !string.IsNullOrEmpty(context.Request.Query["limit"]))
+                            webHost.Configure(
+                                app => app.Run(
+                                    async context =>
                                     {
-                                        var skip = int.Parse(context.Request.Query["offset"]);
-                                        var take = int.Parse(context.Request.Query["limit"]);
-                                        await context.Response.WriteAsync(JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
-                                    }
-                                    else if (!string.IsNullOrEmpty(context.Request.Query[KeyName]))
-                                    {
-                                        var keyValue = context.Request.Query[KeyName];
+                                        context.Response.ContentType = "application/json";
+                                        var pathSegments = context.Request.Path.Value.Split('/');
 
-                                        await context.Response.WriteAsync(
-                                            JsonConvert.SerializeObject(
-                                                _data.SingleOrDefault(
-                                                    x =>
-                                                        x[KeyName].Value<string>() == keyValue)));
-                                    }
-                                    else if (!string.IsNullOrEmpty(context.Request.Query[PropertyName]))
-                                    {
-                                        var propertyValue = context.Request.Query[PropertyName];
+                                        if (pathSegments.Last() != ResourceName)
+                                        {
+                                            var id = int.Parse(pathSegments.Last());
 
-                                        await context.Response.WriteAsync(
-                                            JsonConvert.SerializeObject(
-                                                _data.Where(
-                                                    x =>
-                                                        x[PropertyName].Value<string>() == propertyValue)));
-                                    }
-                                    else
-                                    {
-                                        await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
-                                    }
-                                }));
-                        
-                    })
+                                            await context.Response.WriteAsync(
+                                                JsonConvert.SerializeObject(
+                                                    _data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
+                                        }
+                                        else if (!string.IsNullOrEmpty(context.Request.Query["offset"]) &&
+                                                 !string.IsNullOrEmpty(context.Request.Query["limit"]))
+                                        {
+                                            var skip = int.Parse(context.Request.Query["offset"]);
+                                            var take = int.Parse(context.Request.Query["limit"]);
+
+                                            await context.Response.WriteAsync(
+                                                JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
+                                        }
+                                        else if (!string.IsNullOrEmpty(context.Request.Query[KeyName]))
+                                        {
+                                            var keyValue = context.Request.Query[KeyName];
+
+                                            await context.Response.WriteAsync(
+                                                JsonConvert.SerializeObject(
+                                                    _data.SingleOrDefault(
+                                                        x =>
+                                                            x[KeyName].Value<string>() == keyValue)));
+                                        }
+                                        else if (!string.IsNullOrEmpty(context.Request.Query[PropertyName]))
+                                        {
+                                            var propertyValue = context.Request.Query[PropertyName];
+
+                                            await context.Response.WriteAsync(
+                                                JsonConvert.SerializeObject(
+                                                    _data.Where(
+                                                        x =>
+                                                            x[PropertyName].Value<string>() == propertyValue)));
+                                        }
+                                        else
+                                        {
+                                            await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
+                                        }
+                                    }));
+                        })
                 ;
+
             Host = hostBuilder.Build();
             Host.StartAsync();
         }
