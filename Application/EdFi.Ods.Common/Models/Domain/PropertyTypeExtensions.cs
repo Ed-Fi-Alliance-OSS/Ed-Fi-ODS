@@ -146,91 +146,6 @@ namespace EdFi.Ods.Common.Models.Domain
             return !_notNullableTypes.Contains(propertyType.ToCSharp());
         }
 
-        public static string ToDotNet(this PropertyType propertyType, bool includeNullability = false)
-        {
-            // Note: Comments with corresponding .NET types are left inline for possible future implementation.
-            string dotNetType = null;
-
-            switch (propertyType.DbType)
-            {
-                case DbType.Int64: // bigint
-                    dotNetType = "Int64";
-                    break;
-
-                case DbType.Byte: // tinyint
-                    dotNetType = "Byte";
-                    break;
-
-                case DbType.Int16: // smallint
-                    dotNetType = "Int16";
-                    break;
-
-                case DbType.Int32: // int
-                    dotNetType = "Int32";
-                    break;
-
-                case DbType.Guid: // uniqueidentifier
-                    dotNetType = "Guid";
-                    break;
-
-                case DbType.Date: // date
-                case DbType.DateTime: // smalldatetime, datetime
-                case DbType.DateTime2:
-                    dotNetType = "DateTime";
-                    break;
-
-                case DbType.Double: //float
-                    dotNetType = "Double";
-                    break;
-
-                case DbType.Single: // real
-                    dotNetType = "Single";
-                    break;
-
-                case DbType.Currency: // smallmoney, money
-                case DbType.Decimal: // numeric, decimal
-                    dotNetType = "Decimal";
-                    break;
-
-                case DbType.Boolean:
-                    dotNetType = "Boolean";
-                    break;
-
-                case DbType.Binary: // image, binary, varbinary, rowversion, timestamp
-                    dotNetType = "Byte[]";
-                    break;
-
-                case DbType.Time: // time
-                    dotNetType = "TimeSpan";
-                    break;
-
-                case DbType.AnsiString: // varchar
-                case DbType.String: // char, nvarchar, ntext, text
-                case DbType.AnsiStringFixedLength: // char
-                case DbType.StringFixedLength: // nchar
-                    dotNetType = "String";
-                    break;
-
-                case DbType.DateTimeOffset:
-                    dotNetType = "DateTimeOffset";
-                    break;
-
-                default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            ".NET system type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
-            }
-
-            if (includeNullability && propertyType.IsNullable && dotNetType != "String" && dotNetType != "Byte[]")
-            {
-                return "Nullable<" + dotNetType + ">";
-            }
-
-            return dotNetType;
-        }
-
         /// <summary>
         /// Converts the provided <see cref="PropertyType"/> to the non-nullable (underlying, if necessary) <see cref="System.Type"/>, even if the property is nullable.
         /// </summary>
@@ -329,37 +244,6 @@ namespace EdFi.Ods.Common.Models.Domain
             }
 
             return systemType;
-        }
-
-        public static string ToSwagger(this PropertyType type)
-        {
-            string cSharpType = type.ToCSharp();
-
-            switch (cSharpType)
-            {
-                case "string":
-                    return "string";
-                case "bool":
-                    return "boolean";
-                case "short":
-                    return "integer";
-                case "int":
-                    return "integer";
-                case "long":
-                    return "long";
-                case "float":
-                case "double":
-                case "decimal":
-                    return "number";
-                case "DateTime":
-                    return "date-time";
-                case "TimeSpan":
-                    return "string";
-                case "Guid":
-                    return "string";
-                default:
-                    throw new Exception(string.Format("Unhandled .NET data type to Swagger conversion: '{0}'.", cSharpType));
-            }
         }
 
         public static string ToOpenApiType(this PropertyType type)
