@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-#if NETFRAMEWORK
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,10 +26,17 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var cat = Mock.Of<ISdkCategorizer>(
                 c => c.ModelTypes == new[]
-                                     {
-                                         typeof(A), typeof(B), typeof(C), typeof(D), typeof(DReference), typeof(E), typeof(EReference), typeof(FType),
-                                         typeof(FDescriptor)
-                                     });
+                {
+                    typeof(A),
+                    typeof(B),
+                    typeof(C),
+                    typeof(D),
+                    typeof(DReference),
+                    typeof(E),
+                    typeof(EReference),
+                    typeof(FType),
+                    typeof(FDescriptor)
+                });
 
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedModels().ToList();
@@ -60,9 +67,11 @@ namespace EdFi.LoadTools.Test.SmokeTests
         {
             var cat = Mock.Of<ISdkCategorizer>(
                 c => c.ModelTypes == new[]
-                                     {
-                                         typeof(Alpha), typeof(BravoCharlieType), typeof(AlphaBravoCharlieType)
-                                     });
+                {
+                    typeof(Alpha),
+                    typeof(BravoCharlieType),
+                    typeof(AlphaBravoCharlieType)
+                });
 
             var mds = new ModelDependencySort(cat);
             var sortedResult = mds.OrderedModels().ToList();
@@ -180,4 +189,3 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
     }
 }
-#endif

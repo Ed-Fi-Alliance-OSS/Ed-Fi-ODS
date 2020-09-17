@@ -11,32 +11,45 @@ using Moq;
 using Microsoft.AspNetCore.TestHost;
 using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
     [TestFixture]
     public class GetDependenciesTests
     {
-        private static TestServer _server;
-        private static HttpClient _client;
         [Test]
-        public void Should_succeed_against_a_running_server()
+        public async System.Threading.Tasks.Task Should_succeed_against_a_running_serverAsync()
         {
-            var address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
-            address = "http://localhost:23456/";
+            var address = "http://localhost:23456/";
 
-            _server = new TestServer(new WebHostBuilder().UseUrls(address));
-            _client = _server.CreateClient();
-          var result=  _client.GetAsync(address).Result;
+            var hostBuilder = new HostBuilder()
+                .ConfigureWebHost(
+                    webHost =>
+                    {
+                        // Add TestServer
+                        webHost.UseTestServer();
+                        
+                        webHost.Configure(
+                            app => app.Run(
+                                async ctx =>
+                                    await ctx.Response.WriteAsync("successful result")));
+                    });
 
-            //using (WebApp.Start(
-            //    address, app => { app.Run(async context => { await context.Response.WriteAsync("successful result"); }); }))
-            //{
-            //    var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == address);
-            //    var subject = new GetStaticDependenciesTest(configuration);
-            //    var result = subject.PerformTest().Result;
-            //    Assert.IsTrue(result);
-            //}
+            var host = await hostBuilder.StartAsync();
+            var client = host.GetTestClient();
+            client.BaseAddress = new System.Uri(address);
+
+            var request = new HttpRequestMessage(HttpMethod.Get, address);
+            var response = await client.SendAsync(request).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.AreEqual("successful result", responseString);
         }
 
         [Test]

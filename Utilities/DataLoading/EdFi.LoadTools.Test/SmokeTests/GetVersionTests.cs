@@ -23,8 +23,9 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public async System.Threading.Tasks.Task Should_succeed_against_a_running_serverAsync()
         {
-            var address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
-            address = "http://localhost:23456/";
+            //TODO should be replaced with json
+            // var address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
+            var address = "http://localhost:23456/";
 
             var hostBuilder = new HostBuilder()
                 .ConfigureWebHost(

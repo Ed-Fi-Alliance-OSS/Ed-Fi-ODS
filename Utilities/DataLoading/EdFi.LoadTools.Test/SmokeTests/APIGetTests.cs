@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-#if NETFRAMEWORK
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +10,11 @@ using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 using Moq;
 using Newtonsoft.Json;
@@ -21,6 +26,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
     [TestFixture]
     public class ApiGetTests
     {
+        public static IHost Host { get; private set; }
         private const string ResourceName = "testResource";
         private const string IdName = "id";
         private const string KeyName = "aKey";
@@ -53,7 +59,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
               }
             }}";
 
-        private static readonly string Address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
+        private static readonly string Address = "http://localhost:23456/";
 
         private static readonly JObject Obj1 = new JObject(
             new JProperty(IdName, 1), new JProperty("aKey", "a"),
@@ -73,70 +79,83 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
         private Resource _resource;
-        private IDisposable _webApp;
-
+        
         [OneTimeSetUp]
         public void Setup()
         {
             _resource = new Resource
-                        {
-                            Name = ResourceName, BasePath = "", Path = Doc.paths.Values.First()
-                        };
+            {
+                Name = ResourceName,
+                BasePath = "",
+                Path = Doc.paths.Values.First()
+            };
 
-            _webApp = WebApp.Start(
-                Address, app =>
-                         {
-                             app.Run(
-                                 async context =>
-                                 {
-                                     context.Response.ContentType = "application/json";
-                                     var pathSegments = context.Request.Path.Value.Split('/');
+            var address = "http://localhost:23456/";
 
-                                     if (pathSegments.Last() != ResourceName)
-                                     {
-                                         var id = int.Parse(pathSegments.Last());
+            var hostBuilder = new HostBuilder()
+                .ConfigureWebHost(
+                    webHost =>
+                    {
+                        // Add TestServer
+                        webHost.UseTestServer();
+                        webHost.UseUrls(address);
+                        webHost.Configure(
+                            app => app.Run(
+                                async context =>
+                                {
+                                    context.Response.ContentType = "application/json";
+                                    var pathSegments = context.Request.Path.Value.Split('/');
+                                   
+                                    if (pathSegments.Last() != ResourceName)
+                                    {
+                                        var id = int.Parse(pathSegments.Last());
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(_data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
-                                     }
-                                     else if (context.Request.Query["offset"] != null && context.Request.Query["limit"] != null)
-                                     {
-                                         var skip = int.Parse(context.Request.Query["offset"]);
-                                         var take = int.Parse(context.Request.Query["limit"]);
-                                         await context.Response.WriteAsync(JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
-                                     }
-                                     else if (context.Request.Query[KeyName] != null)
-                                     {
-                                         var keyValue = context.Request.Query[KeyName];
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(_data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query["offset"]) && !string.IsNullOrEmpty(context.Request.Query["limit"]))
+                                    {
+                                        var skip = int.Parse(context.Request.Query["offset"]);
+                                        var take = int.Parse(context.Request.Query["limit"]);
+                                        await context.Response.WriteAsync(JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query[KeyName]))
+                                    {
+                                        var keyValue = context.Request.Query[KeyName];
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(
-                                                 _data.SingleOrDefault(
-                                                     x =>
-                                                         x[KeyName].Value<string>() == keyValue)));
-                                     }
-                                     else if (context.Request.Query[PropertyName] != null)
-                                     {
-                                         var propertyValue = context.Request.Query[PropertyName];
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(
+                                                _data.SingleOrDefault(
+                                                    x =>
+                                                        x[KeyName].Value<string>() == keyValue)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query[PropertyName]))
+                                    {
+                                        var propertyValue = context.Request.Query[PropertyName];
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(
-                                                 _data.Where(
-                                                     x =>
-                                                         x[PropertyName].Value<string>() == propertyValue)));
-                                     }
-                                     else
-                                     {
-                                         await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
-                                     }
-                                 });
-                         });
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(
+                                                _data.Where(
+                                                    x =>
+                                                        x[PropertyName].Value<string>() == propertyValue)));
+                                    }
+                                    else
+                                    {
+                                        await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
+                                    }
+                                }));
+                        
+                    })
+                ;
+            Host = hostBuilder.Build();
+            Host.StartAsync();
         }
 
         [OneTimeTearDown]
         public void Cleanup()
         {
-            _webApp.Dispose();
+            Host.StopAsync();
+            Host.Dispose();
         }
 
         [Test]
@@ -154,10 +173,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public void GetSkipLimitTest_should_retrieve_second_object()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
 
             var subject = new GetAllSkipLimitTest(_resource, dictionary, _configuration, tokenHandler);
             var result = subject.PerformTest().Result;
@@ -168,10 +184,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public void GetByIdTest_should_retrieve_single_object()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
 
             var subject = new GetByIdTest(_resource, dictionary, _configuration, tokenHandler);
             var result = subject.PerformTest().Result;
@@ -182,10 +195,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public void GetByExampleTest_should_retrieve_array()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
 
             var subject = new GetByExampleTest(_resource, dictionary, _configuration, tokenHandler);
             var result = subject.PerformTest().Result;
@@ -194,4 +204,3 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
     }
 }
-#endif

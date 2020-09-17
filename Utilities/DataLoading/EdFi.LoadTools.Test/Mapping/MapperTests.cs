@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
-#if NETFRAMEWORK
+
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.LoadTools.Mapping;
@@ -73,23 +73,12 @@ namespace EdFi.LoadTools.Test.Mapping
             var mapper = config.CreateMapper();
 
             var source = new SourceA
-                         {
-                             PropertyA = "property A", SourceB = new SourceB
-                                                                 {
-                                                                     PropertyB = "property B"
-                                                                 },
-                             List = new List<SourceC>
-                                    {
-                                        new SourceC
-                                        {
-                                            PropertyC = "property C"
-                                        }
-                                    },
-                             SourceD = new SourceD
-                                       {
-                                           PropertyD = "property D"
-                                       }
-                         };
+            {
+                PropertyA = "property A",
+                SourceB = new SourceB {PropertyB = "property B"},
+                List = new List<SourceC> {new SourceC {PropertyC = "property C"}},
+                SourceD = new SourceD {PropertyD = "property D"}
+            };
 
             var target = mapper.Map<SourceA, TargetA>(source);
             Assert.AreEqual(source.PropertyA, target.PropertyA);
@@ -154,4 +143,3 @@ namespace EdFi.LoadTools.Test.Mapping
         }
     }
 }
-#endif
