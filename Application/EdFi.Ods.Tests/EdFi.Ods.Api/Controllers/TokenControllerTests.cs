@@ -4,15 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Models.Tokens;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
@@ -21,6 +15,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using Shouldly;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Test.Common;
 
 //ReSharper disable InconsistentNaming
@@ -675,7 +673,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
         }
 
-        public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
+        public class
+            With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_id_is_provided_in_the_body_as_well
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
@@ -755,8 +754,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             public void Should_return_HTTP_status_of_BadRequest()
             {
                 AssertHelper.All(
-                   () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                   () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
             }
 
             [Test]
@@ -780,7 +779,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
         }
 
-        public class With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
+        public class
+            With_valid_key_and_secret_provided_using_Basic_Authorization_header_and_the_client_secret_is_provided_in_the_body_as_well
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
@@ -858,54 +858,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_OK()
+            public void Should_return_HTTP_status_of_BadRequest()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
-                    () => ((OkObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
             }
 
             [Test]
-            public void Should_include_the_generated_access_token_value_in_the_response()
+            public void Should_not_call_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
             {
-                Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustNotHaveHappened();
             }
 
             [Test]
-            public void Should_indicate_the_access_token_is_a_bearer_token()
-            {
-                _tokenResponse.Token_type.ShouldBe("bearer");
-            }
-
-            [Test]
-            public void Should_indicate_the_access_token_expires_in_10_minutes()
-            {
-                var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
-
-                var tenMinutes = TimeSpan.FromMinutes(10);
-                var tenMinutesMinus1Second = tenMinutes.Add(TimeSpan.FromSeconds(-1));
-
-                Assert.That(actualTTL, Is.InRange(tenMinutesMinus1Second, tenMinutes));
-            }
-
-            [Test]
-            public void Should_use_ClientAppRepo_to_obtain_the_ApiClient_using_the_key()
-            {
-                A.CallTo(() => _clientAppRepo.GetClientAsync("clientId")).MustHaveHappened();
-            }
-
-            [Test]
-            public void Should_call_try_authenticate_from_the_database_once()
+            public void Should_not_call_try_authenticate_from_the_database()
             {
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
-                    .MustHaveHappenedOnceExactly();
+                    .MustNotHaveHappened();
             }
 
             [Test]
-            public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
+            public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
                 A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
-                    .MustHaveHappened();
+                    .MustNotHaveHappened();
             }
         }
 
@@ -994,7 +971,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
             protected override async Task ActAsync()
             {
-                _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary {{"Authorization", "Basic "}});
+                _controller.ControllerContext =
+                    ControllerHelper.CreateControllerContext(new HeaderDictionary {{"Authorization", "Basic "}});
 
                 _actionResult = await _controller.PostAsync(
                     new TokenRequest {Grant_type = "client_credentials"});
@@ -1103,7 +1081,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext =
-                    ControllerHelper.CreateControllerContext(new HeaderDictionary {{"Authorization", "Basic ThisIsNotBase64Encoded"}});
+                    ControllerHelper.CreateControllerContext(
+                        new HeaderDictionary {{"Authorization", "Basic ThisIsNotBase64Encoded"}});
 
                 _actionResult = await _controller.PostAsync(
                     new TokenRequest {Grant_type = "client_credentials"});
@@ -1142,10 +1121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
                     .Returns(
                         Task.FromResult(
-                            new ApiClientAuthenticator.AuthenticationResult
-                            {
-                                IsAuthenticated = false
-                            }));
+                            new ApiClientAuthenticator.AuthenticationResult {IsAuthenticated = false}));
 
                 _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
 
@@ -1155,13 +1131,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication("badClientId","badClientSecret")}"}});
+                    new HeaderDictionary
+                    {
+                        {
+                            "Authorization",
+                            $"Basic {ControllerHelper.CreateEncodedAuthentication("badClientId", "badClientSecret")}"
+                        }
+                    });
 
                 _actionResult = await _controller.PostAsync(
-                    new TokenRequest
-                    {
-                        Grant_type = "client_credentials"
-                    });
+                    new TokenRequest {Grant_type = "client_credentials"});
 
                 _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
             }
@@ -1213,7 +1192,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}"}});
+                    new HeaderDictionary
+                    {
+                        {"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: string.Empty)}"}
+                    });
 
                 _actionResult = await _controller.PostAsync(
                     new TokenRequest
@@ -1272,7 +1254,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override async Task ActAsync()
             {
                 _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                    new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: null)}"}});
+                    new HeaderDictionary
+                    {
+                        {"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication(clientSecret: null)}"}
+                    });
 
                 _actionResult = await _controller.PostAsync(
                     new TokenRequest {Grant_type = "client_credentials"});
