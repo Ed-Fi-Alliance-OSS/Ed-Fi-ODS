@@ -4,20 +4,21 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using ApprovalTests;
-using ApprovalTests.Reporters;
-using ApprovalTests.Reporters.TestFrameworks;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Common.Configuration;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class VersionControllerTests : HttpClientTestsBase
     {
         [Test]
@@ -31,11 +32,15 @@ namespace EdFi.Ods.WebService.Tests
 
             json.ShouldNotBeNullOrWhiteSpace();
 
-            // hack for team city
-            var filename = Path.Combine(TestContext.CurrentContext.TestDirectory, "VersionControllerTests.VersionEndpointGetShouldBeValid.received.txt");
-            await File.AppendAllTextAsync(filename, json.Replace("\r\n", "\n"), CancellationToken.None);
+            var results = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
-            Approvals.VerifyFile(filename);
+            results["version"].ShouldBe(ApiVersionConstants.Version);
+            results["informationalVersion"].ShouldBe(ApiVersionConstants.Version);
+            results["suite"].ShouldBe(ApiVersionConstants.Suite);
+            results["build"].ShouldNotBeNull();
+            results["apiMode"].ShouldNotBeNull();
+            results["dataModels"].ShouldNotBeNull();
+            results["urls"].ShouldNotBeNull();
         }
     }
 }
