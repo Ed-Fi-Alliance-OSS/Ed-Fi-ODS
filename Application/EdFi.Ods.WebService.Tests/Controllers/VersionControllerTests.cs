@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
@@ -28,7 +30,12 @@ namespace EdFi.Ods.WebService.Tests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(json, s => s.Replace(@"\r\n", @"\n"));
+
+            // hack for team city
+            var filename = Path.Combine(TestContext.CurrentContext.TestDirectory, "VersionControllerTests.VersionEndpointGetShouldBeValid.received.txt");
+            await File.AppendAllTextAsync(filename, json, CancellationToken.None);
+
+            Approvals.VerifyFile(filename);
         }
     }
 }
