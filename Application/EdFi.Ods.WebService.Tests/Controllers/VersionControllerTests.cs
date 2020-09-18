@@ -33,7 +33,7 @@ namespace EdFi.Ods.WebService.Tests
 
             // hack for team city
             var filename = Path.Combine(TestContext.CurrentContext.TestDirectory, "VersionControllerTests.VersionEndpointGetShouldBeValid.received.txt");
-            await File.AppendAllTextAsync(filename, json, CancellationToken.None);
+            await File.AppendAllTextAsync(filename, json.Replace("\r\n", "\n"), CancellationToken.None);
 
             Approvals.VerifyFile(filename);
         }
