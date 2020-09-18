@@ -8,6 +8,8 @@ using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
+using EdFi.Ods.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -26,6 +28,9 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<PostgresAuthorizationSegmentSqlProvider>()
                 .As<IAuthorizationSegmentsSqlProvider>();
+
+            builder.RegisterType<PostgreSqlDatabaseEngineNHibernateConfigurationActivity>()
+                .As<INHibernateConfigurationActivity>();
         }
     }
 }
