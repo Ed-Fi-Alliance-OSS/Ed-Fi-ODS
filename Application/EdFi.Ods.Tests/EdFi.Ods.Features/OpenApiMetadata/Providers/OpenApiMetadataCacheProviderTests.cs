@@ -12,7 +12,7 @@ using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.ChangeQueries;
+using EdFi.Ods.Features;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
@@ -44,7 +44,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
         protected static ISchemaNameMapProvider
             SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
-        protected static IOpenApiContentProvider[] TestOpenApiContentProviders = {new IdentityOpenApiContentProvider()};
+        protected static IOpenApiContentProvider[] TestOpenApiContentProviders = { new IdentityOpenApiContentProvider() };
 
         private static IEnumerable<IOpenApiMetadataRouteInformation> GetTestRouteInformation(ApiSettings apiSettings)
         {
@@ -164,7 +164,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 AssertHelper.All(
                     _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata))
                         .Select(
-                            swaggerDocument => (Action) (() => Assert.That(swaggerDocument, Is.Not.Null)))
+                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
 
@@ -281,7 +281,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     .Returns(new List<ProfileAndResourceNames>());
 
                 var _openAPIMetadataRouteInformation = Stub<List<IOpenApiMetadataRouteInformation>>();
-                
+
                 var _openApiContentProviders = Stub<List<IOpenApiContentProvider>>();
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
@@ -291,7 +291,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
-                
+
                 var resourceModel = ResourceModelProvider.GetResourceModel();
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
@@ -321,7 +321,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 AssertHelper.All(
                     _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata))
                         .Select(
-                            swaggerDocument => (Action) (() => Assert.That(swaggerDocument, Is.Not.Null)))
+                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
         }
@@ -358,9 +358,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
-                
+
                 var resourceModel = ResourceModelProvider.GetResourceModel();
-                
+
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourceModel);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
@@ -394,8 +394,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                                 SwaggerDocument = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata)
                             })
                         .Select(
-                            d => (Action) (() => Assert.That(
-                                d.SwaggerDocument, Is.Not.Null, $"ApiContent Name: {d.ApiContent.Name}")))
+                            d => (Action)(() => Assert.That(
+                               d.SwaggerDocument, Is.Not.Null, $"ApiContent Name: {d.ApiContent.Name}")))
                         .ToArray());
             }
 
@@ -459,7 +459,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 openapicontentproviderlist.Add(extensionsOpenApiContentProvider);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist,openApiMetadataDocumentFactory);
+                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist, openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -489,8 +489,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                                 SwaggerDocument = OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata)
                             })
                         .Select(
-                            d => (Action) (() => Assert.That(
-                                d.SwaggerDocument, Is.Not.Null, $"ApiContent Name: {d.ApiContent.Name}")))
+                            d => (Action)(() => Assert.That(
+                               d.SwaggerDocument, Is.Not.Null, $"ApiContent Name: {d.ApiContent.Name}")))
                         .ToArray());
             }
 
@@ -557,7 +557,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 openapicontentproviderlist.Add(extensionsOpenApiContentProvider);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(
-                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist,openApiMetadataDocumentFactory);
+                    ResourceModelProvider, GetTestRouteInformation(apiSettings).ToList(), openapicontentproviderlist, openApiMetadataDocumentFactory);
             }
 
             protected override void Act()
@@ -582,7 +582,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 AssertHelper.All(
                     _actualMetadata.Select(m => OpenApiMetadataHelper.DeserializeOpenApiMetadataDocument(m.Metadata))
                         .Select(
-                            swaggerDocument => (Action) (() => Assert.That(swaggerDocument, Is.Not.Null)))
+                            swaggerDocument => (Action)(() => Assert.That(swaggerDocument, Is.Not.Null)))
                         .ToArray());
             }
 
@@ -610,7 +610,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             protected override void Arrange()
             {
                 var _openAPIMetadataRouteInformation = Stub<IList<IOpenApiMetadataRouteInformation>>();
-               
+
                 var _openApiContentProviders = Stub<IList<IOpenApiContentProvider>>();
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
@@ -618,9 +618,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                 var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
-               
+
                 var resourcemodeldata = ResourceModelProvider.GetResourceModel();
-                
+
                 A.CallTo(() => resourceModelProvider.GetResourceModel()).Returns(resourcemodeldata);
 
                 _openApiMetadataCacheProvider = new OpenApiMetadataCacheProvider(

@@ -10,7 +10,7 @@ using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 
-namespace EdFi.Ods.ChangeQueries
+namespace EdFi.Ods.Features
 {
     public class ChangeQueriesOpenApiMetadataRouteInformation : IOpenApiMetadataRouteInformation
     {

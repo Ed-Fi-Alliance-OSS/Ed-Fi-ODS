@@ -9,7 +9,7 @@ using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 
-namespace EdFi.Ods.ChangeQueries.Providers
+namespace EdFi.Ods.Features.Providers
 {
     public class ChangeQueriesRouteConfiguration : IRouteConfiguration
     {

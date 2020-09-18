@@ -7,12 +7,12 @@
 using Autofac;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.ChangeQueries.Providers;
+using EdFi.Ods.Features.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 
-namespace EdFi.Ods.ChangeQueries.Container.Modules
+namespace EdFi.Ods.Features.Container.Modules
 {
     public class EnabledChangeQueriesOpenApiMetadataModule : ConditionalModule
     {

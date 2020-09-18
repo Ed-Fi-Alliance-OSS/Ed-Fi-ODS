@@ -36,7 +36,6 @@ using EdFi.Ods.Api.Services.ActionFilters;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Startup;
-using EdFi.Ods.ChangeQueries.Container.Installers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common.ChainOfResponsibility;
@@ -189,9 +188,9 @@ namespace EdFi.Ods.WebService.Tests.Owin
 #pragma warning restore 618
 
             var httpConfig = new HttpConfiguration
-                             {
-                                 DependencyResolver = Container.Resolve<IDependencyResolver>()
-                             };
+            {
+                DependencyResolver = Container.Resolve<IDependencyResolver>()
+            };
 
             var domainModelProvider = Container.Resolve<IDomainModelProvider>();
 
@@ -418,9 +417,9 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 name: "OAuthToken",
                 routeTemplate: "oauth/token",
                 defaults: new
-                          {
-                              controller = "Token"
-                          }
+                {
+                    controller = "Token"
+                }
             );
         }
 
@@ -433,20 +432,21 @@ namespace EdFi.Ods.WebService.Tests.Owin
 
             var schoolYearConstraint = useSchoolYear
                 ? new
-                  {
-                      schoolYearFromRoute = @"^\d{4}$"
-                  }
+                {
+                    schoolYearFromRoute = @"^\d{4}$"
+                }
                 : null;
 
             var schemaNameConstraint = useSchoolYear
-                ? (object) new
-                           {
-                               schoolYearFromRoute = @"^\d{4}$", schemaName = $@"({schemaNameConstraints})"
-                           }
+                ? (object)new
+                {
+                    schoolYearFromRoute = @"^\d{4}$",
+                    schemaName = $@"({schemaNameConstraints})"
+                }
                 : new
-                  {
-                      schemaName = $@"({schemaNameConstraints})"
-                  };
+                {
+                    schemaName = $@"({schemaNameConstraints})"
+                };
 
             config.Routes.MapHttpRoute(
                 name: "MetadataSections",
@@ -454,27 +454,34 @@ namespace EdFi.Ods.WebService.Tests.Owin
                                    ? "{schoolYearFromRoute}"
                                    : string.Empty),
                 defaults: new
-                          {
-                              controller = "openapimetadata", action = "getsections", apiVersion = ApiVersionConstants.Ods, identityVersion = ApiVersionConstants.Identity
-                          },
+                {
+                    controller = "openapimetadata",
+                    action = "getsections",
+                    apiVersion = ApiVersionConstants.Ods,
+                    identityVersion = ApiVersionConstants.Identity
+                },
                 constraints: schoolYearConstraint
             );
 
             var resourceTypesConstraint = useSchoolYear
-                ? (object) new
-                           {
-                               resourceType = @"(resources|descriptors)", schoolYearFromRoute = @"^\d{4}$"
-                           }
+                ? (object)new
+                {
+                    resourceType = @"(resources|descriptors)",
+                    schoolYearFromRoute = @"^\d{4}$"
+                }
                 : new
-                  {
-                      resourceType = @"(resources|descriptors)"
-                  };
+                {
+                    resourceType = @"(resources|descriptors)"
+                };
 
             var apiDefaults = new
-                              {
-                                  controller = "openapimetadata", apiVersion = ApiVersionConstants.Ods,
-                                  identityVersion = ApiVersionConstants.Identity, compositeVersion = ApiVersionConstants.Composite, action = "get"
-                              };
+            {
+                controller = "openapimetadata",
+                apiVersion = ApiVersionConstants.Ods,
+                identityVersion = ApiVersionConstants.Identity,
+                compositeVersion = ApiVersionConstants.Composite,
+                action = "get"
+            };
 
             string schoolYearRoute = useSchoolYear
                 ? "{schoolYearFromRoute}/"
@@ -496,9 +503,11 @@ namespace EdFi.Ods.WebService.Tests.Owin
                        name: "AggregateDependencies",
                        routeTemplate: "metadata/data/v{apiVersion}/" + schoolYearSegment + "dependencies",
                        defaults: new
-                                 {
-                                     controller = "aggregatedependency", apiVersion = ApiVersionConstants.Ods, action = "get"
-                                 },
+                       {
+                           controller = "aggregatedependency",
+                           apiVersion = ApiVersionConstants.Ods,
+                           action = "get"
+                       },
                        constraints: constraints
                    )
                   .SetDataTokenRouteName(RouteConstants.Dependencies);
@@ -602,10 +611,10 @@ namespace EdFi.Ods.WebService.Tests.Owin
         private void ConfigureDefaultRoute(HttpConfiguration config, bool useSchoolYear = false)
         {
             var apiDefaults = new
-                              {
-                                  apiVersion = ApiVersionConstants.Ods,
-                                  identityVersion = ApiVersionConstants.Identity
-                              };
+            {
+                apiVersion = ApiVersionConstants.Ods,
+                identityVersion = ApiVersionConstants.Identity
+            };
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApiCollection",
@@ -631,9 +640,10 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 name: "Root",
                 routeTemplate: "",
                 defaults: new
-                          {
-                              controller = "Version", action = "Index"
-                          });
+                {
+                    controller = "Version",
+                    action = "Index"
+                });
         }
 
         protected virtual void ConfigureIdentityRoutes(HttpConfiguration config, bool useSchoolYear = false)
@@ -646,39 +656,39 @@ namespace EdFi.Ods.WebService.Tests.Owin
         private static object CreateRouteConstraints()
         {
             return new
-                   {
-                       controller = @"^((?!(identities)).)*$",
-                   };
+            {
+                controller = @"^((?!(identities)).)*$",
+            };
         }
 
         private static object CreateIdRouteConstraints()
         {
             return new
-                   {
-                       controller = @"^((?!(identities)).)*$",
-                       id = @"^((?!(deletes)).)*$",
-                   };
+            {
+                controller = @"^((?!(identities)).)*$",
+                id = @"^((?!(deletes)).)*$",
+            };
         }
 
         private static object CreateSchoolYearRouteConstraints()
         {
             return new
-                   {
-                       //do not use this path for the swagger, and other controllers not needing school year
-                       controller = @"^((?!(identities)).)*$",
-                       schoolYearFromRoute = @"^\d{4}$",
-                   };
+            {
+                //do not use this path for the swagger, and other controllers not needing school year
+                controller = @"^((?!(identities)).)*$",
+                schoolYearFromRoute = @"^\d{4}$",
+            };
         }
 
         private static object CreateSchoolYearWithIdRouteConstraints()
         {
             return new
-                   {
-                       //do not use this path for the swagger, and other controllers not needing school year
-                       controller = @"^((?!(identities)).)*$",
-                       schoolYearFromRoute = @"^\d{4}$",
-                       id = @"^((?!(deletes)).)*$",
-                   };
+            {
+                //do not use this path for the swagger, and other controllers not needing school year
+                controller = @"^((?!(identities)).)*$",
+                schoolYearFromRoute = @"^\d{4}$",
+                id = @"^((?!(deletes)).)*$",
+            };
         }
 
         private static object CreateSchoolYearConstraint(bool useSchoolYear)
@@ -747,18 +757,20 @@ namespace EdFi.Ods.WebService.Tests.Owin
                 name: "Composites",
                 routeTemplate: compositeRouteBase + "{compositeName}/{id}",
                 defaults: new
-                          {
-                              id = RouteParameter.Optional, controller = "CompositeResource"
-                          },
+                {
+                    id = RouteParameter.Optional,
+                    controller = "CompositeResource"
+                },
                 constraints: useSchoolYear
-                    ? (object) new
-                               {
-                                   compositeCategory = allCompositeCategoriesConstraintExpression, schoolYearFromRoute = @"^\d{4}$"
-                               }
+                    ? (object)new
+                    {
+                        compositeCategory = allCompositeCategoriesConstraintExpression,
+                        schoolYearFromRoute = @"^\d{4}$"
+                    }
                     : new
-                      {
-                          compositeCategory = allCompositeCategoriesConstraintExpression
-                      }
+                    {
+                        compositeCategory = allCompositeCategoriesConstraintExpression
+                    }
             );
 
             var routeMetadataGroupedByCompositeCategory = compositeMetadataProvider.GetAllRoutes();
@@ -777,13 +789,13 @@ namespace EdFi.Ods.WebService.Tests.Owin
                         name: $"{categoryName}Composites{routeNumber++}",
                         routeTemplate: compositeRouteBase + relativeRouteTemplate,
                         defaults: new
-                                  {
-                                      controller = "CompositeResource"
-                                  },
+                        {
+                            controller = "CompositeResource"
+                        },
                         constraints: new
-                                     {
-                                         compositeCategory = categoryName
-                                     });
+                        {
+                            compositeCategory = categoryName
+                        });
                 }
             }
         }

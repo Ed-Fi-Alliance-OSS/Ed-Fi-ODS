@@ -12,14 +12,14 @@ using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.ChangeQueries.NHibernate;
-using EdFi.Ods.ChangeQueries.Providers;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.InversionOfControl;
 using Component = Castle.MicroKernel.Registration.Component;
+using EdFi.Ods.Features.NHibernate;
+using EdFi.Ods.Features.Providers;
 
-namespace EdFi.Ods.ChangeQueries.Container.Installers
+namespace EdFi.Ods.Features.Container.Installers
 {
     /// <summary>
     /// Registers components with the Castle Windsor container needed for the Change Queries API feature.

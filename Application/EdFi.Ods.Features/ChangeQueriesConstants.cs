@@ -5,7 +5,7 @@
 
 using EdFi.Ods.Common.Conventions;
 
-namespace EdFi.Ods.ChangeQueries
+namespace EdFi.Ods.Features
 {
     public class ChangeQueriesConstants
     {
