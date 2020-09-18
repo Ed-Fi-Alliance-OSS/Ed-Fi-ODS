@@ -8,13 +8,14 @@ using System.Net;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using ApprovalTests.Reporters.TestFrameworks;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
+    [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
     public class OpenApiMetadataControllerTests : HttpClientTestsBase
     {
         [Test]
@@ -27,7 +28,7 @@ namespace EdFi.Ods.WebService.Tests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(json);
+            Approvals.Verify(json, s => s.Replace(@"\r\n", @"\n"));
         }
     }
 }

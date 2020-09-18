@@ -408,8 +408,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     Mode = ApiConfigurationConstants.Sandbox
                 };
 
-                builder.RegisterInstance(apiSettings).As<ApiSettings>()
-                    .SingleInstance();
+                builder.RegisterInstance(apiSettings).As<ApiSettings>();
+
+                builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
 
                 builder.RegisterModule(new SandboxDatabaseNameReplacementTokenProviderModule(apiSettings));
                 builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());

@@ -4,17 +4,21 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using ApprovalTests;
-using ApprovalTests.Reporters;
+using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Common.Configuration;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 
 namespace EdFi.Ods.WebService.Tests
 {
     [TestFixture]
-    [UseReporter(typeof(DiffReporter))]
     public class VersionControllerTests : HttpClientTestsBase
     {
         [Test]
@@ -27,7 +31,16 @@ namespace EdFi.Ods.WebService.Tests
             var json = await response.Content.ReadAsStringAsync();
 
             json.ShouldNotBeNullOrWhiteSpace();
-            Approvals.Verify(json);
+
+            var results = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+
+            results["version"].ShouldBe(ApiVersionConstants.Version);
+            results["informationalVersion"].ShouldBe(ApiVersionConstants.Version);
+            results["suite"].ShouldBe(ApiVersionConstants.Suite);
+            results["build"].ShouldNotBeNull();
+            results["apiMode"].ShouldNotBeNull();
+            results["dataModels"].ShouldNotBeNull();
+            results["urls"].ShouldNotBeNull();
         }
     }
 }

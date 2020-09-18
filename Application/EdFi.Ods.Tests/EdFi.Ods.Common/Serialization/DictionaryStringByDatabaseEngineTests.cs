@@ -68,17 +68,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Serialization
         }
 
         [Test]
-        public void Should_throw_when_deserialize_dictionary_with_invalid_values()
-        {
-            var dict = new Dictionary<string, string> {{"invalid", "column"}};
-            string source = JsonConvert.SerializeObject(dict);
-
-            Should.Throw<ArgumentException>(
-                () => JsonConvert.DeserializeObject<IDictionary<DatabaseEngine, string>>(
-                    source, new DictionaryStringByDatabaseEngine()));
-        }
-
-        [Test]
         public void Should_deserialize_empty_dictionary_with_no_values()
         {
             var dict = new Dictionary<string, string>();
