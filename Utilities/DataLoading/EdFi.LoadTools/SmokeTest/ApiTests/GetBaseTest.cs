@@ -39,7 +39,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
             IOAuthTokenHandler tokenHandler,
-            HttpClient httpClient)
+            HttpClient httpClient = null)
         {
             Resource = resource;
             ResultsDictionary = resultsDictionary;
@@ -76,12 +76,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
                         Log.Info("Skipped");
                         return true;
                     }
-                   
+
                     if (Client == null)
                     {
                         Client = GetHttpClient();
                     }
-                    
+
                     using (var client = Client)
                     {
                         var path = GetPath().PathAndQuery;
@@ -101,11 +101,11 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
 
                         if (IsExpectedResponse(response, results))
                         {
-                            Log.Info($"{(int)response.StatusCode} {response.StatusCode}");
+                            Log.Info($"{(int) response.StatusCode} {response.StatusCode}");
                             return true;
                         }
 
-                        Log.Error($"{path} - {(int)response.StatusCode} {response.StatusCode}");
+                        Log.Error($"{path} - {(int) response.StatusCode} {response.StatusCode}");
                         return false;
                     }
                 }
@@ -138,9 +138,10 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             var contentType = BuildJsonMimeType(Inflector.MakeSingular(Resource.Name));
 
             var client = new HttpClient
-                         {
-                             Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(Configuration.Url)
-                         };
+            {
+                Timeout = new TimeSpan(0, 0, 5, 0),
+                BaseAddress = new Uri(Configuration.Url)
+            };
 
             client.DefaultRequestHeaders.Accept.Clear();
 
@@ -162,7 +163,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         private Uri GetPath()
         {
             var path = Resource.BasePath
-                               .AddPath(Resource.Name);
+                .AddPath(Resource.Name);
 
             path = OnGetPath(path);
 

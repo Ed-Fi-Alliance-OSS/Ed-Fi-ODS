@@ -10,8 +10,8 @@ using EdFi.LoadTools.Engine;
 namespace EdFi.LoadTools.SmokeTest.CommonTests
 {
     public class GetStaticDependenciesTest : GetStaticBaseTest
-    {       
-        public GetStaticDependenciesTest(IApiMetadataConfiguration configuration,HttpClient client)
-            : base(configuration.DependenciesUrl,client) { }
+    {
+        public GetStaticDependenciesTest(IApiMetadataConfiguration configuration, HttpClient client = null)
+            : base(configuration.DependenciesUrl, client) { }
     }
 }

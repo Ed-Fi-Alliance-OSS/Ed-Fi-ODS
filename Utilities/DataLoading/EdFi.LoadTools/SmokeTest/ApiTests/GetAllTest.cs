@@ -20,7 +20,7 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
             IOAuthTokenHandler tokenHandler,
-            HttpClient client)
+            HttpClient client = null)
             : base(resource, resultsDictionary, configuration, tokenHandler, client) { }
 
         protected override bool NoDataAvailableForTheResource => false;
@@ -28,11 +28,11 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         protected override bool ShouldPerformTest()
         {
             return !Operation
-                   .parameters
-                   .Any(
-                        p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase)
-                             && p.required == true
-                             && "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
+                .parameters
+                .Any(
+                    p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase)
+                         && p.required == true
+                         && "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

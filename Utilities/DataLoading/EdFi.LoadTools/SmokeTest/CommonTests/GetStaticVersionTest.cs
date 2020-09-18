@@ -19,7 +19,7 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
                 ? Regex.Replace(basePath, MetadataRegex, "/")
                 : null;
 
-        public GetStaticVersionTest(IApiMetadataConfiguration configuration,HttpClient client)
-            : base(GetPath(configuration.Url),client) { }
+        public GetStaticVersionTest(IApiMetadataConfiguration configuration, HttpClient client = null)
+            : base(GetPath(configuration.Url), client) { }
     }
 }

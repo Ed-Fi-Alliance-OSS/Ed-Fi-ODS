@@ -45,7 +45,6 @@
       <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
       <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
       <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.1.0-b00428main" />
-    
       <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
       <PackageReference Include="JsonSubTypes" Version="1.3.0" />
@@ -60,6 +59,10 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-      <PackageReference Include="RestSharp" Version="106.11.4" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

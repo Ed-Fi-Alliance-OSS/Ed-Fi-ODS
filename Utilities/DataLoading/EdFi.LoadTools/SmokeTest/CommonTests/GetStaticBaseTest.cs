@@ -17,7 +17,7 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
         private readonly string _url;
         private static HttpClient _httpClient;
 
-        protected GetStaticBaseTest(string url,HttpClient client)
+        protected GetStaticBaseTest(string url, HttpClient client = null)
         {
             _url = url;
             _httpClient = client;
@@ -47,7 +47,6 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
                         BaseAddress = uri
                     };
                 }
-               
 
                 try
                 {

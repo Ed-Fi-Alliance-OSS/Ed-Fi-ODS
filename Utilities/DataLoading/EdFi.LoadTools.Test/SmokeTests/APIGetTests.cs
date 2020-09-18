@@ -21,6 +21,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Swashbuckle.Swagger;
 using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
@@ -61,7 +63,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
               }
             }}";
 
-        private static readonly string Address = "http://localhost:23456/";
+        private static string Address = string.Empty;
 
         private static readonly JObject Obj1 = new JObject(
             new JProperty(IdName, 1), new JProperty("aKey", "a"),
@@ -70,8 +72,6 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private static readonly JObject Obj2 = new JObject(
             new JProperty(IdName, 2), new JProperty("aKey", "b"),
             new JProperty("aProperty", "b"));
-
-        private readonly IApiConfiguration _configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
 
         private readonly JArray _data = new JArray(Obj1, Obj2);
         private readonly IOAuthSessionToken _token = Mock.Of<IOAuthSessionToken>(t => t.SessionToken == "something");
@@ -83,8 +83,16 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private Resource _resource;
 
         [OneTimeSetUp]
-        public void Setup()
+        public async Task Setup()
         {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            Address = config.GetSection("TestingWebServerAddress").Value;
+
             _resource = new Resource
             {
                 Name = ResourceName,
@@ -92,15 +100,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 Path = Doc.paths.Values.First()
             };
 
-            var address = "http://localhost:23456/";
-
             var hostBuilder = new HostBuilder()
                     .ConfigureWebHost(
                         webHost =>
                         {
                             // Add TestServer
                             webHost.UseTestServer();
-                            webHost.UseUrls(address);
+                            webHost.UseUrls(Address);
 
                             webHost.Configure(
                                 app => app.Run(
@@ -155,66 +161,71 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 ;
 
             Host = hostBuilder.Build();
-            Host.StartAsync();
+            await Host.StartAsync();
         }
 
         [OneTimeTearDown]
-        public void Cleanup()
+        public async Task Cleanup()
         {
-            Host.StopAsync();
+            await Host.StopAsync();
             Host.Dispose();
         }
 
         [Test]
-        public void GetAll_should_store_results_in_dictionary()
+        public async Task GetAll_should_store_results_in_dictionaryAsync()
         {
             var dictionary = new Dictionary<string, JArray>();
 
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetAllTest(_resource, dictionary, _configuration, tokenHandler, client);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+
+            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler, client);
+            var result = await subject.PerformTest();
 
             Assert.IsNotNull(dictionary[ResourceName]);
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetSkipLimitTest_should_retrieve_second_object()
+        public async Task GetSkipLimitTest_should_retrieve_second_objectAsync()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, _configuration, tokenHandler, client);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler, client);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetByIdTest_should_retrieve_single_object()
+        public async Task GetByIdTest_should_retrieve_single_objectAsync()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetByIdTest(_resource, dictionary, _configuration, tokenHandler, client);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler, client);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetByExampleTest_should_retrieve_array()
+        public async Task GetByExampleTest_should_retrieve_arrayAsync()
         {
             var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
-            var subject = new GetByExampleTest(_resource, dictionary, _configuration, tokenHandler, client);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler, client);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }
