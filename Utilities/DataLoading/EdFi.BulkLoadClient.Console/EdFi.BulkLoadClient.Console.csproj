@@ -33,14 +33,14 @@
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
     <PackageReference Include="FluentCommandLineParser-netstandard" Version="1.4.3.13" />
     <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="SimpleInjector" Version="4.1.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+    <PackageReference Include="SimpleInjector" Version="5.0.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
   </ItemGroup>
 </Project>

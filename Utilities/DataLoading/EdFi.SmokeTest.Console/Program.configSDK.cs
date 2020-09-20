@@ -29,7 +29,7 @@ namespace EdFi.SmokeTest.Console
         {
             c.Register<ISdkCategorizer, SdkCategorizer>();
 
-            c.RegisterCollection<ITestGenerator>(
+            c.Collection.Register<ITestGenerator>(
                 new[]
                 {
                     typeof(GetStaticVersionTest),
@@ -74,7 +74,7 @@ namespace EdFi.SmokeTest.Console
             c.RegisterSingleton<ITokenRetriever, TokenRetriever>();
             c.RegisterSingleton<IOAuthTokenHandler, OAuthTokenHandler>();
 
-            c.RegisterCollection<ITestGenerator>(
+            c.Collection.Register<ITestGenerator>(
                 new[]
                 {
                     typeof(GetStaticVersionTest),
@@ -110,7 +110,7 @@ namespace EdFi.SmokeTest.Console
                         c.GetInstance<ISdkConfigurationFactory>())
                 });
 
-            c.RegisterCollection<IPropertyBuilder>(
+            c.Collection.Register<IPropertyBuilder>(
                 new[]
                 {
                     // note these are in order of precedence

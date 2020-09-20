@@ -26,15 +26,15 @@
     <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" PrivateAssets="all" />
-    <PackageReference Include="FluentCommandLineParser-netstandard" Version="1.4.3.13" />
-    <PackageReference Include="log4net" Version="2.0.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" PrivateAssets="all" />
-    <PackageReference Include="RestSharp" Version="106.11.4" />
-    <PackageReference Include="SimpleInjector" Version="4.1.0" PrivateAssets="all" />
-    <PackageReference Include="System.ValueTuple" Version="4.4.0" PrivateAssets="all" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
+    <PackageReference Include="FluentCommandLineParser-netstandard" Version="1.4.3.13" />
+    <PackageReference Include="log4net" Version="2.0.10" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.5" />
+    <PackageReference Include="SimpleInjector" Version="5.0.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>
