@@ -8,7 +8,7 @@ using NHibernate.AdoNet;
 using NHibernate.Driver;
 using NHibernate.Engine;
 
-namespace EdFi.Ods.Api.NHibernate.Architecture
+namespace EdFi.Ods.Common.Infrastructure.PostgreSql
 {
     public class EdFiNpgsqlDriver : ReflectionBasedDriver, IEmbeddedBatcherFactoryProvider
     {
