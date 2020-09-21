@@ -21,7 +21,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
         private readonly IConfiguration _configuration;
         private readonly IConfigConnectionStringsProvider _connectionStringsProvider;
         protected readonly IDatabaseNameBuilder _databaseNameBuilder;
-        
+
         protected SandboxProvisionerBase(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
         {
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
                 ? timeout
                 : 30;
 
-            ConnectionString = _connectionStringsProvider.GetConnectionString("EdFi_master");
+            ConnectionString = _connectionStringsProvider.GetConnectionString("EdFi_Master");
         }
 
         protected int CommandTimeout { get; }
