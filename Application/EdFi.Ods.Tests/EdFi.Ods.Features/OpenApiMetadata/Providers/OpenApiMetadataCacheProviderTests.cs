@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
