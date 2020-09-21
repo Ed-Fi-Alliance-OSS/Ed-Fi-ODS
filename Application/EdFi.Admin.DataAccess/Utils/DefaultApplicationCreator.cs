@@ -44,8 +44,8 @@ namespace EdFi.Admin.DataAccess.Utils
                                     .Include(x => x.Applications.Select<Application, ICollection<ApplicationEducationOrganization>>(a => a.ApplicationEducationOrganizations))
                                     .Single();
 
-                var defaultAppName = _configuration.GetSection("DefaultApplicationName");
-                var applicationName = defaultAppName.Value + " " + sandboxType;
+                var defaultAppName = _configuration.GetSection("DefaultApplicationName").Value ?? "Default Sandbox Application";
+                var applicationName = defaultAppName + " " + sandboxType;
                 var application = GetApplication(context, vendor, applicationName);
 
                 context.SaveChanges();
