@@ -6,10 +6,10 @@
 #if NETFRAMEWORK
 using System.Web.Http;
 using EdFi.Ods.Api.Services.Authentication;
-using EdFi.Ods.ChangeQueries.Providers;
+using EdFi.Ods.Features.Providers;
 using log4net;
 
-namespace EdFi.Ods.ChangeQueries.Controllers
+namespace EdFi.Ods.Features.Controllers
 {
     [Authenticate]
     [Authorize]

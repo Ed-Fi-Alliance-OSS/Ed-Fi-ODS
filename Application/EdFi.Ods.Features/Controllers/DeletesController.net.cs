@@ -9,7 +9,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Common.Models.Queries;
 
-namespace EdFi.Ods.ChangeQueries.Controllers
+namespace EdFi.Ods.Features.Controllers
 {
     [Authenticate]
     public class DeletesController : ApiController

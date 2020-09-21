@@ -12,7 +12,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Security.DataAccess.Repositories;
 
-namespace EdFi.Ods.ChangeQueries.Security
+namespace EdFi.Ods.Features.Security
 {
     public class GetDeletedResourceIdsAuthorizationDecorator<T>
         : RepositoryOperationAuthorizationDecoratorBase<T>, IGetDeletedResourceIds

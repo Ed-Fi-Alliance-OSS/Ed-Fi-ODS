@@ -23,8 +23,13 @@
     <PackageReference Include="Castle.Windsor" Version="5.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\ChangeQueries.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\ChangeQueries.json" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.ChangeQueries\EdFi.Ods.ChangeQueries.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>

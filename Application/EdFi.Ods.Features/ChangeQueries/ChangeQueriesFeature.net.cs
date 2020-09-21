@@ -5,12 +5,12 @@
 
 #if NETFRAMEWORK
 using Castle.MicroKernel.Registration;
-using EdFi.Ods.ChangeQueries.Container.Installers;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
+using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.Container.Installers;
 
-namespace EdFi.Ods.ChangeQueries
+namespace EdFi.Ods.Features
 {
     /// <summary>
     /// Provides Windsor installers for the Change Queries feature.

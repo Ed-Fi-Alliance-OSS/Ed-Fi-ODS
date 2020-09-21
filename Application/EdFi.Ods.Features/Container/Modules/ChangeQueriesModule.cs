@@ -6,9 +6,9 @@
 #if NETCOREAPP
 using Autofac;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
-using EdFi.Ods.ChangeQueries.Conventions;
-using EdFi.Ods.ChangeQueries.NHibernate;
-using EdFi.Ods.ChangeQueries.Providers;
+using EdFi.Ods.Features.Conventions;
+using EdFi.Ods.Features.NHibernate;
+using EdFi.Ods.Features.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -16,7 +16,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace EdFi.Ods.ChangeQueries.Container.Modules
+namespace EdFi.Ods.Features.Container.Modules
 {
     public class ChangeQueriesModule : ConditionalModule
     {

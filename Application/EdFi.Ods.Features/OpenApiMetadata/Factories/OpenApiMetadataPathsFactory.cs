@@ -7,12 +7,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using EdFi.Ods.ChangeQueries;
+using EdFi.Ods.Features;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;

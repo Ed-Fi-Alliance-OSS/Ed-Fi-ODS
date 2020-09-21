@@ -5,50 +5,48 @@
 
 #if NETCOREAPP
 using System.Net.Mime;
-using EdFi.Ods.Api.Infrastructure.Pipelines;
+using EdFi.Ods.Features.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Common.Models.Queries;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.ChangeQueries.Controllers
+namespace EdFi.Ods.Features.Controllers
 {
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("{schema}/{resource}/deletes")]
-    public class DeletesController : ControllerBase
+    [Route("changeQueries")]
+    public class AvailableChangeVersionsController : ControllerBase
     {
-        private readonly IGetDeletedResourceIds _getDeletedResourceIdsRepository;
-        private readonly ILog _logger = LogManager.GetLogger(typeof(DeletesController));
+        private readonly IAvailableChangeVersionProvider _availableChangeVersionProvider;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(AvailableChangeVersionsController));
         private readonly bool _isEnabled;
 
-        public DeletesController(IGetDeletedResourceIds getDeletedResourceIds, ApiSettings apiSettings)
+        public AvailableChangeVersionsController(
+            IAvailableChangeVersionProvider availableChangeVersionProvider,
+            ApiSettings apiSettings)
         {
-            _getDeletedResourceIdsRepository = getDeletedResourceIds;
+            _availableChangeVersionProvider = availableChangeVersionProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
         [HttpGet]
-        public IActionResult Get(string schema, string resource, [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest)
+        public IActionResult Get()
         {
             if (!_isEnabled)
             {
-                _logger.Debug("ChangeQueries is not enabled.");
+                _logger.Debug("ChangeQueries is disabled.");
                 return NotFound();
             }
-            var queryParameter = new QueryParameters(urlQueryParametersRequest);
-
-            var result = _getDeletedResourceIdsRepository.Execute(schema, resource, queryParameter);
 
             // Explicitly serialize the response to remain backwards compatible with pre .net core
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(result),
+                Content = JsonConvert.SerializeObject(_availableChangeVersionProvider.GetAvailableChangeVersion()),
                 ContentType = MediaTypeNames.Application.Json,
                 StatusCode = StatusCodes.Status200OK
             };
