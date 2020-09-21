@@ -5,22 +5,15 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Claims;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class ClaimsModule : ConditionalModule
+    public class ClaimsModule : Module
     {
-        public ClaimsModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(ClaimsModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ClaimsIdentityProvider>().As<IClaimsIdentityProvider>();
             builder.RegisterType<ResourceClaimUriProvider>().As<IResourceClaimUriProvider>();

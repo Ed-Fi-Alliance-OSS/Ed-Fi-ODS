@@ -6,24 +6,19 @@
 #if NETSTANDARD
 using Autofac;
 using Autofac.Core;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.Authorization.Repositories;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class NHibernateFilterTextModule : ConditionalModule
+    public class NHibernateFilterTextModule : Module
     {
-        public NHibernateFilterTextModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(NHibernateFilterTextModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
-            => builder.RegisterType<NHibernateFilterTextProvider>()
-                .WithParameter(new ResolvedParameter((p,c) => p.GetType() == typeof(NHibernate.Cfg.Configuration),
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<NHibernateFilterTextProvider>()
+                .WithParameter(new ResolvedParameter((p, c) => p.GetType() == typeof(NHibernate.Cfg.Configuration),
                     (p, c) => c.Resolve<NHibernate.Cfg.Configuration>()))
                 .As<INHibernateFilterTextProvider>();
+        }
     }
 }
 #endif

@@ -40,8 +40,6 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool EncryptSecrets { get; set; }
 
-        public bool DisableSecurity { get; set; }
-
         public int[] Years { get; set; }
 
         public List<Feature> Features { get; set; } = new List<Feature>();

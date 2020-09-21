@@ -6,20 +6,13 @@
 #if NETSTANDARD
 using Autofac;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class EducationOrganizationCachingModule : ConditionalModule
+    public class EducationOrganizationCachingModule : Module
     {
-        public EducationOrganizationCachingModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(EducationOrganizationCachingModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<EducationOrganizationCache>()
                 .WithParameter(new NamedParameter("synchronousInitialization", false))

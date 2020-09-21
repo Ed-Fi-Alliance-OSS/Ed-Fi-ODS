@@ -5,8 +5,6 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization;
@@ -14,14 +12,9 @@ using EdFi.Ods.Security.AuthorizationStrategies;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class AuthorizationModule : ConditionalModule
+    public class AuthorizationModule : Module
     {
-        public AuthorizationModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(AuthorizationModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<EdFiAuthorizationProvider>().As<IEdFiAuthorizationProvider>();
             builder.RegisterType<AuthorizationSegmentsVerifier>().As<IAuthorizationSegmentsVerifier>();

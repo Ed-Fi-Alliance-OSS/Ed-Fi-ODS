@@ -5,21 +5,16 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class EducationOrganizationHierarchyModule : ConditionalModule
+    public class EducationOrganizationHierarchyModule : Module
     {
-        public EducationOrganizationHierarchyModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(EducationOrganizationHierarchyModule)) { }
-
-        public override bool IsSelected() => !ApiSettings.DisableSecurity;
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
-            => builder.RegisterType<EducationOrganizationHierarchyProvider>().As<IEducationOrganizationHierarchyProvider>();
+        protected override void Load(ContainerBuilder builder)
+        {
+            builder.RegisterType<EducationOrganizationHierarchyProvider>().As<IEducationOrganizationHierarchyProvider>();
+        }
     }
 }
 #endif
