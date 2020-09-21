@@ -68,16 +68,19 @@ namespace EdFi.Ods.Api.Extensions
 
         public static int Port(this HttpRequest request, bool useProxyHeaders = false)
         {
-            // UriBuilder will not pass in a port if set to -1 in the string
+            var defaultPortForScheme = Scheme(request, useProxyHeaders) == "https"
+                ? 443
+                : 80;
+
             if (!useProxyHeaders)
             {
-                return request.Host.Port ?? -1;
+                return request.Host.Port ?? defaultPortForScheme;
             }
 
             request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue);
 
             return !int.TryParse(proxyHeaderValue, out int port)
-                ? request.Host.Port ?? -1
+                ? request.Host.Port ?? defaultPortForScheme
                 : port;
         }
 
