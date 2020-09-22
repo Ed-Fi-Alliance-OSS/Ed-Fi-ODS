@@ -6,12 +6,19 @@
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
 using EdFi.LoadTools;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.SmokeTest.Console.Application;
 using log4net;
 using log4net.Config;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 
 namespace EdFi.SmokeTest.Console
@@ -61,6 +68,7 @@ namespace EdFi.SmokeTest.Console
                 finally
                 {
                     _container.Dispose();
+
                     if (Debugger.IsAttached)
                     {
                         System.Console.WriteLine("Press enter to continue.");
@@ -79,6 +87,22 @@ namespace EdFi.SmokeTest.Console
 
         private static void ConfigureCommandLineContainer(Container container, Configuration configuration)
         {
+            var hostBuilder = new HostBuilder()
+                .ConfigureWebHost(
+                    webHost =>
+                    {
+                        // Add TestServer
+                        webHost.UseTestServer();
+
+                        webHost.Configure(
+                            app => app.Run(
+                                ctx =>
+                                    ctx.Response.WriteAsync("successful result")));
+                    });
+
+            var host = hostBuilder.Start();
+            var client = host.GetTestClient();
+
             container.RegisterInstance<IApiConfiguration>(configuration);
             container.RegisterInstance<IApiMetadataConfiguration>(configuration);
             container.RegisterInstance<IOAuthTokenConfiguration>(configuration);
@@ -86,6 +110,7 @@ namespace EdFi.SmokeTest.Console
             container.RegisterInstance<ISdkLibraryConfiguration>(configuration);
             container.RegisterInstance<IDestructiveTestConfiguration>(configuration);
             container.Register<ISmokeTestApplication, SmokeTestApplicationNoBlocks>();
+            container.Register<HttpClient>(() => client, Lifestyle.Singleton);
 
             switch (configuration.TestSet)
             {
