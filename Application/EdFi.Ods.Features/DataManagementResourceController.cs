@@ -5,16 +5,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
+using Castle.Core;
 using Dapper;
 using EdFi.Ods.Api.NHibernate;
 using EdFi.Ods.Api.Services.Authentication;
@@ -22,11 +26,14 @@ using EdFi.Ods.Api.Services.Controllers.DataManagement;
 using EdFi.Ods.Api.Services.Queries;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Common.Utils.Profiles;
 using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -40,17 +47,20 @@ namespace EdFi.Ods.Api.Services.Controllers
         private readonly IDatabaseConnectionStringProvider _connectionStringProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IApiConfigurationProvider _apiConfigurationProvider;
+        private readonly IProfileResourceModelProvider _profileResourceModelProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementResourceController));
         
         public DataManagementResourceController(
             IDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IResourceModelProvider resourceModelProvider,
-            IApiConfigurationProvider apiConfigurationProvider)
+            IApiConfigurationProvider apiConfigurationProvider,
+            IProfileResourceModelProvider profileResourceModelProvider)
         {
             _connectionStringProvider = odsDatabaseConnectionStringProvider;
             _resourceModelProvider = resourceModelProvider;
             _apiConfigurationProvider = apiConfigurationProvider;
+            _profileResourceModelProvider = profileResourceModelProvider;
         }
         
         // Collection operations
@@ -75,26 +85,26 @@ namespace EdFi.Ods.Api.Services.Controllers
             IDictionary<string, object> primaryKeyValues = null,
             int? offset = null, int? limit = null)
         {
-            var sql = new StringBuilder();
+            var sqlBuilder = new StringBuilder();
 
             if (primaryKeyValues == null)
             {
                 var pagedQueryBuilder = BuildPagedQueryForEntity(resource.Entity, offset ?? 0, limit ?? 25);
-                sql.AppendLine(pagedQueryBuilder.RawSql);
+                sqlBuilder.AppendLine(pagedQueryBuilder.RawSql);
             }
             
             var resourceClassQueries = BuildQueriesForResource(resource, primaryKeyValues).ToList();
 
             foreach (var resourceClassQuery in resourceClassQueries)
             {
-                sql.Append(resourceClassQuery.Template.RawSql);
+                sqlBuilder.Append(resourceClassQuery.Template.RawSql);
             }
 
             using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
             {
                 await conn.OpenAsync();
 
-                _logger.Debug($"SQL: {sql}");
+                _logger.Debug($"SQL: {sqlBuilder}");
 
                 var parameters = new DynamicParameters();
 
@@ -112,10 +122,10 @@ namespace EdFi.Ods.Api.Services.Controllers
                 {
                     parameters.AddDynamicParams(primaryKeyValues);
                 }
+
+                string sql = sqlBuilder.ToString();
                 
-                using (var multipleResults = await conn.QueryMultipleAsync(
-                    sql.ToString(),
-                    parameters))
+                using (var multipleResults = await conn.QueryMultipleAsync(sql, parameters))
                 {
                     int i = 0;
 
@@ -136,7 +146,6 @@ namespace EdFi.Ods.Api.Services.Controllers
             string resourceCollectionName = (string) Request.GetRouteData().Values["resourceCollection"];
 
             var resourceModel = _resourceModelProvider.GetResourceModel();
-
             var schemaNameMapProvider = resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
 
             string schema = schemaNameMapProvider.GetSchemaMapByUriSegment(schemaUriSegment).PhysicalName;
@@ -144,9 +153,48 @@ namespace EdFi.Ods.Api.Services.Controllers
 
             var resourceFullName = new FullName(schema, resourceName);
 
-            var resource = resourceModel.GetResourceByFullName(resourceFullName);
+            if (TryGetProfileContentType(Request, out string profileContentType))
+            {
+                var contentTypeDetails = profileContentType.GetContentTypeDetails();
 
-            return resource;
+                if (!contentTypeDetails.Resource.EqualsIgnoreCase(resourceFullName.Name))
+                {
+                    // TODO: Should review implementation for actual message here.
+                    throw new BadRequestException("Invalid content type.");
+                }
+                
+                var profileResourceModel = _profileResourceModelProvider.GetProfileResourceModel(contentTypeDetails.Profile);
+                return profileResourceModel.GetResourceByName(resourceFullName);
+            }
+
+            return resourceModel.GetResourceByFullName(resourceFullName);
+        }
+
+        private bool TryGetProfileContentType(HttpRequestMessage request, out string profileContentType)
+        {
+            profileContentType = null;
+
+            //if the method is get then retrieve the contenttype from the accept header if it is a profile content type
+            if (request.Method == HttpMethod.Get)
+            {
+                if (request.Headers.Accept.Any(x => x.MediaType.StartsWith("application/vnd.ed-fi")))
+                {
+                    profileContentType = request.Headers.Accept.First(x => x.MediaType.StartsWith("application/vnd.ed-fi"))
+                        .ToString();
+                }
+            }
+
+            //if the method is put or post then retrieve the contenttype from the contenttype header if it is a profile type
+            if (request.Method == HttpMethod.Put || request.Method == HttpMethod.Post)
+            {
+                if (request.Content.Headers.ContentType != null && request.Content.Headers.ContentType.ToString()
+                    .StartsWith("application/vnd.ed-fi"))
+                {
+                    profileContentType = request.Content.Headers.ContentType.MediaType;
+                }
+            }
+
+            return !string.IsNullOrEmpty(profileContentType);
         }
 
         public class ResourceClassQuery
@@ -342,7 +390,7 @@ FROM {resource.FullName} AS e
                 // Join child entity to root entity
                 var aggregateRoot = entity.Aggregate.AggregateRoot;
                 sqlBuilder.InnerJoin($"{(aggregateRoot.IsDerived ? aggregateRoot.BaseEntity.FullName : aggregateRoot.FullName)} r on {JoinCriteriaToRoot(entity)}");
-                sqlBuilder.Where("r.Id IN (SELECT Id FROM @ids");
+                sqlBuilder.Where("r.Id IN (SELECT Id FROM @ids)");
             }
             else
             {
@@ -564,7 +612,7 @@ FETCH NEXT @limit ROWS ONLY",
 
         public virtual async Task<IHttpActionResult> Post([FromBody] JObject jsonData)
         {
-            Resource resource = GetResourceForRequest();
+            var resource = GetResourceForRequest();
 
             if (resource == null)
             {
@@ -576,12 +624,163 @@ FETCH NEXT @limit ROWS ONLY",
             var primaryKeyValues = resource.AllIdentifyingProperties
                 .ToDictionary(
                     rp => rp.PropertyName, 
-                    rp => (object) jsonData[rp.JsonPropertyName].Value<object>());
+                    rp => (object) jsonData[rp.JsonPropertyName].Value<JValue>().Value);
             
             var resourceData = await GetResourceData(resource, primaryKeyValues);
+
+            var dataByFullName = resourceData.ToDictionary(
+                x => x.ResourceClass.FullName,
+                x => (List<object>) x.Results);
+
+            // Process root resource class
+            var odsData = dataByFullName[resource.FullName];
             
-            
-            
+            // Process identifying properties
+            IDictionary<string,object> odsRow = (IDictionary<string,object>) odsData[0];
+
+            if (resource.IsDerived)
+            {
+                await Update(resource, resource.Entity.BaseEntity, jsonData);
+            }
+
+            await Update(resource, resource.Entity, jsonData);
+
+            async Task Update(ResourceClassBase resourceClass, Entity entity, JObject sourceData)
+            {
+                var sqlSetBuilder = new StringBuilder();
+                var sqlFromBuilder = new StringBuilder();
+                var sqlWhereBuilder = new StringBuilder();
+                
+                var descriptorWhereBuilder = new StringBuilder();
+                
+                var parameters = new Dictionary<string, object>();
+
+                foreach (var identifyingProperty in resourceClass.AllIdentifyingProperties)
+                {
+                    string entityPropertyName = identifyingProperty.EntityProperty.PropertyName;
+                    parameters.Add(entityPropertyName, odsRow[entityPropertyName]);
+                    sqlWhereBuilder.Append($"AND {entityPropertyName} = @{entityPropertyName}");
+                }
+
+                string jsonPathBase = resourceClass.JsonPath + ".";
+
+                int descriptorIndex = 1;
+                var attemptedDescriptors = new List<ValueTuple<string, string, string>>();
+                
+                // Process non-identifying properties
+                foreach (var property in resourceClass.NonIdentifyingProperties
+                        .Where(p => p.PropertyName != "Id")
+                        .Where(p => p.EntityProperty.Entity == entity))
+                {
+                    string entityPropertyName = property.EntityProperty.PropertyName;
+
+                    string relativeJsonPath = property.JsonPath.TrimPrefix(jsonPathBase);
+                    
+                    // var existingValue = odsRow[entityPropertyName];
+                    var proposedValue = jsonData.SelectToken(relativeJsonPath)?.Value<JValue>()?.Value; // [property.JsonPropertyName]?.Value<object>();
+
+                    // var proposedValue = Convert.ChangeType(proposedValueAsObject, TypeCode.Int32); // property.PropertyType.GetTypeCode())
+
+                    if (property.EntityProperty.IsLookup)
+                    {
+                        if (proposedValue == null)
+                        {
+                            //parameters.Add(entityPropertyName, proposedValue);
+                            sqlSetBuilder.Append($", {entityPropertyName} = NULL");
+                        }
+                        else
+                        {
+                            sqlFromBuilder.Append($", edfi.Descriptor d{descriptorIndex}");
+                            
+                            var descriptorParts = (proposedValue as string)?.Split('#');
+
+                            sqlSetBuilder.Append($", {entityPropertyName} = COALESCE(d{descriptorIndex}.DescriptorId, 0)");
+
+                            sqlWhereBuilder.Append(
+                                $" AND (d{descriptorIndex}.Namespace = @d{descriptorIndex}Namespace AND d{descriptorIndex}.CodeValue = @d{descriptorIndex}CodeValue)");
+                            
+                            parameters.Add($"d{descriptorIndex}Namespace", descriptorParts[0]);
+                            parameters.Add($"d{descriptorIndex}CodeValue", descriptorParts[1]);
+
+                            descriptorWhereBuilder.Append(
+                                $" OR (Namespace = @d{descriptorIndex}Namespace AND CodeValue = @d{descriptorIndex}CodeValue)");
+                            
+                            attemptedDescriptors.Add((property.LookupTypeName, descriptorParts[0], descriptorParts[1]));
+
+                            descriptorIndex++;
+                        }
+                    }
+                    else // if (!proposedValue.Equals(existingValue))
+                    {
+                        parameters.Add(entityPropertyName, proposedValue);
+                        sqlSetBuilder.Append($", {entityPropertyName} = @{entityPropertyName}");
+                    }
+                }
+
+                using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
+                {
+                    await conn.OpenAsync();
+
+                    string from = sqlFromBuilder.Length > 0
+                        ? $"FROM {resourceClass.FullName.Schema}.{resourceClass.FullName.Name}{sqlFromBuilder.ToString()}"
+                        : null;
+
+                    string descriptorDiagnostics = descriptorWhereBuilder.Length > 0
+                        ? $@" IF @@rowcount = 0
+                    SELECT   DescriptorId, Namespace, CodeValue
+                    FROM     edfi.Descriptor 
+                    WHERE {descriptorWhereBuilder.ToString(3, descriptorWhereBuilder.Length - 3)}"
+                        : null;
+                    
+                    string sql = $@"
+    UPDATE {entity.FullName.Schema}.{entity.FullName.Name}
+    SET {sqlSetBuilder.ToString(2, sqlSetBuilder.Length - 2)}
+    {@from}
+    WHERE {sqlWhereBuilder.ToString(4, sqlWhereBuilder.Length - 4)}
+    {descriptorDiagnostics}";
+
+                    if (descriptorDiagnostics.Length > 0)
+                    {
+                        using (var multipleResults = await conn.QueryMultipleAsync(sql, parameters))
+                        {
+                            int i = 0;
+
+                            // Skip the first result
+                            var readerField = typeof(SqlMapper.GridReader).GetField("reader", BindingFlags.Instance | BindingFlags.NonPublic);
+                            var reader = (IDataReader) readerField.GetValue(multipleResults);
+
+                            if (reader.FieldCount > 0)
+                            {
+                                while (!multipleResults.IsConsumed)
+                                {
+                                    var result = await multipleResults.ReadAsync();
+
+                                    var invalidAttemptedDescriptors = attemptedDescriptors
+                                        .Where(
+                                            attemptedDescriptor => !result.Any(
+                                                locatedDescriptor => attemptedDescriptor.Item2 == locatedDescriptor.Namespace
+                                                    && attemptedDescriptor.Item3 == locatedDescriptor.CodeValue))
+                                        .ToArray();
+                                
+                                    if (invalidAttemptedDescriptors.Any())
+                                    {
+                                        string propertyName = invalidAttemptedDescriptors.First().Item1;
+                                        string @namespace = invalidAttemptedDescriptors.First().Item2;
+                                        string codeValue = invalidAttemptedDescriptors.First().Item3;
+                                    
+                                        throw new BadRequestException($"Unable to resolve value '{@namespace}#{codeValue}' to an existing '{propertyName}' resource.");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        await conn.ExecuteAsync(sql, parameters);
+                    }
+                }
+            }
+
             // var requestStream = await Request.Content.ReadAsStreamAsync();
             // var jsonReader = new JsonTextReader(new StreamReader(requestStream));
 
@@ -612,7 +811,7 @@ FETCH NEXT @limit ROWS ONLY",
             //     return Ok(results);
             // }
             //
-            return Ok(resourceData);
+            return Ok();
         }
 
         // Item operations
