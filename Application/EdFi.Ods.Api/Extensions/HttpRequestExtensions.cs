@@ -68,15 +68,19 @@ namespace EdFi.Ods.Api.Extensions
 
         public static int Port(this HttpRequest request, bool useProxyHeaders = false)
         {
+            var defaultPortForScheme = Scheme(request, useProxyHeaders) == "https"
+                ? 443
+                : 80;
+
             if (!useProxyHeaders)
             {
-                return request.Host.Port ?? 80;
+                return request.Host.Port ?? defaultPortForScheme;
             }
 
             request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue);
 
             return !int.TryParse(proxyHeaderValue, out int port)
-                ? request.Host.Port ?? 80
+                ? request.Host.Port ?? defaultPortForScheme
                 : port;
         }
 
