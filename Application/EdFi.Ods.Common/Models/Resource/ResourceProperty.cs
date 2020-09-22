@@ -51,9 +51,16 @@ namespace EdFi.Ods.Common.Models.Resource
 
     public class ResourceProperty : ResourceMemberBase
     {
+        private ResourceMemberBase _containingMember;
+
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
+            : this(null, resourceClass, entityProperty) { }
+
+        public ResourceProperty(ResourceMemberBase containingMember, ResourceClassBase resourceClass, EntityProperty entityProperty)
             : base(resourceClass, GetResourcePropertyName(entityProperty))
         {
+            _containingMember = containingMember;
+            
             EntityProperty = entityProperty;
 
             string personType;
@@ -263,6 +270,19 @@ namespace EdFi.Ods.Common.Models.Resource
             //If the resource property name was flipped to a UniqueId for this USI property
             return UniqueIdSpecification.IsUSI(property.PropertyName)
                    && UniqueIdSpecification.TryGetUniqueIdPersonType(PropertyName, out notUsed);
+        }
+
+        public override string JsonPath
+        {
+            get
+            {
+                if (_containingMember == null)
+                {
+                    return base.JsonPath;
+                }
+
+                return $"{_containingMember?.JsonPath ?? Parent.JsonPath}.{JsonPropertyName}";
+            }
         }
     }
 }

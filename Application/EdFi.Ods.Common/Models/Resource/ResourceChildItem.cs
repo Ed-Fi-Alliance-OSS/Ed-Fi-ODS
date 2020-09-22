@@ -14,6 +14,8 @@ namespace EdFi.Ods.Common.Models.Resource
     // Resource (non-top-level) only
     public class ResourceChildItem : ResourceClassBase, IHasParent
     {
+        private readonly ResourceMemberBase _containingMember;
+
         internal ResourceChildItem(IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
             : base(resourceModel, entity, childContext)
         {
@@ -21,6 +23,7 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         internal ResourceChildItem(
+            ResourceMemberBase containingMember,
             IResourceModel resourceModel,
             Entity entity,
             FilterContext childContext,
@@ -29,6 +32,8 @@ namespace EdFi.Ods.Common.Models.Resource
             Func<IEnumerable<AssociationView>> embeddedObjectAssociations)
             : base(resourceModel, entity, childContext, collectionAssociations, embeddedObjectAssociations)
         {
+            _containingMember = containingMember;
+            
             Parent = parentResource;
         }
 
@@ -53,6 +58,7 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         public ResourceChildItem(
+            ResourceMemberBase containingMember,
             IResourceModel resourceModel,
             FullName fullName,
             ResourceClassBase parentResource,
@@ -61,15 +67,35 @@ namespace EdFi.Ods.Common.Models.Resource
             FilterContext filterContext)
             : base(resourceModel, fullName, collectionAssociations, embeddedObjectAssociations, filterContext)
         {
+            _containingMember = containingMember;
+            
             Parent = parentResource;
         }
 
+        public ResourceMemberBase ContainingMember
+        {
+            get => _containingMember;
+        }
+        
         /// <summary>
         /// Gets the root <see cref="Resource" /> class for the current resource.
         /// </summary>
         public override Resource ResourceRoot => GetLineage()
                                                 .Cast<Resource>()
                                                 .First();
+
+        public override string JsonPath
+        {
+            get
+            {
+                if (_containingMember == null)
+                {
+                    throw new NullReferenceException($"The containing member for ResourceChildItem '{FullName}' has not been initialized.");
+                }
+                
+                return _containingMember.JsonPath;
+            }
+        }
 
         /// <summary>
         /// Indicates whether the resource class is part of an extension to an Ed-Fi standard resource (i.e. a "resource extension" as opposed to being part of a new "extension resource").

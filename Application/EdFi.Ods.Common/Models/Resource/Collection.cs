@@ -140,5 +140,10 @@ namespace EdFi.Ods.Common.Models.Resource
                         string.Join("', '", distinctAssociations.Select(a => a.Name))));
             }
         }
+
+        public override string JsonPath
+        {
+            get => $"{Parent.JsonPath}.{JsonPropertyName}[*]";
+        }
     }
 }

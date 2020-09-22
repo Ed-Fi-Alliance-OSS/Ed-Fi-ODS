@@ -475,18 +475,31 @@ namespace EdFi.Ods.Common.Models.Resource
 
                                                             // Create an implicit extension class
                                                            .Select(
-                                                                x => new Extension(
-                                                                    this,
-                                                                    new ResourceChildItem(
-                                                                        ResourceModel,
-                                                                        new FullName(x.SchemaPhysicalName, $"{entity.Name}Extension"),
+                                                                x =>
+                                                                {
+                                                                    Extension extension = null;
+                                                                    
+                                                                    extension = new Extension(
                                                                         this,
-                                                                        () => extensionCollections.Where(
-                                                                            a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                        () => extensionOneToOnes.Where(
-                                                                            a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                        FilterContext.GetExtensionContext(x.SchemaProperCaseName)),
-                                                                    x.SchemaProperCaseName));
+                                                                        () => new ResourceChildItem(
+                                                                            extension,
+                                                                            ResourceModel,
+                                                                            new FullName(
+                                                                                x.SchemaPhysicalName,
+                                                                                $"{entity.Name}Extension"),
+                                                                            this,
+                                                                            () => extensionCollections.Where(
+                                                                                a => a.OtherEntity.Schema
+                                                                                    == x.SchemaPhysicalName),
+                                                                            () => extensionOneToOnes.Where(
+                                                                                a => a.OtherEntity.Schema
+                                                                                    == x.SchemaPhysicalName),
+                                                                            FilterContext.GetExtensionContext(
+                                                                                x.SchemaProperCaseName)),
+                                                                        x.SchemaProperCaseName);
+
+                                                                    return extension;
+                                                                });
 
                     extensions.AddRange(implicitExtensionsFromCollections);
 
@@ -507,18 +520,31 @@ namespace EdFi.Ods.Common.Models.Resource
                                                                                                  .PhysicalName
                                                                                       })
                                                                .Select(
-                                                                    x => new Extension(
-                                                                        this,
-                                                                        new ResourceChildItem(
-                                                                            ResourceModel,
-                                                                            new FullName(x.SchemaPhysicalName, $"{entity.Name}Extension"),
+                                                                    x =>
+                                                                    {
+                                                                        Extension extension = null;
+                                                                        
+                                                                        extension = new Extension(
                                                                             this,
-                                                                            () => extensionCollections.Where(
-                                                                                a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                            () => extensionOneToOnes.Where(
-                                                                                a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                            FilterContext.GetExtensionContext(x.SchemaProperCaseName)),
-                                                                        x.SchemaProperCaseName));
+                                                                            () => new ResourceChildItem(
+                                                                                extension,
+                                                                                ResourceModel,
+                                                                                new FullName(
+                                                                                    x.SchemaPhysicalName,
+                                                                                    $"{entity.Name}Extension"),
+                                                                                this,
+                                                                                () => extensionCollections.Where(
+                                                                                    a => a.OtherEntity.Schema
+                                                                                        == x.SchemaPhysicalName),
+                                                                                () => extensionOneToOnes.Where(
+                                                                                    a => a.OtherEntity.Schema
+                                                                                        == x.SchemaPhysicalName),
+                                                                                FilterContext.GetExtensionContext(
+                                                                                    x.SchemaProperCaseName)),
+                                                                            x.SchemaProperCaseName);
+
+                                                                        return extension;
+                                                                    });
 
                     extensions.AddRange(implicitExtensionsFromEmbeddedObjects);
 
@@ -734,5 +760,7 @@ namespace EdFi.Ods.Common.Models.Resource
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+        
+        public abstract string JsonPath { get; }
     }
 }
